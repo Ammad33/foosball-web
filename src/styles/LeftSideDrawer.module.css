@@ -1,0 +1,27 @@
+.leftDrawer {
+  width: 240px;
+  background-color: #3c3c3c;
+}
+.sidebarList {
+  list-style: none;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+.sidebarLink {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  color: #fff;
+  border-bottom: 2px solid #8fab20;
+  cursor: pointer;
+}
+
+.sidebarLink:hover {
+  color: #8fab20;
+}
+
+.sidebarLink svg {
+  margin-right: 15px;
+  font-size: 2.5rem;
+}
