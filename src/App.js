@@ -1,6 +1,12 @@
 import React from 'react';
 import { Switch, Route, HashRouter } from 'react-router-dom';
 import Layout from './hoc/Layout';
+import Members from './container/Members';
+import Company from './container/Company';
+import Applications from './container/Applications';
+import Datasets from './container/Datasets';
+import Organizations from './container/Organizations';
+import Teams from './container/Teams';
 import Dashboard from './container/DashBoard';
 
 const App = () => {
@@ -14,32 +20,32 @@ const App = () => {
         </Route>
         <Route exact path='/organizations'>
           <Layout>
-            <div>Organizations</div>
+            <Organizations/>
           </Layout>
         </Route>
         <Route exact path='/companies'>
           <Layout>
-            <div>Companies</div>
+            <Company />
           </Layout>
         </Route>
         <Route exact path='/teams'>
           <Layout>
-            <div>Teams</div>
+            <Teams />
           </Layout>
         </Route>
         <Route exact path='/members'>
           <Layout>
-            <div>Members</div>
+            <Members />
           </Layout>
         </Route>
         <Route exact path='/datasets'>
           <Layout>
-            <div>Datasets</div>
+            <Datasets />
           </Layout>
         </Route>
         <Route exact path='/apps'>
           <Layout>
-            <div>Apps</div>
+          <Applications />
           </Layout>
         </Route>
       </Switch>

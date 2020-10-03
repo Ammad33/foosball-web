@@ -2,10 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import MuiTheme from './hoc/Theme';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <MuiTheme>
+      <App />
+    </MuiTheme>
   </React.StrictMode>,
   document.getElementById('root')
 );
