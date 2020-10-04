@@ -18,6 +18,19 @@
   padding: 10px 0;
   border-bottom: 1px solid #e8e8e8;
 }
+
+.contentContainerSectionHeaderOrg {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #e8e8e8;
+
+}
+
+.contentContainerSectionHeaderOrg button { 
+ margin-right: 24px;
+}
 .contentContainerSectionHeader h3 {
   margin: 0;
 }
@@ -36,6 +49,12 @@
   border-radius: 50%;
 }
 
+.timeZoneHelper {
+  font-size: 12px;
+  margin-left: 30px;
+  padding: 12px 0px 36px 0px;
+}
+
 .emailSection {
   padding: 20px 0px;
 }
@@ -46,4 +65,8 @@
 .emailInput {
   margin-right: 20px !important;
   width: 350px;
+}
+
+.emailVerificationContainer {
+  padding-top: 36px;
 }

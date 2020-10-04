@@ -8,6 +8,7 @@ import Datasets from './container/Datasets';
 import Organizations from './container/Organizations';
 import Teams from './container/Teams';
 import Dashboard from './container/DashBoard';
+import RegionalSettings from './container/RegionalSettings';
 
 const App = () => {
   return (
@@ -25,7 +26,7 @@ const App = () => {
         </Route>
         <Route exact path='/companies'>
           <Layout>
-            <Company />
+            <RegionalSettings />
           </Layout>
         </Route>
         <Route exact path='/teams'>
