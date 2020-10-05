@@ -19,23 +19,29 @@ const LeftSideDrawer = () => {
           </Link>
         </li>
         <li>
+          <Link className={styles.sidebarLink} to='/campaigns'>
+            <EqualizerIcon />
+            Campaigns
+          </Link>
+        </li>
+        <li>
           <Link className={styles.sidebarLink} to='/organizations'>
             <EqualizerIcon />
             Organizations
           </Link>
         </li>
-        <li>
+        {/* <li>
           <Link className={styles.sidebarLink} to='/companies'>
             <TerrainIcon />
             Companies
           </Link>
-        </li>
-        <li>
+        </li> */}
+        {/* <li>
           <Link className={styles.sidebarLink} to='/teams'>
             <GroupIcon />
             Teams
           </Link>
-        </li>
+        </li> */}
         <li>
           <Link className={styles.sidebarLink} to='/members'>
             <GroupIcon />
@@ -48,10 +54,16 @@ const LeftSideDrawer = () => {
             Datasets
           </Link>
         </li>
-        <li>
+        {/* <li>
           <Link className={styles.sidebarLink} to='/apps'>
             <AppsIcon />
             Apps
+          </Link>
+        </li> */}
+        <li>
+          <Link className={styles.sidebarLink} to='/regional-settings'>
+            <AppsIcon />
+            Regional Settings
           </Link>
         </li>
       </ul>

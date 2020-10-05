@@ -6,7 +6,7 @@ import Header from '../../components/Header';
 const Layout = ({ children }) => {
   return (
     <div style={{ height: '100%' }}>
-      {/* <Header /> */}
+      <Header />
       <main style={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
         <LeftSideDrawer />
         <div
