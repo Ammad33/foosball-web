@@ -1,0 +1,36 @@
+.mainContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 20px;
+}
+.headerAvatar {
+  margin-right: 20px;
+  height: 70px !important;
+  width: 70px !important;
+}
+.searchContainer {
+  flex: 1;
+  position: relative;
+}
+.headerSearchIcon {
+  position: absolute;
+  top: calc(50% - 14px);
+  left: 15px !important;
+  font-size: 30px !important;
+  color: #d39758;
+}
+.searchInput {
+  width: 100%;
+  border-radius: 25px;
+  height: 50px;
+  padding: 10px 0px;
+  border: none;
+  box-shadow: 0 0 10px #000000;
+  padding-left: 45px;
+}
+.badge {
+  cursor: pointer;
+  margin: 0 5px;
+  font-size: 28px;
+}

@@ -19,21 +19,31 @@ const App = () => {
             <Dashboard />
           </Layout>
         </Route>
-        <Route exact path='/organizations'>
+        <Route exact path='/campaigns'>
           <Layout>
-            <Organizations/>
+            <div>Campaigns</div>
           </Layout>
         </Route>
-        <Route exact path='/companies'>
+        <Route exact path='/organizations'>
+          <Layout>
+            <Organizations />
+          </Layout>
+        </Route>
+        <Route exact path='/regional-settings'>
           <Layout>
             <RegionalSettings />
           </Layout>
         </Route>
-        <Route exact path='/teams'>
+        {/* <Route exact path='/companies'>
+          <Layout>
+            <RegionalSettings />
+          </Layout>
+        </Route> */}
+        {/* <Route exact path='/teams'>
           <Layout>
             <Teams />
           </Layout>
-        </Route>
+        </Route> */}
         <Route exact path='/members'>
           <Layout>
             <Members />
@@ -44,11 +54,11 @@ const App = () => {
             <Datasets />
           </Layout>
         </Route>
-        <Route exact path='/apps'>
+        {/* <Route exact path='/apps'>
           <Layout>
-          <Applications />
+            <Applications />
           </Layout>
-        </Route>
+        </Route> */}
       </Switch>
     </HashRouter>
   );
