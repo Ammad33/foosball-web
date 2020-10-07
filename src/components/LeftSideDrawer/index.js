@@ -19,45 +19,27 @@ const LeftSideDrawer = () => {
           </Link>
         </li>
         <li>
+          <Link className={styles.sidebarLink} to='/account-profile'>
+            <EqualizerIcon />
+            Account Profile
+          </Link>
+        </li>
+        {/* <li>
           <Link className={styles.sidebarLink} to='/campaigns'>
             <EqualizerIcon />
             Campaigns
           </Link>
         </li>
         <li>
-          <Link className={styles.sidebarLink} to='/organizations'>
-            <EqualizerIcon />
-            Organizations
-          </Link>
-        </li>
-        {/* <li>
-          <Link className={styles.sidebarLink} to='/companies'>
-            <TerrainIcon />
-            Companies
-          </Link>
-        </li> */}
-        {/* <li>
-          <Link className={styles.sidebarLink} to='/teams'>
-            <GroupIcon />
-            Teams
-          </Link>
-        </li> */}
-        <li>
-          <Link className={styles.sidebarLink} to='/members'>
-            <GroupIcon />
-            Members
-          </Link>
-        </li>
-        <li>
-          <Link className={styles.sidebarLink} to='/datasets'>
+          <Link className={styles.sidebarLink} to='/products'>
             <StorageIcon />
-            Datasets
+            Products
           </Link>
         </li>
-        {/* <li>
-          <Link className={styles.sidebarLink} to='/apps'>
-            <AppsIcon />
-            Apps
+        <li>
+          <Link className={styles.sidebarLink} to='/users'>
+            <GroupIcon />
+            Users
           </Link>
         </li> */}
         <li>
@@ -67,16 +49,6 @@ const LeftSideDrawer = () => {
           </Link>
         </li>
       </ul>
-      {/* <List style={{ width: '240px' }}>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List> */}
     </div>
   );
 };

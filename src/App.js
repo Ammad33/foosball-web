@@ -1,12 +1,7 @@
 import React from 'react';
 import { Switch, Route, HashRouter } from 'react-router-dom';
 import Layout from './hoc/Layout';
-import Members from './container/Members';
-import Company from './container/Company';
-import Applications from './container/Applications';
-import Datasets from './container/Datasets';
-import Organizations from './container/Organizations';
-import Teams from './container/Teams';
+import AccountProfile from './container/AccountProfile';
 import Dashboard from './container/DashBoard';
 import RegionalSettings from './container/RegionalSettings';
 
@@ -19,14 +14,24 @@ const App = () => {
             <Dashboard />
           </Layout>
         </Route>
+        <Route exact path='/account-profile'>
+          <Layout>
+            <AccountProfile />
+          </Layout>
+        </Route>
         <Route exact path='/campaigns'>
           <Layout>
             <div>Campaigns</div>
           </Layout>
         </Route>
-        <Route exact path='/organizations'>
+        <Route exact path='/products'>
           <Layout>
-            <Organizations />
+            <div>Products</div>
+          </Layout>
+        </Route>
+        <Route exact path='/users'>
+          <Layout>
+            <div>Users</div>
           </Layout>
         </Route>
         <Route exact path='/regional-settings'>
@@ -34,31 +39,6 @@ const App = () => {
             <RegionalSettings />
           </Layout>
         </Route>
-        {/* <Route exact path='/companies'>
-          <Layout>
-            <RegionalSettings />
-          </Layout>
-        </Route> */}
-        {/* <Route exact path='/teams'>
-          <Layout>
-            <Teams />
-          </Layout>
-        </Route> */}
-        <Route exact path='/members'>
-          <Layout>
-            <Members />
-          </Layout>
-        </Route>
-        <Route exact path='/datasets'>
-          <Layout>
-            <Datasets />
-          </Layout>
-        </Route>
-        {/* <Route exact path='/apps'>
-          <Layout>
-            <Applications />
-          </Layout>
-        </Route> */}
       </Switch>
     </HashRouter>
   );

@@ -25,7 +25,7 @@ const Header = () => {
           type='search'
         ></input>
       </div>
-      <div>
+      <div className={styles.badgeContainer}>
         <Badge className={styles.badge} badgeContent={4} color='primary'>
           <MailOutlineIcon />
         </Badge>
