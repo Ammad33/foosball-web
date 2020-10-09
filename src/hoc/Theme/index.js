@@ -6,13 +6,21 @@ const theme = createMuiTheme({
   palette: {
     primary: {
       // Purple and green play nicely together.
-      main: '#8fab20',
+      main: '#3981E8',
       contrastText: '#fff',
+    },
+    primary2: {
+      main: '#5d6fd3',
+      contrastText: '#fff',
+      
     },
     secondary: {
       // This is green.A700 as hex.
       main: '#11cb5f',
     },
+    blue1:{
+      main:"#0952D1"
+    }
   },
 });
 
