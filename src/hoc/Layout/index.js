@@ -5,12 +5,14 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-
+import Avatar from "@material-ui/core/Avatar";
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import LeftSideDrawer from "../../components/LeftSideDrawer";
 import Header from './../../components/Header';
+import Brand from '../../components/Brand';
 
 const drawerWidth = 240;
 
@@ -43,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
+    padding: '20px'
   },
   content: {
     flexGrow: 1,
@@ -105,7 +108,8 @@ function ResponsiveDrawer(props) {
               keepMounted: true, // Better open performance on mobile.
             }}
           >
-            {drawer}
+             <div className={classes.toolbar} ><Brand /></div>
+            <LeftSideDrawer/>
           </Drawer>
         </Hidden>
         <Hidden xsDown implementation='css'>
@@ -116,12 +120,13 @@ function ResponsiveDrawer(props) {
             variant='permanent'
             open
           >
-            {drawer}
+            <div className={classes.toolbar} ><Brand /></div>
+            <LeftSideDrawer/>
           </Drawer>
         </Hidden>
       </nav>
       <main className={classes.content}>
-        <div className={classes.toolbar} />
+          <div className={classes.toolbar} />
         {props.children}
       </main>
     </div>
