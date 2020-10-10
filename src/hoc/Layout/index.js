@@ -17,7 +17,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    backgroundColor: '#fff',
+    height:'100%'
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
@@ -86,9 +86,7 @@ function ResponsiveDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
-          {/* <Typography variant='h6' noWrap> */}
           <Header />
-          {/* </Typography> */}
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label='mailbox folders'>
