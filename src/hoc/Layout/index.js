@@ -19,7 +19,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    height:'100%'
+    height: '100%',
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
@@ -33,7 +33,9 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: drawerWidth,
     },
     backgroundColor: '#fff',
+    color: '#000',
     boxShadow: 'none',
+    borderBottom: '1px solid #cccccc',
   },
   menuButton: {
     marginRight: theme.spacing(2),

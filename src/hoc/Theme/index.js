@@ -10,6 +10,9 @@ const theme = createMuiTheme({
       contrastText: '#fff',
     },
   },
+  typography: {
+    fontSize: 17,
+  },
 });
 
 export default function Palette({ children }) {
