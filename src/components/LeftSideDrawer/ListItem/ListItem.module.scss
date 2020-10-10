@@ -1,0 +1,31 @@
+.drawelistItem {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 8px;
+    gap: 15px;
+    font-size: 15px;
+    line-height: 23px;
+    border-radius: 4px;
+    
+    p {
+        font-family: 'Poppins Medium', sans-serif;
+    }
+}
+
+.drawelistItem:hover {
+    background-color: #3481EF;
+    
+    border-radius: 4px;
+    p {
+        color: white;
+    }
+    svg {
+        color: white;
+    }
+}
+
+.drawelistItemActive {
+    background-color: #3481EF;
+    color: white;
+}
