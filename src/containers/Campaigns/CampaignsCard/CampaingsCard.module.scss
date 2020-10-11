@@ -1,5 +1,16 @@
-// .campaignCard {
-//   min-width: 300px;
-//   width: 300px;
-//   max-width: 300px;
-// }
+.campaignCard {
+  //   min-width: 300px;
+  //   width: 300px;
+  //   max-width: 300px;
+  border-radius: 20px;
+}
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  .cardStatus {
+    height: 20px;
+    .alertAction {
+      background-color: red;
+    }
+  }
+}
