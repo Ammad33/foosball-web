@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import { RootContext } from '../../context/RootContext';
 import { Grid, Container } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -6,7 +6,7 @@ import CampaignsCard from './CampaignsCard';
 import styles from './Campaings.module.scss';
 
 const Campaigns = () => {
-  const { authToken } = useContext(RootContext);
+  const [ active , setActive ] = useState('all');
 
   return (
     <Container>
@@ -15,19 +15,22 @@ const Campaigns = () => {
         <p>Most recent <ExpandMoreIcon fontSize="small" /></p>
       </div>
       <div className={styles.CampaignHeedingButton}>
-        <button>
+        <button className={active === 'all' ? styles.allActive :''} onClick ={()=>  setActive('all')}>
           All
         </button>
-        <button>
+        <button className={active === 'draft' ? styles.draftActive :''} onClick ={()=>  setActive('draft')}>
           Draft
         </button>
-        <button>
+        <button className={active === 'pending' ? styles.pendingActive :''} onClick ={()=>  setActive('pending')}>  
           Pending
         </button>
-        <button>
+        <button className={active === 'live' ? styles.liveActive :''} onClick ={()=>  setActive('live')}>  
+          Live
+        </button>
+        <button className={active === 'closed' ? styles.closedActive :''} onClick ={()=>  setActive('closed')}>
           Closed
         </button>
-        <button>
+        <button className={active === 'last' ? styles.lastActive :''} onClick ={()=>  setActive('last')}>
           Last
         </button>
       </div>
