@@ -7,8 +7,12 @@ import styles from './CampaingsCard.module.scss';
 const CampaignsCard = () => {
   return (
     <Card className={styles.campaignCard}>
-      <CardContent>Content</CardContent>
-      <CardActions>Actions</CardActions>
+      <CardContent className={styles.cardContent}>
+        <div className={styles.cardStatus}>
+          <span className={styles.altertAction}>Action Required</span>
+        </div>
+        <div className={styles.cardDetails}> content </div>
+      </CardContent>
     </Card>
   );
 };
