@@ -13,7 +13,7 @@
   p {
     font-family: 'Poppins Medium', sans-serif;
   }
-  &:not(.active):hover {
+  &:not(.drawelistItemActive):hover {
     // background-color: red;
     background: $dark3;
   }
