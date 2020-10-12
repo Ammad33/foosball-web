@@ -1,6 +1,8 @@
 @import './../../../variable.module.scss';
 .campaignCard {
   border-radius: 10px !important;
+  // min-width: 300px;
+  // width: 300px;
   &:hover {
     box-shadow: 0 5px 15px 2px rgba(8, 8, 8, 0.1);
     transition: opacity 0.3s ease-in-out;
@@ -12,7 +14,8 @@
   flex-direction: column;
   padding: 0 !important;
   .cardStatus {
-    min-height: 40px;
+    min-height: 30px;
+    font-size: 13px !important;
     .alertBadge {
       background-color: $danger;
       padding: 5px;
@@ -21,14 +24,17 @@
       display: flex;
       align-items: center;
       color: $white;
-      gap: 5px;
-      max-width: 190px;
+      gap: 3px;
+      max-width: 140px;
+      .alertIcon {
+        font-size: 18px;
+      }
     }
   }
   .cardDetails {
-    padding: 10px 20px 10px 30px;
+    padding: 5px 10px 0px 10px;
     display: flex;
-    gap: 15px;
+    gap: 5px;
     .campaignInfo {
       flex: auto;
       display: flex;
@@ -41,8 +47,8 @@
       }
       .campaignStatus {
         width: fit-content;
-        margin-top: 20px;
-        margin-bottom: 20px;
+        margin-top: 12px;
+        margin-bottom: 12px;
       }
     }
     .personInfo {
@@ -52,4 +58,25 @@
       }
     }
   }
+}
+
+.chipLive {
+  background-color: $campaignLive !important;
+  color: $white !important;
+}
+.chipDraft {
+  background-color: $campaignDraft !important;
+  color: $white !important;
+}
+.chipPending {
+  background-color: $campaignPending !important;
+  color: $white !important;
+}
+.chipClosed {
+  background-color: $campaignClosed !important;
+  color: $white !important;
+}
+.chipLost {
+  background-color: $campaignLost !important;
+  color: $white !important;
 }
