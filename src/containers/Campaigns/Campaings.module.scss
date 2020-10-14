@@ -110,3 +110,34 @@
   max-height: 160px;
   height: 160px;
 }
+
+.CampaignHeadingContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+   button {
+font-size: 15px;
+// font-family: 'Poppins Medium';
+color: #FFFFFF;
+background: #000000;
+border: none; 
+border-radius: 100px;
+padding: 10px 16px;
+  display: flex;
+  align-items: center;
+
+  }
+  button:focus {
+    font-size: 15px;
+    display: flex;
+  align-items: center;
+    // font-family: 'Poppins Medium';
+    color: #FFFFFF;
+    background: #000000;
+    border: none; 
+    border-radius: 100px;
+    padding: 10px 16px;
+    outline: none;
+      }
+}

@@ -3,6 +3,7 @@ import { RootContext } from '../../context/RootContext';
 import { Grid, Container } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CampaignsCard from './CampaignsCard';
+import AddIcon from '@material-ui/icons/Add';
 import styles from './Campaings.module.scss';
 
 const campaignsData = [
@@ -121,11 +122,14 @@ const Campaigns = () => {
 
   return (
     <div className={styles.campaignsContainer}>
+      <div className={styles.CampaignHeadingContainer}>
       <div className={styles.CampaignHeading}>
         <h1>Campaigns</h1>
         <p>
           Most recent <ExpandMoreIcon fontSize='small' />
         </p>
+      </div>
+      <button><AddIcon/> New Compaign</button>
       </div>
       <div className={styles.CampaignHeadingButton}>
         <button
