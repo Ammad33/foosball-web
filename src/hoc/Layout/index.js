@@ -11,8 +11,9 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import LeftSideDrawer from '../../components/LeftSideDrawer';
 import Header from './../../components/Header';
 import Brand from '../../components/Brand';
+import clsx from 'clsx';
 
-const drawerWidth = 250;
+const drawerWidth = 284;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,7 +46,10 @@ const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
-    padding: '20px',
+    padding: '30px 19px',
+  },
+  customToolbar: {
+    minHeight: '84px',
   },
   content: {
     flexGrow: 1,
@@ -72,7 +76,7 @@ function ResponsiveDrawer(props) {
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position='fixed' className={classes.appBar}>
-        <Toolbar>
+        <Toolbar className={classes.customToolbar}>
           <IconButton
             color='inherit'
             aria-label='open drawer'

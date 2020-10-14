@@ -40,7 +40,7 @@ const CampaignsCard = ({ campaign }) => {
               className={styles.personAvatar}
               src={campaign.influencerImg}
             />
-            <span>@{campaign.mediaTag}</span>
+            <span className={styles.mediaTag}>@{campaign.mediaTag}</span>
           </div>
         </div>
       </CardContent>

@@ -120,14 +120,14 @@ const Campaigns = () => {
   const [active, setActive] = useState('all');
 
   return (
-    <div>
-      <div className={styles.CampaignHeeding}>
+    <div className={styles.campaignsContainer}>
+      <div className={styles.CampaignHeading}>
         <h1>Campaigns</h1>
         <p>
           Most recent <ExpandMoreIcon fontSize='small' />
         </p>
       </div>
-      <div className={styles.CampaignHeedingButton}>
+      <div className={styles.CampaignHeadingButton}>
         <button
           className={active === 'all' ? styles.allActive : ''}
           onClick={() => setActive('all')}
@@ -165,19 +165,10 @@ const Campaigns = () => {
           Last
         </button>
       </div>
-      <Grid container spacing={1}>
+      <Grid container spacing={3}>
         {campaignsData.map((campaign) => {
           return (
-            <Grid
-              className={styles.gridItem}
-              item
-              xs={12}
-              sm={12}
-              md={4}
-              lg={3}
-              xl={2}
-              key={campaign.mediaTag}
-            >
+            <Grid className={styles.gridItem} item key={campaign.mediaTag}>
               <CampaignsCard campaign={campaign} />
             </Grid>
           );

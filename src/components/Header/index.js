@@ -9,11 +9,7 @@ const Header = () => {
     <div className={styles.mainContainer}>
       <div className={styles.searchContainer}>
         <SearchIcon className={styles.headerSearchIcon} />
-        <input
-          className={styles.searchInput}
-          placeholder='Search here...'
-          type='search'
-        ></input>
+        <input className={styles.searchInput} type='search'></input>
       </div>
       <div className={styles.notificationAndProfile}>
         <Badge className={'cursor-pointer'} color='secondary' variant='dot'>

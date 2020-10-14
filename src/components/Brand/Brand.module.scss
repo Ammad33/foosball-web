@@ -1,5 +1,9 @@
 .brandContainter {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  .brandImage {
+    height: 45px;
+    width: 45px;
+  }
 }

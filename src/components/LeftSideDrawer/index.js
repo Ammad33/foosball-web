@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import ListItem from './ListItem';
-import Campaigns from '../../assets/Campaigns.svg';
 import AssignmentSharpIcon from '@material-ui/icons/AssignmentSharp';
 
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
