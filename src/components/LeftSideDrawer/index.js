@@ -53,7 +53,7 @@ const LeftSideDrawer = () => {
       />
 
       <ListItem
-        icon={<AttachMoneyIcon fontSize='small' />}
+        icon={<IconWallet />}
         active={active === 'Wallet' ? true : false}
         title={'Wallet'}
         onClick={() => setActive('Wallet')}
