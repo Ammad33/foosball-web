@@ -10,7 +10,7 @@ const Brand = () => {
         alt='Profile'
         src='https://thumbs.dreamstime.com/z/creative-vector-illustration-default-avatar-profile-placeholder-isolated-background-art-design-grey-photo-blank-template-mo-118823351.jpg'
       />
-      <h4>Logo Here </h4>
+      <span>Logo Here </span>
     </div>
   );
 };

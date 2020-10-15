@@ -124,7 +124,7 @@ const Campaigns = () => {
     <div className={styles.campaignsContainer}>
       <div className={styles.CampaignHeadingContainer}>
       <div className={styles.CampaignHeading}>
-        <h1>Campaigns</h1>
+        <span>Campaigns</span>
         <p>
           Most recent <ExpandMoreIcon fontSize='small' />
         </p>

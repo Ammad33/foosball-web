@@ -8,8 +8,11 @@
   gap: 25px;
   align-items: center;
   margin-bottom: 20px;
-  h1 {
-    font: normal normal medium 33px/50px Poppins;
+  margin-top: 1em;
+  span {
+    font-family: "Poppins Light", sans-serif;
+    font-size: 25px;
+    font-weight: 500;
   }
 
   p {
@@ -22,15 +25,16 @@
 .CampaignHeadingButton {
   display: flex;
   flex-direction: row;
-  gap: 25px;
+  gap: 50px;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   button {
     background: transparent;
     border: none !important;
     font-size: 12px;
     padding: 8px 16px;
-    font-family: 'Poppins Light', sans-serif;
+    font-family: "Poppins Light", sans-serif;
+    cursor: pointer;
   }
   button:active,
   :focus {
@@ -46,7 +50,7 @@
   border-radius: 100px;
   font-size: 12px;
   outline: none;
-  font-family: 'Poppins Light', sans-serif;
+  font-family: "Poppins Light", sans-serif;
 }
 
 .draftActive {
@@ -57,7 +61,7 @@
   border-radius: 100px;
   font-size: 12px;
   outline: none;
-  font-family: 'Poppins Light', sans-serif;
+  font-family: "Poppins Light", sans-serif;
 }
 
 .liveActive {
@@ -68,7 +72,7 @@
   border-radius: 100px;
   font-size: 12px;
   outline: none;
-  font-family: 'Poppins Light', sans-serif;
+  font-family: "Poppins Light", sans-serif;
 }
 .pendingActive {
   background-color: #204d8d !important;
@@ -78,7 +82,7 @@
   border-radius: 100px;
   font-size: 12px;
   outline: none;
-  font-family: 'Poppins Light', sans-serif;
+  font-family: "Poppins Light", sans-serif;
 }
 
 .closedActive {
@@ -89,7 +93,7 @@
   border-radius: 100px;
   font-size: 12px;
   outline: none;
-  font-family: 'Poppins Light', sans-serif;
+  font-family: "Poppins Light", sans-serif;
 }
 
 .lastActive {
@@ -100,7 +104,7 @@
   border-radius: 100px;
   font-size: 12px;
   outline: none;
-  font-family: 'Poppins Light', sans-serif;
+  font-family: "Poppins Light", sans-serif;
 }
 
 .gridItem {
@@ -116,28 +120,31 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-   button {
-font-size: 15px;
-// font-family: 'Poppins Medium';
-color: #FFFFFF;
-background: #000000;
-border: none; 
-border-radius: 100px;
-padding: 10px 16px;
-  display: flex;
-  align-items: center;
-
+  margin-right: 2.5em;
+  margin-top: 2em;
+  margin-bottom: 1em;
+  button {
+    font-size: 15px;
+    // font-family: 'Poppins Medium';
+    color: #ffffff;
+    background: #000000;
+    border: none;
+    border-radius: 100px;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
   }
   button:focus {
     font-size: 15px;
     display: flex;
-  align-items: center;
+    align-items: center;
     // font-family: 'Poppins Medium';
-    color: #FFFFFF;
+    color: #ffffff;
     background: #000000;
-    border: none; 
+    border: none;
     border-radius: 100px;
     padding: 10px 16px;
     outline: none;
-      }
+  }
 }

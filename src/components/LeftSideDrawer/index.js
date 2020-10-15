@@ -33,7 +33,7 @@ const LeftSideDrawer = () => {
         active={active === 'Reports' ? true : false}
         title={'Reports'}
         onClick={() => setActive('Reports')}
-        title={'Messages'}
+        title={'Reports'}
       />
 
       <ListItem
