@@ -17,6 +17,9 @@
     // background-color: red;
     background: $dark3;
   }
+  svg{
+    color: #000000
+  }
 }
 
 // .drawelistItem:hover {
@@ -34,4 +37,7 @@
 .drawelistItemActive {
   background-color: #3481ef;
   color: white;
+  svg{
+    color: #ffffff
+  }
 }
