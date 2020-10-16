@@ -3,7 +3,7 @@ import React, {useState, useContext} from 'react';
 import {TextField,Button} from '@material-ui/core';
 import styles from './Login.module.scss';
 import { RootContext } from '../../context/RootContext';
-import Auth from 'aws-amplify';
+import {Auth} from 'aws-amplify';
 
 
 
