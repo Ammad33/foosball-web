@@ -4,6 +4,7 @@ import Layout from './hoc/Layout';
 import RootContext from "./context/RootContext";
 import Campaigns from "./containers/Campaigns";
 import CampaignDetail from './containers/CampaignDetail';
+import Signin from './containers/Login';
 
 import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 
@@ -30,6 +31,9 @@ const App = () => {
           <Layout>
             <CampaignDetail />
           </Layout>
+        </Route>
+        <Route exact path='/signin'>
+            <Signin />
         </Route>
       </Switch>
     </HashRouter>

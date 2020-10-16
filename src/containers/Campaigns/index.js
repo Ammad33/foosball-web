@@ -6,8 +6,6 @@ import CampaignsCard from './CampaignsCard';
 import AddIcon from '@material-ui/icons/Add';
 import styles from './Campaings.module.scss';
 
-import {Auth} from 'aws-amplify';
-
 const campaignsData = [
   {
     showWarningStatus: false,
@@ -119,17 +117,10 @@ const campaignsData = [
   },
 ];
 
-const signin = async ()=>{
-  try{
-    const user = await Auth.signIn('suleman','opexaDev123');
-    console.log('signed in user ',user);
 
-  }catch(e){}
-}
 
 const Campaigns = () => {
   const [active, setActive] = useState('all');
-  signin();
 
   return (
     <div className={styles.campaignsContainer}>
