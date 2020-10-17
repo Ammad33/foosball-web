@@ -1,25 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import ListItem from './ListItem';
-import Campaigns from '../../assets/Campaigns.svg';
 import SVG from 'react-inlinesvg';
+import { Button } from '@material-ui/core';
+import { Auth } from 'aws-amplify';
+import { RootContext } from './../../context/RootContext';
+import styles from './LeftSide.module.scss';
 
-
-//import Prospects from '../../assets/Prospects.svg';
-import AssignmentSharpIcon from '@material-ui/icons/AssignmentSharp';
-
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import SettingsSharpIcon from '@material-ui/icons/SettingsSharp';
-import OfflineBoltIcon from '@material-ui/icons/OfflineBolt';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import BarChartIcon from '@material-ui/icons/BarChart';
-const IconProspects = () => {return <SVG src={require('../../assets/Prospects.svg')} />};
-const IconCampaign = () => {return <SVG src={require('../../assets/Campaigns.svg')} />};
-const IconMessages = () => {return <SVG src={require('../../assets/Messages.svg')} />};
-const IconReports = () => {return <SVG src={require('../../assets/Reports.svg')} />};
-const IconSettings = () => {return <SVG src={require('../../assets/settings.svg')} />};
-const IconWallet = () => {return <SVG src={require('../../assets/Wallet.svg')} />};
+const IconProspects = () => {
+  return <SVG src={require('../../assets/Prospects.svg')} />;
+};
+const IconCampaign = () => {
+  return <SVG src={require('../../assets/Campaigns.svg')} />;
+};
+const IconMessages = () => {
+  return <SVG src={require('../../assets/Messages.svg')} />;
+};
+const IconReports = () => {
+  return <SVG src={require('../../assets/Reports.svg')} />;
+};
+const IconSettings = () => {
+  return <SVG src={require('../../assets/settings.svg')} />;
+};
+const IconWallet = () => {
+  return <SVG src={require('../../assets/Wallet.svg')} />;
+};
 const LeftSideDrawer = () => {
   const [active, setActive] = useState('Campaign');
+  const { setCurrentUser } = useContext(RootContext);
+
+  const signOut = async () => {
+    try {
+      await Auth.signOut();
+      setCurrentUser(null);
+    } catch (error) {
+      console.log('error signing out: ', error);
+    }
+  };
 
   return (
     <>
@@ -31,9 +47,9 @@ const LeftSideDrawer = () => {
       />
 
       <ListItem
-        icon={<IconProspects/>}
+        icon={<IconProspects />}
         active={active === 'Prospects' ? true : false}
-        title={'Prospects'}n
+        title={'Prospects'}
         onClick={() => setActive('Prospects')}
       />
 
@@ -65,6 +81,12 @@ const LeftSideDrawer = () => {
         title={'Settings'}
         onClick={() => setActive('Settings')}
       />
+
+      <div className={styles.logoutButton}>
+        <Button onClick={signOut} variant='contained' color='secondary'>
+          Logout
+        </Button>
+      </div>
     </>
   );
 };

@@ -117,21 +117,21 @@ const campaignsData = [
   },
 ];
 
-
-
 const Campaigns = () => {
   const [active, setActive] = useState('all');
 
   return (
     <div className={styles.campaignsContainer}>
       <div className={styles.CampaignHeadingContainer}>
-      <div className={styles.CampaignHeading}>
-        <span>Campaigns</span>
-        <p>
-          Most recent <ExpandMoreIcon fontSize='small' />
-        </p>
-      </div>
-      <button><AddIcon/> New Compaign</button>
+        <div className={styles.CampaignHeading}>
+          <span>Campaigns</span>
+          <p>
+            Most recent <ExpandMoreIcon fontSize='small' />
+          </p>
+        </div>
+        <button>
+          <AddIcon /> New Compaign
+        </button>
       </div>
       <div className={styles.CampaignHeadingButton}>
         <button
@@ -168,7 +168,7 @@ const Campaigns = () => {
           className={active === 'last' ? styles.lastActive : ''}
           onClick={() => setActive('last')}
         >
-          Last
+          Lost
         </button>
       </div>
       <Grid container spacing={3}>
