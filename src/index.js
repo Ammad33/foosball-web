@@ -11,13 +11,16 @@ import config from './config';
 // import from 'aws-amplify';
 
 Amplify.configure({
+  aws_appsync_graphqlEndpoint: config.aws_appsync_graphqlEndpoint,
+  aws_appsync_region: config.aws_appsync_region,
+  aws_appsync_authenticationType: config.aws_appsync_authenticationType,
+  aws_appsync_apiKey: config.aws_appsync_apiKey,
   Auth: {
-    // mandatorySignIn: true,
     region: config.COGNITO.REGION,
     userPoolId: config.COGNITO.USER_POOL_ID,
     identityPoolId: config.COGNITO.IDENTITY_POOL_ID,
     userPoolWebClientId: config.COGNITO.APP_CLIENT_ID,
-  }
+  },
 });
 
 ReactDOM.render(

@@ -1,9 +1,9 @@
 export default {
-  IS_API: {
-    REGION: 'us-east-1',
-    URL:
-      'https://nler4a4pxvhmvdfuflang7ewdq.appsync-api.us-east-1.amazonaws.com/graphql',
-  },
+  aws_appsync_graphqlEndpoint:
+    'https://nler4a4pxvhmvdfuflang7ewdq.appsync-api.us-east-1.amazonaws.com/graphql',
+  aws_appsync_region: 'us-east-1',
+  aws_appsync_authenticationType: 'AMAZON_COGNITO_USER_POOLS',
+  aws_appsync_apiKey: 'null',
   COGNITO: {
     REGION: 'us-east-1',
     USER_POOL_ID: 'us-east-1_csM6PS7Q1',
