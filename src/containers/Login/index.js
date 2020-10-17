@@ -4,24 +4,26 @@ import {TextField,Button} from '@material-ui/core';
 import styles from './Login.module.scss';
 import { RootContext } from '../../context/RootContext';
 import {Auth} from 'aws-amplify';
-
-
+import { Redirect } from 'react-router-dom';
 
 const Login = ()=>{
-    const {setCurrentUser} = useContext(RootContext);
+    const {currentUser,setCurrentUser} = useContext(RootContext);
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     const onSignin = async ()=>{
-      console.log('signed in user ');
+      
         try{
           const user = await Auth.signIn(username,password);
-          console.log('signed in user ',user);
           setCurrentUser(user);
         }catch(e){
           console.log(e);
         }
+      }
+
+      if(currentUser && currentUser !==null) {
+          return(<Redirect to="/campaigns" />)
       }
 
     return (
