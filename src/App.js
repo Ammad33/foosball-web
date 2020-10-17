@@ -26,7 +26,7 @@ const App = () => {
           <Route exact path='/signin'>
             <Signin />
           </Route>
-          <Redirect from='/' to='/campaigns' />
+          <Redirect exact from='/' to='/campaigns' />
         </Switch>
       </HashRouter>
     </RootContext>

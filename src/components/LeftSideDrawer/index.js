@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import ListItem from './ListItem';
 import SVG from 'react-inlinesvg';
 import { Button } from '@material-ui/core';
@@ -25,6 +26,7 @@ const IconWallet = () => {
   return <SVG src={require('../../assets/Wallet.svg')} />;
 };
 const LeftSideDrawer = () => {
+  const history = useHistory();
   const [active, setActive] = useState('Campaign');
   const { setCurrentUser } = useContext(RootContext);
 
@@ -37,13 +39,15 @@ const LeftSideDrawer = () => {
     }
   };
 
+
+
   return (
     <>
       <ListItem
         icon={<IconCampaign />}
         active={active === 'Campaign' ? true : false}
         title={'Campaigns'}
-        onClick={() => setActive('Campaign')}
+        onClick={() => { setActive('Campaign'); history.push('/campaigns') }}
       />
 
       <ListItem

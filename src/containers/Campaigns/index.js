@@ -5,6 +5,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CampaignsCard from './CampaignsCard';
 import AddIcon from '@material-ui/icons/Add';
 import styles from './Campaings.module.scss';
+import CampaignDetail from '../CampaignDetail'
 
 const campaignsData = [
   {
@@ -119,8 +120,9 @@ const campaignsData = [
 
 const Campaigns = () => {
   const [active, setActive] = useState('all');
+  const [selectedItem, setSelectedItem] = useState(null);
 
-  return (
+  return (selectedItem === null ?
     <div className={styles.campaignsContainer}>
       <div className={styles.CampaignHeadingContainer}>
         <div className={styles.CampaignHeading}>
@@ -174,13 +176,14 @@ const Campaigns = () => {
       <Grid container spacing={3}>
         {campaignsData.map((campaign) => {
           return (
-            <Grid className={styles.gridItem} item key={campaign.mediaTag}>
+            <Grid className={styles.gridItem} item key={campaign.mediaTag} onClick={() => setSelectedItem({ item: 'selected' })}>
               <CampaignsCard campaign={campaign} />
             </Grid>
           );
         })}
       </Grid>
-    </div>
+    </div> :
+    <CampaignDetail />
   );
 };
 
