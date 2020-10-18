@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { RootContext } from '../../context/RootContext';
-import { Grid, Container } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CampaignsCard from './CampaignsCard';
 import AddIcon from '@material-ui/icons/Add';
 import styles from './Campaings.module.scss';
-import CampaignDetail from '../CampaignDetail'
+import CampaignDetail from '../CampaignDetail';
+import { useHistory } from 'react-router-dom';
+
 
 const campaignsData = [
   {
@@ -119,6 +121,7 @@ const campaignsData = [
 ];
 
 const Campaigns = () => {
+  const history = useHistory();
   const [active, setActive] = useState('all');
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -176,13 +179,13 @@ const Campaigns = () => {
       <Grid container spacing={3}>
         {campaignsData.map((campaign) => {
           return (
-            <Grid className={styles.gridItem} item key={campaign.mediaTag} onClick={() => setSelectedItem({ item: 'selected' })}>
+            <Grid className={styles.gridItem} item key={campaign.mediaTag} onClick={() => history.push('/campaignDetail')} >
               <CampaignsCard campaign={campaign} />
             </Grid>
           );
         })}
       </Grid>
-    </div> :
+    </div > :
     <CampaignDetail />
   );
 };

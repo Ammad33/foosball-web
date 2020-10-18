@@ -4,15 +4,16 @@ import { RootContext } from '../../context/RootContext';
 import { Grid, Avatar, Chip, Card, CardContent } from '@material-ui/core';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import styles from './CampaignsDetails.module.scss';
-import edit from '../../assets/edit.svg'
+import edit from '../../assets/edit.svg';
+import { useHistory } from 'react-router-dom';
 
 
 const CampaignDetail = () => {
-
+  const history = useHistory();
   return (
     <div className={styles.campaignsContainer}>
       <div className={styles.CampaignHeading}>
-        <span>Campaigns</span>
+        <span onClick={() => history.push('/campaigns')}>Campaigns</span>
         <ArrowForwardIosIcon fontSize="small" />
         <span>Campaigns Name</span>
       </div>
