@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { RootContext } from '../../context/RootContext';
 import { Grid } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -7,7 +7,7 @@ import AddIcon from '@material-ui/icons/Add';
 import styles from './Campaings.module.scss';
 import CampaignDetail from '../CampaignDetail';
 import { useHistory } from 'react-router-dom';
-
+import { API } from 'aws-amplify';
 
 const campaignsData = [
   {
@@ -123,9 +123,34 @@ const campaignsData = [
 const Campaigns = () => {
   const history = useHistory();
   const [active, setActive] = useState('all');
+  const [campaigns, setCampaigns] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
 
-  return (selectedItem === null ?
+  const getCampaigns = async () => {
+    try {
+      const campaigns = await API.graphql({
+        query: `{
+        campaigns(organizationId: "3475a42c-0f19-4baa-8c12-f66d87e9185e") {
+          campaigns {
+            name
+            description
+            id
+            status
+            startDate
+            endDate
+          }
+        }
+      }`,
+      });
+      setCampaigns(campaigns.data.campaigns.campaigns);
+    } catch (e) {}
+  };
+
+  useEffect(() => {
+    getCampaigns();
+  }, []);
+
+  return selectedItem === null ? (
     <div className={styles.campaignsContainer}>
       <div className={styles.CampaignHeadingContainer}>
         <div className={styles.CampaignHeading}>
@@ -179,13 +204,19 @@ const Campaigns = () => {
       <Grid container spacing={3}>
         {campaignsData.map((campaign) => {
           return (
-            <Grid className={styles.gridItem} item key={campaign.mediaTag} onClick={() => history.push('/campaignDetail')} >
+            <Grid
+              className={styles.gridItem}
+              item
+              key={campaign.mediaTag}
+              onClick={() => history.push('/campaignDetail')}
+            >
               <CampaignsCard campaign={campaign} />
             </Grid>
           );
         })}
       </Grid>
-    </div > :
+    </div>
+  ) : (
     <CampaignDetail />
   );
 };
