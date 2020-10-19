@@ -38,9 +38,11 @@ const CampaignsCard = ({ campaign }) => {
           <div className={styles.personInfo}>
             <Avatar
               className={styles.personAvatar}
-              src={campaign.influencerImg}
+              src={
+                'https://images.unsplash.com/photo-1528763380143-65b3ac89a3ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=670&q=80'
+              }
             />
-            <span className={styles.mediaTag}>@{campaign.mediaTag}</span>
+            <span className={styles.mediaTag}>@{'tag'}</span>
           </div>
         </div>
       </CardContent>
