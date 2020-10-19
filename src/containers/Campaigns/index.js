@@ -124,7 +124,6 @@ const Campaigns = () => {
   const history = useHistory();
   const [active, setActive] = useState('all');
   const [campaigns, setCampaigns] = useState([]);
-  const [selectedItem, setSelectedItem] = useState(null);
 
   const getCampaigns = async () => {
     try {
@@ -143,14 +142,14 @@ const Campaigns = () => {
       }`,
       });
       setCampaigns(campaigns.data.campaigns.campaigns);
-    } catch (e) {}
+    } catch (e) { }
   };
 
   useEffect(() => {
     getCampaigns();
   }, []);
 
-  return selectedItem === null ? (
+  return (
     <div className={styles.campaignsContainer}>
       <div className={styles.CampaignHeadingContainer}>
         <div className={styles.CampaignHeading}>
@@ -216,9 +215,7 @@ const Campaigns = () => {
         })}
       </Grid>
     </div>
-  ) : (
-    <CampaignDetail />
-  );
+  )
 };
 
 export default Campaigns;
