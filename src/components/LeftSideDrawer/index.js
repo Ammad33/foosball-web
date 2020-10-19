@@ -28,11 +28,12 @@ const IconWallet = () => {
 const LeftSideDrawer = () => {
   const history = useHistory();
   const [active, setActive] = useState('Campaign');
-  const { setCurrentUser } = useContext(RootContext);
+  const { setCurrentUser, setLogoutMessage } = useContext(RootContext);
 
   const signOut = async () => {
     try {
-      await Auth.signOut();
+      const signOut = await Auth.signOut();
+      setLogoutMessage('Successfully logged out')
       setCurrentUser(null);
     } catch (error) {
       console.log('error signing out: ', error);

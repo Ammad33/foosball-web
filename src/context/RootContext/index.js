@@ -7,7 +7,8 @@ export default ({ children }) => {
   const prevUser = JSON.parse(window.localStorage.getItem('user')) || null;
 
   const [currentUser, setCurrentUser] = useState(prevUser);
-    
+  const [logoutMessage, setLogoutMessage] = useState('');
+
   useEffect(
     () => {
       if (!currentUser) localStorage.clear();
@@ -18,7 +19,9 @@ export default ({ children }) => {
 
   const defaultContext = {
     currentUser,
-    setCurrentUser
+    setCurrentUser,
+    logoutMessage,
+    setLogoutMessage
   };
 
   return (

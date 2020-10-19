@@ -7,18 +7,22 @@ import { Auth } from 'aws-amplify';
 import { Redirect } from 'react-router-dom';
 
 const Login = () => {
-  const { currentUser, setCurrentUser } = useContext(RootContext);
+  const { currentUser, setCurrentUser, logoutMessage,
+    setLogoutMessage } = useContext(RootContext);
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const onSignin = async () => {
 
     try {
       const user = await Auth.signIn(username, password);
       setCurrentUser(user);
+      setLogoutMessage('');
     } catch (e) {
-      console.log(e);
+      setErrorMessage(e.message);
+      setLogoutMessage('');
     }
   }
 
@@ -31,6 +35,8 @@ const Login = () => {
       <TextField id="outlined-basic" onChange={(e) => setUsername(e.target.value)} label="Username" variant="outlined" type="text" />
       <TextField id="outlined-basic" onChange={(e) => setPassword(e.target.value)} label="Password" variant="outlined" type="password" />
       <Button onClick={onSignin} variant="contained" color="primary">Signin</Button>
+      {errorMessage !== '' ? <p className={styles.error}>{errorMessage}</p> : null}
+      {logoutMessage !== '' ? <p className={styles.logOut}>{logoutMessage}</p> : null}
     </div>
   )
 
