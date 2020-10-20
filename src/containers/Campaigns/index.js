@@ -5,7 +5,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CampaignsCard from './CampaignsCard';
 import AddIcon from '@material-ui/icons/Add';
 import styles from './Campaings.module.scss';
-import CampaignDetail from '../CampaignDetail';
+import AddCampaign from '../AddCampaign';
 import { useHistory } from 'react-router-dom';
 import { API } from 'aws-amplify';
 
@@ -124,6 +124,7 @@ const Campaigns = () => {
   const history = useHistory();
   const [active, setActive] = useState('all');
   const [campaigns, setCampaigns] = useState([]);
+  const [addCampaign, setAddCampaign] = useState(false);
 
   const getCampaigns = async () => {
     try {
@@ -142,7 +143,7 @@ const Campaigns = () => {
       }`,
       });
       setCampaigns(campaigns.data.campaigns.campaigns);
-    } catch (e) {}
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -150,71 +151,74 @@ const Campaigns = () => {
   }, []);
 
   return (
-    <div className={styles.campaignsContainer}>
-      <div className={styles.CampaignHeadingContainer}>
-        <div className={styles.CampaignHeading}>
-          <span>Campaigns</span>
-          <p>
-            Most recent <ExpandMoreIcon fontSize='small' />
-          </p>
+    <>
+      <AddCampaign open={addCampaign} />
+      <div className={styles.campaignsContainer}>
+        <div className={styles.CampaignHeadingContainer}>
+          <div className={styles.CampaignHeading}>
+            <span>Campaigns</span>
+            <p>
+              Most recent <ExpandMoreIcon fontSize='small' />
+            </p>
+          </div>
+          <button onClick={() => setAddCampaign(true)}>
+            <AddIcon /> New Compaign
+        </button>
         </div>
-        <button>
-          <AddIcon /> New Compaign
+        <div className={styles.CampaignHeadingButton}>
+          <button
+            className={active === 'all' ? styles.allActive : ''}
+            onClick={() => setActive('all')}
+          >
+            All
         </button>
+          <button
+            className={active === 'draft' ? styles.draftActive : ''}
+            onClick={() => setActive('draft')}
+          >
+            Draft
+        </button>
+          <button
+            className={active === 'pending' ? styles.pendingActive : ''}
+            onClick={() => setActive('pending')}
+          >
+            Pending
+        </button>
+          <button
+            className={active === 'live' ? styles.liveActive : ''}
+            onClick={() => setActive('live')}
+          >
+            Live
+        </button>
+          <button
+            className={active === 'closed' ? styles.closedActive : ''}
+            onClick={() => setActive('closed')}
+          >
+            Closed
+        </button>
+          <button
+            className={active === 'last' ? styles.lastActive : ''}
+            onClick={() => setActive('last')}
+          >
+            Lost
+        </button>
+        </div>
+        <Grid container spacing={3}>
+          {campaigns.map((campaign) => {
+            return (
+              <Grid
+                className={styles.gridItem}
+                item
+                key={campaign.id}
+                onClick={() => history.push('/campaignDetail')}
+              >
+                <CampaignsCard campaign={campaign} />
+              </Grid>
+            );
+          })}
+        </Grid>
       </div>
-      <div className={styles.CampaignHeadingButton}>
-        <button
-          className={active === 'all' ? styles.allActive : ''}
-          onClick={() => setActive('all')}
-        >
-          All
-        </button>
-        <button
-          className={active === 'draft' ? styles.draftActive : ''}
-          onClick={() => setActive('draft')}
-        >
-          Draft
-        </button>
-        <button
-          className={active === 'pending' ? styles.pendingActive : ''}
-          onClick={() => setActive('pending')}
-        >
-          Pending
-        </button>
-        <button
-          className={active === 'live' ? styles.liveActive : ''}
-          onClick={() => setActive('live')}
-        >
-          Live
-        </button>
-        <button
-          className={active === 'closed' ? styles.closedActive : ''}
-          onClick={() => setActive('closed')}
-        >
-          Closed
-        </button>
-        <button
-          className={active === 'last' ? styles.lastActive : ''}
-          onClick={() => setActive('last')}
-        >
-          Lost
-        </button>
-      </div>
-      <Grid container spacing={3}>
-        {campaigns.map((campaign) => {
-          return (
-            <Grid
-              className={styles.gridItem}
-              item
-              key={campaign.id}
-              onClick={() => history.push('/campaignDetail')}
-            >
-              <CampaignsCard campaign={campaign} />
-            </Grid>
-          );
-        })}
-      </Grid>
-    </div>
+    </>
   );
 };
 
