@@ -28,19 +28,19 @@ const IconWallet = () => {
 const LeftSideDrawer = () => {
   const history = useHistory();
   const [active, setActive] = useState('Campaign');
-  const { setCurrentUser, setLogoutMessage } = useContext(RootContext);
+  const { setCurrentUser, setLogoutMessage, currentUser } = useContext(
+    RootContext
+  );
 
   const signOut = async () => {
     try {
       const signOut = await Auth.signOut();
-      setLogoutMessage('Successfully logged out')
+      setLogoutMessage('Successfully logged out');
       setCurrentUser(null);
     } catch (error) {
       console.log('error signing out: ', error);
     }
   };
-
-
 
   return (
     <>
@@ -48,7 +48,10 @@ const LeftSideDrawer = () => {
         icon={<IconCampaign />}
         active={active === 'Campaign' ? true : false}
         title={'Campaigns'}
-        onClick={() => { setActive('Campaign'); history.push('/campaigns') }}
+        onClick={() => {
+          setActive('Campaign');
+          history.push('/campaigns');
+        }}
       />
 
       <ListItem
@@ -91,6 +94,22 @@ const LeftSideDrawer = () => {
         <Button onClick={signOut} variant='contained' color='secondary'>
           Logout
         </Button>
+      </div>
+
+      <div className={styles.tokenContainer}>
+        <p>Email: {currentUser.attributes.email}</p>
+        <p>Access Token: </p>
+        <p className={styles.token}>
+          {currentUser.signInUserSession.accessToken.jwtToken}
+        </p>
+        <p>Id Token: </p>
+        <p className={styles.token}>
+          {currentUser.signInUserSession.accessToken.jwtToken}
+        </p>
+        <p>Refresh Token: </p>
+        <p className={styles.token}>
+          {currentUser.signInUserSession.accessToken.jwtToken}
+        </p>
       </div>
     </>
   );
