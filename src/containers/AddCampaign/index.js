@@ -7,7 +7,7 @@ const AddCampaign = ({ open }) => {
         <Dialog
             disableBackdropClick
             disableEscapeKeyDown
-            maxWidth="xs"
+            maxWidth="md"
             aria-labelledby="confirmation-dialog-title"
             open={open}
 
