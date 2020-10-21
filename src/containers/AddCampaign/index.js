@@ -5,6 +5,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import StepConnector from '@material-ui/core/StepConnector';
 import { Dialog } from '@material-ui/core';
+import styles from './AddCampaign.module.scss';
 
 const QontoConnector = withStyles({
   alternativeLabel: {
@@ -44,20 +45,23 @@ const AddCampaign = ({ open }) => {
     'Review And Send',
   ];
   const activeStep = 1;
+  // disableBackdropClick
+  // disableEscapeKeyDown
   return (
     <Dialog
-      disableBackdropClick
-      disableEscapeKeyDown
-      maxWidth='xs'
+      classes={{ paper: styles.addCampaignDialog }}
       aria-labelledby='confirmation-dialog-title'
       open={open}
     >
-      <div
-        style={{
-          height: '926px',
-          width: '1345px',
-        }}
-      >
+      <div className={styles.mainContainer}>
+        <div className={styles.header}>
+          <div>
+            <p>Step Counter</p>
+            <p>Step Details</p>
+          </div>
+          <div>Close Icon</div>
+        </div>
+
         <div>
           <Stepper
             alternativeLabel
@@ -71,6 +75,7 @@ const AddCampaign = ({ open }) => {
             ))}
           </Stepper>
         </div>
+        <div>Actions</div>
       </div>
     </Dialog>
   );
