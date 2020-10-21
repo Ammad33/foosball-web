@@ -1,6 +1,6 @@
 import React from 'react';
-import { Grid, TextField } from '@material-ui/core';
-
+import { Grid } from '@material-ui/core';
+import TextField from '../../../components/TextField';
 
 const Step1 = () => {
     return (

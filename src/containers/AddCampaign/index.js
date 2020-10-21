@@ -6,7 +6,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import StepConnector from '@material-ui/core/StepConnector';
 import { Dialog, Button } from '@material-ui/core';
 import styles from './AddCampaign.module.scss';
-
+import Step1 from './Step1';
 const QontoConnector = withStyles({
   alternativeLabel: {
     top: 10,
@@ -91,6 +91,7 @@ const AddCampaign = ({ open }) => {
             </Stepper>
           </div>
         </div>
+        <Step1 />
         <div className={styles.actions}>
           <Button
             onClick={() => handleNext(activeStep)}
