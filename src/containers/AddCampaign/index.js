@@ -54,28 +54,30 @@ const AddCampaign = ({ open }) => {
       open={open}
     >
       <div className={styles.mainContainer}>
-        <div className={styles.header}>
-          <div>
-            <p>Step Counter</p>
-            <p>Step Details</p>
+        <div className={styles.contentContainer}>
+          <div className={styles.header}>
+            <div>
+              <p>Step Counter</p>
+              <p>Step Details</p>
+            </div>
+            <div>Close Icon</div>
           </div>
-          <div>Close Icon</div>
-        </div>
 
-        <div>
-          <Stepper
-            alternativeLabel
-            activeStep={activeStep}
-            connector={<QontoConnector />}
-          >
-            {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel StepIconComponent={QontoStepIcon}></StepLabel>
-              </Step>
-            ))}
-          </Stepper>
+          <div className={styles.stepperAndComponent}>
+            <Stepper
+              alternativeLabel
+              activeStep={activeStep}
+              connector={<QontoConnector />}
+            >
+              {steps.map((label) => (
+                <Step key={label}>
+                  <StepLabel StepIconComponent={QontoStepIcon}></StepLabel>
+                </Step>
+              ))}
+            </Stepper>
+          </div>
         </div>
-        <div>Actions</div>
+        <div className={styles.actions}>Actions</div>
       </div>
     </Dialog>
   );
