@@ -34,7 +34,7 @@ const LeftSideDrawer = () => {
 
   const signOut = async () => {
     try {
-      const signOut = await Auth.signOut();
+      const signOut = await Auth.signOut({ global: true });
       setLogoutMessage('Successfully logged out');
       setCurrentUser(null);
     } catch (error) {
@@ -104,11 +104,11 @@ const LeftSideDrawer = () => {
         </p>
         <p>Id Token: </p>
         <p className={styles.token}>
-          {currentUser.signInUserSession.accessToken.jwtToken}
+          {currentUser.signInUserSession.idToken.jwtToken}
         </p>
         <p>Refresh Token: </p>
         <p className={styles.token}>
-          {currentUser.signInUserSession.accessToken.jwtToken}
+          {currentUser.signInUserSession.refreshToken.token}
         </p>
       </div>
     </>
