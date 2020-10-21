@@ -5,6 +5,18 @@
   margin-bottom: 100px !important;
 }
 .mainContainer {
-  padding-left: 290px;
-  padding-right: 290px;
+  .contentContainer {
+    padding: 60px 63px 0 63px;
+    .stepperAndComponent {
+      padding: 0px 227px;
+    }
+  }
+  .actions {
+    height: 100px;
+    padding: 0 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px -10px 20px 0px #0000001a !important;
+  }
 }
