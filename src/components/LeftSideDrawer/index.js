@@ -34,7 +34,7 @@ const LeftSideDrawer = () => {
 
   const signOut = async () => {
     try {
-      const signOut = await Auth.signOut();
+      const signOut = await Auth.signOut({ global: true });
       setLogoutMessage('Successfully logged out');
       setCurrentUser(null);
     } catch (error) {
