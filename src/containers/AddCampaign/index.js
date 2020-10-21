@@ -10,7 +10,7 @@ import styles from './AddCampaign.module.scss';
 const QontoConnector = withStyles({
   alternativeLabel: {
     top: 10,
-    left: 'calc(-50% + 16px)',
+    left: 'calc(-85% + 16px)',
     right: 'calc(50% + 16px)',
   },
   active: {
@@ -59,6 +59,10 @@ const AddCampaign = ({ open }) => {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
+
+  function renderStepComponent(activeStep) {
+    return <div>Hello</div>;
+  }
   return (
     <Dialog
       classes={{ paper: styles.addCampaignDialog }}
@@ -89,6 +93,7 @@ const AddCampaign = ({ open }) => {
                 </Step>
               ))}
             </Stepper>
+            <div>{renderStepComponent(activeStep)}</div>
           </div>
         </div>
         <div className={styles.actions}>
