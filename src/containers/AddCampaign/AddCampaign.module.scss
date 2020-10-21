@@ -7,6 +7,14 @@
 .mainContainer {
   .contentContainer {
     padding: 60px 63px 0 63px;
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .stepperNumberAndNameContainer {
+        text-align: center;
+      }
+    }
     .stepperAndComponent {
       padding: 0px 227px 50px;
     }

@@ -6,6 +6,8 @@ import StepLabel from '@material-ui/core/StepLabel';
 import StepConnector from '@material-ui/core/StepConnector';
 import { Dialog, Button } from '@material-ui/core';
 import styles from './AddCampaign.module.scss';
+import CloseIcon from '@material-ui/icons/Close';
+import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import Step1 from './Step1';
 const QontoConnector = withStyles({
   alternativeLabel: {
@@ -72,13 +74,14 @@ const AddCampaign = ({ open }) => {
       <div className={styles.mainContainer}>
         <div className={styles.contentContainer}>
           <div className={styles.header}>
-            <div>
+            <KeyboardArrowLeftIcon fontSize='large' />
+            <div className={styles.stepperNumberAndNameContainer}>
               <p>
                 Step {activeStep} of {steps.length - 1}
               </p>
-              <p>{steps[activeStep]}</p>
+              <h2>{steps[activeStep]}</h2>
             </div>
-            <div>Close Icon</div>
+            <CloseIcon fontSize='large' />
           </div>
 
           <div className={styles.stepperAndComponent}>
@@ -93,10 +96,10 @@ const AddCampaign = ({ open }) => {
                 </Step>
               ))}
             </Stepper>
-            <div>{renderStepComponent(activeStep)}</div>
+            {/* <div>{renderStepComponent(activeStep)}</div> */}
+            <Step1 />
           </div>
         </div>
-        <Step1 />
         <div className={styles.actions}>
           <Button
             onClick={() => handleNext(activeStep)}
