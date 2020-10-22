@@ -52,7 +52,7 @@ function getSteps() {
     'Review And Send',
   ];
 }
-const AddCampaign = ({ open }) => {
+const AddCampaign = ({ open, handleCancel }) => {
   const steps = getSteps();
   const [activeStep, setActiveStep] = useState(1);
   const [activeNext, setActiveNext] = useState(false);
@@ -134,7 +134,7 @@ const AddCampaign = ({ open }) => {
             </p>
             <h2>{steps[activeStep]}</h2>
           </div>
-          <CloseIcon fontSize='large' />
+          <CloseIcon fontSize='large' onClick={handleCancel} />
         </div>
 
         <div className={styles.stepperAndComponent}>

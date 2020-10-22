@@ -7,7 +7,7 @@
 }
 
 .contentContainer {
-  padding:0px 190px !important;
+  padding:0px 270px !important;
 }
 
 .header {
@@ -16,10 +16,17 @@
   align-items: center;
   .stepperNumberAndNameContainer {
     text-align: center;
+    p{
+      font-family: Poppins;
+      font-size: 15px;
+      font-weight: 400;
+    }
+    
+
   }
 }
 .stepperAndComponent {
-  padding: 0px 220px 20px;
+  padding: 0px 220px 0px;
 }
 
 .actions {
