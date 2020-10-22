@@ -8,7 +8,9 @@ import { Dialog, Button } from '@material-ui/core';
 import styles from './AddCampaign.module.scss';
 import CloseIcon from '@material-ui/icons/Close';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
-import Step1 from './Step1';
+import AddCampaignDetails from './AddCampaignDetails';
+import AddTeamMembers from './AddTeamMembers';
+
 const QontoConnector = withStyles({
   alternativeLabel: {
     top: 10,
@@ -97,7 +99,8 @@ const AddCampaign = ({ open }) => {
               ))}
             </Stepper>
             {/* <div>{renderStepComponent(activeStep)}</div> */}
-            <Step1 />
+            {/* <AddCampaignDetails /> */}
+            <AddTeamMembers />
           </div>
         </div>
         <div className={styles.actions}>

@@ -10,7 +10,7 @@
   margin-bottom: 20px;
   margin-top: 1em;
   span {
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 33px;
     font-weight: 500;
   }
@@ -33,7 +33,7 @@
     border: none !important;
     font-size: 12px;
     padding: 8px 16px;
-    font-family: "Poppins Light", sans-serif;
+    font-family: 'Poppins Light', sans-serif;
     cursor: pointer;
   }
   button:active,
@@ -50,7 +50,7 @@
   border-radius: 100px;
   font-size: 12px;
   outline: none;
-  font-family: "Poppins Light", sans-serif;
+  font-family: 'Poppins Light', sans-serif;
 }
 
 .draftActive {
@@ -61,7 +61,7 @@
   border-radius: 100px;
   font-size: 12px;
   outline: none;
-  font-family: "Poppins Light", sans-serif;
+  font-family: 'Poppins Light', sans-serif;
 }
 
 .liveActive {
@@ -72,7 +72,7 @@
   border-radius: 100px;
   font-size: 12px;
   outline: none;
-  font-family: "Poppins Light", sans-serif;
+  font-family: 'Poppins Light', sans-serif;
 }
 .pendingActive {
   background-color: #204d8d !important;
@@ -82,7 +82,7 @@
   border-radius: 100px;
   font-size: 12px;
   outline: none;
-  font-family: "Poppins Light", sans-serif;
+  font-family: 'Poppins Light', sans-serif;
 }
 
 .closedActive {
@@ -93,7 +93,7 @@
   border-radius: 100px;
   font-size: 12px;
   outline: none;
-  font-family: "Poppins Light", sans-serif;
+  font-family: 'Poppins Light', sans-serif;
 }
 
 .lastActive {
@@ -104,7 +104,7 @@
   border-radius: 100px;
   font-size: 12px;
   outline: none;
-  font-family: "Poppins Light", sans-serif;
+  font-family: 'Poppins Light', sans-serif;
 }
 
 .gridItem {
@@ -127,7 +127,6 @@
   margin-bottom: 1em;
   button {
     font-size: 15px;
-    // font-family: 'Poppins Medium';
     color: #ffffff;
     background: #000000;
     border: none;
@@ -141,7 +140,6 @@
     font-size: 15px;
     display: flex;
     align-items: center;
-    // font-family: 'Poppins Medium';
     color: #ffffff;
     background: #000000;
     border: none;

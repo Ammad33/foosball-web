@@ -143,7 +143,7 @@ const Campaigns = () => {
       }`,
       });
       setCampaigns(campaigns.data.campaigns.campaigns);
-    } catch (e) { }
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -163,7 +163,7 @@ const Campaigns = () => {
           </div>
           <button onClick={() => setAddCampaign(true)}>
             <AddIcon /> New Compaign
-        </button>
+          </button>
         </div>
         <div className={styles.CampaignHeadingButton}>
           <button
@@ -171,37 +171,37 @@ const Campaigns = () => {
             onClick={() => setActive('all')}
           >
             All
-        </button>
+          </button>
           <button
             className={active === 'draft' ? styles.draftActive : ''}
             onClick={() => setActive('draft')}
           >
             Draft
-        </button>
+          </button>
           <button
             className={active === 'pending' ? styles.pendingActive : ''}
             onClick={() => setActive('pending')}
           >
             Pending
-        </button>
+          </button>
           <button
             className={active === 'live' ? styles.liveActive : ''}
             onClick={() => setActive('live')}
           >
             Live
-        </button>
+          </button>
           <button
             className={active === 'closed' ? styles.closedActive : ''}
             onClick={() => setActive('closed')}
           >
             Closed
-        </button>
+          </button>
           <button
             className={active === 'last' ? styles.lastActive : ''}
             onClick={() => setActive('last')}
           >
             Lost
-        </button>
+          </button>
         </div>
         <Grid container spacing={3}>
           {campaigns.map((campaign) => {
