@@ -143,7 +143,7 @@ const Campaigns = () => {
       }`,
       });
       setCampaigns(campaigns.data.campaigns.campaigns);
-    } catch (e) {}
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -152,7 +152,7 @@ const Campaigns = () => {
 
   return (
     <>
-      <AddCampaign open={addCampaign} />
+      <AddCampaign open={addCampaign} handleCancel={() => setAddCampaign(false)} />
       <div className={styles.campaignsContainer}>
         <div className={styles.CampaignHeadingContainer}>
           <div className={styles.CampaignHeading}>
