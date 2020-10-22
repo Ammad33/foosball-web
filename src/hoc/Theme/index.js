@@ -12,7 +12,7 @@ const theme = createMuiTheme({
   },
   typography: {
     fontSize: 15,
-  },
+  }
 });
 
 export default function Palette({ children }) {
