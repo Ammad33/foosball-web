@@ -8,8 +8,7 @@ const CssTextField = withStyles({
         '& label.Mui-focused': {
             color: '#000000',
             fontFamily: 'Poppins',
-            fontSize: '16px'
-
+            fontSize: '16px !important'
         },
         '& .MuiInput-input': {
             '& placeholder': {
@@ -19,11 +18,6 @@ const CssTextField = withStyles({
             }
         },
 
-        // '& MuiInput-input': {
-        //     "& placeholder": {
-        //         color: "red"
-        //     },
-        // },
         '& .MuiInput-underline:after': {
             borderBottomColor: 'green',
         },

@@ -1,30 +1,65 @@
 .addCampaignDialog {
   max-width: 1345px !important;
   width: 1345px !important;
+  height: 926px;
   margin-top: 100px !important;
   margin-bottom: 100px !important;
 }
-.mainContainer {
-  .contentContainer {
-    padding: 60px 63px 0 63px;
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      .stepperNumberAndNameContainer {
-        text-align: center;
-      }
-    }
-    .stepperAndComponent {
-      padding: 0px 227px 50px;
+
+.contentContainer {
+  padding:0px 190px !important;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .stepperNumberAndNameContainer {
+    text-align: center;
+  }
+}
+.stepperAndComponent {
+  padding: 0px 220px 20px;
+}
+
+.actions {
+  height: 100px;
+  width: 100%;
+  padding: 0 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px -10px 20px 0px #0000001a !important;
+  .finishLater {
+    span {
+      color: #000000;
+      font-family: Poppins;
+      font-size: 19px;
+      font-weight: 500;
+      letter-spacing: 0;
+      line-height: 29px;
+      text-align: center;
+      cursor: pointer;
     }
   }
-  .actions {
-    height: 100px;
-    padding: 0 70px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0px -10px 20px 0px #0000001a !important;
+  .inActiveButton {
+    background-color: #CCCCCC;
+    color: #959595;
+  }
+  .nextButton {
+  border-radius: 100px;
+  padding: 8px 40px;
+  outline: none;
+  font-family: Poppins;
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 29px;
+  border: none;
+  float: right;
+  }
+  .activeButton {
+    background: #000;
+    color: #fff;
   }
 }
