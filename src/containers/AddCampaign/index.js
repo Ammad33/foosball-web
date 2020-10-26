@@ -4,7 +4,8 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import StepConnector from '@material-ui/core/StepConnector';
-import { Dialog, Button, DialogContent, DialogActions, DialogTitle } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
+import { Paper } from '@material-ui/core';
 import styles from './AddCampaign.module.scss';
 import CloseIcon from '@material-ui/icons/Close';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
@@ -52,7 +53,9 @@ function getSteps() {
     'Review And Send',
   ];
 }
-const AddCampaign = ({ open, handleCancel }) => {
+const AddCampaign = () => {
+
+  const history = useHistory();
   const steps = getSteps();
   const [activeStep, setActiveStep] = useState(1);
   const [activeNext, setActiveNext] = useState(false);
@@ -113,73 +116,61 @@ const AddCampaign = ({ open, handleCancel }) => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  function renderStepComponent(activeStep) {
-    return <div>Hello</div>;
-  }
   return (
-    <Dialog
-      classes={{ paper: styles.addCampaignDialog }}
-      aria-labelledby='confirmation-dialog-title'
-      open={open}
-    >
-      <DialogTitle>
-        <div className={styles.header}>
-          {activeStep > 1 ?
-            <KeyboardArrowLeftIcon fontSize='large' onClick={handleBack} />
-            : <div></div>
-          }
-          <div className={styles.stepperNumberAndNameContainer}>
-            <p>
-              Step {activeStep} of {steps.length - 1}
-            </p>
-            <h2>{steps[activeStep]}</h2>
-          </div>
-          <CloseIcon fontSize='large' onClick={handleCancel} />
+    <Paper>
+      <div className={styles.header}>
+        {activeStep > 1 ?
+          <KeyboardArrowLeftIcon fontSize='large' onClick={handleBack} />
+          : <div></div>
+        }
+        <div className={styles.stepperNumberAndNameContainer}>
+          <p>
+            Step {activeStep} of {steps.length - 1}
+          </p>
+          <h2>{steps[activeStep]}</h2>
         </div>
+        <CloseIcon fontSize='large' onClick={() => history.push('/campaigns')} />
+      </div>
 
-        <div className={styles.stepperAndComponent}>
-          <Stepper
-            alternativeLabel
-            activeStep={activeStep}
-            connector={<QontoConnector />}
-          >
-            {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel StepIconComponent={QontoStepIcon}></StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-        </div>
-      </DialogTitle>
-      <DialogContent>
-        <div className={styles.contentContainer}>
-          {getStepContent(activeStep)}
-        </div>
-      </DialogContent>
-      <DialogActions>
-        <div className={styles.actions}>
-          <div className={styles.finishLater}>
-            {activeNext ?
-              <span>
-                Save and finish later
+      <div className={styles.stepperAndComponent}>
+        <Stepper
+          alternativeLabel
+          activeStep={activeStep}
+          connector={<QontoConnector />}
+        >
+          {steps.map((label) => (
+            <Step key={label}>
+              <StepLabel StepIconComponent={QontoStepIcon}></StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+      </div>
+
+      <div className={styles.contentContainer}>
+        {getStepContent(activeStep)}
+      </div>
+
+      <div className={styles.actions}>
+        <div className={styles.finishLater}>
+          {activeNext ?
+            <span>
+              Save and finish later
             </span>
-              : null}
-          </div>
-          <button
-            onClick={() => handleNext(activeStep)}
-            disabled={!activeNext}
-            className={clsx(
-              styles.nextButton,
-              activeNext ?
-                styles.activeButton : styles.inActiveButton
-            )}
-          >
-            Next
-          </button>
+            : null}
         </div>
-      </DialogActions>
-      {/* </div> */}
-    </Dialog >
+        <button
+          onClick={() => handleNext(activeStep)}
+          disabled={!activeNext}
+          className={clsx(
+            styles.nextButton,
+            activeNext ?
+              styles.activeButton : styles.inActiveButton
+          )}
+        >
+          Next
+          </button>
+      </div>
+    </Paper>
   );
 };
 

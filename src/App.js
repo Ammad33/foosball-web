@@ -4,6 +4,7 @@ import Layout from './hoc/Layout';
 import RootContext from './context/RootContext';
 import Campaigns from './containers/Campaigns';
 import CampaignDetail from './containers/CampaignDetail';
+import AddCampaign from './containers/AddCampaign';
 import Signin from './containers/Login';
 import ProctedRoute from './hoc/ProctedRoute';
 import ProtectedRoute from './hoc/ProctedRoute';
@@ -22,6 +23,9 @@ const App = () => {
             <Layout>
               <CampaignDetail />
             </Layout>
+          </ProctedRoute>
+          <ProctedRoute exact path='/addCampaign'>
+            <AddCampaign />
           </ProctedRoute>
           <Route exact path='/signin'>
             <Signin />
