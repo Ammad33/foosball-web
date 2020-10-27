@@ -54,7 +54,6 @@ function getSteps() {
   ];
 }
 const AddCampaign = () => {
-
   const history = useHistory();
   const steps = getSteps();
   const [activeStep, setActiveStep] = useState(1);
@@ -72,24 +71,50 @@ const AddCampaign = () => {
   const getStepContent = (activeStep) => {
     switch (activeStep) {
       case 1:
-        return <AddCampaignDetails
-          campaignName={campaignName}
-          startDate={startDate}
-          endDate={endDate}
-          startTime={startTime}
-          endTime={endTime}
-          discount={discount}
-          percentage={percentage}
-          customeMessage={customeMessage}
-          handleCampaignName={(e) => { setCampaignName(e.target.value); filledForm() }}
-          handleStartDate={(e) => { setStartDate(e.target.value); filledForm() }}
-          handleEndDate={(e) => { setEndDate(e.target.value); filledForm() }}
-          handleStartTime={(e) => { setStartTime(e.target.value); filledForm() }}
-          handleEndTime={(e) => { setEndTime(e.target.value); filledForm() }}
-          handlePercentage={(e) => { setPercentage(e.target.value); filledForm() }}
-          handleDiscount={(e) => { setDiscount(e.target.value); filledForm() }}
-          handleCustomMessage={(e) => { setCustomMessage(e.target.value); filledForm() }}
-        />;
+        return (
+          <AddCampaignDetails
+            campaignName={campaignName}
+            startDate={startDate}
+            endDate={endDate}
+            startTime={startTime}
+            endTime={endTime}
+            discount={discount}
+            percentage={percentage}
+            customeMessage={customeMessage}
+            handleCampaignName={(e) => {
+              setCampaignName(e.target.value);
+              filledForm();
+            }}
+            handleStartDate={(e) => {
+              setStartDate(e.target.value);
+              filledForm();
+            }}
+            handleEndDate={(e) => {
+              setEndDate(e.target.value);
+              filledForm();
+            }}
+            handleStartTime={(e) => {
+              setStartTime(e.target.value);
+              filledForm();
+            }}
+            handleEndTime={(e) => {
+              setEndTime(e.target.value);
+              filledForm();
+            }}
+            handlePercentage={(e) => {
+              setPercentage(e.target.value);
+              filledForm();
+            }}
+            handleDiscount={(e) => {
+              setDiscount(e.target.value);
+              filledForm();
+            }}
+            handleCustomMessage={(e) => {
+              setCustomMessage(e.target.value);
+              filledForm();
+            }}
+          />
+        );
       case 2:
         return <AddTeamMembers />;
       case 3:
@@ -97,14 +122,22 @@ const AddCampaign = () => {
       default:
         return 'Unknown step';
     }
-  }
+  };
 
   const filledForm = () => {
-    if (campaignName !== '' && startDate !== '' && endDate !== '' && startTime !== '', endTime !== '' && discount !== '' && percentage !== '' && customeMessage !== '') {
+    if (
+      (campaignName !== '' &&
+        startDate !== '' &&
+        endDate !== '' &&
+        startTime !== '',
+      endTime !== '' &&
+        discount !== '' &&
+        percentage !== '' &&
+        customeMessage !== '')
+    ) {
       setActiveNext(true);
     } else setActiveNext(false);
-
-  }
+  };
 
   const handleNext = (activeSetp) => {
     if (activeSetp !== 9) {
@@ -117,60 +150,70 @@ const AddCampaign = () => {
   };
 
   return (
-    <Paper>
-      <div className={styles.header}>
-        {activeStep > 1 ?
-          <KeyboardArrowLeftIcon fontSize='large' onClick={handleBack} />
-          : <div></div>
-        }
-        <div className={styles.stepperNumberAndNameContainer}>
-          <p>
-            Step {activeStep} of {steps.length - 1}
-          </p>
-          <h2>{steps[activeStep]}</h2>
-        </div>
-        <CloseIcon fontSize='large' onClick={() => history.push('/campaigns')} />
-      </div>
-
-      <div className={styles.stepperAndComponent}>
-        <Stepper
-          alternativeLabel
-          activeStep={activeStep}
-          connector={<QontoConnector />}
-        >
+    <div className={styles.mainContainer}>
+      <div className={styles.campaignSideabr}>
+        <h2 className={styles.heading}>Create a Campaign</h2>
+        <div className={styles.setpsContainer}>
           {steps.map((label) => (
-            <Step key={label}>
-              <StepLabel StepIconComponent={QontoStepIcon}></StepLabel>
-            </Step>
+            <div className={styles.stepItem}>{label}</div>
           ))}
-        </Stepper>
-      </div>
-
-      <div className={styles.contentContainer}>
-        {getStepContent(activeStep)}
-      </div>
-
-      <div className={styles.actions}>
-        <div className={styles.finishLater}>
-          {activeNext ?
-            <span>
-              Save and finish later
-            </span>
-            : null}
         </div>
-        <button
-          onClick={() => handleNext(activeStep)}
-          disabled={!activeNext}
-          className={clsx(
-            styles.nextButton,
-            activeNext ?
-              styles.activeButton : styles.inActiveButton
-          )}
-        >
-          Next
-          </button>
       </div>
-    </Paper>
+      <div className={styles.campaignContainer}>
+        <div className={styles.header}>
+          {activeStep > 1 ? (
+            <KeyboardArrowLeftIcon fontSize='large' onClick={handleBack} />
+          ) : (
+            <div></div>
+          )}
+          <div className={styles.stepperNumberAndNameContainer}>
+            <p>
+              Step {activeStep} of {steps.length - 1}
+            </p>
+            <h2>{steps[activeStep]}</h2>
+          </div>
+          <CloseIcon
+            fontSize='large'
+            onClick={() => history.push('/campaigns')}
+          />
+        </div>
+
+        {/* <div className={styles.stepperAndComponent}>
+          <Stepper
+            alternativeLabel
+            activeStep={activeStep}
+            connector={<QontoConnector />}
+          >
+            {steps.map((label) => (
+              <Step key={label}>
+                <StepLabel StepIconComponent={QontoStepIcon}></StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+        </div>
+
+        <div className={styles.contentContainer}>
+          {getStepContent(activeStep)}
+        </div>
+
+        <div className={styles.actions}>
+          <div className={styles.finishLater}>
+            {activeNext ? <span>Save and finish later</span> : null}
+          </div>
+          <button
+            onClick={() => handleNext(activeStep)}
+            disabled={!activeNext}
+            className={clsx(
+              styles.nextButton,
+              activeNext ? styles.activeButton : styles.inActiveButton
+            )}
+          >
+            Next
+          </button>
+        </div>
+       */}
+      </div>
+    </div>
   );
 };
 

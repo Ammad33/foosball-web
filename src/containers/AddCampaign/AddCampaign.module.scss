@@ -1,13 +1,28 @@
-.addCampaignDialog {
-  max-width: 1345px !important;
-  width: 1345px !important;
-  height: 926px;
-  margin-top: 100px !important;
-  margin-bottom: 100px !important;
+@import '../../variable.module.scss';
+.mainContainer {
+  display: flex;
+  height: 100%;
+  .campaignSideabr {
+    flex: 0 0 535px;
+    background-color: $primary1;
+    color: $white;
+    padding-left: 55px;
+    .heading {
+      margin: 50px 0;
+    }
+    .setpsContainer {
+      .stepItem {
+        margin: 20px 0px;
+      }
+    }
+  }
+  .campaignContainer {
+    flex: 1;
+  }
 }
 
 .contentContainer {
-  padding:0px 270px !important;
+  padding: 0px 270px !important;
 }
 
 .header {
@@ -16,13 +31,11 @@
   align-items: center;
   .stepperNumberAndNameContainer {
     text-align: center;
-    p{
+    p {
       font-family: Poppins;
       font-size: 15px;
       font-weight: 400;
     }
-    
-
   }
 }
 .stepperAndComponent {
@@ -50,20 +63,20 @@
     }
   }
   .inActiveButton {
-    background-color: #CCCCCC;
+    background-color: #cccccc;
     color: #959595;
   }
   .nextButton {
-  border-radius: 100px;
-  padding: 8px 40px;
-  outline: none;
-  font-family: Poppins;
-  font-size: 19px;
-  font-weight: 500;
-  letter-spacing: 0;
-  line-height: 29px;
-  border: none;
-  float: right;
+    border-radius: 100px;
+    padding: 8px 40px;
+    outline: none;
+    font-family: Poppins;
+    font-size: 19px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 29px;
+    border: none;
+    float: right;
   }
   .activeButton {
     background: #000;
