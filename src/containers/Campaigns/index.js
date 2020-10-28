@@ -143,7 +143,7 @@ const Campaigns = () => {
       }`,
       });
       setCampaigns(campaigns.data.campaigns.campaigns);
-    } catch (e) { }
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -152,7 +152,10 @@ const Campaigns = () => {
 
   return (
     <>
-      <AddCampaign open={addCampaign} handleCancel={() => setAddCampagin(false)} />
+      <AddCampaign
+        open={addCampaign}
+        handleCancel={() => setAddCampagin(false)}
+      />
       <div className={styles.campaignsContainer}>
         <div className={styles.CampaignHeadingContainer}>
           <div className={styles.CampaignHeading}>
@@ -197,7 +200,7 @@ const Campaigns = () => {
             Closed
           </button>
           <button
-            className={active === 'last' ? styles.lastActive : ''}
+            className={active === 'last' ? styles.lostActive : ''}
             onClick={() => setActive('last')}
           >
             Lost

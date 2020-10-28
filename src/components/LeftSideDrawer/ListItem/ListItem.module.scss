@@ -17,8 +17,8 @@
     // background-color: red;
     background: $dark3;
   }
-  svg{
-    color: #000000
+  svg {
+    color: #000000;
   }
 }
 
@@ -35,9 +35,9 @@
 // }
 
 .drawelistItemActive {
-  background-color: #3481ef;
-  color: white;
-  svg{
-    color: #ffffff
+  background-color: $primary1;
+  color: $white;
+  svg {
+    color: $white;
   }
 }
