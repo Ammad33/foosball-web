@@ -13,6 +13,8 @@ import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import AddCampaignDetails from './AddCampaignDetails';
 import AddTeamMembers from './AddTeamMembers';
 import BudgetConversionGoal from './BudgetConversionGoal';
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import clsx from 'clsx';
 
 const QontoConnector = withStyles({
@@ -131,7 +133,7 @@ const AddCampaign = ({ open, handleCancel }) => {
         startDate !== '' &&
         endDate !== '' &&
         startTime !== '',
-        endTime !== '' &&
+      endTime !== '' &&
         discount !== '' &&
         percentage !== '' &&
         customeMessage !== '')
@@ -158,10 +160,26 @@ const AddCampaign = ({ open, handleCancel }) => {
     >
       <div className={styles.mainContainer}>
         <div className={styles.campaignSideabr}>
-          <h2 className={styles.heading}>Create a Campaign</h2>
+          <h2 className={styles.heading}>Create a Campaign{activeStep}</h2>
           <div className={styles.setpsContainer}>
-            {steps.map((label) => (
-              <div className={styles.stepItem}>{label}</div>
+            {steps.map((label, index) => (
+              <>
+                {index > 0 ? (
+                  <div className={styles.stepItem}>
+                    {activeStep == index ? (
+                      <FiberManualRecordIcon />
+                    ) : (
+                      <RadioButtonUncheckedIcon />
+                    )}
+                    <span>
+                      {label}
+                      {index}
+                    </span>
+                  </div>
+                ) : (
+                  ''
+                )}
+              </>
             ))}
           </div>
         </div>
@@ -170,13 +188,10 @@ const AddCampaign = ({ open, handleCancel }) => {
             {activeStep > 1 ? (
               <KeyboardArrowLeftIcon fontSize='large' onClick={handleBack} />
             ) : (
-                <div></div>
-              )}
+              <div></div>
+            )}
 
-            <CloseIcon
-              fontSize='large'
-              onClick={handleCancel}
-            />
+            <CloseIcon fontSize='large' onClick={handleCancel} />
           </div>
 
           <div className={styles.stepperNumberAndNameContainer}>
@@ -198,10 +213,7 @@ const AddCampaign = ({ open, handleCancel }) => {
               ))}
             </Stepper>
 
-
-            <div>
-              {getStepContent(activeStep)}
-            </div>
+            <div>{getStepContent(activeStep)}</div>
           </div>
           {/*
         <div className={styles.actions}>
