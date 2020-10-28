@@ -160,7 +160,7 @@ const AddCampaign = ({ open, handleCancel }) => {
     >
       <div className={styles.mainContainer}>
         <div className={styles.campaignSideabr}>
-          <h2 className={styles.heading}>Create a Campaign{activeStep}</h2>
+          <h2 className={styles.heading}>Create a Campaign</h2>
           <div className={styles.setpsContainer}>
             {steps.map((label, index) => (
               <>
