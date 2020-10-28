@@ -5,6 +5,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import StepConnector from '@material-ui/core/StepConnector';
 import { useHistory } from 'react-router-dom';
+import Dialog from '@material-ui/core/Dialog';
 import { Paper } from '@material-ui/core';
 import styles from './AddCampaign.module.scss';
 import CloseIcon from '@material-ui/icons/Close';
@@ -53,7 +54,7 @@ function getSteps() {
     'Review And Send',
   ];
 }
-const AddCampaign = () => {
+const AddCampaign = ({ open, handleCancel }) => {
   const history = useHistory();
   const steps = getSteps();
   const [activeStep, setActiveStep] = useState(1);
@@ -130,7 +131,7 @@ const AddCampaign = () => {
         startDate !== '' &&
         endDate !== '' &&
         startTime !== '',
-      endTime !== '' &&
+        endTime !== '' &&
         discount !== '' &&
         percentage !== '' &&
         customeMessage !== '')
@@ -150,35 +151,41 @@ const AddCampaign = () => {
   };
 
   return (
-    <div className={styles.mainContainer}>
-      <div className={styles.campaignSideabr}>
-        <h2 className={styles.heading}>Create a Campaign</h2>
-        <div className={styles.setpsContainer}>
-          {steps.map((label) => (
-            <div className={styles.stepItem}>{label}</div>
-          ))}
+    <Dialog
+      classes={{ paper: styles.addCampaignDialog }}
+      aria-labelledby='confirmation-dialog-title'
+      open={open}
+    >
+      <div className={styles.mainContainer}>
+        <div className={styles.campaignSideabr}>
+          <h2 className={styles.heading}>Create a Campaign</h2>
+          <div className={styles.setpsContainer}>
+            {steps.map((label) => (
+              <div className={styles.stepItem}>{label}</div>
+            ))}
+          </div>
         </div>
-      </div>
-      <div className={styles.campaignContainer}>
-        <div className={styles.header}>
-          {activeStep > 1 ? (
-            <KeyboardArrowLeftIcon fontSize='large' onClick={handleBack} />
-          ) : (
-            <div></div>
-          )}
+        <div className={styles.campaignContainer}>
+          <div className={styles.header}>
+            {activeStep > 1 ? (
+              <KeyboardArrowLeftIcon fontSize='large' onClick={handleBack} />
+            ) : (
+                <div></div>
+              )}
+
+            <CloseIcon
+              fontSize='large'
+              onClick={handleCancel}
+            />
+          </div>
+
           <div className={styles.stepperNumberAndNameContainer}>
             <p>
               Step {activeStep} of {steps.length - 1}
             </p>
             <h2>{steps[activeStep]}</h2>
           </div>
-          <CloseIcon
-            fontSize='large'
-            onClick={() => history.push('/campaigns')}
-          />
-        </div>
-
-        {/* <div className={styles.stepperAndComponent}>
+          {/* <div className={styles.stepperAndComponent}> */}
           <Stepper
             alternativeLabel
             activeStep={activeStep}
@@ -190,8 +197,8 @@ const AddCampaign = () => {
               </Step>
             ))}
           </Stepper>
-        </div>
-
+          {/* </div> */}
+          {/*
         <div className={styles.contentContainer}>
           {getStepContent(activeStep)}
         </div>
@@ -212,8 +219,9 @@ const AddCampaign = () => {
           </button>
         </div>
        */}
+        </div>
       </div>
-    </div>
+    </Dialog>
   );
 };
 

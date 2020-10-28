@@ -1,4 +1,14 @@
 @import '../../variable.module.scss';
+
+.addCampaignDialog {
+  max-width: 100% !important;
+  width: 100% !important;
+   height: 100% !important;
+   max-height: 100% !important;
+   margin: 0 !important;
+  margin-top: 0 !important;
+}
+
 .mainContainer {
   display: flex;
   height: 100%;
@@ -18,6 +28,8 @@
   }
   .campaignContainer {
     flex: 1;
+    margin: 50px 20px;
+    align-content: space-between;;
   }
 }
 

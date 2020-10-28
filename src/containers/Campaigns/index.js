@@ -124,6 +124,7 @@ const Campaigns = () => {
   const history = useHistory();
   const [active, setActive] = useState('all');
   const [campaigns, setCampaigns] = useState([]);
+  const [addCampaign, setAddCampagin] = useState(false);
 
   const getCampaigns = async () => {
     try {
@@ -151,6 +152,7 @@ const Campaigns = () => {
 
   return (
     <>
+      <AddCampaign open={addCampaign} handleCancel={() => setAddCampagin(false)} />
       <div className={styles.campaignsContainer}>
         <div className={styles.CampaignHeadingContainer}>
           <div className={styles.CampaignHeading}>
@@ -159,7 +161,7 @@ const Campaigns = () => {
               Most recent <ExpandMoreIcon fontSize='small' />
             </p>
           </div>
-          <button onClick={() => history.push('/addCampaign')}>
+          <button onClick={() => setAddCampagin(true)}>
             <AddIcon /> New Compaign
           </button>
         </div>
