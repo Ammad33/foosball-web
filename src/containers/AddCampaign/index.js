@@ -197,29 +197,27 @@ const AddCampaign = ({ open, handleCancel }) => {
                 </Step>
               ))}
             </Stepper>
-
-
             <div>
               {getStepContent(activeStep)}
             </div>
           </div>
-          {/*
-        <div className={styles.actions}>
-          <div className={styles.finishLater}>
-            {activeNext ? <span>Save and finish later</span> : null}
-          </div>
-          <button
-            onClick={() => handleNext(activeStep)}
-            disabled={!activeNext}
-            className={clsx(
-              styles.nextButton,
-              activeNext ? styles.activeButton : styles.inActiveButton
-            )}
-          >
-            Next
+
+          <div className={styles.actions}>
+            <div className={styles.finishLater}>
+              {activeNext ? <span>Save and finish later</span> : null}
+            </div>
+            <button
+              onClick={() => handleNext(activeStep)}
+              disabled={!activeNext}
+              className={clsx(
+                styles.nextButton,
+                activeNext ? styles.activeButton : styles.inActiveButton
+              )}
+            >
+              Next
           </button>
-        </div>
-       */}
+          </div>
+
         </div>
       </div>
     </Dialog>
