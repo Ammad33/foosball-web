@@ -6,7 +6,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import StepConnector from '@material-ui/core/StepConnector';
 import { useHistory } from 'react-router-dom';
 import Dialog from '@material-ui/core/Dialog';
-import { Paper } from '@material-ui/core';
+import { DialogTitle, DialogContent } from '@material-ui/core';
 import styles from './AddCampaign.module.scss';
 import CloseIcon from '@material-ui/icons/Close';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
@@ -133,7 +133,7 @@ const AddCampaign = ({ open, handleCancel }) => {
         startDate !== '' &&
         endDate !== '' &&
         startTime !== '',
-      endTime !== '' &&
+        endTime !== '' &&
         discount !== '' &&
         percentage !== '' &&
         customeMessage !== '')
@@ -169,48 +169,51 @@ const AddCampaign = ({ open, handleCancel }) => {
                     {activeStep == index ? (
                       <FiberManualRecordIcon />
                     ) : (
-                      <RadioButtonUncheckedIcon />
-                    )}
+                        <RadioButtonUncheckedIcon />
+                      )}
                     <span>{label}</span>
                   </div>
                 ) : (
-                  ''
-                )}
+                    ''
+                  )}
               </>
             ))}
           </div>
         </div>
         <div className={styles.campaignContainer}>
-          <div className={styles.header}>
-            {activeStep > 1 ? (
-              <KeyboardArrowLeftIcon fontSize='large' onClick={handleBack} />
-            ) : (
-              <div></div>
-            )}
+          <DialogTitle className={styles.dialogTitle}>
+            <div className={styles.header}>
+              {activeStep > 1 ? (
+                <KeyboardArrowLeftIcon fontSize='large' onClick={handleBack} />
+              ) : (
+                  <div></div>
+                )}
 
-            <CloseIcon fontSize='large' onClick={handleCancel} />
-          </div>
-
-          <div className={styles.stepperNumberAndNameContainer}>
-            <p>
-              Step {activeStep} of {steps.length - 1}
-            </p>
-            <h2>{steps[activeStep]}</h2>
-          </div>
-          <div className={styles.stepperAndComponent}>
-            <Stepper
-              alternativeLabel
-              activeStep={activeStep}
-              connector={<QontoConnector />}
-            >
-              {steps.map((label) => (
-                <Step key={label}>
-                  <StepLabel StepIconComponent={QontoStepIcon}></StepLabel>
-                </Step>
-              ))}
-            </Stepper>
-            <div>{getStepContent(activeStep)}</div>
-          </div>
+              <CloseIcon fontSize='large' onClick={handleCancel} />
+            </div>
+          </DialogTitle>
+          <DialogContent className={styles.dialogContent}>
+            <div className={styles.stepperAndComponent}>
+              <div className={styles.stepperNumberAndNameContainer}>
+                <p>
+                  Step {activeStep} of {steps.length - 1}
+                </p>
+                <h2>{steps[activeStep]}</h2>
+              </div>
+              <Stepper
+                alternativeLabel
+                activeStep={activeStep}
+                connector={<QontoConnector />}
+              >
+                {steps.map((label) => (
+                  <Step key={label}>
+                    <StepLabel StepIconComponent={QontoStepIcon}></StepLabel>
+                  </Step>
+                ))}
+              </Stepper>
+              <div>{getStepContent(activeStep)}</div>
+            </div>
+          </DialogContent>
 
           <div className={styles.actions}>
             <div className={styles.finishLater}>
