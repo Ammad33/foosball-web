@@ -171,10 +171,7 @@ const AddCampaign = ({ open, handleCancel }) => {
                     ) : (
                       <RadioButtonUncheckedIcon />
                     )}
-                    <span>
-                      {label}
-                      {index}
-                    </span>
+                    <span>{label}</span>
                   </div>
                 ) : (
                   ''
