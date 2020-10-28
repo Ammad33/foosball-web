@@ -14,7 +14,7 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
   handleStartTime, handleEndTime, handlePercentage, handleDiscount,
   handleCustomMessage }) => {
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={4}>
       <Grid item md={12}>
         <TextField
           id='outlined-basic'
