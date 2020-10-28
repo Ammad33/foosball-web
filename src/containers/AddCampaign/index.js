@@ -185,24 +185,25 @@ const AddCampaign = ({ open, handleCancel }) => {
             </p>
             <h2>{steps[activeStep]}</h2>
           </div>
-          {/* <div className={styles.stepperAndComponent}> */}
-          <Stepper
-            alternativeLabel
-            activeStep={activeStep}
-            connector={<QontoConnector />}
-          >
-            {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel StepIconComponent={QontoStepIcon}></StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-          {/* </div> */}
-          {/*
-        <div className={styles.contentContainer}>
-          {getStepContent(activeStep)}
-        </div>
+          <div className={styles.stepperAndComponent}>
+            <Stepper
+              alternativeLabel
+              activeStep={activeStep}
+              connector={<QontoConnector />}
+            >
+              {steps.map((label) => (
+                <Step key={label}>
+                  <StepLabel StepIconComponent={QontoStepIcon}></StepLabel>
+                </Step>
+              ))}
+            </Stepper>
 
+
+            <div>
+              {getStepContent(activeStep)}
+            </div>
+          </div>
+          {/*
         <div className={styles.actions}>
           <div className={styles.finishLater}>
             {activeNext ? <span>Save and finish later</span> : null}

@@ -29,7 +29,8 @@
   .campaignContainer {
     flex: 1;
     margin: 50px 20px;
-    align-content: space-between;;
+    display: flex;
+    flex-direction: column;
   }
 }
 
@@ -41,17 +42,26 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  .stepperNumberAndNameContainer {
-    text-align: center;
-    p {
-      font-family: Poppins;
-      font-size: 15px;
-      font-weight: 400;
-    }
-  }
+  gap:20px;
+
+
 }
 .stepperAndComponent {
-  padding: 0px 220px 0px;
+ display: flex;
+ flex-direction: column;
+ align-self: center;
+ max-width: 766px;
+ width: 100%;
+ gap: 24px;
+}
+
+.stepperNumberAndNameContainer {
+  text-align: center;
+  p {
+    font-family: Poppins;
+    font-size: 15px;
+    font-weight: 400;
+  }
 }
 
 .actions {
