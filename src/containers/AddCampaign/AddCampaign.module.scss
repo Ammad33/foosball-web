@@ -3,9 +3,9 @@
 .addCampaignDialog {
   max-width: 100% !important;
   width: 100% !important;
-   height: 100% !important;
-   max-height: 100% !important;
-   margin: 0 !important;
+  height: 100% !important;
+  max-height: 100% !important;
+  margin: 0 !important;
   margin-top: 0 !important;
 }
 
@@ -24,6 +24,10 @@
     .setpsContainer {
       .stepItem {
         margin: 20px 0px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
       }
     }
   }
@@ -46,13 +50,13 @@
   padding: 54px 28px;
 }
 .stepperAndComponent {
- display: flex;
- flex-direction: column;
- align-self: center;
- max-width: 766px;
- width: 100%;
- height: 100%;
- gap: 24px;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  max-width: 766px;
+  width: 100%;
+  height: 100%;
+  gap: 24px;
 }
 
 .stepperNumberAndNameContainer {
@@ -66,11 +70,11 @@
 
 .actions {
   width: 100%;
-  padding:40px 35px;
+  padding: 40px 35px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  align-self: flex-end;;
+  align-self: flex-end;
   .finishLater {
     span {
       color: #000000;
