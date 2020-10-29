@@ -16,13 +16,8 @@ const YoutubeSVG = () => {
 };
 
 const InfluencerCard = ({ influencer }) => {
-  function addInfluencer() {
-    console.log('clicked');
-    influencer.selected = true;
-  }
   return (
     <Card
-      onClick={addInfluencer}
       className={clsx(
         styles.influencerCard,
         influencer.selected ? styles.selectedInfluencer : ''
