@@ -96,7 +96,7 @@ const LeftSideDrawer = () => {
         </Button>
       </div>
 
-      <div className={styles.tokenContainer}>
+      {/* <div className={styles.tokenContainer}>
         <p>Email: {currentUser.attributes.email}</p>
         <p>Access Token: </p>
         <p className={styles.token}>
@@ -110,7 +110,7 @@ const LeftSideDrawer = () => {
         <p className={styles.token}>
           {currentUser.signInUserSession.refreshToken.token}
         </p>
-      </div>
+      </div> */}
     </>
   );
 };

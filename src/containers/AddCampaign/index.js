@@ -13,6 +13,7 @@ import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import AddCampaignDetails from './AddCampaignDetails';
 import AddTeamMembers from './AddTeamMembers';
 import BudgetConversionGoal from './BudgetConversionGoal';
+import ChooseInfluencer from './ChooseInfluencer';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import clsx from 'clsx';
@@ -122,6 +123,8 @@ const AddCampaign = ({ open, handleCancel }) => {
         return <AddTeamMembers />;
       case 3:
         return <BudgetConversionGoal />;
+      case 8:
+        return <ChooseInfluencer />;
       default:
         return 'Unknown step';
     }
@@ -133,7 +136,7 @@ const AddCampaign = ({ open, handleCancel }) => {
         startDate !== '' &&
         endDate !== '' &&
         startTime !== '',
-        endTime !== '' &&
+      endTime !== '' &&
         discount !== '' &&
         percentage !== '' &&
         customeMessage !== '')
@@ -169,13 +172,13 @@ const AddCampaign = ({ open, handleCancel }) => {
                     {activeStep == index ? (
                       <FiberManualRecordIcon />
                     ) : (
-                        <RadioButtonUncheckedIcon />
-                      )}
+                      <RadioButtonUncheckedIcon />
+                    )}
                     <span>{label}</span>
                   </div>
                 ) : (
-                    ''
-                  )}
+                  ''
+                )}
               </>
             ))}
           </div>
@@ -186,8 +189,8 @@ const AddCampaign = ({ open, handleCancel }) => {
               {activeStep > 1 ? (
                 <KeyboardArrowLeftIcon fontSize='large' onClick={handleBack} />
               ) : (
-                  <div></div>
-                )}
+                <div></div>
+              )}
 
               <CloseIcon fontSize='large' onClick={handleCancel} />
             </div>
