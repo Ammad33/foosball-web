@@ -238,7 +238,7 @@ const AddCampaign = ({ open, handleCancel }) => {
             </div>
             <button
               onClick={() => handleNext(activeStep)}
-              // disabled={!activeNext}
+              disabled={!activeNext}
               className={clsx(
                 styles.nextButton,
                 activeNext ? styles.activeButton : styles.inActiveButton
