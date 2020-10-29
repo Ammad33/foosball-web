@@ -1,24 +1,33 @@
 import React from 'react';
-import { Select } from '@material-ui/core';
+import { Select, withStyles } from '@material-ui/core';
+import InputBase from '@material-ui/core/InputBase';
 
-const SelectMenu = () => {
-    <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel id="demo-simple-select-outlined-label">Age</InputLabel>
-        <Select
-            labelId="demo-simple-select-outlined-label"
-            id="demo-simple-select-outlined"
-            value={age}
-            onChange={handleChange}
-            label="Age"
-        >
-            <MenuItem value="">
-                <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-    </FormControl>
-};
+const CssSelectMenu = withStyles({
+    root: {
+        'label.Mui-focused': {
+            color: '#000000',
+            fontFamily: 'Poppins',
+            fontSize: '16px !important'
+        },
+    },
+    input: {
+        borderRadius: 5,
+        border: '1px solid #939393 !important',
+        borderRadius: '5px',
+        fontFamily: 'Poppins',
+        fontSize: '16px',
+        padding: "22px 20px 19px 20px",
+        '&:focus': {
+            borderColor: '#939393 !important',
+            borderRadius: '5px',
+        },
+        '&:hover': {
+            borderColor: '#939393  !important',
+            borderRadius: '5px',
+        },
+    },
+})(InputBase);
+
+const SelectMenu = (props) => <CssSelectMenu  {...props} />;
 
 export default SelectMenu;
