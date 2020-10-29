@@ -3,6 +3,20 @@
   border-radius: 10px !important;
   height: 100%;
   box-shadow: 0px 6px 50px #0000001a !important;
+  &.selectedInfluencer {
+    color: $white;
+    background-color: $primary1;
+    .cardContent {
+      .socialIcons {
+        svg {
+          * {
+            color: white;
+          }
+          color: $white;
+        }
+      }
+    }
+  }
   &:hover {
     transition: opacity 0.3s ease-in-out;
     cursor: pointer;
