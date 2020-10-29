@@ -1,0 +1,18 @@
+@import '../../../variable.module.scss';
+
+.mainContainer {
+  padding: 0 86px;
+  .title {
+    font-size: 20px;
+    text-align: center;
+  }
+  .optionsContainer {
+    margin: 20px auto;
+
+    .optionsItem {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+  }
+}
