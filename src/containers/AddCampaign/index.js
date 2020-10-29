@@ -17,6 +17,7 @@ import ChooseInfluencer from './ChooseInfluencer';
 import Negotiables from './Negotiables';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import Collection from './Collections';
 import clsx from 'clsx';
 
 const QontoConnector = withStyles({
@@ -72,6 +73,8 @@ const AddCampaign = ({ open, handleCancel }) => {
   const [discount, setDiscount] = useState('');
   const [percentage, setPercentage] = useState('');
   const [customeMessage, setCustomMessage] = useState('');
+  const [collection, setCollection] = useState('');
+  const [collectionItems, setCollectItems] = useState([]);
 
   const getStepContent = (activeStep) => {
     switch (activeStep) {
@@ -124,6 +127,14 @@ const AddCampaign = ({ open, handleCancel }) => {
         return <AddTeamMembers />;
       case 3:
         return <BudgetConversionGoal />;
+      case 4:
+        return (
+          <Collection
+            collection={collection}
+            handleCollection={(e) => setCollection(e.target.value)}
+            collectionItems={collectionItems}
+          />
+        );
       case 7:
         return <Negotiables />;
       case 8:
