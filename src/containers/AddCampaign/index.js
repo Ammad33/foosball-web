@@ -17,6 +17,7 @@ import ChooseInfluencer from './ChooseInfluencer';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import Collection from './Collections';
+import Deliverables from './Deliverables';
 import clsx from 'clsx';
 
 const QontoConnector = withStyles({
@@ -128,6 +129,8 @@ const AddCampaign = ({ open, handleCancel }) => {
         return <BudgetConversionGoal />;
       case 4:
         return <Collection collection={collection} handleCollection={(e) => setCollection(e.target.value)} collectionItems={collectionItems} />;
+      case 5:
+        return <Deliverables />;
       case 8:
         return <ChooseInfluencer />;
       default:
