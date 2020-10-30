@@ -22,6 +22,12 @@ h2 {
   margin: 0;
   padding: 0;
 }
+h3 {
+  font-size: 23px;
+  font-family: 'Poppins Medium', sans-serif;
+  margin: 0;
+  padding: 0;
+}
 
 h4 {
   font-size: 20px;
@@ -35,41 +41,43 @@ p {
 }
 
 .MuiSelect-root {
-& label.Mui-focused {
-  color: #000000;
-  font-family: Poppins;
-  font-size: 16px !important;
-}
-& .MuiInput-input {
-  & placeholder {
+  & label.Mui-focused {
+    color: #000000;
+    font-family: Poppins;
+    font-size: 16px !important;
+  }
+  & .MuiInput-input {
+    & placeholder {
       background: black;
       color: red !important;
-      opacity: 1, /* Firefox */
+      opacity: 1; /* Firefox */
+    }
   }
-}
-& .MuiOutlinedInput-root {
-  & fieldset {
+  & .MuiOutlinedInput-root {
+    & fieldset {
       border: 1px solid #939393;
       border-radius: 5px;
       font-family: Poppins;
-      font-size: 16px
+      font-size: 16px;
+    }
+    &:hover fieldset {
+      border-color: #939393;
+    }
+    &.Mui-focused fieldset {
+      border: 1px solid #939393;
+    }
   }
-  &:hover fieldset {
-      border-color: #939393,
-  }
-  &.Mui-focused fieldset {
-      border: 1px solid #939393
-  }
-}
 }
 
 .MuiSelect-root:-ms-input-placeholder {
   color: red;
-  opacity: 1; }
-  .MuiSelect-root::-ms-input-placeholder {
+  opacity: 1;
+}
+.MuiSelect-root::-ms-input-placeholder {
   color: red;
-  opacity: red }
-  .MuiSelect-root::placeholder {
+  opacity: red;
+}
+.MuiSelect-root::placeholder {
   color: red;
-  opacity: 1; }
- 
+  opacity: 1;
+}

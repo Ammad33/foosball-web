@@ -1,0 +1,107 @@
+@import '../../../variable.module.scss';
+.mainContainer {
+  //   padding-top: 25px;
+  .section {
+    padding: 25px 0px;
+    border-bottom: 1px solid $dark3;
+    &:last-of-type {
+      border-bottom: none;
+    }
+  }
+}
+.titleAndAction {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+.campaigndDetails {
+  .campaignItemInfo {
+    p {
+      font-size: 18px;
+      font-weight: 500;
+    }
+  }
+}
+.teamMembersContainer {
+  .teamMemberItem {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+}
+.budgetAndConversionContainer {
+  .budgetContainerItem {
+    p {
+      font-size: 18px;
+      font-weight: 500;
+    }
+  }
+}
+
+.collectionContainer {
+  .collectionSection {
+    .sectionTitle {
+      font-size: 18px;
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+    .collectionItems {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      .collectionItem {
+        .itemPlaceholderBox {
+          height: 145px;
+          width: 140px;
+          border-radius: 20px;
+          background-color: #e8e8e8;
+        }
+        .itemText {
+          margin: 10px 0px;
+        }
+      }
+    }
+  }
+}
+
+.deliverablesContainer {
+  .deliverableItem {
+    p {
+      font-size: 18px;
+      font-weight: 500;
+    }
+  }
+}
+.compensationContainer {
+  .compensationItem {
+    p {
+      font-size: 18px;
+      font-weight: 500;
+    }
+  }
+}
+
+.negotiablesContainer {
+  .negotiableItem {
+    p {
+      font-size: 18px;
+      font-weight: 500;
+    }
+  }
+}
+.influencerContainer {
+  .influencerItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    .avatarMedium {
+      height: 60px;
+      width: 60px;
+    }
+    p {
+      font-size: 18px;
+      font-weight: 500;
+    }
+  }
+}

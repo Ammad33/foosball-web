@@ -15,6 +15,7 @@ import AddTeamMembers from './AddTeamMembers';
 import BudgetConversionGoal from './BudgetConversionGoal';
 import ChooseInfluencer from './ChooseInfluencer';
 import Negotiables from './Negotiables';
+import ReviewAndSend from './ReviewAndSend';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import Collection from './Collections';
@@ -139,6 +140,8 @@ const AddCampaign = ({ open, handleCancel }) => {
         return <Negotiables />;
       case 8:
         return <ChooseInfluencer />;
+      case 9:
+        return <ReviewAndSend />;
       default:
         return 'Unknown step';
     }
@@ -182,7 +185,7 @@ const AddCampaign = ({ open, handleCancel }) => {
             {steps.map((label, index) => (
               <>
                 {index > 0 ? (
-                  <div className={styles.stepItem}>
+                  <div key={index} className={styles.stepItem}>
                     {activeStep == index ? (
                       <FiberManualRecordIcon />
                     ) : (
@@ -238,7 +241,7 @@ const AddCampaign = ({ open, handleCancel }) => {
             </div>
             <button
               onClick={() => handleNext(activeStep)}
-              disabled={!activeNext}
+              // disabled={!activeNext}
               className={clsx(
                 styles.nextButton,
                 activeNext ? styles.activeButton : styles.inActiveButton
