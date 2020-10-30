@@ -14,6 +14,7 @@ import AddCampaignDetails from './AddCampaignDetails';
 import AddTeamMembers from './AddTeamMembers';
 import BudgetConversionGoal from './BudgetConversionGoal';
 import ChooseInfluencer from './ChooseInfluencer';
+import Negotiables from './Negotiables';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import Collection from './Collections';
@@ -128,9 +129,15 @@ const AddCampaign = ({ open, handleCancel }) => {
       case 3:
         return <BudgetConversionGoal />;
       case 4:
-        return <Collection collection={collection} handleCollection={(e) => setCollection(e.target.value)} collectionItems={collectionItems} />;
-      case 5:
-        return <Deliverables />;
+        return (
+          <Collection
+            collection={collection}
+            handleCollection={(e) => setCollection(e.target.value)}
+            collectionItems={collectionItems}
+          />
+        );
+      case 7:
+        return <Negotiables />;
       case 8:
         return <ChooseInfluencer />;
       default:
@@ -232,7 +239,7 @@ const AddCampaign = ({ open, handleCancel }) => {
             </div>
             <button
               onClick={() => handleNext(activeStep)}
-              // disabled={!activeNext}
+              disabled={!activeNext}
               className={clsx(
                 styles.nextButton,
                 activeNext ? styles.activeButton : styles.inActiveButton
