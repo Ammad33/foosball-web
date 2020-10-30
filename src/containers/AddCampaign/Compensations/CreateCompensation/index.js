@@ -44,7 +44,6 @@ const CreateCompensation = ({ handleAnother }) => {
                         fullWidth
                         label='Enter Dollar Amount'
                         variant='outlined'
-
                     />
                 </Grid>
             }
