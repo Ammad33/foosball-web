@@ -19,6 +19,7 @@ import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import Collection from './Collections';
 import Deliverables from './Deliverables';
+import Compensations from './Compensations';
 import clsx from 'clsx';
 
 const QontoConnector = withStyles({
@@ -76,6 +77,21 @@ const AddCampaign = ({ open, handleCancel }) => {
   const [customeMessage, setCustomMessage] = useState('');
   const [collection, setCollection] = useState('');
   const [collectionItems, setCollectItems] = useState([]);
+  const [deliveries, setDeliveries] = useState([{}]);
+  const [compensations, setCompensations] = useState([{}]);
+
+  const handleDeliverable = () => {
+    const deliverables = [...deliveries];
+    deliverables.push({});
+    setDeliveries(deliverables)
+  }
+
+
+  const handleCompensations = () => {
+    const comp = [...compensations];
+    comp.push({});
+    setCompensations(comp)
+  }
 
   const getStepContent = (activeStep) => {
     switch (activeStep) {
@@ -138,8 +154,10 @@ const AddCampaign = ({ open, handleCancel }) => {
         );
       case 5:
         return (
-          <Deliverables />
+          <Deliverables deliveries={deliveries} handleDeliveries={handleDeliverable} />
         );
+      case 6:
+        return <Compensations compensations={compensations} handleCompensations={handleCompensations} />;
       case 7:
         return <Negotiables />;
       case 8:

@@ -1,7 +1,5 @@
 import React from 'react';
-import { Grid, Select, Container } from '@material-ui/core';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
+import { Grid, Select } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import SelectMenu from '../../../components/SelectMenu';
 import CollectionItem from './CollectionItem';

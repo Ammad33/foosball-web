@@ -3,25 +3,24 @@ import { Grid, InputAdornment } from '@material-ui/core';
 import TextField from '../../../../components/TextField';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import {
-    MuiPickersUtilsProvider,
-    KeyboardTimePicker,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
 import styles from './CreateDeliverable.module.scss';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 
-const CreateDeliverable = () => {
+const CreateDeliverable = ({ index }) => {
+
     return (
         <Grid container spacing={3} >
+            <Grid item xs={12}>
+                <p className={styles.headingColor}>Deliverable {index}</p>
+            </Grid>
             <Grid item xs={12}>
                 <TextField
                     id='outlined-basic'
                     fullWidth
-                    // value={startDate}
-                    // onChange={handleStartDate}
                     label='Deliverable Dead Date'
                     variant='outlined'
                     InputProps={{
@@ -45,8 +44,6 @@ const CreateDeliverable = () => {
                     id='outlined-basic'
                     fullWidth
                     label='Social Platform'
-                    // value={endDate}
-                    // onChange={handleEndDate}
                     variant='outlined'
                 />
             </Grid>
@@ -55,8 +52,6 @@ const CreateDeliverable = () => {
                     id='outlined-basic'
                     fullWidth
                     label='Campaign Type'
-                    // value={startTime}
-                    // onChange={handleStartTime}
                     variant='outlined'
                 />
             </Grid>
@@ -65,8 +60,6 @@ const CreateDeliverable = () => {
                     id='outlined-basic'
                     fullWidth
                     label='Frame Type'
-                    // value={endDate}
-                    // onChange={handleEndDate}
                     variant='outlined'
                 />
             </Grid>
@@ -147,6 +140,27 @@ const CreateDeliverable = () => {
                     </Grid>
                 </Grid>
             </Grid>
+            <Grid item xs={12}>
+                <p className={styles.headingColor}>Post Frequency</p>
+            </Grid>
+
+            <Grid item xs={12} sm={12} md={6}>
+                <TextField
+                    id='outlined-basic'
+                    fullWidth
+                    label='Number of Posts'
+                    variant='outlined'
+                />
+            </Grid>
+            <Grid item xs={12} sm={12} md={6}>
+                <TextField
+                    id='outlined-basic'
+                    fullWidth
+                    label='Per time period'
+                    variant='outlined'
+                />
+            </Grid>
+
         </Grid>
     );
 };
