@@ -1,5 +1,7 @@
-.tags {
-    display: flex;
-    flex-direction: row;
-    gap: 16px;
-}
+@import '../../../../variable.module.scss';
+.optionsItem {
+    svg {
+      color: $primary1;
+      cursor: pointer;
+    }
+  }

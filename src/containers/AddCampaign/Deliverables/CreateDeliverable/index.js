@@ -8,7 +8,10 @@ import {
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import { styles } from '@material-ui/pickers/views/Calendar/Calendar';
+import styles from './CreateDeliverable.module.scss';
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+
 
 const CreateDeliverable = () => {
     return (
@@ -72,25 +75,77 @@ const CreateDeliverable = () => {
                     id='outlined-basic'
                     fullWidth
                     label='Frame Required'
-                    // value={endDate}
-                    // onChange={handleEndDate}
                     variant='outlined'
                 />
             </Grid>
-            <Grid item xs={12} sm={12} md={8} className={styles.tags}>
+            <Grid item xs={12} sm={12} md={8} >
+                <Grid container alignItems="center" >
+                    <Grid item xs={1} className={styles.optionsItem}>
+                        {true ? (
+                            <CheckCircleIcon
+                                onClick={() => {
+                                    // toggleOption(option);
+                                }}
+                            />
+                        ) : (
+                                <RadioButtonUncheckedIcon
+                                    onClick={() => {
+                                        // toggleOption(option);
+                                    }}
+                                />
+                            )}
+                    </Grid>
+                    <Grid item xs={4}>
+                        <p>
+                            Brand tag required
+                       </p>
+                    </Grid>
+                    <Grid item xs={7}>
+                        <TextField
+                            id='outlined-basic'
+                            fullWidth
+                            label='Brand tag'
+                            variant='outlined'
+                        />
+                    </Grid>
+                </Grid>
 
 
-                <p>
-                    Brand tag required
-                </p>
-                <TextField
-                    id='outlined-basic'
-                    fullWidth
-                    label='Brand tag'
-                    // value={endDate}
-                    // onChange={handleEndDate}
-                    variant='outlined'
-                />
+
+            </Grid>
+            <Grid item xs={12} sm={12} md={8} >
+                <Grid container alignItems="center" >
+                    <Grid item xs={1} className={styles.optionsItem}>
+                        {true ? (
+                            <CheckCircleIcon
+                                onClick={() => {
+                                    // toggleOption(option);
+                                }}
+                            />
+                        ) : (
+                                <RadioButtonUncheckedIcon
+                                    onClick={() => {
+                                        // toggleOption(option);
+                                    }}
+                                />
+                            )}
+                    </Grid>
+                    <Grid item xs={4}>
+                        <p>
+                            Hashtag requird
+                       </p>
+                    </Grid>
+                    <Grid item xs={7}>
+                        <TextField
+                            id='outlined-basic'
+                            fullWidth
+                            label='Hashtag'
+                            // value={endDate}
+                            // onChange={handleEndDate}
+                            variant='outlined'
+                        />
+                    </Grid>
+                </Grid>
             </Grid>
         </Grid>
     );

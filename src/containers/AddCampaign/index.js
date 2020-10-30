@@ -136,6 +136,10 @@ const AddCampaign = ({ open, handleCancel }) => {
             collectionItems={collectionItems}
           />
         );
+      case 5:
+        return (
+          <Deliverables />
+        );
       case 7:
         return <Negotiables />;
       case 8:
