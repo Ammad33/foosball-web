@@ -19,6 +19,7 @@ import ReviewAndSend from './ReviewAndSend';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import Collection from './Collections';
+import Deliverables from './Deliverables';
 import clsx from 'clsx';
 
 const QontoConnector = withStyles({
@@ -136,6 +137,10 @@ const AddCampaign = ({ open, handleCancel }) => {
             collectionItems={collectionItems}
           />
         );
+      case 5:
+        return (
+          <Deliverables />
+        );
       case 7:
         return <Negotiables />;
       case 8:
@@ -153,7 +158,7 @@ const AddCampaign = ({ open, handleCancel }) => {
         startDate !== '' &&
         endDate !== '' &&
         startTime !== '',
-      endTime !== '' &&
+        endTime !== '' &&
         discount !== '' &&
         percentage !== '' &&
         customeMessage !== '')
@@ -189,13 +194,13 @@ const AddCampaign = ({ open, handleCancel }) => {
                     {activeStep == index ? (
                       <FiberManualRecordIcon />
                     ) : (
-                      <RadioButtonUncheckedIcon />
-                    )}
+                        <RadioButtonUncheckedIcon />
+                      )}
                     <span>{label}</span>
                   </div>
                 ) : (
-                  ''
-                )}
+                    ''
+                  )}
               </>
             ))}
           </div>
@@ -206,8 +211,8 @@ const AddCampaign = ({ open, handleCancel }) => {
               {activeStep > 1 ? (
                 <KeyboardArrowLeftIcon fontSize='large' onClick={handleBack} />
               ) : (
-                <div></div>
-              )}
+                  <div></div>
+                )}
 
               <CloseIcon fontSize='large' onClick={handleCancel} />
             </div>
