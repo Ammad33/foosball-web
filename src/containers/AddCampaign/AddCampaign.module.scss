@@ -36,6 +36,19 @@
         align-items: center;
         gap: 10px;
         cursor: pointer;
+        .active {
+          height: 31px;
+          border-radius: 100px;
+  width: 31px;
+  border: none;
+  background-color: #FFFFFF;
+        }
+        svg {
+          height: 31px;
+          width: 31px;
+          // border: 2px solid #FFFFFF;
+          // background-color: #FFFFFF;
+        }
       }
     }
   }

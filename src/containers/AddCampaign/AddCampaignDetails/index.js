@@ -2,17 +2,15 @@ import React from 'react';
 import { Grid, InputAdornment } from '@material-ui/core';
 import TextField from '../../../components/TextField';
 import EventNoteIcon from '@material-ui/icons/EventNote';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
+import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
+import styles from './AddCampaignDetail.module.scss';
 
 const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate,
   campaignName, startDate, endDate, startTime, endTime, discount, percentage, customeMessage,
   handleStartTime, handleEndTime, handlePercentage, handleDiscount,
-  handleCustomMessage }) => {
+  handleCustomMessage, startDateOpen, endDateOpen, handleStartDateOpen, handleEndDateOpen }) => {
+
   return (
     <Grid container spacing={3}>
       <Grid item md={12}>
@@ -26,32 +24,34 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
         />
       </Grid>
       <Grid item xs={12} sm={12} md={6}>
+
         <TextField
           id='outlined-basic'
           fullWidth
           value={startDate}
-          onChange={handleStartDate}
+          onChange={(e) => handleStartDate(e.target.value)}
           label='Start Date'
           variant='outlined'
           InputProps={{
-            endAdornment: <InputAdornment position="end"><EventNoteIcon ><KeyboardDatePicker
-              disableToolbar
-              variant="inline"
-              format="MM/dd/yyyy"
-              margin="normal"
-              id="date-picker-inline"
-              label="Date picker inline"
-              // value={selectedDate}
-              // onChange={handleDateChange}
-              style={{ display: 'none' }}
-              KeyboardButtonProps={{
-                'aria-label': 'change date',
-              }}
-            /></EventNoteIcon></InputAdornment>,
+            endAdornment: <InputAdornment position="end"><EventNoteIcon onClick={() => handleStartDateOpen(true)} ></EventNoteIcon></InputAdornment>,
           }}
         />
+        <MuiPickersUtilsProvider utils={DateFnsUtils} >
+          <DatePicker className={styles.displayNone}
+            open={startDateOpen}
+            value={startDate}
+            onChange={handleStartDate}
+            orientation="landscape"
+            openTo="date"
+            // variant="inline"
+            format="MM/dd/yyyy"
+            margin="normal"
+            onClose={() => handleStartDateOpen(false)}
+          />
+        </MuiPickersUtilsProvider>
       </Grid>
       <Grid item xs={12} sm={12} md={6}>
+
         <TextField
           id='outlined-basic'
           fullWidth
@@ -59,7 +59,20 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
           value={endDate}
           onChange={handleEndDate}
           variant='outlined'
+          InputProps={{
+            endAdornment: <InputAdornment position="end"><EventNoteIcon onClick={() => handleEndDateOpen(true)} ></EventNoteIcon></InputAdornment>,
+          }}
         />
+        <MuiPickersUtilsProvider utils={DateFnsUtils} >
+          <DatePicker className={styles.displayNone}
+            open={endDateOpen}
+            value={endDate}
+            onClose={() => handleEndDateOpen(false)}
+            onChange={handleEndDate}
+            orientation="landscape"
+            openTo="date"
+          />
+        </MuiPickersUtilsProvider>
       </Grid>
       <Grid item xs={12} sm={12} md={6}>
         <TextField
@@ -113,7 +126,7 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
           variant='outlined'
         />
       </Grid>
-    </Grid>
+    </Grid >
   );
 };
 

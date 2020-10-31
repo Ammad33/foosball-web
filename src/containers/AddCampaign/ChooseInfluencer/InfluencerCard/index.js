@@ -15,13 +15,14 @@ const YoutubeSVG = () => {
   return <SVG src={require('../../../../assets/youtube.svg')} />;
 };
 
-const InfluencerCard = ({ influencer }) => {
+const InfluencerCard = ({ influencer, selected, toggleInfluncer }) => {
   return (
     <Card
       className={clsx(
         styles.influencerCard,
-        influencer.selected ? styles.selectedInfluencer : ''
+        selected !== -1 ? styles.selectedInfluencer : ''
       )}
+      onClick={() => toggleInfluncer(influencer)}
     >
       <CardContent className={styles.cardContent}>
         <div className={styles.socialInfo}>

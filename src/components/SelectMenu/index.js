@@ -20,10 +20,13 @@ const CssSelectMenu = withStyles({
         '&:focus': {
             borderColor: '#939393 !important',
             borderRadius: '5px',
+            backgroundColor: 'white'
+
         },
         '&:hover': {
             borderColor: '#939393  !important',
             borderRadius: '5px',
+            backgroundColor: 'white'
         },
     },
 })(InputBase);

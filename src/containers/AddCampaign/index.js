@@ -22,6 +22,150 @@ import Collection from './Collections';
 import Deliverables from './Deliverables';
 import Compensations from './Compensations';
 import clsx from 'clsx';
+import moment from 'moment';
+
+
+let negotialbleOptions = [
+  { id: 1, isChecked: true, text: 'Post Fee' },
+  { id: 2, isChecked: true, text: 'Revenue Share %' },
+  { id: 3, isChecked: true, text: 'Story Fee' },
+  { id: 4, isChecked: true, text: 'Post Frequency' },
+  { id: 5, isChecked: true, text: 'Monthly Retainer Fee' },
+  { id: 6, isChecked: true, text: 'Campaign Duration' },
+];
+
+const influencers = [
+  {
+    avatar:
+      'https://images.unsplash.com/photo-1474176857210-7287d38d27c6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+    name: 'Mark',
+    socialTag: 'aatikta',
+    instaFollowers: '10k',
+    youtubeFollowers: '20k',
+    facebookFollowers: '30k',
+    selected: false,
+  },
+  {
+    avatar:
+      'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
+    name: 'Julie',
+    socialTag: 'jurica',
+    instaFollowers: '20k',
+    youtubeFollowers: '20k',
+    facebookFollowers: '40k',
+    selected: false,
+  },
+  {
+    avatar:
+      'https://images.unsplash.com/photo-1474176857210-7287d38d27c6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+    name: 'Muntasir',
+    socialTag: 'aatiktas',
+    instaFollowers: '50k',
+    youtubeFollowers: '70k',
+    facebookFollowers: '60k',
+    selected: false,
+  },
+  {
+    avatar:
+      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
+    name: 'Sam Mark',
+    socialTag: 'miracle',
+    instaFollowers: '32k',
+    youtubeFollowers: '29k',
+    facebookFollowers: '45k',
+    selected: false,
+  },
+  {
+    avatar:
+      'https://images.unsplash.com/photo-1563237023-b1e970526dcb?ixlib=rb-1.2.1&auto=format&fit=crop&w=802&q=80',
+    name: 'Chris',
+    socialTag: 'happy',
+    instaFollowers: '22k',
+    youtubeFollowers: '23k',
+    facebookFollowers: '33k',
+    selected: true,
+  },
+];
+
+
+const members = [
+  {
+    id: 1,
+    name: 'Ben Parker',
+    avatar:
+      'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+  },
+  {
+    id: 2,
+    name: 'Chase Fade',
+    avatar:
+      'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1331&q=80',
+  },
+  {
+    id: 3,
+    name: 'Benny Chiou',
+    avatar:
+      'https://images.unsplash.com/photo-1534564533601-4d3e3d9fd229?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+  },
+  {
+    id: 4,
+    name: 'Jeromy Wilson',
+    avatar:
+      'https://images.unsplash.com/photo-1517070208541-6ddc4d3efbcb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+  },
+  {
+    id: 5,
+    name: 'Amber Miles',
+    avatar:
+      'https://images.unsplash.com/photo-1525550557089-27c1bfedd06c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+  },
+  {
+    id: 6,
+    name: 'Vaneesa Lee',
+    avatar:
+      'https://images.unsplash.com/photo-1525879000488-bff3b1c387cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+  },
+];
+
+const collectionItems = [
+  {
+    id: 1,
+    name: 'Ben Parker',
+    avatar:
+      'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+  },
+  {
+    id: 2,
+    name: 'Chase Fade',
+    avatar:
+      'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1331&q=80',
+  },
+  {
+    id: 3,
+    name: 'Benny Chiou',
+    avatar:
+      'https://images.unsplash.com/photo-1534564533601-4d3e3d9fd229?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+  },
+  {
+    id: 4,
+    name: 'Jeromy Wilson',
+    avatar:
+      'https://images.unsplash.com/photo-1517070208541-6ddc4d3efbcb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+  },
+  {
+    id: 5,
+    name: 'Amber Miles',
+    avatar:
+      'https://images.unsplash.com/photo-1525550557089-27c1bfedd06c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+  },
+  {
+    id: 6,
+    name: 'Vaneesa Lee',
+    avatar:
+      'https://images.unsplash.com/photo-1525879000488-bff3b1c387cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+  },
+];
+
 
 const QontoConnector = withStyles({
   alternativeLabel: {
@@ -80,6 +224,11 @@ const AddCampaign = ({ open, handleCancel }) => {
   const [collectionItems, setCollectItems] = useState([]);
   const [deliveries, setDeliveries] = useState([{}]);
   const [compensations, setCompensations] = useState([{}]);
+  const [selectedNegotiable, setSelectedNegotiable] = useState(negotialbleOptions);
+  const [selectedInfluncer, setSelectedInfluncer] = useState([]);
+  const [selectedMembers, setSelectedMemebers] = useState([]);
+  const [startDateOpen, setStartDateOpen] = useState(false);
+  const [endDateOpen, setEndDateOpen] = useState(false);
 
   const handleDeliverable = () => {
     const deliverables = [...deliveries];
@@ -92,6 +241,47 @@ const AddCampaign = ({ open, handleCancel }) => {
     const comp = [...compensations];
     comp.push({});
     setCompensations(comp)
+  }
+
+  const toggleNegotiable = (option) => {
+    const opts = [...selectedNegotiable];
+    opts.map((opt) => {
+      if (opt.id === option.id) {
+        opt.isChecked = !opt.isChecked;
+      }
+      setSelectedNegotiable(opts);
+    });
+  }
+
+  const toggleInfluncer = (option) => {
+
+    const opts = [...selectedInfluncer];
+
+    const optIndex = opts.findIndex(item => item.name === option.name);
+
+    if (optIndex === -1) {
+      opts.push(option)
+      setSelectedInfluncer(opts);
+    } else {
+      opts.splice(optIndex, 1)
+      setSelectedInfluncer(opts);
+    }
+
+  }
+
+  const addMember = (member) => {
+
+    const opts = [...selectedMembers];
+
+    const optIndex = opts.findIndex(item => item.name === member.name);
+
+    if (optIndex === -1) {
+      opts.push(member)
+      setSelectedMemebers(opts);
+    } else {
+      opts.splice(optIndex, 1)
+      setSelectedMemebers(opts);
+    }
   }
 
   const getStepContent = (activeStep) => {
@@ -111,12 +301,18 @@ const AddCampaign = ({ open, handleCancel }) => {
               setCampaignName(e.target.value);
               filledForm();
             }}
-            handleStartDate={(e) => {
-              setStartDate(e.target.value);
+            startDateOpen={startDateOpen}
+            endDateOpen={endDateOpen}
+            handleStartDate={(date) => {
+              setStartDate(date !== '' && moment(date, 'MM/DD/YYYY', true).isValid() ? moment(date).format('L') : date);
+              setStartDateOpen(false);
               filledForm();
             }}
-            handleEndDate={(e) => {
-              setEndDate(e.target.value);
+            handleStartDateOpen={(value) => setStartDateOpen(value)}
+            handleEndDateOpen={value => setEndDateOpen(value)}
+            handleEndDate={(date) => {
+              setEndDate(date !== '' && moment(date, 'MM/DD/YYYY', true).isValid() ? moment(date).format('L') : date);
+              setEndDateOpen(false);
               filledForm();
             }}
             handleStartTime={(e) => {
@@ -142,7 +338,7 @@ const AddCampaign = ({ open, handleCancel }) => {
           />
         );
       case 2:
-        return <AddTeamMembers />;
+        return <AddTeamMembers selectedMembers={selectedMembers} handleAdd={addMember} members={members} />;
       case 3:
         return <BudgetConversionGoal />;
       case 4:
@@ -160,9 +356,9 @@ const AddCampaign = ({ open, handleCancel }) => {
       case 6:
         return <Compensations compensations={compensations} handleCompensations={handleCompensations} />;
       case 7:
-        return <Negotiables />;
+        return <Negotiables selectedNegotiable={selectedNegotiable} toggleNegotiable={toggleNegotiable} />;
       case 8:
-        return <ChooseInfluencer />;
+        return <ChooseInfluencer selectedInfluncer={selectedInfluncer} toggleInfluncer={toggleInfluncer} influencers={influencers} />;
       case 9:
         return <ReviewAndSend />;
       default:
@@ -210,7 +406,7 @@ const AddCampaign = ({ open, handleCancel }) => {
                 {index > 0 ? (
                   <div key={index} className={styles.stepItem}>
                     {activeStep == index ? (
-                      <FiberManualRecordIcon />
+                      <div className={styles.active}></div>
                     ) : (
                         <RadioButtonUncheckedIcon />
                       )}
