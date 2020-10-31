@@ -40,6 +40,14 @@ const CssTextField = withStyles({
 })(TextField);
 
 
-const CustomiseTextField = (props) => <CssTextField InputProps={{ classes: { input: styles.input } }} {...props} />;
+const CustomiseTextField = (props) => <CssTextField InputLabelProps={{
+    style: {
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        width: '100%',
+        color: '#000000'
+    }
+}} {...props} />;
 
 export default CustomiseTextField;
