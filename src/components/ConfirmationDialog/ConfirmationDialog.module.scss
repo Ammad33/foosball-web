@@ -1,0 +1,25 @@
+@import './../../variable.module.scss';
+.cDialog {
+  max-width: 667px !important;
+  width: 667px !important;
+  border-radius: 20px !important;
+  .cDialogContent {
+    padding: 74px 49px !important;
+  }
+  .cDialogActions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+    padding: 38px;
+    button {
+      border-radius: 25px;
+      font-size: 19px;
+      font-weight: 400;
+      padding-left: 40px;
+      padding-right: 40px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+  }
+}

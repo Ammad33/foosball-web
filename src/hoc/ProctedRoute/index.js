@@ -9,12 +9,12 @@ const ProtectedRoute = ({ children, ...routeProps }) => {
     <Route
       {...routeProps}
       render={() => {
-        if (
-          currentUser &&
-          currentUser !== null &&
-          currentUser.signInUserSession.idToken.jwtToken
-        ) {
-          // if (true) {
+        // if (
+        //   currentUser &&
+        //   currentUser !== null &&
+        //   currentUser.signInUserSession.idToken.jwtToken
+        // ) {
+        if (true) {
           return children;
         } else {
           return <Redirect to={'/signin'} />;

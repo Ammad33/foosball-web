@@ -40,6 +40,11 @@ p {
   padding: 0;
 }
 
+.dangerButton {
+  color: $white !important;
+  background-color: $danger !important;
+}
+
 .MuiSelect-root {
   & label.Mui-focused {
     color: #000000;

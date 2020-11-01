@@ -17,13 +17,13 @@ import ChooseInfluencer from './ChooseInfluencer';
 import Negotiables from './Negotiables';
 import ReviewAndSend from './ReviewAndSend';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import Collection from './Collections';
 import Deliverables from './Deliverables';
 import Compensations from './Compensations';
 import clsx from 'clsx';
 import moment from 'moment';
-
+import CDialog from '../../components/ConfirmationDialog';
+import Translation from '../../assets/translation.json';
 
 let negotialbleOptions = [
   { id: 1, isChecked: true, text: 'Post Fee' },
@@ -86,7 +86,6 @@ const influencers = [
     selected: true,
   },
 ];
-
 
 const members = [
   {
@@ -166,7 +165,6 @@ const collectionItems = [
   },
 ];
 
-
 const QontoConnector = withStyles({
   alternativeLabel: {
     top: 10,
@@ -224,24 +222,26 @@ const AddCampaign = ({ open, handleCancel }) => {
   const [collectionItems, setCollectItems] = useState([]);
   const [deliveries, setDeliveries] = useState([{}]);
   const [compensations, setCompensations] = useState([{}]);
-  const [selectedNegotiable, setSelectedNegotiable] = useState(negotialbleOptions);
+  const [selectedNegotiable, setSelectedNegotiable] = useState(
+    negotialbleOptions
+  );
   const [selectedInfluncer, setSelectedInfluncer] = useState([]);
   const [selectedMembers, setSelectedMemebers] = useState([]);
   const [startDateOpen, setStartDateOpen] = useState(false);
   const [endDateOpen, setEndDateOpen] = useState(false);
+  const [openCDialog, setOpenCDialog] = useState(false);
 
   const handleDeliverable = () => {
     const deliverables = [...deliveries];
     deliverables.push({});
-    setDeliveries(deliverables)
-  }
-
+    setDeliveries(deliverables);
+  };
 
   const handleCompensations = () => {
     const comp = [...compensations];
     comp.push({});
-    setCompensations(comp)
-  }
+    setCompensations(comp);
+  };
 
   const toggleNegotiable = (option) => {
     const opts = [...selectedNegotiable];
@@ -251,38 +251,35 @@ const AddCampaign = ({ open, handleCancel }) => {
       }
       setSelectedNegotiable(opts);
     });
-  }
+  };
 
   const toggleInfluncer = (option) => {
-
     const opts = [...selectedInfluncer];
 
-    const optIndex = opts.findIndex(item => item.name === option.name);
+    const optIndex = opts.findIndex((item) => item.name === option.name);
 
     if (optIndex === -1) {
-      opts.push(option)
+      opts.push(option);
       setSelectedInfluncer(opts);
     } else {
-      opts.splice(optIndex, 1)
+      opts.splice(optIndex, 1);
       setSelectedInfluncer(opts);
     }
-
-  }
+  };
 
   const addMember = (member) => {
-
     const opts = [...selectedMembers];
 
-    const optIndex = opts.findIndex(item => item.name === member.name);
+    const optIndex = opts.findIndex((item) => item.name === member.name);
 
     if (optIndex === -1) {
-      opts.push(member)
+      opts.push(member);
       setSelectedMemebers(opts);
     } else {
-      opts.splice(optIndex, 1)
+      opts.splice(optIndex, 1);
       setSelectedMemebers(opts);
     }
-  }
+  };
 
   const getStepContent = (activeStep) => {
     switch (activeStep) {
@@ -304,14 +301,22 @@ const AddCampaign = ({ open, handleCancel }) => {
             startDateOpen={startDateOpen}
             endDateOpen={endDateOpen}
             handleStartDate={(date) => {
-              setStartDate(date !== '' && moment(date, 'MM/DD/YYYY', true).isValid() ? moment(date).format('L') : date);
+              setStartDate(
+                date !== '' && moment(date, 'MM/DD/YYYY', true).isValid()
+                  ? moment(date).format('L')
+                  : date
+              );
               setStartDateOpen(false);
               filledForm();
             }}
             handleStartDateOpen={(value) => setStartDateOpen(value)}
-            handleEndDateOpen={value => setEndDateOpen(value)}
+            handleEndDateOpen={(value) => setEndDateOpen(value)}
             handleEndDate={(date) => {
-              setEndDate(date !== '' && moment(date, 'MM/DD/YYYY', true).isValid() ? moment(date).format('L') : date);
+              setEndDate(
+                date !== '' && moment(date, 'MM/DD/YYYY', true).isValid()
+                  ? moment(date).format('L')
+                  : date
+              );
               setEndDateOpen(false);
               filledForm();
             }}
@@ -338,7 +343,13 @@ const AddCampaign = ({ open, handleCancel }) => {
           />
         );
       case 2:
-        return <AddTeamMembers selectedMembers={selectedMembers} handleAdd={addMember} members={members} />;
+        return (
+          <AddTeamMembers
+            selectedMembers={selectedMembers}
+            handleAdd={addMember}
+            members={members}
+          />
+        );
       case 3:
         return <BudgetConversionGoal />;
       case 4:
@@ -351,14 +362,33 @@ const AddCampaign = ({ open, handleCancel }) => {
         );
       case 5:
         return (
-          <Deliverables deliveries={deliveries} handleDeliveries={handleDeliverable} />
+          <Deliverables
+            deliveries={deliveries}
+            handleDeliveries={handleDeliverable}
+          />
         );
       case 6:
-        return <Compensations compensations={compensations} handleCompensations={handleCompensations} />;
+        return (
+          <Compensations
+            compensations={compensations}
+            handleCompensations={handleCompensations}
+          />
+        );
       case 7:
-        return <Negotiables selectedNegotiable={selectedNegotiable} toggleNegotiable={toggleNegotiable} />;
+        return (
+          <Negotiables
+            selectedNegotiable={selectedNegotiable}
+            toggleNegotiable={toggleNegotiable}
+          />
+        );
       case 8:
-        return <ChooseInfluencer selectedInfluncer={selectedInfluncer} toggleInfluncer={toggleInfluncer} influencers={influencers} />;
+        return (
+          <ChooseInfluencer
+            selectedInfluncer={selectedInfluncer}
+            toggleInfluncer={toggleInfluncer}
+            influencers={influencers}
+          />
+        );
       case 9:
         return <ReviewAndSend />;
       default:
@@ -372,7 +402,7 @@ const AddCampaign = ({ open, handleCancel }) => {
         startDate !== '' &&
         endDate !== '' &&
         startTime !== '',
-        endTime !== '' &&
+      endTime !== '' &&
         discount !== '' &&
         percentage !== '' &&
         customeMessage !== '')
@@ -391,87 +421,118 @@ const AddCampaign = ({ open, handleCancel }) => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
+  const handleCancelCampaignDialog = () => {
+    setOpenCDialog(true);
+  };
+
+  const handleCancelCDialog = () => {
+    setOpenCDialog(false);
+    handleCancel();
+  };
+  const handleConfirmCDialog = () => {
+    setOpenCDialog(false);
+  };
+
   return (
-    <Dialog
-      classes={{ paper: styles.addCampaignDialog }}
-      aria-labelledby='confirmation-dialog-title'
-      open={open}
-    >
-      <div className={styles.mainContainer}>
-        <div className={styles.campaignSideabr}>
-          <h2 className={styles.heading}>Create a Campaign</h2>
-          <div className={styles.setpsContainer}>
-            {steps.map((label, index) => (
-              <>
-                {index > 0 ? (
-                  <div key={index} className={styles.stepItem}>
-                    {activeStep == index ? (
-                      <div className={styles.active}></div>
-                    ) : (
+    <>
+      <Dialog
+        classes={{ paper: styles.addCampaignDialog }}
+        aria-labelledby='confirmation-dialog-title'
+        open={open}
+      >
+        <div className={styles.mainContainer}>
+          <div className={styles.campaignSideabr}>
+            <h2 className={styles.heading}>Create a Campaign</h2>
+            <div className={styles.setpsContainer}>
+              {steps.map((label, index) => (
+                <>
+                  {index > 0 ? (
+                    <div key={index} className={styles.stepItem}>
+                      {activeStep == index ? (
+                        <div className={styles.active}></div>
+                      ) : (
                         <RadioButtonUncheckedIcon />
                       )}
-                    <span>{label}</span>
-                  </div>
-                ) : (
+                      <span>{label}</span>
+                    </div>
+                  ) : (
                     ''
                   )}
-              </>
-            ))}
+                </>
+              ))}
+            </div>
           </div>
-        </div>
-        <div className={styles.campaignContainer}>
-          <DialogTitle className={styles.dialogTitle}>
-            <div className={styles.header}>
-              {activeStep > 1 ? (
-                <KeyboardArrowLeftIcon fontSize='large' onClick={handleBack} />
-              ) : (
+          <div className={styles.campaignContainer}>
+            <DialogTitle className={styles.dialogTitle}>
+              <div className={styles.header}>
+                {activeStep > 1 ? (
+                  <KeyboardArrowLeftIcon
+                    fontSize='large'
+                    onClick={handleBack}
+                  />
+                ) : (
                   <div></div>
                 )}
 
-              <CloseIcon fontSize='large' onClick={handleCancel} />
-            </div>
-          </DialogTitle>
-          <DialogContent className={styles.dialogContent}>
-            <div className={styles.stepperAndComponent}>
-              <div className={styles.stepperNumberAndNameContainer}>
-                <p>
-                  Step {activeStep} of {steps.length - 1}
-                </p>
-                <h2>{steps[activeStep]}</h2>
+                <CloseIcon
+                  fontSize='large'
+                  onClick={handleCancelCampaignDialog}
+                />
               </div>
-              <Stepper
-                alternativeLabel
-                activeStep={activeStep}
-                connector={<QontoConnector />}
-              >
-                {steps.map((label) => (
-                  <Step key={label}>
-                    <StepLabel StepIconComponent={QontoStepIcon}></StepLabel>
-                  </Step>
-                ))}
-              </Stepper>
-              <div>{getStepContent(activeStep)}</div>
-            </div>
-          </DialogContent>
+            </DialogTitle>
+            <DialogContent className={styles.dialogContent}>
+              <div className={styles.stepperAndComponent}>
+                <div className={styles.stepperNumberAndNameContainer}>
+                  <p>
+                    Step {activeStep} of {steps.length - 1}
+                  </p>
+                  <h2>{steps[activeStep]}</h2>
+                </div>
+                <Stepper
+                  alternativeLabel
+                  activeStep={activeStep}
+                  connector={<QontoConnector />}
+                  className={styles.stepperContainer}
+                >
+                  {steps.map((label) => (
+                    <Step key={label}>
+                      <StepLabel StepIconComponent={QontoStepIcon}></StepLabel>
+                    </Step>
+                  ))}
+                </Stepper>
+                <div className={styles.stepperContent}>
+                  {getStepContent(activeStep)}
+                </div>
+              </div>
+            </DialogContent>
 
-          <div className={styles.actions}>
-            <div className={styles.finishLater}>
-              {activeNext ? <span>Save and finish later</span> : null}
+            <div className={styles.actions}>
+              <div className={styles.finishLater}>
+                {activeNext ? <span>Save and finish later</span> : null}
+              </div>
+              <button
+                onClick={() => handleNext(activeStep)}
+                // disabled={!activeNext}
+                className={clsx(
+                  styles.nextButton,
+                  activeNext ? styles.activeButton : styles.inActiveButton
+                )}
+              >
+                Next
+              </button>
             </div>
-            <button
-              onClick={() => handleNext(activeStep)}
-              // disabled={!activeNext}
-              className={clsx(
-                styles.nextButton,
-                activeNext ? styles.activeButton : styles.inActiveButton
-              )}
-            >
-              Next
-            </button>
           </div>
         </div>
-      </div>
-    </Dialog>
+      </Dialog>
+      <CDialog
+        open={openCDialog}
+        cancelText={'Delete'}
+        confirmText={'Keep working'}
+        onCancel={handleCancelCDialog}
+        onConfirm={handleConfirmCDialog}
+        message={Translation.DIALOG.CAMPAIGN_CDIALOG_MSG}
+      />
+    </>
   );
 };
 
