@@ -33,7 +33,7 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
           label='Start Date'
           variant='outlined'
           InputProps={{
-            endAdornment: <InputAdornment position="end"><EventNoteIcon onClick={() => handleStartDateOpen(true)} ></EventNoteIcon></InputAdornment>,
+            endAdornment: <InputAdornment position="end"><EventNoteIcon className={styles.inputendornment} onClick={() => handleStartDateOpen(true)} ></EventNoteIcon></InputAdornment>,
           }}
         />
         <MuiPickersUtilsProvider utils={DateFnsUtils} >
@@ -43,7 +43,6 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
             onChange={handleStartDate}
             orientation="landscape"
             openTo="date"
-            // variant="inline"
             format="MM/dd/yyyy"
             margin="normal"
             onClose={() => handleStartDateOpen(false)}
@@ -57,10 +56,10 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
           fullWidth
           label='End Date'
           value={endDate}
-          onChange={handleEndDate}
+          onChange={(e) => handleEndDate(e.target.value)}
           variant='outlined'
           InputProps={{
-            endAdornment: <InputAdornment position="end"><EventNoteIcon onClick={() => handleEndDateOpen(true)} ></EventNoteIcon></InputAdornment>,
+            endAdornment: <InputAdornment position="end"><EventNoteIcon className={styles.inputendornment} onClick={() => handleEndDateOpen(true)} ></EventNoteIcon></InputAdornment>,
           }}
         />
         <MuiPickersUtilsProvider utils={DateFnsUtils} >
@@ -122,7 +121,7 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
           value={customeMessage}
           onChange={handleCustomMessage}
           rows={4}
-          placeholder={'Enter a custom message to send with your invitation'}
+          label={'Enter a custom message to send with your invitation'}
           variant='outlined'
         />
       </Grid>

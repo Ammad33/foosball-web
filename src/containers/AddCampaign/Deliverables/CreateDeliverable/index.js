@@ -10,12 +10,13 @@ import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 
-const CreateDeliverable = ({ index }) => {
+const CreateDeliverable = ({ index, handleDilverableContent,
+    handleDeliverDeadlineDate, deliverableItem }) => {
 
     return (
         <Grid container spacing={3} >
             <Grid item xs={12}>
-                <p className={styles.headingColor}>Deliverable {index}</p>
+                <p className={styles.headingColor}>Deliverable {index + 1}</p>
             </Grid>
             <Grid item xs={12}>
                 <TextField
@@ -23,6 +24,7 @@ const CreateDeliverable = ({ index }) => {
                     fullWidth
                     label='Deliverable Dead Date'
                     variant='outlined'
+                    onChange={(e) => handleDeliverDeadlineDate(e.target.value, index)}
                     InputProps={{
                         endAdornment: <InputAdornment position="end"><EventNoteIcon ><KeyboardDatePicker
                             disableToolbar
@@ -45,6 +47,8 @@ const CreateDeliverable = ({ index }) => {
                     fullWidth
                     label='Social Platform'
                     variant='outlined'
+                    value={deliverableItem && deliverableItem.socialPlatform}
+                    onChange={(e) => handleDilverableContent(e.target.value, index, 'socialPlatform')}
                 />
             </Grid>
             <Grid item xs={12} sm={12} md={6}>
@@ -53,6 +57,9 @@ const CreateDeliverable = ({ index }) => {
                     fullWidth
                     label='Campaign Type'
                     variant='outlined'
+                    value={deliverableItem && deliverableItem.campaignType}
+                    onChange={(e) => handleDilverableContent(e.target.value, index, 'campaignType')}
+
                 />
             </Grid>
             <Grid item xs={12} sm={12} md={6}>
@@ -61,6 +68,9 @@ const CreateDeliverable = ({ index }) => {
                     fullWidth
                     label='Frame Type'
                     variant='outlined'
+                    value={deliverableItem && deliverableItem.frameType}
+                    onChange={(e) => handleDilverableContent(e.target.value, index, 'frameType')}
+
                 />
             </Grid>
             <Grid item xs={12} sm={12} md={6}>
@@ -69,22 +79,22 @@ const CreateDeliverable = ({ index }) => {
                     fullWidth
                     label='Frame Required'
                     variant='outlined'
+                    value={deliverableItem && deliverableItem.frameRequired}
+                    onChange={(e) => handleDilverableContent(e.target.value, index, 'frameRequired')}
+
                 />
             </Grid>
             <Grid item xs={12} sm={12} md={8} >
                 <Grid container alignItems="center" >
                     <Grid item xs={1} className={styles.optionsItem}>
-                        {true ? (
+                        {deliverableItem && deliverableItem.brandTagRequired ? (
                             <CheckCircleIcon
-                                onClick={() => {
-                                    // toggleOption(option);
-                                }}
+                                onClick={() => handleDilverableContent(!deliverableItem.brandTagRequired, index, 'brandTagRequired')}
                             />
                         ) : (
                                 <RadioButtonUncheckedIcon
-                                    onClick={() => {
-                                        // toggleOption(option);
-                                    }}
+                                    onClick={() => handleDilverableContent(!deliverableItem.brandTagRequired, index, 'brandTagRequired')}
+
                                 />
                             )}
                     </Grid>
@@ -99,27 +109,26 @@ const CreateDeliverable = ({ index }) => {
                             fullWidth
                             label='Brand tag'
                             variant='outlined'
+                            value={deliverableItem && deliverableItem.brandTag}
+                            onChange={(e) => handleDilverableContent(e.target.value, index, 'brandTag')}
+
                         />
                     </Grid>
                 </Grid>
-
-
 
             </Grid>
             <Grid item xs={12} sm={12} md={8} >
                 <Grid container alignItems="center" >
                     <Grid item xs={1} className={styles.optionsItem}>
-                        {true ? (
+                        {deliverableItem && deliverableItem.hashTagRequired ? (
                             <CheckCircleIcon
-                                onClick={() => {
-                                    // toggleOption(option);
-                                }}
+                                onClick={() => handleDilverableContent(!deliverableItem.hashTagRequired, index, 'hashTagRequired')}
+
                             />
                         ) : (
                                 <RadioButtonUncheckedIcon
-                                    onClick={() => {
-                                        // toggleOption(option);
-                                    }}
+                                    onClick={() => handleDilverableContent(!deliverableItem.hashTagRequired, index, 'hashTagRequired')}
+
                                 />
                             )}
                     </Grid>
@@ -133,8 +142,8 @@ const CreateDeliverable = ({ index }) => {
                             id='outlined-basic'
                             fullWidth
                             label='Hashtag'
-                            // value={endDate}
-                            // onChange={handleEndDate}
+                            value={deliverableItem && deliverableItem.hashTag}
+                            onChange={(e) => handleDilverableContent(e.target.value, index, 'hashTag')}
                             variant='outlined'
                         />
                     </Grid>
@@ -150,6 +159,9 @@ const CreateDeliverable = ({ index }) => {
                     fullWidth
                     label='Number of Posts'
                     variant='outlined'
+                    value={deliverableItem && deliverableItem.NoPost}
+                    onChange={(e) => handleDilverableContent(e.target.value, index, 'NoPost')}
+
                 />
             </Grid>
             <Grid item xs={12} sm={12} md={6}>
@@ -158,6 +170,9 @@ const CreateDeliverable = ({ index }) => {
                     fullWidth
                     label='Per time period'
                     variant='outlined'
+                    value={deliverableItem && deliverableItem.perTimePeriod}
+                    onChange={(e) => handleDilverableContent(e.target.value, index, 'perTimePeriod')}
+
                 />
             </Grid>
 

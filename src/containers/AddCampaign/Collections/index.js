@@ -5,7 +5,7 @@ import SelectMenu from '../../../components/SelectMenu';
 import CollectionItem from './CollectionItem';
 import styles from './Collection.module.scss';
 
-const Collection = ({ collection, handleCollection, collectionItems }) => {
+const Collection = ({ collection, handleCollection, collectionItems, collections, handleCollectionItem }) => {
     return (
         <Grid container>
             <Grid item xs={12}>
@@ -33,35 +33,20 @@ const Collection = ({ collection, handleCollection, collectionItems }) => {
                 collection !== '' ?
                     <Grid item xs={12} className={styles.collections}>
                         <Grid container spacing={3} className={styles.collectionContainer}>
-                            <Grid item xs={3}>
-                                <CollectionItem />
-                            </Grid>
-                            <Grid item xs={3}>
-                                <CollectionItem />
-                            </Grid>
-                            <Grid item xs={3}>
-                                <CollectionItem />
-                            </Grid>
-                            <Grid item xs={3}>
-                                <CollectionItem />
-                            </Grid>
-                            <Grid item xs={3}>
-                                <CollectionItem />
-                            </Grid>
-                            <Grid item xs={3}>
-                                <CollectionItem />
-                            </Grid>
-                            <Grid item xs={3}>
-                                <CollectionItem />
-                            </Grid>
-                            <Grid item xs={3}>
-                                <CollectionItem />
-                            </Grid>
+                            {collectionItems.map((collectionItem, index) => {
+                                return (
+
+                                    <Grid item xs={3}>
+                                        <CollectionItem collectionItem={collectionItem} key={index} collection={collection} collections={collections} handleCollectionItem={handleCollectionItem} />
+                                    </Grid>
+                                )
+                            })
+                            }
                         </Grid>
                     </Grid> : null
             }
 
-        </Grid>);
+        </Grid >);
 };
 
 export default Collection;
