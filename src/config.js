@@ -7,7 +7,7 @@ export default {
   COGNITO: {
     REGION: 'us-east-1',
     USER_POOL_ID: 'us-east-1_Uwk97s2Os',
-    APP_CLIENT_ID: '1lgp4de3fakjilf4vrskfaue50',
+    APP_CLIENT_ID: '6u95nib95ihrcoqaebg3apjkg5',
     IDENTITY_POOL_ID: 'us-east-1:aaa13c8b-a7bb-4ead-b6a4-a74fa30b4899',
   },
 };
