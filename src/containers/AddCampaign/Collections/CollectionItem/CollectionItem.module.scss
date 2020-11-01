@@ -1,7 +1,18 @@
+@import '../../../../variable.module.scss';
 .collectionItemContainer {
     display: flex;
     flex-direction: column;
-    div {
+    .divContainer {
+        position: relative;
+    }
+    svg {
+        color: $primary1;
+        cursor: pointer;
+        position: absolute;
+        top: 8px;
+        right: -8px;
+      }
+    .divGary {
         height: 160px;
         width: 154px;
         border-radius: 20px;

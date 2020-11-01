@@ -29,11 +29,17 @@ const CssTextField = withStyles({
                 fontSize: '16px'
 
             },
+            '.MuiInputAdornment-root': {
+                display: 'none'
+            },
             '&:hover fieldset': {
                 borderColor: '#939393',
             },
             '&.Mui-focused fieldset': {
                 border: '1px solid #939393'
+            },
+            '&.Mui-focused fieldset .MuiInputAdornment-root': {
+                display: 'block'
             },
         },
     },

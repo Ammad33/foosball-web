@@ -17,7 +17,7 @@ const BudgetAndConversionGoals = ({ handleBudget, handleTargetSales, budget,
                     variant='outlined'
                     type="number"
                     InputProps={{
-                        startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                        endAdornment: <InputAdornment position="start">$</InputAdornment>,
                     }}
                 />
             </Grid>
@@ -31,7 +31,7 @@ const BudgetAndConversionGoals = ({ handleBudget, handleTargetSales, budget,
                     label='Target Gross Sales'
                     variant='outlined'
                     InputProps={{
-                        startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                        endAdornment: <InputAdornment position="end">$</InputAdornment>,
                     }}
                 />
             </Grid>

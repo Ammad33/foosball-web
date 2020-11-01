@@ -167,6 +167,66 @@ const collectionItems = [
 ];
 
 
+const items = [
+  {
+    id: 1,
+    name: 'Ben Parker',
+    qunatity: 25,
+    price: 64.22,
+    sku: '1234357'
+  },
+  {
+    id: 2,
+    name: 'Ben Parker',
+    qunatity: 20,
+    price: 64.22,
+    sku: '1324671'
+  },
+  {
+    id: 3,
+    name: 'Ben Parker',
+    qunatity: 20,
+    price: 58.22,
+    sku: '14235671'
+  },
+  {
+    id: 4,
+    name: 'Ben Parker',
+    qunatity: 18,
+    price: 50.22,
+    sku: '15234671'
+  },
+  {
+    id: 5,
+    name: 'Ben Parker',
+    qunatity: 30,
+    price: 60.22,
+    sku: '17234561'
+  },
+  {
+    id: 6,
+    name: 'Ben Parker',
+    qunatity: 40,
+    price: 90.22,
+    sku: '18234567'
+  },
+  {
+    id: 7,
+    name: 'Ben Parker',
+    qunatity: 20,
+    price: 80.22,
+    sku: '19234567'
+  },
+  {
+    id: 8,
+    name: 'Ben Parker',
+    qunatity: 30,
+    price: 70.22,
+    sku: '17234567'
+  }
+];
+
+
 const QontoConnector = withStyles({
   alternativeLabel: {
     top: 10,
@@ -222,7 +282,7 @@ const AddCampaign = ({ open, handleCancel }) => {
   const [customeMessage, setCustomMessage] = useState('');
   const [collection, setCollection] = useState('');
   const [collectionItems, setCollectItems] = useState([]);
-  const [deliveries, setDeliveries] = useState([{}]);
+  const [deliveries, setDeliveries] = useState([{ deliveableDeadDate: '', socialPlatform: '', frameType: '', campaignType: '', frameRequired: '', brandTag: '', brandTagRequired: false, hashTag: '', hashTagRequired: false, NoPost: '', perTimePeriod: '' }]);
   const [compensations, setCompensations] = useState([{}]);
   const [selectedNegotiable, setSelectedNegotiable] = useState(negotialbleOptions);
   const [selectedInfluncer, setSelectedInfluncer] = useState([]);
@@ -230,12 +290,25 @@ const AddCampaign = ({ open, handleCancel }) => {
   const [startDateOpen, setStartDateOpen] = useState(false);
   const [endDateOpen, setEndDateOpen] = useState(false);
 
+  const [collections, setCollections] = useState([]);
+
   const handleDeliverable = () => {
     const deliverables = [...deliveries];
-    deliverables.push({});
+    deliverables.push({ deliveableDeadDate: '', socialPlatform: '', frameType: '', campaignType: '', frameRequired: '', brandTag: '', brandTagRequired: false, hashTag: '', hashTagRequired: false, NoPost: '', perTimePeriod: '' });
     setDeliveries(deliverables)
   }
 
+  const handleDeliverDeadlineDate = (date, index) => {
+    const opts = [...deliveries];
+    opts[index].deliveableDeadDate = date !== '' && moment(date, 'MM/DD/YYYY', true).isValid() ? moment(date).format('L') : date;
+    setDeliveries(opts);
+  }
+
+  const handleDilverableContent = (value, index, fieldname) => {
+    const opts = [...deliveries];
+    opts[index][fieldname] = value;
+    setDeliveries(opts);
+  }
 
   const handleCompensations = () => {
     const comp = [...compensations];
@@ -251,6 +324,38 @@ const AddCampaign = ({ open, handleCancel }) => {
       }
       setSelectedNegotiable(opts);
     });
+  }
+
+  const handleCollectionItem = (name, item) => {
+
+    const opts = [...collections];
+    if (opts.length > 0) {
+      const index = opts.findIndex(item => item.collectionName === name);
+
+      if (index !== -1) {
+
+        const secondIndex = opts[index].collectionItems.findIndex(secondItem => secondItem.sku === item.sku);
+        if (secondIndex === -1) {
+          opts[index].collectionItems.push(item);
+          setCollections(opts);
+        } else {
+          opts[index].collectionItems.splice(secondIndex, 1);
+          setCollections(opts);
+        }
+      } else {
+        opts.push({
+          collectionName: name,
+          collectionItems: [item]
+        });
+        setCollections(opts);
+      }
+    } else {
+      opts.push({
+        collectionName: name,
+        collectionItems: [item]
+      });
+      setCollections(opts);
+    }
   }
 
   const toggleInfluncer = (option) => {
@@ -346,7 +451,11 @@ const AddCampaign = ({ open, handleCancel }) => {
           <Collection
             collection={collection}
             handleCollection={(e) => setCollection(e.target.value)}
-            collectionItems={collectionItems}
+            collectionItems={items}
+            collections={collections}
+            handleCollectionItem={handleCollectionItem}
+            handleDilverableContent={handleDilverableContent}
+            handleDeliverDeadlineDate={handleDeliverDeadlineDate}
           />
         );
       case 5:
