@@ -3,13 +3,17 @@ import styles from './ReviewAndSend.module.scss';
 import EditIcon from '@material-ui/icons/Edit';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
+import SVG from 'react-inlinesvg';
+const EditSVG = () => {
+  return <SVG src={require('../../../assets/edit.svg')} />;
+};
 const ReviewAndSend = () => {
   return (
     <div class={styles.mainContainer}>
       <div class={styles.section}>
         <div className={styles.titleAndAction}>
           <h3>Campaign Details</h3>
-          <EditIcon />
+          <EditSVG />
         </div>
         <div className={styles.campaigndDetails}>
           <Grid container spacing={3}>
@@ -53,7 +57,7 @@ const ReviewAndSend = () => {
       <div class={styles.section}>
         <div className={styles.titleAndAction}>
           <h3>Team Members</h3>
-          <EditIcon />
+          <EditSVG />
         </div>
         <div className={styles.teamMembersContainer}>
           <Grid container spacing={3}>
@@ -87,7 +91,7 @@ const ReviewAndSend = () => {
       <div class={styles.section}>
         <div className={styles.titleAndAction}>
           <h3>Budget & Conversion</h3>
-          <EditIcon />
+          <EditSVG />
         </div>
         <div className={styles.budgetAndConversionContainer}>
           <Grid container spacing={3}>
@@ -109,7 +113,7 @@ const ReviewAndSend = () => {
       <div class={styles.section}>
         <div className={styles.titleAndAction}>
           <h3>Collection</h3>
-          <EditIcon />
+          <EditSVG />
         </div>
         <div className={styles.collectionContainer}>
           <div className={styles.collectionSection}>
@@ -163,7 +167,7 @@ const ReviewAndSend = () => {
       <div class={styles.section}>
         <div className={styles.titleAndAction}>
           <h3>Deliverables</h3>
-          <EditIcon />
+          <EditSVG />
         </div>
         <div className={styles.deliverablesContainer}>
           <Grid container spacing={3}>
@@ -221,7 +225,7 @@ const ReviewAndSend = () => {
       <div class={styles.section}>
         <div className={styles.titleAndAction}>
           <h3>Compensation</h3>
-          <EditIcon />
+          <EditSVG />
         </div>
         <div className={styles.compensationContainer}>
           <Grid container spacing={3}>
@@ -243,7 +247,7 @@ const ReviewAndSend = () => {
       <div class={styles.section}>
         <div className={styles.titleAndAction}>
           <h3>Negotiables</h3>
-          <EditIcon />
+          <EditSVG />
         </div>
         <div className={styles.negotiablesContainer}>
           <Grid container spacing={3}>
@@ -268,7 +272,7 @@ const ReviewAndSend = () => {
       <div class={styles.section}>
         <div className={styles.titleAndAction}>
           <h3>Influencer</h3>
-          <EditIcon />
+          <EditSVG />
         </div>
         <div className={styles.influencerContainer}>
           <Grid container spacing={3}>
