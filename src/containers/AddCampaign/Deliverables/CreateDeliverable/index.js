@@ -3,15 +3,17 @@ import { Grid, InputAdornment } from '@material-ui/core';
 import TextField from '../../../../components/TextField';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import {
-    KeyboardDatePicker,
+    MuiPickersUtilsProvider, DatePicker
 } from '@material-ui/pickers';
 import styles from './CreateDeliverable.module.scss';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import DateFnsUtils from "@date-io/date-fns";
 
 
 const CreateDeliverable = ({ index, handleDilverableContent,
-    handleDeliverDeadlineDate, deliverableItem }) => {
+    handleDeliverDeadlineDate, deliverableItem, deliverableDate,
+    handleDeliverableDate }) => {
 
     return (
         <Grid container spacing={3} >
@@ -24,22 +26,24 @@ const CreateDeliverable = ({ index, handleDilverableContent,
                     fullWidth
                     label='Deliverable Dead Date'
                     variant='outlined'
+                    value={deliverableItem && deliverableItem.deliverableDeadDate}
                     onChange={(e) => handleDeliverDeadlineDate(e.target.value, index)}
                     InputProps={{
-                        endAdornment: <InputAdornment position="end"><EventNoteIcon ><KeyboardDatePicker
-                            disableToolbar
-                            variant="inline"
-                            format="MM/dd/yyyy"
-                            margin="normal"
-                            id="date-picker-inline"
-                            label="Date picker inline"
-                            style={{ display: 'none' }}
-                            KeyboardButtonProps={{
-                                'aria-label': 'change date',
-                            }}
-                        /></EventNoteIcon></InputAdornment>,
+                        endAdornment: <InputAdornment className={styles.cursorPointer} position="end" onClick={() => handleDeliverableDate(true)}><EventNoteIcon /></InputAdornment>,
                     }}
                 />
+                <MuiPickersUtilsProvider utils={DateFnsUtils} className={styles.displayNone} >
+                    <DatePicker style={{ display: 'none' }}
+                        open={deliverableDate}
+                        onChange={(date) => handleDeliverDeadlineDate(date, index)}
+                        value={deliverableItem && deliverableItem.deliverableDeadDate}
+                        orientation="landscape"
+                        openTo="date"
+                        format="MM/dd/yyyy"
+                        margin="normal"
+                        onClose={() => handleDeliverableDate(false)}
+                    />
+                </MuiPickersUtilsProvider>
             </Grid>
             <Grid item xs={12} sm={12} md={6}>
                 <TextField
@@ -93,13 +97,14 @@ const CreateDeliverable = ({ index, handleDilverableContent,
                             />
                         ) : (
                                 <RadioButtonUncheckedIcon
+                                    className={styles.svgDisabled}
                                     onClick={() => handleDilverableContent(!deliverableItem.brandTagRequired, index, 'brandTagRequired')}
 
                                 />
                             )}
                     </Grid>
                     <Grid item xs={4}>
-                        <p>
+                        <p className={!deliverableItem.brandTagRequired ? styles.disabled : ''}>
                             Brand tag required
                        </p>
                     </Grid>
@@ -109,6 +114,7 @@ const CreateDeliverable = ({ index, handleDilverableContent,
                             fullWidth
                             label='Brand tag'
                             variant='outlined'
+                            disabled={!deliverableItem.brandTagRequired}
                             value={deliverableItem && deliverableItem.brandTag}
                             onChange={(e) => handleDilverableContent(e.target.value, index, 'brandTag')}
 
@@ -127,13 +133,14 @@ const CreateDeliverable = ({ index, handleDilverableContent,
                             />
                         ) : (
                                 <RadioButtonUncheckedIcon
+                                    className={styles.svgDisabled}
                                     onClick={() => handleDilverableContent(!deliverableItem.hashTagRequired, index, 'hashTagRequired')}
 
                                 />
                             )}
                     </Grid>
                     <Grid item xs={4}>
-                        <p>
+                        <p className={!deliverableItem.hashTagRequired ? styles.disabled : ''}>
                             Hashtag requird
                        </p>
                     </Grid>
@@ -145,6 +152,7 @@ const CreateDeliverable = ({ index, handleDilverableContent,
                             value={deliverableItem && deliverableItem.hashTag}
                             onChange={(e) => handleDilverableContent(e.target.value, index, 'hashTag')}
                             variant='outlined'
+                            disabled={!deliverableItem.hashTagRequired}
                         />
                     </Grid>
                 </Grid>

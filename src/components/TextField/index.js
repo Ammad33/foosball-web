@@ -52,7 +52,7 @@ const CustomiseTextField = (props) => <CssTextField InputLabelProps={{
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         width: '100%',
-        color: '#000000'
+        color: props.disabled ? '#717171' : '#000000'
     }
 }} {...props} />;
 

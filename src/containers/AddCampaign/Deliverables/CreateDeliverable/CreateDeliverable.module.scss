@@ -4,7 +4,22 @@
       color: $primary1;
       cursor: pointer;
     }
+    .displayNone {
+      display: none;
+    }
+    .cursorPointer {
+      cursor: pointer;
+    }
+    .svgDisabled {
+      color: #717171;
+      cursor: pointer;
+    }
   }
+   
+  .disabled {
+    color: #717171;
+  }
+ 
 
   .headingColor {
     color: $dark1;
@@ -23,3 +38,6 @@
     line-height: 25px;
     margin-top: 16px;
   }
+
+ 
+ 

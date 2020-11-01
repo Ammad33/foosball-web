@@ -3,8 +3,10 @@ import { Grid, InputAdornment } from '@material-ui/core';
 
 import TextField from '../../../components/TextField';
 
-const BudgetAndConversionGoals = ({ handleBudget, handleTargetSales, budget,
-    targetSales }) => {
+const BudgetAndConversionGoals = ({ budget,
+    handleBudget,
+    handleGrossSale,
+    targetGrossSale, }) => {
     return (
         <Grid container spacing={2}>
             <Grid item md={12}>
@@ -26,8 +28,8 @@ const BudgetAndConversionGoals = ({ handleBudget, handleTargetSales, budget,
                     id='outlined-basic'
                     fullWidth
                     type="number"
-                    value={targetSales}
-                    onChange={handleTargetSales}
+                    value={targetGrossSale}
+                    onChange={handleGrossSale}
                     label='Target Gross Sales'
                     variant='outlined'
                     InputProps={{

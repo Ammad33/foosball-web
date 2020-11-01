@@ -169,60 +169,63 @@ const items = [
   {
     id: 1,
     name: 'Ben Parker',
-    qunatity: 25,
+    quntity: 25,
     price: 64.22,
     sku: '1234357',
   },
   {
     id: 2,
     name: 'Ben Parker',
-    qunatity: 20,
+    quntity: 20,
     price: 64.22,
     sku: '1324671',
   },
   {
     id: 3,
     name: 'Ben Parker',
-    qunatity: 20,
+    quntity: 20,
     price: 58.22,
     sku: '14235671',
   },
   {
     id: 4,
     name: 'Ben Parker',
-    qunatity: 18,
+    quntity: 18,
     price: 50.22,
     sku: '15234671',
   },
   {
     id: 5,
     name: 'Ben Parker',
-    qunatity: 30,
+    quntity: 30,
     price: 60.22,
     sku: '17234561',
   },
   {
     id: 6,
     name: 'Ben Parker',
-    qunatity: 40,
+    quntity: 40,
     price: 90.22,
     sku: '18234567',
   },
   {
     id: 7,
     name: 'Ben Parker',
-    qunatity: 20,
+    quntity: 20,
     price: 80.22,
     sku: '19234567',
   },
   {
     id: 8,
     name: 'Ben Parker',
-    qunatity: 30,
+    quntity: 30,
     price: 70.22,
     sku: '17234567',
   },
 ];
+
+
+
 
 const QontoConnector = withStyles({
   alternativeLabel: {
@@ -278,10 +281,13 @@ const AddCampaign = ({ open, handleCancel }) => {
   const [percentage, setPercentage] = useState('');
   const [customeMessage, setCustomMessage] = useState('');
   const [collection, setCollection] = useState('');
+  const [budget, setBudget] = useState('');
+  const [targetGrossSale, setTargetGrossSale] = useState('');
+  const [deliverableDate, setDeliverableDate] = useState(false);
   const [collectionItems, setCollectItems] = useState([]);
   const [deliveries, setDeliveries] = useState([
     {
-      deliveableDeadDate: '',
+      deliverableDeadDate: '',
       socialPlatform: '',
       frameType: '',
       campaignType: '',
@@ -304,12 +310,13 @@ const AddCampaign = ({ open, handleCancel }) => {
   const [endDateOpen, setEndDateOpen] = useState(false);
   const [openCDialog, setOpenCDialog] = useState(false);
 
+
   const [collections, setCollections] = useState([]);
 
   const handleDeliverable = () => {
     const deliverables = [...deliveries];
     deliverables.push({
-      deliveableDeadDate: '',
+      deliverableDeadDate: '',
       socialPlatform: '',
       frameType: '',
       campaignType: '',
@@ -326,14 +333,17 @@ const AddCampaign = ({ open, handleCancel }) => {
 
   const handleDeliverDeadlineDate = (date, index) => {
     const opts = [...deliveries];
-    opts[index].deliveableDeadDate =
+    opts[index].deliverableDeadDate =
       date !== '' && moment(date, 'MM/DD/YYYY', true).isValid()
         ? moment(date).format('L')
         : date;
+
     setDeliveries(opts);
+    setDeliverableDate(false);
   };
 
   const handleDilverableContent = (value, index, fieldname) => {
+
     const opts = [...deliveries];
     opts[index][fieldname] = value;
     setDeliveries(opts);
@@ -415,6 +425,15 @@ const AddCampaign = ({ open, handleCancel }) => {
     }
   };
 
+
+  const handleBudget = (e) => {
+    setBudget(e.target.value);
+  }
+
+  const handleGrossSale = (e) => {
+    setTargetGrossSale(e.target.value);
+  }
+
   const getStepContent = (activeStep) => {
     switch (activeStep) {
       case 1:
@@ -485,7 +504,12 @@ const AddCampaign = ({ open, handleCancel }) => {
           />
         );
       case 3:
-        return <BudgetConversionGoal />;
+        return <BudgetConversionGoal
+          budget={budget}
+          handleBudget={handleBudget}
+          handleGrossSale={handleGrossSale}
+          targetGrossSale={targetGrossSale}
+        />;
       case 4:
         return (
           <Collection
@@ -494,8 +518,6 @@ const AddCampaign = ({ open, handleCancel }) => {
             collectionItems={items}
             collections={collections}
             handleCollectionItem={handleCollectionItem}
-            handleDilverableContent={handleDilverableContent}
-            handleDeliverDeadlineDate={handleDeliverDeadlineDate}
           />
         );
       case 5:
@@ -503,6 +525,10 @@ const AddCampaign = ({ open, handleCancel }) => {
           <Deliverables
             deliveries={deliveries}
             handleDeliveries={handleDeliverable}
+            handleDilverableContent={handleDilverableContent}
+            handleDeliverDeadlineDate={handleDeliverDeadlineDate}
+            deliverableDate={deliverableDate}
+            handleDeliverableDate={(value) => setDeliverableDate(value)}
           />
         );
       case 6:
@@ -540,7 +566,7 @@ const AddCampaign = ({ open, handleCancel }) => {
         startDate !== '' &&
         endDate !== '' &&
         startTime !== '',
-      endTime !== '' &&
+        endTime !== '' &&
         discount !== '' &&
         percentage !== '' &&
         customeMessage !== '')
@@ -589,13 +615,13 @@ const AddCampaign = ({ open, handleCancel }) => {
                       {activeStep == index ? (
                         <div className={styles.active}></div>
                       ) : (
-                        <RadioButtonUncheckedIcon />
-                      )}
+                          <RadioButtonUncheckedIcon />
+                        )}
                       <span>{label}</span>
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                 </>
               ))}
             </div>
@@ -609,8 +635,8 @@ const AddCampaign = ({ open, handleCancel }) => {
                     onClick={handleBack}
                   />
                 ) : (
-                  <div></div>
-                )}
+                    <div></div>
+                  )}
 
                 <CloseIcon
                   fontSize='large'
@@ -650,7 +676,6 @@ const AddCampaign = ({ open, handleCancel }) => {
               </div>
               <button
                 onClick={() => handleNext(activeStep)}
-                // disabled={!activeNext}
                 className={clsx(
                   styles.nextButton,
                   activeNext ? styles.activeButton : styles.inActiveButton

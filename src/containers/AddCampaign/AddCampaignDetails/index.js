@@ -33,7 +33,7 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
           label='Start Date'
           variant='outlined'
           InputProps={{
-            endAdornment: <InputAdornment position="end"><EventNoteIcon className={styles.inputendornment} onClick={() => handleStartDateOpen(true)} ></EventNoteIcon></InputAdornment>,
+            endAdornment: <InputAdornment className={styles.inputendornment} position="end"><EventNoteIcon onClick={() => handleStartDateOpen(true)} ></EventNoteIcon></InputAdornment>,
           }}
         />
         <MuiPickersUtilsProvider utils={DateFnsUtils} >
@@ -59,7 +59,7 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
           onChange={(e) => handleEndDate(e.target.value)}
           variant='outlined'
           InputProps={{
-            endAdornment: <InputAdornment position="end"><EventNoteIcon className={styles.inputendornment} onClick={() => handleEndDateOpen(true)} ></EventNoteIcon></InputAdornment>,
+            endAdornment: <InputAdornment className={styles.inputendornment} position="end"><EventNoteIcon onClick={() => handleEndDateOpen(true)} ></EventNoteIcon></InputAdornment>,
           }}
         />
         <MuiPickersUtilsProvider utils={DateFnsUtils} >

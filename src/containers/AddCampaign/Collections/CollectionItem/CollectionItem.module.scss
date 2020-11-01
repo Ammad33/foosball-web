@@ -10,11 +10,12 @@
         cursor: pointer;
         position: absolute;
         top: 8px;
-        right: -8px;
+        right: 8px;
       }
     .divGary {
         height: 160px;
-        width: 154px;
+        width: 100%;
+        max-width: 154px;
         border-radius: 20px;
         background-color: #E8E8E8;
     }
@@ -39,5 +40,5 @@
 }
 
 .collections {
-    padding: 31px 50px;
+    padding: 31px 30px;
 }
