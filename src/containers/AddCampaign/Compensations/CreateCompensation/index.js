@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Grid, Select } from '@material-ui/core';
 import TextField from '../../../../components/TextField';
 import FormControl from '@material-ui/core/FormControl';
@@ -8,11 +8,12 @@ import styles from './CreateCompensation.module.scss';
 
 const CreateCompensation = ({ handleAnother, index, item, handleCompensationValue,
     handleRemoveCompensation }) => {
-    const [compensationType, setCompensationType] = useState('');
+
     return (
         <Grid container spacing={3} >
             <Grid item xs={12}>
                 <p className={styles.headingColor}>Compensation {index + 1}</p>
+                <img onClick={() => handleRemoveCompensation(index)} />
             </Grid>
             <Grid item xs={12}>
                 <FormControl fullWidth variant="outlined">
@@ -21,16 +22,17 @@ const CreateCompensation = ({ handleAnother, index, item, handleCompensationValu
                         id="demo-simple-select-outlined"
                         label="Choose Collection"
                         value={item.compensationType}
-                        native
                         onChange={(e) => {
                             handleCompensationValue(e.target.value, index, 'compensationType')
                             if (e.target.value !== '') {
                                 handleAnother()
                             }
                         }}
+                        displayEmpty
+                        MenuProps={{ variant: "menu" }}
                         input={<SelectMenu />}
                     >
-                        <MenuItem value="">
+                        <MenuItem value=''>
                             Compensation Type
                         </MenuItem>
                         <MenuItem value={'Cash per post'}>Cash per post</MenuItem>
@@ -42,7 +44,7 @@ const CreateCompensation = ({ handleAnother, index, item, handleCompensationValu
                 </FormControl>
 
             </Grid>
-            {compensationType !== '' &&
+            {item.compensationType !== '' &&
                 <Grid item xs={12} sm={12} md={12}>
                     <TextField
                         id='outlined-basic'

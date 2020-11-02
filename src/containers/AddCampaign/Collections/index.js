@@ -18,17 +18,17 @@ const Collection = ({ collection, handleCollection, collectionItems, collections
                         label="Choose Collection"
                         value={collection}
                         displayEmpty
-												onChange={handleCollection}
-												MenuProps={{variant: "menu"}}
+                        onChange={handleCollection}
+                        MenuProps={{ variant: "menu" }}
                         input={<SelectMenu />}
                     >
                         <MenuItem value="">
-                             Choose Collection  
+                            Choose Collection
                         </MenuItem>
-                        <MenuItem  value={'Drop Cuts'}>Drop Cuts</MenuItem>
-                        <MenuItem  value={'Henleys'}>Henleys</MenuItem>
-                        <MenuItem  value={'Tanks'}>Tanks</MenuItem>
-                        <MenuItem  value={'V-Necks'}>V-Necks</MenuItem>
+                        <MenuItem value={'Drop Cuts'}>Drop Cuts</MenuItem>
+                        <MenuItem value={'Henleys'}>Henleys</MenuItem>
+                        <MenuItem value={'Tanks'}>Tanks</MenuItem>
+                        <MenuItem value={'V-Necks'}>V-Necks</MenuItem>
                     </Select>
                 </FormControl>
             </Grid>
