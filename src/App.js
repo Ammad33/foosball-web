@@ -8,6 +8,7 @@ import AddCampaign from './containers/AddCampaign';
 import Signin from './containers/Login';
 import ProctedRoute from './hoc/ProctedRoute';
 import ProtectedRoute from './hoc/ProctedRoute';
+import Auth from './hoc/Auth';
 
 const App = () => {
   return (
@@ -29,6 +30,11 @@ const App = () => {
           </ProctedRoute>
           <Route exact path='/signin'>
             <Signin />
+          </Route>
+          <Route exact path='/login'>
+            <Auth>
+              <div>login</div>
+            </Auth>
           </Route>
           <Redirect exact from='/' to='/campaigns' />
         </Switch>

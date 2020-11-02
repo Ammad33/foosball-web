@@ -3,22 +3,26 @@ import { Grid, Select } from '@material-ui/core';
 import TextField from '../../../../components/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import SelectMenu from '../../../../components/SelectMenu';
+import styles from './CreateCompensation.module.scss';
 
-const CreateCompensation = ({ handleAnother }) => {
+const CreateCompensation = ({ handleAnother, index, item, handleCompensationValue,
+    handleRemoveCompensation }) => {
     const [compensationType, setCompensationType] = useState('');
     return (
         <Grid container spacing={3} >
-
+            <Grid item xs={12}>
+                <p className={styles.headingColor}>Compensation {index + 1}</p>
+            </Grid>
             <Grid item xs={12}>
                 <FormControl fullWidth variant="outlined">
                     <Select
                         labelId="demo-simple-select-outlined-label"
                         id="demo-simple-select-outlined"
                         label="Choose Collection"
-                        value={compensationType}
+                        value={item.compensationType}
                         native
                         onChange={(e) => {
-                            setCompensationType(e.target.value);
+                            handleCompensationValue(e.target.value, index, 'compensationType')
                             if (e.target.value !== '') {
                                 handleAnother()
                             }
@@ -44,6 +48,8 @@ const CreateCompensation = ({ handleAnother }) => {
                         fullWidth
                         label='Enter Dollar Amount'
                         variant='outlined'
+                        value={item.amount}
+                        onChange={(e) => handleCompensationValue(e.target.value, index, 'amount')}
                     />
                 </Grid>
             }
