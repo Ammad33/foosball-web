@@ -287,7 +287,7 @@ const AddCampaign = ({ open, handleCancel }) => {
   const [budget, setBudget] = useState('');
   const [targetGrossSale, setTargetGrossSale] = useState('');
   const [deliverableDate, setDeliverableDate] = useState(false);
-  const [collectionItems, setCollectItems] = useState([]);
+
   const [deliveries, setDeliveries] = useState([
     {
       deliverableDeadDate: '',
@@ -303,7 +303,10 @@ const AddCampaign = ({ open, handleCancel }) => {
       perTimePeriod: '',
     },
   ]);
-  const [compensations, setCompensations] = useState([{}]);
+  const [compensations, setCompensations] = useState([{
+    compensationType: '',
+    amount: ''
+  }]);
   const [selectedNegotiable, setSelectedNegotiable] = useState(
     negotialbleOptions
   );
@@ -346,7 +349,6 @@ const AddCampaign = ({ open, handleCancel }) => {
   };
 
   const handleDilverableContent = (value, index, fieldname) => {
-
     const opts = [...deliveries];
     opts[index][fieldname] = value;
     setDeliveries(opts);
@@ -354,9 +356,29 @@ const AddCampaign = ({ open, handleCancel }) => {
 
   const handleCompensations = () => {
     const comp = [...compensations];
-    comp.push({});
+    comp.push({
+      compensationType: '',
+      amount: ''
+    });
     setCompensations(comp);
   };
+
+  const handleCompensationValue = (value, index, fieldName) => {
+
+    const comp = [...compensations];
+
+    comp[index][fieldName] = value;
+
+    setCompensations(comp);
+
+  }
+
+
+  const handleRemoveCompensation = (index) => {
+    const comp = [...compensations];
+    comp.splice(index, 1);
+    setCompensations(comp);
+  }
 
   const toggleNegotiable = (option) => {
     const opts = [...selectedNegotiable];
