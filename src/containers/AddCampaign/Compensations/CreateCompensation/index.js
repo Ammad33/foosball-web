@@ -3,6 +3,8 @@ import { Grid, Select } from '@material-ui/core';
 import TextField from '../../../../components/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import SelectMenu from '../../../../components/SelectMenu';
+import MenuItem from '@material-ui/core/MenuItem';
+
 
 const CreateCompensation = ({ handleAnother }) => {
     const [compensationType, setCompensationType] = useState('');
@@ -14,9 +16,10 @@ const CreateCompensation = ({ handleAnother }) => {
                     <Select
                         labelId="demo-simple-select-outlined-label"
                         id="demo-simple-select-outlined"
-                        label="Choose Collection"
+                        label="Choose Compensation"
                         value={compensationType}
-                        native
+												MenuProps={{variant: "menu"}}
+												displayEmpty
                         onChange={(e) => {
                             setCompensationType(e.target.value);
                             if (e.target.value !== '') {
@@ -25,14 +28,14 @@ const CreateCompensation = ({ handleAnother }) => {
                         }}
                         input={<SelectMenu />}
                     >
-                        <option value="">
+                        <MenuItem value="">
                             Compensation Type
-                        </option>
-                        <option value={'Cash per post'}>Cash per post</option>
-                        <option value={'Cash per monthly deliverable'}>Cash per monthly deliverable</option>
-                        <option value={'Revenue Share'}>Revenue Share</option>
-                        <option value={'Gift Card'}>Gift Card</option>
-                        <option value={'Products'}>Products</option>
+                        </MenuItem>
+                        <MenuItem value={'Cash per post'}>Cash per post</MenuItem>
+                        <MenuItem value={'Cash per monthly deliverable'}>Cash per monthly deliverable</MenuItem>
+                        <MenuItem value={'Revenue Share'}>Revenue Share</MenuItem>
+                        <MenuItem value={'Gift Card'}>Gift Card</MenuItem>
+                        <MenuItem value={'Products'}>Products</MenuItem>
                     </Select>
                 </FormControl>
 

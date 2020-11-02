@@ -7,15 +7,16 @@
     text-align: center;
   }
   .optionsContainer {
-    margin: 20px auto;
-
+		margin: 20px auto;
     .optionsItem {
       display: flex;
       align-items: center;
-      gap: 10px;
+			gap: 10px;
       svg {
         color: $primary1;
-        cursor: pointer;
+				cursor: pointer;
+				width: 31px !important;
+				height: 31px !important;
       }
       span {
         cursor: pointer;

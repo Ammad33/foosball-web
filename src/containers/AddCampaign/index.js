@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -24,6 +24,7 @@ import clsx from 'clsx';
 import moment from 'moment';
 import CDialog from '../../components/ConfirmationDialog';
 import Translation from '../../assets/translation.json';
+import { set } from 'date-fns';
 
 let negotialbleOptions = [
   { id: 1, isChecked: true, text: 'Post Fee' },
@@ -270,7 +271,9 @@ const AddCampaign = ({ open, handleCancel }) => {
   const history = useHistory();
   const steps = getSteps();
   const [activeStep, setActiveStep] = useState(1);
-  const [activeNext, setActiveNext] = useState(false);
+	const [activeNext, setActiveNext] = useState(false);
+	const [activeSave, setActiveSave] = useState(false);
+
 
   const [campaignName, setCampaignName] = useState('');
   const [startDate, setStartDate] = useState('');
@@ -448,9 +451,11 @@ const AddCampaign = ({ open, handleCancel }) => {
             percentage={percentage}
             customeMessage={customeMessage}
             handleCampaignName={(e) => {
-              setCampaignName(e.target.value);
-              filledForm();
-            }}
+							setCampaignName(e.target.value);
+							filledForm();
+							setCampaignName(e.currentTarget.value)
+
+						}}
             startDateOpen={startDateOpen}
             endDateOpen={endDateOpen}
             handleStartDate={(date) => {
@@ -458,9 +463,10 @@ const AddCampaign = ({ open, handleCancel }) => {
                 date !== '' && moment(date, 'MM/DD/YYYY', true).isValid()
                   ? moment(date).format('L')
                   : date
-              );
+							);
               setStartDateOpen(false);
-              filledForm();
+							filledForm();
+
             }}
             handleStartDateOpen={(value) => setStartDateOpen(value)}
             handleEndDateOpen={(value) => setEndDateOpen(value)}
@@ -471,7 +477,8 @@ const AddCampaign = ({ open, handleCancel }) => {
                   : date
               );
               setEndDateOpen(false);
-              filledForm();
+							filledForm();
+
             }}
             handleStartTime={(e) => {
               setStartTime(e.target.value);
@@ -558,7 +565,24 @@ const AddCampaign = ({ open, handleCancel }) => {
       default:
         return 'Unknown step';
     }
-  };
+	};
+
+  useEffect(() => {
+		partialFilledForm();
+});
+
+	
+	const partialFilledForm = () => {
+		debugger;
+		if (
+			(
+			campaignName !== '' && 
+			startDate !== '' &&
+			endDate !== '')
+		){
+			setActiveSave(true);
+		}else setActiveSave(false);
+	};
 
   const filledForm = () => {
     if (
@@ -672,7 +696,7 @@ const AddCampaign = ({ open, handleCancel }) => {
 
             <div className={styles.actions}>
               <div className={styles.finishLater}>
-                {activeNext ? <span>Save and finish later</span> : null}
+                {activeSave ? <span>Save and finish later</span> : null}
               </div>
               <button
                 onClick={() => handleNext(activeStep)}

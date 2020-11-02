@@ -12,12 +12,15 @@
     }
     .svgDisabled {
       color: #717171;
-      cursor: pointer;
+			cursor: pointer;
+			margin-top: 4px;
+			height: 31px;
+			width: 31px;
     }
   }
    
   .disabled {
-    color: #717171;
+		color: #717171;
   }
  
 

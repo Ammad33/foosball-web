@@ -3,7 +3,9 @@ import { Grid, Select } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import SelectMenu from '../../../components/SelectMenu';
 import CollectionItem from './CollectionItem';
+import MenuItem from '@material-ui/core/MenuItem';
 import styles from './Collection.module.scss';
+import { red } from '@material-ui/core/colors';
 
 const Collection = ({ collection, handleCollection, collectionItems, collections, handleCollectionItem }) => {
     return (
@@ -15,17 +17,18 @@ const Collection = ({ collection, handleCollection, collectionItems, collections
                         id="demo-simple-select-outlined"
                         label="Choose Collection"
                         value={collection}
-                        native
-                        onChange={handleCollection}
+                        displayEmpty
+												onChange={handleCollection}
+												MenuProps={{variant: "menu"}}
                         input={<SelectMenu />}
                     >
-                        <option value="">
-                            Choose Collection
-                        </option>
-                        <option value={'Drop Cuts'}>Drop Cuts</option>
-                        <option value={'Henleys'}>Henleys</option>
-                        <option value={'Tanks'}>Tanks</option>
-                        <option value={'V-Necks'}>V-Necks</option>
+                        <MenuItem value="">
+                             Choose Collection  
+                        </MenuItem>
+                        <MenuItem  value={'Drop Cuts'}>Drop Cuts</MenuItem>
+                        <MenuItem  value={'Henleys'}>Henleys</MenuItem>
+                        <MenuItem  value={'Tanks'}>Tanks</MenuItem>
+                        <MenuItem  value={'V-Necks'}>V-Necks</MenuItem>
                     </Select>
                 </FormControl>
             </Grid>

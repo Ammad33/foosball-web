@@ -10,7 +10,11 @@
     .memberName {
       flex: auto;
       font-size: 19px;
-    }
+		}
+		.memberAvatar {
+			height: 49px; 
+			width: 49px;
+		}
     svg {
       color: $primary1;
       margin-right: 24px;
