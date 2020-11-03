@@ -24,6 +24,15 @@ import clsx from 'clsx';
 import moment from 'moment';
 import CDialog from '../../components/ConfirmationDialog';
 import Translation from '../../assets/translation.json';
+import SVG from 'react-inlinesvg';
+
+const XSVG = () => {
+  return <SVG src={require('../../assets/x.svg')} />;
+};
+
+const ChevronSVG = () => {
+  return <SVG src={require('../../assets/chevron-down.svg')} />;
+};
 
 let negotialbleOptions = [
   { id: 1, isChecked: true, text: 'Post Fee' },
@@ -690,21 +699,18 @@ const AddCampaign = ({ open, handleCancel }) => {
             <DialogTitle className={styles.dialogTitle}>
               <div className={styles.header}>
                 {activeStep > 1 ? (
-                  <KeyboardArrowLeftIcon
-                    fontSize='large'
-                    onClick={handleBack}
-                  />
+                  <span onClick={handleBack}>
+                    <ChevronSVG
+                    />
+                  </span>
                 ) : (
                     <div></div>
                   )}
-
-                <CloseIcon
-                  fontSize='large'
-                  onClick={handleCancelCampaignDialog}
-                />
+                <span onClick={handleCancelCampaignDialog}>
+                  <XSVG
+                  />
+                </span>
               </div>
-            </DialogTitle>
-            <DialogContent className={styles.dialogContent}>
               <div className={styles.stepperAndComponent}>
                 <div className={styles.stepperNumberAndNameContainer}>
                   <p>
@@ -724,6 +730,11 @@ const AddCampaign = ({ open, handleCancel }) => {
                     </Step>
                   ))}
                 </Stepper>
+              </div>
+
+            </DialogTitle>
+            <DialogContent className={styles.dialogContent}>
+              <div className={styles.stepperAndComponent}>
                 <div className={styles.stepperContent}>
                   {getStepContent(activeStep)}
                 </div>

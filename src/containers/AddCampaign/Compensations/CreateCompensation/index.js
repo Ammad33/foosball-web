@@ -5,15 +5,17 @@ import FormControl from '@material-ui/core/FormControl';
 import SelectMenu from '../../../../components/SelectMenu';
 import MenuItem from '@material-ui/core/MenuItem';
 import styles from './CreateCompensation.module.scss';
+import { Trash } from 'react-feather';
+import clsx from 'clsx';
 
-const CreateCompensation = ({ handleAnother, index, item, handleCompensationValue,
+const CreateCompensation = ({ compensations, handleAnother, index, item, handleCompensationValue,
     handleRemoveCompensation }) => {
 
     return (
         <Grid container spacing={3} >
-            <Grid item xs={12}>
+            <Grid item xs={12} className={clsx(styles.headerContainer, index > 0 ? styles.marginTop : '')}>
                 <p className={styles.headingColor}>Compensation {index + 1}</p>
-                <img onClick={() => handleRemoveCompensation(index)} />
+                {compensations.length > 1 && <Trash onClick={() => handleRemoveCompensation(index)} />}
             </Grid>
             <Grid item xs={12}>
                 <FormControl fullWidth variant="outlined">
