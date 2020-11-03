@@ -6,8 +6,10 @@ import Campaigns from './containers/Campaigns';
 import CampaignDetail from './containers/CampaignDetail';
 import AddCampaign from './containers/AddCampaign';
 import Login from './containers/Login';
-import ProctedRoute from './hoc/ProctedRoute';
-import ProtectedRoute from './hoc/ProctedRoute';
+import Signup from './containers/Signup';
+import ForgotPassword from './containers/ForgotPassword';
+import ResetPassword from './containers/ResetPassword';
+import ProtectedRoute from './hoc/ProtectedRoute';
 import Auth from './hoc/Auth';
 
 const App = () => {
@@ -20,17 +22,32 @@ const App = () => {
               <Campaigns />
             </Layout>
           </ProtectedRoute>
-          <ProctedRoute exact path='/campaignDetail'>
+          <ProtectedRoute exact path='/campaignDetail'>
             <Layout>
               <CampaignDetail />
             </Layout>
-          </ProctedRoute>
-          <ProctedRoute exact path='/addCampaign'>
+          </ProtectedRoute>
+          <ProtectedRoute exact path='/addCampaign'>
             <AddCampaign />
-          </ProctedRoute>
+          </ProtectedRoute>
           <Route exact path='/login'>
             <Auth>
               <Login />
+            </Auth>
+          </Route>
+          <Route exact path='/signup'>
+            <Auth>
+              <Signup />
+            </Auth>
+          </Route>
+          <Route exact path='/forgot-password'>
+            <Auth>
+              <ForgotPassword />
+            </Auth>
+          </Route>
+          <Route exact path='/reset-password'>
+            <Auth>
+              <ResetPassword />
             </Auth>
           </Route>
           <Redirect exact from='/' to='/campaigns' />
