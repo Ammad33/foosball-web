@@ -17,7 +17,7 @@ const ProtectedRoute = ({ children, ...routeProps }) => {
           // if (true) {
           return children;
         } else {
-          return <Redirect to={'/signin'} />;
+          return <Redirect to={'/login'} />;
         }
       }}
     />

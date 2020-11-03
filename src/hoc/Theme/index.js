@@ -9,6 +9,11 @@ const theme = createMuiTheme({
       dark: '#7B5CD9',
       contrastText: '#fff',
     },
+    neutral: {
+      main: '#000',
+      dark: '#000',
+      contrastText: '#fff',
+    },
   },
   typography: {
     fontSize: 15,

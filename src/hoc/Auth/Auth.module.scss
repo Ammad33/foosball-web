@@ -1,0 +1,28 @@
+@import './../../variable.module.scss';
+.authContainer {
+  height: 100%;
+  display: flex;
+  .logoAndComponent {
+    padding: 40px;
+    flex: 0 0 50%;
+    .logoDiv {
+      width: 200px;
+      height: 68px;
+      background-color: $authSidebarBackground;
+      border: 1px solid #979797;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 100px;
+    }
+  }
+  .sidebar {
+    flex: 0 0 50%;
+    background-color: $authSidebarBackground;
+    display: flex;
+    div {
+      margin: auto;
+      font-size: 30px;
+    }
+  }
+}

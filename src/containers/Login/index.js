@@ -4,6 +4,7 @@ import styles from './Login.module.scss';
 import { RootContext } from '../../context/RootContext';
 import { Auth } from 'aws-amplify';
 import { Redirect } from 'react-router-dom';
+import mainStyles from './../../index.module.scss';
 
 const Login = () => {
   const {
@@ -34,7 +35,7 @@ const Login = () => {
 
   return (
     <div className={styles.signinContainer}>
-      <h1>Signin</h1>
+      <h1>Login</h1>
       <TextField
         id='outlined-basic'
         onChange={(e) => setUsername(e.target.value)}
@@ -49,9 +50,23 @@ const Login = () => {
         variant='outlined'
         type='password'
       />
-      <Button onClick={onSignin} variant='contained' color='primary'>
-        Signin
-      </Button>
+      <a href='#'>Forgot Password?</a>
+      <div class={styles.actionsContainer}>
+        <Button
+          className={mainStyles.defaultButton}
+          onClick={onSignin}
+          variant='contained'
+        >
+          Login
+        </Button>
+        <Button
+          className={mainStyles.defaultOutlinedButton}
+          onClick={onSignin}
+          variant='outlined'
+        >
+          Signup
+        </Button>
+      </div>
       {errorMessage !== '' ? (
         <p className={styles.error}>
           <i>{errorMessage}</i>
@@ -62,6 +77,14 @@ const Login = () => {
           <i>{logoutMessage}</i>
         </p>
       ) : null}
+      <div>
+        <hr data-content='AND' />
+        <div className={styles.socialContainers}>
+          <div>1</div>
+          <div>2</div>
+          <div>3</div>
+        </div>
+      </div>
     </div>
   );
 };

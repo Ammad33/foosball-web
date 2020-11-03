@@ -1,14 +1,39 @@
 .signinContainer {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  max-width: 400px;
+  gap: 30px;
+  max-width: 496px;
   margin: auto;
-  padding-top: 100px;
-  p {
-    margin: 0px;
-    padding: 0px;
-    font-size: 16px;
+  // p {
+  //   margin: 0px;
+  //   padding: 0px;
+  //   font-size: 16px;
+  // }
+  .actionsContainer {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    button {
+      border-radius: 25px;
+      font-size: 19px;
+      font-weight: 400;
+      padding-left: 40px;
+      padding-right: 40px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+  }
+  .socialContainers {
+    display: flex;
+    gap: 20px;
+    div {
+      width: 158px;
+      height: 118px;
+      border: 1px solid black;
+      border-radius: 13px;
+      justify-content: center;
+    }
+    // flex
   }
 }
 
