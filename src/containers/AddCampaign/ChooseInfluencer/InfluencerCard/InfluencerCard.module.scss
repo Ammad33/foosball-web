@@ -64,17 +64,18 @@
 	margin-top: 10px;
 	margin-left: 5px;
   width: 350px;
+  color: #000000;
   box-shadow: 0px 6px 50px #0000001A !important;
   &.selectedInfluencer {
-    color: $white;
+    color: $white !important;
     background-color: $primary1;
     .cardContent {
       .socialIcons {
         svg {
           * {
-            color: white;
+            color: white !important;
           }
-          color: $white;
+          color: $white !important;
         }
       }
     }
@@ -140,7 +141,6 @@
 					margin-left: 10px;
 					height: 20px;
 					width: 64px;
-					color: #000000;
 					font-family: Poppins;
 					font-size: 14px;
 					font-weight: 500;
@@ -150,7 +150,7 @@
 				.influencername {
 					height: 15px;
 					width: 101px;
-					color: #000000;
+					// color: #000000;
 					font-family: Poppins;
 					font-size: 11px;
 					letter-spacing: 0;
@@ -160,7 +160,7 @@
 					height: 15px;
 					width: 101px;
 					padding-top: 1px;
-					color: #000000;
+					// color: #000000;
 					font-family: Poppins;
 					font-size: 11px;
 					letter-spacing: 0;
@@ -171,8 +171,8 @@
 				.ytfollowers{
 					height: 15px;
 					width: 101px;
-					padding-top: 3px;
-					color: #000000;
+					// padding-top: 3px;
+					// color: #000000;
 					font-family: Poppins;
 					font-size: 11px;
 					letter-spacing: 0;
@@ -201,7 +201,7 @@
 				}
 				.ytIcon {
 					margin-left: 30px;
-					margin-top: 8px;
+					margin-top: 6px;
 					height: 50px;
 					width: 22px;
 				}

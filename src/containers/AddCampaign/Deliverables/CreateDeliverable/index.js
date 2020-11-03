@@ -9,6 +9,7 @@ import styles from './CreateDeliverable.module.scss';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import DateFnsUtils from "@date-io/date-fns";
+import { Calendar } from 'react-feather';
 
 
 const CreateDeliverable = ({ index, handleDilverableContent,
@@ -29,7 +30,7 @@ const CreateDeliverable = ({ index, handleDilverableContent,
                     value={deliverableItem && deliverableItem.deliverableDeadDate}
                     onChange={(e) => handleDeliverDeadlineDate(e.target.value, index)}
                     InputProps={{
-                        endAdornment: <InputAdornment className={styles.cursorPointer} position="end" onClick={() => handleDeliverableDate(true)}><EventNoteIcon /></InputAdornment>,
+                        endAdornment: <InputAdornment className={styles.cursorPointer} position="end" onClick={() => handleDeliverableDate(true)}><Calendar /></InputAdornment>,
                     }}
                 />
                 <MuiPickersUtilsProvider utils={DateFnsUtils} className={styles.displayNone} >

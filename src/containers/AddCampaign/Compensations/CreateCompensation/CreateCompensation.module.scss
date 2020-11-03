@@ -6,3 +6,14 @@
     font-weight: 500;
     padding-top: 16px;
   }
+
+  .headerContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .marginTop {
+    margin-top: 16px !important;
+  }
