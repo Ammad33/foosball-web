@@ -30,7 +30,9 @@ const Negotiables = ({ selectedNegotiable, toggleNegotiable }) => {
                         }}
                       />
                     )}
-                  <span onClick={() => {
+									<span
+											style= {{paddingLeft: "21px"}}
+											onClick={() => {
                     toggleNegotiable(option);
                   }}>{option.text}</span>
                 </div>

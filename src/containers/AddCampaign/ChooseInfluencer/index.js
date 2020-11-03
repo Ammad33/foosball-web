@@ -6,17 +6,16 @@ import styles from './ChooseInfluencer.module.scss';
 
 const ChooseInfluencer = ({ selectedInfluncer, toggleInfluncer, influencers }) => {
   return (
-    <div>
+    <div className={styles.container}>
       <Grid container spacing={2}>
         {influencers.map((influencer) => {
           const index = selectedInfluncer.findIndex(item => item.name === influencer.name);
           return (
-            <Grid
-              key={influencer.socialTag}
-              className={styles.gridItem}
-              item
-              xs={6}
-            >
+						<Grid item md={6} xs = {12} 
+							className={styles.gridItem} 
+							style = {{marginTop: 20 }}
+							key={influencer.socialTag}
+              item            >
               <InfluencerCard influencer={influencer} selected={index} toggleInfluncer={toggleInfluncer} />
             </Grid>
           );

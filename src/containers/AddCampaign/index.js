@@ -69,7 +69,7 @@ const influencers = [
   {
     avatar:
       'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-    name: 'Sam Mark',
+    name: 'Sam',
     socialTag: 'miracle',
     instaFollowers: '32k',
     youtubeFollowers: '29k',
@@ -275,9 +275,11 @@ const AddCampaign = ({ open, handleCancel }) => {
 	const [activeSave, setActiveSave] = useState(false);
 
 
+	const current_date = moment().format("DD/MM/YYYY");
+
   const [campaignName, setCampaignName] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const [startDate, setStartDate] = useState(moment().format("DD/MM/YYYY"));
+  const [endDate, setEndDate] = useState(moment().add(1,'M').format("DD/MM/YYYY"));
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const [discount, setDiscount] = useState('');
@@ -310,14 +312,16 @@ const AddCampaign = ({ open, handleCancel }) => {
   const [selectedNegotiable, setSelectedNegotiable] = useState(
     negotialbleOptions
   );
-  const [selectedInfluncer, setSelectedInfluncer] = useState([]);
+	const [selectedInfluncer, setSelectedInfluncer] = useState([]);
+	const [influencer, setInfluencer] = useState('');
   const [selectedMembers, setSelectedMemebers] = useState([]);
   const [startDateOpen, setStartDateOpen] = useState(false);
   const [endDateOpen, setEndDateOpen] = useState(false);
   const [openCDialog, setOpenCDialog] = useState(false);
 
 
-  const [collections, setCollections] = useState([]);
+	const [collections, setCollections] = useState([]);
+	const [henleys, setHenleys] = useState('');
 
   const handleDeliverable = () => {
     const deliverables = [...deliveries];
@@ -427,13 +431,27 @@ const AddCampaign = ({ open, handleCancel }) => {
 
     const optIndex = opts.findIndex((item) => item.name === option.name);
 
-    if (optIndex === -1) {
-      opts.push(option);
-      setSelectedInfluncer(opts);
-    } else {
-      opts.splice(optIndex, 1);
-      setSelectedInfluncer(opts);
-    }
+		if (influencer === '' ){
+			opts.push(option);
+			setSelectedInfluncer(opts);
+			setInfluencer(1);
+		}
+		else if (influencer !== optIndex){
+			opts.splice(optIndex, 1);
+			setSelectedInfluncer(opts);
+			setInfluencer('');
+			opts.push(option);
+			setSelectedInfluncer(opts)
+			setInfluencer(1);
+
+		}
+    // if(optIndex === -1) {
+    //   opts.push(option);
+    //   setSelectedInfluncer(opts);
+    // } else {
+    //   opts.splice(optIndex, 1);
+    //   setSelectedInfluncer(opts);
+    // }
   };
 
   const addMember = (member) => {
@@ -545,7 +563,8 @@ const AddCampaign = ({ open, handleCancel }) => {
             collection={collection}
             handleCollection={(e) => setCollection(e.target.value)}
             collectionItems={items}
-            collections={collections}
+						collections={collections}
+						// handleCollectionHenleys={}
             handleCollectionItem={handleCollectionItem}
           />
         );
@@ -595,7 +614,6 @@ const AddCampaign = ({ open, handleCancel }) => {
 
 	
 	const partialFilledForm = () => {
-		debugger;
 		if (
 			(
 			campaignName !== '' && 
@@ -694,7 +712,7 @@ const AddCampaign = ({ open, handleCancel }) => {
               <div className={styles.stepperAndComponent}>
                 <div className={styles.stepperNumberAndNameContainer}>
                   <p>
-                    Step {activeStep} of {steps.length - 1}
+                    STEP {activeStep} OF {steps.length - 1}
                   </p>
                   <h2>{steps[activeStep]}</h2>
                 </div>
