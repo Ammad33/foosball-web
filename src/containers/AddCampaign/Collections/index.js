@@ -25,8 +25,12 @@ const Collection = ({ collection, handleCollection, collectionItems, collections
                         <MenuItem value="">
                             Choose Collection
                         </MenuItem>
-                        <MenuItem value={'Drop Cuts'}>Drop Cuts</MenuItem>
-                        <MenuItem value={'Henleys'}>Henleys</MenuItem>
+                        {/* <MenuItem  value={'Drop Cuts'}>Drop Cuts<span style= {{paddingLeft: "615px"}}> {2} </span>  </MenuItem>
+                        <MenuItem  value={'Henleys'}>Henleys <span style= {{paddingLeft: "631px"}}> {2} </span> </MenuItem>
+                        <MenuItem  value={'Tanks'}>Tanks <span style= {{paddingLeft: "647px"}}> {2} </span> </MenuItem>
+                        <MenuItem  value={'V-Necks'}>V-Necks <span style= {{paddingLeft: "630px"}}> {2} </span> </MenuItem> */}
+                        <MenuItem value={'Drop Cuts'}>Drop Cuts </MenuItem>
+                        <MenuItem value={'Henleys'}>Henleys </MenuItem>
                         <MenuItem value={'Tanks'}>Tanks</MenuItem>
                         <MenuItem value={'V-Necks'}>V-Necks</MenuItem>
                     </Select>

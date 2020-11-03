@@ -34,7 +34,7 @@ const CDialog = ({
         <h3>{message}</h3>
       </DialogContent>
       <div className={styles.cDialogActions}>
-        <Button onClick={handleOk}>{confirmText ? confirmText : 'Ok'}</Button>
+        <Button className={styles.confirm} onClick={handleOk}>{confirmText ? confirmText : 'Ok'}</Button>
         <Button
           variant='contained'
           className={globalStyles.dangerButton}
