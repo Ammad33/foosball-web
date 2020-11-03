@@ -4,6 +4,17 @@ import styles from './Login.module.scss';
 import { RootContext } from '../../context/RootContext';
 import { Auth } from 'aws-amplify';
 import { Redirect } from 'react-router-dom';
+import mainStyles from './../../index.module.scss';
+import SVG from 'react-inlinesvg';
+const FacebookSVG = () => {
+  return <SVG src={require('../../assets/facebookClr.svg')} />;
+};
+const GoogleSVG = () => {
+  return <SVG src={require('../../assets/googleClr.svg')} />;
+};
+const AppleSVG = () => {
+  return <SVG src={require('../../assets/apple.svg')} />;
+};
 
 const Login = () => {
   const {
@@ -34,7 +45,7 @@ const Login = () => {
 
   return (
     <div className={styles.signinContainer}>
-      <h1>Signin</h1>
+      <h1>Login</h1>
       <TextField
         id='outlined-basic'
         onChange={(e) => setUsername(e.target.value)}
@@ -49,9 +60,19 @@ const Login = () => {
         variant='outlined'
         type='password'
       />
-      <Button onClick={onSignin} variant='contained' color='primary'>
-        Signin
-      </Button>
+      <a href='#'>Forgot Password?</a>
+      <div className={styles.actionsContainer}>
+        <Button
+          className={mainStyles.defaultButton}
+          onClick={onSignin}
+          variant='contained'
+        >
+          Login
+        </Button>
+        <Button className={mainStyles.defaultOutlinedButton} variant='outlined'>
+          Signup
+        </Button>
+      </div>
       {errorMessage !== '' ? (
         <p className={styles.error}>
           <i>{errorMessage}</i>
@@ -62,6 +83,20 @@ const Login = () => {
           <i>{logoutMessage}</i>
         </p>
       ) : null}
+      <div>
+        <hr data-content='AND' />
+        <div className={styles.socialContainers}>
+          <div>
+            <GoogleSVG />
+          </div>
+          <div>
+            <FacebookSVG />
+          </div>
+          <div>
+            <AppleSVG />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
