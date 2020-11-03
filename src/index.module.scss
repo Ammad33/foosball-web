@@ -90,7 +90,8 @@ p {
 }
 .dangerButton {
   color: $white !important;
-  background-color: $danger !important;
+	background-color: $danger !important;
+	width: 172px;
 }
 
 .MuiSelect-root {

@@ -17,42 +17,34 @@ const YoutubeSVG = () => {
 
 const InfluencerCard = ({ influencer, selected, toggleInfluncer }) => {
   return (
-    <Card
-      className={clsx(
+
+		<Card
+			  className={clsx(
         styles.influencerCard,
         selected !== -1 ? styles.selectedInfluencer : ''
       )}
-      onClick={() => toggleInfluncer(influencer)}
-    >
+      onClick={() => toggleInfluncer(influencer)}>
       <CardContent className={styles.cardContent}>
-        <div className={styles.socialInfo}>
-          <Avatar src={influencer.avatar} />
-          <div>
-            <p>{influencer.name}</p>
-            <p>
-              <small>@{influencer.socialTag}</small>
-            </p>
-          </div>
-        </div>
-        <div className={styles.socialIcons}>
-          <div>
-            <InstagramSVG />
-            <p>
-              <small>{influencer.instaFollowers}</small>
-            </p>
-          </div>
-          <div>
-            <YoutubeSVG />
-            <p>
-              <small>{influencer.youtubeFollowers}</small>
-            </p>
-          </div>
-          <div>
-            <FacebookSVG />
-            <p>
-              <small>{influencer.facebookFollowers}</small>
-            </p>
-          </div>
+        <div className={styles.cardDetails}>
+						<div className={styles.personInfo}>
+							<Avatar
+								className={styles.personAvatar}
+								src={influencer.avatar}								
+							/>
+						</div>
+						<span className={styles.first_last}>{influencer.name}
+						<div className={styles.influencername}>@{influencer.socialTag}</div></span>
+						<span className = {styles.instaIcon}> 
+						<InstagramSVG  /> 
+						<div className= {styles.instafollowers}>{influencer.instaFollowers}</div> </span>
+						<span className = {styles.ytIcon}>  
+						<YoutubeSVG/> 
+						<div className={styles.ytfollowers}> {influencer.youtubeFollowers}</div>
+						</span>
+						<span className = {styles.fbIcon}>  
+						<FacebookSVG/> 
+						<div className={styles.influencername}>{influencer.facebookFollowers}</div>
+						</span>
         </div>
       </CardContent>
     </Card>
