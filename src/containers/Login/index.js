@@ -5,6 +5,16 @@ import { RootContext } from '../../context/RootContext';
 import { Auth } from 'aws-amplify';
 import { Redirect } from 'react-router-dom';
 import mainStyles from './../../index.module.scss';
+import SVG from 'react-inlinesvg';
+const FacebookSVG = () => {
+  return <SVG src={require('../../assets/facebookClr.svg')} />;
+};
+const GoogleSVG = () => {
+  return <SVG src={require('../../assets/googleClr.svg')} />;
+};
+const AppleSVG = () => {
+  return <SVG src={require('../../assets/apple.svg')} />;
+};
 
 const Login = () => {
   const {
@@ -51,7 +61,7 @@ const Login = () => {
         type='password'
       />
       <a href='#'>Forgot Password?</a>
-      <div class={styles.actionsContainer}>
+      <div className={styles.actionsContainer}>
         <Button
           className={mainStyles.defaultButton}
           onClick={onSignin}
@@ -59,11 +69,7 @@ const Login = () => {
         >
           Login
         </Button>
-        <Button
-          className={mainStyles.defaultOutlinedButton}
-          onClick={onSignin}
-          variant='outlined'
-        >
+        <Button className={mainStyles.defaultOutlinedButton} variant='outlined'>
           Signup
         </Button>
       </div>
@@ -80,9 +86,15 @@ const Login = () => {
       <div>
         <hr data-content='AND' />
         <div className={styles.socialContainers}>
-          <div>1</div>
-          <div>2</div>
-          <div>3</div>
+          <div>
+            <GoogleSVG />
+          </div>
+          <div>
+            <FacebookSVG />
+          </div>
+          <div>
+            <AppleSVG />
+          </div>
         </div>
       </div>
     </div>
