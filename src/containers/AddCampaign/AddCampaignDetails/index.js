@@ -23,8 +23,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate,
-  campaignName, startDate, endDate, startTime, endTime, discount, percentage, customeMessage,
-  handleStartTime, handleEndTime, handlePercentage, handleDiscount,
+  campaignName, startDate, endDate, startTime, endTime, discount, discountType, customeMessage,
+  handleStartTime, handleEndTime, handleDiscount, handleDiscountType,
   handleCustomMessage, startDateOpen, endDateOpen, handleStartDateOpen, handleEndDateOpen }) => {
 
   const classes = useStyles();
@@ -136,7 +136,7 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
           fullWidth
           label='Promotion Discount'
           value={discount}
-          onChange={handleDiscount}
+          onChange={(e) => handleDiscount(e)}
           variant='outlined'
         />
       </Grid>
@@ -146,8 +146,8 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
             id='outlined-basic'
             fullWidth
             displayEmpty
-            value={percentage}
-            onChange={handlePercentage}
+            value={discountType}
+            onChange={(e) => handleDiscountType(e.target.value)}
             variant='outlined'
             MenuProps={{ variant: "menu" }}
             placeholder="Discount Type"
@@ -161,16 +161,6 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
           </Select>
         </FormControl>
       </Grid>
-      {/* <Grid item xs={12} sm={12} md={6}>
-        <TextField
-          id='outlined-basic'
-          fullWidth
-          label='Percentage'
-          value={percentage}
-          onChange={handlePercentage}
-          variant='outlined'
-        />
-      </Grid> */}
       <Grid item xs={12} sm={12} md={12}>
         <TextField
           id='outlined-basic'

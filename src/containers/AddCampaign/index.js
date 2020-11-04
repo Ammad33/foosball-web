@@ -43,6 +43,19 @@ let negotialbleOptions = [
   { id: 6, isChecked: true, text: 'Campaign Duration' },
 ];
 
+let componentOptions = [
+	{ id: 1, text: 'Post Fee' },
+  { id: 2, text: 'Revenue Share %' },
+  { id: 3, text: 'Story Fee' },
+  { id: 4, text: 'Post Frequency' },
+  { id: 5, text: 'Monthly Retainer Fee' },
+	{ id: 6, text: 'Campaign Duration' },
+	{ id: 7, text: 'Campaign Duration1' },
+	{ id: 8, text: 'Campaign Duration2' },
+	{ id: 9, text: 'Campaign Duration3' },
+
+];
+
 const influencers = [
   {
     avatar:
@@ -273,15 +286,17 @@ function getSteps() {
     'Negotiables',
     'Choose Influencer',
     'Review And Send',
-  ];
+	];
 }
+
 const AddCampaign = ({ open, handleCancel }) => {
   const history = useHistory();
   const steps = getSteps();
   const [activeStep, setActiveStep] = useState(1);
-  const [activeNext, setActiveNext] = useState(false);
+	const [activeNext, setActiveNext] = useState(false);
+	const [dropCut, setDropCut] = useState(1);
 
-  const current_date = moment().format("DD/MM/YYYY");
+
 
   const [campaignName, setCampaignName] = useState('');
   const [startDate, setStartDate] = useState(moment().format("DD/MM/YYYY"));
@@ -289,7 +304,7 @@ const AddCampaign = ({ open, handleCancel }) => {
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const [discount, setDiscount] = useState('');
-  const [percentage, setPercentage] = useState('');
+  const [discountType, setDiscountType] = useState('');
   const [customeMessage, setCustomMessage] = useState('');
   const [collection, setCollection] = useState('');
   const [budget, setBudget] = useState('');
@@ -317,15 +332,17 @@ const AddCampaign = ({ open, handleCancel }) => {
   }]);
   const [selectedNegotiable, setSelectedNegotiable] = useState(
     negotialbleOptions
-  );
+	);
+	
+	const [selectedComponent, setSelectedComponent] = useState(componentOptions);
   const [selectedInfluncer, setSelectedInfluncer] = useState([]);
   const [influencer, setInfluencer] = useState('');
   const [selectedMembers, setSelectedMemebers] = useState([]);
   const [startDateOpen, setStartDateOpen] = useState(false);
   const [endDateOpen, setEndDateOpen] = useState(false);
   const [openCDialog, setOpenCDialog] = useState(false);
-  const [activeSave, setActiveSave] = useState(false);
-
+	const [activeSave, setActiveSave] = useState(false);
+ 
 
   const [collections, setCollections] = useState([]);
   const [henleys, setHenleys] = useState('');
@@ -411,8 +428,9 @@ const AddCampaign = ({ open, handleCancel }) => {
           (secondItem) => secondItem.sku === item.sku
         );
         if (secondIndex === -1) {
-          opts[index].collectionItems.push(item);
-          setCollections(opts);
+					opts[index].collectionItems.push(item);
+					setCollections(opts);
+					
         } else {
           opts[index].collectionItems.splice(secondIndex, 1);
           setCollections(opts);
@@ -427,11 +445,16 @@ const AddCampaign = ({ open, handleCancel }) => {
     } else {
       opts.push({
         collectionName: name,
-        collectionItems: [item],
+				collectionItems: [item],
       });
       setCollections(opts);
     }
-  };
+	};
+	
+	const toggleComponent = (option) => {
+		
+		getStepContent(option)
+	}
 
   const toggleInfluncer = (option) => {
     const opts = [...selectedInfluncer];
@@ -441,7 +464,7 @@ const AddCampaign = ({ open, handleCancel }) => {
     if (influencer === '') {
       opts.push(option);
       setSelectedInfluncer(opts);
-      setInfluencer(1);
+			setInfluencer(1);
     }
     else if (influencer !== optIndex) {
       opts.splice(optIndex, 1);
@@ -482,7 +505,32 @@ const AddCampaign = ({ open, handleCancel }) => {
 
   const handleGrossSale = (e) => {
     setTargetGrossSale(e.target.value);
-  }
+	}
+	
+	const handleDiscountType = (value) => {
+		setDiscount('');
+		setDiscountType(value)
+		filledForm();
+	}
+
+	const handleDiscount = (e) => {
+		if (discountType === "Amount"){
+			const value = e.target.value.replace(/[^\d]/,'');
+			if(parseInt(value) !== 0) {
+				setDiscount(value);		}
+		}
+		else {
+		const re = /^((0|[1-9]\d?)(\.\d{1,2})?|100(\.00?)?)$/;
+		const value = e.currentTarget.value
+		var x = parseFloat(value);
+		if (value!== "" && (isNaN(x) || x < 0 || x > 100 )) {
+			return false;
+		}
+		else
+			setDiscount(value);
+		}
+    filledForm();
+	}
 
   const getStepContent = (activeStep) => {
     switch (activeStep) {
@@ -495,7 +543,7 @@ const AddCampaign = ({ open, handleCancel }) => {
             startTime={startTime}
             endTime={endTime}
             discount={discount}
-            percentage={percentage}
+						discountType={discountType}
             customeMessage={customeMessage}
             handleCampaignName={(e) => {
               setCampaignName(e.target.value);
@@ -531,14 +579,8 @@ const AddCampaign = ({ open, handleCancel }) => {
               setEndTime(e.target.value);
               filledForm();
             }}
-            handlePercentage={(e) => {
-              setPercentage(e.target.value);
-              filledForm();
-            }}
-            handleDiscount={(e) => {
-              setDiscount(e.target.value);
-              filledForm();
-            }}
+						handleDiscount={handleDiscount}
+            handleDiscountType= {handleDiscountType}
             handleCustomMessage={(e) => {
               setCustomMessage(e.target.value);
               filledForm();
@@ -566,7 +608,7 @@ const AddCampaign = ({ open, handleCancel }) => {
             collection={collection}
             handleCollection={(e) => setCollection(e.target.value)}
             collectionItems={items}
-            collections={collections}
+						collections={collections}
             // handleCollectionHenleys={}
             handleCollectionItem={handleCollectionItem}
           />
@@ -607,7 +649,8 @@ const AddCampaign = ({ open, handleCancel }) => {
           />
         );
       case 9:
-        return <ReviewAndSend />;
+				return <ReviewAndSend
+						toggleComponent= {toggleComponent} />;
       default:
         return 'Unknown step';
     }
@@ -619,13 +662,14 @@ const AddCampaign = ({ open, handleCancel }) => {
 
 
   const partialFilledForm = () => {
+
     if (
       (
         campaignName !== '' &&
         startDate !== '' &&
         endDate !== '')
     ) {
-      setActiveSave(true);
+			setActiveSave(true);
     } else setActiveSave(false);
   };
 
@@ -637,7 +681,7 @@ const AddCampaign = ({ open, handleCancel }) => {
         startTime !== '',
         endTime !== '' &&
         discount !== '' &&
-        percentage !== '' &&
+        discountType !== '' &&
         customeMessage !== '')
     ) {
       setActiveNext(true);
@@ -743,7 +787,7 @@ const AddCampaign = ({ open, handleCancel }) => {
 
             <div className={styles.actions}>
               <div className={styles.finishLater}>
-                {activeNext ? <span>Save and finish later</span> : null}
+                {activeSave ? <span>Save and finish later</span> : null}
               </div>
               <button
                 onClick={() => handleNext(activeStep)}
