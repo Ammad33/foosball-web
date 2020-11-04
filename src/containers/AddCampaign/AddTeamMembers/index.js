@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './AddTeamMembers.module.scss';
 import { Avatar } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
-const AddTeamMembers = ({ selectedMembers, handleAdd, members }) => {
+const AddTeamMembers = ({ selectedMembers, handleAdd, members, handleActiveNext }) => {
+
+  useEffect(() => {
+    handleActiveNext()
+  }, [])
   return (
     <div className={styles.mainContainer}>
       {members.map((member) => {

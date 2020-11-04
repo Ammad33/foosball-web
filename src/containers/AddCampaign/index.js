@@ -4,12 +4,9 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import StepConnector from '@material-ui/core/StepConnector';
-import { useHistory } from 'react-router-dom';
 import Dialog from '@material-ui/core/Dialog';
 import { DialogTitle, DialogContent } from '@material-ui/core';
 import styles from './AddCampaign.module.scss';
-import CloseIcon from '@material-ui/icons/Close';
-import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import AddCampaignDetails from './AddCampaignDetails';
 import AddTeamMembers from './AddTeamMembers';
 import BudgetConversionGoal from './BudgetConversionGoal';
@@ -44,15 +41,15 @@ let negotialbleOptions = [
 ];
 
 let componentOptions = [
-	{ id: 1, text: 'Post Fee' },
+  { id: 1, text: 'Post Fee' },
   { id: 2, text: 'Revenue Share %' },
   { id: 3, text: 'Story Fee' },
   { id: 4, text: 'Post Frequency' },
   { id: 5, text: 'Monthly Retainer Fee' },
-	{ id: 6, text: 'Campaign Duration' },
-	{ id: 7, text: 'Campaign Duration1' },
-	{ id: 8, text: 'Campaign Duration2' },
-	{ id: 9, text: 'Campaign Duration3' },
+  { id: 6, text: 'Campaign Duration' },
+  { id: 7, text: 'Campaign Duration1' },
+  { id: 8, text: 'Campaign Duration2' },
+  { id: 9, text: 'Campaign Duration3' },
 
 ];
 
@@ -148,44 +145,6 @@ const members = [
   },
 ];
 
-const collectionItems = [
-  {
-    id: 1,
-    name: 'Ben Parker',
-    avatar:
-      'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-  },
-  {
-    id: 2,
-    name: 'Chase Fade',
-    avatar:
-      'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1331&q=80',
-  },
-  {
-    id: 3,
-    name: 'Benny Chiou',
-    avatar:
-      'https://images.unsplash.com/photo-1534564533601-4d3e3d9fd229?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-  },
-  {
-    id: 4,
-    name: 'Jeromy Wilson',
-    avatar:
-      'https://images.unsplash.com/photo-1517070208541-6ddc4d3efbcb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-  },
-  {
-    id: 5,
-    name: 'Amber Miles',
-    avatar:
-      'https://images.unsplash.com/photo-1525550557089-27c1bfedd06c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-  },
-  {
-    id: 6,
-    name: 'Vaneesa Lee',
-    avatar:
-      'https://images.unsplash.com/photo-1525879000488-bff3b1c387cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-  },
-];
 
 const items = [
   {
@@ -247,7 +206,7 @@ const items = [
 ];
 
 
-
+//******Stepper Element Design *************/
 
 const QontoConnector = withStyles({
   alternativeLabel: {
@@ -274,6 +233,10 @@ const QontoConnector = withStyles({
 function QontoStepIcon(props) {
   return '';
 }
+
+
+/********* Steppper Labels ****************/
+
 function getSteps() {
   return [
     'Initial Step',
@@ -286,29 +249,46 @@ function getSteps() {
     'Negotiables',
     'Choose Influencer',
     'Review And Send',
-	];
+  ];
 }
 
+
+/*********Main Container of Add Campaign ************/
+
 const AddCampaign = ({ open, handleCancel }) => {
-  const history = useHistory();
+
+
+  /****** Stepper States ********/
+
   const steps = getSteps();
   const [activeStep, setActiveStep] = useState(1);
-	const [activeNext, setActiveNext] = useState(false);
-	const [dropCut, setDropCut] = useState(1);
+  const [activeNext, setActiveNext] = useState(false);
 
-
+  /****** Campaign Detail States ********/
 
   const [campaignName, setCampaignName] = useState('');
   const [startDate, setStartDate] = useState(moment().format("DD/MM/YYYY"));
   const [endDate, setEndDate] = useState(moment().add(1, 'M').format("DD/MM/YYYY"));
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
+  const [startTime, setStartTime] = useState(moment(new Date(), "hmm").format("HH:mm"));
+  const [endTime, setEndTime] = useState(moment(new Date(), "hmm").format("HH:mm"));
   const [discount, setDiscount] = useState('');
   const [discountType, setDiscountType] = useState('');
   const [customeMessage, setCustomMessage] = useState('');
-  const [collection, setCollection] = useState('');
+  const [startDateOpen, setStartDateOpen] = useState(false);
+  const [endDateOpen, setEndDateOpen] = useState(false);
+
+
+  /***** Budget and Target Sales ********/
+
   const [budget, setBudget] = useState('');
   const [targetGrossSale, setTargetGrossSale] = useState('');
+
+
+  const [collection, setCollection] = useState('');
+
+
+  /****** Deliverable States **********/
+
   const [deliverableDate, setDeliverableDate] = useState(false);
 
   const [deliveries, setDeliveries] = useState([
@@ -326,26 +306,43 @@ const AddCampaign = ({ open, handleCancel }) => {
       perTimePeriod: '',
     },
   ]);
+
+
+  /******* Compensations States */
+
   const [compensations, setCompensations] = useState([{
     compensationType: '',
     amount: ''
   }]);
+
+
+
+  /** Negotiable Options */
+
   const [selectedNegotiable, setSelectedNegotiable] = useState(
     negotialbleOptions
-	);
-	
-	const [selectedComponent, setSelectedComponent] = useState(componentOptions);
+  );
+
+  //**** Members State **********/
+
+  const [selectedMembers, setSelectedMemebers] = useState([]);
+
+
+  const [selectedComponent, setSelectedComponent] = useState(componentOptions);
+
   const [selectedInfluncer, setSelectedInfluncer] = useState([]);
   const [influencer, setInfluencer] = useState('');
-  const [selectedMembers, setSelectedMemebers] = useState([]);
-  const [startDateOpen, setStartDateOpen] = useState(false);
-  const [endDateOpen, setEndDateOpen] = useState(false);
+
+
   const [openCDialog, setOpenCDialog] = useState(false);
-	const [activeSave, setActiveSave] = useState(false);
- 
+  const [activeSave, setActiveSave] = useState(false);
+
 
   const [collections, setCollections] = useState([]);
-  const [henleys, setHenleys] = useState('');
+
+
+
+  /**** Add New deliverable */
 
   const handleDeliverable = () => {
     const deliverables = [...deliveries];
@@ -365,6 +362,8 @@ const AddCampaign = ({ open, handleCancel }) => {
     setDeliveries(deliverables);
   };
 
+  /** Handle deliverable Deadline *********/
+
   const handleDeliverDeadlineDate = (date, index) => {
     const opts = [...deliveries];
     opts[index].deliverableDeadDate =
@@ -376,11 +375,17 @@ const AddCampaign = ({ open, handleCancel }) => {
     setDeliverableDate(false);
   };
 
+
+  /***** Handle Deliverable Content ********/
+
   const handleDilverableContent = (value, index, fieldname) => {
     const opts = [...deliveries];
     opts[index][fieldname] = value;
     setDeliveries(opts);
   };
+
+
+  /***** Add New Compesation */
 
   const handleCompensations = () => {
     const comp = [...compensations];
@@ -390,6 +395,9 @@ const AddCampaign = ({ open, handleCancel }) => {
     });
     setCompensations(comp);
   };
+
+
+  /***** Handle Compesation Value ********/
 
   const handleCompensationValue = (value, index, fieldName) => {
 
@@ -401,12 +409,16 @@ const AddCampaign = ({ open, handleCancel }) => {
 
   }
 
+  /***** Remove Compesation *******/
 
   const handleRemoveCompensation = (index) => {
     const comp = [...compensations];
     comp.splice(index, 1);
     setCompensations(comp);
   }
+
+
+  /**** Toggle Negotiable *********/
 
   const toggleNegotiable = (option) => {
     const opts = [...selectedNegotiable];
@@ -418,6 +430,9 @@ const AddCampaign = ({ open, handleCancel }) => {
     });
   };
 
+
+  /********* Add Collection ***********/
+
   const handleCollectionItem = (name, item) => {
     const opts = [...collections];
     if (opts.length > 0) {
@@ -428,9 +443,9 @@ const AddCampaign = ({ open, handleCancel }) => {
           (secondItem) => secondItem.sku === item.sku
         );
         if (secondIndex === -1) {
-					opts[index].collectionItems.push(item);
-					setCollections(opts);
-					
+          opts[index].collectionItems.push(item);
+          setCollections(opts);
+
         } else {
           opts[index].collectionItems.splice(secondIndex, 1);
           setCollections(opts);
@@ -445,16 +460,18 @@ const AddCampaign = ({ open, handleCancel }) => {
     } else {
       opts.push({
         collectionName: name,
-				collectionItems: [item],
+        collectionItems: [item],
       });
       setCollections(opts);
     }
-	};
-	
-	const toggleComponent = (option) => {
-		
-		getStepContent(option)
-	}
+
+  };
+
+  const toggleComponent = (option) => {
+    getStepContent(option)
+  }
+
+  /***** Toggle Influncer ********/
 
   const toggleInfluncer = (option) => {
     const opts = [...selectedInfluncer];
@@ -464,7 +481,7 @@ const AddCampaign = ({ open, handleCancel }) => {
     if (influencer === '') {
       opts.push(option);
       setSelectedInfluncer(opts);
-			setInfluencer(1);
+      setInfluencer(1);
     }
     else if (influencer !== optIndex) {
       opts.splice(optIndex, 1);
@@ -475,14 +492,9 @@ const AddCampaign = ({ open, handleCancel }) => {
       setInfluencer(1);
 
     }
-    // if(optIndex === -1) {
-    //   opts.push(option);
-    //   setSelectedInfluncer(opts);
-    // } else {
-    //   opts.splice(optIndex, 1);
-    //   setSelectedInfluncer(opts);
-    // }
   };
+
+  //************************ Add Members  *********************/
 
   const addMember = (member) => {
     const opts = [...selectedMembers];
@@ -498,39 +510,72 @@ const AddCampaign = ({ open, handleCancel }) => {
     }
   };
 
+  /******************* Handle Budget *******************/
 
   const handleBudget = (e) => {
     setBudget(e.target.value);
   }
 
+  /************* Handle Target Gross Sale ***********/
+
   const handleGrossSale = (e) => {
     setTargetGrossSale(e.target.value);
-	}
-	
-	const handleDiscountType = (value) => {
-		setDiscount('');
-		setDiscountType(value)
-		filledForm();
-	}
+  }
 
-	const handleDiscount = (e) => {
-		if (discountType === "Amount"){
-			const value = e.target.value.replace(/[^\d]/,'');
-			if(parseInt(value) !== 0) {
-				setDiscount(value);		}
-		}
-		else {
-		const re = /^((0|[1-9]\d?)(\.\d{1,2})?|100(\.00?)?)$/;
-		const value = e.currentTarget.value
-		var x = parseFloat(value);
-		if (value!== "" && (isNaN(x) || x < 0 || x > 100 )) {
-			return false;
-		}
-		else
-			setDiscount(value);
-		}
-    filledForm();
-	}
+  /***************** Handle Discount Type *********/
+
+  const handleDiscountType = (value) => {
+    setDiscount('');
+    setDiscountType(value);
+  }
+
+  //*************Handle Discount *****************/
+
+  const handleDiscount = (e) => {
+    if (discountType === "Amount") {
+      const value = e.target.value.replace(/[^\d]/, '');
+      if (parseInt(value) !== 0) {
+        setDiscount(value);
+      }
+    }
+    else {
+      const re = /^((0|[1-9]\d?)(\.\d{1,2})?|100(\.00?)?)$/;
+      const value = e.currentTarget.value
+      var x = parseFloat(value);
+      if (value !== "" && (isNaN(x) || x < 0 || x > 100)) {
+        return false;
+      }
+      else
+        setDiscount(value);
+    }
+  }
+
+  //***************** Active Next for Budget ********/
+
+  const setActiveForBudget = () => {
+    if (budget !== '' && targetGrossSale !== '') {
+      setActiveNext(true);
+    } else setActiveNext(false);
+  }
+
+  //*** Active for Collection *********/
+
+  const setActiveForCollection = () => {
+    const cols = [...collections];
+    if (cols.length === 0) {
+      setActiveNext(false);
+    } if (cols.length > 0) {
+      let flag = true;
+      cols.forEach(item => {
+        if (item.collectionItems.length === 0) {
+          flag = false;
+        }
+        setActiveNext(flag);
+      })
+    } else {
+      setActiveNext(false);
+    }
+  }
 
   const getStepContent = (activeStep) => {
     switch (activeStep) {
@@ -543,11 +588,10 @@ const AddCampaign = ({ open, handleCancel }) => {
             startTime={startTime}
             endTime={endTime}
             discount={discount}
-						discountType={discountType}
+            discountType={discountType}
             customeMessage={customeMessage}
             handleCampaignName={(e) => {
               setCampaignName(e.target.value);
-              filledForm();
             }}
             startDateOpen={startDateOpen}
             endDateOpen={endDateOpen}
@@ -558,7 +602,6 @@ const AddCampaign = ({ open, handleCancel }) => {
                   : date
               );
               setStartDateOpen(false);
-              filledForm();
             }}
             handleStartDateOpen={(value) => setStartDateOpen(value)}
             handleEndDateOpen={(value) => setEndDateOpen(value)}
@@ -569,22 +612,19 @@ const AddCampaign = ({ open, handleCancel }) => {
                   : date
               );
               setEndDateOpen(false);
-              filledForm();
             }}
             handleStartTime={(e) => {
               setStartTime(e.target.value);
-              filledForm();
             }}
             handleEndTime={(e) => {
               setEndTime(e.target.value);
-              filledForm();
             }}
-						handleDiscount={handleDiscount}
-            handleDiscountType= {handleDiscountType}
+            handleDiscount={handleDiscount}
+            handleDiscountType={handleDiscountType}
             handleCustomMessage={(e) => {
               setCustomMessage(e.target.value);
-              filledForm();
             }}
+            filledForm={filledForm}
           />
         );
       case 2:
@@ -593,6 +633,7 @@ const AddCampaign = ({ open, handleCancel }) => {
             selectedMembers={selectedMembers}
             handleAdd={addMember}
             members={members}
+            handleActiveNext={() => setActiveNext(true)}
           />
         );
       case 3:
@@ -601,6 +642,7 @@ const AddCampaign = ({ open, handleCancel }) => {
           handleBudget={handleBudget}
           handleGrossSale={handleGrossSale}
           targetGrossSale={targetGrossSale}
+          setActiveForBudget={setActiveForBudget}
         />;
       case 4:
         return (
@@ -608,8 +650,8 @@ const AddCampaign = ({ open, handleCancel }) => {
             collection={collection}
             handleCollection={(e) => setCollection(e.target.value)}
             collectionItems={items}
-						collections={collections}
-            // handleCollectionHenleys={}
+            collections={collections}
+            handleActiveForCollection={setActiveForCollection}
             handleCollectionItem={handleCollectionItem}
           />
         );
@@ -649,31 +691,15 @@ const AddCampaign = ({ open, handleCancel }) => {
           />
         );
       case 9:
-				return <ReviewAndSend
-						toggleComponent= {toggleComponent} />;
+        return <ReviewAndSend
+          toggleComponent={toggleComponent} />;
       default:
         return 'Unknown step';
     }
   };
 
-  useEffect(() => {
-    partialFilledForm();
-  });
-
-
-  const partialFilledForm = () => {
-
-    if (
-      (
-        campaignName !== '' &&
-        startDate !== '' &&
-        endDate !== '')
-    ) {
-			setActiveSave(true);
-    } else setActiveSave(false);
-  };
-
   const filledForm = () => {
+
     if (
       (campaignName !== '' &&
         startDate !== '' &&
@@ -795,6 +821,7 @@ const AddCampaign = ({ open, handleCancel }) => {
                   styles.nextButton,
                   activeNext ? styles.activeButton : styles.inActiveButton
                 )}
+                disabled={!activeNext}
               >
                 Next
               </button>

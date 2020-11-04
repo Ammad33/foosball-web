@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Grid, InputAdornment, Select } from '@material-ui/core';
-import TextField from '../../../components/TextField';
-import FormControl from '@material-ui/core/FormControl';
-import MenuItem from '@material-ui/core/MenuItem';
-import EventNoteIcon from '@material-ui/icons/EventNote';
+import { Calendar } from 'react-feather';
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
+import { Grid, InputAdornment, Select } from '@material-ui/core';
+import FormControl from '@material-ui/core/FormControl';
+import { makeStyles } from '@material-ui/core/styles';
+import MenuItem from '@material-ui/core/MenuItem';
+import React, { useState, useEffect } from 'react';
 import styles from './AddCampaignDetail.module.scss';
 import moment from 'moment';
-import { makeStyles } from '@material-ui/core/styles';
-import { Calendar } from 'react-feather';
+
+
+import TextField from '../../../components/TextField';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -23,11 +24,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate,
-  campaignName, startDate, endDate, startTime, endTime, discount, discountType, customeMessage,
-  handleStartTime, handleEndTime, handleDiscount, handleDiscountType,
-  handleCustomMessage, startDateOpen, endDateOpen, handleStartDateOpen, handleEndDateOpen }) => {
+  campaignName, startDate, endDate, startTime, endTime, discount, discountType, percentage, customeMessage,
+  handleStartTime, handleEndTime, handleDiscountType, handleDiscount, handleCustomMessage, startDateOpen,
+  endDateOpen, handleStartDateOpen, handleEndDateOpen, filledForm }) => {
 
   const classes = useStyles();
+
+  useEffect(() => {
+    filledForm();
+  }, [campaignName, startDate, endDate, discount, percentage, customeMessage])
+
   return (
     <Grid container spacing={3}>
       <Grid item md={12}>
@@ -98,7 +104,7 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
             id="time"
             type="time"
             label="Start Time"
-            defaultValue={moment(new Date(), "hmm").format("HH:mm")}
+            startTime={startTime}
             className={classes.textField}
             onChange={handleStartTime}
             variant='outlined'
@@ -117,7 +123,7 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
             id="time"
             type="time"
             label="End Time"
-            defaultValue={moment(new Date(), "hmm").format("HH:mm")}
+            endTime={endTime}
             className={classes.textField}
             onChange={handleEndTime}
             variant='outlined'
@@ -136,7 +142,7 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
           fullWidth
           label='Promotion Discount'
           value={discount}
-          onChange={(e) => handleDiscount(e)}
+          onChange={handleDiscount}
           variant='outlined'
         />
       </Grid>
@@ -161,6 +167,16 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
           </Select>
         </FormControl>
       </Grid>
+      {/* <Grid item xs={12} sm={12} md={6}>
+        <TextField
+          id='outlined-basic'
+          fullWidth
+          label='Percentage'
+          value={percentage}
+          onChange={handlePercentage}
+          variant='outlined'
+        />
+      </Grid> */}
       <Grid item xs={12} sm={12} md={12}>
         <TextField
           id='outlined-basic'

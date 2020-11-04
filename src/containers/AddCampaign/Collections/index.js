@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Grid, Select } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import SelectMenu from '../../../components/SelectMenu';
 import CollectionItem from './CollectionItem';
 import MenuItem from '@material-ui/core/MenuItem';
 import styles from './Collection.module.scss';
-import { red } from '@material-ui/core/colors';
 
-const Collection = ({ collection, handleCollection, collectionItems, collections, handleCollectionItem }) => {
+const Collection = ({ collection, handleCollection, collectionItems, collections, handleCollectionItem, handleActiveForCollection }) => {
+
+    useEffect(() => {
+        handleActiveForCollection()
+    }, [collections])
+
     return (
         <Grid container>
             <Grid item xs={12}>
