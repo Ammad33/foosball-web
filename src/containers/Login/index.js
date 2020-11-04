@@ -6,6 +6,8 @@ import { Auth } from 'aws-amplify';
 import { Redirect } from 'react-router-dom';
 import mainStyles from './../../index.module.scss';
 import SVG from 'react-inlinesvg';
+import { useHistory } from 'react-router-dom';
+
 const FacebookSVG = () => {
   return <SVG src={require('../../assets/facebookClr.svg')} />;
 };
@@ -17,6 +19,8 @@ const AppleSVG = () => {
 };
 
 const Login = () => {
+  const history = useHistory();
+
   const {
     currentUser,
     setCurrentUser,
@@ -60,7 +64,13 @@ const Login = () => {
         variant='outlined'
         type='password'
       />
-      <a href='#'>Forgot Password?</a>
+      <a
+        onClick={() => {
+          history.push('/forgot-password');
+        }}
+      >
+        Forgot Password?
+      </a>
       <div className={styles.actionsContainer}>
         <Button
           className={mainStyles.defaultButton}
@@ -69,7 +79,13 @@ const Login = () => {
         >
           Login
         </Button>
-        <Button className={mainStyles.defaultOutlinedButton} variant='outlined'>
+        <Button
+          onClick={() => {
+            history.push('/signup');
+          }}
+          className={mainStyles.defaultOutlinedButton}
+          variant='outlined'
+        >
           Signup
         </Button>
       </div>

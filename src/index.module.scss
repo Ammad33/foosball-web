@@ -13,6 +13,7 @@ body {
 a {
   text-decoration: none;
   color: $linkColor;
+  cursor: pointer;
 }
 
 h1 {
@@ -90,8 +91,8 @@ p {
 }
 .dangerButton {
   color: $white !important;
-	background-color: $danger !important;
-	width: 172px;
+  background-color: $danger !important;
+  width: 172px;
 }
 
 .MuiSelect-root {

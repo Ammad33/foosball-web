@@ -2,8 +2,10 @@ import React from 'react';
 import { TextField, Button } from '@material-ui/core';
 import styles from './ForgotPassword.module.scss';
 import mainStyles from './../../index.module.scss';
+import { useHistory } from 'react-router-dom';
 
 const ForgotPassword = () => {
+  const history = useHistory();
   return (
     <div className={styles.forgotPasswordContainer}>
       <h1>Forgot your password?</h1>
@@ -18,7 +20,13 @@ const ForgotPassword = () => {
         <Button className={mainStyles.defaultButton} variant='contained'>
           Send a link
         </Button>
-        <Button className={mainStyles.defaultOutlinedButton} variant='outlined'>
+        <Button
+          onClick={() => {
+            history.push('/login');
+          }}
+          className={mainStyles.defaultOutlinedButton}
+          variant='outlined'
+        >
           Login
         </Button>
       </div>
