@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import CreateDeliverable from './CreateDeliverable';
 import AddIcon from '@material-ui/icons/Add';
 import styles from './Deliverables.module.scss';
 
 const Deliverables = ({ deliveries, handleDeliveries, handleDilverableContent,
     handleDeliverDeadlineDate, deliverableDate,
-    handleDeliverableDate }) => {
+    handleDeliverableDate, handleActiveForDeliverable }) => {
+
+
+    useEffect(() => {
+        handleActiveForDeliverable();
+    }, [deliveries])
 
     return (<div>
         {

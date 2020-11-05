@@ -32,6 +32,7 @@ const CreateCompensation = ({ compensations, handleAnother, index, item, handleC
                         }}
                         displayEmpty
                         MenuProps={{ variant: "menu" }}
+                        input={<SelectMenu />}
                     >
                         <MenuItem value=''>
                             Compensation Type
@@ -50,6 +51,7 @@ const CreateCompensation = ({ compensations, handleAnother, index, item, handleC
                     <TextField
                         id='outlined-basic'
                         fullWidth
+                        type="number"
                         label='Enter Dollar Amount'
                         variant='outlined'
                         value={item.amount}

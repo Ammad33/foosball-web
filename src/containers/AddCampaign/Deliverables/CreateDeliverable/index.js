@@ -164,44 +164,31 @@ const CreateDeliverable = ({ index, handleDilverableContent,
             <Grid item xs={12}>
                 <p className={styles.headingColor}>Post Frequency</p>
             </Grid>
-						<Grid item xs={12} sm={12} md={6}>
-							<FormControl fullWidth variant="outlined">
-                    <Select
-                        labelId="demo-simple-select-outlined-label"
-												id='outlined-basic'
-												label="Number of Posts"
-												
-                        value={deliverableItem && deliverableItem.NoPost}
-                        displayEmpty
-                        onChange={(e) => handleDilverableContent(e.target.value, index, 'NoPost')}
-                        MenuProps={{ variant: "menu" }}
-												input={<SelectMenu />}
-
-                    >
-                        <MenuItem value='' disabled>
-                            No of Posts
-                        </MenuItem>
-                        <MenuItem value={'Monthly'}>Monthly </MenuItem>
-                        <MenuItem value={'Bi-Monthly'}>Bi-Monthly </MenuItem>
-                        <MenuItem value={'Weekly'}>Weekly</MenuItem>
-                        <MenuItem value={'Bi-Weekly'}>Weekly</MenuItem>
-                    </Select>
-                </FormControl>
-							</Grid>
+            <Grid item xs={12} sm={12} md={6}>
+                <TextField
+                    id='outlined-basic'
+                    fullWidth
+                    type="number"
+                    label='Number of Posts'
+                    variant='outlined'
+                    value={deliverableItem && deliverableItem.NoPost}
+                    onChange={(e) => handleDilverableContent(e.target.value, index, 'NoPost')}
+                />
+            </Grid>
 
             <Grid item xs={12} sm={12} md={6}>
-								<FormControl fullWidth variant="outlined">
+                <FormControl fullWidth variant="outlined">
                     <Select
-												id='outlined-basic'
-												fullWidth
-												label='Per time period'
-												variant='outlined'
-												value={deliverableItem && deliverableItem.perTimePeriod}
-												onChange={(e) => handleDilverableContent(e.target.value, index, 'perTimePeriod')}
-												
+                        id='outlined-basic'
+                        fullWidth
+                        label='Per time period'
+                        variant='outlined'
+                        value={deliverableItem && deliverableItem.perTimePeriod}
+                        onChange={(e) => handleDilverableContent(e.target.value, index, 'perTimePeriod')}
+
                         displayEmpty
                         MenuProps={{ variant: "menu" }}
-												input={<SelectMenu />}
+                        input={<SelectMenu />}
 
                     >
                         <MenuItem value='' disabled>
@@ -211,7 +198,7 @@ const CreateDeliverable = ({ index, handleDilverableContent,
                         <MenuItem value={'Week'}>Week </MenuItem>
                         <MenuItem value={'2 Weeks'}>2 Weeks</MenuItem>
                         <MenuItem value={'Month'}>Month</MenuItem>
-												<MenuItem value={'Quarter'}>Quarter</MenuItem>
+                        <MenuItem value={'Quarter'}>Quarter</MenuItem>
                     </Select>
                 </FormControl>
             </Grid>

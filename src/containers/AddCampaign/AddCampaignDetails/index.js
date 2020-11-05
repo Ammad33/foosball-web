@@ -5,7 +5,8 @@ import { Grid, InputAdornment, Select } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import SelectMenu from '../../../components/SelectMenu';
 import styles from './AddCampaignDetail.module.scss';
 import moment from 'moment';
 
@@ -26,17 +27,17 @@ const useStyles = makeStyles((theme) => ({
 const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate,
   campaignName, startDate, endDate, startTime, endTime, discount, discountType, percentage, customeMessage,
   handleStartTime, handleEndTime, handleDiscountType, handleDiscount, handleCustomMessage, startDateOpen,
-  endDateOpen, handleStartDateOpen, handleEndDateOpen, filledForm,partialFilledForm }) => {
+  endDateOpen, handleStartDateOpen, handleEndDateOpen, filledForm, partialFilledForm }) => {
 
   const classes = useStyles();
 
   useEffect(() => {
     filledForm();
-	}, [campaignName, startDate, endDate, discount, percentage, customeMessage])
-	
-	useEffect(() =>{
-		partialFilledForm();
-	});
+  }, [campaignName, startDate, endDate, discount, percentage, customeMessage])
+
+  useEffect(() => {
+    partialFilledForm();
+  });
 
   return (
     <Grid container spacing={3}>
@@ -107,8 +108,8 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
           <TextField
             id="time"
             type="time"
-						label="Start Time"
-						defaultValue= {moment(new Date(), "hmm").format("HH:mm")}
+            label="Start Time"
+            defaultValue={moment(new Date(), "hmm").format("HH:mm")}
             startTime={startTime}
             className={classes.textField}
             onChange={handleStartTime}
@@ -128,8 +129,8 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
             id="time"
             type="time"
             label="End Time"
-						endTime={endTime}
-						defaultValue= {moment(new Date(), "hmm").format("HH:mm")}
+            endTime={endTime}
+            defaultValue={moment(new Date(), "hmm").format("HH:mm")}
             className={classes.textField}
             onChange={handleEndTime}
             variant='outlined'
@@ -163,6 +164,7 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
             variant='outlined'
             MenuProps={{ variant: "menu" }}
             placeholder="Discount Type"
+            input={<SelectMenu />}
 
           >
             <MenuItem value="" disabled>

@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CreateCompensation from './CreateCompensation';
 import AddIcon from '@material-ui/icons/Add';
 import styles from './Compensations.module.scss';
 
 const Compensations = ({ compensations, handleCompensations, handleCompensationValue,
-    handleRemoveCompensation }) => {
+    handleRemoveCompensation, handleActiveForCompensation }) => {
+
     const [handleAnother, setAnother] = useState(false);
+    handleActiveForCompensation()
+    useEffect(() => {
+
+    }, [compensations])
+
     return (<div>
 
         {

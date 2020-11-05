@@ -22,6 +22,7 @@ import moment from 'moment';
 import CDialog from '../../components/ConfirmationDialog';
 import Translation from '../../assets/translation.json';
 import SVG from 'react-inlinesvg';
+import { set } from 'date-fns';
 
 const XSVG = () => {
   return <SVG src={require('../../assets/x.svg')} />;
@@ -331,7 +332,7 @@ const AddCampaign = ({ open, handleCancel }) => {
   const [selectedComponent, setSelectedComponent] = useState(componentOptions);
 
   const [selectedInfluncer, setSelectedInfluncer] = useState([]);
-  const [influencer, setInfluencer] = useState('');
+  const [influencer, setInfluencer] = useState(null);
 
 
   const [openCDialog, setOpenCDialog] = useState(false);
@@ -345,7 +346,9 @@ const AddCampaign = ({ open, handleCancel }) => {
   /**** Add New deliverable */
 
   const handleDeliverable = () => {
+
     const deliverables = [...deliveries];
+
     deliverables.push({
       deliverableDeadDate: '',
       socialPlatform: '',
@@ -359,6 +362,7 @@ const AddCampaign = ({ open, handleCancel }) => {
       NoPost: '',
       perTimePeriod: '',
     });
+
     setDeliveries(deliverables);
   };
 
@@ -370,7 +374,6 @@ const AddCampaign = ({ open, handleCancel }) => {
       date !== '' && moment(date, 'MM/DD/YYYY', true).isValid()
         ? moment(date).format('L')
         : date;
-
     setDeliveries(opts);
     setDeliverableDate(false);
   };
@@ -474,24 +477,9 @@ const AddCampaign = ({ open, handleCancel }) => {
   /***** Toggle Influncer ********/
 
   const toggleInfluncer = (option) => {
-    const opts = [...selectedInfluncer];
 
-    const optIndex = opts.findIndex((item) => item.name === option.name);
+    setInfluencer(option);
 
-    if (influencer === '') {
-      opts.push(option);
-      setSelectedInfluncer(opts);
-      setInfluencer(1);
-    }
-    else if (influencer !== optIndex) {
-      opts.splice(optIndex, 1);
-      setSelectedInfluncer(opts);
-      setInfluencer('');
-      opts.push(option);
-      setSelectedInfluncer(opts)
-      setInfluencer(1);
-
-    }
   };
 
   //************************ Add Members  *********************/
@@ -577,6 +565,57 @@ const AddCampaign = ({ open, handleCancel }) => {
     }
   }
 
+
+  /************* Active for deliverable */
+
+  const setActiveForDeliverables = () => {
+    const deliverables = [...deliveries];
+
+    let flag = true;
+    deliverables.forEach(delive => {
+      if (delive.deliverableDeadDate === '' || delive.socialPlatform === '' || delive.campaignType === '' || delive.frameType === '' || delive.frameRequired === '' || delive.brandTag === '' || delive.brandTagRequired === false || delive.hashTag === '' || delive.hashTagRequired === false || delive.NoPost === '' || delive.perTimePeriod === '') {
+        flag = false;
+      }
+    });
+    setActiveNext(flag);
+  }
+
+
+  /************* Active for compensations */
+
+  const setActiveForCompensation = () => {
+    const compensation = [...compensations];
+
+    let flag = true;
+    compensation.forEach(comp => {
+      if (comp.compensationType === '' || comp.amount === '') {
+        flag = false;
+      }
+    });
+    setActiveNext(flag);
+  }
+
+
+  /************* Active for Negotiables */
+
+  const setActiveForNegotialble = () => {
+    const negotiable = [...selectedNegotiable];
+
+    let flag = false;
+    negotiable.forEach(comp => {
+      if (comp.isChecked === true) {
+        flag = true;
+      }
+    });
+    setActiveNext(flag);
+  }
+
+  /************* Active for Negotiables */
+
+  const setActiveForInfluncer = () => {
+    setActiveNext(influencer !== null ? true : false);
+  }
+
   const getStepContent = (activeStep) => {
     switch (activeStep) {
       case 1:
@@ -624,8 +663,8 @@ const AddCampaign = ({ open, handleCancel }) => {
             handleCustomMessage={(e) => {
               setCustomMessage(e.target.value);
             }}
-						filledForm={filledForm}
-						partialFilledForm = {partialFilledForm}
+            filledForm={filledForm}
+            partialFilledForm={partialFilledForm}
           />
         );
       case 2:
@@ -665,6 +704,7 @@ const AddCampaign = ({ open, handleCancel }) => {
             handleDeliverDeadlineDate={handleDeliverDeadlineDate}
             deliverableDate={deliverableDate}
             handleDeliverableDate={(value) => setDeliverableDate(value)}
+            handleActiveForDeliverable={setActiveForDeliverables}
           />
         );
       case 6:
@@ -674,6 +714,7 @@ const AddCampaign = ({ open, handleCancel }) => {
             handleCompensations={handleCompensations}
             handleCompensationValue={handleCompensationValue}
             handleRemoveCompensation={handleRemoveCompensation}
+            handleActiveForCompensation={setActiveForCompensation}
           />
         );
       case 7:
@@ -681,14 +722,16 @@ const AddCampaign = ({ open, handleCancel }) => {
           <Negotiables
             selectedNegotiable={selectedNegotiable}
             toggleNegotiable={toggleNegotiable}
+            handleActiveForNegotiable={setActiveForNegotialble}
           />
         );
       case 8:
         return (
           <ChooseInfluencer
-            selectedInfluncer={selectedInfluncer}
+            selectedInfluncer={influencer}
             toggleInfluncer={toggleInfluncer}
             influencers={influencers}
+            handleActiveForInfluncer={setActiveForInfluncer}
           />
         );
       case 9:
@@ -697,19 +740,19 @@ const AddCampaign = ({ open, handleCancel }) => {
       default:
         return 'Unknown step';
     }
-	};
-	
-	const partialFilledForm = () => {
-		if (
-      (	      
+  };
+
+  const partialFilledForm = () => {
+    if (
+      (
         campaignName !== '' &&
         startDate !== '' &&
         endDate !== '')
-    ) {	   
-				setActiveSave(true);
+    ) {
+      setActiveSave(true);
     } else setActiveSave(false);
   };
-	
+
 
   const filledForm = () => {
 
