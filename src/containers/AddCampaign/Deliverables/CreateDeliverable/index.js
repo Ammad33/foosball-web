@@ -164,39 +164,40 @@ const CreateDeliverable = ({ index, handleDilverableContent,
             <Grid item xs={12}>
                 <p className={styles.headingColor}>Post Frequency</p>
             </Grid>
-						<Grid item xs={12} sm={12} md={6}>
-							<TextField  
-								id='outlined-basic'
-								label="Number of Posts"	
-								fullWidth
-								type= "number"
-								value={deliverableItem && deliverableItem.NoPost}
-								variant='outlined'
-								onChange={(e) => handleDilverableContent(e.target.value, index, 'NoPost')}
-              />                    
-							</Grid>
+            <Grid item xs={12} sm={12} md={6}>
+                <TextField
+                    id='outlined-basic'
+                    fullWidth
+                    type="number"
+                    label='Number of Posts'
+                    variant='outlined'
+                    value={deliverableItem && deliverableItem.NoPost}
+                    onChange={(e) => handleDilverableContent(e.target.value, index, 'NoPost')}
+                />
+            </Grid>
 
             <Grid item xs={12} sm={12} md={6}>
-								<FormControl fullWidth variant="outlined">
+                <FormControl fullWidth variant="outlined">
                     <Select
-												id='outlined-basic'
-												fullWidth
-												label='Per time period'
-												variant='outlined'
-												value={deliverableItem && deliverableItem.perTimePeriod}
-												onChange={(e) => handleDilverableContent(e.target.value, index, 'perTimePeriod')}
+                        id='outlined-basic'
+                        fullWidth
+                        label='Per time period'
+                        variant='outlined'
+                        value={deliverableItem && deliverableItem.perTimePeriod}
+                        onChange={(e) => handleDilverableContent(e.target.value, index, 'perTimePeriod')}
                         displayEmpty
                         MenuProps={{ variant: "menu" }}
-												input={<SelectMenu />}
+                        input={<SelectMenu />}
 
                     >
                         <MenuItem value='' disabled>
                             Per Time Period
                         </MenuItem>
-												<MenuItem value={'Monthly'}>Monthly </MenuItem>
-                        <MenuItem value={'Every Other Month'}>Every Other Month </MenuItem>
-                        <MenuItem value={'Weekly'}>Weekly</MenuItem>
-                        <MenuItem value={'Every Other Week'}>Every Other Week</MenuItem>
+                        <MenuItem value={'Day'}>Day </MenuItem>
+                        <MenuItem value={'Week'}>Week </MenuItem>
+                        <MenuItem value={'2 Weeks'}>2 Weeks</MenuItem>
+                        <MenuItem value={'Month'}>Month</MenuItem>
+                        <MenuItem value={'Quarter'}>Quarter</MenuItem>
                     </Select>
                 </FormControl>
             </Grid>

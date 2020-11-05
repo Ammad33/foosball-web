@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './Negotiables.module.scss';
 import { Grid } from '@material-ui/core';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
-const Negotiables = ({ selectedNegotiable, toggleNegotiable }) => {
+const Negotiables = ({ selectedNegotiable, toggleNegotiable, handleActiveForNegotiable }) => {
 
+  useEffect(() => {
+
+    handleActiveForNegotiable();
+
+  }, [selectedNegotiable])
   return (
     <div className={styles.mainContainer}>
       <p className={styles.title}>
@@ -30,11 +35,11 @@ const Negotiables = ({ selectedNegotiable, toggleNegotiable }) => {
                         }}
                       />
                     )}
-									<span
-											style= {{paddingLeft: "21px"}}
-											onClick={() => {
-                    toggleNegotiable(option);
-                  }}>{option.text}</span>
+                  <span
+                    style={{ paddingLeft: "21px" }}
+                    onClick={() => {
+                      toggleNegotiable(option);
+                    }}>{option.text}</span>
                 </div>
               </Grid>
             );

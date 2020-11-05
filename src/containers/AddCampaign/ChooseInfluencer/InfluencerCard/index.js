@@ -13,7 +13,7 @@ const InfluencerCard = ({ influencer, selected, toggleInfluncer }) => {
 		<Card
 			className={clsx(
 				styles.influencerCard,
-				selected !== -1 ? styles.selectedInfluencer : ''
+				selected ? styles.selectedInfluencer : ''
 			)}
 			onClick={() => toggleInfluncer(influencer)}>
 			<CardContent className={styles.cardContent}>

@@ -51,6 +51,7 @@ const CreateCompensation = ({ compensations, handleAnother, index, item, handleC
                     <TextField
                         id='outlined-basic'
                         fullWidth
+                        type="number"
                         label='Enter Dollar Amount'
                         variant='outlined'
                         value={item.amount}
