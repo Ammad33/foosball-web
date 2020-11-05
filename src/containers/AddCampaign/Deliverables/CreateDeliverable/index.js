@@ -164,7 +164,6 @@ const CreateDeliverable = ({ index, handleDilverableContent,
             <Grid item xs={12}>
                 <p className={styles.headingColor}>Post Frequency</p>
             </Grid>
-<<<<<<< HEAD
             <Grid item xs={12} sm={12} md={6}>
                 <TextField
                     id='outlined-basic'
@@ -176,39 +175,16 @@ const CreateDeliverable = ({ index, handleDilverableContent,
                     onChange={(e) => handleDilverableContent(e.target.value, index, 'NoPost')}
                 />
             </Grid>
-=======
-						<Grid item xs={12} sm={12} md={6}>
-							<TextField  
-								id='outlined-basic'
-								label="Number of Posts"	
-								fullWidth
-								type= "number"
-								value={deliverableItem && deliverableItem.NoPost}
-								variant='outlined'
-								onChange={(e) => handleDilverableContent(e.target.value, index, 'NoPost')}
-              />                    
-							</Grid>
->>>>>>> 640b8d4e5c9eb3490d5534d4add035c5fc4b115d
 
             <Grid item xs={12} sm={12} md={6}>
                 <FormControl fullWidth variant="outlined">
                     <Select
-<<<<<<< HEAD
                         id='outlined-basic'
                         fullWidth
                         label='Per time period'
                         variant='outlined'
                         value={deliverableItem && deliverableItem.perTimePeriod}
                         onChange={(e) => handleDilverableContent(e.target.value, index, 'perTimePeriod')}
-
-=======
-												id='outlined-basic'
-												fullWidth
-												label='Per time period'
-												variant='outlined'
-												value={deliverableItem && deliverableItem.perTimePeriod}
-												onChange={(e) => handleDilverableContent(e.target.value, index, 'perTimePeriod')}
->>>>>>> 640b8d4e5c9eb3490d5534d4add035c5fc4b115d
                         displayEmpty
                         MenuProps={{ variant: "menu" }}
                         input={<SelectMenu />}
@@ -217,18 +193,11 @@ const CreateDeliverable = ({ index, handleDilverableContent,
                         <MenuItem value='' disabled>
                             Per Time Period
                         </MenuItem>
-<<<<<<< HEAD
                         <MenuItem value={'Day'}>Day </MenuItem>
                         <MenuItem value={'Week'}>Week </MenuItem>
                         <MenuItem value={'2 Weeks'}>2 Weeks</MenuItem>
                         <MenuItem value={'Month'}>Month</MenuItem>
                         <MenuItem value={'Quarter'}>Quarter</MenuItem>
-=======
-												<MenuItem value={'Monthly'}>Monthly </MenuItem>
-                        <MenuItem value={'Every Other Month'}>Every Other Month </MenuItem>
-                        <MenuItem value={'Weekly'}>Weekly</MenuItem>
-                        <MenuItem value={'Every Other Week'}>Every Other Week</MenuItem>
->>>>>>> 640b8d4e5c9eb3490d5534d4add035c5fc4b115d
                     </Select>
                 </FormControl>
             </Grid>
