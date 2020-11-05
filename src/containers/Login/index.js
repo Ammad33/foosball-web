@@ -7,6 +7,7 @@ import { Redirect } from 'react-router-dom';
 import mainStyles from './../../index.module.scss';
 import SVG from 'react-inlinesvg';
 import { useHistory } from 'react-router-dom';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
 const FacebookSVG = () => {
   return <SVG src={require('../../assets/facebookClr.svg')} />;
@@ -24,6 +25,12 @@ const EyeSVG = () => {
 
 const Login = () => {
   const history = useHistory();
+	const [passwordShown, setPasswordShown] = useState(false);
+
+	const togglePasswordVisiblity = () => {
+    setPasswordShown(passwordShown ? false : true);
+	};
+	
 
   const {
     currentUser,
@@ -66,9 +73,10 @@ const Login = () => {
         onChange={(e) => setPassword(e.target.value)}
         label='Password'
         variant='outlined'
-				type='password'
+				type={passwordShown ? "text" : "password"}
 				InputProps={{
-					endAdornment: <InputAdornment className={styles.inputendornment} position="end"><EyeSVG/></InputAdornment>,
+					endAdornment: <InputAdornment className={styles.inputendornment} position="end">
+					 <span> <VisibilityOffIcon onClick={togglePasswordVisiblity}/> </span> </InputAdornment>,
 				}}
       />
       <a

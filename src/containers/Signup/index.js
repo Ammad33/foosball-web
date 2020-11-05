@@ -8,6 +8,8 @@ import SVG from 'react-inlinesvg';
 import { useHistory } from 'react-router-dom';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+
 
 const FacebookSVG = () => {
   return <SVG src={require('../../assets/facebookClr.svg')} />;
@@ -33,12 +35,17 @@ const Signup = () => {
     setCurrentUser,
     logoutMessage,
     setLogoutMessage,
-  } = useContext(RootContext);
-
+	} = useContext(RootContext);
+	
+	const [passwordShown, setPasswordShown] = useState(false);
   const [username, setFullname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+	const [errorMessage, setErrorMessage] = useState('');
+	
+	const togglePasswordVisiblity = () => {
+    setPasswordShown(passwordShown ? false : true);
+	};
 
   const onSignup = async () => {
     try {
@@ -54,13 +61,11 @@ const Signup = () => {
 
 	const [terms, setTerms] = useState(true);
 
-	const handleTermsFalse = () => {
-		setTerms(false);
+	const handleTerms = () => {
+		setTerms(terms ? false : true);
 	}
 
-	const handleTermsTrue = () => {
-		setTerms(true);
-	}
+
   return (
     <div className={styles.signupContainer}>
       <h1>Sign Up</h1>
@@ -83,9 +88,10 @@ const Signup = () => {
 				label='Create Password'
 				onChange={(e) => setPassword(e.target.value)}
         variant='outlined'
-				type='password'
+				type={passwordShown ? "text" : "password"}
 				InputProps={{
-					endAdornment: <InputAdornment className={styles.inputendornment} position="end"><EyeSVG/></InputAdornment>,
+					endAdornment: <InputAdornment className={styles.inputendornment} position="end">
+						<span> <VisibilityOffIcon onClick={togglePasswordVisiblity}/> </span> </InputAdornment>,
 				}}
       />
 
@@ -93,12 +99,12 @@ const Signup = () => {
 						<Grid item xs={1} className={styles.optionsItem}>
 							{terms ?
 									<span >  
-									<CheckCircleIcon onClick={handleTermsFalse}/>				
+									<CheckCircleIcon onClick={handleTerms}/>				
 									</span>	
 									:
 									<span >  
 										<RadioButtonUncheckedIcon
-										onClick={handleTermsTrue}
+										onClick={handleTerms}
 										className={styles.svgDisabled}/>				
 									</span>			
 							}
