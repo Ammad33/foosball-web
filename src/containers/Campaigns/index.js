@@ -130,7 +130,7 @@ const Campaigns = () => {
     try {
       const campaigns = await API.graphql({
         query: `{
-        campaigns(organizationId: "3475a42c-0f19-4baa-8c12-f66d87e9185e") {
+        campaigns(brandId: "a86d14fc-99c1-4e7b-bf0a-965ac887a1df") {
           campaigns {
             name
             description
