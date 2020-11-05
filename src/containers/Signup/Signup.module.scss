@@ -1,4 +1,34 @@
 @import '../../variable.module.scss';
+
+.optionsItem {
+	svg {
+		color: $primary1;
+		cursor: pointer;
+		height: 31px;
+		width: 31px;
+	}
+	.displayNone {
+		display: none;
+	}
+	.cursorPointer {
+		cursor: pointer;
+	}
+	.svgDisabled {
+		color: #717171;
+		cursor: pointer;
+		height: 31px;
+		width: 31px;
+	}
+}
+.textStyle {
+	color: #3481EF;
+  font-family: Poppins;
+  font-size: 16px;
+  letter-spacing: 0;
+	line-height: 25px;
+	margin-bottom: 6px;
+}
+
 .signupContainer {
   display: flex;
   flex-direction: column;
@@ -10,13 +40,16 @@
     align-items: center;
     gap: 25px;
     button {
+			width: 172px;
+			height: 53px;
       border-radius: 25px;
       font-size: 19px;
-      font-weight: 400;
+      font-weight: 500;
       padding-left: 40px;
       padding-right: 40px;
       padding-top: 10px;
-      padding-bottom: 10px;
+			padding-bottom: 10px;
+			text-transform: capitalize;
     }
   }
   .socialContainers {
@@ -38,4 +71,27 @@
       }
     }
   }
+}
+
+
+.line {
+	display: flex;
+	margin-top: 58px;
+
+}
+
+.line2 {
+	width: 162px;
+	height: 13px; 
+	border-bottom: 1px solid #cccccc;
+	text-align: center;
+}
+.lineText {
+	font-size: 16px;
+	padding-left: 22px;
+	padding-right: 20px;
+	background-color: white; 
+	font-family: Poppins;
+  letter-spacing: 0;
+	line-height: 25px;
 }

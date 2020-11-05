@@ -26,13 +26,17 @@ const useStyles = makeStyles((theme) => ({
 const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate,
   campaignName, startDate, endDate, startTime, endTime, discount, discountType, percentage, customeMessage,
   handleStartTime, handleEndTime, handleDiscountType, handleDiscount, handleCustomMessage, startDateOpen,
-  endDateOpen, handleStartDateOpen, handleEndDateOpen, filledForm }) => {
+  endDateOpen, handleStartDateOpen, handleEndDateOpen, filledForm,partialFilledForm }) => {
 
   const classes = useStyles();
 
   useEffect(() => {
     filledForm();
-  }, [campaignName, startDate, endDate, discount, percentage, customeMessage])
+	}, [campaignName, startDate, endDate, discount, percentage, customeMessage])
+	
+	useEffect(() =>{
+		partialFilledForm();
+	});
 
   return (
     <Grid container spacing={3}>
@@ -103,7 +107,8 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
           <TextField
             id="time"
             type="time"
-            label="Start Time"
+						label="Start Time"
+						defaultValue= {moment(new Date(), "hmm").format("HH:mm")}
             startTime={startTime}
             className={classes.textField}
             onChange={handleStartTime}
@@ -123,7 +128,8 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
             id="time"
             type="time"
             label="End Time"
-            endTime={endTime}
+						endTime={endTime}
+						defaultValue= {moment(new Date(), "hmm").format("HH:mm")}
             className={classes.textField}
             onChange={handleEndTime}
             variant='outlined'

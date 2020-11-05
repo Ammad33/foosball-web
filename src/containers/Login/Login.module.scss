@@ -4,19 +4,32 @@
   flex-direction: column;
   gap: 30px;
   max-width: 496px;
-  margin: auto;
+	margin: auto;
+	margin-left: 205px;
+	.heading{
+		color: #000000;
+		font-family: Poppins;
+		font-size: 33px;
+		font-weight: 500;
+		letter-spacing: 0;
+		line-height: 50px;
+	}
   .actionsContainer {
     display: flex;
     align-items: center;
     gap: 25px;
     button {
+			width: 172px;
+			height: 53px;
       border-radius: 25px;
       font-size: 19px;
-      font-weight: 400;
+      font-weight: 500;
       padding-left: 40px;
       padding-right: 40px;
       padding-top: 10px;
-      padding-bottom: 10px;
+			padding-bottom: 10px;
+			text-transform: capitalize;
+
     }
   }
   .socialContainers {
@@ -46,4 +59,32 @@
 
 .logOut {
   color: #21b2ed;
+}
+
+.inputendornment {
+	cursor: pointer;
+}
+
+
+
+.line {
+	display: flex;
+	margin-top: 58px;
+
+}
+
+.line2 {
+	width: 162px;
+	height: 13px; 
+	border-bottom: 1px solid #cccccc;
+	text-align: center;
+}
+.lineText {
+	font-size: 16px;
+	padding-left: 22px;
+	padding-right: 20px;
+	background-color: white; 
+	font-family: Poppins;
+  letter-spacing: 0;
+	line-height: 25px;
 }

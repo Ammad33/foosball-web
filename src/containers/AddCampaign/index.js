@@ -624,7 +624,8 @@ const AddCampaign = ({ open, handleCancel }) => {
             handleCustomMessage={(e) => {
               setCustomMessage(e.target.value);
             }}
-            filledForm={filledForm}
+						filledForm={filledForm}
+						partialFilledForm = {partialFilledForm}
           />
         );
       case 2:
@@ -696,7 +697,19 @@ const AddCampaign = ({ open, handleCancel }) => {
       default:
         return 'Unknown step';
     }
+	};
+	
+	const partialFilledForm = () => {
+		if (
+      (	      
+        campaignName !== '' &&
+        startDate !== '' &&
+        endDate !== '')
+    ) {	   
+				setActiveSave(true);
+    } else setActiveSave(false);
   };
+	
 
   const filledForm = () => {
 
