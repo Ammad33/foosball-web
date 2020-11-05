@@ -16,7 +16,7 @@ const CssSelectMenu = withStyles({
         borderRadius: '5px',
         fontFamily: 'Poppins',
         fontSize: '16px',
-        padding: "22px 20px 19px 20px",
+        padding: "20px 20px 15px 20px",
         '&:focus': {
             borderColor: '#939393 !important',
             borderRadius: '5px',

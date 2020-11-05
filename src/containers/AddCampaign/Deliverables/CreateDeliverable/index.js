@@ -1,6 +1,9 @@
 import React from 'react';
-import { Grid, InputAdornment } from '@material-ui/core';
+import { Grid, InputAdornment, Select } from '@material-ui/core';
 import TextField from '../../../../components/TextField';
+import FormControl from '@material-ui/core/FormControl';
+import SelectMenu from '../../../../components/SelectMenu';
+import MenuItem from '@material-ui/core/MenuItem';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import {
     MuiPickersUtilsProvider, DatePicker
@@ -161,28 +164,56 @@ const CreateDeliverable = ({ index, handleDilverableContent,
             <Grid item xs={12}>
                 <p className={styles.headingColor}>Post Frequency</p>
             </Grid>
+						<Grid item xs={12} sm={12} md={6}>
+							<FormControl fullWidth variant="outlined">
+                    <Select
+                        labelId="demo-simple-select-outlined-label"
+												id='outlined-basic'
+												label="Number of Posts"
+												
+                        value={deliverableItem && deliverableItem.NoPost}
+                        displayEmpty
+                        onChange={(e) => handleDilverableContent(e.target.value, index, 'NoPost')}
+                        MenuProps={{ variant: "menu" }}
+												input={<SelectMenu />}
+
+                    >
+                        <MenuItem value='' disabled>
+                            No of Posts
+                        </MenuItem>
+                        <MenuItem value={'Monthly'}>Monthly </MenuItem>
+                        <MenuItem value={'Bi-Monthly'}>Bi-Monthly </MenuItem>
+                        <MenuItem value={'Weekly'}>Weekly</MenuItem>
+                        <MenuItem value={'Bi-Weekly'}>Weekly</MenuItem>
+                    </Select>
+                </FormControl>
+							</Grid>
 
             <Grid item xs={12} sm={12} md={6}>
-                <TextField
-                    id='outlined-basic'
-                    fullWidth
-                    label='Number of Posts'
-                    variant='outlined'
-                    value={deliverableItem && deliverableItem.NoPost}
-                    onChange={(e) => handleDilverableContent(e.target.value, index, 'NoPost')}
+								<FormControl fullWidth variant="outlined">
+                    <Select
+												id='outlined-basic'
+												fullWidth
+												label='Per time period'
+												variant='outlined'
+												value={deliverableItem && deliverableItem.perTimePeriod}
+												onChange={(e) => handleDilverableContent(e.target.value, index, 'perTimePeriod')}
+												
+                        displayEmpty
+                        MenuProps={{ variant: "menu" }}
+												input={<SelectMenu />}
 
-                />
-            </Grid>
-            <Grid item xs={12} sm={12} md={6}>
-                <TextField
-                    id='outlined-basic'
-                    fullWidth
-                    label='Per time period'
-                    variant='outlined'
-                    value={deliverableItem && deliverableItem.perTimePeriod}
-                    onChange={(e) => handleDilverableContent(e.target.value, index, 'perTimePeriod')}
-
-                />
+                    >
+                        <MenuItem value='' disabled>
+                            Per Time Period
+                        </MenuItem>
+                        <MenuItem value={'Day'}>Day </MenuItem>
+                        <MenuItem value={'Week'}>Week </MenuItem>
+                        <MenuItem value={'2 Weeks'}>2 Weeks</MenuItem>
+                        <MenuItem value={'Month'}>Month</MenuItem>
+												<MenuItem value={'Quarter'}>Quarter</MenuItem>
+                    </Select>
+                </FormControl>
             </Grid>
 
         </Grid>

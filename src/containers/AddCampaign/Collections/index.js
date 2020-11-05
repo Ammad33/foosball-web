@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { Grid, Select } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import SelectMenu from '../../../components/SelectMenu';
-import CollectionItem from './CollectionItem';
 import MenuItem from '@material-ui/core/MenuItem';
+import CollectionItem from './CollectionItem';
 import styles from './Collection.module.scss';
 
 const Collection = ({ collection, handleCollection, collectionItems, collections, handleCollectionItem, handleActiveForCollection }) => {

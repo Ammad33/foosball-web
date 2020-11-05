@@ -32,7 +32,6 @@ const CreateCompensation = ({ compensations, handleAnother, index, item, handleC
                         }}
                         displayEmpty
                         MenuProps={{ variant: "menu" }}
-                        input={<SelectMenu />}
                     >
                         <MenuItem value=''>
                             Compensation Type
