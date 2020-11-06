@@ -61,17 +61,17 @@ let negotialbleOptions = [
   { id: 6, isChecked: true, text: 'Campaign Duration' },
 ];
 
-let componentOptions = [
-  { id: 1, text: 'Post Fee' },
-  { id: 2, text: 'Revenue Share %' },
-  { id: 3, text: 'Story Fee' },
-  { id: 4, text: 'Post Frequency' },
-  { id: 5, text: 'Monthly Retainer Fee' },
-  { id: 6, text: 'Campaign Duration' },
-  { id: 7, text: 'Campaign Duration1' },
-  { id: 8, text: 'Campaign Duration2' },
-  { id: 9, text: 'Campaign Duration3' },
-];
+// let componentOptions = [
+//   { id: 1, text: 'Post Fee' },
+//   { id: 2, text: 'Revenue Share %' },
+//   { id: 3, text: 'Story Fee' },
+//   { id: 4, text: 'Post Frequency' },
+//   { id: 5, text: 'Monthly Retainer Fee' },
+//   { id: 6, text: 'Campaign Duration' },
+//   { id: 7, text: 'Campaign Duration1' },
+//   { id: 8, text: 'Campaign Duration2' },
+//   { id: 9, text: 'Campaign Duration3' },
+// ];
 
 const influencers = [
   {
@@ -164,6 +164,8 @@ const members = [
       'https://images.unsplash.com/photo-1525879000488-bff3b1c387cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
   },
 ];
+
+
 
 const items = [
   {
@@ -281,16 +283,21 @@ const AddCampaign = ({ open, handleCancel }) => {
   /****** Campaign Detail States ********/
 
   const [campaignName, setCampaignName] = useState('');
-  const [startDate, setStartDate] = useState(moment().format('DD/MM/YYYY'));
+  const [startDate, setStartDate] = useState(moment().format('MM/DD/YYYY'));
   const [endDate, setEndDate] = useState(
-    moment().add(1, 'M').format('DD/MM/YYYY')
-  );
+    moment().add(1, 'M').format('MM/DD/YYYY')
+	);
+	const [startDateError , setStartDateError] = useState(false);
+	const [endDateError, setEndDateError] = useState(false);
   const [startTime, setStartTime] = useState(
     moment(new Date(), 'hmm').format('HH:mm')
-  );
+	);
+	const [startTimeError, setStartTimeError] = useState(false);
   const [endTime, setEndTime] = useState(
     moment(new Date(), 'hmm').format('HH:mm')
-  );
+	);
+	const [endTimeError, setEndTimeError] = useState(false);
+
   const [discount, setDiscount] = useState('');
   const [discountType, setDiscountType] = useState('');
   const [customeMessage, setCustomMessage] = useState('');
@@ -343,7 +350,7 @@ const AddCampaign = ({ open, handleCancel }) => {
 
   const [selectedMembers, setSelectedMemebers] = useState([]);
 
-  const [selectedComponent, setSelectedComponent] = useState(componentOptions);
+  // const [selectedComponent, setSelectedComponent] = useState(componentOptions);
 
   const [selectedInfluncer, setSelectedInfluncer] = useState([]);
   const [influencer, setInfluencer] = useState(null);
@@ -525,7 +532,23 @@ const AddCampaign = ({ open, handleCancel }) => {
   const handleDiscountType = (value) => {
     setDiscount('');
     setDiscountType(value);
-  };
+	};
+	
+
+	/******************** Handle Start Date */
+
+	const handleStartDate = (date) => {						
+		const moment_date = moment(date).format('L')
+		setStartDate(
+			date !== '' && moment(date, 'MM/DD/YYYY', true).isValid()
+				? moment_date
+				: date
+		);
+		setEndDate (moment(moment_date).add(1, 'M').format('MM/DD/YYYY'))
+		setStartDateOpen(false);
+	}
+
+
 
   //*************Handle Discount *****************/
 
@@ -662,16 +685,26 @@ const AddCampaign = ({ open, handleCancel }) => {
     setActiveNext(influencer !== null ? true : false);
   };
 
+	/*********************** To disable next button */
+
+	// useEffect(() => {
+  //   setActiveNext(true);
+  // });
+
   const getStepContent = (activeStep) => {
     switch (activeStep) {
       case 1:
         return (
           <AddCampaignDetails
             campaignName={campaignName}
-            startDate={startDate}
+						startDate={startDate}
+						startDateError = {startDateError}
+						endDateError = {endDateError}
             endDate={endDate}
-            startTime={startTime}
-            endTime={endTime}
+						startTime={startTime}
+						startTimeError = {startTimeError}
+						endTime={endTime}
+						endTimeError = {endTimeError}
             discount={discount}
             discountType={discountType}
             customeMessage={customeMessage}
@@ -679,15 +712,8 @@ const AddCampaign = ({ open, handleCancel }) => {
               setCampaignName(e.target.value);
             }}
             startDateOpen={startDateOpen}
-            endDateOpen={endDateOpen}
-            handleStartDate={(date) => {
-              setStartDate(
-                date !== '' && moment(date, 'MM/DD/YYYY', true).isValid()
-                  ? moment(date).format('L')
-                  : date
-              );
-              setStartDateOpen(false);
-            }}
+						endDateOpen={endDateOpen}
+						handleStartDate = {handleStartDate}
             handleStartDateOpen={(value) => setStartDateOpen(value)}
             handleEndDateOpen={(value) => setEndDateOpen(value)}
             handleEndDate={(date) => {
@@ -750,7 +776,7 @@ const AddCampaign = ({ open, handleCancel }) => {
             handleDeliveries={handleDeliverable}
             handleDilverableContent={handleDilverableContent}
             handleDeliverDeadlineDate={handleDeliverDeadlineDate}
-            deliverableDate={deliverableDate}
+						deliverableDate={deliverableDate}
             handleDeliverableDate={(value) => setDeliverableDate(value)}
             handleActiveForDeliverable={setActiveForDeliverables}
           />
@@ -801,7 +827,7 @@ const AddCampaign = ({ open, handleCancel }) => {
         startDate !== '' &&
         endDate !== '' &&
         startTime !== '',
-      endTime !== '' &&
+      	endTime !== '' &&
         discount !== '' &&
         discountType !== '' &&
         customeMessage !== '')
@@ -810,10 +836,35 @@ const AddCampaign = ({ open, handleCancel }) => {
     } else setActiveNext(false);
   };
 
-  const handleNext = (activeSetp) => {
-    if (activeSetp !== 9) {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    }
+  const handleNext = (activeSetp,e) => {
+		const moment_date = moment().format('MM/DD/YYYY')
+		if (startDate < moment().format('MM/DD/YYYY')){
+			setStartDateError(true);
+			
+		}
+		else if (endDate < startDate){
+			setEndDateError(true);
+			
+		}
+		else if (startTime <  moment(new Date(), 'hmm').format('HH:mm') ){
+			setStartTimeError(true);
+		}
+		else if (endTime < startTime){
+			setEndTimeError(true);
+		}
+		else {
+			setEndTimeError(false);
+			setStartTimeError(false);
+			setStartDateError(false)
+			setEndDateError(false)
+			if (activeSetp !== 9) {
+				setActiveStep((prevActiveStep) => prevActiveStep + 1);
+			}
+		}
+
+    
+		
+
   };
 
   const handleBack = () => {
@@ -932,7 +983,7 @@ const AddCampaign = ({ open, handleCancel }) => {
                 ) : null}
               </div>
               <button
-                onClick={() => handleNext(activeStep)}
+                onClick={(e) => handleNext(activeStep,e)}
                 className={clsx(
                   styles.nextButton,
                   activeNext ? styles.activeButton : styles.inActiveButton

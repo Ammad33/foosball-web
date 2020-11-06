@@ -42,6 +42,7 @@ const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 	const [errorMessage, setErrorMessage] = useState('');
+	const [errorState, setErrorState] = useState(false);
 	
 	const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
@@ -49,23 +50,20 @@ const Signup = () => {
 
   const onSignup = async () => {
     try {
-      const user = await Auth.signUp({username,password,attributes:{email}});
-      //setCurrentUser(user);
-      setLogoutMessage('');
+			const user = await Auth.signUp({username,password,attributes:{email}});
+			setErrorState(false);
+			setLogoutMessage('');
     } catch (e) {
-      setErrorMessage(e.message);
+			setErrorMessage(e.message);
+			setErrorState(true);
       setLogoutMessage('');
     }
   };
 
-
 	const [terms, setTerms] = useState(true);
-
 	const handleTerms = () => {
 		setTerms(terms ? false : true);
 	}
-
-
   return (
     <div className={styles.signupContainer}>
       <h1>Sign Up</h1>
@@ -73,7 +71,7 @@ const Signup = () => {
         id='outlined-basic'
 				label='Fullname'
         onChange={(e) => setFullname(e.target.value)}
-        variant='outlined'
+				variant='outlined'
 				type='text'
       />
       <TextField
@@ -114,8 +112,7 @@ const Signup = () => {
 							<p className= {styles.textStyle}>
 								I agree to the Terms of Service and Privacy Policy
 							</p>
-						</Grid>
-				
+						</Grid>				
 				</Grid>
       <div className={styles.actionsContainer}>
 				<Button 
@@ -134,6 +131,12 @@ const Signup = () => {
           Login
         </Button>
       </div>
+			<Grid item xs={10}>
+				<p className= {styles.errorText}>
+					{errorState ? errorMessage : " "}	
+				</p>
+			</Grid>
+
       <div>
 			<div className={styles.line} >
 					<div className={styles.line2}> </div>
