@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate,
-  campaignName, startDate, dateError, endDate, startTime, endTime, discount, discountType, percentage, customeMessage,
+  campaignName, startDate, startDateError, endDate, endDateError, startTime,startTimeError, endTime, endTimeError, discount, discountType, percentage, customeMessage,
   handleStartTime, handleEndTime, handleDiscountType, handleDiscount, handleCustomMessage, startDateOpen,
   endDateOpen, handleStartDateOpen, handleEndDateOpen, filledForm, partialFilledForm }) => {
 
@@ -61,8 +61,7 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
           onChange={(e) => handleStartDate(e.target.value)}
           label='Start Date'
 					variant='outlined'
-					error
-					helperText= {dateError ? "Incorrect entry." : " "}
+					helperText= { startDateError ? <span className= {styles.errorText}> Start Date  IN FUTURE </span> : " "}
           InputProps={{
             endAdornment: <InputAdornment className={styles.inputendornment} position="end"><Calendar onClick={() => handleStartDateOpen(true)} /></InputAdornment>,
           }}
@@ -82,14 +81,15 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
         </MuiPickersUtilsProvider>
       </Grid>
       <Grid item xs={12} sm={12} md={6}>
-
+			
         <TextField
           id='outlined-basic'
           fullWidth
           label='End Date'
           value={endDate}
           onChange={(e) => handleEndDate(e.target.value)}
-          variant='outlined'
+					variant='outlined'
+					helperText= { endDateError ? <span className= {styles.errorText}> End Date AFTER Start Date </span> : " "}
           InputProps={{
             endAdornment: <InputAdornment className={styles.inputendornment} position="end"><Calendar onClick={() => handleEndDateOpen(true)} /></InputAdornment>,
           }}
@@ -115,7 +115,8 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
             startTime={startTime}
             className={classes.textField}
             onChange={handleStartTime}
-            variant='outlined'
+						variant='outlined'
+						helperText= { startTimeError ? <span className= {styles.errorText}> Start Time IN FUTURE </span> : " "}
             InputLabelProps={{
               shrink: true,
             }}
@@ -135,7 +136,8 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
             defaultValue={moment(new Date(), "hmm").format("HH:mm")}
             className={classes.textField}
             onChange={handleEndTime}
-            variant='outlined'
+						variant='outlined'
+						helperText= { endTimeError ? <span className= {styles.errorText}> End Time AFTER Start Time </span> : " "}
             InputLabelProps={{
               shrink: true,
             }}

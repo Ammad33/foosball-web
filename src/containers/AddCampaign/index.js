@@ -146,6 +146,8 @@ const members = [
   },
 ];
 
+
+
 const items = [
   {
     id: 1,
@@ -266,13 +268,17 @@ const AddCampaign = ({ open, handleCancel }) => {
   const [endDate, setEndDate] = useState(
     moment().add(1, 'M').format('MM/DD/YYYY')
 	);
-	const [dateError , setDateError] = useState(false);
+	const [startDateError , setStartDateError] = useState(false);
+	const [endDateError, setEndDateError] = useState(false);
   const [startTime, setStartTime] = useState(
     moment(new Date(), 'hmm').format('HH:mm')
-  );
+	);
+	const [startTimeError, setStartTimeError] = useState(false);
   const [endTime, setEndTime] = useState(
     moment(new Date(), 'hmm').format('HH:mm')
-  );
+	);
+	const [endTimeError, setEndTimeError] = useState(false);
+
   const [discount, setDiscount] = useState('');
   const [discountType, setDiscountType] = useState('');
   const [customeMessage, setCustomMessage] = useState('');
@@ -660,11 +666,11 @@ const AddCampaign = ({ open, handleCancel }) => {
     setActiveNext(influencer !== null ? true : false);
   };
 
-	/*********************** To Enable next button */
+	/*********************** To disable next button */
 
-	useEffect(() => {
-    setActiveNext(true);
-  });
+	// useEffect(() => {
+  //   setActiveNext(true);
+  // });
 
   const getStepContent = (activeStep) => {
     switch (activeStep) {
@@ -673,10 +679,13 @@ const AddCampaign = ({ open, handleCancel }) => {
           <AddCampaignDetails
             campaignName={campaignName}
 						startDate={startDate}
-						dateError = {dateError}
+						startDateError = {startDateError}
+						endDateError = {endDateError}
             endDate={endDate}
 						startTime={startTime}
-            endTime={endTime}
+						startTimeError = {startTimeError}
+						endTime={endTime}
+						endTimeError = {endTimeError}
             discount={discount}
             discountType={discountType}
             customeMessage={customeMessage}
@@ -748,7 +757,7 @@ const AddCampaign = ({ open, handleCancel }) => {
             handleDeliveries={handleDeliverable}
             handleDilverableContent={handleDilverableContent}
             handleDeliverDeadlineDate={handleDeliverDeadlineDate}
-            deliverableDate={deliverableDate}
+						deliverableDate={deliverableDate}
             handleDeliverableDate={(value) => setDeliverableDate(value)}
             handleActiveForDeliverable={setActiveForDeliverables}
           />
@@ -809,14 +818,26 @@ const AddCampaign = ({ open, handleCancel }) => {
   };
 
   const handleNext = (activeSetp,e) => {
-
-		debugger;
 		const moment_date = moment().format('MM/DD/YYYY')
 		if (startDate < moment().format('MM/DD/YYYY')){
-			setDateError(true)
-			e.preventDefault();
+			setStartDateError(true);
+			
+		}
+		else if (endDate < startDate){
+			setEndDateError(true);
+			
+		}
+		else if (startTime <  moment(new Date(), 'hmm').format('HH:mm') ){
+			setStartTimeError(true);
+		}
+		else if (endTime < startTime){
+			setEndTimeError(true);
 		}
 		else {
+			setEndTimeError(false);
+			setStartTimeError(false);
+			setStartDateError(false)
+			setEndDateError(false)
 			if (activeSetp !== 9) {
 				setActiveStep((prevActiveStep) => prevActiveStep + 1);
 			}
