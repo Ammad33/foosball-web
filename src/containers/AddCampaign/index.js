@@ -5,7 +5,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import StepConnector from '@material-ui/core/StepConnector';
 import Dialog from '@material-ui/core/Dialog';
-import { DialogTitle, DialogContent } from '@material-ui/core';
+import { DialogTitle, DialogContent, SvgIcon } from '@material-ui/core';
 import styles from './AddCampaign.module.scss';
 import AddCampaignDetails from './AddCampaignDetails';
 import AddTeamMembers from './AddTeamMembers';
@@ -24,6 +24,7 @@ import Translation from '../../assets/translation.json';
 import SVG from 'react-inlinesvg';
 import { API, graphqlOperation } from 'aws-amplify';
 import { set } from 'date-fns';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 const XSVG = () => {
   return <SVG src={require('../../assets/x.svg')} />;
@@ -32,6 +33,24 @@ const XSVG = () => {
 const ChevronSVG = () => {
   return <SVG src={require('../../assets/chevron-down.svg')} />;
 };
+
+const CheckCircleIconSvg = (prop) => {
+  return (
+<SvgIcon {...prop}>
+    <title>751219A7-40EC-48C7-ADA1-FA7C07914000</title>
+    <g id="Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Brand---Create-a-new-Campaign---Step-5-Deliverables-–-Checked" transform="translate(-845.000000, -612.000000)" fill-rule="nonzero">
+            <g id="Wizard" transform="translate(845.000000, 130.000000)">
+                <g id="Check" transform="translate(0.000000, 482.000000)">
+                    <rect id="Rectangle-40" fill="#FFFFFF" x="0" y="0" width="31" height="31" rx="15.5"></rect>
+                    <path d="M22.0180859,11.518 L13.0544019,20.4816841 L8.98,16.4072822" id="check" stroke="#7B5CD9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</SvgIcon>
+  );
+}
 
 let negotialbleOptions = [
   { id: 1, isChecked: true, text: 'Post Fee' },
@@ -831,9 +850,24 @@ const AddCampaign = ({ open, handleCancel }) => {
                       {activeStep == index ? (
                         <div className={styles.active}></div>
                       ) : (
-                        <RadioButtonUncheckedIcon />
+                        activeStep < index ? (
+                          <RadioButtonUncheckedIcon />
+                        ) : (
+                          <CheckCircleIconSvg viewBox="0 0 31 31" />
+                        )
                       )}
-                      <span>{label}</span>
+                      <span className={activeStep == index ? styles.activeLabel: styles.inActiveLabel}>{label}</span>
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                  {index > 0 ? (
+                    <div key={index} className={styles.stepItem}>
+                      {activeStep > index ? (
+                        <div className={styles.activeBar} />
+                      ):(
+                        <div className={styles.inActiveBar} />
+                      )}
                     </div>
                   ) : (
                     ''
