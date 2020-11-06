@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate,
-  campaignName, startDate, endDate, startTime, endTime, discount, discountType, percentage, customeMessage,
+  campaignName, startDate, dateError, endDate, startTime, endTime, discount, discountType, percentage, customeMessage,
   handleStartTime, handleEndTime, handleDiscountType, handleDiscount, handleCustomMessage, startDateOpen,
   endDateOpen, handleStartDateOpen, handleEndDateOpen, filledForm, partialFilledForm }) => {
 
@@ -60,7 +60,9 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
           defaultValue="12/12/2019"
           onChange={(e) => handleStartDate(e.target.value)}
           label='Start Date'
-          variant='outlined'
+					variant='outlined'
+					error
+					helperText= {dateError ? "Incorrect entry." : " "}
           InputProps={{
             endAdornment: <InputAdornment className={styles.inputendornment} position="end"><Calendar onClick={() => handleStartDateOpen(true)} /></InputAdornment>,
           }}
