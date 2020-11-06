@@ -14,6 +14,9 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 25px;
+  span {
+    word-break: break-all;
+  }
 }
 .campaigndDetails {
   .campaignItemInfo {
