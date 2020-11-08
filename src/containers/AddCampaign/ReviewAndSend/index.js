@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './ReviewAndSend.module.scss';
-import EditIcon from '@material-ui/icons/Edit';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 import SVG from 'react-inlinesvg';
@@ -9,7 +8,7 @@ import moment from 'moment';
 const EditSVG = ({ onClick }) => {
 	return <SVG src={require('../../../assets/edit.svg')} onClick={onClick} />;
 };
-const ReviewAndSend = ({ toggleComponent, campaignName, startDate, endDate, startTime, endTime, discount, discountType,
+const ReviewAndSend = ({ campaignName, startDate, endDate, startTime, endTime, discount, discountType,
 	customeMessage, selectedMembers, budget, targetGrossSale, collections, deliverables, compensations, selectedNegotiable, selectedInfluncer, handleActiveStep }) => {
 	return (
 		<div class={styles.mainContainer}>
@@ -133,80 +132,92 @@ const ReviewAndSend = ({ toggleComponent, campaignName, startDate, endDate, star
 					<h3>Deliverables</h3>
 					<EditSVG onClick={() => handleActiveStep(5)} />
 				</div>
-				<div className={styles.deliverablesContainer}>
-					<Grid container spacing={3}>
-						<Grid item xs={4}>
-							<div className={styles.deliverableItem}>
-								<p>Deliverable Deadline</p>
-								<span>October 30, 2020</span>
-							</div>
-						</Grid>
-						<Grid item xs={4}>
-							<div className={styles.deliverableItem}>
-								<p>Social Platform</p>
-								<span>Instagram</span>
-							</div>
-						</Grid>
-						<Grid item xs={4}>
-							<div className={styles.deliverableItem}>
-								<p>Campaign Type</p>
-								<span>Story</span>
-							</div>
-						</Grid>
-						<Grid item xs={4}>
-							<div className={styles.deliverableItem}>
-								<p>Frame Content Type</p>
-								<span>Video</span>
-							</div>
-						</Grid>
-						<Grid item xs={4}>
-							<div className={styles.deliverableItem}>
-								<p>Frames Required</p>
-								<span>5</span>
-							</div>
-						</Grid>
-						<Grid item xs={4}>
-							<div className={styles.deliverableItem}>
-								<p>Brand tag</p>
-								<span>Required - @shopgoodtobe</span>
-							</div>
-						</Grid>
-						<Grid item xs={4}>
-							<div className={styles.deliverableItem}>
-								<p>Hashtag</p>
-								<span>Required - #shopgoodtobe</span>
-							</div>
-						</Grid>
-						<Grid item xs={4}>
-							<div className={styles.deliverableItem}>
-								<p>Post Frequency</p>
-								<span>5 posts every 1 month</span>
-							</div>
-						</Grid>
-					</Grid>
-				</div>
+				{
+					deliverables.map((item, index) => {
+						return (<div className={styles.deliverablesContainer}>
+							<Grid container spacing={3} key={index}>
+								<Grid item xs={4}>
+									<div className={styles.deliverableItem}>
+										<p>Deliverable Deadline</p>
+										<span>{moment(item.deliverableDeadDate).format('MMMM Do, YYYY')}</span>
+									</div>
+								</Grid>
+								<Grid item xs={4}>
+									<div className={styles.deliverableItem}>
+										<p>Social Platform</p>
+										<span>{item.socialPlatform}</span>
+									</div>
+								</Grid>
+								<Grid item xs={4}>
+									<div className={styles.deliverableItem}>
+										<p>Campaign Type</p>
+										<span>{item.campaignType}</span>
+									</div>
+								</Grid>
+								<Grid item xs={4}>
+									<div className={styles.deliverableItem}>
+										<p>Frame Content Type</p>
+										<span>{item.frameType}</span>
+									</div>
+								</Grid>
+								<Grid item xs={4}>
+									<div className={styles.deliverableItem}>
+										<p>Frames Required</p>
+										<span>{item.frameRequired}</span>
+									</div>
+								</Grid>
+								<Grid item xs={4}>
+									<div className={styles.deliverableItem}>
+										<p>Brand tag</p>
+										<span>Required - @{item.brandTag}</span>
+									</div>
+								</Grid>
+								<Grid item xs={4}>
+									<div className={styles.deliverableItem}>
+										<p>Hashtag</p>
+										<span>Required - #{item.hashTag}</span>
+									</div>
+								</Grid>
+								<Grid item xs={4}>
+									<div className={styles.deliverableItem}>
+										<p>Post Frequency</p>
+										<span>{item.NoPost} posts every {item.perTimePeriod}</span>
+									</div>
+								</Grid>
+							</Grid>
+						</div>
+						)
+					})
+				}
 			</div>
 			<div class={styles.section}>
 				<div className={styles.titleAndAction}>
 					<h3>Compensation</h3>
 					<EditSVG onClick={() => handleActiveStep(6)} />
 				</div>
-				<div className={styles.compensationContainer}>
-					<Grid container spacing={3}>
-						<Grid item xs={4}>
-							<div className={styles.compensationItem}>
-								<p>Compensation Type</p>
-								<span>Required - #shopgoodtobe</span>
+				{
+					compensations.map((item, index) => {
+						return (
+							<div className={styles.compensationContainer} key={index}>
+								<Grid container spacing={3}>
+									<Grid item xs={4}>
+										<div className={styles.compensationItem}>
+											<p>Compensation Type</p>
+											<span>{item.compensationType}</span>
+										</div>
+									</Grid>
+									<Grid item xs={6}>
+										<div className={styles.compensationItem}>
+											<p>Revenue Share Percentage</p>
+											<span>{item.amount}%({budget} $)</span>
+										</div>
+									</Grid>
+								</Grid>
 							</div>
-						</Grid>
-						<Grid item xs={4}>
-							<div className={styles.compensationItem}>
-								<p>Revenue Share Percentage</p>
-								<span>5 posts every 1 month</span>
-							</div>
-						</Grid>
-					</Grid>
-				</div>
+						)
+					})
+				}
+
 			</div>
 			<div class={styles.section}>
 				<div className={styles.titleAndAction}>
