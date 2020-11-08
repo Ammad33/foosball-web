@@ -8,18 +8,19 @@ import Dialog from '@material-ui/core/Dialog';
 import { DialogTitle, DialogContent, SvgIcon } from '@material-ui/core';
 import styles from './Onboarding.module.scss';
 import SVG from 'react-inlinesvg';
-import { Grid, InputAdornment, Select } from '@material-ui/core';
-
+import RegistrationCode from './RegistrationCode';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import clsx from 'clsx';
-
-const XSVG = () => {
-  return <SVG src={require('../../assets/x.svg')} />;
-};
+import UserTypes from './UserType';
+import BrandName from './BrandName';
+import DisplayName from './DisplayName';
+import Billing from './Billing';
 
 const ChevronSVG = () => {
   return <SVG src={require('../../assets/chevron-down.svg')} />;
 };
+
+
 const CheckCircleIconSvg = (prop) => {
   return (
     <SvgIcon {...prop}>
@@ -93,21 +94,26 @@ function QontoStepIcon(props) {
 
 /********* Steppper Labels ****************/
 
-function getSteps() {
-  return [
-    'Initial Step',
-    'User Type',
-    'Registration Code',
-    'Display Name',
-    'Billing',
-  ];
-}
+
 
 const Onboarding = () => {
-  const steps = getSteps();
   const [activeStep, setActiveStep] = useState(1);
   const [activeNext, setActiveNext] = useState(false);
   const [activeSave, setActiveSave] = useState(false);
+  const [userType, setUserType] = useState('');
+  const [first, setFirst] = useState('');
+  const [second, setSecond] = useState('');
+  const [third, setThird] = useState('');
+  const [fourth, setFourth] = useState('');
+  const [brandName, setBrandName] = useState('')
+  const [displayName, setDisplayName] = useState('');
+  const [stepsName, setStepsNames] = useState(['Initial Step',
+    'User Type']);
+
+  const subHeading = ['', 'Tell us what type of user you are so wen can personalize your experince',
+    'Enter the registration code your received in your email',
+    `This is the name that will apear on your brand's public profile`,
+    'Setup your primary and secondary billing methods']
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -118,28 +124,71 @@ const Onboarding = () => {
     }
   };
 
+  const handleUserType = (value) => {
+    setUserType(value);
+    if (value === 'brand') {
+      let sets = ['Initial Step',
+        'User Type', 'Registration Code',
+        'Brand Name',
+        'Billing'];
+      setStepsNames(sets)
+    } else {
+      let sets = ['Initial Step',
+        'User Type', 'Registration Code',
+        'Display Name',
+        'Billing'];
+      setStepsNames(sets)
+    }
+  }
+
+  const setActiveNextForUserType = () => {
+    if (userType !== '') {
+      setActiveNext(true)
+    } else setActiveNext(false);
+  }
+
+  const setActiveForCode = () => {
+
+    if (first !== '' && second !== '' && third !== '' && fourth !== '') {
+      setActiveNext(true)
+    } else setActiveNext(false);
+  };
+
+  const setActiveForBrand = () => {
+    if (brandName !== '' && userType === 'brand') {
+      setActiveNext(true)
+    } else setActiveNext(false);
+  }
+
+  const setActiveForDisplay = () => {
+    if (displayName !== '' && userType !== 'brand') {
+      setActiveNext(true)
+    } else setActiveNext(false);
+  }
+
   const getStepContent = (activeStep) => {
     switch (activeStep) {
       case 1:
         return (
-          <Grid container spacing={3}>
-            <Grid item xs={4}>
-              <div className={styles.active}>Frist</div>
-            </Grid>
-            <Grid item xs={4}>
-              Second
-            </Grid>
-            <Grid item xs={4}>
-              Third
-            </Grid>
-          </Grid>
+          <UserTypes userType={userType} handleUserType={handleUserType} handleActiveForUserType={setActiveNextForUserType} />
         );
       case 2:
-        return <div>Second</div>;
+        return <RegistrationCode
+          first={first}
+          second={second}
+          third={third}
+          fourth={fourth}
+          handleFirst={(e) => setFirst(e.target.value)}
+          handleSecond={(e) => setSecond(e.target.value)}
+          handleThird={(e) => setThird(e.target.value)}
+          handleFourth={(e) => setFourth(e.target.value)}
+          handleActiveForCode={setActiveForCode}
+        />;
       case 3:
-        return <div>Third</div>;
+        return userType === 'brand' ? <BrandName brandName={brandName} handlebrandName={(e) => setBrandName(e.target.value)} handleActiveForBrand={setActiveForBrand} />
+          : <DisplayName displayName={displayName} handleDisplayName={(e) => setDisplayName(e.target.value)} handleActiveForDisplay={setActiveForDisplay} />;
       case 4:
-        return <div>Fourth</div>;
+        return <Billing />;
       default:
         return 'Unknown step';
     }
@@ -155,7 +204,7 @@ const Onboarding = () => {
           <div className={styles.onboardingSideabr}>
             <h2 className={styles.heading}>Setup your account</h2>
             <div className={styles.setpsContainer}>
-              {steps.map((label, index) => (
+              {stepsName.map((label, index) => (
                 <>
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
@@ -164,8 +213,8 @@ const Onboarding = () => {
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                        <CheckCircleIconSvg viewBox='0 0 31 31' />
-                      )}
+                            <CheckCircleIconSvg viewBox='0 0 31 31' />
+                          )}
                       <span
                         className={
                           activeStep == index
@@ -177,19 +226,19 @@ const Onboarding = () => {
                       </span>
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
                       {activeStep > index ? (
                         <div className={styles.activeBar} />
                       ) : (
-                        <div className={styles.inActiveBar} />
-                      )}
+                          <div className={styles.inActiveBar} />
+                        )}
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                 </>
               ))}
             </div>
@@ -202,15 +251,16 @@ const Onboarding = () => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                  <></>
-                )}
+                    <div className={activeStep === 1 ? styles.header : ''} />
+                  )}
               </div>
               <div className={styles.stepperAndComponent}>
                 <div className={styles.stepperNumberAndNameContainer}>
                   <p>
-                    STEP {activeStep} OF {steps.length - 1}
+                    STEP {activeStep} OF {stepsName.length - 1}
                   </p>
-                  <h2>{steps[activeStep]}</h2>
+                  <h2>{stepsName[activeStep]}</h2>
+                  <p className={styles.subHeading}>{activeStep === 3 && userType !== 'brand' ? 'This is the name that appears on your public profile, use what will be the most recognizable' : subHeading[activeStep]}</p>
                 </div>
                 <Stepper
                   alternativeLabel
@@ -218,7 +268,7 @@ const Onboarding = () => {
                   connector={<QontoConnector />}
                   className={styles.stepperContainer}
                 >
-                  {steps.map((label) => (
+                  {stepsName.map((label) => (
                     <Step key={label}>
                       <StepLabel StepIconComponent={QontoStepIcon}></StepLabel>
                     </Step>
@@ -252,9 +302,9 @@ const Onboarding = () => {
                   styles.nextButton,
                   activeNext ? styles.activeButton : styles.inActiveButton
                 )}
-                // disabled={!activeNext}
+                disabled={!activeNext}
               >
-                Next
+                {activeStep == 4 ? 'Complete' : 'Next'}
               </button>
             </div>
           </div>
