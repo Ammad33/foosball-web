@@ -9,7 +9,9 @@ import Login from './containers/Login';
 import Signup from './containers/Signup';
 import ForgotPassword from './containers/ForgotPassword';
 import ResetPassword from './containers/ResetPassword';
+import Onboarding from './containers/Onboarding';
 import ProtectedRoute from './hoc/ProtectedRoute';
+
 import Auth from './hoc/Auth';
 
 const App = () => {
@@ -45,10 +47,20 @@ const App = () => {
               <ForgotPassword />
             </Auth>
           </Route>
+          <Route exact path='/forgot-password'>
+            <Auth>
+              <ForgotPassword />
+            </Auth>
+          </Route>
           <Route exact path='/reset-password'>
             <Auth>
               <ResetPassword />
             </Auth>
+          </Route>
+          <Route exact path='/onboarding'>
+            {/* <Auth> */}
+            <Onboarding />
+            {/* </Auth> */}
           </Route>
           <Redirect exact from='/' to='/campaigns' />
         </Switch>
