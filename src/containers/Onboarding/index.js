@@ -8,6 +8,7 @@ import Dialog from '@material-ui/core/Dialog';
 import { DialogTitle, DialogContent, SvgIcon } from '@material-ui/core';
 import styles from './Onboarding.module.scss';
 import SVG from 'react-inlinesvg';
+import { Grid, InputAdornment, Select } from '@material-ui/core';
 
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import clsx from 'clsx';
@@ -120,7 +121,19 @@ const Onboarding = () => {
   const getStepContent = (activeStep) => {
     switch (activeStep) {
       case 1:
-        return <div>First</div>;
+        return (
+          <Grid container spacing={3}>
+            <Grid item xs={4}>
+              <div className={styles.active}>Frist</div>
+            </Grid>
+            <Grid item xs={4}>
+              Second
+            </Grid>
+            <Grid item xs={4}>
+              Third
+            </Grid>
+          </Grid>
+        );
       case 2:
         return <div>Second</div>;
       case 3:
