@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Grid, Select } from '@material-ui/core';
+import { Grid, Select, makeStyles } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import SelectMenu from '../../../components/SelectMenu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -11,6 +11,7 @@ const Collection = ({ collection, handleCollection, collectionItems, collections
     useEffect(() => {
         handleActiveForCollection()
     }, [collections])
+
 
     return (
         <Grid container>
@@ -29,14 +30,14 @@ const Collection = ({ collection, handleCollection, collectionItems, collections
                         <MenuItem value="">
                             Choose Collection
                         </MenuItem>
-                        {/* <MenuItem  value={'Drop Cuts'}>Drop Cuts<span style= {{paddingLeft: "615px"}}> {2} </span>  </MenuItem>
-                        <MenuItem  value={'Henleys'}>Henleys <span style= {{paddingLeft: "631px"}}> {2} </span> </MenuItem>
-                        <MenuItem  value={'Tanks'}>Tanks <span style= {{paddingLeft: "647px"}}> {2} </span> </MenuItem>
-                        <MenuItem  value={'V-Necks'}>V-Necks <span style= {{paddingLeft: "630px"}}> {2} </span> </MenuItem> */}
-                        <MenuItem value={'Drop Cuts'}>Drop Cuts </MenuItem>
-                        <MenuItem value={'Henleys'}>Henleys </MenuItem>
-                        <MenuItem value={'Tanks'}>Tanks</MenuItem>
-                        <MenuItem value={'V-Necks'}>V-Necks</MenuItem>
+                        <MenuItem value={'Drop Cuts'} className={styles.menuItem}>Drop Cuts  {
+                            collections.find(item => item.collectionName === 'Drop Cuts' && item.collectionItems.length !== 0) && < div className='hello' ><span>{collections.find(item => item.collectionName === 'Drop Cuts').collectionItems.length}</span></div>} </MenuItem>
+                        <MenuItem value={'Henleys'} className={styles.menuItem}>Henleys {
+                            collections.find(item => item.collectionName === 'Henleys' && item.collectionItems.length !== 0) && < div ><span>{collections.find(item => item.collectionName === 'Henleys').collectionItems.length}</span></div>}</MenuItem>
+                        <MenuItem value={'Tanks'} className={styles.menuItem}>Tanks {
+                            collections.find(item => item.collectionName === 'Tanks' && item.collectionItems.length !== 0) && < div ><span>{collections.find(item => item.collectionName === 'Tanks').collectionItems.length}</span></div>}</MenuItem>
+                        <MenuItem value={'V-Necks'} className={styles.menuItem}>V-Necks {
+                            collections.find(item => item.collectionName === 'V-Necks' && item.collectionItems.length !== 0) && < div ><span>{collections.find(item => item.collectionName === 'V-Necks').collectionItems.length}</span></div>}</MenuItem>
                     </Select>
                 </FormControl>
             </Grid>
