@@ -20,6 +20,15 @@
 .mainContainer {
   display: flex;
   height: 100%;
+  .logoDiv {
+    width: 185px;
+    height: 81px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 100px;
+    margin-top: 25px;
+  }
   .onboardingSideabr {
     flex: 0 0 535px;
     overflow-y: hidden;
@@ -102,10 +111,9 @@
   display: flex;
   flex-direction: column;
   align-self: center;
-  max-width: 825px;
+  max-width: 850px;
   align-self: center;
   margin: auto;
-  // max-width: 766px;
   width: 100%;
   height: 100%;
   gap: 24px;
@@ -115,7 +123,7 @@
     margin-bottom: 24px;
   }
   .stepperContent {
-    padding-left: 10px;
+    padding-left: 50px;
     padding-right: 100px;
   }
 }

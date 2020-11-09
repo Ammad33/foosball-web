@@ -16,11 +16,11 @@ import BrandName from './BrandName';
 import DisplayName from './DisplayName';
 import Billing from './Billing';
 import { useHistory } from 'react-router-dom';
+import logo from '../../assets/FomoPromo_logo__white.png';
 
 const ChevronSVG = () => {
   return <SVG src={require('../../assets/chevron-down.svg')} />;
 };
-
 
 const CheckCircleIconSvg = (prop) => {
   return (
@@ -70,7 +70,7 @@ const CheckCircleIconSvg = (prop) => {
 const QontoConnector = withStyles({
   alternativeLabel: {
     top: 10,
-    left: 'calc(-85% + 16px)',
+    left: 'calc(-60% + 16px)',
     right: 'calc(50% + 16px)',
   },
   active: {
@@ -95,10 +95,8 @@ function QontoStepIcon(props) {
 
 /********* Steppper Labels ****************/
 
-
-
 const Onboarding = () => {
-	const history = useHistory();
+  const history = useHistory();
   const [activeStep, setActiveStep] = useState(1);
   const [activeNext, setActiveNext] = useState(false);
   const [activeSave, setActiveSave] = useState(false);
@@ -107,15 +105,17 @@ const Onboarding = () => {
   const [second, setSecond] = useState('');
   const [third, setThird] = useState('');
   const [fourth, setFourth] = useState('');
-  const [brandName, setBrandName] = useState('')
+  const [brandName, setBrandName] = useState('');
   const [displayName, setDisplayName] = useState('');
-  const [stepsName, setStepsNames] = useState(['Initial Step',
-    'User Type']);
+  const [stepsName, setStepsNames] = useState(['Initial Step', 'User Type']);
 
-  const subHeading = ['', 'Tell us what type of user you are so wen can personalize your experince',
+  const subHeading = [
+    '',
+    'Tell us what type of user you are so wen can personalize your experince',
     'Enter the registration code your received in your email',
     `This is the name that will apear on your brand's public profile`,
-    'Setup your primary and secondary billing methods']
+    'Setup your primary and secondary billing methods',
+  ];
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -123,75 +123,97 @@ const Onboarding = () => {
   const handleNext = (activeSetp, e) => {
     if (activeSetp !== 4) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
-		}
-		if (activeSetp === 4) {
-			history.push('/signup');
-		}
+    }
+    if (activeSetp === 4) {
+      history.push('/signup');
+    }
   };
 
   const handleUserType = (value) => {
     setUserType(value);
     if (value === 'brand') {
-      let sets = ['Initial Step',
-        'User Type', 'Registration Code',
+      let sets = [
+        'Initial Step',
+        'User Type',
+        'Registration Code',
         'Brand Name',
-        'Billing'];
-      setStepsNames(sets)
+        'Billing',
+      ];
+      setStepsNames(sets);
     } else {
-      let sets = ['Initial Step',
-        'User Type', 'Registration Code',
+      let sets = [
+        'Initial Step',
+        'User Type',
+        'Registration Code',
         'Display Name',
-        'Billing'];
-      setStepsNames(sets)
+        'Billing',
+      ];
+      setStepsNames(sets);
     }
-  }
+  };
 
   const setActiveNextForUserType = () => {
     if (userType !== '') {
-      setActiveNext(true)
+      setActiveNext(true);
     } else setActiveNext(false);
-  }
+  };
 
   const setActiveForCode = () => {
-
     if (first !== '' && second !== '' && third !== '' && fourth !== '') {
-      setActiveNext(true)
+      setActiveNext(true);
     } else setActiveNext(false);
   };
 
   const setActiveForBrand = () => {
     if (brandName !== '' && userType === 'brand') {
-      setActiveNext(true)
+      setActiveNext(true);
     } else setActiveNext(false);
-  }
+  };
 
   const setActiveForDisplay = () => {
     if (displayName !== '' && userType !== 'brand') {
-      setActiveNext(true)
+      setActiveNext(true);
     } else setActiveNext(false);
-  }
+  };
 
   const getStepContent = (activeStep) => {
     switch (activeStep) {
       case 1:
         return (
-          <UserTypes userType={userType} handleUserType={handleUserType} handleActiveForUserType={setActiveNextForUserType} />
+          <UserTypes
+            userType={userType}
+            handleUserType={handleUserType}
+            handleActiveForUserType={setActiveNextForUserType}
+          />
         );
       case 2:
-        return <RegistrationCode
-          first={first}
-          second={second}
-          third={third}
-          fourth={fourth}
-          handleFirst={(e) => setFirst(e.target.value)}
-          handleSecond={(e) => setSecond(e.target.value)}
-          handleThird={(e) => setThird(e.target.value)}
-          handleFourth={(e) => setFourth(e.target.value)}
-          handleActiveForCode={setActiveForCode}
-        />;
+        return (
+          <RegistrationCode
+            first={first}
+            second={second}
+            third={third}
+            fourth={fourth}
+            handleFirst={(e) => setFirst(e.target.value)}
+            handleSecond={(e) => setSecond(e.target.value)}
+            handleThird={(e) => setThird(e.target.value)}
+            handleFourth={(e) => setFourth(e.target.value)}
+            handleActiveForCode={setActiveForCode}
+          />
+        );
       case 3:
-        return userType === 'brand' ? <BrandName brandName={brandName} handlebrandName={(e) => setBrandName(e.target.value)} handleActiveForBrand={setActiveForBrand} />
-          : <DisplayName displayName={displayName} handleDisplayName={(e) => setDisplayName(e.target.value)} handleActiveForDisplay={setActiveForDisplay} />;
+        return userType === 'brand' ? (
+          <BrandName
+            brandName={brandName}
+            handlebrandName={(e) => setBrandName(e.target.value)}
+            handleActiveForBrand={setActiveForBrand}
+          />
+        ) : (
+          <DisplayName
+            displayName={displayName}
+            handleDisplayName={(e) => setDisplayName(e.target.value)}
+            handleActiveForDisplay={setActiveForDisplay}
+          />
+        );
       case 4:
         return <Billing />;
       default:
@@ -207,6 +229,7 @@ const Onboarding = () => {
       >
         <div className={styles.mainContainer}>
           <div className={styles.onboardingSideabr}>
+            <img className={styles.logoDiv} src={logo} alt='Logo' />
             <h2 className={styles.heading}>Setup your account</h2>
             <div className={styles.setpsContainer}>
               {stepsName.map((label, index) => (
@@ -218,8 +241,8 @@ const Onboarding = () => {
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                            <CheckCircleIconSvg viewBox='0 0 31 31' />
-                          )}
+                        <CheckCircleIconSvg viewBox='0 0 31 31' />
+                      )}
                       <span
                         className={
                           activeStep == index
@@ -231,19 +254,19 @@ const Onboarding = () => {
                       </span>
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
                       {activeStep > index ? (
                         <div className={styles.activeBar} />
                       ) : (
-                          <div className={styles.inActiveBar} />
-                        )}
+                        <div className={styles.inActiveBar} />
+                      )}
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                 </>
               ))}
             </div>
@@ -256,8 +279,8 @@ const Onboarding = () => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                    <div className={activeStep === 1 ? styles.header : ''} />
-                  )}
+                  <div className={activeStep === 1 ? styles.header : ''} />
+                )}
               </div>
               <div className={styles.stepperAndComponent}>
                 <div className={styles.stepperNumberAndNameContainer}>
@@ -265,7 +288,11 @@ const Onboarding = () => {
                     STEP {activeStep} OF {stepsName.length - 1}
                   </p>
                   <h2>{stepsName[activeStep]}</h2>
-                  <p className={styles.subHeading}>{activeStep === 3 && userType !== 'brand' ? 'This is the name that appears on your public profile, use what will be the most recognizable' : subHeading[activeStep]}</p>
+                  <p className={styles.subHeading}>
+                    {activeStep === 3 && userType !== 'brand'
+                      ? 'This is the name that appears on your public profile, use what will be the most recognizable'
+                      : subHeading[activeStep]}
+                  </p>
                 </div>
                 <Stepper
                   alternativeLabel
