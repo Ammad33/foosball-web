@@ -9,6 +9,8 @@ import { useHistory } from 'react-router-dom';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import {Link} from 'react-router-dom';
+
 
 
 const FacebookSVG = () => {
@@ -61,7 +63,7 @@ const Signup = () => {
 		}
 	};
 
-	const [terms, setTerms] = useState(true);
+	const [terms, setTerms] = useState(false);
 	const handleTerms = () => {
 		setTerms(terms ? false : true);
 	}
@@ -90,7 +92,7 @@ const Signup = () => {
 				type={passwordShown ? "text" : "password"}
 				InputProps={{
 					endAdornment: <InputAdornment className={styles.inputendornment} position="end">
-						<span> <VisibilityOffIcon onClick={togglePasswordVisiblity} /> </span> </InputAdornment>,
+						<span> <VisibilityOffIcon className={styles.eyeIcon} onClick={togglePasswordVisiblity} /> </span> </InputAdornment>,
 				}}
 			/>
 
@@ -110,8 +112,8 @@ const Signup = () => {
 
 				</Grid>
 				<Grid item xs={10}>
-					<p className={styles.textStyle}>
-						I agree to the Terms of Service and Privacy Policy
+					<p className={styles.textStyle1}>
+						I agree to the <Link to="#">Terms of Service</Link> and <Link to="#">Privacy Policy</Link>
 							</p>
 				</Grid>
 			</Grid>

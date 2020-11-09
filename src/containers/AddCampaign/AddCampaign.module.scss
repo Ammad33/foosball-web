@@ -19,7 +19,16 @@
 }
 .mainContainer {
   display: flex;
-  height: 100%;
+	height: 100%;
+	.logoDiv {
+		width: 185px;
+		height: 81px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 100px;
+		margin-top: 25px;
+	}
   .campaignSideabr {
     flex: 0 0 535px;
     overflow-y: hidden;
@@ -27,11 +36,12 @@
     color: $white;
     padding-left: 55px;
     .heading {
-      margin: 50px 0;
+			margin: 50px 0;
+			margin-left: 15px;
     }
     .setpsContainer {
       .stepItem {
-        margin: 0px 0px;
+        margin-left: 50px;
         display: flex;
         align-items: center;
         gap: 10px;
