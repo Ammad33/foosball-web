@@ -52,10 +52,18 @@ const Signup = () => {
 
 	const onSignup = async () => {
 		try {
-			const user = await Auth.signUp({ username, password, attributes: { email } });
-			setErrorState(false);
-			setLogoutMessage('');
-			history.push('/onboarding');
+			if (terms === true)
+			{	const user = await Auth.signUp({ username, password, attributes: { email } });
+				setErrorState(false);
+				setLogoutMessage('');
+				setErrorMessage('');
+				history.push('/onboarding');
+			}
+			else {
+				setErrorMessage("Terms and conditions")
+				setErrorState(true);
+			}
+				
 		} catch (e) {
 			setErrorMessage(e.message);
 			setErrorState(true);

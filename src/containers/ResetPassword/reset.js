@@ -2,19 +2,13 @@ import React, { useState } from 'react';
 import { TextField, Button } from '@material-ui/core';
 import styles from './ResetPassword.module.scss';
 import mainStyles from './../../index.module.scss';
-import Reset from './reset';
 
-
-const ResetPassword = () => {
-	const [resetConfirmation , setResetConfirmation] = useState(false);
-
+const Reset = () => {
   const [inputType, setInputType] = useState('password');
   return (
-		resetConfirmation ? 
-		<Reset/>:
     <div className={styles.resetPasswordContainer}>
-      <h1 className={styles.heading}>Reset Password</h1>
-      <p className={styles.des}>Enter you new password below</p>
+      <h1 className={styles.heading}>Password Reset</h1>
+      <p className={styles.des}>You can now login using your new password.</p>
       <TextField
         id='outlined-basic'
         label='Password'
@@ -22,9 +16,6 @@ const ResetPassword = () => {
         type={inputType}
       />
       <div className={styles.actionsContainer}>
-        <Button className={mainStyles.defaultButton} variant='contained' onClick={()=>setResetConfirmation(true)}>
-          Reset Password
-        </Button>
         <Button className={mainStyles.defaultOutlinedButton} variant='outlined'>
           Login
         </Button>
@@ -33,4 +24,4 @@ const ResetPassword = () => {
   );
 };
 
-export default ResetPassword;
+export default Reset;

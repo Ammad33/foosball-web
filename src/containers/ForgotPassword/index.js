@@ -4,20 +4,25 @@ import { Auth } from 'aws-amplify';
 import styles from './ForgotPassword.module.scss';
 import mainStyles from './../../index.module.scss';
 import { useHistory } from 'react-router-dom';
+import Confirmation from './confirmation'
 
 const ForgotPassword = () => {
 	const history = useHistory();
+	const [confirmation , setConfirmation] = useState(false);
 	const [username, setUsername] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const onForgotPassword = async () => {
     try {
-      const user = await Auth.forgotPassword(username);
+			const user = await Auth.forgotPassword(username);
+			setConfirmation(true);
     } catch (e) {
       setErrorMessage(e.message);
     }
   };
 
   return (
+		confirmation ? <Confirmation/> :
+		
     <div className={styles.forgotPasswordContainer}>
       <h1 className={styles.heading}>Forgot your password?</h1>
       <p className={styles.des}>Will send you an email with instructions to reset your password.</p>
@@ -44,7 +49,9 @@ const ForgotPassword = () => {
           Login
         </Button>
       </div>
-    </div>
+		</div>
+
+		
   );
 };
 

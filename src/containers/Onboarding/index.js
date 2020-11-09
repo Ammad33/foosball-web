@@ -15,6 +15,7 @@ import UserTypes from './UserType';
 import BrandName from './BrandName';
 import DisplayName from './DisplayName';
 import Billing from './Billing';
+import { useHistory } from 'react-router-dom';
 
 const ChevronSVG = () => {
   return <SVG src={require('../../assets/chevron-down.svg')} />;
@@ -97,6 +98,7 @@ function QontoStepIcon(props) {
 
 
 const Onboarding = () => {
+	const history = useHistory();
   const [activeStep, setActiveStep] = useState(1);
   const [activeNext, setActiveNext] = useState(false);
   const [activeSave, setActiveSave] = useState(false);
@@ -121,7 +123,10 @@ const Onboarding = () => {
   const handleNext = (activeSetp, e) => {
     if (activeSetp !== 4) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    }
+		}
+		if (activeSetp === 4) {
+			history.push('/signup');
+		}
   };
 
   const handleUserType = (value) => {
