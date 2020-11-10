@@ -88,17 +88,10 @@ let negotialbleOptions = [
   { id: 6, isChecked: true, text: 'Campaign Duration' },
 ];
 
-// let componentOptions = [
-//   { id: 1, text: 'Post Fee' },
-//   { id: 2, text: 'Revenue Share %' },
-//   { id: 3, text: 'Story Fee' },
-//   { id: 4, text: 'Post Frequency' },
-//   { id: 5, text: 'Monthly Retainer Fee' },
-//   { id: 6, text: 'Campaign Duration' },
-//   { id: 7, text: 'Campaign Duration1' },
-//   { id: 8, text: 'Campaign Duration2' },
-//   { id: 9, text: 'Campaign Duration3' },
-// ];
+const fb = {"campaignType": ['story','post'], "frameType": ['video','image']}
+const insta = 	{"campaignType": ['story','post','video']	,		"frameType": ['video','image']}
+const tictock = {"campaignType": ['video'], "frameType": ["Does not apply"]}
+const youtube= {"campaignType": ['video'], "frameType": ["Does not apply"]}
 
 const influencers = [
   {
@@ -829,7 +822,11 @@ const AddCampaign = ({ open, handleCancel }) => {
             handleDeliverDeadlineDate={handleDeliverDeadlineDate}
             deliverableDate={deliverableDate}
             handleDeliverableDate={(value) => setDeliverableDate(value)}
-            handleActiveForDeliverable={setActiveForDeliverables}
+						handleActiveForDeliverable={setActiveForDeliverables}
+						fb={fb}
+						insta = {insta}
+						tictock={tictock}
+						youtube={youtube}
           />
         );
       case 6:

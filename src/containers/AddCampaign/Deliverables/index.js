@@ -5,7 +5,7 @@ import styles from './Deliverables.module.scss';
 
 const Deliverables = ({ deliveries, handleDeliveries, handleDilverableContent,
     handleDeliverDeadlineDate, deliverableDate,
-    handleDeliverableDate, handleActiveForDeliverable }) => {
+    handleDeliverableDate, handleActiveForDeliverable ,fb, insta,tictock,youtube }) => {
 
 
     useEffect(() => {
@@ -17,7 +17,12 @@ const Deliverables = ({ deliveries, handleDeliveries, handleDilverableContent,
             deliveries.map((item, index) => <CreateDeliverable key={index} deliverableItem={item} index={index} handleDilverableContent={handleDilverableContent}
                 handleDeliverDeadlineDate={handleDeliverDeadlineDate}
                 handleDeliverableDate={handleDeliverableDate}
-                deliverableDate={deliverableDate} />)
+                deliverableDate={deliverableDate} 
+								fb={fb}
+								insta={insta}
+								tictock={tictock}
+								youtube={youtube}
+							/>) 
         }
         <button className={styles.addDeliverable}
             onClick={handleDeliveries}> <AddIcon /> Add another deliverable</button>

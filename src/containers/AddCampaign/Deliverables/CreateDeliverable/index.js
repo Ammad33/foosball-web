@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Grid, InputAdornment, Select } from '@material-ui/core';
 import TextField from '../../../../components/TextField';
 import FormControl from '@material-ui/core/FormControl';
@@ -19,8 +19,24 @@ const options = [];
 for (let i=1; i <= 15; i += 1) { options.push(i); }
 
 const CreateDeliverable = ({ index, handleDilverableContent,
-    handleDeliverDeadlineDate, deliverableItem, deliverableDate,
-    handleDeliverableDate }) => {
+	handleDeliverDeadlineDate, deliverableItem, deliverableDate,
+	handleDeliverableDate, fb, insta,tictock,youtube  }) => {
+
+	const [value , setValue ]= useState(youtube);
+	useEffect(() => {
+		handleSetValue();
+	});
+
+	const handleSetValue = () => {
+		if (deliverableItem.socialPlatform === "Youtube")
+			setValue(youtube);
+			else if (deliverableItem.socialPlatform === "Instagram")
+			setValue(insta);
+			else if (deliverableItem.socialPlatform === "Tictock")
+			setValue(tictock);
+			else 
+			setValue(fb);
+	}
 
     return (
         <Grid container spacing={3} >
@@ -52,24 +68,14 @@ const CreateDeliverable = ({ index, handleDilverableContent,
                     />
                 </MuiPickersUtilsProvider>
             </Grid>
-            {/* <Grid item xs={12} sm={12} md={6}>
-                <TextField
-                    id='outlined-basic'
-                    fullWidth
-                    label='Social Platform'
-                    variant='outlined'
-                    value={deliverableItem && deliverableItem.socialPlatform}
-                    onChange={(e) => handleDilverableContent(e.target.value, index, 'socialPlatform')}
-                />
-            </Grid> */}
 							<Grid item xs={12} sm={12} md={6}>
-                <FormControl fullWidth variant="outlined">
+							<FormControl fullWidth variant="outlined">
                     <Select
                         id='Social Platform'
                         fullWidth
                         label='Social Platform'
                         variant='outlined'
-												value={deliverableItem && deliverableItem.socialPlatform}
+												value={ deliverableItem.socialPlatform}
                         onChange={(e) => handleDilverableContent(e.target.value, index, 'socialPlatform')}
                         displayEmpty
                         MenuProps={{ variant: "menu" }}
@@ -78,116 +84,81 @@ const CreateDeliverable = ({ index, handleDilverableContent,
                         <MenuItem value='' disabled>
                             Social Platform
                         </MenuItem>
-                        <MenuItem value={'Insta'}>Instagram </MenuItem>
+                        <MenuItem value={'Instagram'}>Instagram </MenuItem>
                         <MenuItem value={'fb'}>Facebook </MenuItem>
-                        <MenuItem value={'Yt'}>Youtube</MenuItem>
-                        <MenuItem value={'TikTock'}>Tik Tok</MenuItem>
+                        <MenuItem value={'Youtube'}>Youtube</MenuItem>
+                        <MenuItem value={'Tictock'}>Tictock</MenuItem>
                     </Select>
                 </FormControl>
             </Grid>
-
-            {/* <Grid item xs={12} sm={12} md={6}>
-                <TextField
-                    id='outlined-basic'
-                    fullWidth
-                    label='Campaign Type'
-                    variant='outlined'
-                    value={deliverableItem && deliverableItem.campaignType}
-                    onChange={(e) => handleDilverableContent(e.target.value, index, 'campaignType')}
-
-                />
-            </Grid> */}
-
 						<Grid item xs={12} sm={12} md={6}>
 							<FormControl fullWidth variant="outlined">
-                    <Select
-                        id='Campaign Type'
-                        fullWidth
-                        label='Campaign Type'
-                        variant='outlined'
-												value={deliverableItem  && deliverableItem.campaignType}
-                        onChange={(e) => handleDilverableContent(e.target.value, index, 'campaignType')}
-                        displayEmpty
-                        MenuProps={{ variant: "menu" }}
-                        input={<SelectMenu />}
-                    >
-                        <MenuItem value='' disabled>
-                            Campaign Type
-                        </MenuItem>				
-												<MenuItem value={'Story'}>Story </MenuItem>
-                        <MenuItem value={'Post'}>Post </MenuItem>					
-                    </Select>
-                </FormControl>
+								<Select
+										id='Campaign Type'
+										fullWidth
+										label='Campaign Type'
+										variant='outlined'
+										value={deliverableItem  && deliverableItem.campaignType}
+										onChange={(e) => handleDilverableContent(e.target.value, index, 'campaignType')}
+										displayEmpty
+										MenuProps={{ variant: "menu" }}
+										input={<SelectMenu />}
+								>
+										<MenuItem value='' disabled>
+												Campaign Type
+										</MenuItem>
+											{value.campaignType.map((item) => 
+													<MenuItem value={item}>{item} </MenuItem>			
+											)}
+								</Select>
+              </FormControl>
             </Grid>
-            {/* <Grid item xs={12} sm={12} md={6}>
-                <TextField
-                    id='outlined-basic'
-                    fullWidth
-                    label='Frame Type'
-                    variant='outlined'
-                    value={deliverableItem && deliverableItem.frameType}
-                    onChange={(e) => handleDilverableContent(e.target.value, index, 'frameType')}
-
-                />
-            </Grid> */}
-
 					<Grid item xs={12} sm={12} md={6}>
-							<FormControl fullWidth variant="outlined">
-                    <Select
-                        id='Frame Type'
-                        fullWidth
-                        label='Frame Type'
-                        variant='outlined'
-												value={deliverableItem && deliverableItem.frameType}
-                   			onChange={(e) => handleDilverableContent(e.target.value, index, 'frameType')}
-                        displayEmpty
-                        MenuProps={{ variant: "menu" }}
-                        input={<SelectMenu />}
-                    >
-                        <MenuItem value='' disabled>
-                            Frame Type
-                        </MenuItem>
-												<MenuItem value={'Image'}>Image </MenuItem>
-                        <MenuItem value={'Video'}>Video </MenuItem>	
-												
-                    </Select>
-                </FormControl>
+						<FormControl fullWidth variant="outlined">
+							<Select
+									id='Frame Type'
+									fullWidth
+									label='Frame Type'
+									variant='outlined'
+									value={deliverableItem && deliverableItem.frameType}
+									onChange={(e) => handleDilverableContent(e.target.value, index, 'frameType')}
+									displayEmpty
+									MenuProps={{ variant: "menu" }}
+									input={<SelectMenu />}
+							>
+									<MenuItem value='' disabled>
+											Frame Type
+									</MenuItem>
+									{value.frameType.map((item) => 
+											<MenuItem value={item}>{item} </MenuItem>			
+									)}	
+							</Select>
+              </FormControl>
             </Grid>
-            {/* <Grid item xs={12} sm={12} md={6}>
-                <TextField
-                    id='outlined-basic'
-                    fullWidth
-                    label='Frame Required'
-                    variant='outlined'
-                    value={deliverableItem && deliverableItem.frameRequired}
-                    onChange={(e) => handleDilverableContent(e.target.value, index, 'frameRequired')}
-
-                />
-            </Grid> */}
+        
 						<Grid item xs={12} sm={12} md={6}>
 							<FormControl fullWidth variant="outlined">
-                    <Select
-                        id='Frame Required'
-                        fullWidth
-                        label='Frame Required'
-												variant='outlined'
-												value={deliverableItem && deliverableItem.frameRequired}
-												onChange={(e) => handleDilverableContent(e.target.value, index, 'frameRequired')}
-                        displayEmpty
-                        MenuProps={{ variant: "menu" }}
-                        input={<SelectMenu />}
-                    >
-                        <MenuItem value='' disabled>
-													Frame Required
-                        </MenuItem>
-												{options.map(option => (
-																<MenuItem key={option} value={option}>
-																	{option} 
-																</MenuItem>
-															))}						
-                    </Select>
-                </FormControl>
-        
+								<Select
+										id='Frame Required'
+										fullWidth
+										label='Frame Required'
+										variant='outlined'
+										value={deliverableItem && deliverableItem.frameRequired}
+										onChange={(e) => handleDilverableContent(e.target.value, index, 'frameRequired')}
+										displayEmpty
+										MenuProps={{ variant: "menu" }}
+										input={<SelectMenu />}
+								>
+										<MenuItem value='' disabled>
+											Frame Required
+										</MenuItem>
+										{options.map(option => (
+														<MenuItem key={option} value={option}>
+															{option} 
+														</MenuItem>
+													))}						
+								</Select>
+              </FormControl> 
             </Grid>
             <Grid item xs={12} sm={12} md={8} >
                 <Grid container alignItems="center" >
