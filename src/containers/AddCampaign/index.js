@@ -90,10 +90,10 @@ let negotialbleOptions = [
 
 // const social = [ facebook = { "campaignType" : ['story', 'post'] , "frameType": ['video', 'image']}]
 
-const fb = {"campaignType": ['story','post'], "frameType": ['video','image']}
-const insta = 	{"campaignType": ['story','post']	,		"frameType": ['video','image']}
-const tictock = {"campaignType": ['video'], "frameType": ["Does not apply"]}
-const youtube= {"campaignType": ['video'], "frameType": ["Does not apply"]}
+const fb = { "campaignType": ['story', 'post'], "frameType": ['video', 'image'] }
+const insta = { "campaignType": ['story', 'post'], "frameType": ['video', 'image'] }
+const tictock = { "campaignType": ['video'], "frameType": ["Does not apply"] }
+const youtube = { "campaignType": ['video'], "frameType": ["Does not apply"] }
 
 const influencers = [
   {
@@ -461,15 +461,15 @@ const AddCampaign = ({ open, handleCancel }) => {
     const opts = [...deliveries];
     opts[index][fieldname] = value;
     setDeliveries(opts);
-	};
-	
-	/***** Handle Delete Deliverable ***********/
+  };
 
-	const handleRemoveDeliverable = (index) => {
-		const opts = [...deliveries];
-		opts.splice(index, 1);
+  /***** Handle Delete Deliverable ***********/
+
+  const handleRemoveDeliverable = (index) => {
+    const opts = [...deliveries];
+    opts.splice(index, 1);
     setDeliveries(opts);
-	}
+  }
 
   /***** Add New Compesation */
 
@@ -669,7 +669,7 @@ const AddCampaign = ({ open, handleCancel }) => {
               name: campaignName,
               startDate: Date.parse(`${startDate} ${startTime}`) / 1000,
               endDate: Date.parse(`${endDate} ${endTime}` / 1000),
-							brandId: 'a86d14fc-99c1-4e7b-bf0a-965ac887a1df',
+              brandId: 'a86d14fc-99c1-4e7b-bf0a-965ac887a1df',
             },
           }
         )
@@ -742,9 +742,11 @@ const AddCampaign = ({ open, handleCancel }) => {
 
   /*********************** To disable next button */
 
-  // useEffect(() => {
-  // 	setActiveNext(true);
-  // });
+  const leftSideDawerClick = (index) => {
+    if (activeStep >= index) {
+      setActiveStep(index);
+    } else return;
+  }
 
   const getStepContent = (activeStep) => {
     switch (activeStep) {
@@ -833,12 +835,12 @@ const AddCampaign = ({ open, handleCancel }) => {
             handleDeliverDeadlineDate={handleDeliverDeadlineDate}
             deliverableDate={deliverableDate}
             handleDeliverableDate={(value) => setDeliverableDate(value)}
-						handleActiveForDeliverable={setActiveForDeliverables}
-						handleRemoveDeliverable = {handleRemoveDeliverable}
-						fb={fb}
-						insta = {insta}
-						tictock={tictock}
-						youtube={youtube}
+            handleActiveForDeliverable={setActiveForDeliverables}
+            handleRemoveDeliverable={handleRemoveDeliverable}
+            fb={fb}
+            insta={insta}
+            tictock={tictock}
+            youtube={youtube}
           />
         );
       case 6:
@@ -908,7 +910,7 @@ const AddCampaign = ({ open, handleCancel }) => {
         startDate !== '' &&
         endDate !== '' &&
         startTime !== '',
-      endTime !== '' &&
+        endTime !== '' &&
         discount !== '' &&
         discountType !== '' &&
         customeMessage !== '')
@@ -918,28 +920,28 @@ const AddCampaign = ({ open, handleCancel }) => {
   };
 
   const handleNext = (activeSetp, e) => {
-		if (activeSetp == 1){
-			if (startDate < moment().format('MM/DD/YYYY')) {
-				setStartDateError(true);
-			} else if (endDate < startDate) {
-				setEndDateError(true);
-			} else if (startTime < moment(new Date(), 'hmm').format('HH:mm')) {
-				setStartTimeError(true);
-			} else if (endTime < startTime) {
-				setEndTimeError(true);
-			} else {
-				setEndTimeError(false);
-				setStartTimeError(false);
-				setStartDateError(false);
-				setEndDateError(false);
-				if (activeSetp !== 9) {
-					setActiveStep((prevActiveStep) => prevActiveStep + 1);
-				}
-			}
-		}
-		else if (activeSetp !== 9) {
-			setActiveStep((prevActiveStep) => prevActiveStep + 1);
-		}
+    if (activeSetp == 1) {
+      if (startDate < moment().format('MM/DD/YYYY')) {
+        setStartDateError(true);
+      } else if (endDate < startDate) {
+        setEndDateError(true);
+      } else if (startTime < moment(new Date(), 'hmm').format('HH:mm')) {
+        setStartTimeError(true);
+      } else if (endTime < startTime) {
+        setEndTimeError(true);
+      } else {
+        setEndTimeError(false);
+        setStartTimeError(false);
+        setStartDateError(false);
+        setEndDateError(false);
+        if (activeSetp !== 9) {
+          setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        }
+      }
+    }
+    else if (activeSetp !== 9) {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    }
   };
 
   const handleBack = () => {
@@ -958,7 +960,6 @@ const AddCampaign = ({ open, handleCancel }) => {
     setOpenCDialog(false);
   };
 
-  console.log(activeStep);
 
   return (
     <>
@@ -983,32 +984,33 @@ const AddCampaign = ({ open, handleCancel }) => {
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                        <CheckCircleIconSvg viewBox='0 0 31 31' />
-                      )}
+                              <CheckCircleIconSvg viewBox='0 0 31 31' />
+                            )}
                       <span
                         className={
                           activeStep == index
                             ? styles.activeLabel
                             : styles.inActiveLabel
                         }
+                        onClick={() => leftSideDawerClick(index)}
                       >
                         {label}
                       </span>
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
                       {activeStep > index ? (
                         <div className={styles.activeBar} />
                       ) : (
-                        <div className={styles.inActiveBar} />
-                      )}
+                          <div className={styles.inActiveBar} />
+                        )}
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                 </>
               ))}
             </div>
@@ -1021,8 +1023,8 @@ const AddCampaign = ({ open, handleCancel }) => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                  <div></div>
-                )}
+                    <div></div>
+                  )}
                 <span onClick={handleCancelCampaignDialog}>
                   <XSVG />
                 </span>
