@@ -5,7 +5,7 @@ import styles from './Deliverables.module.scss';
 
 const Deliverables = ({ deliveries, handleDeliveries, handleDilverableContent,
     handleDeliverDeadlineDate, deliverableDate,
-    handleDeliverableDate, handleActiveForDeliverable ,fb, insta,tictock,youtube }) => {
+    handleDeliverableDate, handleActiveForDeliverable,handleRemoveDeliverable ,fb, insta,tictock,youtube }) => {
 
 
     useEffect(() => {
@@ -14,10 +14,14 @@ const Deliverables = ({ deliveries, handleDeliveries, handleDilverableContent,
 
     return (<div>
         {
-            deliveries.map((item, index) => <CreateDeliverable key={index} deliverableItem={item} index={index} handleDilverableContent={handleDilverableContent}
+						deliveries.map((item, index) => <CreateDeliverable key={index}
+								deliveries = {deliveries}
+								deliverableItem={item} index={index} 
+								handleDilverableContent={handleDilverableContent}
                 handleDeliverDeadlineDate={handleDeliverDeadlineDate}
                 handleDeliverableDate={handleDeliverableDate}
-                deliverableDate={deliverableDate} 
+								deliverableDate={deliverableDate} 
+								handleRemoveDeliverable = {handleRemoveDeliverable}
 								fb={fb}
 								insta={insta}
 								tictock={tictock}

@@ -13,14 +13,19 @@ import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import DateFnsUtils from "@date-io/date-fns";
 import { Calendar } from 'react-feather';
+import { Trash } from 'react-feather';
+import clsx from 'clsx';
+
+
+
 
 
 const options = [];
 for (let i=1; i <= 15; i += 1) { options.push(i); }
 
-const CreateDeliverable = ({ index, handleDilverableContent,
+const CreateDeliverable = ({ index, deliveries, handleDilverableContent,
 	handleDeliverDeadlineDate, deliverableItem, deliverableDate,
-	handleDeliverableDate, fb, insta,tictock,youtube  }) => {
+	handleDeliverableDate,handleRemoveDeliverable, fb, insta,tictock,youtube  }) => {
 
 	const [value , setValue ]= useState(youtube);
 	useEffect(() => {
@@ -40,8 +45,9 @@ const CreateDeliverable = ({ index, handleDilverableContent,
 
     return (
         <Grid container spacing={3} >
-            <Grid item xs={12}>
-                <p className={styles.headingColor}>Deliverable {index + 1}</p>
+            <Grid item xs={12} className={clsx(styles.headerContainer, index > 0 ? styles.marginTop : '')}>
+                <p className={styles.headingColor}>Deliverable {index + 1} </p>
+								{deliveries.length > 1 && <Trash onClick={() => handleRemoveDeliverable(index)} />}
             </Grid>
             <Grid item xs={12}>
                 <TextField

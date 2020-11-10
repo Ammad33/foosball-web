@@ -13,7 +13,6 @@ const Compensations = ({ compensations, handleCompensations, handleCompensationV
     }, [compensations])
 
     return (<div>
-
         {
             compensations.map((item, index) => <CreateCompensation item={item} key={index} compensations={compensations} index={index} handleCompensationValue={handleCompensationValue}
                 handleRemoveCompensation={handleRemoveCompensation} handleAnother={() => setAnother(true)} />)

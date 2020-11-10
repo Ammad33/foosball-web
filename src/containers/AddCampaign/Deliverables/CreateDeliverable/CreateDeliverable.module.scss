@@ -17,6 +17,17 @@
 			height: 31px;
 			width: 31px;
     }
+	}
+	
+	.headerContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+	}
+	
+	.marginTop {
+    margin-top: 16px !important;
   }
    
   .disabled {
