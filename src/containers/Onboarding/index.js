@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -108,6 +108,10 @@ const Onboarding = () => {
   const [brandName, setBrandName] = useState('');
   const [displayName, setDisplayName] = useState('');
   const [stepsName, setStepsNames] = useState(['Initial Step', 'User Type']);
+  const codeEl1 = useRef(null);
+  const codeEl2 = useRef(null);
+  const codeEl3 = useRef(null);
+  const codeEl4 = useRef(null);
 
   const subHeading = [
     '',
@@ -133,7 +137,7 @@ const Onboarding = () => {
     if (activeStep >= index) {
       setActiveStep(index);
     } else return;
-  }
+  };
 
   const handleUserType = (value) => {
     setUserType(value);
@@ -199,10 +203,22 @@ const Onboarding = () => {
             second={second}
             third={third}
             fourth={fourth}
-            handleFirst={(e) => setFirst(e.target.value)}
-            handleSecond={(e) => setSecond(e.target.value)}
-            handleThird={(e) => setThird(e.target.value)}
-            handleFourth={(e) => setFourth(e.target.value)}
+            codeEl1={codeEl1}
+            codeEl2={codeEl2}
+            codeEl3={codeEl3}
+            codeEl4={codeEl4}
+            handleFirst={(e) => {
+              setFirst(e.target.value);
+            }}
+            handleSecond={(e) => {
+              setSecond(e.target.value);
+            }}
+            handleThird={(e) => {
+              setThird(e.target.value);
+            }}
+            handleFourth={(e) => {
+              setFourth(e.target.value);
+            }}
             handleActiveForCode={setActiveForCode}
           />
         );
@@ -214,12 +230,12 @@ const Onboarding = () => {
             handleActiveForBrand={setActiveForBrand}
           />
         ) : (
-            <DisplayName
-              displayName={displayName}
-              handleDisplayName={(e) => setDisplayName(e.target.value)}
-              handleActiveForDisplay={setActiveForDisplay}
-            />
-          );
+          <DisplayName
+            displayName={displayName}
+            handleDisplayName={(e) => setDisplayName(e.target.value)}
+            handleActiveForDisplay={setActiveForDisplay}
+          />
+        );
       case 4:
         return <Billing />;
       default:
@@ -247,8 +263,8 @@ const Onboarding = () => {
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                            <CheckCircleIconSvg viewBox='0 0 31 31' />
-                          )}
+                        <CheckCircleIconSvg viewBox='0 0 31 31' />
+                      )}
                       <span
                         className={
                           activeStep == index
@@ -261,19 +277,19 @@ const Onboarding = () => {
                       </span>
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
                       {activeStep > index ? (
                         <div className={styles.activeBar} />
                       ) : (
-                          <div className={styles.inActiveBar} />
-                        )}
+                        <div className={styles.inActiveBar} />
+                      )}
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                 </>
               ))}
             </div>
@@ -286,8 +302,8 @@ const Onboarding = () => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                    <div className={activeStep === 1 ? styles.header : ''} />
-                  )}
+                  <div className={activeStep === 1 ? styles.header : ''} />
+                )}
               </div>
               <div className={styles.stepperAndComponent}>
                 <div className={styles.stepperNumberAndNameContainer}>
