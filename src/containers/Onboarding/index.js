@@ -208,16 +208,16 @@ const Onboarding = () => {
             codeEl3={codeEl3}
             codeEl4={codeEl4}
             handleFirst={(e) => {
-              setFirst(e.target.value);
+              setFirst(e.target.value.toUpperCase());
             }}
             handleSecond={(e) => {
-              setSecond(e.target.value);
+              setSecond(e.target.value.toUpperCase());
             }}
             handleThird={(e) => {
-              setThird(e.target.value);
+              setThird(e.target.value.toUpperCase());
             }}
             handleFourth={(e) => {
-              setFourth(e.target.value);
+              setFourth(e.target.value.toUpperCase());
             }}
             handleActiveForCode={setActiveForCode}
           />

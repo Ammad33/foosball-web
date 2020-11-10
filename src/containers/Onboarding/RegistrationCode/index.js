@@ -18,24 +18,24 @@ const RegistrationCode = ({
   handleActiveForCode,
 }) => {
   function handleCode1Change(e) {
-    let key = Number(e.key);
-    if (!isNaN(key) || !e.key === null || !e.key === ' ') {
+    var inp = String.fromCharCode(e.keyCode);
+    if (/[a-zA-Z0-9]/.test(inp)) {
       setTimeout(() => {
         codeEl2.current.focus();
       });
     }
   }
   function handleCode2Change(e) {
-    let key = Number(e.key);
-    if (!isNaN(key) || !e.key === null || !e.key === ' ') {
+    var inp = String.fromCharCode(e.keyCode);
+    if (/[a-zA-Z0-9]/.test(inp)) {
       setTimeout(() => {
         codeEl3.current.focus();
       });
     }
   }
   function handleCode3Change(e) {
-    let key = Number(e.key);
-    if (!isNaN(key) || !e.key === null || !e.key === ' ') {
+    var inp = String.fromCharCode(e.keyCode);
+    if (/[a-zA-Z0-9]/.test(inp)) {
       setTimeout(() => {
         codeEl4.current.focus();
       });
