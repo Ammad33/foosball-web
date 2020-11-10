@@ -10,6 +10,7 @@ import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import { Link } from 'react-router-dom';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 const FacebookSVG = () => {
   return <SVG src={require('../../assets/facebookClr.svg')} />;
@@ -99,12 +100,12 @@ const Signup = () => {
           endAdornment: (
             <InputAdornment className={styles.inputendornment} position='end'>
               <span>
-                {' '}
-                <VisibilityOffIcon
-                  className={styles.eyeIcon}
-                  onClick={togglePasswordVisiblity}
-                />{' '}
-              </span>{' '}
+                {passwordShown ? (
+                  <VisibilityIcon onClick={togglePasswordVisiblity} />
+                ) : (
+                  <VisibilityOffIcon onClick={togglePasswordVisiblity} />
+                )}
+              </span>
             </InputAdornment>
           ),
         }}
