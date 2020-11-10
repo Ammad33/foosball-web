@@ -27,7 +27,6 @@ import { set } from 'date-fns';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import logo from '../../assets/FomoPromo_logo__white.png';
 
-
 const XSVG = () => {
   return <SVG src={require('../../assets/x.svg')} />;
 };
@@ -731,9 +730,9 @@ const AddCampaign = ({ open, handleCancel }) => {
 
   /*********************** To disable next button */
 
-		// useEffect(() => {
-		// 	setActiveNext(true);
-		// });
+  // useEffect(() => {
+  // 	setActiveNext(true);
+  // });
 
   const getStepContent = (activeStep) => {
     switch (activeStep) {
@@ -951,52 +950,52 @@ const AddCampaign = ({ open, handleCancel }) => {
         aria-labelledby='confirmation-dialog-title'
         open={open}
       >
-        <div className={styles.mainContainer}>		
-					<div className={styles.campaignSideabr}>
-					<img className={styles.logoDiv} src={logo} alt="Logo" />
-						<h2 className={styles.heading}>Create a Campaign</h2>
-						<div className={styles.setpsContainer}>
-							{steps.map((label, index) => (
-								<>
-									{index > 0 ? (
-										<div key={index} className={styles.stepItem}>
-											{activeStep == index ? (
-												<div className={styles.active}></div>
-											) : activeStep < index ? (
-												<RadioButtonUncheckedIcon />
-											) : activeStep < index ? (
-												<RadioButtonUncheckedIcon />
-											) : (
-												<CheckCircleIconSvg viewBox='0 0 31 31' />
-											)}
-											<span
-												className={
-													activeStep == index
-														? styles.activeLabel
-														: styles.inActiveLabel
-												}
-											>
-												{label}
-											</span>
-										</div>
-									) : (
-										''
-									)}
-									{index > 0 ? (
-										<div key={index} className={styles.stepItem}>
-											{activeStep > index ? (
-												<div className={styles.activeBar} />
-											) : (
-												<div className={styles.inActiveBar} />
-											)}
-										</div>
-									) : (
-										''
-									)}
-								</>
-							))}
-						</div>
-					</div>
+        <div className={styles.mainContainer}>
+          <div className={styles.campaignSideabr}>
+            <img className={styles.logoDiv} src={logo} alt='Logo' />
+            <h2 className={styles.heading}>Create a Campaign</h2>
+            <div className={styles.setpsContainer}>
+              {steps.map((label, index) => (
+                <>
+                  {index > 0 ? (
+                    <div key={index} className={styles.stepItem}>
+                      {activeStep == index ? (
+                        <div className={styles.active}></div>
+                      ) : activeStep < index ? (
+                        <RadioButtonUncheckedIcon />
+                      ) : activeStep < index ? (
+                        <RadioButtonUncheckedIcon />
+                      ) : (
+                        <CheckCircleIconSvg viewBox='0 0 31 31' />
+                      )}
+                      <span
+                        className={
+                          activeStep == index
+                            ? styles.activeLabel
+                            : styles.inActiveLabel
+                        }
+                      >
+                        {label}
+                      </span>
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                  {index > 0 ? (
+                    <div key={index} className={styles.stepItem}>
+                      {activeStep > index ? (
+                        <div className={styles.activeBar} />
+                      ) : (
+                        <div className={styles.inActiveBar} />
+                      )}
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                </>
+              ))}
+            </div>
+          </div>
           <div className={styles.campaignContainer}>
             <DialogTitle className={styles.dialogTitle}>
               <div className={styles.header}>

@@ -6,7 +6,7 @@ const Auth = ({ children }) => {
   return (
     <main className={styles.authContainer}>
       <section className={styles.logoAndComponent}>
-				<img className={styles.logoDiv} src={logo} alt="Logo" />;
+        <img className={styles.logoDiv} src={logo} alt='Logo' />
         <div>{children}</div>
       </section>
       <section className={styles.sidebar}>

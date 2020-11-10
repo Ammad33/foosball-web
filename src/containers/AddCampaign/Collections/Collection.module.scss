@@ -8,5 +8,24 @@
 }
 
 .menuItem {
-	background: red !important;
+ display: flex !important;
+ flex-direction: row !important;
+ justify-content: space-between !important;
+div {
+    height: 31px;
+    width: 31px;
+    border-radius: 100px;
+    span {
+
+  color: #FFFFFF;
+  font-family: Poppins;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0;
+  line-height: 21px;
+  margin-left: 12px;
+    }
+    background-color: #7B5CD9;
+    
+ }
 }

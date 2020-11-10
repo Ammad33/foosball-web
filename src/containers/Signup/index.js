@@ -9,166 +9,171 @@ import { useHistory } from 'react-router-dom';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import {Link} from 'react-router-dom';
-
-
+import { Link } from 'react-router-dom';
 
 const FacebookSVG = () => {
-	return <SVG src={require('../../assets/facebookClr.svg')} />;
+  return <SVG src={require('../../assets/facebookClr.svg')} />;
 };
 const GoogleSVG = () => {
-	return <SVG src={require('../../assets/googleClr.svg')} />;
+  return <SVG src={require('../../assets/googleClr.svg')} />;
 };
 const AppleSVG = () => {
-	return <SVG src={require('../../assets/apple.svg')} />;
+  return <SVG src={require('../../assets/apple.svg')} />;
 };
 const EyeSVG = () => {
-	return <SVG src={require('../../assets/eye-off.svg')} />;
+  return <SVG src={require('../../assets/eye-off.svg')} />;
 };
 
-
-
-
 const Signup = () => {
+  const history = useHistory();
+  const {
+    currentUser,
+    setCurrentUser,
+    logoutMessage,
+    setLogoutMessage,
+  } = useContext(RootContext);
 
-	const history = useHistory();
-	const {
-		currentUser,
-		setCurrentUser,
-		logoutMessage,
-		setLogoutMessage,
-	} = useContext(RootContext);
+  const [passwordShown, setPasswordShown] = useState(false);
+  const [username, setFullname] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [errorState, setErrorState] = useState(false);
 
-	const [passwordShown, setPasswordShown] = useState(false);
-	const [username, setFullname] = useState('');
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
-	const [errorMessage, setErrorMessage] = useState('');
-	const [errorState, setErrorState] = useState(false);
+  const togglePasswordVisiblity = () => {
+    setPasswordShown(passwordShown ? false : true);
+  };
 
-	const togglePasswordVisiblity = () => {
-		setPasswordShown(passwordShown ? false : true);
-	};
+  const onSignup = async () => {
+    try {
+      if (terms === true) {
+        const user = await Auth.signUp({
+          username,
+          password,
+          attributes: { email },
+        });
+        console.log('response of signup usre, ', user);
+        setErrorState(false);
+        setLogoutMessage('');
+        setErrorMessage('');
+        history.push('/onboarding');
+      } else {
+        setErrorMessage('Terms and conditions');
+        setErrorState(true);
+      }
+    } catch (e) {
+      setErrorMessage(e.message);
+      setErrorState(true);
+      setLogoutMessage('');
+    }
+  };
 
-	const onSignup = async () => {
-		try {
-			if (terms === true)
-			{	const user = await Auth.signUp({ username, password, attributes: { email } });
-				setErrorState(false);
-				setLogoutMessage('');
-				setErrorMessage('');
-				history.push('/onboarding');
-			}
-			else {
-				setErrorMessage("Terms and conditions")
-				setErrorState(true);
-			}
-				
-		} catch (e) {
-			setErrorMessage(e.message);
-			setErrorState(true);
-			setLogoutMessage('');
-		}
-	};
+  const [terms, setTerms] = useState(false);
+  const handleTerms = () => {
+    setTerms(terms ? false : true);
+  };
+  return (
+    <div className={styles.signupContainer}>
+      <h1>Sign Up</h1>
+      <TextField
+        id='outlined-basic'
+        label='Fullname'
+        onChange={(e) => setFullname(e.target.value)}
+        variant='outlined'
+        type='text'
+      />
+      <TextField
+        id='outlined-basic'
+        label='Email'
+        onChange={(e) => setEmail(e.target.value)}
+        variant='outlined'
+        type='text'
+      />
+      <TextField
+        id='outlined-basic'
+        label='Create Password'
+        onChange={(e) => setPassword(e.target.value)}
+        variant='outlined'
+        type={passwordShown ? 'text' : 'password'}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment className={styles.inputendornment} position='end'>
+              <span>
+                {' '}
+                <VisibilityOffIcon
+                  className={styles.eyeIcon}
+                  onClick={togglePasswordVisiblity}
+                />{' '}
+              </span>{' '}
+            </InputAdornment>
+          ),
+        }}
+      />
 
-	const [terms, setTerms] = useState(false);
-	const handleTerms = () => {
-		setTerms(terms ? false : true);
-	}
-	return (
-		<div className={styles.signupContainer}>
-			<h1>Sign Up</h1>
-			<TextField
-				id='outlined-basic'
-				label='Fullname'
-				onChange={(e) => setFullname(e.target.value)}
-				variant='outlined'
-				type='text'
-			/>
-			<TextField
-				id='outlined-basic'
-				label='Email'
-				onChange={(e) => setEmail(e.target.value)}
-				variant='outlined'
-				type='text'
-			/>
-			<TextField
-				id='outlined-basic'
-				label='Create Password'
-				onChange={(e) => setPassword(e.target.value)}
-				variant='outlined'
-				type={passwordShown ? "text" : "password"}
-				InputProps={{
-					endAdornment: <InputAdornment className={styles.inputendornment} position="end">
-						<span> <VisibilityOffIcon className={styles.eyeIcon} onClick={togglePasswordVisiblity} /> </span> </InputAdornment>,
-				}}
-			/>
-
-			<Grid container alignItems="center" >
-				<Grid item xs={1} className={styles.optionsItem}>
-					{terms ?
-						<span >
-							<CheckCircleIcon onClick={handleTerms} />
-						</span>
-						:
-						<span >
-							<RadioButtonUncheckedIcon
-								onClick={handleTerms}
-								className={styles.svgDisabled} />
-						</span>
-					}
-
-				</Grid>
-				<Grid item xs={10}>
-					<p className={styles.textStyle1}>
-						I agree to the <Link to="#">Terms of Service</Link> and <Link to="#">Privacy Policy</Link>
-							</p>
-				</Grid>
-			</Grid>
-			<div className={styles.actionsContainer}>
-				<Button
-					onClick={onSignup}
-					className={mainStyles.defaultButton}
-					variant='contained'>
-					Signup
+      <Grid container alignItems='center'>
+        <Grid item xs={1} className={styles.optionsItem}>
+          {terms ? (
+            <span>
+              <CheckCircleIcon onClick={handleTerms} />
+            </span>
+          ) : (
+            <span>
+              <RadioButtonUncheckedIcon
+                onClick={handleTerms}
+                className={styles.svgDisabled}
+              />
+            </span>
+          )}
+        </Grid>
+        <Grid item xs={10}>
+          <p className={styles.textStyle1}>
+            I agree to the <Link to='#'>Terms of Service</Link> and{' '}
+            <Link to='#'>Privacy Policy</Link>
+          </p>
+        </Grid>
+      </Grid>
+      <div className={styles.actionsContainer}>
+        <Button
+          onClick={onSignup}
+          className={mainStyles.defaultButton}
+          variant='contained'
+        >
+          Signup
         </Button>
-				<Button
-					onClick={() => {
-						history.push('/login');
-					}}
-					className={mainStyles.defaultOutlinedButton}
-					variant='outlined'
-				>
-					Login
+        <Button
+          onClick={() => {
+            history.push('/login');
+          }}
+          className={mainStyles.defaultOutlinedButton}
+          variant='outlined'
+        >
+          Login
         </Button>
-			</div>
-			<Grid item xs={10}>
-				<p className={styles.errorText}>
-					{errorState ? errorMessage : " "}
-				</p>
-			</Grid>
+      </div>
+      <Grid item xs={10}>
+        <p className={styles.errorText}>{errorState ? errorMessage : ' '}</p>
+      </Grid>
 
-			<div>
-				<div className={styles.line} >
-					<div className={styles.line2}> </div>
-					<div className={styles.lineText}> or continue with</div>
-					<div className={styles.line2}>
-					</div>
-				</div>
-				<div className={styles.socialContainers}>
-					<div>
-						<GoogleSVG />
-					</div>
-					<div>
-						<FacebookSVG />
-					</div>
-					<div>
-						<AppleSVG />
-					</div>
-				</div>
-			</div>
-		</div>
-	);
+      <div>
+        <div className={styles.line}>
+          <div className={styles.line2}> </div>
+          <div className={styles.lineText}> or continue with</div>
+          <div className={styles.line2}></div>
+        </div>
+        <div className={styles.socialContainers}>
+          <div>
+            <GoogleSVG />
+          </div>
+          <div>
+            <FacebookSVG />
+          </div>
+          <div>
+            <AppleSVG />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Signup;
