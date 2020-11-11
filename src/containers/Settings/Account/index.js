@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from './Account.module.scss';
 import mainStyles from '../../../index.module.scss';
 import { Grid, InputAdornment } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
+import TextField from '../../../components/TextField';
 import clsx from 'clsx';
 import Button from '@material-ui/core/Button';
 import CDialog from '../../../components/ConfirmationDialog';
@@ -41,10 +41,10 @@ const Account = () => {
           <EyeSVG />
         </div>
       ) : (
-        <div onClick={togglePasswordVisiblity}>
-          <Eye_offSVG />
-        </div>
-      );
+          <div onClick={togglePasswordVisiblity}>
+            <Eye_offSVG />
+          </div>
+        );
     }
   };
 

@@ -1,18 +1,35 @@
 import React, { useState } from 'react';
-import styles from './Setting.module.scss';
 import { Grid } from '@material-ui/core';
+import styles from './Setting.module.scss';
+import Notifications from './Notifications';
+
 import Account from './Account';
 import ConnectedAccounts from './ConnectedAccounts';
 
 const Setting = () => {
   const [active, setActive] = useState('account');
+  const [actionRequired, setActionRequired] = useState(true);
+  const [signContracts, setSignContracts] = useState(true);
+  const [influncerPosts, setInfluncerPosts] = useState(false);
+  const [campaignStart, setCampaignStart] = useState(false);
 
   const getContents = () => {
     switch (active) {
       case 'account':
         return <Account />;
       case 'notification':
-        return <div>Notification</div>;
+        return (
+          <Notifications
+            actionRequired={actionRequired}
+            signContracts={signContracts}
+            influncerPosts={influncerPosts}
+            campaignStart={campaignStart}
+            hanldeActionRequired={(e) => setActionRequired(e.target.checked)}
+            hanldeSignContracts={(e) => setSignContracts(e.target.checked)}
+            hanldeInfluencerPost={(e) => setInfluncerPosts(e.target.checked)}
+            hanldeCampaignStart={(e) => setCampaignStart(e.target.checked)}
+          />
+        );
       case 'connectedAccounts':
         return <ConnectedAccounts />;
       case 'contacts':
@@ -21,7 +38,6 @@ const Setting = () => {
         return 'Unknown step';
     }
   };
-
   return (
     <div className={styles.settingContainer}>
       <div className={styles.settingHeading}>
@@ -53,7 +69,7 @@ const Setting = () => {
           Contacts
         </button>
       </div>
-      <div>{getContents()}</div>
+      <Grid containers>{getContents()}</Grid>
     </div>
   );
 };

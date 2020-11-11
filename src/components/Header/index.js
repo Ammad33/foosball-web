@@ -1,12 +1,11 @@
 import React from 'react';
-//import SearchIcon from '@material-ui/icons/Search';
-import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import { Avatar, Badge } from '@material-ui/core';
 import styles from './headerStyles.module.scss';
 import SVG from 'react-inlinesvg';
 
-const SearchIcon = () => {return <SVG src={require('../../assets/Search.svg') } />};
-const NotificationIcon = () => {return <SVG src={require('../../assets/Notification.svg') } />};
+const SearchIcon = () => { return <SVG src={require('../../assets/Search.svg')} /> };
+const NotificationIcon = () => { return <SVG src={require('../../assets/Notification.svg')} /> };
+
 const Header = () => {
   return (
     <div className={styles.mainContainer}>

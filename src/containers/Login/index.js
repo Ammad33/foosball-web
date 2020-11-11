@@ -20,7 +20,7 @@ import AppleSVG from '../../assets/apple-logo-png-index-content-uploads-10.png'
 // const AppleSVG = () => {
 //   return <SVG src={require('../../assets/apple-logo-png-index-content-uploads-10.png')} />;
 // };
-const Eye_offSVG = () => {
+const EyeOffSVG = () => {
   return <SVG src={require('../../assets/eye-off.svg')} />;
 };
 const EyeSVG = () => {
@@ -86,7 +86,7 @@ const Login = () => {
                 {passwordShown ? (
                   <div onClick={togglePasswordVisiblity}> <EyeSVG />  </div>
                 ) : (
-                    <div onClick={togglePasswordVisiblity}> <Eye_offSVG />  </div>
+                    <div onClick={togglePasswordVisiblity}> <EyeOffSVG />  </div>
                   )}
               </span>
             </InputAdornment>

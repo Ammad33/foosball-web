@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, Select, makeStyles } from '@material-ui/core';
+import { Grid, Select } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import SelectMenu from '../../../components/SelectMenu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -9,7 +9,7 @@ import SVG from 'react-inlinesvg';
 
 
 const Chevron = () => {
-  return <SVG src={require('../../../assets/chevron-downn.svg')} />;
+    return <SVG src={require('../../../assets/chevron-downn.svg')} />;
 };
 
 
@@ -26,7 +26,7 @@ const Collection = ({ collection, handleCollection, collectionItems, collections
             <Grid item xs={12}>
                 <FormControl fullWidth variant="outlined">
                     <Select
-												className= {styles.dropdown}
+                        className={styles.dropdown}
                         labelId="demo-simple-select-outlined-label"
                         id="demo-simple-select-outlined"
                         label="Choose Collection"
@@ -35,9 +35,9 @@ const Collection = ({ collection, handleCollection, collectionItems, collections
                         onChange={handleCollection}
                         MenuProps={{ variant: "menu" }}
                         onOpen={() => setOpen(true)}
-												onClose={() => setOpen(false)}
-												IconComponent={() => (
-													<Chevron />     )}
+                        onClose={() => setOpen(false)}
+                        IconComponent={() => (
+                            <Chevron />)}
                         input={<SelectMenu />}
                     >
                         <MenuItem value="">
