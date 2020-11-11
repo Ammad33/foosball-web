@@ -89,20 +89,7 @@ const Account = () => {
                     className={styles.inputendornment}
                     position='end'
                   >
-                    <span>
-                      {getInputEndormentContent()}
-                      {/* {passwordShown ? (
-                        <div onClick={togglePasswordVisiblity}>
-                          {' '}
-                          <EyeSVG />{' '}
-                        </div>
-                      ) : (
-                        <div onClick={togglePasswordVisiblity}>
-                          {' '}
-                          <Eye_offSVG />{' '}
-                        </div>
-                      )} */}
-                    </span>
+                    <span>{getInputEndormentContent()}</span>
                   </InputAdornment>
                 ),
               }}
