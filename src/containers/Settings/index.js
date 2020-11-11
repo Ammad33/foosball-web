@@ -4,6 +4,7 @@ import styles from './Setting.module.scss';
 import Notifications from './Notifications';
 
 
+import Account from './Account';
 
 const Setting = () => {
 
@@ -16,7 +17,7 @@ const Setting = () => {
     const getContents = () => {
         switch (active) {
             case 'account':
-                return <div>Account</div>;
+                return <Account />;
             case 'notification':
                 return <Notifications
                     actionRequired={actionRequired}
@@ -35,8 +36,7 @@ const Setting = () => {
             default:
                 return 'Unknown step';
         }
-    }
-
+    };
     return (<div className={styles.settingContainer}>
         <div className={styles.settingHeading}>
             <h1>Settings</h1>
@@ -47,31 +47,32 @@ const Setting = () => {
                 onClick={() => setActive('account')}
             >
                 Account
-          </button>
+      </button>
             <button
                 className={active === 'notification' ? styles.active : ''}
                 onClick={() => setActive('notification')}
             >
                 Notification
-          </button>
+      </button>
             <button
                 className={active === 'connectedAccounts' ? styles.active : ''}
                 onClick={() => setActive('connectedAccounts')}
             >
                 Connected Accounts
-          </button>
+      </button>
             <button
                 className={active === 'contacts' ? styles.active : ''}
                 onClick={() => setActive('contacts')}
             >
                 Contacts
-          </button>
+      </button>
         </div>
         <Grid containers>
             {getContents()}
         </Grid>
     </div>
-    )
-};
+    );
+}
+
 
 export default Setting;

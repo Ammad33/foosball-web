@@ -1,5 +1,6 @@
 {
     "DIALOG":{
-        "CAMPAIGN_CDIALOG_MSG":"Are you sure you want to exit? You will lose all progress on this campaign and it will be deleted."
+        "CAMPAIGN_CDIALOG_MSG":"Are you sure you want to exit? You will lose all progress on this campaign and it will be deleted.",
+        "ACCOUNT_DELETE_CDIALOG_MSG":"Are you sure? If you delete your account you will lose all of your data."
     }
 }
