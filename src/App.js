@@ -12,9 +12,7 @@ import ResetPassword from './containers/ResetPassword';
 import Onboarding from './containers/Onboarding';
 import ProtectedRoute from './hoc/ProtectedRoute';
 import Settings from './containers/Settings';
-
 import Auth from './hoc/Auth';
-import Setting from './containers/Settings';
 
 const App = () => {
   return (

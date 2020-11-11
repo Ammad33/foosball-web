@@ -230,12 +230,12 @@ const Onboarding = () => {
             handleActiveForBrand={setActiveForBrand}
           />
         ) : (
-          <DisplayName
-            displayName={displayName}
-            handleDisplayName={(e) => setDisplayName(e.target.value)}
-            handleActiveForDisplay={setActiveForDisplay}
-          />
-        );
+            <DisplayName
+              displayName={displayName}
+              handleDisplayName={(e) => setDisplayName(e.target.value)}
+              handleActiveForDisplay={setActiveForDisplay}
+            />
+          );
       case 4:
         return <Billing />;
       default:
@@ -263,8 +263,8 @@ const Onboarding = () => {
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                        <CheckCircleIconSvg viewBox='0 0 31 31' />
-                      )}
+                            <CheckCircleIconSvg viewBox='0 0 31 31' />
+                          )}
                       <span
                         className={
                           activeStep == index
@@ -277,19 +277,19 @@ const Onboarding = () => {
                       </span>
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
                       {activeStep > index ? (
                         <div className={styles.activeBar} />
                       ) : (
-                        <div className={styles.inActiveBar} />
-                      )}
+                          <div className={styles.inActiveBar} />
+                        )}
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                 </>
               ))}
             </div>
@@ -302,8 +302,8 @@ const Onboarding = () => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                  <div className={activeStep === 1 ? styles.header : ''} />
-                )}
+                    <div className={activeStep === 1 ? styles.header : ''} />
+                  )}
               </div>
               <div className={styles.stepperAndComponent}>
                 <div className={styles.stepperNumberAndNameContainer}>
@@ -341,15 +341,6 @@ const Onboarding = () => {
 
             <div className={styles.actions}>
               <div className={styles.finishLater}>
-                {activeSave ? (
-                  <span
-                    onClick={() => {
-                      console.log('Test');
-                    }}
-                  >
-                    Save and finish later
-                  </span>
-                ) : null}
               </div>
               <button
                 onClick={(e) => handleNext(activeStep, e)}

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Grid, InputAdornment } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 
 import TextField from '../../../components/TextField';
 
