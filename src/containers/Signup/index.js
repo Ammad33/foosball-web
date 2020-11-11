@@ -8,21 +8,27 @@ import SVG from 'react-inlinesvg';
 import { useHistory } from 'react-router-dom';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import { Link } from 'react-router-dom';
-import VisibilityIcon from '@material-ui/icons/Visibility';
+import FacebookSVG from '../../assets/facebook-logo-2019-thumb.png';
+import GoogleSVG from '../../assets/google-logo-icon-png-transparent-background-osteopathy-16.png';
+import AppleSVG from '../../assets/apple-logo-png-index-content-uploads-10.png';
 
-const FacebookSVG = () => {
-  return <SVG src={require('../../assets/facebookClr.svg')} />;
-};
-const GoogleSVG = () => {
-  return <SVG src={require('../../assets/googleClr.svg')} />;
-};
-const AppleSVG = () => {
-  return <SVG src={require('../../assets/apple.svg')} />;
+
+import { Link } from 'react-router-dom';
+
+// const FacebookSVG = () => {
+//   return <SVG src={require('../../assets/facebook-logo-2019-thumb.png')} />;
+// };
+// const GoogleSVG = () => {
+//   return <SVG src={require('../../assets/google-logo-icon-png-transparent-background-osteopathy-16.png')} />;
+// };
+// const AppleSVG = () => {
+//   return <SVG src={require('../../assets/apple-logo-png-index-content-uploads-10.png')} />;
+// };
+const Eye_offSVG = () => {
+  return <SVG src={require('../../assets/eye-off.svg')} />;
 };
 const EyeSVG = () => {
-  return <SVG src={require('../../assets/eye-off.svg')} />;
+  return <SVG src={require('../../assets/eye.svg')} />;
 };
 
 const Signup = () => {
@@ -75,10 +81,10 @@ const Signup = () => {
   };
   return (
     <div className={styles.signupContainer}>
-      <h1>Sign Up</h1>
+      <h1 className={styles.heading}>Sign Up</h1>
       <TextField
         id='outlined-basic'
-        label='Fullname'
+        label='Full Name'
         onChange={(e) => setFullname(e.target.value)}
         variant='outlined'
         type='text'
@@ -101,9 +107,9 @@ const Signup = () => {
             <InputAdornment className={styles.inputendornment} position='end'>
               <span>
                 {passwordShown ? (
-                  <VisibilityIcon onClick={togglePasswordVisiblity} />
+                  <div onClick={togglePasswordVisiblity}> <EyeSVG/>  </div>
                 ) : (
-                  <VisibilityOffIcon onClick={togglePasswordVisiblity} />
+                  <div onClick={togglePasswordVisiblity}> <Eye_offSVG/>  </div>
                 )}
               </span>
             </InputAdornment>
@@ -163,13 +169,13 @@ const Signup = () => {
         </div>
         <div className={styles.socialContainers}>
           <div>
-            <GoogleSVG />
+					<img className={styles.logoDiv} src={GoogleSVG} alt='Google' />
           </div>
           <div>
-            <FacebookSVG />
-          </div>
+						<img className={styles.logoDiv} src={FacebookSVG} alt='Facebook' />  
+					</div>       
           <div>
-            <AppleSVG />
+					<img className={styles.logoDiv} src={AppleSVG} alt='Apple' />
           </div>
         </div>
       </div>

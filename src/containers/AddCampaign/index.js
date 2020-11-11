@@ -920,14 +920,16 @@ const AddCampaign = ({ open, handleCancel }) => {
   };
 
   const handleNext = (activeSetp, e) => {
+		const startDateTime = moment(startDate + ' ' + startTime);
+		const endDateTime = moment(endDate + ' ' + endTime);
     if (activeSetp == 1) {
       if (startDate < moment().format('MM/DD/YYYY')) {
         setStartDateError(true);
       } else if (endDate < startDate) {
         setEndDateError(true);
-      } else if (startTime < moment(new Date(), 'hmm').format('HH:mm')) {
+      } else if (startDateTime.isBefore(moment())) {
         setStartTimeError(true);
-      } else if (endTime < startTime) {
+      } else if (endDateTime.isBefore(startDateTime)) {
         setEndTimeError(true);
       } else {
         setEndTimeError(false);

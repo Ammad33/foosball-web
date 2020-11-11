@@ -7,19 +7,24 @@ import { Redirect } from 'react-router-dom';
 import mainStyles from './../../index.module.scss';
 import SVG from 'react-inlinesvg';
 import { useHistory } from 'react-router-dom';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-const FacebookSVG = () => {
-  return <SVG src={require('../../assets/facebookClr.svg')} />;
-};
-const GoogleSVG = () => {
-  return <SVG src={require('../../assets/googleClr.svg')} />;
-};
-const AppleSVG = () => {
-  return <SVG src={require('../../assets/apple.svg')} />;
+import FacebookSVG from '../../assets/facebook-logo-2019-thumb.png';
+import GoogleSVG from '../../assets/google-logo-icon-png-transparent-background-osteopathy-16.png';
+import AppleSVG from '../../assets/apple-logo-png-index-content-uploads-10.png'
+
+// const FacebookSVG = () => {
+//   return <SVG src={require('../../assets/facebook-logo-2019-thumb.png')} />;
+// };
+// const GoogleSVG = () => {
+//   return <SVG src={require('../../assets/google-logo-icon-png-transparent-background-osteopathy-16.png')} />;
+// };
+// const AppleSVG = () => {
+//   return <SVG src={require('../../assets/apple-logo-png-index-content-uploads-10.png')} />;
+// };
+const Eye_offSVG = () => {
+  return <SVG src={require('../../assets/eye-off.svg')} />;
 };
 const EyeSVG = () => {
-  return <SVG src={require('../../assets/eye-off.svg')} />;
+  return <SVG src={require('../../assets/eye.svg')} />;
 };
 
 const Login = () => {
@@ -77,9 +82,9 @@ const Login = () => {
             <InputAdornment className={styles.inputendornment} position='end'>
               <span>
                 {passwordShown ? (
-                  <VisibilityIcon onClick={togglePasswordVisiblity} />
+									<div onClick={togglePasswordVisiblity}> <EyeSVG/>  </div>			
                 ) : (
-                  <VisibilityOffIcon onClick={togglePasswordVisiblity} />
+                  <div onClick={togglePasswordVisiblity}> <Eye_offSVG/>  </div>
                 )}
               </span>
             </InputAdornment>
@@ -127,15 +132,15 @@ const Login = () => {
           <div className={styles.lineText}> or continue with</div>
           <div className={styles.line2}></div>
         </div>
-        <div className={styles.socialContainers}>
+				<div className={styles.socialContainers}>
           <div>
-            <GoogleSVG />
+					<img className={styles.logoDiv} src={GoogleSVG} alt='Google' />
           </div>
           <div>
-            <FacebookSVG />
-          </div>
+						<img className={styles.logoDiv} src={FacebookSVG} alt='Facebook' />  
+					</div>       
           <div>
-            <AppleSVG />
+					<img className={styles.logoDiv} src={AppleSVG} alt='Apple' />
           </div>
         </div>
       </div>

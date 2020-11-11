@@ -6,12 +6,18 @@ import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import React, { useEffect } from 'react';
+import SVG from 'react-inlinesvg';
 import SelectMenu from '../../../components/SelectMenu';
 import styles from './AddCampaignDetail.module.scss';
 import moment from 'moment';
 
 
 import TextField from '../../../components/TextField';
+
+
+const chevron = () => {
+  return <SVG src={require('../../../assets/chevron-downn.svg')} />;
+};
 
 
 const useStyles = makeStyles((theme) => ({
@@ -160,14 +166,15 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
       <Grid item xs={12} sm={12} md={6}>
         <FormControl fullWidth variant="outlined">
           <Select
-            id='outlined-basic'
+						id='outlined-basic'
+						IconComponent = {chevron}
             fullWidth
             displayEmpty
             value={discountType}
             onChange={(e) => handleDiscountType(e.target.value)}
             variant='outlined'
             MenuProps={{ variant: "menu" }}
-            placeholder="Discount Type"
+						placeholder="Discount Type"
             input={<SelectMenu />}
 
           >
