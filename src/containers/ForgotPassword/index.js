@@ -25,7 +25,7 @@ const ForgotPassword = () => {
 		
     <div className={styles.forgotPasswordContainer}>
       <h1 className={styles.heading}>Forgot your password?</h1>
-      <p className={styles.des}>Will send you an email with instructions to reset your password.</p>
+      <p className={styles.des}>We will send you an email with instructions to reset your password.</p>
       <TextField
         id='outlined-basic'
 				label='Email'
@@ -37,7 +37,7 @@ const ForgotPassword = () => {
       <div className={styles.actionsContainer}>
         <Button onClick={onForgotPassword} className={mainStyles.defaultButton} variant='contained'>
           <p className={styles.buttonText}>
-						Send a link </p>
+						Send a Link </p>
         </Button>
         <Button
           onClick={() => {

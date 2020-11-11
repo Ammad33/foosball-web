@@ -12,7 +12,7 @@ const Confirmation = () => {
 		
     <div className={styles.forgotPasswordContainer}>
       <h1 className={styles.heading}>Forgot your password?</h1>
-      <p className={styles.des}>If there is an account associated to the email you entered you will receive an email with instructions to reset your password</p>
+      <p className={styles.des}>If there is an account associated to the email you entered you will receive an email with instructions to reset your password.</p>
       <div className={styles.actionsContainer}>
         <Button
           onClick={() => {
@@ -24,7 +24,7 @@ const Confirmation = () => {
           Login
         </Button> </div>
 				<div> 
-				<Link to="#">Re-send password reset links</Link>     
+				<Link to="#">Re-send password reset link</Link>     
 				</div>
     </div>
   );
