@@ -23,7 +23,7 @@ const ResetPassword = () => {
       />
       <div className={styles.actionsContainer}>
         <Button className={mainStyles.defaultButton} variant='contained' onClick={()=>setResetConfirmation(true)}>
-          Reset Password
+          <p className={styles.buttonText}>Reset Password</p>
         </Button>
         <Button className={mainStyles.defaultOutlinedButton} variant='outlined'>
           Login

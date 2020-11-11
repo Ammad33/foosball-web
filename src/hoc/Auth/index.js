@@ -7,7 +7,7 @@ const Auth = ({ children }) => {
     <main className={styles.authContainer}>
       <section className={styles.logoAndComponent}>
         <img className={styles.logoDiv} src={logo} alt='Logo' />
-        <div>{children}</div>
+        <div className={styles.formDiv}>{children}</div>
       </section>
       <section className={styles.sidebar}>
         <div>Picture/Graphic TBD</div>

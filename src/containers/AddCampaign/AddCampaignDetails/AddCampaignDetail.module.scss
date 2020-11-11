@@ -9,3 +9,14 @@ display: none !important;
 .errorText {
 	color: red;
 }
+.dropDownCustomizeSvg{
+	svg{
+		margin-left: -36px;
+		margin-right: 20px;
+	}
+}
+input{
+	&::placeholder{
+		color: #7e7e7e !important;
+	}
+}

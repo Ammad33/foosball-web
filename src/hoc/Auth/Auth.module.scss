@@ -1,6 +1,6 @@
 @import './../../variable.module.scss';
 .authContainer {
-  height: 100%;
+  //height: 100%;
   display: flex;
   .logoAndComponent {
     padding: 40px;
@@ -10,17 +10,25 @@
       height: 81px;
       display: flex;
       align-items: center;
-      justify-content: center;
-			margin-bottom: 50px;
-			margin-top: -20px;
+      justify-content: center; //margin-bottom: 100px;
+    }
+    .formDiv {
+      margin: 113px 0px 246px 245px; //208px 
     }
   }
   .sidebar {
     width: 50%;
     background-color: $authSidebarBackground;
     display: flex;
+    position: relative;
+    min-height: 100vh; //min-height: -webkit-fill-available;
     div {
-      margin: auto;
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
       font-size: 30px;
     }
   }

@@ -78,9 +78,9 @@ const LeftSideDrawer = () => {
 
       <ListItem
         icon={<IconWallet />}
-        active={active === 'Wallet' ? true : false}
-        title={'Wallet'}
-        onClick={() => setActive('Wallet')}
+        active={active === 'Wallets' ? true : false}
+        title={'Wallets'}
+        onClick={() => setActive('Wallets')}
       />
 
       <ListItem

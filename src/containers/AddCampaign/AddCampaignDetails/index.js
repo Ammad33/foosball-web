@@ -16,7 +16,7 @@ import TextField from '../../../components/TextField';
 
 
 const chevron = () => {
-  return <SVG src={require('../../../assets/chevron-downn.svg')} />;
+  return <span className={styles.dropDownCustomizeSvg}><SVG src={require('../../../assets/chevron-downn.svg')} /></span>;
 };
 
 
@@ -54,6 +54,7 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
           value={campaignName}
           onChange={handleCampaignName}
           label='Campaign Name'
+          helperText= { " " }
           variant='outlined'
         />
       </Grid>
@@ -66,6 +67,7 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
           defaultValue="12/12/2019"
           onChange={(e) => handleStartDate(e.target.value)}
           label='Start Date'
+          labelClassName={styles.placeholderColor}
 					variant='outlined'
 					helperText= { startDateError ? <span className= {styles.errorText}> Start Date  IN FUTURE </span> : " "}
           InputProps={{
@@ -161,6 +163,7 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
           value={discount}
           onChange={handleDiscount}
           variant='outlined'
+          helperText= { " " }
         />
       </Grid>
       <Grid item xs={12} sm={12} md={6}>
@@ -176,7 +179,7 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
             MenuProps={{ variant: "menu" }}
 						placeholder="Discount Type"
             input={<SelectMenu />}
-
+            helperText= { " " }
           >
             <MenuItem value="" disabled>
               Discount Type

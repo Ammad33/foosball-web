@@ -165,7 +165,7 @@ const Campaigns = () => {
             </p>
           </div>
           <button onClick={() => setAddCampagin(true)}>
-            <AddIcon /> New Compaign
+            <AddIcon /> New Campaign
           </button>
         </div>
         <div className={styles.CampaignHeadingButton}>
