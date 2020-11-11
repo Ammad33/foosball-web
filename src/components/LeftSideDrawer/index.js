@@ -87,7 +87,10 @@ const LeftSideDrawer = () => {
         icon={<IconSettings />}
         active={active === 'Settings' ? true : false}
         title={'Settings'}
-        onClick={() => setActive('Settings')}
+        onClick={() => {
+          setActive('Settings');
+          history.push('/settings');
+        }}
       />
 
       <div className={styles.logoutButton}>
