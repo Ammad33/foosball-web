@@ -27,10 +27,10 @@ const IconWallet = () => {
 };
 const LeftSideDrawer = () => {
   const history = useHistory();
-  const [active, setActive] = useState('Campaign');
-  const { setCurrentUser, setLogoutMessage, currentUser } = useContext(
-    RootContext
-  );
+  const { setCurrentUser, setLogoutMessage, currentUser, activeRoute,
+    setActiveRoute } = useContext(
+      RootContext
+    );
 
   const signOut = async () => {
     try {
@@ -46,49 +46,49 @@ const LeftSideDrawer = () => {
     <>
       <ListItem
         icon={<IconCampaign />}
-        active={active === 'Campaign' ? true : false}
+        active={activeRoute === 'Campaign' ? true : false}
         title={'Campaigns'}
         onClick={() => {
-          setActive('Campaign');
+          setActiveRoute('Campaign');
           history.push('/campaigns');
         }}
       />
 
       <ListItem
         icon={<IconProspects />}
-        active={active === 'Prospects' ? true : false}
+        active={activeRoute === 'Prospects' ? true : false}
         title={'Prospects'}
-        onClick={() => setActive('Prospects')}
+        onClick={() => setActiveRoute('Prospects')}
       />
 
       <ListItem
         icon={<IconReports />}
-        active={active === 'Reports' ? true : false}
+        active={activeRoute === 'Reports' ? true : false}
         title={'Reports'}
-        onClick={() => setActive('Reports')}
+        onClick={() => setActiveRoute('Reports')}
         title={'Reports'}
       />
 
       <ListItem
         icon={<IconMessages />}
-        active={active === 'Messages' ? true : false}
-        onClick={() => setActive('Messages')}
+        active={activeRoute === 'Messages' ? true : false}
+        onClick={() => setActiveRoute('Messages')}
         title={'Messages'}
       />
 
       <ListItem
         icon={<IconWallet />}
-        active={active === 'Wallets' ? true : false}
+        active={activeRoute === 'Wallets' ? true : false}
         title={'Wallets'}
-        onClick={() => setActive('Wallets')}
+        onClick={() => setActiveRoute('Wallets')}
       />
 
       <ListItem
         icon={<IconSettings />}
-        active={active === 'Settings' ? true : false}
+        active={activeRoute === 'Settings' ? true : false}
         title={'Settings'}
         onClick={() => {
-          setActive('Settings');
+          setActiveRoute('Settings');
           history.push('/settings');
         }}
       />
