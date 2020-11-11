@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from './Setting.module.scss';
 import { Grid } from '@material-ui/core';
 import Account from './Account';
+import ConnectedAccounts from './ConnectedAccounts';
 
 const Setting = () => {
   const [active, setActive] = useState('account');
@@ -13,7 +14,7 @@ const Setting = () => {
       case 'notification':
         return <div>Notification</div>;
       case 'connectedAccounts':
-        return <div>Connected Account</div>;
+        return <ConnectedAccounts />;
       case 'contacts':
         return <div>Contacts</div>;
       default:
