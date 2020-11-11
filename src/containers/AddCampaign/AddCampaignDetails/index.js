@@ -1,4 +1,4 @@
-import { Calendar } from 'react-feather';
+import { Calendar, Clock } from 'react-feather';
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import { Grid, InputAdornment, Select } from '@material-ui/core';
@@ -10,7 +10,9 @@ import SVG from 'react-inlinesvg';
 import SelectMenu from '../../../components/SelectMenu';
 import styles from './AddCampaignDetail.module.scss';
 import moment from 'moment';
-
+import {
+  TimePicker,
+} from '@material-ui/pickers';
 
 import TextField from '../../../components/TextField';
 
@@ -47,8 +49,8 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
 
   return (
     <Grid container spacing={3}>
-      <Grid item md={12}>
-        <TextField
+      <Grid item md={12} >
+				<TextField 
           id='outlined-basic'
           fullWidth
           value={campaignName}
@@ -89,7 +91,6 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
         </MuiPickersUtilsProvider>
       </Grid>
       <Grid item xs={12} sm={12} md={6}>
-			
         <TextField
           id='outlined-basic'
           fullWidth
@@ -113,6 +114,33 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
           />
         </MuiPickersUtilsProvider>
       </Grid>
+
+			{/* <Grid item xs={12} sm={12} md={6}>
+        <TextField
+          id='outlined-basic'
+          fullWidth
+          label='Start Time'
+          value={startTime}
+          onChange={(e) => handleStartTime(e.target.value)}
+					variant='outlined'
+					helperText= { endDateError ? <span className= {styles.errorText}> Start Time IN FUTURE  </span> : " "}
+          InputProps={{
+            endAdornment: <InputAdornment className={styles.inputendornment} position="end"><Clock onClick={() => handleEndDateOpen(true)} /></InputAdornment>,
+          }}
+        />
+        <MuiPickersUtilsProvider utils={DateFnsUtils} >
+          <TimePicker className={styles.displayNone}
+            open={endDateOpen}
+            value={endDate}
+            onClose={() => handleEndDateOpen(false)}
+            onChange={handleEndDate}
+            orientation="landscape"
+            openTo="date"
+          />
+        </MuiPickersUtilsProvider>
+      </Grid> */}
+			
+
       <Grid item xs={12} sm={12} md={6}>
         <form className={classes.container} noValidate>
           <TextField
@@ -170,8 +198,9 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
         <FormControl fullWidth variant="outlined">
           <Select
 						id='outlined-basic'
-						IconComponent = {chevron}
-            fullWidth
+						IconComponent={() => (
+							<Chevron  />     )}
+						fullWidth
             displayEmpty
             value={discountType}
             onChange={(e) => handleDiscountType(e.target.value)}
