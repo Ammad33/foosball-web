@@ -5,6 +5,7 @@ import Notifications from './Notifications';
 
 import Account from './Account';
 import ConnectedAccounts from './ConnectedAccounts';
+import Contacts from './Contacts';
 
 const Setting = () => {
   const [active, setActive] = useState('account');
@@ -33,7 +34,7 @@ const Setting = () => {
       case 'connectedAccounts':
         return <ConnectedAccounts />;
       case 'contacts':
-        return <div>Contacts</div>;
+        return <Contacts />;
       default:
         return 'Unknown step';
     }
