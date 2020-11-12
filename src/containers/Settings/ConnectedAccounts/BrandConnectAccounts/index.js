@@ -14,12 +14,6 @@ const BrandConnectAccounts = () => {
 
   const handleButtonClick = () => {
     setStoreSaved(!storeSaved);
-    // if (!storeSaved) {
-    //   console.log('set store name');
-    //   console.log(storeSaved);
-    //   setStoreName('');
-    // }
-    console.log('Button Clicked');
   };
 
   return (
