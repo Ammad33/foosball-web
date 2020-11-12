@@ -5,14 +5,21 @@ import { Grid, InputAdornment, Select } from "@material-ui/core";
 import FormControl from "@material-ui/core/FormControl";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import SVG from "react-inlinesvg";
 import SelectMenu from "../../../components/SelectMenu";
 import styles from "./AddCampaignDetail.module.scss";
 import moment from "moment";
 import { TimePicker } from "@material-ui/pickers";
+import mainStyles from '../../../index.module.scss';
+
 
 import TextField from "../../../components/TextField";
+
+
+
+
+
 
 const Chevron = () => {
   return (
@@ -29,7 +36,10 @@ const useStyles = makeStyles((theme) => ({
   },
   textField: {
     width: 510,
-  },
+	},
+	whiteColor: {
+    color: "#7e7e7e"
+  }
 }));
 
 const AddCampaignDetails = ({
@@ -65,7 +75,8 @@ const AddCampaignDetails = ({
   filledForm,
   partialFilledForm,
 }) => {
-  const classes = useStyles();
+	const classes = useStyles();
+
 
   useEffect(() => {
     filledForm();
@@ -76,7 +87,7 @@ const AddCampaignDetails = ({
   });
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={2}>
       <Grid item md={12}>
         <TextField
           id="outlined-basic"
@@ -84,7 +95,7 @@ const AddCampaignDetails = ({
           value={campaignName}
           onChange={handleCampaignName}
           label="Campaign Name"
-          className={styles.placeholderColor} 
+          className={mainStyles.placeholderColor} 
           helperText={" "}
           variant="outlined"
         />
@@ -97,7 +108,7 @@ const AddCampaignDetails = ({
           defaultValue="12/12/2019"
           onChange={(e) => handleStartDate(e.target.value)}
           label="Start Date"
-          className={styles.placeholderColor}
+          className={mainStyles.placeholderColor}
           variant="outlined"
           helperText={
             startDateError ? (
@@ -135,14 +146,14 @@ const AddCampaignDetails = ({
           fullWidth
           label="End Date"
           value={endDate}
-          className={styles.placeholderColor}
+          className={mainStyles.placeholderColor}
           onChange={(e) => handleEndDate(e.target.value)}
           variant="outlined"
           helperText={
             endDateError ? (
               <span className={styles.errorText}>
                 {" "}
-                End Date AFTER Start Date{" "}
+                Error{" "}
               </span>
             ) : (
               " "
@@ -249,7 +260,7 @@ const AddCampaignDetails = ({
           id="outlined-basic"
           fullWidth
           label="Promotion Discount"
-          className={styles.placeholderColor}
+          className={mainStyles.placeholderColor}
           value={discount}
           onChange={handleDiscount}
           variant="outlined"
@@ -266,30 +277,22 @@ const AddCampaignDetails = ({
             value={discountType}
             onChange={(e) => handleDiscountType(e.target.value)}
             variant="outlined"
-            MenuProps={{ variant: "menu" }}
-            placeholder="Discount Type"
-            className={styles.placeholderColor}
+						MenuProps={{ variant: "menu" }}
+						// classes={{
+						// 	root: classes.whiteColor,
+						// 	icon: classes.whiteColor
+						// }}            
+						placeholder="Discount Type"
             input={<SelectMenu />}
-            helperText={" "}
           >
-            <MenuItem value="" disabled>
-              Discount Type
+            <MenuItem value="" disabled  >
+              Discount Types
             </MenuItem>
-            <MenuItem value={"Percentage"}>Percentage</MenuItem>
+            <MenuItem value={"Percentage"} >Percentage</MenuItem>
             <MenuItem value={"Amount"}>Amount</MenuItem>
           </Select>
         </FormControl>
       </Grid>
-      {/* <Grid item xs={12} sm={12} md={6}>
-        <TextField
-          id='outlined-basic'
-          fullWidth
-          label='Percentage'
-          value={percentage}
-          onChange={handlePercentage}
-          variant='outlined'
-        />
-      </Grid> */}
       <Grid item xs={12} sm={12} md={12}>
         <TextField
           id="outlined-basic"
@@ -297,7 +300,7 @@ const AddCampaignDetails = ({
           multiline
           value={customeMessage}
           onChange={handleCustomMessage}
-          className={styles.placeholderColor}
+          className={mainStyles.placeholderColor}
           rows={4}
           label={"Enter a max 1000 characters to send with your invitation"}
           variant="outlined"

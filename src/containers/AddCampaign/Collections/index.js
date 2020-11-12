@@ -12,15 +12,20 @@ const Chevron = () => {
   return <span className={styles.dropDownCustomizeSvg}><SVG src={require('../../../assets/chevron-downn.svg')} /></span>;
 };
 
+const useStyles = makeStyles((theme) => ({
 
+	whiteColor: {
+    color: "#7e7e7e"
+  }
+}));
 const Collection = ({ collection, handleCollection, collectionItems, collections, handleCollectionItem, handleActiveForCollection }) => {
 
     useEffect(() => {
         handleActiveForCollection()
     }, [collections])
 
-    const [open, setOpen] = useState(false);
-
+		const [open, setOpen] = useState(false);
+		const classes = useStyles();
     return (
         <Grid container>
             <Grid item xs={12}>
@@ -36,6 +41,10 @@ const Collection = ({ collection, handleCollection, collectionItems, collections
                         MenuProps={{ variant: "menu" }}
                         onOpen={() => setOpen(true)}
 												onClose={() => setOpen(false)}
+												// classes={{
+												// 	root: classes.whiteColor,
+												// 	icon: classes.whiteColor
+												// }}  
 												IconComponent={() => (
 													<Chevron />     )}
                         input={<SelectMenu />}

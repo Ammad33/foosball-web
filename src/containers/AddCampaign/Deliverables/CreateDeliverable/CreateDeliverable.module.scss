@@ -1,8 +1,21 @@
 @import '../../../../variable.module.scss';
+
+
+	
+// .alignItemHashTag{
+// 	& > div {
+// 		margin-top: 6px;
+// 	}
+// 	& > label {
+// 		margin-top: 7px
+// 	}
+// 	margin-top: 0px;
+// }
+
 .optionsItem {
     svg {
       color: $primary1;
-      cursor: pointer;
+			cursor: pointer;
     }
     .displayNone {
       display: none;
@@ -18,10 +31,13 @@
 			width: 31px;
     }
 	}
+
+
 	.dropDownCustomizeSvg{
 		svg{
 			margin-left: -36px;
 			margin-right: 20px;
+			// margin-top: 6px;
 		}
 	}
 	
@@ -61,4 +77,8 @@
   }
 
  
- 
+//  .marginTop{
+//  & > div {
+// 	 margin-top: 10px;
+//  }
+// }

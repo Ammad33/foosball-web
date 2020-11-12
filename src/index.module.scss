@@ -4,7 +4,7 @@ html {
   height: 100%;
 }
 body {
-  font-family: 'Poppins', 'Poppins Medium', sans-serif !important;
+  font-family: 'Poppins', 'poppins', sans-serif !important;
   color: $fontColor;
   margin: 0;
   height: 100%;
@@ -18,26 +18,26 @@ a {
 
 h1 {
   font-size: 33px;
-  font-family: 'Poppins Medium', sans-serif;
+  font-family: 'poppins', sans-serif;
   margin: 0;
   padding: 0;
 }
 h2 {
   font-size: 26px;
-  font-family: 'Poppins Medium', sans-serif;
+  font-family: 'poppins', sans-serif;
   margin: 0;
   padding: 0;
 }
 h3 {
   font-size: 23px;
-  font-family: 'Poppins Medium', sans-serif;
+  font-family: 'poppins', sans-serif;
   margin: 0;
   padding: 0;
 }
 
 h4 {
   font-size: 20px;
-  font-family: 'Poppins Medium', sans-serif;
+  font-family: 'poppins', sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -136,4 +136,12 @@ p {
 .MuiSelect-root::placeholder {
   color: red;
   opacity: 1;
+}
+
+.placeholderColor{
+	& > label{
+		color: #7e7e7e !important;
+		line-height: 18px !important;
+	}
+
 }

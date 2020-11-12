@@ -286,8 +286,8 @@ function getSteps() {
     'Deliverables',
     'Compensation',
     'Negotiables',
-    'Choose Influencer',
-    'Review And Send',
+    'Choose an Influencer',
+    'Review and Send',
   ];
 }
 

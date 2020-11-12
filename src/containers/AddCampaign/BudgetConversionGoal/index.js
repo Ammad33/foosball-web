@@ -1,12 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, InputAdornment } from '@material-ui/core';
+import mainStyles from '../../../index.module.scss';
 
 import TextField from '../../../components/TextField';
+
 
 const BudgetAndConversionGoals = ({ budget,
     handleBudget,
     handleGrossSale,
     targetGrossSale, setActiveForBudget }) => {
+
+		const [error , setError] = useState(false);
+
 
     useEffect(() => {
         setActiveForBudget()
@@ -18,8 +23,17 @@ const BudgetAndConversionGoals = ({ budget,
                     id='outlined-basic'
                     fullWidth
                     value={budget}
-                    onChange={handleBudget}
-                    label='Budget'
+										onChange={handleBudget}
+										className={mainStyles.placeholderColor}
+										label='Budget'
+										helperText={error ? (
+											<span >
+												{" "}
+												error{" "}
+											</span>
+										) : (
+											" "
+										)}
                     variant='outlined'
                     type="number"
                 />
@@ -29,7 +43,8 @@ const BudgetAndConversionGoals = ({ budget,
                     id='outlined-basic'
                     fullWidth
                     type="number"
-                    value={targetGrossSale}
+										value={targetGrossSale}
+										className={mainStyles.placeholderColor}
                     onChange={handleGrossSale}
                     label='Target Gross Sales'
                     variant='outlined'

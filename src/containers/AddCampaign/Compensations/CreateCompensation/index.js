@@ -20,7 +20,7 @@ const CreateCompensation = ({ compensations, handleAnother, index, item, handleC
     return (
         <Grid container spacing={3} >
             <Grid item xs={12} className={clsx(styles.headerContainer, index > 0 ? styles.marginTop : '')}>
-                <p className={styles.headingColor}>Compensation {index + 1}</p>
+                <p className={styles.headingColor}>Compensation Type{index + 1}</p>
                 {compensations.length > 1 && <Trash onClick={() => handleRemoveCompensation(index)} />}
             </Grid>
             <Grid item xs={12}>
