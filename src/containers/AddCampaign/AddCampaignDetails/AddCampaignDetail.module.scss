@@ -15,8 +15,10 @@ display: none !important;
 		margin-right: 20px;
 	}
 }
-input{
-	&::placeholder{
+
+.placeholderColor{
+	& > label, &::placeholder{
 		color: #7e7e7e !important;
 	}
+
 }
