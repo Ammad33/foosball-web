@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { TextField, Button } from '@material-ui/core';
 import styles from './ResetPassword.module.scss';
 import mainStyles from './../../index.module.scss';
+import { useHistory } from 'react-router-dom';
+
 
 const Reset = () => {
+	const history = useHistory();
   const [inputType, setInputType] = useState('password');
   return (
     <div className={styles.resetPasswordContainer}>
@@ -16,7 +19,13 @@ const Reset = () => {
         type={inputType}
       />
       <div className={styles.actionsContainer}>
-        <Button className={mainStyles.defaultOutlinedButton} variant='outlined'>
+			<Button
+          onClick={() => {
+            history.push('/login');
+          }}
+          className={mainStyles.defaultOutlinedButton}
+          variant='outlined'
+        >
           Login
         </Button>
       </div>

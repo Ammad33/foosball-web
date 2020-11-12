@@ -1,14 +1,32 @@
 import React, { useState } from 'react';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button,InputAdornment } from '@material-ui/core';
 import styles from './ResetPassword.module.scss';
 import mainStyles from './../../index.module.scss';
 import Reset from './reset';
+import { useHistory } from 'react-router-dom';
+import SVG from 'react-inlinesvg';
+
+
+const Eye_offSVG = () => {
+  return <SVG src={require('../../assets/eye-off.svg')} />;
+};
+const EyeSVG = () => {
+  return <SVG src={require('../../assets/eye.svg')} />;
+};
+
 
 
 const ResetPassword = () => {
 	const [resetConfirmation , setResetConfirmation] = useState(false);
+	const history = useHistory();
+	const [inputType, setInputType] = useState('password');
+	
+	const [passwordShown, setPasswordShown] = useState(false);
 
-  const [inputType, setInputType] = useState('password');
+  const togglePasswordVisiblity = () => {
+    setPasswordShown(passwordShown ? false : true);
+  };
+
   return (
 		resetConfirmation ? 
 		<Reset/>:
@@ -19,13 +37,32 @@ const ResetPassword = () => {
         id='outlined-basic'
         label='Password'
         variant='outlined'
-        type={inputType}
+        type={passwordShown ? 'text' : 'password'}
+				InputProps={{
+          endAdornment: (
+            <InputAdornment className={styles.inputendornment} position='end'>
+              <span>
+                {passwordShown ? (
+									<div onClick={togglePasswordVisiblity}> <EyeSVG/>  </div>			
+                ) : (
+                  <div onClick={togglePasswordVisiblity}> <Eye_offSVG/>  </div>
+                )}
+              </span>
+            </InputAdornment>
+          ),
+        }}
       />
       <div className={styles.actionsContainer}>
         <Button className={mainStyles.defaultButton} variant='contained' onClick={()=>setResetConfirmation(true)}>
           <p className={styles.buttonText}>Reset Password</p>
         </Button>
-        <Button className={mainStyles.defaultOutlinedButton} variant='outlined'>
+				<Button
+          onClick={() => {
+            history.push('/login');
+          }}
+          className={mainStyles.defaultOutlinedButton}
+          variant='outlined'
+        >
           Login
         </Button>
       </div>
