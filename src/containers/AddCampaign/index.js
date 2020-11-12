@@ -322,7 +322,9 @@ const AddCampaign = ({ open, handleCancel }) => {
   const [discountType, setDiscountType] = useState('');
   const [customeMessage, setCustomMessage] = useState('');
   const [startDateOpen, setStartDateOpen] = useState(false);
-  const [endDateOpen, setEndDateOpen] = useState(false);
+	const [endDateOpen, setEndDateOpen] = useState(false);
+	const [startTimeOpen, setStartTimeOpen] = useState(false);
+	const [endTimeOpen, setEndTimeOpen] = useState(false);
 
   /***** Budget and Target Sales ********/
 
@@ -359,8 +361,8 @@ const AddCampaign = ({ open, handleCancel }) => {
       setCustomMessage('');
       setStartDate(moment().format('MM/DD/YYYY'));
       setEndDate(moment().add(1, 'M').format('MM/DD/YYYY'));
-      setStartTime(moment(new Date(), 'hmm').format('HH:mm'));
-      setEndTime(moment(new Date(), 'hmm').format('HH:mm'));
+			setStartTime(moment().format("HH:mm"));
+			setEndTime(moment().format("HH:mm"));
       setBudget('');
       setTargetGrossSale('');
       setCollections([]);
@@ -769,10 +771,14 @@ const AddCampaign = ({ open, handleCancel }) => {
               setCampaignName(e.target.value);
             }}
             startDateOpen={startDateOpen}
-            endDateOpen={endDateOpen}
+						endDateOpen={endDateOpen}
+						startTimeOpen = {startTimeOpen}
+						endTimeOpen = {endTimeOpen}
             handleStartDate={handleStartDate}
             handleStartDateOpen={(value) => setStartDateOpen(value)}
-            handleEndDateOpen={(value) => setEndDateOpen(value)}
+						handleEndDateOpen={(value) => setEndDateOpen(value)}
+						handleStartTimeOpen = {(value) => setStartTimeOpen(value)}
+						handleEndTimeOpen = {(value) => setEndTimeOpen(value)}
             handleEndDate={(date) => {
               setEndDate(
                 date !== '' && moment(date, 'MM/DD/YYYY', true).isValid()
@@ -781,11 +787,13 @@ const AddCampaign = ({ open, handleCancel }) => {
               );
               setEndDateOpen(false);
             }}
-            handleStartTime={(e) => {
-              setStartTime(e.target.value);
+						handleStartTime={(e) => {
+							setStartTime(moment(e).format("HH:mm"));
+							setStartTimeOpen(false);
             }}
-            handleEndTime={(e) => {
-              setEndTime(e.target.value);
+   					handleEndTime={(e) => {
+							setStartTime(moment(e).format("HH:mm"));
+							setEndTimeOpen(false);
             }}
             handleDiscount={handleDiscount}
             handleDiscountType={handleDiscountType}

@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate,
   campaignName, startDate, startDateError, endDate, endDateError, startTime, startTimeError, endTime, endTimeError, discount, discountType, percentage, customeMessage,
   handleStartTime, handleEndTime, handleDiscountType, handleDiscount, handleCustomMessage, startDateOpen,
-  endDateOpen, handleStartDateOpen, handleEndDateOpen, filledForm, partialFilledForm }) => {
+  endDateOpen, handleStartDateOpen, handleEndDateOpen,handleStartTimeOpen,startTimeOpen,endTimeOpen,handleEndTimeOpen,filledForm, partialFilledForm }) => {
 
   const classes = useStyles();
 
@@ -114,75 +114,57 @@ const AddCampaignDetails = ({ handleCampaignName, handleStartDate, handleEndDate
           />
         </MuiPickersUtilsProvider>
       </Grid>
+			<Grid item xs={12} sm={12} md={6}>
+				<TextField
+				id='outlined-basic'
+				fullWidth
+				label='Start Time'
+				value={startTime}
+				onChange={(e) => handleStartTime(e.target.value)}
+				variant='outlined'
+				helperText= { startTimeError ? <span className= {styles.errorText}> Start Time IN FUTURE </span> : " "}
+				InputProps={{
+				endAdornment: <InputAdornment className={styles.inputendornment} position="end"><Clock onClick={() => handleStartTimeOpen(true)} /></InputAdornment>,
+				}}
+				/>
+				<MuiPickersUtilsProvider utils={DateFnsUtils} >
+				<TimePicker 
+					className={styles.displayNone}
+					open={startTimeOpen}
+					value={startTime}
+					onClose={() => handleStartTimeOpen(false)}
+					onChange={handleStartTime}
+					orientation="landscape"
+					openTo="time"
+					/>
+				</MuiPickersUtilsProvider>
+			</Grid>
 
-      {/* <Grid item xs={12} sm={12} md={6}>
-        <TextField
-          id='outlined-basic'
-          fullWidth
-          label='Start Time'
-          value={startTime}
-          onChange={(e) => handleStartTime(e.target.value)}
+				<Grid item xs={12} sm={12} md={6}>
+				<TextField
+					id='time'
+					fullWidth
+					label='End Time'
+					value={endTime}
+					onChange={(e) => handleEndTime(e.target.value)}
 					variant='outlined'
-					helperText= { endDateError ? <span className= {styles.errorText}> Start Time IN FUTURE  </span> : " "}
-          InputProps={{
-            endAdornment: <InputAdornment className={styles.inputendornment} position="end"><Clock onClick={() => handleEndDateOpen(true)} /></InputAdornment>,
-          }}
-        />
-        <MuiPickersUtilsProvider utils={DateFnsUtils} >
-          <TimePicker className={styles.displayNone}
-            open={endDateOpen}
-            value={endDate}
-            onClose={() => handleEndDateOpen(false)}
-            onChange={handleEndDate}
-            orientation="landscape"
-            openTo="date"
-          />
-        </MuiPickersUtilsProvider>
-      </Grid> */}
-
-
-      <Grid item xs={12} sm={12} md={6}>
-        <form className={classes.container} noValidate>
-          <TextField
-            id="time"
-            type="time"
-            label="Start Time"
-            defaultValue={moment(new Date(), "hmm").format("HH:mm")}
-            startTime={startTime}
-            className={classes.textField}
-            onChange={handleStartTime}
-            variant='outlined'
-            helperText={startTimeError ? <span className={styles.errorText}> Start Time IN FUTURE </span> : " "}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            inputProps={{
-              step: 300, // 5 min
-            }}
-          />
-        </form>
-      </Grid>
-      <Grid item xs={12} sm={12} md={6}>
-        <form className={classes.container} noValidate>
-          <TextField
-            id="time"
-            type="time"
-            label="End Time"
-            endTime={endTime}
-            defaultValue={moment(new Date(), "hmm").format("HH:mm")}
-            className={classes.textField}
-            onChange={handleEndTime}
-            variant='outlined'
-            helperText={endTimeError ? <span className={styles.errorText}> End Time AFTER Start Time </span> : " "}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            inputProps={{
-              step: 300, // 5 min
-            }}
-          />
-        </form>
-      </Grid>
+					helperText= { endTimeError ? <span className= {styles.errorText}> End Time AFTER Start Time </span> : " "}
+					InputProps={{
+					endAdornment: <InputAdornment className={styles.inputendornment} position="end"><Clock onClick={() => handleEndTimeOpen(true)} /></InputAdornment>,
+					}}
+				/>
+				<MuiPickersUtilsProvider utils={DateFnsUtils} >
+				<TimePicker 
+					className={styles.displayNone}
+					open={endTimeOpen}
+					value={endTime}
+					onClose={() => handleEndTimeOpen(false)}
+					onChange={handleEndTime}
+					orientation="landscape"
+					openTo="time"
+				/>
+				</MuiPickersUtilsProvider>
+			</Grid> 
       <Grid item xs={12} sm={12} md={6}>
         <TextField
           id='outlined-basic'
