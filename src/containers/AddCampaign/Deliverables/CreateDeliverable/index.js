@@ -211,7 +211,8 @@ const CreateDeliverable = ({ index, deliveries, handleDilverableContent,
                             id='outlined-basic'
 														fullWidth
                             label='Brand tag'
-                            variant='outlined'
+														variant='outlined'
+														className = {mainStyles.placeholderColor}
                             disabled={!deliverableItem.brandTagRequired}
                             value={deliverableItem && deliverableItem.brandTag}
                             onChange={(e) => handleDilverableContent(e.target.value, index, 'brandTag')}
@@ -246,7 +247,7 @@ const CreateDeliverable = ({ index, deliveries, handleDilverableContent,
                             id='outlined-basic'
                             fullWidth
 														label='Hashtag'
-														className = {styles.marginTop}
+														className = {mainStyles.placeholderColor}
                             value={deliverableItem && deliverableItem.hashTag}
                             onChange={(e) => handleDilverableContent(e.target.value, index, 'hashTag')}
                             variant='outlined'
