@@ -1,8 +1,9 @@
 @import '../../../variable.module.scss';
 
 .mainContainer {
-  padding: 20px 100px;
+  padding: 20px 75px;
   .memberRow {
+		margin-left: 24px;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -29,7 +30,8 @@
       padding: 7px 25px;
       display: flex;
       align-items: center;
-      cursor: pointer;
+			cursor: pointer;
+			justify-content: end;
     }
     button:focus {
       font-size: 15px;

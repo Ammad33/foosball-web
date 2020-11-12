@@ -7,6 +7,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import styles from './CreateCompensation.module.scss';
 import { Trash } from 'react-feather';
 import clsx from 'clsx';
+import SVG from 'react-inlinesvg';
+
+
+const Chevron = () => {
+  return <span className={styles.dropDownCustomizeSvg}><SVG src={require('../../../../assets/chevron-downn.svg')} /></span>;
+};
 
 const CreateCompensation = ({ compensations, handleAnother, index, item, handleCompensationValue,
     handleRemoveCompensation }) => {
@@ -22,7 +28,9 @@ const CreateCompensation = ({ compensations, handleAnother, index, item, handleC
                     <Select
                         labelId="demo-simple-select-outlined-label"
                         id="demo-simple-select-outlined"
-                        label="Choose Collection"
+												label="Choose Collection"
+												IconComponent={() => (
+													<Chevron />     )}
                         value={item.compensationType}
                         onChange={(e) => {
                             handleCompensationValue(e.target.value, index, 'compensationType')

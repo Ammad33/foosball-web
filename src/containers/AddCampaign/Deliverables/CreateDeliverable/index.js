@@ -15,11 +15,12 @@ import DateFnsUtils from "@date-io/date-fns";
 import { Calendar } from 'react-feather';
 import { Trash } from 'react-feather';
 import clsx from 'clsx';
+import SVG from 'react-inlinesvg';
 
 
-
-
-
+const Chevron = () => {
+  return <span className={styles.dropDownCustomizeSvg}><SVG src={require('../../../../assets/chevron-downn.svg')} /></span>;
+};
 const options = [];
 for (let i=1; i <= 15; i += 1) { options.push(i); }
 
@@ -83,7 +84,9 @@ const CreateDeliverable = ({ index, deliveries, handleDilverableContent,
                         variant='outlined'
 												value={ deliverableItem.socialPlatform}
                         onChange={(e) => handleDilverableContent(e.target.value, index, 'socialPlatform')}
-                        displayEmpty
+												displayEmpty
+												IconComponent={() => (
+													<Chevron />     )}
                         MenuProps={{ variant: "menu" }}
                         input={<SelectMenu />}
                     >
@@ -107,6 +110,8 @@ const CreateDeliverable = ({ index, deliveries, handleDilverableContent,
 										value={deliverableItem  && deliverableItem.campaignType}
 										onChange={(e) => handleDilverableContent(e.target.value, index, 'campaignType')}
 										displayEmpty
+										IconComponent={() => (
+											<Chevron />     )}
 										MenuProps={{ variant: "menu" }}
 										input={<SelectMenu />}
 								>
@@ -129,6 +134,8 @@ const CreateDeliverable = ({ index, deliveries, handleDilverableContent,
 									value={deliverableItem && deliverableItem.frameType}
 									onChange={(e) => handleDilverableContent(e.target.value, index, 'frameType')}
 									displayEmpty
+									IconComponent={() => (
+										<Chevron />     )}
 									MenuProps={{ variant: "menu" }}
 									input={<SelectMenu />}
 							>
@@ -152,6 +159,8 @@ const CreateDeliverable = ({ index, deliveries, handleDilverableContent,
 										value={deliverableItem && deliverableItem.frameRequired}
 										onChange={(e) => handleDilverableContent(e.target.value, index, 'frameRequired')}
 										displayEmpty
+										IconComponent={() => (
+											<Chevron />     )}
 										MenuProps={{ variant: "menu" }}
 										input={<SelectMenu />}
 								>
@@ -259,7 +268,9 @@ const CreateDeliverable = ({ index, deliveries, handleDilverableContent,
                         variant='outlined'
                         value={deliverableItem && deliverableItem.perTimePeriod}
                         onChange={(e) => handleDilverableContent(e.target.value, index, 'perTimePeriod')}
-                        displayEmpty
+												displayEmpty
+												IconComponent={() => (
+													<Chevron />     )}
                         MenuProps={{ variant: "menu" }}
                         input={<SelectMenu />}
 
