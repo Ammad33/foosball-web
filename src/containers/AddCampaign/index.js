@@ -742,7 +742,12 @@ const AddCampaign = ({ open, handleCancel }) => {
     setActiveNext(influencer !== null ? true : false);
   };
 
-  /*********************** To disable next button */
+	/*********************** To disable next button */
+	
+		useEffect(() => {
+    setActiveNext(true);
+  });
+
 
   const leftSideDawerClick = (index) => {
     if (activeStep >= index) {

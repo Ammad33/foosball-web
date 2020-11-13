@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Auth.module.scss';
 import logo from '../../assets/FomoPromo_logo__primary_color.png';
+import mainImage from '../../assets/AdobeStock_242493025_Preview.png';
 
 const Auth = ({ children }) => {
   return (
@@ -10,7 +11,7 @@ const Auth = ({ children }) => {
         <div className={styles.formDiv}>{children}</div>
       </section>
       <section className={styles.sidebar}>
-        <div>Picture/Graphic TBD</div>
+			<img className={styles.logoDiv} src={mainImage} alt='Logo' />
       </section>
     </main>
   );

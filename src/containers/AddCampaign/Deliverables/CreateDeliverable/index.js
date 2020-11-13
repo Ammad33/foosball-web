@@ -20,6 +20,7 @@ import mainStyles from '../../../../index.module.scss';
 
 
 
+
 const Chevron = () => {
   return <span className={styles.dropDownCustomizeSvg}><SVG src={require('../../../../assets/chevron-downn.svg')} /></span>;
 };
@@ -107,7 +108,7 @@ const CreateDeliverable = ({ index, deliveries, handleDilverableContent,
                     </Select>
                 	</FormControl>
             		</Grid>
-							<Grid item xs={12} sm={12} md={6}>
+							<Grid item xs={12} sm={12} md={6} className={styles.marginbottomSelect}>
 								<FormControl fullWidth variant="outlined">
 									<Select
 											id='Campaign Type'
@@ -132,7 +133,7 @@ const CreateDeliverable = ({ index, deliveries, handleDilverableContent,
 									</Select>
               	</FormControl>
             	</Grid>
-							<Grid item xs={12} sm={12} md={6}>
+							<Grid item xs={12} sm={12} md={6} >
 								<FormControl fullWidth variant="outlined">
 									<Select
 										id='Frame Type'
@@ -158,7 +159,7 @@ const CreateDeliverable = ({ index, deliveries, handleDilverableContent,
 									</Select>
             		</FormControl>
          	 		</Grid>
-							<Grid item xs={12} sm={12} md={6}>
+							<Grid item xs={12} sm={12} md={6} className={styles.marginbottom}>
 								<FormControl fullWidth variant="outlined">
 									<Select
 											id='Frame Required'
@@ -187,7 +188,7 @@ const CreateDeliverable = ({ index, deliveries, handleDilverableContent,
 								</FormControl> 
             	</Grid>
           		<Grid item xs={12} sm={12} md={8} >
-                <Grid container alignItems="center" 	  >
+                <Grid container alignItems="center" className={styles.marginbottom}	  >
                     <Grid item xs={1} className={styles.optionsItem}>
                         {deliverableItem && deliverableItem.brandTagRequired ? (
                             <CheckCircleIcon
@@ -212,7 +213,9 @@ const CreateDeliverable = ({ index, deliveries, handleDilverableContent,
 														fullWidth
                             label='Brand tag'
 														variant='outlined'
-														className = {mainStyles.placeholderColor}
+														className = {	
+															mainStyles.placeholderColor												
+														}
                             disabled={!deliverableItem.brandTagRequired}
                             value={deliverableItem && deliverableItem.brandTag}
                             onChange={(e) => handleDilverableContent(e.target.value, index, 'brandTag')}
