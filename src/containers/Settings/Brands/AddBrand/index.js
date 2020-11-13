@@ -1,10 +1,10 @@
 import React from 'react';
 import { Dialog, Grid } from '@material-ui/core';
-import styles from './AddContact.module.scss';
+import styles from './AddBrand.module.scss';
 import TextField from '../../../../components/TextField';
 import { HelpCircle } from 'react-feather';
 
-const AddContact = ({ open, handleChange, closeAdd }) => {
+const AddBrand = ({ open, closeAdd }) => {
 
     return (
         <Dialog
@@ -14,9 +14,9 @@ const AddContact = ({ open, handleChange, closeAdd }) => {
             onClose={closeAdd}
         >
             <div className={styles.content}>
-                <h6>Add an influencer </h6>
+                <h6>Add a brand </h6>
                 <div className={styles.subHeadingContainer}>
-                    <p>Add influencers manually or upload an excel file</p>
+                    <p>Add brands manually or upload an excel file</p>
                     <HelpCircle />
                     <button>Upload</button>
                 </div>
@@ -25,7 +25,7 @@ const AddContact = ({ open, handleChange, closeAdd }) => {
                     <TextField
                         id='outlined-basic'
                         fullWidth
-                        label='Full Name'
+                        label='Brand name'
                         variant='outlined'
                     />
                 </Grid>
@@ -33,7 +33,7 @@ const AddContact = ({ open, handleChange, closeAdd }) => {
                     <TextField
                         id='outlined-basic'
                         fullWidth
-                        label='Instagram Handle'
+                        label='Point of contact name'
                         variant='outlined'
                     />
                 </Grid>
@@ -73,5 +73,5 @@ const AddContact = ({ open, handleChange, closeAdd }) => {
 
 };
 
-export default AddContact;
+export default AddBrand;
 

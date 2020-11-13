@@ -1,40 +1,35 @@
 import React from 'react';
 import { Dialog, Grid } from '@material-ui/core';
-import styles from './AddContact.module.scss';
+import styles from './EditBrand.module.scss';
 import TextField from '../../../../components/TextField';
-import { HelpCircle } from 'react-feather';
 
-const AddContact = ({ open, handleChange, closeAdd }) => {
+const EditBrand = ({ open, closeAdd }) => {
 
     return (
         <Dialog
-            classes={{ paper: styles.addContact }}
+            classes={{ paper: styles.editContact }}
             aria-labelledby='confirmation-dialog-title'
             open={open}
             onClose={closeAdd}
         >
             <div className={styles.content}>
-                <h6>Add an influencer </h6>
-                <div className={styles.subHeadingContainer}>
-                    <p>Add influencers manually or upload an excel file</p>
-                    <HelpCircle />
-                    <button>Upload</button>
-                </div>
-
+                <h6>Edit </h6>
                 <Grid item xs={12} className={styles.element}>
                     <TextField
                         id='outlined-basic'
                         fullWidth
-                        label='Full Name'
+                        label='Brand name'
                         variant='outlined'
+                        value="Care/of"
                     />
                 </Grid>
                 <Grid item xs={12} className={styles.element}>
                     <TextField
                         id='outlined-basic'
                         fullWidth
-                        label='Instagram Handle'
+                        label='Point of contact name'
                         variant='outlined'
+                        value="Lennie James"
                     />
                 </Grid>
 
@@ -44,6 +39,7 @@ const AddContact = ({ open, handleChange, closeAdd }) => {
                         fullWidth
                         label='Email Address'
                         variant='outlined'
+                        value="marketing@takecareof.com"
                     />
                 </Grid>
 
@@ -57,15 +53,13 @@ const AddContact = ({ open, handleChange, closeAdd }) => {
                         fullWidth
                         label='Mobile Number'
                         variant='outlined'
+
                     />
                 </Grid>
             </div>
             <div className={styles.footer} >
                 <span onClick={closeAdd}>Cancel</span>
-                <div>
-                    <div className={styles.spandiv}><div className={styles.circle}></div> <p>Add another</p></div>
-                    <button>Add</button>
-                </div>
+                <button disabled={true}>Save</button>
             </div>
 
         </Dialog>
@@ -73,5 +67,5 @@ const AddContact = ({ open, handleChange, closeAdd }) => {
 
 };
 
-export default AddContact;
+export default EditBrand;
 

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import styles from './Contacts.module.scss';
+import styles from './Brand.module.scss';
 import { Plus, MoreVertical, Mail, Edit, Trash } from 'react-feather';
 import { InputAdornment, Grid, Avatar, Popover } from '@material-ui/core';
 import TextField from '../../../components/TextField';
 import { Search } from 'react-feather';
-import AddContact from './AddContact';
-import EditContact from './EditContact';
+import AddBrand from './AddBrand';
+import EditBrand from './EditBrand';
 
-const Contacts = () => {
+const Brands = () => {
 
     const [search, setSearch] = useState('');
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -28,10 +28,10 @@ const Contacts = () => {
 
     return (
         <>
-            <AddContact open={addOpen} closeAdd={() => setAddOpen(false)} />
-            <EditContact open={editOpen} closeAdd={() => setEditOpen(false)} />
+            <AddBrand open={addOpen} closeAdd={() => setAddOpen(false)} />
+            <EditBrand open={editOpen} closeAdd={() => setEditOpen(false)} />
             <div className={styles.inviteContainer}>
-                <span onClick={() => setAddOpen(true)} className={styles.inviteSpan}><Plus /> Invite influencers to work with</span>
+                <span onClick={() => setAddOpen(true)} className={styles.inviteSpan}><Plus /> Invite brands to work with</span>
                 <p>When you invite other users to FOMO Promo and they sign up and create a campaign, you can get a credit for one campaign. See more details <span>here</span>.</p>
             </div>
             <div className={styles.searchContainer}>
@@ -80,17 +80,17 @@ const Contacts = () => {
                                     src='https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80'
                                 />}
                             <p>
-                                Sam Ozkural
+                                Care / of
                     </p>
                         </Grid>
                         <Grid item xs={3}>
                             <p>
-                                @samozkural
+                                Lennie James
                     </p>
                         </Grid>
                         <Grid item xs={3}>
                             <p>
-                                samozkural@gmail.com
+                                marketing@takecareof.com
                     </p>
                         </Grid>
                         <Grid item xs={2} >
@@ -105,4 +105,4 @@ const Contacts = () => {
     );
 }
 
-export default Contacts;
+export default Brands;
