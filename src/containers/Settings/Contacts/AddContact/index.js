@@ -4,7 +4,11 @@ import styles from './AddContact.module.scss';
 import TextField from '../../../../components/TextField';
 import { HelpCircle } from 'react-feather';
 
-const AddContact = ({ open, handleChange, closeAdd }) => {
+const AddContact = ({ open, newInfluencer,
+    handleNewInfluencerChange,
+    addNewInfluencer,
+    setNew, closeAdd,
+    newInfluencerError }) => {
 
     return (
         <Dialog
@@ -21,29 +25,52 @@ const AddContact = ({ open, handleChange, closeAdd }) => {
                     <button>Upload</button>
                 </div>
 
-                <Grid item xs={12} className={styles.element}>
+                <Grid item xs={12} className={newInfluencerError.fullName ? styles.errorElement : styles.element}>
                     <TextField
                         id='outlined-basic'
                         fullWidth
                         label='Full Name'
                         variant='outlined'
+                        value={newInfluencer.fullName}
+                        onChange={(e) => handleNewInfluencerChange(e.target.value, 'fullName')}
+                        helperText={
+                            newInfluencerError.fullName && (
+                                <span className={styles.errorText}>Full name is required </span>
+                            )
+                        }
                     />
                 </Grid>
-                <Grid item xs={12} className={styles.element}>
+                <Grid item xs={12} className={newInfluencerError.instagramHandler ? styles.errorElement : styles.element}>
                     <TextField
                         id='outlined-basic'
                         fullWidth
                         label='Instagram Handle'
                         variant='outlined'
+                        value={newInfluencer.instagramHandler}
+                        onChange={(e) => handleNewInfluencerChange(e.target.value, 'instagramHandler')}
+                        helperText={
+                            newInfluencerError.instagramHandler && (
+                                <span className={styles.errorText}>Instagram Handle is required </span>
+                            )
+                        }
+
                     />
                 </Grid>
 
-                <Grid item xs={12} className={styles.element}>
+                <Grid item xs={12} className={newInfluencerError.email ? styles.errorElement : styles.element}>
                     <TextField
                         id='outlined-basic'
                         fullWidth
                         label='Email Address'
                         variant='outlined'
+                        value={newInfluencer.email}
+                        onChange={(e) => handleNewInfluencerChange(e.target.value, 'email')}
+                        helperText={
+                            newInfluencerError.email && (
+                                <span className={styles.errorText}>Email Address is required </span>
+                            )
+                        }
+
                     />
                 </Grid>
 
@@ -51,20 +78,28 @@ const AddContact = ({ open, handleChange, closeAdd }) => {
                     <p className={styles.or}>OR</p>
                 </Grid>
 
-                <Grid item xs={12} className={styles.element}>
+                <Grid item xs={12} className={newInfluencerError.mobilePhone ? styles.errorElement : styles.element}>
                     <TextField
                         id='outlined-basic'
                         fullWidth
                         label='Mobile Number'
                         variant='outlined'
+                        value={newInfluencer.mobilePhone}
+                        onChange={(e) => handleNewInfluencerChange(e.target.value, 'mobilePhone')}
+                        helperText={
+                            newInfluencerError.mobilePhone && (
+                                <span className={styles.errorText}> Mobile Number is required </span>
+                            )
+                        }
+
                     />
                 </Grid>
             </div>
             <div className={styles.footer} >
                 <span onClick={closeAdd}>Cancel</span>
                 <div>
-                    <div className={styles.spandiv}><div className={styles.circle}></div> <p>Add another</p></div>
-                    <button>Add</button>
+                    <div className={styles.spandiv} onClick={setNew}><div className={styles.circle}></div> <p>Add another</p></div>
+                    <button onClick={addNewInfluencer}>Add</button>
                 </div>
             </div>
 

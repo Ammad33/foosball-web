@@ -7,7 +7,8 @@ import { Search } from 'react-feather';
 import AddBrand from './AddBrand';
 import EditBrand from './EditBrand';
 
-const Brands = () => {
+const Brands = ({ brands, newBrand, handleNewBrandChange, addNewBrand,
+    clearNewBrand, newBrandError }) => {
 
     const [search, setSearch] = useState('');
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -23,12 +24,24 @@ const Brands = () => {
         setAnchorEl(null);
     };
 
+    const handleCloseBrand = () => {
+        clearNewBrand();
+        setAddOpen(false);
+    }
+
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
 
     return (
         <>
-            <AddBrand open={addOpen} closeAdd={() => setAddOpen(false)} />
+            <AddBrand open={addOpen} closeAdd={handleCloseBrand}
+                brands={brands}
+                newBrand={newBrand}
+                handleNewBrandChange={handleNewBrandChange}
+                addNewBrand={addNewBrand}
+                clearNewBrand={clearNewBrand}
+                newBrandError={newBrandError}
+            />
             <EditBrand open={editOpen} closeAdd={() => setEditOpen(false)} />
             <div className={styles.inviteContainer}>
                 <span onClick={() => setAddOpen(true)} className={styles.inviteSpan}><Plus /> Invite brands to work with</span>

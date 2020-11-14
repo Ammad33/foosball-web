@@ -1,5 +1,6 @@
 @import '../../../../variable.module.scss';
 .addContact {
+  height: 690px !important;
   width: 838px !important;
   max-width: 838px !important;
   border-radius: 20px !important;
@@ -33,6 +34,10 @@
 
   .element {
       margin-bottom: 30px;
+  }
+
+  .errorElement {
+    margin-bottom: 10px;
   }
 
   .footer {
@@ -141,4 +146,9 @@
         }
       }
   }
+  }
+
+  .errorText {
+    margin: 0px !important;
+    color: red;
   }

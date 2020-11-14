@@ -14,6 +14,162 @@ const Setting = () => {
   const [signContracts, setSignContracts] = useState(true);
   const [influncerPosts, setInfluncerPosts] = useState(false);
   const [campaignStart, setCampaignStart] = useState(false);
+  const [influencers, setInfluncers] = useState([]);
+  const [brands, setBrands] = useState([]);
+
+  const [newBrand, setNewBrand] = useState({
+    brandName: '',
+    pocName: '',
+    email: '',
+    mobilePhone: '',
+  });
+
+  const [newBrandError, setNewBrandError] = useState({
+    brandName: false,
+    pocName: false,
+    email: false,
+    mobilePhone: false,
+  });
+
+
+  const [newInfluencer, setNewInfluencer] = useState({
+    fullName: '',
+    instagramHandler: '',
+    email: '',
+    mobilePhone: '',
+  });
+
+  const [newInfluencerError, setNewInfluencerError] = useState({
+    fullName: false,
+    instagramHandler: false,
+    email: false,
+    mobilePhone: false,
+  });
+
+  const handleNewInfluencerChange = (value, fieldName) => {
+    const newInfluner = { ...newInfluencer };
+    newInfluner[fieldName] = value;
+    const newInflunerError = { ...newInfluencerError };
+    if (fieldName === 'email' || fieldName === 'mobilePhone' && newInflunerError[fieldName] === true && value !== '') {
+      newInflunerError['mobilePhone'] = false;
+      newInflunerError['email'] = false;
+      setNewInfluencerError(newInflunerError);
+
+    } else if (newInflunerError[fieldName] === true && value !== '') {
+      newInflunerError[fieldName] = false;
+      setNewInfluencerError(newInflunerError);
+    }
+    setNewInfluencer(newInfluner);
+  }
+
+  const handleNewBrandChange = (value, fieldName) => {
+    const brand = { ...newBrand };
+    brand[fieldName] = value;
+    const brandError = { ...newBrandError };
+    if (fieldName === 'email' || fieldName === 'mobilePhone' && brandError[fieldName] === true && value !== '') {
+      brandError['mobilePhone'] = false;
+      brandError['email'] = false;
+      setNewBrandError(brandError);
+
+    } else if (brandError[fieldName] === true && value !== '') {
+      brandError[fieldName] = false;
+      setNewBrandError(brandError);
+    }
+    setNewBrand(brand);
+  }
+
+  const clearNewBrand = () => {
+    setNewBrand({
+      brandName: '',
+      pocName: '',
+      email: '',
+      mobilePhone: '',
+    });
+
+    setNewBrandError({
+      brandName: false,
+      pocName: false,
+      email: false,
+      mobilePhone: false,
+    });
+  }
+
+  const setNew = () => {
+    setNewInfluencer({
+      fullName: '',
+      instagramHandler: '',
+      email: '',
+      mobilePhone: '',
+    });
+
+    setNewInfluencerError({
+      fullName: false,
+      instagramHandler: false,
+      email: false,
+      mobilePhone: false,
+    });
+  }
+
+  const addNewInfluencer = () => {
+
+    const newInfluencerErrorr = { ...newInfluencerError };
+    if (newInfluencer.fullName === '') {
+      newInfluencerErrorr.fullName = true;
+    }
+    if (newInfluencer.instagramHandler === '') {
+      newInfluencerErrorr.instagramHandler = true;
+    }
+
+    if (newInfluencer.email === '' && newInfluencer.mobilePhone === '') {
+      newInfluencerErrorr.email = true;
+    }
+
+    if (newInfluencer.email === '' && newInfluencer.mobilePhone === '') {
+      newInfluencerErrorr.mobilePhone = true;
+    };
+
+    setNewInfluencerError(newInfluencerErrorr);
+
+    if (Object.values(newInfluencerErrorr).includes(true)) {
+      return;
+    }
+
+    const data = [...influencers];
+    data.push(newInfluencer);
+    setInfluncers(data);
+
+  }
+
+  const addNewBrand = () => {
+
+    const brandError = { ...newBrandError };
+    if (newBrand.brandName === '') {
+      brandError.brandName = true;
+    }
+    if (newBrand.pocName === '') {
+      brandError.pocName = true;
+    }
+
+    if (newBrand.email === '' && newBrand.mobilePhone === '') {
+      brandError.email = true;
+    }
+
+
+    if (newBrand.email === '' && newBrand.mobilePhone === '') {
+      brandError.mobilePhone = true;
+    }
+
+    setNewBrandError(brandError);
+
+    if (Object.values(brandError).includes(true)) {
+      return;
+    }
+
+    const data = [...brands];
+    data.push(newBrand);
+    setBrands(data);
+
+  }
 
   const getContents = () => {
     switch (active) {
@@ -35,8 +191,24 @@ const Setting = () => {
       case 'connectedAccounts':
         return <ConnectedAccounts />;
       case 'contacts':
-        // return <Contacts />;
-        return <Brands />;
+        // return <Contacts
+        //   influencers={influencers}
+        //   newInfluencer={newInfluencer}
+        //   handleNewInfluencerChange={handleNewInfluencerChange}
+        //   addNewInfluencer={addNewInfluencer}
+        //   setNew={setNew}
+        //   newInfluencerError={newInfluencerError}
+
+
+        // />;
+        return <Brands
+          brands={brands}
+          newBrand={newBrand}
+          handleNewBrandChange={handleNewBrandChange}
+          addNewBrand={addNewBrand}
+          clearNewBrand={clearNewBrand}
+          newBrandError={newBrandError}
+        />;
       default:
         return 'Unknown step';
     }

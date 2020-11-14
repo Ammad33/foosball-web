@@ -7,7 +7,11 @@ import { Search } from 'react-feather';
 import AddContact from './AddContact';
 import EditContact from './EditContact';
 
-const Contacts = () => {
+const Contacts = ({ influencers,
+    newInfluencer,
+    handleNewInfluencerChange,
+    addNewInfluencer,
+    setNew, newInfluencerError }) => {
 
     const [search, setSearch] = useState('');
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -26,9 +30,22 @@ const Contacts = () => {
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
 
+    const closeHandle = () => {
+        setAddOpen(false);
+        setNew();
+    }
+
     return (
         <>
-            <AddContact open={addOpen} closeAdd={() => setAddOpen(false)} />
+            <AddContact
+                newInfluencer={newInfluencer}
+                handleNewInfluencerChange={handleNewInfluencerChange}
+                addNewInfluencer={addNewInfluencer}
+                setNew={setNew}
+                open={addOpen}
+                newInfluencerError={newInfluencerError}
+                closeAdd={closeHandle}
+            />
             <EditContact open={editOpen} closeAdd={() => setEditOpen(false)} />
             <div className={styles.inviteContainer}>
                 <span onClick={() => setAddOpen(true)} className={styles.inviteSpan}><Plus /> Invite influencers to work with</span>
