@@ -1,6 +1,17 @@
 .formContainer {
 }
 .actionsContainer {
+  .accountDeactivationContainer {
+    margin-bottom: 20px;
+    .deleteTitle {
+      font-size: 18px;
+      font-weight: 500;
+    }
+    .deleteAccountTextAndButton {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
   .accountDeletionContainer {
     margin-bottom: 300px;
     .deleteTitle {

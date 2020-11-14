@@ -20,6 +20,7 @@ const Account = () => {
   const [passwordShown, setPasswordShown] = useState(false);
   const [passwordCleared, setPasswordCleared] = useState(false);
   const [passwordChange, setPasswordChange] = useState(false);
+  const [actionType, setActionType] = useState('');
 
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
@@ -41,10 +42,10 @@ const Account = () => {
           <EyeSVG />
         </div>
       ) : (
-          <div onClick={togglePasswordVisiblity}>
-            <Eye_offSVG />
-          </div>
-        );
+        <div onClick={togglePasswordVisiblity}>
+          <Eye_offSVG />
+        </div>
+      );
     }
   };
 
@@ -99,12 +100,31 @@ const Account = () => {
       </div>
       <hr className={mainStyles.hr} />
       <div className={styles.actionsContainer}>
+        <div className={styles.accountDeactivationContainer}>
+          <p className={styles.deleteTitle}>Deactivate Account</p>
+          <div className={styles.deleteAccountTextAndButton}>
+            <p>
+              If you know longer need your account, or want to temporarily
+              disable it, you can deactivate your account.
+            </p>
+            <Button
+              onClick={() => {
+                setActionType('Deactivate');
+                setOpenCDialog(true);
+              }}
+              className={mainStyles.textDangerButton}
+            >
+              Deactivate Account
+            </Button>
+          </div>
+        </div>
         <div className={styles.accountDeletionContainer}>
           <p className={styles.deleteTitle}>Delete Account</p>
           <div className={styles.deleteAccountTextAndButton}>
             <p>By deleting your account you will lose all your data</p>
             <Button
               onClick={() => {
+                setActionType('Delete');
                 setOpenCDialog(true);
               }}
               className={mainStyles.textDangerButton}
@@ -119,11 +139,15 @@ const Account = () => {
       </div>
       <CDialog
         open={openCDialog}
-        cancelText={'Delete'}
+        cancelText={actionType}
         confirmText={'Cancel'}
         onCancel={handleCancelCDialog}
         onConfirm={handleConfirmCDialog}
-        message={Translation.DIALOG.ACCOUNT_DELETE_CDIALOG_MSG}
+        message={
+          actionType === 'Delete'
+            ? Translation.DIALOG.ACCOUNT_DELETE_CDIALOG_MSG
+            : Translation.DIALOG.ACCOUNT_DEACTIVATE_CDIALOG_MSG
+        }
       />
     </div>
   );
