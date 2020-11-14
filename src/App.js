@@ -11,7 +11,7 @@ import ForgotPassword from './containers/ForgotPassword';
 import ResetPassword from './containers/ResetPassword';
 import Onboarding from './containers/Onboarding';
 import ProtectedRoute from './hoc/ProtectedRoute';
-
+import Settings from './containers/Settings';
 import Auth from './hoc/Auth';
 
 const App = () => {
@@ -31,6 +31,11 @@ const App = () => {
           </ProtectedRoute>
           <ProtectedRoute exact path='/addCampaign'>
             <AddCampaign />
+          </ProtectedRoute>
+          <ProtectedRoute exact path='/settings'>
+            <Layout>
+              <Settings />
+            </Layout>
           </ProtectedRoute>
           <Route exact path='/login'>
             <Auth>

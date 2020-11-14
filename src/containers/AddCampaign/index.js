@@ -23,8 +23,6 @@ import CDialog from '../../components/ConfirmationDialog';
 import Translation from '../../assets/translation.json';
 import SVG from 'react-inlinesvg';
 import { API, graphqlOperation } from 'aws-amplify';
-import { set } from 'date-fns';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import logo from '../../assets/FomoPromo_logo__white.png';
 
 const XSVG = () => {
@@ -615,7 +613,7 @@ const AddCampaign = ({ open, handleCancel }) => {
         setDiscount(value);
       }
     } else {
-      const re = /^((0|[1-9]\d?)(\.\d{1,2})?|100(\.00?)?)$/;
+      // const re = /^((0|[1-9]\d?)(\.\d{1,2})?|100(\.00?)?)$/;
       const value = e.currentTarget.value;
       var x = parseFloat(value);
       if (value !== '' && (isNaN(x) || x < 0 || x > 100)) {
@@ -654,7 +652,7 @@ const AddCampaign = ({ open, handleCancel }) => {
 
   const createCampaign = async () => {
     try {
-      const campaign = await API.graphql(
+      await API.graphql(
         graphqlOperation(
           `mutation createCampaign($input: CreateCampaignInput!) {
           createCampaign(input: $input) {
@@ -932,10 +930,10 @@ const AddCampaign = ({ open, handleCancel }) => {
     } else setActiveNext(false);
   };
 
-  const handleNext = (activeSetp, e) => {
-		const startDateTime = moment(startDate + ' ' + startTime);
-		const endDateTime = moment(endDate + ' ' + endTime);
-    if (activeSetp == 1) {
+  const handleNext = (activeSetp) => {
+    const startDateTime = moment(startDate + ' ' + startTime);
+    const endDateTime = moment(endDate + ' ' + endTime);
+    if (activeSetp === 1) {
       if (startDate < moment().format('MM/DD/YYYY')) {
         setStartDateError(true);
       } else if (endDate < startDate) {
@@ -992,7 +990,7 @@ const AddCampaign = ({ open, handleCancel }) => {
                 <>
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
-                      {activeStep == index ? (
+                      {activeStep === index ? (
                         <div className={styles.active}></div>
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
@@ -1003,7 +1001,7 @@ const AddCampaign = ({ open, handleCancel }) => {
                             )}
                       <span
                         className={
-                          activeStep == index
+                          activeStep === index
                             ? styles.activeLabel
                             : styles.inActiveLabel
                         }

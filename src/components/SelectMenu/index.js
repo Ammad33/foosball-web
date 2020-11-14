@@ -13,7 +13,6 @@ const CssSelectMenu = withStyles({
     input: {
         borderRadius: 5,
         border: '1px solid #939393 !important',
-        borderRadius: '5px',
         fontFamily: 'Poppins',
         fontSize: '16px',
         color: '#000000',

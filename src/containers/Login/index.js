@@ -20,7 +20,7 @@ import AppleSVG from '../../assets/apple-logo-png-index-content-uploads-10.png'
 // const AppleSVG = () => {
 //   return <SVG src={require('../../assets/apple-logo-png-index-content-uploads-10.png')} />;
 // };
-const Eye_offSVG = () => {
+const EyeOffSVG = () => {
   return <SVG src={require('../../assets/eye-off.svg')} />;
 };
 const EyeSVG = () => {
@@ -40,6 +40,7 @@ const Login = () => {
     setCurrentUser,
     logoutMessage,
     setLogoutMessage,
+    setActiveRoute
   } = useContext(RootContext);
 
   const [email, setEmail] = useState('');
@@ -58,6 +59,7 @@ const Login = () => {
   };
 
   if (currentUser && currentUser !== null) {
+    setActiveRoute('Campaign')
     return <Redirect to='/campaigns' />;
   }
 
@@ -82,10 +84,10 @@ const Login = () => {
             <InputAdornment className={styles.inputendornment} position='end'>
               <span>
                 {passwordShown ? (
-									<div onClick={togglePasswordVisiblity}> <EyeSVG/>  </div>			
+                  <div onClick={togglePasswordVisiblity}> <EyeSVG />  </div>
                 ) : (
-                  <div onClick={togglePasswordVisiblity}> <Eye_offSVG/>  </div>
-                )}
+                    <div onClick={togglePasswordVisiblity}> <EyeOffSVG />  </div>
+                  )}
               </span>
             </InputAdornment>
           ),
@@ -132,15 +134,15 @@ const Login = () => {
           <div className={styles.lineText}> or continue with</div>
           <div className={styles.line2}></div>
         </div>
-				<div className={styles.socialContainers}>
+        <div className={styles.socialContainers}>
           <div>
-					<img className={styles.logoDiv} src={GoogleSVG} alt='Google' />
+            <img className={styles.logoDiv} src={GoogleSVG} alt='Google' />
           </div>
           <div>
-						<img className={styles.logoDiv} src={FacebookSVG} alt='Facebook' />  
-					</div>       
+            <img className={styles.logoDiv} src={FacebookSVG} alt='Facebook' />
+          </div>
           <div>
-					<img className={styles.logoDiv} src={AppleSVG} alt='Apple' />
+            <img className={styles.logoDiv} src={AppleSVG} alt='Apple' />
           </div>
         </div>
       </div>

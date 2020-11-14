@@ -41,43 +41,42 @@ h4 {
   margin: 0;
   padding: 0;
 }
+h5 {
+  font-size: 18px;
+  font-family: 'Poppins Medium', sans-serif;
+  margin: 0;
+  padding: 0;
+}
 p {
   margin: 0;
   padding: 0;
 }
 
-.hrText {
-  line-height: 1em;
-  position: relative;
-  outline: 0;
-  border: 0;
-  color: $dark1;
+.chipBlkBtnSm {
+  height: 31px;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 23px;
   text-align: center;
-  height: 1.5em;
-  opacity: 0.5;
-  &:before {
-    content: '';
-    // use the linear-gradient for the fading effect
-    // use a solid background color for a solid bar
-    // background: linear-gradient(to right, transparent, #818078, transparent);
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 100%;
-    height: 1px;
+  color: $white;
+  background: $dark1;
+  border: none !important;
+  padding: 0px 30px;
+  border-radius: 15px;
+  cursor: pointer;
+  &:active,
+  &:focus {
+    outline: none;
   }
-  &:after {
-    content: attr(data-content);
-    position: relative;
-    display: inline-block;
-    color: $dark1;
+}
 
-    padding: 0 0.5em;
-    line-height: 1.5em;
-    // this is really the only tricky part, you need to specify the background color of the container element...
-    // color: #818078;
-    // background-color: #fcfcfa;
-  }
+.hr {
+  margin: 40px 0px;
+  border: 0;
+  height: 1px;
+  background: #333;
+  background-image: linear-gradient(to right, #ccc, #333, #ccc);
 }
 
 .defaultButton {
@@ -87,13 +86,18 @@ p {
 .defaultOutlinedButton {
   color: $dark1 !important;
   border-color: $dark1 !important;
-	background-color: $white !important;
+  background-color: $white !important;
   border: 2px solid #000000 !important;
 }
 .dangerButton {
   color: $white !important;
   background-color: $danger !important;
   width: 172px;
+}
+.textDangerButton {
+  color: $danger !important;
+  font-weight: 600 !important;
+  font-size: 19px !important;
 }
 
 .MuiSelect-root {
