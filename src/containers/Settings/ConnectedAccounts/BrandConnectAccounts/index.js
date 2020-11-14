@@ -12,8 +12,11 @@ const BrandConnectAccounts = () => {
   const [storeName, setStoreName] = useState('');
   const [storeSaved, setStoreSaved] = useState(false);
 
-  const handleButtonClick = () => {
-    setStoreSaved(!storeSaved);
+  const handleButtonClick = (storeSaved) => {
+    setStoreSaved(storeSaved);
+    if (!storeSaved) {
+      setStoreName('');
+    }
   };
 
   return (
@@ -53,7 +56,7 @@ const BrandConnectAccounts = () => {
         <ChipButton
           title={storeSaved ? 'Clear' : 'Connect'}
           buttonSize={'sm'}
-          handleClick={handleButtonClick}
+          handleClick={() => handleButtonClick(!storeSaved)}
         />
         {storeSaved ? (
           <div className={styles.storeSync}>

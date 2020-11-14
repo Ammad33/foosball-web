@@ -27,10 +27,13 @@ const IconWallet = () => {
 };
 const LeftSideDrawer = () => {
   const history = useHistory();
-  const { setCurrentUser, setLogoutMessage, currentUser, activeRoute,
-    setActiveRoute } = useContext(
-      RootContext
-    );
+  const {
+    setCurrentUser,
+    setLogoutMessage,
+    currentUser,
+    activeRoute,
+    setActiveRoute,
+  } = useContext(RootContext);
 
   const signOut = async () => {
     try {
@@ -83,7 +86,7 @@ const LeftSideDrawer = () => {
         onClick={() => setActiveRoute('Wallets')}
       />
 
-      <ListItem
+      {/* <ListItem
         icon={<IconSettings />}
         active={activeRoute === 'Settings' ? true : false}
         title={'Settings'}
@@ -91,7 +94,7 @@ const LeftSideDrawer = () => {
           setActiveRoute('Settings');
           history.push('/settings');
         }}
-      />
+      /> */}
 
       <div className={styles.logoutButton}>
         <Button onClick={signOut} variant='contained' color='secondary'>

@@ -1,20 +1,8 @@
-.nextButton {
-  border-radius: 100px;
-  padding: 8px 40px;
-  outline: none;
-  font-family: Poppins;
-  font-size: 19px;
-  font-weight: 500;
-  letter-spacing: 0;
-  line-height: 29px;
-  border: none;
-  float: right;
-}
 .formContainer {
 }
 .actionsContainer {
   .accountDeletionContainer {
-    margin-bottom: 40px;
+    margin-bottom: 300px;
     .deleteTitle {
       font-size: 18px;
       font-weight: 500;
@@ -22,6 +10,21 @@
     .deleteAccountTextAndButton {
       display: flex;
       justify-content: space-between;
+    }
+  }
+  .saveContainer {
+    margin-bottom: 30px;
+    text-align: right;
+    .nextButton {
+      border-radius: 100px;
+      padding: 8px 40px;
+      outline: none;
+      font-family: Poppins;
+      font-size: 19px;
+      font-weight: 500;
+      letter-spacing: 0;
+      line-height: 29px;
+      border: none;
     }
   }
 }

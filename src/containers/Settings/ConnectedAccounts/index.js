@@ -6,8 +6,8 @@ import styles from './ConnectedAccounts.module.scss';
 const ConnectedAccounts = () => {
   return (
     <div className={styles.mainContainer}>
-      <BrandConnectAccounts />
-      {/* <InfluencerConnectAccounts /> */}
+      {/* <BrandConnectAccounts /> */}
+      <InfluencerConnectAccounts />
     </div>
   );
 };
