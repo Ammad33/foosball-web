@@ -79,9 +79,29 @@ const accounts = [
 const InfluencerConnectAccounts = () => {
   const [socialAccounts, setSocialAccounts] = useState(accounts);
 
-  const handleButtonClick = (account) => {};
+  const handleButtonClick = (account) => {
+    account.connected = !account.connected;
+    let accounts = [...socialAccounts];
+    accounts = accounts.map((acc) => {
+      if (acc.id === account.id) {
+        acc = account;
+      }
+      return acc;
+    });
+    setSocialAccounts(accounts);
+  };
 
-  const handleNameChange = (value, account) => {};
+  const handleNameChange = (value, account) => {
+    account.value = value;
+    let accounts = [...socialAccounts];
+    accounts = accounts.map((acc) => {
+      if (acc.id === account.id) {
+        acc = account;
+      }
+      return acc;
+    });
+    setSocialAccounts(accounts);
+  };
 
   return (
     <div className={styles.mainContainer}>
