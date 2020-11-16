@@ -625,6 +625,7 @@ const AddCampaign = ({ open, handleCancel }) => {
 		}
 		else
 			setEndDateError(false);
+			handleEndTimeDateValidation(endTime,date)
 	}
 
 	/*************Start date validation************/
@@ -634,10 +635,39 @@ const AddCampaign = ({ open, handleCancel }) => {
 		}
 		else 
 		setStartDateError(false);
+		handleStartTimeDateValidation(startTime,date);
 	}
+
+	/*************Start Time/Date validation************/
+	const handleStartTimeDateValidation = (time,date) => {
+		debugger;
+		const mom = moment()
+		const startDateTime = moment(date + ' ' + time);
+		if (startDateTime.isBefore(moment())) {
+			setStartTimeError(true);
+		}
+		else
+			setStartTimeError(false);
+	}
+
+
+
+		/*************END Time/Date validation************/
+		const handleEndTimeDateValidation = (time,date) => {
+			const endDateTime = moment(date + ' ' + time);
+			const startDateTime = moment(startDate + ' ' + startTime);
+			if (endDateTime.isBefore(startDateTime)) {
+				setEndTimeError(true);
+			}
+			else
+				setEndTimeError(false);
+		}
+
+
 
 	/*************Start Time validation************/
 	const handleStartTimeValidation = (time) => {
+		
 		const startDateTime = moment(startDate + ' ' + time);
 		if (startDateTime.isBefore(moment())) {
 			setStartTimeError(true);
@@ -648,7 +678,6 @@ const AddCampaign = ({ open, handleCancel }) => {
 
 	/*************End Time validation************/
 	const handleEndTimeValidation = (time) => {
-		debugger;
 		const startDateTime = moment(startDate + ' ' + startTime);
 		const endDateTime = moment(endDate + ' ' + time);
 		if (endDateTime.isBefore(startDateTime)) {
@@ -721,8 +750,9 @@ const AddCampaign = ({ open, handleCancel }) => {
             input: {
               name: campaignName,
               startDate: Date.parse(`${startDate} ${startTime}`) / 1000,
-              endDate: Date.parse(`${endDate} ${endTime}` / 1000),
-              brandId: 'a86d14fc-99c1-4e7b-bf0a-965ac887a1df',
+							endDate: Date.parse(`${endDate} ${endTime}`) / 1000,
+							discount: {currency: {amount: "3", currency: 'USD'}},
+              brandId: '8ece73cc-3079-4f45-b7bb-4f6007c8344d',
             },
           }
         )
@@ -965,7 +995,6 @@ const AddCampaign = ({ open, handleCancel }) => {
   };
 
   const filledForm = () => {
-		debugger;
     if (
       (campaignName !== '' &&
         startDate !== '' &&

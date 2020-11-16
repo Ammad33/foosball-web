@@ -69,7 +69,6 @@ const AddCampaignDetails = ({
   handleStartDateOpen,
   handleEndDateOpen,
 	handleStartTimeOpen,
-	// handleValidation,
   startTimeOpen,
   endTimeOpen,
   handleEndTimeOpen,
