@@ -795,7 +795,7 @@ const AddCampaign = ({ open, handleCancel }) => {
 							setStartTimeOpen(false);
             }}
    					handleEndTime={(e) => {
-							setStartTime(moment(e).format("HH:mm"));
+							setEndTime(moment(e).format("HH:mm"));
 							setEndTimeOpen(false);
             }}
             handleDiscount={handleDiscount}

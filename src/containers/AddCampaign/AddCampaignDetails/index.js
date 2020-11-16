@@ -149,12 +149,9 @@ const AddCampaignDetails = ({
           className={mainStyles.placeholderColor}
           onChange={(e) => handleEndDate(e.target.value)}
           variant="outlined"
-          helperText={
+					helperText={
             endDateError ? (
-              <span className={styles.errorText}>
-                {" "}
-                Error{" "}
-              </span>
+              <span className={styles.errorText}> End date AFTER Start date </span>
             ) : (
               " "
             )

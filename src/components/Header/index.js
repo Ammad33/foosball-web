@@ -10,12 +10,15 @@ import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
+import { useHistory } from 'react-router-dom';
+
 
 const useStyles = makeStyles((theme) => ({
   typography: {
     padding: theme.spacing(2),
   },
 }));
+
 
 const SearchIcon = () => {
   return <SVG src={require('../../assets/Search.svg')} />;
@@ -25,6 +28,7 @@ const NotificationIcon = () => {
 };
 
 const Header = () => {
+	const history = useHistory();
   const member = [
     {
       id: 1,
@@ -33,21 +37,22 @@ const Header = () => {
         'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
     },
   ];
-
   const [anchorEl, setAnchorEl] = React.useState(null);
-
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
-  };
+	};
+	
+
+const navigate = () => {
+	history.push('/settings');
+	setAnchorEl(null);
+}
 
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
-  const classes = useStyles();
-
   return (
     <>
       <Popover
@@ -78,7 +83,7 @@ const Header = () => {
           <Divider className={styles.divider} />
           <div className={styles.menuBarItems}>
             <MenuItem className={styles.itemsFont}>View Profile</MenuItem>
-            <MenuItem className={styles.itemsFont}>Settings</MenuItem>
+            <MenuItem className={styles.itemsFont} onClick={() => {navigate()}}>Settings</MenuItem>
             <MenuItem className={styles.itemsFont}>Sign Out</MenuItem>
           </div>
         </Grid>
