@@ -68,7 +68,8 @@ const AddCampaignDetails = ({
   endDateOpen,
   handleStartDateOpen,
   handleEndDateOpen,
-  handleStartTimeOpen,
+	handleStartTimeOpen,
+	// handleValidation,
   startTimeOpen,
   endTimeOpen,
   handleEndTimeOpen,
@@ -80,7 +81,7 @@ const AddCampaignDetails = ({
 
   useEffect(() => {
     filledForm();
-  }, [campaignName, startDate, endDate, discount, percentage, customeMessage]);
+  }, [campaignName, startDate, endDate, discount, percentage, customeMessage,startDateError,endDateError,startTimeError,endTimeError]);
 
   useEffect(() => {
     partialFilledForm();
@@ -97,7 +98,8 @@ const AddCampaignDetails = ({
           label="Campaign Name"
           className={mainStyles.placeholderColor} 
           helperText={" "}
-          variant="outlined"
+					variant="outlined"
+					
         />
       </Grid>
       <Grid item xs={12} sm={12} md={6}>
@@ -109,7 +111,9 @@ const AddCampaignDetails = ({
           onChange={(e) => handleStartDate(e.target.value)}
           label="Start Date"
           className={mainStyles.placeholderColor}
-          variant="outlined"
+					variant="outlined"
+					onBlur={(e) => {
+						console.log('Triggered because this input lost focus');}}
           helperText={
             startDateError ? (
               <span className={styles.errorText}> Start Date IN FUTURE </span>
@@ -135,7 +139,9 @@ const AddCampaignDetails = ({
             orientation="landscape"
             openTo="date"
             format="MM/dd/yyyy"
-            margin="normal"
+						margin="normal"
+						onBlur={(e) => {
+							console.log('Triggered because this input lost focus');}}
             onClose={() => handleStartDateOpen(false)}
           />
         </MuiPickersUtilsProvider>
