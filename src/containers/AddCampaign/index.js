@@ -1041,7 +1041,11 @@ const AddCampaign = ({ open, handleCancel }) => {
   };
 
   const handleCancelCDialog = () => {
-    setOpenCDialog(false);
+		setOpenCDialog(false);
+		setStartTimeError(false);
+		setEndTimeError(false);
+		setStartDateError(false);
+		setEndDateError(false);
     handleCancel();
   };
   const handleConfirmCDialog = () => {
