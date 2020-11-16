@@ -28,7 +28,14 @@ const BudgetAndConversionGoals = ({
           label='Budget'
           helperText={error ? <span> error </span> : ' '}
           variant='outlined'
-          type='number'
+					type='number'
+					InputProps={{
+            startAdornment: (
+              <InputAdornment  position="start">
+                $
+              </InputAdornment>
+            ),
+          }}
         />
       </Grid>
       <Grid item xs={12} sm={12} md={12}>
@@ -40,7 +47,14 @@ const BudgetAndConversionGoals = ({
           className={mainStyles.placeholderColor}
           onChange={handleGrossSale}
           label='Target Gross Sales'
-          variant='outlined'
+					variant='outlined'
+					InputProps={{
+            startAdornment: (
+              <InputAdornment  position="start">
+                $
+              </InputAdornment>
+            ),
+          }}
         />
       </Grid>
     </Grid>

@@ -757,7 +757,8 @@ const AddCampaign = ({ open, handleCancel }) => {
           }
         )
       );
-      handleCancel();
+			handleCancel();
+			window.location.reload(false);
     } catch (e) {
       console.log('Error in mutation for create campaign ', e);
     }
@@ -825,9 +826,9 @@ const AddCampaign = ({ open, handleCancel }) => {
 
 	/*********************** To disable next button */
 	
-	// 	useEffect(() => {
-  //   setActiveNext(true);
-  // });
+		useEffect(() => {
+    setActiveNext(true);
+  });
 
 
   const leftSideDawerClick = (index) => {
@@ -1016,7 +1017,17 @@ const AddCampaign = ({ open, handleCancel }) => {
 	
 	
   const handleNext = (activeSetp) => {
-  	if (activeSetp !== 9) {
+		if (activeStep == 1){		
+			const startDateTime = moment(startDate + ' ' + startTime);
+			if (startDateTime.isBefore(moment())) {
+				setStartTimeError(true);
+			}
+			else{
+				setStartTimeError(false);
+				setActiveStep((prevActiveStep) => prevActiveStep + 1);
+			}
+		}
+  	else if (activeSetp !== 9) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
   };

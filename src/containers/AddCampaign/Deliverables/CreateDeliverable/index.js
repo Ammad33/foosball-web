@@ -264,7 +264,14 @@ const CreateDeliverable = ({
               value={deliverableItem && deliverableItem.brandTag}
               onChange={(e) =>
                 handleDilverableContent(e.target.value, index, 'brandTag')
-              }
+							}
+							InputProps={{
+								startAdornment: (
+									<InputAdornment  position="start">
+										@
+									</InputAdornment>
+								),
+							}}
             />
           </Grid>
         </Grid>
@@ -315,7 +322,14 @@ const CreateDeliverable = ({
                 handleDilverableContent(e.target.value, index, 'hashTag')
               }
               variant='outlined'
-              disabled={!deliverableItem.hashTagRequired}
+							disabled={!deliverableItem.hashTagRequired}
+							InputProps={{
+								startAdornment: (
+									<InputAdornment  position="start">
+										#
+									</InputAdornment>
+								),
+							}}
             />
           </Grid>
         </Grid>
