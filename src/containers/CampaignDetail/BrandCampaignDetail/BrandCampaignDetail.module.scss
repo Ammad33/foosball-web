@@ -1,0 +1,67 @@
+@import './../../../variable.module.scss';
+.mainContainer {
+  display: flex;
+  flex-flow: column;
+  gap: 30px;
+  padding-top: 30px;
+  .campaignBasicInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .campaignStatus {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      .micrositeContainer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 60px;
+        width: 358px;
+        background-color: #3481ef;
+        border-right: none !important;
+        border-radius: 10px;
+        padding: 0px 20px;
+        color: $white;
+        font-weight: 500;
+        .linkIconAndName {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          // flex: 0 0 250px;
+        }
+      }
+      .customChip {
+        padding: 0px 15px;
+        height: 34px;
+        color: $white;
+      }
+      .liveCampaign {
+        background-color: $brandLive !important;
+      }
+      .draftCampaign {
+        background-color: $brandDraft !important;
+      }
+      .pendingCampaign {
+        background-color: $brandPending;
+      }
+      .closedCampaign {
+        background-color: $brandClosed !important;
+      }
+      .lostCampaign {
+        background-color: $brandLost !important;
+      }
+
+      .influencerSocial {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      > div:not(:last-child) {
+        border-right: 1px solid #cccccc;
+        padding-right: 20px;
+      }
+    }
+  }
+}
