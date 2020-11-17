@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Chip from '@material-ui/core/Chip';
 import clsx from 'clsx';
 import SVG from 'react-inlinesvg';
+import ChipButton from '../../../components/ChipButton';
 
 const options = [
   'Message Influencer',
@@ -96,7 +97,31 @@ const BrandCampaignDetail = () => {
           </Menu>
         </div>
       </div>
-      <div>Content</div>
+      <div className={styles.contentContainer}>
+        <div className={styles.performanceContainer}>
+          <h3>Performance</h3>
+          <div className={styles.performanceContent}>Tableau Content</div>
+          <ChipButton title={'See all'} buttonSize={'sm'} />
+        </div>
+        <div className={styles.row}>
+          <div className={styles.col2Width}>1</div>
+          <div className={styles.col3Width}>2</div>
+        </div>
+        <div className={styles.row}>
+          <div className={styles.col3Width}>1</div>
+          <div className={styles.col3Width}>2</div>
+          <div className={styles.col3Width}>3</div>
+        </div>
+        <div className={styles.row}>
+          <div className={styles.col2Width}>1</div>
+          <div className={styles.col3Width}>2</div>
+        </div>
+        <div className={styles.row}>
+          <div className={styles.col3Width}>1</div>
+          <div className={styles.col3Width}>2</div>
+          <div className={styles.col3Width}>3</div>
+        </div>
+      </div>
     </div>
   );
 };
