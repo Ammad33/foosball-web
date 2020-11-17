@@ -6,6 +6,7 @@ import styles from './CampaignsDetails.module.scss';
 import edit from '../../assets/edit.svg';
 import BrandCampaignDetail from './BrandCampaignDetail';
 import { useHistory } from 'react-router-dom';
+import InfluencerCampaignDetail from './InfluencerCampaignDetail';
 
 const CampaignDetail = () => {
   const history = useHistory();
@@ -238,7 +239,7 @@ const CampaignDetail = () => {
     //   </Grid>
     // </div>
     <div className={styles.detailContainer}>
-      <BrandCampaignDetail />
+      <InfluencerCampaignDetail />
     </div>
   );
 };
