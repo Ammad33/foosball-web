@@ -8,6 +8,7 @@
 
 .secondContainer {
   margin-top: 30px;
+  margin-bottom: 30px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -16,7 +17,13 @@
 .first {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  gap:30px;
+}
+
+.second {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
 .CampaignHeading {

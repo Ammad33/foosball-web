@@ -8,6 +8,10 @@ import Performance from './Performance';
 import Posts from './Posts';
 import Activity from './Activity';
 import CampaignDetail from './CampaignDetail';
+import Compensation from './Compensation';
+import Deliverables from './Deliverables';
+import Collections from './Collections';
+import Contract from './Contract';
 
 const CampaignDetailInfluencer = () => {
     const history = useHistory();
@@ -82,10 +86,18 @@ const CampaignDetailInfluencer = () => {
                     <Activity />
                 </div>
                 <div className={styles.secondContainer}>
-                    <div className={styles.first}>
-                        <CampaignDetail />
+                    <div >
+                        <div className={styles.first}>
+                            <CampaignDetail />
+                            <Compensation />
+                        </div>
+                        <div style={{ marginTop: '30px' }}>
+                            <Collections />
+                        </div>
                     </div>
-                    <div className={styles.scond}>
+                    <div className={styles.second}>
+                        <Deliverables />
+                        <Contract />
                     </div>
 
                 </div>
