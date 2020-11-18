@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './Post.module.scss';
-import Post3 from '../../../../assets/post3.png';
-import Post2 from '../../../../assets/post2.png';
-import Post1 from '../../../../assets/post1.png';
+import Post3 from '../../../assets/post3.png';
+import Post2 from '../../../assets/post2.png';
+import Post1 from '../../../assets/post1.png';
 
 const Posts = () => {
     return (
