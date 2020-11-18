@@ -46,7 +46,7 @@ const CreateDeliverable = ({
   const [value, setValue] = useState(youtube);
   useEffect(() => {
     handleSetValue();
-  });
+  },[]);
 
   const handleSetValue = () => {
     if (deliverableItem.socialPlatform === 'Youtube') setValue(youtube);
@@ -308,7 +308,7 @@ const CreateDeliverable = ({
                 !deliverableItem.hashTagRequired ? styles.disabled : ''
               }
             >
-              Hashtag requird
+              Hashtag required
             </p>
           </Grid>
           <Grid item xs={7}>
@@ -373,11 +373,11 @@ const CreateDeliverable = ({
             <MenuItem value='' disabled>
               Per Time Period
             </MenuItem>
-            <MenuItem value={'Day'}>Day </MenuItem>
-            <MenuItem value={'Week'}>Week </MenuItem>
-            <MenuItem value={'2 Weeks'}>2 Weeks</MenuItem>
-            <MenuItem value={'Month'}>Month</MenuItem>
-            <MenuItem value={'Quarter'}>Quarter</MenuItem>
+            <MenuItem value={'Every Month'}> Every Month </MenuItem>
+            <MenuItem value={'Every other month'}>Every other month </MenuItem>
+            <MenuItem value={'Every Week'}>Every Week </MenuItem>
+            <MenuItem value={'Every other week'}>Every other week </MenuItem>
+            
           </Select>
         </FormControl>
       </Grid>

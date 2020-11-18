@@ -99,7 +99,6 @@ const CreateCompensation = ({ compensations, handleAnother, index, item, handleC
 											<TextField
 													id='outlined-basic'
 													fullWidth
-													type="number"
 													label= "Paste gift card code"
 													variant='outlined'
 													value={item.giftcode}

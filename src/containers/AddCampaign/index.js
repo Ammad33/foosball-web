@@ -301,18 +301,18 @@ const AddCampaign = ({ open, handleCancel }) => {
   /****** Campaign Detail States ********/
 
   const [campaignName, setCampaignName] = useState('');
-  const [startDate, setStartDate] = useState(moment().format('MM/DD/YYYY'));
+  const [startDate, setStartDate] = useState(moment().add(1, 'days').format('MM/DD/YYYY'));
   const [endDate, setEndDate] = useState(
-    moment().add(1, 'M').format('MM/DD/YYYY')
+    moment().add(1, 'month').format('MM/DD/YYYY')
   );
   const [startDateError, setStartDateError] = useState(false);
   const [endDateError, setEndDateError] = useState(false);
   const [startTime, setStartTime] = useState(
-    moment(new Date(), 'hmm').format('HH:mm')
+    moment().subtract(1,'days').startOf('day').format('HH:mm')
   );
   const [startTimeError, setStartTimeError] = useState(false);
   const [endTime, setEndTime] = useState(
-    moment(new Date(), 'hmm').format('HH:mm')
+    moment().subtract(1,'days').startOf('day').format('HH:mm')
   );
   const [endTimeError, setEndTimeError] = useState(false);
 
@@ -355,12 +355,12 @@ const AddCampaign = ({ open, handleCancel }) => {
     if (open === false) {
       setCampaignName('');
       setDiscount('');
-      setDiscountType('');
+      setDiscountType('Percentage');
       setCustomMessage('');
-      setStartDate(moment().format('MM/DD/YYYY'));
-      setEndDate(moment().add(1, 'M').format('MM/DD/YYYY'));
-			setStartTime(moment().format("HH:mm"));
-			setEndTime(moment().format("HH:mm"));
+      setStartDate(moment().add(1, 'days').format('MM/DD/YYYY'));
+      setEndDate(moment().add(31, 'days').format('MM/DD/YYYY'));
+			setStartTime(moment().subtract(1,'days').startOf('day').format("HH:mm"));
+			setEndTime(moment().subtract(1,'days').startOf('day').format("HH:mm"));
       setBudget('');
       setTargetGrossSale('');
       setCollections([]);
@@ -559,6 +559,7 @@ const AddCampaign = ({ open, handleCancel }) => {
   //************************ Add Members  *********************/
 
   const addMember = (member) => {
+		debugger;
     const opts = [...selectedMembers];
 
     const optIndex = opts.findIndex((item) => item.name === member.name);
@@ -748,11 +749,13 @@ const AddCampaign = ({ open, handleCancel }) => {
         `,
           {
             input: {
+							brandId: '8ece73cc-3079-4f45-b7bb-4f6007c8344d',
               name: campaignName,
               startDate: Date.parse(`${startDate} ${startTime}`) / 1000,
 							endDate: Date.parse(`${endDate} ${endTime}`) / 1000,
-							discount: {currency: {amount: "3", currency: 'USD'}},
-              brandId: '8ece73cc-3079-4f45-b7bb-4f6007c8344d',
+							discount: {percentage: discount},
+							budget: {amount: budget, currency: "USD"}, 
+							targetGrossSales: {amount: targetGrossSale , currency: "USD"}
             },
           }
         )
@@ -764,9 +767,18 @@ const AddCampaign = ({ open, handleCancel }) => {
     }
   };
 
-  /************* Active for deliverable */
+	/************* Active for deliverable */
+	
+	// useEffect(() => {
+	// 	tagRequired();
+	// },[deliveries.brandTagRequired,deliveries.hashTagRequired]);
+	
+	// const tagRequired = () => {
+	// 	console.log("Asas")
+	// }
 
   const setActiveForDeliverables = () => {
+		debugger;
     const deliverables = [...deliveries];
 
     let flag = true;
@@ -776,16 +788,22 @@ const AddCampaign = ({ open, handleCancel }) => {
         delive.socialPlatform === '' ||
         delive.campaignType === '' ||
         delive.frameType === '' ||
-        delive.frameRequired === '' ||
-        delive.brandTag === '' ||
-        delive.brandTagRequired === false ||
-        delive.hashTag === '' ||
-        delive.hashTagRequired === false ||
+				delive.frameRequired === '' ||
+        // delive.brandTag === '' ||
+        // delive.brandTagRequired === false ||
+        // delive.hashTag === '' ||
+        // delive.hashTagRequired === false ||
         delive.NoPost === '' ||
         delive.perTimePeriod === ''
-      ) {
+			) 
+			{
+			
         flag = false;
-      }
+			}
+		if ((delive.brandTagRequired === true && delive.brandTag === '') || (delive.hashTagRequired === true && delive.hashTag === '') ){
+			flag = false;
+		}
+		
     });
     setActiveNext(flag);
   };
@@ -910,7 +928,7 @@ const AddCampaign = ({ open, handleCancel }) => {
         return (
           <Collection
             collection={collection}
-            handleCollection={(e) => setCollection(e.target.value)}
+            handleCollection={(value) => setCollection(value)}
             collectionItems={items}
             collections={collections}
             handleActiveForCollection={setActiveForCollection}
@@ -1170,7 +1188,10 @@ const AddCampaign = ({ open, handleCancel }) => {
                 )}
                 disabled={!activeNext}
               >
-                Next
+								{
+									(activeStep == 9 ? 'Send Invite' : 'Next')
+								}
+                
               </button>
             </div>
           </div>

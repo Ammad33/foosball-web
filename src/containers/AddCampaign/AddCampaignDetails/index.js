@@ -57,7 +57,6 @@ const AddCampaignDetails = ({
   endTimeError,
   discount,
   discountType,
-  percentage,
   customeMessage,
   handleStartTime,
   handleEndTime,
@@ -76,15 +75,13 @@ const AddCampaignDetails = ({
   partialFilledForm,
 }) => {
 	const classes = useStyles();
-
-
   useEffect(() => {
     filledForm();
-  }, [campaignName, startDate, endDate, discount, percentage, customeMessage,startDateError,endDateError,startTimeError,endTimeError]);
+  }, [campaignName, startDate, endDate, discount, discountType, customeMessage,startDateError,endDateError,startTimeError,endTimeError]);
 
   useEffect(() => {
-    partialFilledForm();
-  });
+		partialFilledForm();
+	});
 
   return (
     <Grid container spacing={2}>
@@ -149,7 +146,7 @@ const AddCampaignDetails = ({
         <TextField
           id="outlined-basic"
           fullWidth
-          label="End Date"
+					label="End Date"
           value={endDate}
           className={mainStyles.placeholderColor}
           onChange={(e) => handleEndDate(e.target.value)}
@@ -185,8 +182,10 @@ const AddCampaignDetails = ({
         <TextField
           id="outlined-basic"
           fullWidth
-          label="Start Time"
-          labelClassName={styles.placeholderColor}
+					label="Start Time"
+					defaultTime= {startTime}
+					labelClassName={styles.placeholderColor}
+					ampm = "true"
           value={startTime}
           onChange={(e) => handleStartTime(e.target.value)}
           variant="outlined"
@@ -209,7 +208,8 @@ const AddCampaignDetails = ({
           <TimePicker
             className={styles.displayNone}
             open={startTimeOpen}
-            value={startTime}
+						value="00.01"
+						ampm = "true"
             onClose={() => handleStartTimeOpen(false)}
             onChange={handleStartTime}
             orientation="landscape"
@@ -249,7 +249,7 @@ const AddCampaignDetails = ({
           <TimePicker
             className={styles.displayNone}
             open={endTimeOpen}
-            value={endTime}
+            value= "00.01"
             onClose={() => handleEndTimeOpen(false)}
             onChange={handleEndTime}
             orientation="landscape"
@@ -274,23 +274,17 @@ const AddCampaignDetails = ({
           <Select
             id="outlined-basic"
             IconComponent={() => <Chevron />}
-            fullWidth
-            displayEmpty
+						fullWidth
+						defaultValue = {'Percentage'}
             value={discountType}
             onChange={(e) => handleDiscountType(e.target.value)}
             variant="outlined"
 						MenuProps={{ variant: "menu" }}
-						// classes={{
-						// 	root: classes.whiteColor,
-						// 	icon: classes.whiteColor
-						// }}            
-						placeholder="Discount Type"
+          
             input={<SelectMenu />}
           >
-            <MenuItem value="" disabled  >
-              Discount Types
-            </MenuItem>
-            <MenuItem value={"Percentage"} >Percentage</MenuItem>
+						{/* <MenuItem value='' ></MenuItem> */}
+            <MenuItem value={'Percentage'} >Percentage</MenuItem>
             <MenuItem value={"Amount"}>Amount</MenuItem>
           </Select>
         </FormControl>
