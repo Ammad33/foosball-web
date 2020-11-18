@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Compensation.module.scss';
 import { Edit } from 'react-feather';
 
-const Compensation = () => {
+const Compensation = ({ onClick }) => {
     return (<div className={styles.compensationContainer}>
         <div className={styles.headerContainer}>
             <h1>Compensation</h1>
@@ -18,7 +18,7 @@ const Compensation = () => {
                 <p>2%</p>
             </div>
         </div>
-        <button>See all</button>
+        <button onClick={() => onClick('Compensation')}>See all</button>
     </div>);
 };
 

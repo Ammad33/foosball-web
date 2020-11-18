@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Activity.module.scss';
 
-const Activity = () => {
+const Activity = ({ onClick }) => {
 
     return (
         <div className={styles.activityContainer}>
@@ -25,7 +25,7 @@ const Activity = () => {
                     <p>You counter offer</p>
                 </div>
             </div>
-            <button>See all</button>
+            <button onClick={() => onClick('Activity')}>See all</button>
         </div>
     )
 };

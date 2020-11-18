@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Deliverables.module.scss';
 import { Edit } from 'react-feather';
 
-const Deliverables = () => {
+const Deliverables = ({ onClick }) => {
     return (
         <div className={styles.deliverableContainer}>
             <div className={styles.headerContainer}>
@@ -43,7 +43,7 @@ const Deliverables = () => {
                 <p>5 posts every 1 month</p>
             </div>
             {/* </div> */}
-            <button>See all</button>
+            <button onClick={() => onClick('Deliverable')}>See all</button>
         </div>
     );
 };

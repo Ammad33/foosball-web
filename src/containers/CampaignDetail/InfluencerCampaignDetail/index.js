@@ -1,21 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
-import { Grid, Avatar, Chip, Card, CardContent, Popover } from '@material-ui/core';
+import { Avatar, Chip, Popover } from '@material-ui/core';
 import styles from './InfluencerCampaignDetail.module.scss';
-import { Edit, ChevronRight, MoreVertical, Download, Mail } from 'react-feather';
+import { ChevronRight, MoreVertical, Download, Mail, X } from 'react-feather';
 import { useHistory } from 'react-router-dom';
-import Performance from './Performance';
-import Posts from './Posts';
-import Activity from './Activity';
-import CampaignDetail from './CampaignDetail';
-import Compensation from './Compensation';
-import Deliverables from './Deliverables';
-import Collections from './Collections';
-import Contract from './Contract';
+import Performance from '../Collections/Performance';
+import Posts from '../ActivityDetail/Posts';
+import Activity from '../Activity';
+import CampaignDetail from '../Activity/CampaignDetail';
+import Compensation from '../Compensation';
+import Deliverables from '../Activity/Deliverables';
+import Collections from '../Collections';
+import Contract from '../Activity/Contract';
+import ActivityDetail from '../ActivityDetail';
+import Drawer from '../../../components/RightDrawer';
 
 const CampaignDetailInfluencer = () => {
     const history = useHistory();
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [openDrawer, setOpenDrawer] = useState(false);
+    const [element, setElement] = useState('');
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -25,12 +29,41 @@ const CampaignDetailInfluencer = () => {
         setAnchorEl(null);
     };
 
+    const handleCloseDrawer = () => {
+        setElement('');
+        setOpenDrawer(false);
+    }
+
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
 
+    const getDrawerElement = (element) => {
+        switch (element) {
+            case 'Activity':
+                return <ActivityDetail />;
+            case 'Deliverable':
+                return <div>Deliverable Details</div>;
+            case 'Compensation':
+                return <div>Compensation</div>
+            default:
+                return;
+        }
+
+    }
+
+    const handleSeeClick = (value) => {
+        setElement(value);
+        setOpenDrawer(true);
+    }
 
     return (
         <>
+            <Drawer anchor={'right'} open={openDrawer} onClose={handleCloseDrawer}>
+                <div className={styles.x}>
+                    <X onClick={handleCloseDrawer} />
+                </div>
+                {getDrawerElement(element)}
+            </Drawer>
             <Popover
                 id={id}
                 open={open}
@@ -83,20 +116,20 @@ const CampaignDetailInfluencer = () => {
                 <Performance />
                 <div className={styles.firstConatiner}>
                     <Posts />
-                    <Activity />
+                    <Activity onClick={handleSeeClick} />
                 </div>
                 <div className={styles.secondContainer}>
                     <div >
                         <div className={styles.first}>
                             <CampaignDetail />
-                            <Compensation />
+                            <Compensation onClick={handleSeeClick} />
                         </div>
                         <div style={{ marginTop: '30px' }}>
                             <Collections />
                         </div>
                     </div>
                     <div className={styles.second}>
-                        <Deliverables />
+                        <Deliverables onClick={handleSeeClick} />
                         <Contract />
                     </div>
 
