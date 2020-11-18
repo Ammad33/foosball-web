@@ -1,3 +1,4 @@
+@import '../../../variable.module.scss';
 
 .performanceContainer {
     max-height: 460px;
@@ -5,12 +6,12 @@
     width: 100%;
     max-width: 1234px;
     border-radius: 10px;
-    background-color: #FFFFFF;
+    background-color: $white;
     box-shadow: 0 6px 50px 0 rgba(0,0,0,0.1);
     padding: 32px 41px 20px 35px;
     margin-bottom: 30px;
     h1{
-        color: #000000;
+        color: $dark1;
         font-family: Poppins;
         font-size: 23px;
         font-weight: bold;
@@ -24,7 +25,7 @@
         margin-top: 20px;
         margin-bottom: 18px;
         p{
-            color: #000000;
+            color: $dark1;
             font-family: Poppins;
             font-size: 23px;
             letter-spacing: 0;
@@ -38,8 +39,8 @@
         height: 31px;
         width: 82px;
         border-radius: 100px;
-  background-color: #000000;
-  color: #FFFFFF;
+  background-color: $dark1;
+  color: $white;
   font-family: Poppins;
   font-size: 15px;
   font-weight: 500;

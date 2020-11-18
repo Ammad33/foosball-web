@@ -1,9 +1,10 @@
+@import '../../../variable.module.scss';
 
 .collectionContainer {
     height: 684px;
     width: 812px;
     border-radius: 10px;
-    background-color: #FFFFFF;
+    background-color: $white;
     box-shadow: 0 6px 50px 0 rgba(0,0,0,0.1);
     padding: 32px 41px 20px 35px;
     position: relative;
@@ -12,7 +13,7 @@
         align-items: center;
         justify-content: space-between;
         h1{
-            color: #000000;
+            color: $dark1;
             font-family: Poppins;
             font-size: 23px;
             font-weight: bold;
@@ -24,7 +25,7 @@
       .collectionSubContent {
         margin-top: 24px;
         p {
-          color: #000000;
+          color: $dark1;
           margin: 0px !important;
         }
         h6 {
@@ -32,7 +33,7 @@
           font-size: 18px;
           line-height: 27px;
           font-weight: 500;
-          color: #000000;
+          color: $dark1;
           margin: 0px;
           padding: 0px;
           margin-bottom: 16px;
@@ -57,14 +58,14 @@
       margin-bottom: 8px;
     }
     .boxItem {
-        color: #000000;
+        color: $dark1;
   font-family: Poppins;
   font-size: 14px;
   letter-spacing: 0;
   line-height: 21px;
     }
     .boxPrice {
-        color: #000000;
+        color: $dark1;
         font-family: Poppins;
         font-size: 11px;
         letter-spacing: 0;
@@ -81,7 +82,7 @@
           font-size: 18px;
           line-height: 27px;
           font-weight: 500;
-          color: #000000;
+          color: $dark1;
           margin: 0px;
           padding: 0px;
         }
@@ -90,7 +91,7 @@
           padding: 0px;
           font: normal normal normal 14px/21px Poppins;
           letter-spacing: 0px;
-          color: #000000;
+          color: $dark1;
         }
       }
       }
@@ -101,8 +102,8 @@
         height: 31px;
         width: 82px;
         border-radius: 100px;
-        background-color: #000000;
-        color: #FFFFFF;
+        background-color: $dark1;
+        color: $white;
         font-family: Poppins;
         font-size: 15px;
         font-weight: 500;
