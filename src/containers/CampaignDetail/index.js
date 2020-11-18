@@ -239,7 +239,8 @@ const CampaignDetail = () => {
     //   </Grid>
     // </div>
     <div className={styles.detailContainer}>
-      <InfluencerCampaignDetail />
+      {/* <InfluencerCampaignDetail /> */}
+      <BrandCampaignDetail />
     </div>
   );
 };
