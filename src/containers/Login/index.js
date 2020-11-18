@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext , useEffect } from 'react';
+import { API } from "aws-amplify";
 import { TextField, Button, InputAdornment } from '@material-ui/core';
 import styles from './Login.module.scss';
 import { RootContext } from '../../context/RootContext';
@@ -11,15 +12,6 @@ import FacebookSVG from '../../assets/facebook-logo-2019-thumb.png';
 import GoogleSVG from '../../assets/google-logo-icon-png-transparent-background-osteopathy-16.png';
 import AppleSVG from '../../assets/apple-logo-png-index-content-uploads-10.png'
 
-// const FacebookSVG = () => {
-//   return <SVG src={require('../../assets/facebook-logo-2019-thumb.png')} />;
-// };
-// const GoogleSVG = () => {
-//   return <SVG src={require('../../assets/google-logo-icon-png-transparent-background-osteopathy-16.png')} />;
-// };
-// const AppleSVG = () => {
-//   return <SVG src={require('../../assets/apple-logo-png-index-content-uploads-10.png')} />;
-// };
 const EyeOffSVG = () => {
   return <SVG src={require('../../assets/eye-off.svg')} />;
 };
@@ -29,7 +21,7 @@ const EyeSVG = () => {
 
 const Login = () => {
   const history = useHistory();
-  const [passwordShown, setPasswordShown] = useState(false);
+	const [passwordShown, setPasswordShown] = useState(false);
 
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
@@ -45,7 +37,8 @@ const Login = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+	const [errorMessage, setErrorMessage] = useState('');
+	const [meData , setMeData] = useState([]);
 
   const onSignin = async () => {
     try {
@@ -56,12 +49,58 @@ const Login = () => {
       setErrorMessage(e.message);
       setLogoutMessage('');
     }
-  };
+	};
+	
+	const getMeData = async () => {
+			try {
+				const mydata =  await API.graphql({
+					query: `{
+						me {
+							email
+							fullName
+							id
+							organizations {
+								organization {
+									id
+									name
+									__typename
+									... on Influencer {
+										invites {
+										name
+										}
+									}
+									imageUrl
+									email
+								}
+							}
+							about
+							age
+							companyTitle
+							imageUrl
+							joined
+							modified
+							phoneNumber
+						}
+				}`,
+				});
+				setMeData(mydata.data.me.organizations[0].organization.__typename);
+				if (mydata.data.me.organizations[0].organization.__typename == 'Brand'){
+					history.push('/campaigns');
+				}	
+				else {
+					history.push('/influencer');
+				}
+			} 
+				catch (e){
+				console.log(e);
+			}
+		}
 
   if (currentUser && currentUser !== null) {
-    setActiveRoute('Campaign')
-    return <Redirect to='/campaigns' />;
-  }
+		getMeData();		
+	}
+	
+
 
   return (
     <div className={styles.signinContainer}>

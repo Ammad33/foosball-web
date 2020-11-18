@@ -10,6 +10,8 @@ import { API } from "aws-amplify";
 import SVG from "react-inlinesvg";
 import { makeStyles } from "@material-ui/core/styles";
 
+
+
 const campaignsData = [
   {
     showWarningStatus: false,
@@ -125,9 +127,9 @@ const IconCampaign = () => {
 };
 const Campaigns = () => {
   const history = useHistory();
-  const [active, setActive] = useState("all");
+  const [active, setActive] = useState("ALL");
   const [campaigns, setCampaigns] = useState([]);
-  const [addCampaign, setAddCampagin] = useState(false);
+	const [addCampaign, setAddCampagin] = useState(false);
 
   const getCampaigns = async () => {
     try {
@@ -144,17 +146,20 @@ const Campaigns = () => {
           }
         }
       }`,
-      });
+			});
       setCampaigns(campaigns.data.campaigns.campaigns);
     } catch (e) {}
   };
 
   useEffect(() => {
     getCampaigns();
-  }, []);
+	}, []);
+	
+
 
   return (
     <>
+			
       <AddCampaign
         open={addCampaign}
         handleCancel={() => setAddCampagin(false)}
@@ -173,43 +178,43 @@ const Campaigns = () => {
         </div>
         <div className={styles.CampaignHeadingButton}>
           <button
-            className={active === "all" ? styles.allActive : ""}
-            onClick={() => setActive("all")}
+            className={active === "ALL" ? styles.allActive : ""}
+            onClick={() => setActive("ALL")}
           >
             All
           </button>
           <button
-            className={active === "draft" ? styles.draftActive : ""}
-            onClick={() => setActive("draft")}
+            className={active === "DRAFT" ? styles.draftActive : ""}
+            onClick={() => setActive("DRAFT")}
           >
             Draft
           </button>
           <button
-            className={active === "pending" ? styles.pendingActive : ""}
-            onClick={() => setActive("pending")}
+            className={active === "PENDING" ? styles.pendingActive : ""}
+            onClick={() => setActive("PENDING")}
           >
             Pending
           </button>
           <button
-            className={active === "live" ? styles.liveActive : ""}
-            onClick={() => setActive("live")}
+            className={active === "LIVE" ? styles.liveActive : ""}
+            onClick={() => setActive("LIVE")}
           >
             Live
           </button>
           <button
-            className={active === "closed" ? styles.closedActive : ""}
-            onClick={() => setActive("closed")}
+            className={active === "CLOSED" ? styles.closedActive : ""}
+            onClick={() => setActive("CLOSED")}
           >
             Closed
           </button>
           <button
-            className={active === "last" ? styles.lostActive : ""}
-            onClick={() => setActive("last")}
+            className={active === "LAST" ? styles.lostActive : ""}
+            onClick={() => setActive("LAST")}
           >
             Lost
           </button>
         </div>
-        {campaigns.length == 0 ? (
+				{campaigns.length == 0 ? (
           <Grid
             container
             spacing={0}
@@ -232,8 +237,11 @@ const Campaigns = () => {
           ""
         )}
         <Grid container spacing={3}>
-          {campaigns.length > 0 &&
+          {campaigns.length > 0 && 
             campaigns.map((campaign) => {
+							if (campaign.status !== active && active !== "ALL"){
+								return null;
+							}
               return (
                 <Grid
                   className={styles.gridItem}
@@ -241,7 +249,7 @@ const Campaigns = () => {
                   key={campaign.id}
                   onClick={() => history.push("/campaignDetail")}
                 >
-                  <CampaignsCard campaign={campaign} />
+									<CampaignsCard campaign={campaign} />
                 </Grid>
               );
             })}

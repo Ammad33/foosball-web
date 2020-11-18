@@ -7,7 +7,7 @@ import ErrorOutlineOutlinedIcon from '@material-ui/icons/ErrorOutlineOutlined';
 import Chip from '@material-ui/core/Chip';
 import clsx from 'clsx';
 
-const CampaignsCard = ({ campaign }) => {
+const CampaignsCard = ({ campaign}) => {
   return (
     <Card className={styles.campaignCard}>
       <CardContent className={styles.cardContent}>
@@ -27,22 +27,25 @@ const CampaignsCard = ({ campaign }) => {
             <span className={styles.campaignNumber}>
               <small>{campaign.id}</small>
             </span>
-            <Chip
-              className={clsx(
-                styles.campaignStatus,
-                styles[`chip${campaign.status}`]
-              )}
-              label={campaign.status}
-            />
+						<div className={styles.wrapChip}>
+							<Chip
+								className={clsx(
+									styles.campaignStatus,
+									styles[`chip${campaign.status}`]
+								)}
+								label={campaign.status}
+							/>
+							<Avatar
+								className={styles.personAvatar}
+								src={
+									'https://images.unsplash.com/photo-1528763380143-65b3ac89a3ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=670&q=80'
+								}
+							/>
+							<span className={styles.mediaTag}>@{'tag'}</span>
+						</div>
           </div>
           <div className={styles.personInfo}>
-            <Avatar
-              className={styles.personAvatar}
-              src={
-                'https://images.unsplash.com/photo-1528763380143-65b3ac89a3ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=670&q=80'
-              }
-            />
-            <span className={styles.mediaTag}>@{'tag'}</span>
+            
           </div>
         </div>
       </CardContent>

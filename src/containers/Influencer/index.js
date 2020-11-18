@@ -4,6 +4,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import CampaignsCard from "./CampaignsCard";
 import AddIcon from "@material-ui/icons/Add";
 import styles from "./Campaings.module.scss";
+import { Redirect } from 'react-router-dom';
 import AddCampaign from "../AddCampaign";
 import { useHistory } from "react-router-dom";
 import { API } from "aws-amplify";
@@ -125,36 +126,42 @@ const IconCampaign = () => {
 };
 const Influencer = () => {
   const history = useHistory();
-  const [active, setActive] = useState("all");
+  const [active, setActive] = useState("ALL");
   const [campaigns, setCampaigns] = useState([]);
-  const [addCampaign, setAddCampagin] = useState(false);
+	const [addCampaign, setAddCampagin] = useState(false);
 
   const getCampaigns = async () => {
-    try {
-      const campaigns = await API.graphql({
-        query: `{
-        campaigns(brandId: "8ece73cc-3079-4f45-b7bb-4f6007c8344d") {
-          campaigns {
-            name
-            description
-            id
-            status
-            startDate
-            endDate
-          }
-        }
-      }`,
-      });
-      setCampaigns(campaigns.data.campaigns.campaigns);
-    } catch (e) {}
+			try {
+				const campaigns = await API.graphql({
+					query: `{
+					campaigns(brandId: "8ece73cc-3079-4f45-b7bb-4f6007c8344d") {
+						campaigns {
+							name
+							description
+							id
+							status
+							startDate
+							endDate
+						}
+					}
+				}`,
+				});
+				console.log(campaigns.data);
+				console.log("Asa");
+				setCampaigns(campaigns.data.campaigns.campaigns);
+			} 
+			catch (e) {}
   };
 
-  useEffect(() => {
-    getCampaigns();
-  }, []);
+ 
+
+	useEffect(() => {
+		getCampaigns();
+	}, []);
 
   return (
     <>
+
       
       <div className={styles.campaignsContainer}>
         <div className={styles.CampaignHeadingContainer}>
@@ -167,38 +174,38 @@ const Influencer = () => {
         </div>
         <div className={styles.CampaignHeadingButton}>
           <button
-            className={active === "all" ? styles.allActive : ""}
-            onClick={() => setActive("all")}
+            className={active === "ALL" ? styles.allActive : ""}
+            onClick={() => setActive("ALL")}
           >
             All
           </button>
           <button
-            className={active === "invite" ? styles.inviteActive : ""}
-            onClick={() => setActive("invite")}
+            className={active === "INVITE" ? styles.inviteActive : ""}
+            onClick={() => setActive("INVITE")}
           >
             Invite
           </button>
           <button
-            className={active === "pending" ? styles.pendingActive : ""}
-            onClick={() => setActive("pending")}
+            className={active === "PENDING" ? styles.pendingActive : ""}
+            onClick={() => setActive("PENDING")}
           >
             Pending
           </button>
           <button
-            className={active === "live" ? styles.liveActive : ""}
-            onClick={() => setActive("live")}
+            className={active === "LIVE" ? styles.liveActive : ""}
+            onClick={() => setActive("LIVE")}
           >
             Live
           </button>
           <button
-            className={active === "closed" ? styles.closedActive : ""}
-            onClick={() => setActive("closed")}
+            className={active === "CLOSED" ? styles.closedActive : ""}
+            onClick={() => setActive("CLOSED")}
           >
             Closed
           </button>
           <button
-            className={active === "declined" ? styles.declinedActive : ""}
-            onClick={() => setActive("declined")}
+            className={active === "DECLINED" ? styles.declinedActive : ""}
+            onClick={() => setActive("DECLINED")}
           >
             Declined
           </button>
@@ -228,6 +235,9 @@ const Influencer = () => {
         <Grid container spacing={3}>
           {campaigns.length > 0 &&
             campaigns.map((campaign) => {
+							if (campaign.status !== active && active !== "ALL"){
+								return null;
+							}
               return (
                 <Grid
                   className={styles.gridItem}

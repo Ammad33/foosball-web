@@ -51,28 +51,41 @@
         color: $dark2;
         font-weight: 300;
         font-size: 13px;
-      }
-      .campaignStatus {
-        width: fit-content;
-        font: normal normal normal 13px/20px Poppins;
-        height: 28px;
-        margin-top: 20px;
-        // margin: 20px 0px;
-      }
+			}
+			.wrapChip{
+				display: flex;
+			
+				.campaignStatus {
+					
+					width: fit-content;
+					font: normal normal normal 13px/20px Poppins;
+					height: 28px;
+					margin-top: 20px;
+					// margin: 20px 0px;
+				}
+				.personAvatar {
+					margin-top: 17px;
+					margin-left: 33px;
+					height: 30px;
+					width: 30px;
+				}
+			  .mediaTag {
+					margin-top: 21px;
+					margin-left: 5px;
+					color: #000000;
+					font-family: Poppins;
+					font-size: 13px;
+					letter-spacing: 0;
+					line-height: 20px;
+				}
+			}
     }
     .personInfo {
       text-align: center;
       min-width: 100px;
       max-width: 150px;
       margin-top: 15px;
-      .personAvatar {
-        margin: auto;
-        height: 45px;
-        width: 45px;
-      }
-      .mediaTag {
-        font: normal normal normal 13px/20px Poppins;
-      }
+    
     }
   }
 }
