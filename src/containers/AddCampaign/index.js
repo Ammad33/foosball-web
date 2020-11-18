@@ -399,7 +399,67 @@ const AddCampaign = ({ open, handleCancel }) => {
       compensationType: '',
       amount: '',
     },
-  ]);
+	]);
+
+	/***************Compensation Product ********************/
+	
+	const [compensationProduct , setCompensationProduct] = useState('');
+	const [compensationProducts , setCompensationProducts] = useState('');
+
+
+	const handleCompensationProducts = (value) => {
+		setCompensationProduct(value);
+	}
+
+	const setActiveForCompensationProduct = () => {
+    const cols = [...compensationProducts];
+    if (cols.length === 0) {
+      setActiveNext(false);
+    }
+    if (cols.length > 0) {
+      let flag = true;
+      cols.forEach((item) => {
+        if (item.collectionItems.length === 0) {
+          flag = false;
+        }
+        setActiveNext(flag);
+      });
+    } else {
+      setActiveNext(false);
+    }
+	};
+	
+	const handleCompensationProductItem = (name, item) => {
+    const opts = [...compensationProducts];
+    if (opts.length > 0) {
+      const index = opts.findIndex((item) => item.collectionName === name);
+
+      if (index !== -1) {
+        const secondIndex = opts[index].collectionItems.findIndex(
+          (secondItem) => secondItem.sku === item.sku
+        );
+        if (secondIndex === -1) {
+          opts[index].collectionItems.push(item);
+          setCompensationProducts(opts);
+        } else {
+          opts[index].collectionItems.splice(secondIndex, 1);
+          setCompensationProducts(opts);
+        }
+      } else {
+        opts.push({
+          collectionName: name,
+          collectionItems: [item],
+        });
+        setCompensationProducts(opts);
+      }
+    } else {
+      opts.push({
+        collectionName: name,
+        collectionItems: [item],
+      });
+      setCompensationProducts(opts);
+    }
+  };
 
   /** Negotiable Options */
 
@@ -512,7 +572,11 @@ const AddCampaign = ({ open, handleCancel }) => {
     });
   };
 
-  /********* Add Collection ***********/
+	/********* Add Collection ***********/
+	
+	const handleCollection = (value) => {
+		setCollection(value);
+	}
 
   const handleCollectionItem = (name, item) => {
     const opts = [...collections];
@@ -559,7 +623,6 @@ const AddCampaign = ({ open, handleCancel }) => {
   //************************ Add Members  *********************/
 
   const addMember = (member) => {
-		debugger;
     const opts = [...selectedMembers];
 
     const optIndex = opts.findIndex((item) => item.name === member.name);
@@ -641,7 +704,6 @@ const AddCampaign = ({ open, handleCancel }) => {
 
 	/*************Start Time/Date validation************/
 	const handleStartTimeDateValidation = (time,date) => {
-		debugger;
 		const mom = moment()
 		const startDateTime = moment(date + ' ' + time);
 		if (startDateTime.isBefore(moment())) {
@@ -769,16 +831,9 @@ const AddCampaign = ({ open, handleCancel }) => {
 
 	/************* Active for deliverable */
 	
-	// useEffect(() => {
-	// 	tagRequired();
-	// },[deliveries.brandTagRequired,deliveries.hashTagRequired]);
-	
-	// const tagRequired = () => {
-	// 	console.log("Asas")
-	// }
+
 
   const setActiveForDeliverables = () => {
-		debugger;
     const deliverables = [...deliveries];
 
     let flag = true;
@@ -789,10 +844,6 @@ const AddCampaign = ({ open, handleCancel }) => {
         delive.campaignType === '' ||
         delive.frameType === '' ||
 				delive.frameRequired === '' ||
-        // delive.brandTag === '' ||
-        // delive.brandTagRequired === false ||
-        // delive.hashTag === '' ||
-        // delive.hashTagRequired === false ||
         delive.NoPost === '' ||
         delive.perTimePeriod === ''
 			) 
@@ -818,8 +869,13 @@ const AddCampaign = ({ open, handleCancel }) => {
       if (comp.compensationType === '' || comp.amount === '') {
         flag = false;
       }
-    });
-    setActiveNext(flag);
+		});
+		setActiveNext(flag);
+		if (!flag){
+			setActiveForCompensationProduct();
+
+		}
+    
   };
 
   /************* Active for Negotiables */
@@ -928,7 +984,7 @@ const AddCampaign = ({ open, handleCancel }) => {
         return (
           <Collection
             collection={collection}
-            handleCollection={(value) => setCollection(value)}
+            handleCollection={handleCollection}
             collectionItems={items}
             collections={collections}
             handleActiveForCollection={setActiveForCollection}
@@ -959,7 +1015,14 @@ const AddCampaign = ({ open, handleCancel }) => {
             handleCompensations={handleCompensations}
             handleCompensationValue={handleCompensationValue}
             handleRemoveCompensation={handleRemoveCompensation}
-            handleActiveForCompensation={setActiveForCompensation}
+						handleActiveForCompensation={setActiveForCompensation}
+						
+						compensationProduct={compensationProduct}
+            handleCompensationProducts={handleCompensationProducts}
+            compensationProductItems={items}
+            compensationProducts={compensationProducts}
+            handleActiveForCompensationProduct={setActiveForCompensationProduct}
+            handleCompensationProductItem={handleCompensationProductItem}
           />
         );
       case 7:

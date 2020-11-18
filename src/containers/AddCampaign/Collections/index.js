@@ -54,13 +54,6 @@ const AccordionDetails = withStyles((theme) => ({
   },
 }))(MuiAccordionDetails);
 
-const Chevron = () => {
-  return (
-    <span className={styles.dropDownCustomizeSvg}>
-      <SVG src={require('../../../assets/chevron-downn.svg')} />
-    </span>
-  );
-};
 
 const PlusSVG = () => {
   return <SVG src={require('../../../assets/plus1.svg')}/>;
@@ -89,7 +82,6 @@ const Collection = ({
 
 
 	const handleChange = (panel) => (event, newExpanded) => {
-		debugger;
 		setExpanded(newExpanded ? panel : false);
 		closeSvg()
 		if (panel == "panel1"){
