@@ -10,13 +10,13 @@ const Posts = () => {
             <h1>Posts</h1>
             <div className={styles.mainDiv}>
                 <div className={styles.elemtdiv}>
-                    <img src={Post1} />
+                    <img alt="post1" src={Post1} />
                 </div>
                 <div className={styles.elemtdiv}>
-                    <img src={Post2} />
+                    <img alt="post2" src={Post2} />
                 </div>
                 <div className={styles.elemtdiv}>
-                    <img src={Post3} />
+                    <img alt="post3" src={Post3} />
                 </div>
             </div>
             <button>See all</button>

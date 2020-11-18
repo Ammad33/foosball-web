@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styles from './BrandConnectAccounts.module.scss';
-import mainStyles from './../../../../index.module.scss';
 import shopifyStoreLogo from './../../../../assets/shoppify.png';
 import TextField from '../../../../components/TextField';
 import ChipButton from '../../../../components/ChipButton';
@@ -47,8 +46,8 @@ const BrandConnectAccounts = () => {
                 {storeSaved ? (
                   <CheckCircleIcon className={styles.inputendornmentCheck} />
                 ) : (
-                  ''
-                )}
+                    ''
+                  )}
               </InputAdornment>
             ),
           }}
@@ -64,8 +63,8 @@ const BrandConnectAccounts = () => {
             Sync
           </div>
         ) : (
-          ''
-        )}
+            ''
+          )}
       </div>
     </div>
   );

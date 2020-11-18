@@ -1,15 +1,15 @@
-import React, { useState, useContext } from 'react';
+import React from 'react';
 import styles from './ForgotPassword.module.scss';
-import { TextField, Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import mainStyles from './../../index.module.scss';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 
 
 const Confirmation = () => {
-	const history = useHistory();
+  const history = useHistory();
   return (
-		
+
     <div className={styles.forgotPasswordContainer}>
       <h1 className={styles.heading}>Forgot your password?</h1>
       <p className={styles.des}>If there is an account associated to the email you entered you will receive an email with instructions to reset your password.</p>
@@ -23,9 +23,9 @@ const Confirmation = () => {
         >
           Login
         </Button> </div>
-				<div> 
-				<Link to="#">Re-send password reset link</Link>     
-				</div>
+      <div>
+        <Link to="#">Re-send password reset link</Link>
+      </div>
     </div>
   );
 }

@@ -11,7 +11,6 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import LeftSideDrawer from '../../components/LeftSideDrawer';
 import Header from './../../components/Header';
 import Brand from '../../components/Brand';
-import clsx from 'clsx';
 
 const drawerWidth = 284;
 
