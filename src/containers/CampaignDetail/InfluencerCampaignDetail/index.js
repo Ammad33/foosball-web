@@ -7,11 +7,11 @@ import { useHistory } from 'react-router-dom';
 import Performance from '../Collections/Performance';
 import Posts from '../ActivityDetail/Posts';
 import Activity from '../Activity';
-import CampaignDetail from '../Activity/CampaignDetail';
+import CampaignDetail from '../CampaignDetail';
 import Compensation from '../Compensation';
-import Deliverables from '../Activity/Deliverables';
+import Deliverables from '../Deliverables';
 import Collections from '../Collections';
-import Contract from '../Activity/Contract';
+import Contract from '../Contract';
 import ActivityDetail from '../ActivityDetail';
 import Drawer from '../../../components/RightDrawer';
 
@@ -48,7 +48,6 @@ const CampaignDetailInfluencer = () => {
             default:
                 return;
         }
-
     }
 
     const handleSeeClick = (value) => {
