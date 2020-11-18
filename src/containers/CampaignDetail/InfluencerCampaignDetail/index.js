@@ -4,7 +4,7 @@ import { Avatar, Chip, Popover } from '@material-ui/core';
 import styles from './InfluencerCampaignDetail.module.scss';
 import { ChevronRight, MoreVertical, Download, Mail, X } from 'react-feather';
 import { useHistory } from 'react-router-dom';
-import Performance from '../Collections/Performance';
+import Performance from '../Performance';
 import Posts from '../Posts';
 import Activity from '../Activity';
 import CampaignDetail from '../CampaignDetail';
