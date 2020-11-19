@@ -20,6 +20,8 @@ import Posts from '../Posts';
 import Activity from '../Activity';
 import Performance from '../Performance';
 import CampaignDetail from '../CampaignDetail';
+import TeamMembers from '../TeamMembers';
+import BudgetAndConversion from '../BudgetAndConversion';
 
 import { useHistory } from 'react-router-dom';
 
@@ -130,6 +132,8 @@ const BrandCampaignDetail = () => {
                 </p>
               </>
             </CampaignDetail>
+            <TeamMembers />
+            <BudgetAndConversion />
           </div>
           <div className={styles.row}>
             <div className={styles.col2Width}>1</div>
