@@ -9,7 +9,7 @@ const Performance = () => {
       <div>
         <p>Tableau Integration</p>
       </div>
-      <ChipButton title={'See all'} buttonSize={'sm'} />
+      <button>See all</button>
     </div>
   );
 };

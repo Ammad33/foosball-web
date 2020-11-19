@@ -6,19 +6,21 @@ import { Plus, HelpCircle } from 'react-feather';
 import paypal from '../../../assets/paypal.png';
 import clsx from 'clsx';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+
 const Billing = () => {
-  const [primary, setPrimary] = useState(false);
+
   const [primaryBillingType, setPrimaryBillingType] = useState(null);
   const [secondaryBillingType, setSecondaryBillingType] = useState(null);
-  const [secondary, setSecondary] = useState(false);
-  function handlePrimaryBilling(type) {
+
+  const handlePrimaryBilling = (type) => {
     // if (type === 'CC' && primaryBillingType === 'CC') {
     //   setPrimaryBillingType(null);
     // } else {
     setPrimaryBillingType(type);
     // }
   }
-  function handleSecondaryBilling(type) {
+
+  const handleSecondaryBilling = (type) => {
     // if (type === 'CC' && primaryBillingType === 'CC') {
     //   setPrimaryBillingType(null);
     // } else {
@@ -48,7 +50,7 @@ const Billing = () => {
           >
             <div className={styles.content}>
               <div>
-                <img src={paypal} height={38} width={152} />
+                <img src={paypal} alt="paypal" height={38} width={152} />
                 <span>malloryhuntsman@gmail.com</span>
               </div>
               {primaryBillingType === 'PP' ? <CheckCircleIcon /> : ''}
@@ -149,7 +151,7 @@ const Billing = () => {
             >
               <div className={styles.content}>
                 <div>
-                  <img src={paypal} height={38} width={152} />
+                  <img src={paypal} alt="paypal" height={38} width={152} />
                   <span>malloryhuntsman@gmail.com</span>
                 </div>
                 {secondaryBillingType === 'PP' ? <CheckCircleIcon /> : ''}

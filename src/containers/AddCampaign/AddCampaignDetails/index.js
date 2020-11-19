@@ -3,22 +3,16 @@ import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import { Grid, InputAdornment, Select } from "@material-ui/core";
 import FormControl from "@material-ui/core/FormControl";
-import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import SVG from "react-inlinesvg";
 import SelectMenu from "../../../components/SelectMenu";
 import styles from "./AddCampaignDetail.module.scss";
-import moment from "moment";
 import { TimePicker } from "@material-ui/pickers";
 import mainStyles from '../../../index.module.scss';
 
 
 import TextField from "../../../components/TextField";
-
-
-
-
 
 
 const Chevron = () => {
@@ -28,19 +22,6 @@ const Chevron = () => {
     </span>
   );
 };
-
-const useStyles = makeStyles((theme) => ({
-  container: {
-    display: "flex",
-    flexWrap: "wrap",
-  },
-  textField: {
-    width: 510,
-	},
-	whiteColor: {
-    color: "#7e7e7e"
-  }
-}));
 
 const AddCampaignDetails = ({
   handleCampaignName,
@@ -68,19 +49,17 @@ const AddCampaignDetails = ({
   endDateOpen,
   handleStartDateOpen,
   handleEndDateOpen,
-	handleStartTimeOpen,
+  handleStartTimeOpen,
   startTimeOpen,
   endTimeOpen,
   handleEndTimeOpen,
   filledForm,
   partialFilledForm,
 }) => {
-	const classes = useStyles();
-
 
   useEffect(() => {
     filledForm();
-  }, [campaignName, startDate, endDate, discount, percentage, customeMessage,startDateError,endDateError,startTimeError,endTimeError]);
+  }, [campaignName, startDate, endDate, discount, percentage, customeMessage, startDateError, endDateError, startTimeError, endTimeError]);
 
   useEffect(() => {
     partialFilledForm();
@@ -95,10 +74,10 @@ const AddCampaignDetails = ({
           value={campaignName}
           onChange={handleCampaignName}
           label="Campaign Name"
-          className={mainStyles.placeholderColor} 
+          className={mainStyles.placeholderColor}
           helperText={" "}
-					variant="outlined"
-					
+          variant="outlined"
+
         />
       </Grid>
       <Grid item xs={12} sm={12} md={6}>
@@ -110,15 +89,16 @@ const AddCampaignDetails = ({
           onChange={(e) => handleStartDate(e.target.value)}
           label="Start Date"
           className={mainStyles.placeholderColor}
-					variant="outlined"
-					onBlur={(e) => {
-						console.log('Triggered because this input lost focus');}}
+          variant="outlined"
+          onBlur={(e) => {
+            console.log('Triggered because this input lost focus');
+          }}
           helperText={
             startDateError ? (
               <span className={styles.errorText}> Start Date IN FUTURE </span>
             ) : (
-              " "
-            )
+                " "
+              )
           }
           InputProps={{
             endAdornment: (
@@ -138,9 +118,10 @@ const AddCampaignDetails = ({
             orientation="landscape"
             openTo="date"
             format="MM/dd/yyyy"
-						margin="normal"
-						onBlur={(e) => {
-							console.log('Triggered because this input lost focus');}}
+            margin="normal"
+            onBlur={(e) => {
+              console.log('Triggered because this input lost focus');
+            }}
             onClose={() => handleStartDateOpen(false)}
           />
         </MuiPickersUtilsProvider>
@@ -154,12 +135,12 @@ const AddCampaignDetails = ({
           className={mainStyles.placeholderColor}
           onChange={(e) => handleEndDate(e.target.value)}
           variant="outlined"
-					helperText={
+          helperText={
             endDateError ? (
               <span className={styles.errorText}> End date AFTER Start date </span>
             ) : (
-              " "
-            )
+                " "
+              )
           }
           InputProps={{
             endAdornment: (
@@ -194,8 +175,8 @@ const AddCampaignDetails = ({
             startTimeError ? (
               <span className={styles.errorText}> Start Time IN FUTURE </span>
             ) : (
-              " "
-            )
+                " "
+              )
           }
           InputProps={{
             endAdornment: (
@@ -234,8 +215,8 @@ const AddCampaignDetails = ({
                 End Time AFTER Start Time{" "}
               </span>
             ) : (
-              " "
-            )
+                " "
+              )
           }
           InputProps={{
             endAdornment: (
@@ -279,12 +260,12 @@ const AddCampaignDetails = ({
             value={discountType}
             onChange={(e) => handleDiscountType(e.target.value)}
             variant="outlined"
-						MenuProps={{ variant: "menu" }}
-						// classes={{
-						// 	root: classes.whiteColor,
-						// 	icon: classes.whiteColor
-						// }}            
-						placeholder="Discount Type"
+            MenuProps={{ variant: "menu" }}
+            // classes={{
+            // 	root: classes.whiteColor,
+            // 	icon: classes.whiteColor
+            // }}            
+            placeholder="Discount Type"
             input={<SelectMenu />}
           >
             <MenuItem value="" disabled  >
