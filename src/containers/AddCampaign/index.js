@@ -86,12 +86,11 @@ let negotialbleOptions = [
 ];
 
 
-// const social = [ facebook = { "campaignType" : ['story', 'post'] , "frameType": ['video', 'image']}]
 
-const fb = { "campaignType": ['story', 'post'], "frameType": ['video', 'image'] }
-const insta = { "campaignType": ['story', 'post'], "frameType": ['video', 'image'] }
-const tictock = { "campaignType": ['video'], "frameType": ["Does not apply"] }
-const youtube = { "campaignType": ['video'], "frameType": ["Does not apply"] }
+const fb = { "campaignType": ['Story', 'Post'], "frameType": ['Video', 'Image'] }
+const insta = { "campaignType": ['Story', 'Post'], "frameType": ['Video', 'Image'] }
+const tictock = { "campaignType": ['Video'], "frameType": ["Does not apply"] }
+const youtube = { "campaignType": ['Video'], "frameType": ["Does not apply"] }
 
 const influencers = [
   {
@@ -535,13 +534,12 @@ const AddCampaign = ({ open, handleCancel }) => {
 
   const handleCompensations = () => {
 		debugger;
-		// const pro = [...compensationProducts]
-    const comp = [...compensations,...compensationProducts];
+		//const pro = [...compensationProducts]
+		const comp = [...compensations];
+		
     comp.push({
       compensationType: '',
 			amount: '',
-			collectionName: '',
-			collectionItems: '',
 		})
     setCompensations(comp);
   };

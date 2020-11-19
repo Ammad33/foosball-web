@@ -46,7 +46,9 @@ const CreateDeliverable = ({
   const [value, setValue] = useState(youtube);
   useEffect(() => {
     handleSetValue();
-  },[]);
+	},[]);
+	
+
 
   const handleSetValue = () => {
     if (deliverableItem.socialPlatform === 'Youtube') setValue(youtube);
@@ -132,7 +134,7 @@ const CreateDeliverable = ({
             <MenuItem value={'Instagram'}>Instagram </MenuItem>
             <MenuItem value={'fb'}>Facebook </MenuItem>
             <MenuItem value={'Youtube'}>Youtube</MenuItem>
-            <MenuItem value={'Tictock'}>Tictock</MenuItem>
+            <MenuItem value={'Tictock'}>Tiktok</MenuItem>
           </Select>
         </FormControl>
       </Grid>

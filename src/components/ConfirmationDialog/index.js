@@ -30,7 +30,7 @@ const CDialog = ({
       {...other}
     >
       <DialogContent className={styles.cDialogContent}>
-        <h3>{message}</h3>
+        <p className={styles.cDialogDescription}>{message}</p>
       </DialogContent>
       <div className={styles.cDialogActions}>
         <Button className={styles.confirm} onClick={handleOk}>{confirmText ? confirmText : 'Ok'}</Button>

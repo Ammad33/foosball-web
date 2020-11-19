@@ -15,6 +15,11 @@ import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import CompensationProductItem from './CompensationProductItem';
 
+const options = [];
+for (let i = 3; i <= 20; i += 1) {
+  options.push(i);
+}
+
 const Accordion = withStyles({
   root: {
 		marginTop: '10px',
@@ -126,7 +131,7 @@ const CreateCompensation = ({ compensations, handleAnother, index, item, handleC
     return (
         <Grid container spacing={3} >
             <Grid item xs={12} className={clsx(styles.headerContainer, index > 0 ? styles.marginTop : '')}>
-                <p className={styles.headingColor}>Compensation Type{index + 1}</p>
+                <p className={styles.headingColor}>Compensation Type {index + 1}</p>
                 {compensations.length > 1 && <Trash onClick={() => handleRemoveCompensation(index)} />}
             </Grid>
             <Grid item xs={12} className={styles.marginbottomSelect}>
@@ -171,20 +176,41 @@ const CreateCompensation = ({ compensations, handleAnother, index, item, handleC
 													variant='outlined'
 													value={item.amount}
 													onChange={(e) => handleCompensationValue(e.target.value, index, 'amount')}
+													InputProps={{
+														startAdornment: (
+															<InputAdornment  position="start">
+																$
+															</InputAdornment>
+														),
+													}}
 											/>
 									</Grid>
 								}
 								{item.compensationType === 'Revenue Share' &&
 									<Grid item xs={12} sm={12} md={12}>
-											<TextField
-													id='outlined-basic'
-													fullWidth
-													type="number"
-													label= "Enter Revenue Share"
-													variant='outlined'
-													value={item.amount}
-													onChange={(e) => handleCompensationValue(e.target.value, index, 'amount')}
-											/>
+										<FormControl fullWidth variant='outlined'>
+											<Select
+												id='revenue'
+												fullWidth
+												label='Enter Revenue Share'
+												variant='outlined'
+												value={item.amount}
+												onChange={(e) => handleCompensationValue(e.target.value, index, 'amount')}
+												displayEmpty
+												IconComponent={() => <Chevron />}
+												MenuProps={{ variant: 'menu' }}
+												input={<SelectMenu />}
+											>
+												<MenuItem value='' disabled>
+												Select revenue share percentage
+												</MenuItem>
+												{options.map((option) => (
+													<MenuItem key={option} value={option}>
+														{option}
+													</MenuItem>
+												))}
+											</Select>
+										</FormControl>
 									</Grid>
 								}
 								{item.compensationType === 'Gift Card' &&
@@ -198,6 +224,13 @@ const CreateCompensation = ({ compensations, handleAnother, index, item, handleC
 													variant='outlined'
 													value={item.amount}
 													onChange={(e) => handleCompensationValue(e.target.value, index, 'amount')}
+													InputProps={{
+														startAdornment: (
+															<InputAdornment  position="start">
+																$
+															</InputAdornment>
+														),
+													}}
 											/>
 											<TextField
 													id='outlined-basic'

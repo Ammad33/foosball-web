@@ -2,7 +2,8 @@
 .drawelistItem {
   display: flex;
   align-items: center;
-  width: 100%;
+	width: 100%;
+	height: 60px;
   padding: 12px;
   gap: 15px;
   font-size: 15px;
@@ -15,7 +16,7 @@
   }
   &:not(.drawelistItemActive):hover {
     // background-color: red;
-    background: $dark3;
+		background: #EFEFEF;
   }
   svg {
     color: #000000;
@@ -25,13 +26,15 @@
 // .drawelistItem:hover {
 //     // background-color: #3481EF;
 
-//     border-radius: 4px;
 //     p {
-//         color: white;
+//         color: black;
 //     }
 //     svg {
-//         color: white;
-//     }
+//         color: black;
+// 		}
+	
+// 			background-color: #EFEFEF;
+		
 // }
 
 .drawelistItemActive {
