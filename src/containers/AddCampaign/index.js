@@ -534,11 +534,15 @@ const AddCampaign = ({ open, handleCancel }) => {
   /***** Add New Compesation */
 
   const handleCompensations = () => {
-    const comp = [...compensations];
+		debugger;
+		// const pro = [...compensationProducts]
+    const comp = [...compensations,...compensationProducts];
     comp.push({
       compensationType: '',
-      amount: '',
-    });
+			amount: '',
+			collectionName: '',
+			collectionItems: '',
+		})
     setCompensations(comp);
   };
 
@@ -900,9 +904,9 @@ const AddCampaign = ({ open, handleCancel }) => {
 
 	/*********************** To disable next button */
 	
-	// 	useEffect(() => {
-  //   setActiveNext(true);
-  // });
+		useEffect(() => {
+    setActiveNext(true);
+  });
 
 
   const leftSideDawerClick = (index) => {

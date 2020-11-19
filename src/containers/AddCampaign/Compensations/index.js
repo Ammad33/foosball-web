@@ -15,7 +15,8 @@ const Compensations = ({ compensations, handleCompensations, handleCompensationV
     return (<div>
 			
         {
-						compensations.map((item, index) => <CreateCompensation 
+						compensations.map((item, index) => 
+						<CreateCompensation 
 						item={item} 
 						key={index} 
 						compensations={compensations} 

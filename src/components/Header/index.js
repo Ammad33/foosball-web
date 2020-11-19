@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useHistory } from 'react-router-dom';
+import Logout from '../../containers/Logout'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -84,7 +85,8 @@ const navigate = () => {
           <div className={styles.menuBarItems}>
             <MenuItem className={styles.itemsFont}>View Profile</MenuItem>
             <MenuItem className={styles.itemsFont} onClick={() => {navigate()}}>Settings</MenuItem>
-            <MenuItem className={styles.itemsFont}>Sign Out</MenuItem>
+            {/* <MenuItem className={styles.itemsFont}>Sign Out</MenuItem> */}
+						<Logout />
           </div>
         </Grid>
       </Popover>

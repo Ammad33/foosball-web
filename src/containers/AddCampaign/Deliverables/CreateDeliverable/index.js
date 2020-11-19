@@ -139,9 +139,9 @@ const CreateDeliverable = ({
       <Grid item xs={12} sm={12} md={6} className={styles.marginbottomSelect}>
         <FormControl fullWidth variant='outlined'>
           <Select
-            id='Campaign Type'
+            id='Post Type'
             fullWidth
-            label='Campaign Type'
+            label='Post Type'
             variant='outlined'
             helperText={error ? <span> error </span> : ' '}
             value={deliverableItem && deliverableItem.campaignType}
@@ -154,7 +154,7 @@ const CreateDeliverable = ({
             input={<SelectMenu />}
           >
             <MenuItem value='' disabled>
-              Campaign Type
+              Post Type
             </MenuItem>
             {value.campaignType.map((item) => (
               <MenuItem value={item}>{item} </MenuItem>
@@ -165,9 +165,9 @@ const CreateDeliverable = ({
       <Grid item xs={12} sm={12} md={6}>
         <FormControl fullWidth variant='outlined'>
           <Select
-            id='Frame Type'
+            id='Content Type'
             fullWidth
-            label='Frame Type'
+            label='Content Type'
             variant='outlined'
             helperText={error ? <span> error </span> : ' '}
             value={deliverableItem && deliverableItem.frameType}
@@ -181,7 +181,7 @@ const CreateDeliverable = ({
             input={<SelectMenu />}
           >
             <MenuItem value='' disabled>
-              Frame Type
+              Content Type
             </MenuItem>
             {value.frameType.map((item) => (
               <MenuItem value={item}>{item} </MenuItem>
