@@ -902,9 +902,9 @@ const AddCampaign = ({ open, handleCancel }) => {
 
 	/*********************** To disable next button */
 	
-		useEffect(() => {
-    setActiveNext(true);
-  });
+	// 	useEffect(() => {
+  //   setActiveNext(true);
+  // });
 
 
   const leftSideDawerClick = (index) => {
