@@ -1,13 +1,14 @@
 import React from 'react';
 import styles from './Collections.module.scss';
-import { Grid } from '@material-ui/core';
 import { Edit } from 'react-feather';
+import { useHistory } from 'react-router-dom';
 
-const Collections = () => {
+const Collections = ({ handleEdit }) => {
+    const history = useHistory();
     return (<div className={styles.collectionContainer}>
         <div className={styles.headerContainer}>
             <h1>Collection</h1>
-            <Edit />
+            <Edit onClick={() => handleEdit(4)} />
         </div>
         <div className={styles.collectionSubContent}>
             <h6>Drop Cuts</h6>
@@ -62,7 +63,7 @@ const Collections = () => {
             </div>
         </div>
 
-        <button>See all</button>
+        <button onClick={() => history.push('/collections')} >See all</button>
     </div>);
 }
 

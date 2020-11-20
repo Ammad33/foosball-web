@@ -15,13 +15,21 @@ import Contract from '../Contract';
 import ActivityDetail from '../ActivityDetail';
 import DeliverablesDetail from '../DeliverablesDetail';
 import Drawer from '../../../components/RightDrawer';
-import CompensationDetail from '../CompensationDetail'
+import CompensationDetail from '../CompensationDetail';
+import AddCampaign from '../../AddCampaign';
 
 const CampaignDetailInfluencer = () => {
     const history = useHistory();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [openDrawer, setOpenDrawer] = useState(false);
+    const [addCampaign, setAddCampagin] = useState(false);
+    const [step, setStep] = useState(1);
     const [element, setElement] = useState('');
+
+    const handleEdit = (step) => {
+        setAddCampagin(true);
+        setStep(step);
+    }
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -59,6 +67,13 @@ const CampaignDetailInfluencer = () => {
 
     return (
         <>
+            {addCampaign &&
+                <AddCampaign
+                    open={addCampaign}
+                    step={step}
+                    handleCancel={() => setAddCampagin(false)}
+                />
+            }
             <Drawer anchor={'right'} open={openDrawer} onClose={handleCloseDrawer}>
                 <div className={styles.x}>
                     <X onClick={handleCloseDrawer} />
@@ -122,15 +137,15 @@ const CampaignDetailInfluencer = () => {
                 <div className={styles.secondContainer}>
                     <div >
                         <div className={styles.first}>
-                            <CampaignDetail />
-                            <Compensation onClick={handleSeeClick} />
+                            <CampaignDetail handleEdit={handleEdit} />
+                            <Compensation onClick={handleSeeClick} handleEdit={handleEdit} />
                         </div>
                         <div style={{ marginTop: '30px' }}>
-                            <Collections />
+                            <Collections handleEdit={handleEdit} />
                         </div>
                     </div>
                     <div className={styles.second}>
-                        <Deliverables onClick={handleSeeClick} />
+                        <Deliverables handleEdit={handleEdit} onClick={handleSeeClick} />
                         <Contract />
                     </div>
 

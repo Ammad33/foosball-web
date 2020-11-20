@@ -5,11 +5,13 @@ import RootContext from './context/RootContext';
 import Campaigns from './containers/Campaigns';
 import CampaignDetail from './containers/CampaignDetail';
 import AddCampaign from './containers/AddCampaign';
+import Collections from './containers/Collections';
 import Login from './containers/Login';
 import Signup from './containers/Signup';
 import ForgotPassword from './containers/ForgotPassword';
 import ResetPassword from './containers/ResetPassword';
 import Onboarding from './containers/Onboarding';
+import Performance from './containers/Performance';
 import ProtectedRoute from './hoc/ProtectedRoute';
 import Settings from './containers/Settings';
 import Auth from './hoc/Auth';
@@ -27,6 +29,16 @@ const App = () => {
           <ProtectedRoute exact path='/campaignDetail'>
             <Layout>
               <CampaignDetail />
+            </Layout>
+          </ProtectedRoute>
+          <ProtectedRoute exact path='/collections'>
+            <Layout>
+              <Collections />
+            </Layout>
+          </ProtectedRoute>
+          <ProtectedRoute exact path='/performance'>
+            <Layout>
+              <Performance />
             </Layout>
           </ProtectedRoute>
           <ProtectedRoute exact path='/addCampaign'>
@@ -73,6 +85,5 @@ const App = () => {
     </RootContext>
   );
 };
-// export default withAuthenticator(App);
 
 export default App;
