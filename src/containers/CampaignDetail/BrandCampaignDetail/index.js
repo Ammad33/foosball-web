@@ -1,27 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Avatar, Popover } from '@material-ui/core';
 import styles from './BrandCampaignDetail.module.scss';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import IconButton from '@material-ui/core/IconButton';
 import Chip from '@material-ui/core/Chip';
 import clsx from 'clsx';
 import SVG from 'react-inlinesvg';
 import ChipButton from '../../../components/ChipButton';
-import {
-  Edit,
-  ChevronRight,
-  MoreVertical,
-  Download,
-  Copy,
-  Mail,
-} from 'react-feather';
+import { MoreVertical, Download, Copy, Mail } from 'react-feather';
 import Posts from '../Posts';
 import Activity from '../Activity';
 import Performance from '../Performance';
 import CampaignDetail from '../CampaignDetail';
 import TeamMembers from '../TeamMembers';
 import BudgetAndConversion from '../BudgetAndConversion';
+import Deliverables from '../Deliverables';
+import Collections from '../Collections';
+import Contract from '../Contract';
+import Compensation from '../Compensation';
+import Negotiables from '../Negotiables';
+import Translation from '../../../assets/translation.json';
+import CDialog from '../../../components/ConfirmationDialog';
 
 import { useHistory } from 'react-router-dom';
 
@@ -41,8 +38,15 @@ const CopyIcon = () => {
 const BrandCampaignDetail = () => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [openCDialog, setOpenCDialog] = useState(false);
+
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
+  const status = 'closed';
+  // const status = 'draft';
+  // const status = 'lost';
+  // const status ='draft';
+  // const status ='draft';
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -55,6 +59,49 @@ const BrandCampaignDetail = () => {
   const handleSeeClick = (value) => {
     // setElement(value);
     // setOpenDrawer(true);
+  };
+
+  const handleCancelCDialog = () => {
+    setOpenCDialog(false);
+  };
+  const handleConfirmCDialog = () => {
+    setOpenCDialog(false);
+  };
+
+  const getSectionData = () => {
+    switch (status) {
+      case 'closed':
+        return <Posts />;
+
+        break;
+      case 'draft':
+        return (
+          <div className={styles.campaignDraftContainer}>
+            <h1>Compensation not yet defined</h1>
+            <p>
+              Pickup where you left off and define how you will compensate the
+              influencer
+            </p>
+            <button>Finalize Campaign</button>
+          </div>
+        );
+        break;
+      case 'lost':
+        return (
+          <div className={styles.campaignLostContainer}>
+            <h1>We're sorry this one didn't work out</h1>
+            <p>
+              The influencer declined your campaign and left you a message. Try
+              creating a new campaign.
+            </p>
+            <button>Create new campaign</button>
+          </div>
+        );
+        break;
+
+      default:
+        break;
+    }
   };
 
   return (
@@ -77,7 +124,11 @@ const BrandCampaignDetail = () => {
           <div>
             <Mail /> <p> Message Influencer</p>
           </div>
-          <div>
+          <div
+            onClick={() => {
+              setOpenCDialog(true);
+            }}
+          >
             <Copy /> <p>Duplicate Campaign</p>
           </div>
           <div>
@@ -116,9 +167,11 @@ const BrandCampaignDetail = () => {
           </div>
         </div>
         <div className={styles.contentContainer}>
-          <Performance />
+          <div>
+            <Performance />
+          </div>
           <div className={styles.flexContainer}>
-            <Posts />
+            {getSectionData()}
             <Activity onClick={handleSeeClick} />
           </div>
           <div className={styles.flexContainer}>
@@ -135,17 +188,25 @@ const BrandCampaignDetail = () => {
             <TeamMembers />
             <BudgetAndConversion />
           </div>
-          <div className={styles.row}>
-            <div className={styles.col2Width}>1</div>
-            <div className={styles.col3Width}>2</div>
+          <div className={styles.flexContainer}>
+            <Collections />
+            <Deliverables />
           </div>
-          <div className={styles.row}>
-            <div className={styles.col3Width}>1</div>
-            <div className={styles.col3Width}>2</div>
-            <div className={styles.col3Width}>3</div>
+          <div className={styles.flexContainer}>
+            <Compensation onClick={handleSeeClick} />
+            <Negotiables />
+            <Contract />
           </div>
         </div>
       </div>
+      <CDialog
+        open={openCDialog}
+        cancelText={'Cancel'}
+        confirmText={'Delete'}
+        onCancel={handleCancelCDialog}
+        onConfirm={handleConfirmCDialog}
+        message={Translation.DIALOG.CAMPAIGN_DELETE_CDIALOG_MSG}
+      />
     </>
   );
 };

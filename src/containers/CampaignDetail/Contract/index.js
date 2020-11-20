@@ -2,15 +2,15 @@ import React from 'react';
 import styles from './Contract.module.scss';
 
 const Contract = () => {
-    return (
-        <div className={styles.contractContainer}>
-            <h1>Contract</h1>
-            <div className={styles.detailSubContent}>
-                <h6>Contact has been signed by both parties   </h6>
-            </div>
-            <button>Preview Contract</button>
-        </div>
-    );
-}
+  return (
+    <div className={styles.contractContainer}>
+      <h1>Contract</h1>
+      <div className={styles.detailSubContent}>
+        <h6>Contact has been signed by both parties </h6>
+      </div>
+      <button>Preview Contract</button>
+    </div>
+  );
+};
 
 export default Contract;
