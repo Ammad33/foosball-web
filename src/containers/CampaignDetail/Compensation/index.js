@@ -2,11 +2,12 @@ import React from 'react';
 import styles from './Compensation.module.scss';
 import { Edit } from 'react-feather';
 
-const Compensation = ({ onClick }) => {
+const Compensation = ({ onClick, handleEdit }) => {
   return (
     <div className={styles.compensationContainer}>
       <div className={styles.headerContainer}>
         <h1>Compensation</h1>
+        <Edit onClick={() => handleEdit(6)} />
       </div>
       <div className={styles.conatianer}>
         <div className={styles.detailSubContent}>

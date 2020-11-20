@@ -13,8 +13,8 @@ const CampaignDetail = () => {
 
   return (
     <div className={styles.detailContainer}>
-      {/* <InfluencerCampaignDetail /> */}
-      <BrandCampaignDetail />
+      <InfluencerCampaignDetail />
+      {/* <BrandCampaignDetail /> */}
     </div>
   );
 };

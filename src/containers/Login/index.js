@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
-import { TextField, Button, InputAdornment } from '@material-ui/core';
+import { Button, InputAdornment } from '@material-ui/core';
+import TextField from '../../components/TextField';
 import styles from './Login.module.scss';
 import { RootContext } from '../../context/RootContext';
 import { Auth } from 'aws-amplify';
@@ -11,15 +12,6 @@ import FacebookSVG from '../../assets/facebook-logo-2019-thumb.png';
 import GoogleSVG from '../../assets/google-logo-icon-png-transparent-background-osteopathy-16.png';
 import AppleSVG from '../../assets/apple-logo-png-index-content-uploads-10.png'
 
-// const FacebookSVG = () => {
-//   return <SVG src={require('../../assets/facebook-logo-2019-thumb.png')} />;
-// };
-// const GoogleSVG = () => {
-//   return <SVG src={require('../../assets/google-logo-icon-png-transparent-background-osteopathy-16.png')} />;
-// };
-// const AppleSVG = () => {
-//   return <SVG src={require('../../assets/apple-logo-png-index-content-uploads-10.png')} />;
-// };
 const EyeOffSVG = () => {
   return <SVG src={require('../../assets/eye-off.svg')} />;
 };

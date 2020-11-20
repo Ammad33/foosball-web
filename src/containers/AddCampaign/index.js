@@ -291,11 +291,11 @@ function getSteps() {
 
 /*********Main Container of Add Campaign ************/
 
-const AddCampaign = ({ open, handleCancel }) => {
+const AddCampaign = ({ open, handleCancel, step }) => {
   /****** Stepper States ********/
 
   const steps = getSteps();
-  const [activeStep, setActiveStep] = useState(1);
+  const [activeStep, setActiveStep] = useState(step ? step : 1);
   const [activeNext, setActiveNext] = useState(false);
 
   /****** Campaign Detail States ********/
@@ -320,9 +320,9 @@ const AddCampaign = ({ open, handleCancel }) => {
   const [discountType, setDiscountType] = useState('');
   const [customeMessage, setCustomMessage] = useState('');
   const [startDateOpen, setStartDateOpen] = useState(false);
-	const [endDateOpen, setEndDateOpen] = useState(false);
-	const [startTimeOpen, setStartTimeOpen] = useState(false);
-	const [endTimeOpen, setEndTimeOpen] = useState(false);
+  const [endDateOpen, setEndDateOpen] = useState(false);
+  const [startTimeOpen, setStartTimeOpen] = useState(false);
+  const [endTimeOpen, setEndTimeOpen] = useState(false);
 
   /***** Budget and Target Sales ********/
 
@@ -352,6 +352,10 @@ const AddCampaign = ({ open, handleCancel }) => {
   ]);
 
   useEffect(() => {
+    setActiveStep(step !== undefined ? step : 1)
+  }, [step])
+
+  useEffect(() => {
     if (open === false) {
       setCampaignName('');
       setDiscount('');
@@ -359,8 +363,8 @@ const AddCampaign = ({ open, handleCancel }) => {
       setCustomMessage('');
       setStartDate(moment().format('MM/DD/YYYY'));
       setEndDate(moment().add(1, 'M').format('MM/DD/YYYY'));
-			setStartTime(moment().format("HH:mm"));
-			setEndTime(moment().format("HH:mm"));
+      setStartTime(moment().format("HH:mm"));
+      setEndTime(moment().format("HH:mm"));
       setBudget('');
       setTargetGrossSale('');
       setCollections([]);
@@ -601,91 +605,91 @@ const AddCampaign = ({ open, handleCancel }) => {
         : date
     );
     setEndDate(moment(moment_date).add(1, 'M').format('MM/DD/YYYY'));
-		setStartDateOpen(false);
-		handleStartDateValidation(moment_date);
-	};
-	
-	/**********************Handle End Date ********/
-	const handleEndDate = (date) => {
-		const moment_date = moment(date).format('L');
-		setEndDate(
-			date !== '' && moment(date, 'MM/DD/YYYY', true).isValid()
-				? moment_date
-				: date
-		);
-		setEndDateOpen(false);
-		handleEndDateValidation(moment_date);
-		
-	};
+    setStartDateOpen(false);
+    handleStartDateValidation(moment_date);
+  };
 
-	/*************End Date Validation *************/
-	const handleEndDateValidation = (date) => {
-		if (date < startDate) {
-			setEndDateError(true);
-		}
-		else
-			setEndDateError(false);
-			handleEndTimeDateValidation(endTime,date)
-	}
+  /**********************Handle End Date ********/
+  const handleEndDate = (date) => {
+    const moment_date = moment(date).format('L');
+    setEndDate(
+      date !== '' && moment(date, 'MM/DD/YYYY', true).isValid()
+        ? moment_date
+        : date
+    );
+    setEndDateOpen(false);
+    handleEndDateValidation(moment_date);
 
-	/*************Start date validation************/
-	const handleStartDateValidation = (date) => {
-		if (date < moment().format('MM/DD/YYYY')) {
-			setStartDateError(true);
-		}
-		else 
-		setStartDateError(false);
-		handleStartTimeDateValidation(startTime,date);
-	}
+  };
 
-	/*************Start Time/Date validation************/
-	const handleStartTimeDateValidation = (time,date) => {
-		debugger;
-		const mom = moment()
-		const startDateTime = moment(date + ' ' + time);
-		if (startDateTime.isBefore(moment())) {
-			setStartTimeError(true);
-		}
-		else
-			setStartTimeError(false);
-	}
+  /*************End Date Validation *************/
+  const handleEndDateValidation = (date) => {
+    if (date < startDate) {
+      setEndDateError(true);
+    }
+    else
+      setEndDateError(false);
+    handleEndTimeDateValidation(endTime, date)
+  }
 
+  /*************Start date validation************/
+  const handleStartDateValidation = (date) => {
+    if (date < moment().format('MM/DD/YYYY')) {
+      setStartDateError(true);
+    }
+    else
+      setStartDateError(false);
+    handleStartTimeDateValidation(startTime, date);
+  }
 
-
-		/*************END Time/Date validation************/
-		const handleEndTimeDateValidation = (time,date) => {
-			const endDateTime = moment(date + ' ' + time);
-			const startDateTime = moment(startDate + ' ' + startTime);
-			if (endDateTime.isBefore(startDateTime)) {
-				setEndTimeError(true);
-			}
-			else
-				setEndTimeError(false);
-		}
+  /*************Start Time/Date validation************/
+  const handleStartTimeDateValidation = (time, date) => {
+    debugger;
+    const mom = moment()
+    const startDateTime = moment(date + ' ' + time);
+    if (startDateTime.isBefore(moment())) {
+      setStartTimeError(true);
+    }
+    else
+      setStartTimeError(false);
+  }
 
 
 
-	/*************Start Time validation************/
-	const handleStartTimeValidation = (time) => {
-		
-		const startDateTime = moment(startDate + ' ' + time);
-		if (startDateTime.isBefore(moment())) {
-			setStartTimeError(true);
-		}
-		else
-			setStartTimeError(false);
-	}
+  /*************END Time/Date validation************/
+  const handleEndTimeDateValidation = (time, date) => {
+    const endDateTime = moment(date + ' ' + time);
+    const startDateTime = moment(startDate + ' ' + startTime);
+    if (endDateTime.isBefore(startDateTime)) {
+      setEndTimeError(true);
+    }
+    else
+      setEndTimeError(false);
+  }
 
-	/*************End Time validation************/
-	const handleEndTimeValidation = (time) => {
-		const startDateTime = moment(startDate + ' ' + startTime);
-		const endDateTime = moment(endDate + ' ' + time);
-		if (endDateTime.isBefore(startDateTime)) {
-			setEndTimeError(true);
-		}
-		else
-			setEndTimeError(false);
-	}
+
+
+  /*************Start Time validation************/
+  const handleStartTimeValidation = (time) => {
+
+    const startDateTime = moment(startDate + ' ' + time);
+    if (startDateTime.isBefore(moment())) {
+      setStartTimeError(true);
+    }
+    else
+      setStartTimeError(false);
+  }
+
+  /*************End Time validation************/
+  const handleEndTimeValidation = (time) => {
+    const startDateTime = moment(startDate + ' ' + startTime);
+    const endDateTime = moment(endDate + ' ' + time);
+    if (endDateTime.isBefore(startDateTime)) {
+      setEndTimeError(true);
+    }
+    else
+      setEndTimeError(false);
+  }
   //*************Handle Discount *****************/
 
   const handleDiscount = (e) => {
@@ -750,15 +754,15 @@ const AddCampaign = ({ open, handleCancel }) => {
             input: {
               name: campaignName,
               startDate: Date.parse(`${startDate} ${startTime}`) / 1000,
-							endDate: Date.parse(`${endDate} ${endTime}`) / 1000,
-							discount: {currency: {amount: "3", currency: 'USD'}},
+              endDate: Date.parse(`${endDate} ${endTime}`) / 1000,
+              discount: { currency: { amount: "3", currency: 'USD' } },
               brandId: '8ece73cc-3079-4f45-b7bb-4f6007c8344d',
             },
           }
         )
       );
-			handleCancel();
-			window.location.reload(false);
+      handleCancel();
+      window.location.reload(false);
     } catch (e) {
       console.log('Error in mutation for create campaign ', e);
     }
@@ -824,9 +828,9 @@ const AddCampaign = ({ open, handleCancel }) => {
     setActiveNext(influencer !== null ? true : false);
   };
 
-	/*********************** To disable next button */
-	
-	// 	useEffect(() => {
+  /*********************** To disable next button */
+
+  // 	useEffect(() => {
   //   setActiveNext(true);
   // });
 
@@ -858,25 +862,25 @@ const AddCampaign = ({ open, handleCancel }) => {
               setCampaignName(e.target.value);
             }}
             startDateOpen={startDateOpen}
-						endDateOpen={endDateOpen}
-						startTimeOpen = {startTimeOpen}
-						endTimeOpen = {endTimeOpen}
-						// handleValidation={handleDateTimeValidation}
+            endDateOpen={endDateOpen}
+            startTimeOpen={startTimeOpen}
+            endTimeOpen={endTimeOpen}
+            // handleValidation={handleDateTimeValidation}
             handleStartDate={handleStartDate}
-            handleStartDateOpen={(value)=> setStartDateOpen(value)}
-						handleEndDateOpen={(value) => setEndDateOpen(value)}
-						handleStartTimeOpen = {(value) => setStartTimeOpen(value)}
-						handleEndTimeOpen = {(value) => setEndTimeOpen(value)}
+            handleStartDateOpen={(value) => setStartDateOpen(value)}
+            handleEndDateOpen={(value) => setEndDateOpen(value)}
+            handleStartTimeOpen={(value) => setStartTimeOpen(value)}
+            handleEndTimeOpen={(value) => setEndTimeOpen(value)}
             handleEndDate={handleEndDate}
-						handleStartTime={(e) => {
-							setStartTime(moment(e).format("HH:mm"));
-							setStartTimeOpen(false);
-							handleStartTimeValidation(moment(e).format("HH:mm"));
+            handleStartTime={(e) => {
+              setStartTime(moment(e).format("HH:mm"));
+              setStartTimeOpen(false);
+              handleStartTimeValidation(moment(e).format("HH:mm"));
             }}
-   					handleEndTime={(e) => {
-							setEndTime(moment(e).format("HH:mm"));
-							setEndTimeOpen(false);
-							handleEndTimeValidation(moment(e).format("HH:mm"));
+            handleEndTime={(e) => {
+              setEndTime(moment(e).format("HH:mm"));
+              setEndTimeOpen(false);
+              handleEndTimeValidation(moment(e).format("HH:mm"));
             }}
             handleDiscount={handleDiscount}
             handleDiscountType={handleDiscountType}
@@ -1000,34 +1004,34 @@ const AddCampaign = ({ open, handleCancel }) => {
       (campaignName !== '' &&
         startDate !== '' &&
         endDate !== '' &&
-        startTime !== ''&&
+        startTime !== '' &&
         endTime !== '' &&
         discount !== '' &&
         discountType !== '' &&
-				customeMessage !== '' &&
-				startDateError === false &&
-				endDateError === false &&
-				startTimeError === false &&
-				endTimeError === false
-				)
+        customeMessage !== '' &&
+        startDateError === false &&
+        endDateError === false &&
+        startTimeError === false &&
+        endTimeError === false
+      )
     ) {
       setActiveNext(true);
     } else setActiveNext(false);
-	};
-	
-	
+  };
+
+
   const handleNext = (activeSetp) => {
-		if (activeStep == 1){		
-			const startDateTime = moment(startDate + ' ' + startTime);
-			if (startDateTime.isBefore(moment())) {
-				setStartTimeError(true);
-			}
-			else{
-				setStartTimeError(false);
-				setActiveStep((prevActiveStep) => prevActiveStep + 1);
-			}
-		}
-  	else if (activeSetp !== 9) {
+    if (activeStep == 1) {
+      const startDateTime = moment(startDate + ' ' + startTime);
+      if (startDateTime.isBefore(moment())) {
+        setStartTimeError(true);
+      }
+      else {
+        setStartTimeError(false);
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      }
+    }
+    else if (activeSetp !== 9) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
   };
@@ -1041,11 +1045,11 @@ const AddCampaign = ({ open, handleCancel }) => {
   };
 
   const handleCancelCDialog = () => {
-		setOpenCDialog(false);
-		setStartTimeError(false);
-		setEndTimeError(false);
-		setStartDateError(false);
-		setEndDateError(false);
+    setOpenCDialog(false);
+    setStartTimeError(false);
+    setEndTimeError(false);
+    setStartDateError(false);
+    setEndDateError(false);
     handleCancel();
   };
   const handleConfirmCDialog = () => {

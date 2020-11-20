@@ -2,12 +2,12 @@ import React from 'react';
 import styles from './Deliverables.module.scss';
 import { Edit } from 'react-feather';
 
-const Deliverables = ({ onClick }) => {
+const Deliverables = ({ onClick, handleEdit }) => {
     return (
         <div className={styles.deliverableContainer}>
             <div className={styles.headerContainer}>
                 <h1>Deliverables</h1>
-                <Edit />
+                <Edit onClick={() => handleEdit(5)} />
             </div>
             {/* <div className={styles.mainELEM}> */}
             <div className={styles.detailSubContent}>

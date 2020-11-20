@@ -5,13 +5,16 @@ import RootContext from './context/RootContext';
 import Campaigns from './containers/Campaigns';
 import CampaignDetail from './containers/CampaignDetail';
 import AddCampaign from './containers/AddCampaign';
+import Collections from './containers/Collections';
 import Login from './containers/Login';
 import Signup from './containers/Signup';
 import ForgotPassword from './containers/ForgotPassword';
 import ResetPassword from './containers/ResetPassword';
 import Onboarding from './containers/Onboarding';
+import Performance from './containers/Performance';
 import ProtectedRoute from './hoc/ProtectedRoute';
 import Settings from './containers/Settings';
+import UnProtectedRoute from './hoc/UnProtectedRoute';
 import Auth from './hoc/Auth';
 
 const App = () => {
@@ -29,6 +32,16 @@ const App = () => {
               <CampaignDetail />
             </Layout>
           </ProtectedRoute>
+          <ProtectedRoute exact path='/collections'>
+            <Layout>
+              <Collections />
+            </Layout>
+          </ProtectedRoute>
+          <ProtectedRoute exact path='/performance'>
+            <Layout>
+              <Performance />
+            </Layout>
+          </ProtectedRoute>
           <ProtectedRoute exact path='/addCampaign'>
             <AddCampaign />
           </ProtectedRoute>
@@ -37,42 +50,39 @@ const App = () => {
               <Settings />
             </Layout>
           </ProtectedRoute>
-          <Route exact path='/login'>
+          <UnProtectedRoute exact path='/login'>
             <Auth>
               <Login />
             </Auth>
-          </Route>
-          <Route exact path='/signup'>
+          </UnProtectedRoute>
+          <UnProtectedRoute exact path='/signup'>
             <Auth>
               <Signup />
             </Auth>
-          </Route>
-          <Route exact path='/forgot-password'>
+          </UnProtectedRoute>
+          <UnProtectedRoute exact path='/forgot-password'>
             <Auth>
               <ForgotPassword />
             </Auth>
-          </Route>
-          <Route exact path='/forgot-password'>
+          </UnProtectedRoute>
+          <UnProtectedRoute exact path='/forgot-password'>
             <Auth>
               <ForgotPassword />
             </Auth>
-          </Route>
-          <Route exact path='/reset-password'>
+          </UnProtectedRoute>
+          <UnProtectedRoute exact path='/reset-password'>
             <Auth>
               <ResetPassword />
             </Auth>
-          </Route>
-          <Route exact path='/onboarding'>
-            {/* <Auth> */}
+          </UnProtectedRoute>
+          <UnProtectedRoute exact path='/onboarding'>
             <Onboarding />
-            {/* </Auth> */}
-          </Route>
+          </UnProtectedRoute>
           <Redirect exact from='/' to='/campaigns' />
         </Switch>
       </HashRouter>
     </RootContext>
   );
 };
-// export default withAuthenticator(App);
 
 export default App;

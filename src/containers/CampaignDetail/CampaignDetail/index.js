@@ -3,7 +3,7 @@ import { Edit } from 'react-feather';
 import styles from './CampaignDetail.module.scss';
 import clsx from 'clsx';
 
-const CampaignDetail = ({ children }) => {
+const CampaignDetail = ({ children, handleEdit }) => {
   return (
     <div
       className={clsx(
@@ -13,7 +13,7 @@ const CampaignDetail = ({ children }) => {
     >
       <div className={styles.headerContainer}>
         <h1>Campaign Details</h1>
-        <Edit />
+        <Edit onClick={() => handleEdit(1)} />
       </div>
       <div className={styles.detailSubContent}>
         <h6>Campaign Name</h6>
@@ -36,8 +36,8 @@ const CampaignDetail = ({ children }) => {
       {children ? (
         <div className={styles.detailSubContent}>{children}</div>
       ) : (
-        ''
-      )}
+          ''
+        )}
     </div>
   );
 };
