@@ -63,7 +63,7 @@ const AddCampaignDetails = ({
 
   useEffect(() => {
     partialFilledForm();
-  });
+  }, [campaignName]);
 
   return (
     <Grid container spacing={2}>
