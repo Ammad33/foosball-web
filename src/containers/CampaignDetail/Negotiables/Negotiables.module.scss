@@ -1,5 +1,6 @@
 @import '../../../variable.module.scss';
-.contractContainer {
+
+.mainContainer {
   height: 311px;
   width: 391px;
   border-radius: 10px;
@@ -15,31 +16,18 @@
     letter-spacing: 0;
     line-height: 34px;
   }
-  .detailSubContent {
-    margin-top: 24px;
-    h6 {
-      letter-spacing: 0px;
-      font-size: 18px;
-      line-height: 27px;
-      font-weight: 500;
-      color: $dark1;
-      margin: 0px;
-      padding: 0px;
-    }
-    p {
-      margin: 0px;
-      padding: 0px;
-      font: normal normal normal 14px/21px Poppins;
-      letter-spacing: 0px;
-      color: $dark1;
-    }
+  p {
+    margin: 10px auto;
+    font-size: 18px;
+    font-family: Poppins;
+    font-weight: 500;
   }
 
   button {
     outline: none;
     border: none;
     height: 31px;
-    width: 161px;
+    width: 82px;
     border-radius: 100px;
     background-color: $dark1;
     color: $white;
