@@ -13,7 +13,9 @@ import Deliverables from '../Deliverables';
 import Collections from '../Collections';
 import Contract from '../Contract';
 import ActivityDetail from '../ActivityDetail';
+import DeliverablesDetail from '../DeliverablesDetail';
 import Drawer from '../../../components/RightDrawer';
+import CompensationDetail from '../CompensationDetail'
 
 const CampaignDetailInfluencer = () => {
     const history = useHistory();
@@ -42,9 +44,9 @@ const CampaignDetailInfluencer = () => {
             case 'Activity':
                 return <ActivityDetail />;
             case 'Deliverable':
-                return <div>Deliverable Details</div>;
+                return <DeliverablesDetail />;
             case 'Compensation':
-                return <div>Compensation</div>
+                return <CompensationDetail />
             default:
                 return;
         }
