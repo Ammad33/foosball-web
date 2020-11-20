@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { TextField, Button } from '@material-ui/core';
 import { Auth } from 'aws-amplify';
 import styles from './ForgotPassword.module.scss';
@@ -7,51 +7,52 @@ import { useHistory } from 'react-router-dom';
 import Confirmation from './confirmation'
 
 const ForgotPassword = () => {
-	const history = useHistory();
-	const [confirmation , setConfirmation] = useState(false);
-	const [username, setUsername] = useState('');
+  const history = useHistory();
+  const [confirmation, setConfirmation] = useState(false);
+  const [username, setUsername] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+
   const onForgotPassword = async () => {
     try {
-			const user = await Auth.forgotPassword(username);
-			setConfirmation(true);
+      const user = await Auth.forgotPassword(username);
+      setConfirmation(true);
     } catch (e) {
       setErrorMessage(e.message);
     }
   };
 
   return (
-		confirmation ? <Confirmation/> :
-		
-    <div className={styles.forgotPasswordContainer}>
-      <h1 className={styles.heading}>Forgot your password?</h1>
-      <p className={styles.des}>We will send you an email with instructions to reset your password.</p>
-      <TextField
-        id='outlined-basic'
-				label='Email'
-				onChange={(e) => setUsername(e.target.value)}
-        variant='outlined'
-				type='text'
-				style= {{marginTop: "35px"}}
-      />
-      <div className={styles.actionsContainer}>
-        <Button onClick={onForgotPassword} className={mainStyles.defaultButton} variant='contained'>
-          <p className={styles.buttonText}>
-						Send a Link </p>
-        </Button>
-        <Button
-          onClick={() => {
-            history.push('/login');
-          }}
-          className={mainStyles.defaultOutlinedButton}
-          variant='outlined'
-        >
-          Login
-        </Button>
-      </div>
-		</div>
+    confirmation ? <Confirmation /> :
 
-		
+      <div className={styles.forgotPasswordContainer}>
+        <h1 className={styles.heading}>Forgot your password?</h1>
+        <p className={styles.des}>We will send you an email with instructions to reset your password.</p>
+        <TextField
+          id='outlined-basic'
+          label='Email'
+          onChange={(e) => setUsername(e.target.value)}
+          variant='outlined'
+          type='text'
+          style={{ marginTop: "35px" }}
+        />
+        <div className={styles.actionsContainer}>
+          <Button onClick={onForgotPassword} className={mainStyles.defaultButton} variant='contained'>
+            <p className={styles.buttonText}>
+              Send a Link </p>
+          </Button>
+          <Button
+            onClick={() => {
+              history.push('/login');
+            }}
+            className={mainStyles.defaultOutlinedButton}
+            variant='outlined'
+          >
+            Login
+        </Button>
+        </div>
+      </div>
+
+
   );
 };
 

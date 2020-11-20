@@ -7,7 +7,8 @@ const AddTeamMembers = ({ selectedMembers, handleAdd, members, handleActiveNext 
 
   useEffect(() => {
     handleActiveNext()
-  }, [])
+  }, []);
+
   return (
     <div className={styles.mainContainer}>
       {members.map((member) => {

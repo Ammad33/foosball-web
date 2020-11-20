@@ -1,25 +1,20 @@
-import React, { useState, useEffect } from 'react';
-//import SearchIcon from '@material-ui/icons/Search';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import { Avatar, Badge, Grid } from '@material-ui/core';
 import styles from './headerStyles.module.scss';
 import SVG from 'react-inlinesvg';
-import MenuBar from '../../containers/MenuBar';
+// import MenuBar from '../../containers/MenuBar';
 import Popover from '@material-ui/core/Popover';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useHistory } from 'react-router-dom';
-import Logout from '../../containers/Logout'
+import Logout from '../../containers/Logout';
 
-
-const useStyles = makeStyles((theme) => ({
-  typography: {
-    padding: theme.spacing(2),
-  },
-}));
-
+// const useStyles = makeStyles((theme) => ({
+//   typography: {
+//     padding: theme.spacing(2),
+//   },
+// }));
 
 const SearchIcon = () => {
   return <SVG src={require('../../assets/Search.svg')} />;
@@ -29,7 +24,7 @@ const NotificationIcon = () => {
 };
 
 const Header = () => {
-	const history = useHistory();
+  const history = useHistory();
   const member = [
     {
       id: 1,
@@ -41,13 +36,12 @@ const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
-	};
-	
+  };
 
-const navigate = () => {
-	history.push('/settings');
-	setAnchorEl(null);
-}
+  const navigate = () => {
+    history.push('/settings');
+    setAnchorEl(null);
+  };
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -84,9 +78,16 @@ const navigate = () => {
           <Divider className={styles.divider} />
           <div className={styles.menuBarItems}>
             <MenuItem className={styles.itemsFont}>View Profile</MenuItem>
-            <MenuItem className={styles.itemsFont} onClick={() => {navigate()}}>Settings</MenuItem>
+            <MenuItem
+              className={styles.itemsFont}
+              onClick={() => {
+                navigate();
+              }}
+            >
+              Settings
+            </MenuItem>
             {/* <MenuItem className={styles.itemsFont}>Sign Out</MenuItem> */}
-						<Logout />
+            <Logout />
           </div>
         </Grid>
       </Popover>

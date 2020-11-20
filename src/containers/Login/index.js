@@ -1,5 +1,5 @@
-import React, { useState, useContext , useEffect } from 'react';
-import { API } from "aws-amplify";
+import React, { useState, useContext, useEffect } from 'react';
+import { API } from 'aws-amplify';
 import { TextField, Button, InputAdornment } from '@material-ui/core';
 import styles from './Login.module.scss';
 import { RootContext } from '../../context/RootContext';
@@ -10,7 +10,7 @@ import SVG from 'react-inlinesvg';
 import { useHistory } from 'react-router-dom';
 import FacebookSVG from '../../assets/facebook-logo-2019-thumb.png';
 import GoogleSVG from '../../assets/google-logo-icon-png-transparent-background-osteopathy-16.png';
-import AppleSVG from '../../assets/apple-logo-png-index-content-uploads-10.png'
+import AppleSVG from '../../assets/apple-logo-png-index-content-uploads-10.png';
 
 const EyeOffSVG = () => {
   return <SVG src={require('../../assets/eye-off.svg')} />;
@@ -21,7 +21,7 @@ const EyeSVG = () => {
 
 const Login = () => {
   const history = useHistory();
-	const [passwordShown, setPasswordShown] = useState(false);
+  const [passwordShown, setPasswordShown] = useState(false);
 
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
@@ -32,13 +32,13 @@ const Login = () => {
     setCurrentUser,
     logoutMessage,
     setLogoutMessage,
-    setActiveRoute
+    setActiveRoute,
   } = useContext(RootContext);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-	const [errorMessage, setErrorMessage] = useState('');
-	const [meData , setMeData] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [meData, setMeData] = useState([]);
 
   const onSignin = async () => {
     try {
@@ -49,12 +49,12 @@ const Login = () => {
       setErrorMessage(e.message);
       setLogoutMessage('');
     }
-	};
-	
-	const getMeData = async () => {
-			try {
-				const mydata =  await API.graphql({
-					query: `{
+  };
+
+  const getMeData = async () => {
+    try {
+      const mydata = await API.graphql({
+        query: `{
 						me {
 							email
 							fullName
@@ -82,25 +82,21 @@ const Login = () => {
 							phoneNumber
 						}
 				}`,
-				});
-				setMeData(mydata.data.me.organizations[0].organization.__typename);
-				if (mydata.data.me.organizations[0].organization.__typename == 'Brand'){
-					history.push('/campaigns');
-				}	
-				else {
-					history.push('/influencer');
-				}
-			} 
-				catch (e){
-				console.log(e);
-			}
-		}
+      });
+      setMeData(mydata.data.me.organizations[0].organization.__typename);
+      if (mydata.data.me.organizations[0].organization.__typename == 'Brand') {
+        history.push('/campaigns');
+      } else {
+        history.push('/influencer');
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   if (currentUser && currentUser !== null) {
-		getMeData();		
-	}
-	
-
+    getMeData();
+  }
 
   return (
     <div className={styles.signinContainer}>
@@ -123,10 +119,16 @@ const Login = () => {
             <InputAdornment className={styles.inputendornment} position='end'>
               <span>
                 {passwordShown ? (
-                  <div onClick={togglePasswordVisiblity}> <EyeSVG />  </div>
+                  <div onClick={togglePasswordVisiblity}>
+                    {' '}
+                    <EyeSVG />{' '}
+                  </div>
                 ) : (
-                    <div onClick={togglePasswordVisiblity}> <EyeOffSVG />  </div>
-                  )}
+                  <div onClick={togglePasswordVisiblity}>
+                    {' '}
+                    <EyeOffSVG />{' '}
+                  </div>
+                )}
               </span>
             </InputAdornment>
           ),

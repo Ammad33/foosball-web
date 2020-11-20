@@ -19,9 +19,7 @@ const IconMessages = () => {
 const IconReports = () => {
   return <SVG src={require('../../assets/Reports.svg')} />;
 };
-const IconSettings = () => {
-  return <SVG src={require('../../assets/settings.svg')} />;
-};
+
 const IconWallet = () => {
   return <SVG src={require('../../assets/Wallet.svg')} />;
 };

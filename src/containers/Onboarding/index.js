@@ -99,7 +99,6 @@ const Onboarding = () => {
   const history = useHistory();
   const [activeStep, setActiveStep] = useState(1);
   const [activeNext, setActiveNext] = useState(false);
-  const [activeSave, setActiveSave] = useState(false);
   const [userType, setUserType] = useState('');
   const [first, setFirst] = useState('');
   const [second, setSecond] = useState('');

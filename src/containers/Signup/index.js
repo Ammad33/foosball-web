@@ -1,7 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { RootContext } from '../../context/RootContext';
 import { Auth } from 'aws-amplify';
-import { TextField, Button, Grid, InputAdornment } from '@material-ui/core';
+import { Button, Grid, InputAdornment } from '@material-ui/core';
+import TextField from '../../components/TextField';
 import styles from './Signup.module.scss';
 import mainStyles from './../../index.module.scss';
 import SVG from 'react-inlinesvg';
@@ -107,10 +108,10 @@ const Signup = () => {
             <InputAdornment className={styles.inputendornment} position='end'>
               <span>
                 {passwordShown ? (
-                  <div onClick={togglePasswordVisiblity}> <EyeSVG/>  </div>
+                  <div onClick={togglePasswordVisiblity}> <EyeSVG />  </div>
                 ) : (
-                  <div onClick={togglePasswordVisiblity}> <Eye_offSVG/>  </div>
-                )}
+                    <div onClick={togglePasswordVisiblity}> <Eye_offSVG />  </div>
+                  )}
               </span>
             </InputAdornment>
           ),
@@ -124,13 +125,13 @@ const Signup = () => {
               <CheckCircleIcon onClick={handleTerms} />
             </span>
           ) : (
-            <span>
-              <RadioButtonUncheckedIcon
-                onClick={handleTerms}
-                className={styles.svgDisabled}
-              />
-            </span>
-          )}
+              <span>
+                <RadioButtonUncheckedIcon
+                  onClick={handleTerms}
+                  className={styles.svgDisabled}
+                />
+              </span>
+            )}
         </Grid>
         <Grid item xs={10}>
           <p className={styles.textStyle1}>
@@ -169,13 +170,13 @@ const Signup = () => {
         </div>
         <div className={styles.socialContainers}>
           <div>
-					<img className={styles.logoDiv} src={GoogleSVG} alt='Google' />
+            <img className={styles.logoDiv} src={GoogleSVG} alt='Google' />
           </div>
           <div>
-						<img className={styles.logoDiv} src={FacebookSVG} alt='Facebook' />  
-					</div>       
+            <img className={styles.logoDiv} src={FacebookSVG} alt='Facebook' />
+          </div>
           <div>
-					<img className={styles.logoDiv} src={AppleSVG} alt='Apple' />
+            <img className={styles.logoDiv} src={AppleSVG} alt='Apple' />
           </div>
         </div>
       </div>

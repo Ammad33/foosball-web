@@ -85,12 +85,13 @@ let negotialbleOptions = [
   { id: 6, isChecked: true, text: 'Campaign Duration' },
 ];
 
-
-
-const fb = { "campaignType": ['Story', 'Post'], "frameType": ['Video', 'Image'] }
-const insta = { "campaignType": ['Story', 'Post'], "frameType": ['Video', 'Image'] }
-const tictock = { "campaignType": ['Video'], "frameType": ["Does not apply"] }
-const youtube = { "campaignType": ['Video'], "frameType": ["Does not apply"] }
+const fb = { campaignType: ['Story', 'Post'], frameType: ['Video', 'Image'] };
+const insta = {
+  campaignType: ['Story', 'Post'],
+  frameType: ['Video', 'Image'],
+};
+const tictock = { campaignType: ['Video'], frameType: ['Does not apply'] };
+const youtube = { campaignType: ['Video'], frameType: ['Does not apply'] };
 
 const influencers = [
   {
@@ -290,28 +291,30 @@ function getSteps() {
 
 /*********Main Container of Add Campaign ************/
 
-const AddCampaign = ({ open, handleCancel }) => {
+const AddCampaign = ({ open, handleCancel, step }) => {
   /****** Stepper States ********/
 
   const steps = getSteps();
-  const [activeStep, setActiveStep] = useState(1);
+  const [activeStep, setActiveStep] = useState(step ? step : 1);
   const [activeNext, setActiveNext] = useState(false);
 
   /****** Campaign Detail States ********/
 
   const [campaignName, setCampaignName] = useState('');
-  const [startDate, setStartDate] = useState(moment().add(1, 'days').format('MM/DD/YYYY'));
+  const [startDate, setStartDate] = useState(
+    moment().add(1, 'days').format('MM/DD/YYYY')
+  );
   const [endDate, setEndDate] = useState(
     moment().add(1, 'month').format('MM/DD/YYYY')
   );
   const [startDateError, setStartDateError] = useState(false);
   const [endDateError, setEndDateError] = useState(false);
   const [startTime, setStartTime] = useState(
-    moment().subtract(1,'days').startOf('day').format('HH:mm')
+    moment().subtract(1, 'days').startOf('day').format('HH:mm')
   );
   const [startTimeError, setStartTimeError] = useState(false);
   const [endTime, setEndTime] = useState(
-    moment().subtract(1,'days').startOf('day').format('HH:mm')
+    moment().subtract(1, 'days').startOf('day').format('HH:mm')
   );
   const [endTimeError, setEndTimeError] = useState(false);
 
@@ -319,9 +322,9 @@ const AddCampaign = ({ open, handleCancel }) => {
   const [discountType, setDiscountType] = useState('');
   const [customeMessage, setCustomMessage] = useState('');
   const [startDateOpen, setStartDateOpen] = useState(false);
-	const [endDateOpen, setEndDateOpen] = useState(false);
-	const [startTimeOpen, setStartTimeOpen] = useState(false);
-	const [endTimeOpen, setEndTimeOpen] = useState(false);
+  const [endDateOpen, setEndDateOpen] = useState(false);
+  const [startTimeOpen, setStartTimeOpen] = useState(false);
+  const [endTimeOpen, setEndTimeOpen] = useState(false);
 
   /***** Budget and Target Sales ********/
 
@@ -351,6 +354,10 @@ const AddCampaign = ({ open, handleCancel }) => {
   ]);
 
   useEffect(() => {
+    setActiveStep(step !== undefined ? step : 1);
+  }, [step]);
+
+  useEffect(() => {
     if (open === false) {
       setCampaignName('');
       setDiscount('');
@@ -358,8 +365,8 @@ const AddCampaign = ({ open, handleCancel }) => {
       setCustomMessage('');
       setStartDate(moment().add(1, 'days').format('MM/DD/YYYY'));
       setEndDate(moment().add(31, 'days').format('MM/DD/YYYY'));
-			setStartTime(moment().subtract(1,'days').startOf('day').format("HH:mm"));
-			setEndTime(moment().subtract(1,'days').startOf('day').format("HH:mm"));
+      setStartTime(moment().subtract(1, 'days').startOf('day').format('HH:mm'));
+      setEndTime(moment().subtract(1, 'days').startOf('day').format('HH:mm'));
       setBudget('');
       setTargetGrossSale('');
       setCollections([]);
@@ -398,19 +405,18 @@ const AddCampaign = ({ open, handleCancel }) => {
       compensationType: '',
       amount: '',
     },
-	]);
+  ]);
 
-	/***************Compensation Product ********************/
-	
-	const [compensationProduct , setCompensationProduct] = useState('');
-	const [compensationProducts , setCompensationProducts] = useState('');
+  /***************Compensation Product ********************/
 
+  const [compensationProduct, setCompensationProduct] = useState('');
+  const [compensationProducts, setCompensationProducts] = useState('');
 
-	const handleCompensationProducts = (value) => {
-		setCompensationProduct(value);
-	}
+  const handleCompensationProducts = (value) => {
+    setCompensationProduct(value);
+  };
 
-	const setActiveForCompensationProduct = () => {
+  const setActiveForCompensationProduct = () => {
     const cols = [...compensationProducts];
     if (cols.length === 0) {
       setActiveNext(false);
@@ -426,9 +432,9 @@ const AddCampaign = ({ open, handleCancel }) => {
     } else {
       setActiveNext(false);
     }
-	};
-	
-	const handleCompensationProductItem = (name, item) => {
+  };
+
+  const handleCompensationProductItem = (name, item) => {
     const opts = [...compensationProducts];
     if (opts.length > 0) {
       const index = opts.findIndex((item) => item.collectionName === name);
@@ -528,19 +534,19 @@ const AddCampaign = ({ open, handleCancel }) => {
     const opts = [...deliveries];
     opts.splice(index, 1);
     setDeliveries(opts);
-  }
+  };
 
   /***** Add New Compesation */
 
   const handleCompensations = () => {
-		debugger;
-		//const pro = [...compensationProducts]
-		const comp = [...compensations];
-		
+    debugger;
+    //const pro = [...compensationProducts]
+    const comp = [...compensations];
+
     comp.push({
       compensationType: '',
-			amount: '',
-		})
+      amount: '',
+    });
     setCompensations(comp);
   };
 
@@ -574,11 +580,11 @@ const AddCampaign = ({ open, handleCancel }) => {
     });
   };
 
-	/********* Add Collection ***********/
-	
-	const handleCollection = (value) => {
-		setCollection(value);
-	}
+  /********* Add Collection ***********/
+
+  const handleCollection = (value) => {
+    setCollection(value);
+  };
 
   const handleCollectionItem = (name, item) => {
     const opts = [...collections];
@@ -667,90 +673,72 @@ const AddCampaign = ({ open, handleCancel }) => {
         : date
     );
     setEndDate(moment(moment_date).add(1, 'M').format('MM/DD/YYYY'));
-		setStartDateOpen(false);
-		handleStartDateValidation(moment_date);
-	};
-	
-	/**********************Handle End Date ********/
-	const handleEndDate = (date) => {
-		const moment_date = moment(date).format('L');
-		setEndDate(
-			date !== '' && moment(date, 'MM/DD/YYYY', true).isValid()
-				? moment_date
-				: date
-		);
-		setEndDateOpen(false);
-		handleEndDateValidation(moment_date);
-		
-	};
+    setStartDateOpen(false);
+    handleStartDateValidation(moment_date);
+  };
 
-	/*************End Date Validation *************/
-	const handleEndDateValidation = (date) => {
-		if (date < startDate) {
-			setEndDateError(true);
-		}
-		else
-			setEndDateError(false);
-			handleEndTimeDateValidation(endTime,date)
-	}
+  /**********************Handle End Date ********/
+  const handleEndDate = (date) => {
+    const moment_date = moment(date).format('L');
+    setEndDate(
+      date !== '' && moment(date, 'MM/DD/YYYY', true).isValid()
+        ? moment_date
+        : date
+    );
+    setEndDateOpen(false);
+    handleEndDateValidation(moment_date);
+  };
 
-	/*************Start date validation************/
-	const handleStartDateValidation = (date) => {
-		if (date < moment().format('MM/DD/YYYY')) {
-			setStartDateError(true);
-		}
-		else 
-		setStartDateError(false);
-		handleStartTimeDateValidation(startTime,date);
-	}
+  /*************End Date Validation *************/
+  const handleEndDateValidation = (date) => {
+    if (date < startDate) {
+      setEndDateError(true);
+    } else setEndDateError(false);
+    handleEndTimeDateValidation(endTime, date);
+  };
 
-	/*************Start Time/Date validation************/
-	const handleStartTimeDateValidation = (time,date) => {
-		const mom = moment()
-		const startDateTime = moment(date + ' ' + time);
-		if (startDateTime.isBefore(moment())) {
-			setStartTimeError(true);
-		}
-		else
-			setStartTimeError(false);
-	}
+  /*************Start date validation************/
+  const handleStartDateValidation = (date) => {
+    if (date < moment().format('MM/DD/YYYY')) {
+      setStartDateError(true);
+    } else setStartDateError(false);
+    handleStartTimeDateValidation(startTime, date);
+  };
 
+  /*************Start Time/Date validation************/
+  const handleStartTimeDateValidation = (time, date) => {
+    const mom = moment();
+    const startDateTime = moment(date + ' ' + time);
+    if (startDateTime.isBefore(moment())) {
+      setStartTimeError(true);
+    } else setStartTimeError(false);
+  };
 
+  /*************END Time/Date validation************/
+  const handleEndTimeDateValidation = (time, date) => {
+    const endDateTime = moment(date + ' ' + time);
+    const startDateTime = moment(startDate + ' ' + startTime);
+    if (endDateTime.isBefore(startDateTime)) {
+      setEndTimeError(true);
+    } else setEndTimeError(false);
+  };
 
-		/*************END Time/Date validation************/
-		const handleEndTimeDateValidation = (time,date) => {
-			const endDateTime = moment(date + ' ' + time);
-			const startDateTime = moment(startDate + ' ' + startTime);
-			if (endDateTime.isBefore(startDateTime)) {
-				setEndTimeError(true);
-			}
-			else
-				setEndTimeError(false);
-		}
+  /*************Start Time validation************/
+  const handleStartTimeValidation = (time) => {
+    const startDateTime = moment(startDate + ' ' + time);
+    if (startDateTime.isBefore(moment())) {
+      setStartTimeError(true);
+    } else setStartTimeError(false);
+  };
 
-
-
-	/*************Start Time validation************/
-	const handleStartTimeValidation = (time) => {
-		
-		const startDateTime = moment(startDate + ' ' + time);
-		if (startDateTime.isBefore(moment())) {
-			setStartTimeError(true);
-		}
-		else
-			setStartTimeError(false);
-	}
-
-	/*************End Time validation************/
-	const handleEndTimeValidation = (time) => {
-		const startDateTime = moment(startDate + ' ' + startTime);
-		const endDateTime = moment(endDate + ' ' + time);
-		if (endDateTime.isBefore(startDateTime)) {
-			setEndTimeError(true);
-		}
-		else
-			setEndTimeError(false);
-	}
+  /*************End Time validation************/
+  const handleEndTimeValidation = (time) => {
+    const startDateTime = moment(startDate + ' ' + startTime);
+    const endDateTime = moment(endDate + ' ' + time);
+    if (endDateTime.isBefore(startDateTime)) {
+      setEndTimeError(true);
+    } else setEndTimeError(false);
+  };
   //*************Handle Discount *****************/
 
   const handleDiscount = (e) => {
@@ -813,27 +801,25 @@ const AddCampaign = ({ open, handleCancel }) => {
         `,
           {
             input: {
-							brandId: '8ece73cc-3079-4f45-b7bb-4f6007c8344d',
+              brandId: '8ece73cc-3079-4f45-b7bb-4f6007c8344d',
               name: campaignName,
               startDate: Date.parse(`${startDate} ${startTime}`) / 1000,
-							endDate: Date.parse(`${endDate} ${endTime}`) / 1000,
-							discount: {percentage: discount},
-							budget: {amount: budget, currency: "USD"}, 
-							targetGrossSales: {amount: targetGrossSale , currency: "USD"}
+              endDate: Date.parse(`${endDate} ${endTime}`) / 1000,
+              discount: { percentage: discount },
+              budget: { amount: budget, currency: 'USD' },
+              targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
             },
           }
         )
       );
-			handleCancel();
-			window.location.reload(false);
+      handleCancel();
+      window.location.reload(false);
     } catch (e) {
       console.log('Error in mutation for create campaign ', e);
     }
   };
 
-	/************* Active for deliverable */
-	
-
+  /************* Active for deliverable */
 
   const setActiveForDeliverables = () => {
     const deliverables = [...deliveries];
@@ -845,18 +831,18 @@ const AddCampaign = ({ open, handleCancel }) => {
         delive.socialPlatform === '' ||
         delive.campaignType === '' ||
         delive.frameType === '' ||
-				delive.frameRequired === '' ||
+        delive.frameRequired === '' ||
         delive.NoPost === '' ||
         delive.perTimePeriod === ''
-			) 
-			{
-			
+      ) {
         flag = false;
-			}
-		if ((delive.brandTagRequired === true && delive.brandTag === '') || (delive.hashTagRequired === true && delive.hashTag === '') ){
-			flag = false;
-		}
-		
+      }
+      if (
+        (delive.brandTagRequired === true && delive.brandTag === '') ||
+        (delive.hashTagRequired === true && delive.hashTag === '')
+      ) {
+        flag = false;
+      }
     });
     setActiveNext(flag);
   };
@@ -871,13 +857,11 @@ const AddCampaign = ({ open, handleCancel }) => {
       if (comp.compensationType === '' || comp.amount === '') {
         flag = false;
       }
-		});
-		setActiveNext(flag);
-		if (!flag){
-			setActiveForCompensationProduct();
-
-		}
-    
+    });
+    setActiveNext(flag);
+    if (!flag) {
+      setActiveForCompensationProduct();
+    }
   };
 
   /************* Active for Negotiables */
@@ -900,18 +884,17 @@ const AddCampaign = ({ open, handleCancel }) => {
     setActiveNext(influencer !== null ? true : false);
   };
 
-	/*********************** To disable next button */
-	
-	// 	useEffect(() => {
+  /*********************** To disable next button */
+
+  // 	useEffect(() => {
   //   setActiveNext(true);
   // });
-
 
   const leftSideDawerClick = (index) => {
     if (activeStep >= index) {
       setActiveStep(index);
     } else return;
-  }
+  };
 
   const getStepContent = (activeStep) => {
     switch (activeStep) {
@@ -934,25 +917,25 @@ const AddCampaign = ({ open, handleCancel }) => {
               setCampaignName(e.target.value);
             }}
             startDateOpen={startDateOpen}
-						endDateOpen={endDateOpen}
-						startTimeOpen = {startTimeOpen}
-						endTimeOpen = {endTimeOpen}
-						// handleValidation={handleDateTimeValidation}
+            endDateOpen={endDateOpen}
+            startTimeOpen={startTimeOpen}
+            endTimeOpen={endTimeOpen}
+            // handleValidation={handleDateTimeValidation}
             handleStartDate={handleStartDate}
-            handleStartDateOpen={(value)=> setStartDateOpen(value)}
-						handleEndDateOpen={(value) => setEndDateOpen(value)}
-						handleStartTimeOpen = {(value) => setStartTimeOpen(value)}
-						handleEndTimeOpen = {(value) => setEndTimeOpen(value)}
+            handleStartDateOpen={(value) => setStartDateOpen(value)}
+            handleEndDateOpen={(value) => setEndDateOpen(value)}
+            handleStartTimeOpen={(value) => setStartTimeOpen(value)}
+            handleEndTimeOpen={(value) => setEndTimeOpen(value)}
             handleEndDate={handleEndDate}
-						handleStartTime={(e) => {
-							setStartTime(moment(e).format("HH:mm"));
-							setStartTimeOpen(false);
-							handleStartTimeValidation(moment(e).format("HH:mm"));
+            handleStartTime={(e) => {
+              setStartTime(moment(e).format('HH:mm'));
+              setStartTimeOpen(false);
+              handleStartTimeValidation(moment(e).format('HH:mm'));
             }}
-   					handleEndTime={(e) => {
-							setEndTime(moment(e).format("HH:mm"));
-							setEndTimeOpen(false);
-							handleEndTimeValidation(moment(e).format("HH:mm"));
+            handleEndTime={(e) => {
+              setEndTime(moment(e).format('HH:mm'));
+              setEndTimeOpen(false);
+              handleEndTimeValidation(moment(e).format('HH:mm'));
             }}
             handleDiscount={handleDiscount}
             handleDiscountType={handleDiscountType}
@@ -1017,9 +1000,8 @@ const AddCampaign = ({ open, handleCancel }) => {
             handleCompensations={handleCompensations}
             handleCompensationValue={handleCompensationValue}
             handleRemoveCompensation={handleRemoveCompensation}
-						handleActiveForCompensation={setActiveForCompensation}
-						
-						compensationProduct={compensationProduct}
+            handleActiveForCompensation={setActiveForCompensation}
+            compensationProduct={compensationProduct}
             handleCompensationProducts={handleCompensationProducts}
             compensationProductItems={items}
             compensationProducts={compensationProducts}
@@ -1080,37 +1062,33 @@ const AddCampaign = ({ open, handleCancel }) => {
 
   const filledForm = () => {
     if (
-      (campaignName !== '' &&
-        startDate !== '' &&
-        endDate !== '' &&
-        startTime !== ''&&
-        endTime !== '' &&
-        discount !== '' &&
-        discountType !== '' &&
-				customeMessage !== '' &&
-				startDateError === false &&
-				endDateError === false &&
-				startTimeError === false &&
-				endTimeError === false
-				)
+      campaignName !== '' &&
+      startDate !== '' &&
+      endDate !== '' &&
+      startTime !== '' &&
+      endTime !== '' &&
+      discount !== '' &&
+      discountType !== '' &&
+      customeMessage !== '' &&
+      startDateError === false &&
+      endDateError === false &&
+      startTimeError === false &&
+      endTimeError === false
     ) {
       setActiveNext(true);
     } else setActiveNext(false);
-	};
-	
-	
+  };
+
   const handleNext = (activeSetp) => {
-		if (activeStep == 1){		
-			const startDateTime = moment(startDate + ' ' + startTime);
-			if (startDateTime.isBefore(moment())) {
-				setStartTimeError(true);
-			}
-			else{
-				setStartTimeError(false);
-				setActiveStep((prevActiveStep) => prevActiveStep + 1);
-			}
-		}
-  	else if (activeSetp !== 9) {
+    if (activeStep == 1) {
+      const startDateTime = moment(startDate + ' ' + startTime);
+      if (startDateTime.isBefore(moment())) {
+        setStartTimeError(true);
+      } else {
+        setStartTimeError(false);
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      }
+    } else if (activeSetp !== 9) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
   };
@@ -1124,17 +1102,16 @@ const AddCampaign = ({ open, handleCancel }) => {
   };
 
   const handleCancelCDialog = () => {
-		setOpenCDialog(false);
-		setStartTimeError(false);
-		setEndTimeError(false);
-		setStartDateError(false);
-		setEndDateError(false);
+    setOpenCDialog(false);
+    setStartTimeError(false);
+    setEndTimeError(false);
+    setStartDateError(false);
+    setEndDateError(false);
     handleCancel();
   };
   const handleConfirmCDialog = () => {
     setOpenCDialog(false);
   };
-
 
   return (
     <>
@@ -1159,8 +1136,8 @@ const AddCampaign = ({ open, handleCancel }) => {
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                              <CheckCircleIconSvg viewBox='0 0 31 31' />
-                            )}
+                        <CheckCircleIconSvg viewBox='0 0 31 31' />
+                      )}
                       <span
                         className={
                           activeStep === index
@@ -1173,19 +1150,19 @@ const AddCampaign = ({ open, handleCancel }) => {
                       </span>
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
                       {activeStep > index ? (
                         <div className={styles.activeBar} />
                       ) : (
-                          <div className={styles.inActiveBar} />
-                        )}
+                        <div className={styles.inActiveBar} />
+                      )}
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                 </>
               ))}
             </div>
@@ -1198,8 +1175,8 @@ const AddCampaign = ({ open, handleCancel }) => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                    <div></div>
-                  )}
+                  <div></div>
+                )}
                 <span onClick={handleCancelCampaignDialog}>
                   <XSVG />
                 </span>
@@ -1253,10 +1230,7 @@ const AddCampaign = ({ open, handleCancel }) => {
                 )}
                 disabled={!activeNext}
               >
-								{
-									(activeStep == 9 ? 'Send Invite' : 'Next')
-								}
-                
+                {activeStep == 9 ? 'Send Invite' : 'Next'}
               </button>
             </div>
           </div>

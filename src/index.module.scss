@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap');
 @import './variable.module.scss';
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
 html {
   height: 100%;
 }
@@ -8,6 +11,7 @@ body {
   color: $fontColor;
   margin: 0;
   height: 100%;
+  background-color: white !important;
 }
 
 a {
@@ -18,32 +22,32 @@ a {
 
 h1 {
   font-size: 33px;
-  font-family: 'poppins', sans-serif;
+  font-family: Poppins, sans-serif;
   margin: 0;
   padding: 0;
 }
 h2 {
   font-size: 26px;
-  font-family: 'poppins', sans-serif;
+  font-family: Poppins, sans-serif;
   margin: 0;
   padding: 0;
 }
 h3 {
   font-size: 23px;
-  font-family: 'poppins', sans-serif;
+  font-family: Poppins, sans-serif;
   margin: 0;
   padding: 0;
 }
 
 h4 {
   font-size: 20px;
-  font-family: 'poppins', sans-serif;
+  font-family: Poppins, sans-serif;
   margin: 0;
   padding: 0;
 }
 h5 {
   font-size: 18px;
-  font-family: 'Poppins Medium', sans-serif;
+  font-family: Poppins, sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -142,10 +146,9 @@ p {
   opacity: 1;
 }
 
-.placeholderColor{
-	& > label{
-		color: #7e7e7e !important;
-		line-height: 20px !important;
-	}
-
+.placeholderColor {
+  & > label {
+    color: #7e7e7e !important;
+    line-height: 20px !important;
+  }
 }
