@@ -1,3 +1,4 @@
+@import '../../../variable.module.scss';
 
 .compensationContainer {
     padding: 0px 27px 27px 40px;
@@ -5,7 +6,7 @@
     
         margin-bottom: 20px;
         h1{
-            color: #000000;
+            color: $dark1;
             font-family: Poppins;
             font-size: 23px;
             font-weight: bold;
@@ -25,7 +26,7 @@
         padding: 0px;
         margin-top: 20px;
         margin-bottom: 20px;
-        color: #7B5CD9;
+        color: $primary1;
         font-family: Poppins;
         font-size: 20px;
         font-weight: 600;
@@ -41,7 +42,7 @@
           font-size: 18px;
           line-height: 27px;
           font-weight: 500;
-          color: #000000;
+          color: $dark1;
           margin: 0px;
           padding: 0px;
         }
@@ -50,7 +51,7 @@
           padding: 0px;
           font: normal normal normal 14px/21px Poppins;
           letter-spacing: 0px;
-          color: #000000;
+          color: $dark1;
         }
       }
 
@@ -59,15 +60,14 @@
           justify-content: space-between;
           margin-top: 40px;
         h6 {
-            color: #7B5CD9;
-  font-family: Poppins;
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: 0;
-  line-height: 30px;
-  margin: 0px;
-  padding: 0px;
-            
+            color: $primary1;
+            font-family: Poppins;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 0;
+            line-height: 30px;
+            margin: 0px;
+            padding: 0px;
       }
     }
 

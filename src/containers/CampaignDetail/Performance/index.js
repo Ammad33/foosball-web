@@ -13,7 +13,7 @@ const Performance = () => {
       <div>
         <p>Tableau Integration</p>
       </div>
-      <button onClick={() => history.push('/performance')}>See all</button>
+      <button >See all</button>
     </div>
   );
 };
