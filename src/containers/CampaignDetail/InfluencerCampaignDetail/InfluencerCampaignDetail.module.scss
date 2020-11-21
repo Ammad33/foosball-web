@@ -8,11 +8,11 @@
 }
 .x {
   width: 100%;
-  padding: 27px 27px 27px 40px;
+  padding: 27px 27px 27px 27px;
   svg {
-  float: right;
-  height: 27px;
-  width: 27px;
+    float: right;
+    height: 27px;
+    width: 27px;
   }
 }
 
@@ -27,7 +27,7 @@
 .first {
   display: flex;
   flex-direction: row;
-  gap:30px;
+  gap: 30px;
 }
 
 .second {
@@ -44,7 +44,7 @@
   margin-bottom: 51px;
   margin-top: 43px;
   span {
-    color:$dark1;
+    color: $dark1;
     font-family: Poppins;
     font-size: 33px;
     font-weight: 500;
@@ -55,10 +55,10 @@
 }
 
 .subHeadingSection {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 45.5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 45.5px;
 }
 
 .subCampaignSubHeading {
@@ -83,35 +83,34 @@
     font-size: 16px;
     letter-spacing: 0;
     line-height: 25px;
-      height: 34px;
-  width: 96px;
-  border-radius: 100px;
+    height: 34px;
+    width: 96px;
+    border-radius: 100px;
   }
   .avatarContainer {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap:11px;
-      .avatar {
-        height: 46px;
-        width: 46px;
-      }
-      span {
-        color: $dark1;
-        font-family: Poppins;
-        font-size: 16px;
-        letter-spacing: 0;
-        line-height: 25px;
-      }
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 11px;
+    .avatar {
+      height: 46px;
+      width: 46px;
+    }
+    span {
+      color: $dark1;
+      font-family: Poppins;
+      font-size: 16px;
+      letter-spacing: 0;
+      line-height: 25px;
+    }
   }
 }
 
-.firstConatiner  {
-display: flex;
-flex-direction: row;
-justify-content: space-between;
+.firstConatiner {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
-
 
 .teamMembersContent {
   display: flex;
@@ -148,35 +147,32 @@ justify-content: space-between;
 }
 
 .chipLost {
-
   background-color: $campaignLost !important;
   color: $white !important;
 }
 .popOver {
-
   height: 166px;
   width: 284px;
-  background-color: #FFFFFF;
-  box-shadow: 0 3px 10px 0 rgba(0,0,0,0.16);
+  background-color: #ffffff;
+  box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.16);
   padding: 35px 28px;
-  
+
   div {
-      display: flex;
-      align-items: center;
-      flex-direction: row;
-      gap: 10px;
-      cursor: pointer;
-      p {
-          color: $dark1;
-          font-family: Poppins;
-          font-size: 18px;
-          letter-spacing: 0;
-          line-height: 27px;
-      }
-  };
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+    cursor: pointer;
+    p {
+      color: $dark1;
+      font-family: Poppins;
+      font-size: 18px;
+      letter-spacing: 0;
+      line-height: 27px;
+    }
+  }
 
   .secondElement {
     margin-top: 30px;
   }
-
 }

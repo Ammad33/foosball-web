@@ -5,7 +5,14 @@ import Chip from '@material-ui/core/Chip';
 import clsx from 'clsx';
 import SVG from 'react-inlinesvg';
 import ChipButton from '../../../components/ChipButton';
-import { MoreVertical, Download, Copy, Mail, X } from 'react-feather';
+import {
+  MoreVertical,
+  Download,
+  Copy,
+  Mail,
+  X,
+  ChevronRight,
+} from 'react-feather';
 import Posts from '../Posts';
 import Activity from '../Activity';
 import Performance from '../Performance';
@@ -23,8 +30,10 @@ import Drawer from '../../../components/RightDrawer';
 import ActivityDetail from '../ActivityDetail';
 import CompensationDetail from '../CompensationDetail';
 import DeliverablesDetail from '../DeliverablesDetail';
+import AddCampaign from '../../AddCampaign';
 
 import { useHistory } from 'react-router-dom';
+import TeamMembersDetail from '../TeamMembersDetail';
 
 const options = [
   'Message Influencer',
@@ -43,6 +52,8 @@ const BrandCampaignDetail = () => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [openCDialog, setOpenCDialog] = useState(false);
+  const [addCampaign, setAddCampagin] = useState(false);
+  const [step, setStep] = useState(1);
 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
@@ -54,6 +65,11 @@ const BrandCampaignDetail = () => {
 
   const [openDrawer, setOpenDrawer] = useState(false);
   const [element, setElement] = useState('');
+
+  const handleEdit = (step) => {
+    setAddCampagin(true);
+    setStep(step);
+  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -86,6 +102,8 @@ const BrandCampaignDetail = () => {
         return <DeliverablesDetail />;
       case 'Compensation':
         return <CompensationDetail />;
+      case 'TeamMembers':
+        return <TeamMembersDetail />;
       default:
         return;
     }
@@ -129,6 +147,13 @@ const BrandCampaignDetail = () => {
 
   return (
     <>
+      {addCampaign && (
+        <AddCampaign
+          open={addCampaign}
+          step={step}
+          handleCancel={() => setAddCampagin(false)}
+        />
+      )}
       <Drawer anchor={'right'} open={openDrawer} onClose={handleCloseDrawer}>
         <div className={styles.x}>
           <X onClick={handleCloseDrawer} />
@@ -166,7 +191,11 @@ const BrandCampaignDetail = () => {
         </div>
       </Popover>
       <div className={styles.mainContainer}>
-        <div>Crums</div>
+        <div className={styles.CampaignHeading}>
+          <span onClick={() => history.push('/campaigns')}>Campaigns</span>
+          <ChevronRight />
+          <span>Campaigns Name</span>
+        </div>
         <div className={styles.campaignBasicInfo}>
           <div className={styles.campaignStatus}>
             <div className={styles.micrositeContainer}>
@@ -204,7 +233,7 @@ const BrandCampaignDetail = () => {
             <Activity onClick={handleSeeClick} />
           </div>
           <div className={styles.flexContainer}>
-            <CampaignDetail>
+            <CampaignDetail handleEdit={handleEdit}>
               <>
                 <h6>Custom Message to Influencer</h6>
                 <p>
@@ -214,15 +243,15 @@ const BrandCampaignDetail = () => {
                 </p>
               </>
             </CampaignDetail>
-            <TeamMembers />
+            <TeamMembers onClick={handleSeeClick} />
             <BudgetAndConversion />
           </div>
           <div className={styles.flexContainer}>
-            <Collections />
-            <Deliverables onClick={handleSeeClick} />
+            <Collections handleEdit={handleEdit} />
+            <Deliverables handleEdit={handleEdit} onClick={handleSeeClick} />
           </div>
           <div className={styles.flexContainer}>
-            <Compensation onClick={handleSeeClick} />
+            <Compensation handleEdit={handleEdit} onClick={handleSeeClick} />
             <Negotiables />
             <Contract />
           </div>

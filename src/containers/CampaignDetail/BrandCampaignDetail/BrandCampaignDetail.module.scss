@@ -170,9 +170,27 @@
   }
 }
 
+.CampaignHeading {
+  display: flex;
+  flex-direction: row;
+  gap: 21.5px;
+  align-items: center;
+  margin-bottom: 51px;
+  margin-top: 43px;
+  span {
+    color: $dark1;
+    font-family: Poppins;
+    font-size: 33px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 50px;
+    cursor: pointer;
+  }
+}
+
 .x {
   width: 100%;
-  padding: 27px 27px 27px 40px;
+  padding: 27px 27px 27px 27px;
   svg {
     float: right;
     height: 27px;

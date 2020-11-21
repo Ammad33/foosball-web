@@ -31,7 +31,7 @@ const members = [
   },
 ];
 
-const TeamMembers = () => {
+const TeamMembers = ({ onClick }) => {
   return (
     <div className={styles.mainContainer}>
       <h3>Team Members</h3>
@@ -45,7 +45,11 @@ const TeamMembers = () => {
           );
         })}
       </div>
-      <ChipButton title={'See all'} buttonSize={'sm'} />
+      <ChipButton
+        handleClick={() => onClick('TeamMembers')}
+        title={'See all'}
+        buttonSize={'sm'}
+      />
     </div>
   );
 };

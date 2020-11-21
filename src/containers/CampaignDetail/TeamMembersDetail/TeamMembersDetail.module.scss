@@ -1,0 +1,17 @@
+.mainContainer {
+  padding: 0px 40px;
+  overflow-y: scroll;
+  .membersContainer {
+    margin-top: 20px;
+  }
+}
+.listItem {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 15px;
+  justify-content: space-between;
+  span {
+    flex: 1;
+  }
+}
