@@ -3,6 +3,7 @@ import { Switch, Route, HashRouter, Redirect } from 'react-router-dom';
 import Layout from './hoc/Layout';
 import RootContext from './context/RootContext';
 import Campaigns from './containers/Campaigns';
+import Influencer from './containers/Influencer';
 import CampaignDetail from './containers/CampaignDetail';
 import AddCampaign from './containers/AddCampaign';
 import Collections from './containers/Collections';
@@ -84,6 +85,11 @@ const App = () => {
           <UnProtectedRoute exact path='/onboarding'>
             <Onboarding />
           </UnProtectedRoute>
+          <ProtectedRoute exact path='/Influencer'>
+            <Layout>
+              <Influencer />
+            </Layout>
+          </ProtectedRoute>
           <Redirect exact from='/' to='/campaigns' />
         </Switch>
       </HashRouter>

@@ -46,7 +46,9 @@ const CreateDeliverable = ({
   const [value, setValue] = useState(youtube);
   useEffect(() => {
     handleSetValue();
-  });
+	},[]);
+	
+
 
   const handleSetValue = () => {
     if (deliverableItem.socialPlatform === 'Youtube') setValue(youtube);
@@ -132,16 +134,16 @@ const CreateDeliverable = ({
             <MenuItem value={'Instagram'}>Instagram </MenuItem>
             <MenuItem value={'fb'}>Facebook </MenuItem>
             <MenuItem value={'Youtube'}>Youtube</MenuItem>
-            <MenuItem value={'Tictock'}>Tictock</MenuItem>
+            <MenuItem value={'Tictock'}>Tiktok</MenuItem>
           </Select>
         </FormControl>
       </Grid>
       <Grid item xs={12} sm={12} md={6} className={styles.marginbottomSelect}>
         <FormControl fullWidth variant='outlined'>
           <Select
-            id='Campaign Type'
+            id='Post Type'
             fullWidth
-            label='Campaign Type'
+            label='Post Type'
             variant='outlined'
             helperText={error ? <span> error </span> : ' '}
             value={deliverableItem && deliverableItem.campaignType}
@@ -154,7 +156,7 @@ const CreateDeliverable = ({
             input={<SelectMenu />}
           >
             <MenuItem value='' disabled>
-              Campaign Type
+              Post Type
             </MenuItem>
             {value.campaignType.map((item) => (
               <MenuItem value={item}>{item} </MenuItem>
@@ -165,9 +167,9 @@ const CreateDeliverable = ({
       <Grid item xs={12} sm={12} md={6}>
         <FormControl fullWidth variant='outlined'>
           <Select
-            id='Frame Type'
+            id='Content Type'
             fullWidth
-            label='Frame Type'
+            label='Content Type'
             variant='outlined'
             helperText={error ? <span> error </span> : ' '}
             value={deliverableItem && deliverableItem.frameType}
@@ -181,7 +183,7 @@ const CreateDeliverable = ({
             input={<SelectMenu />}
           >
             <MenuItem value='' disabled>
-              Frame Type
+              Content Type
             </MenuItem>
             {value.frameType.map((item) => (
               <MenuItem value={item}>{item} </MenuItem>
@@ -308,7 +310,7 @@ const CreateDeliverable = ({
                 !deliverableItem.hashTagRequired ? styles.disabled : ''
               }
             >
-              Hashtag requird
+              Hashtag required
             </p>
           </Grid>
           <Grid item xs={7}>
@@ -373,11 +375,11 @@ const CreateDeliverable = ({
             <MenuItem value='' disabled>
               Per Time Period
             </MenuItem>
-            <MenuItem value={'Day'}>Day </MenuItem>
-            <MenuItem value={'Week'}>Week </MenuItem>
-            <MenuItem value={'2 Weeks'}>2 Weeks</MenuItem>
-            <MenuItem value={'Month'}>Month</MenuItem>
-            <MenuItem value={'Quarter'}>Quarter</MenuItem>
+            <MenuItem value={'Every Month'}> Every Month </MenuItem>
+            <MenuItem value={'Every other month'}>Every other month </MenuItem>
+            <MenuItem value={'Every Week'}>Every Week </MenuItem>
+            <MenuItem value={'Every other week'}>Every other week </MenuItem>
+            
           </Select>
         </FormControl>
       </Grid>

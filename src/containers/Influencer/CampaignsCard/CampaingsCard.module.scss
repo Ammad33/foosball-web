@@ -69,7 +69,7 @@
 					height: 30px;
 					width: 30px;
 				}
-			  .mediaTag {
+				.campaignName{
 					margin-top: 21px;
 					margin-left: 5px;
 					color: #000000;
@@ -85,7 +85,10 @@
       min-width: 100px;
       max-width: 150px;
       margin-top: 15px;
-    
+      
+      .mediaTag {
+        font: normal normal normal 13px/20px Poppins;
+      }
     }
   }
 }

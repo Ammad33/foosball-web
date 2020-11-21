@@ -5,7 +5,7 @@ import Chip from '@material-ui/core/Chip';
 import clsx from 'clsx';
 import SVG from 'react-inlinesvg';
 import ChipButton from '../../../components/ChipButton';
-import { MoreVertical, Download, Copy, Mail } from 'react-feather';
+import { MoreVertical, Download, Copy, Mail, X } from 'react-feather';
 import Posts from '../Posts';
 import Activity from '../Activity';
 import Performance from '../Performance';
@@ -19,6 +19,10 @@ import Compensation from '../Compensation';
 import Negotiables from '../Negotiables';
 import Translation from '../../../assets/translation.json';
 import CDialog from '../../../components/ConfirmationDialog';
+import Drawer from '../../../components/RightDrawer';
+import ActivityDetail from '../ActivityDetail';
+import CompensationDetail from '../CompensationDetail';
+import DeliverablesDetail from '../DeliverablesDetail';
 
 import { useHistory } from 'react-router-dom';
 
@@ -48,6 +52,9 @@ const BrandCampaignDetail = () => {
   // const status ='draft';
   // const status ='draft';
 
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const [element, setElement] = useState('');
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -57,8 +64,8 @@ const BrandCampaignDetail = () => {
   };
 
   const handleSeeClick = (value) => {
-    // setElement(value);
-    // setOpenDrawer(true);
+    setElement(value);
+    setOpenDrawer(true);
   };
 
   const handleCancelCDialog = () => {
@@ -66,6 +73,22 @@ const BrandCampaignDetail = () => {
   };
   const handleConfirmCDialog = () => {
     setOpenCDialog(false);
+  };
+  const handleCloseDrawer = () => {
+    setElement('');
+    setOpenDrawer(false);
+  };
+  const getDrawerElement = (element) => {
+    switch (element) {
+      case 'Activity':
+        return <ActivityDetail type={'Brand'} />;
+      case 'Deliverable':
+        return <DeliverablesDetail />;
+      case 'Compensation':
+        return <CompensationDetail />;
+      default:
+        return;
+    }
   };
 
   const getSectionData = () => {
@@ -106,6 +129,12 @@ const BrandCampaignDetail = () => {
 
   return (
     <>
+      <Drawer anchor={'right'} open={openDrawer} onClose={handleCloseDrawer}>
+        <div className={styles.x}>
+          <X onClick={handleCloseDrawer} />
+        </div>
+        {getDrawerElement(element)}
+      </Drawer>
       <Popover
         id={id}
         open={open}
@@ -190,7 +219,7 @@ const BrandCampaignDetail = () => {
           </div>
           <div className={styles.flexContainer}>
             <Collections />
-            <Deliverables />
+            <Deliverables onClick={handleSeeClick} />
           </div>
           <div className={styles.flexContainer}>
             <Compensation onClick={handleSeeClick} />

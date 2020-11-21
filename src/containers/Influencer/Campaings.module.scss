@@ -55,8 +55,8 @@
   font-family: 'Poppins Light', sans-serif;
 }
 
-.draftActive {
-  background-color: $brandDraft !important;
+.inviteActive {
+  background-color: $influencerInvite !important;
   border: none !important;
   color: $white;
   padding: 8px 16px;
@@ -67,7 +67,7 @@
 }
 
 .liveActive {
-  background-color: $brandLive !important;
+  background-color: $influencerLive !important;
   border: none !important;
   color: $white;
   padding: 8px 16px;
@@ -77,7 +77,7 @@
   font-family: 'Poppins Light', sans-serif;
 }
 .pendingActive {
-  background-color: $brandPending !important;
+  background-color: $influencerPending !important;
   border: none !important;
   color: $white;
   padding: 8px 16px;
@@ -88,7 +88,7 @@
 }
 
 .closedActive {
-  background-color: $brandClosed !important;
+  background-color: $influencerClosed !important;
   border: none !important;
   color: $white;
   padding: 8px 16px;
@@ -98,8 +98,8 @@
   font-family: 'Poppins Light', sans-serif;
 }
 
-.lostActive {
-  background-color: $brandLost !important;
+.declinedActive {
+  background-color: $influencerDeclined !important;
   border: none !important;
   color: $white;
   padding: 8px 16px;

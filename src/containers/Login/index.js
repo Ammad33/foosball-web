@@ -1,6 +1,6 @@
-import React, { useState, useContext } from 'react';
-import { Button, InputAdornment } from '@material-ui/core';
-import TextField from '../../components/TextField';
+import React, { useState, useContext, useEffect } from 'react';
+import { API } from 'aws-amplify';
+import { TextField, Button, InputAdornment } from '@material-ui/core';
 import styles from './Login.module.scss';
 import { RootContext } from '../../context/RootContext';
 import { Auth } from 'aws-amplify';
@@ -10,7 +10,7 @@ import SVG from 'react-inlinesvg';
 import { useHistory } from 'react-router-dom';
 import FacebookSVG from '../../assets/facebook-logo-2019-thumb.png';
 import GoogleSVG from '../../assets/google-logo-icon-png-transparent-background-osteopathy-16.png';
-import AppleSVG from '../../assets/apple-logo-png-index-content-uploads-10.png'
+import AppleSVG from '../../assets/apple-logo-png-index-content-uploads-10.png';
 
 const EyeOffSVG = () => {
   return <SVG src={require('../../assets/eye-off.svg')} />;
@@ -32,12 +32,13 @@ const Login = () => {
     setCurrentUser,
     logoutMessage,
     setLogoutMessage,
-    setActiveRoute
+    setActiveRoute,
   } = useContext(RootContext);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [meData, setMeData] = useState([]);
 
   const onSignin = async () => {
     try {
@@ -50,9 +51,51 @@ const Login = () => {
     }
   };
 
+  const getMeData = async () => {
+    try {
+      const mydata = await API.graphql({
+        query: `{
+						me {
+							email
+							fullName
+							id
+							organizations {
+								organization {
+									id
+									name
+									__typename
+									... on Influencer {
+										invites {
+										name
+										}
+									}
+									imageUrl
+									email
+								}
+							}
+							about
+							age
+							companyTitle
+							imageUrl
+							joined
+							modified
+							phoneNumber
+						}
+				}`,
+      });
+      setMeData(mydata.data.me.organizations[0].organization.__typename);
+      if (mydata.data.me.organizations[0].organization.__typename == 'Brand') {
+        history.push('/campaigns');
+      } else {
+        history.push('/influencer');
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   if (currentUser && currentUser !== null) {
-    setActiveRoute('Campaign')
-    return <Redirect to='/campaigns' />;
+    getMeData();
   }
 
   return (
@@ -76,10 +119,16 @@ const Login = () => {
             <InputAdornment className={styles.inputendornment} position='end'>
               <span>
                 {passwordShown ? (
-                  <div onClick={togglePasswordVisiblity}> <EyeSVG />  </div>
+                  <div onClick={togglePasswordVisiblity}>
+                    {' '}
+                    <EyeSVG />{' '}
+                  </div>
                 ) : (
-                    <div onClick={togglePasswordVisiblity}> <EyeOffSVG />  </div>
-                  )}
+                  <div onClick={togglePasswordVisiblity}>
+                    {' '}
+                    <EyeOffSVG />{' '}
+                  </div>
+                )}
               </span>
             </InputAdornment>
           ),

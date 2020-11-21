@@ -33,19 +33,20 @@ const LeftSideDrawer = () => {
     setActiveRoute,
   } = useContext(RootContext);
 
-  const signOut = async () => {
-    try {
-      const signOut = await Auth.signOut({ global: true });
-      setLogoutMessage('Successfully logged out');
-      setCurrentUser(null);
-    } catch (error) {
-      console.log('error signing out: ', error);
-    }
-  };
+  // const signOut = async () => {
+  //   try {
+  //     const signOut = await Auth.signOut({ global: true });
+  //     setLogoutMessage('Successfully logged out');
+  //     setCurrentUser(null);
+  //   } catch (error) {
+  //     console.log('error signing out: ', error);
+  //   }
+  // };
 
   return (
     <>
       <ListItem
+				className = {styles.listItem}
         icon={<IconCampaign />}
         active={activeRoute === 'Campaign' ? true : false}
         title={'Campaigns'}
@@ -94,11 +95,11 @@ const LeftSideDrawer = () => {
         }}
       /> */}
 
-      <div className={styles.logoutButton}>
+      {/* <div className={styles.logoutButton}>
         <Button onClick={signOut} variant='contained' color='secondary'>
           Logout
         </Button>
-      </div>
+      </div> */}
 
       <div className={styles.tokenContainer}>
         <p>Email: {currentUser.attributes.email}</p>

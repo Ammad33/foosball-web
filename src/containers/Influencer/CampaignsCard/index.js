@@ -7,7 +7,9 @@ import ErrorOutlineOutlinedIcon from '@material-ui/icons/ErrorOutlineOutlined';
 import Chip from '@material-ui/core/Chip';
 import clsx from 'clsx';
 
-const CampaignsCard = ({ campaign}) => {
+
+const CampaignsCard = ({ campaign }) => {
+  console.log(campaign);
   return (
     <Card className={styles.campaignCard}>
       <CardContent className={styles.cardContent}>
@@ -28,6 +30,7 @@ const CampaignsCard = ({ campaign}) => {
               <small>{campaign.id}</small>
             </span>
 						<div className={styles.wrapChip}>
+
 							<Chip
 								className={clsx(
 									styles.campaignStatus,
@@ -41,11 +44,15 @@ const CampaignsCard = ({ campaign}) => {
 									'https://images.unsplash.com/photo-1528763380143-65b3ac89a3ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=670&q=80'
 								}
 							/>
-							<span className={styles.mediaTag}>@{'tag'}</span>
+							<span className={styles.campaignName}> {campaign.name} </span>
+
 						</div>
+						
+							
+					
           </div>
           <div className={styles.personInfo}>
-            
+            {/* <span className={styles.mediaTag}>@{'tag'}</span> */}
           </div>
         </div>
       </CardContent>

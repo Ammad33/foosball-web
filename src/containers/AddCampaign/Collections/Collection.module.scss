@@ -36,3 +36,27 @@ div {
     
  }
 }
+
+.product{
+	padding-bottom: 20px !important;
+& > label{
+	line-height: 18px !important;
+}
+}
+
+.accordianSummary {
+	box-sizing: border-box !important;
+  height: 66px;
+  width: 100%;
+  border: 1px solid #939393 !important;
+  border-radius: 5px !important;
+  background-color: #FFFFFF !important;
+}
+.collectionName{
+	width: 100%;
+}
+
+.svg {
+	float:right;
+	margin-top: 3px;
+}

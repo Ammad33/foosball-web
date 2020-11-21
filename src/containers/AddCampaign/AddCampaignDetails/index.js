@@ -1,24 +1,22 @@
-import { Calendar, Clock } from "react-feather";
-import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
-import { Grid, InputAdornment, Select } from "@material-ui/core";
-import FormControl from "@material-ui/core/FormControl";
-import MenuItem from "@material-ui/core/MenuItem";
-import React, { useEffect } from "react";
-import SVG from "react-inlinesvg";
-import SelectMenu from "../../../components/SelectMenu";
-import styles from "./AddCampaignDetail.module.scss";
-import { TimePicker } from "@material-ui/pickers";
+import { Calendar, Clock } from 'react-feather';
+import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import { Grid, InputAdornment, Select } from '@material-ui/core';
+import FormControl from '@material-ui/core/FormControl';
+import MenuItem from '@material-ui/core/MenuItem';
+import React, { useEffect } from 'react';
+import SVG from 'react-inlinesvg';
+import SelectMenu from '../../../components/SelectMenu';
+import styles from './AddCampaignDetail.module.scss';
+import { TimePicker } from '@material-ui/pickers';
 import mainStyles from '../../../index.module.scss';
 
-
-import TextField from "../../../components/TextField";
-
+import TextField from '../../../components/TextField';
 
 const Chevron = () => {
   return (
     <span className={styles.dropDownCustomizeSvg}>
-      <SVG src={require("../../../assets/chevron-downn.svg")} />
+      <SVG src={require('../../../assets/chevron-downn.svg')} />
     </span>
   );
 };
@@ -38,7 +36,6 @@ const AddCampaignDetails = ({
   endTimeError,
   discount,
   discountType,
-  percentage,
   customeMessage,
   handleStartTime,
   handleEndTime,
@@ -56,40 +53,50 @@ const AddCampaignDetails = ({
   filledForm,
   partialFilledForm,
 }) => {
-
+  // const classes = useStyles();
   useEffect(() => {
     filledForm();
-  }, [campaignName, startDate, endDate, discount, percentage, customeMessage, startDateError, endDateError, startTimeError, endTimeError]);
+  }, [
+    campaignName,
+    startDate,
+    endDate,
+    discount,
+    discountType,
+    customeMessage,
+    startDateError,
+    endDateError,
+    startTimeError,
+    endTimeError,
+  ]);
 
   useEffect(() => {
     partialFilledForm();
-  }, [campaignName]);
+  });
 
   return (
     <Grid container spacing={2}>
       <Grid item md={12}>
         <TextField
-          id="outlined-basic"
+          id='outlined-basic'
           fullWidth
           value={campaignName}
           onChange={handleCampaignName}
-          label="Campaign Name"
+          label='Campaign Name'
           className={mainStyles.placeholderColor}
-          helperText={" "}
-          variant="outlined"
-
+          helperText={' '}
+          variant='outlined'
         />
       </Grid>
       <Grid item xs={12} sm={12} md={6}>
         <TextField
-          id="outlined-basic"
+          id='outlined-basic'
           fullWidth
           value={startDate}
-          defaultValue="12/12/2019"
+          defaultValue='12/12/2019'
           onChange={(e) => handleStartDate(e.target.value)}
-          label="Start Date"
+          label='Start Date'
           className={mainStyles.placeholderColor}
-          variant="outlined"
+          variant='outlined'
           onBlur={(e) => {
             console.log('Triggered because this input lost focus');
           }}
@@ -97,12 +104,12 @@ const AddCampaignDetails = ({
             startDateError ? (
               <span className={styles.errorText}> Start Date IN FUTURE </span>
             ) : (
-                " "
-              )
+              ' '
+            )
           }
           InputProps={{
             endAdornment: (
-              <InputAdornment className={styles.inputendornment} position="end">
+              <InputAdornment className={styles.inputendornment} position='end'>
                 <Calendar onClick={() => handleStartDateOpen(true)} />
               </InputAdornment>
             ),
@@ -114,11 +121,11 @@ const AddCampaignDetails = ({
             open={startDateOpen}
             value={startDate}
             onChange={handleStartDate}
-            defaultValue="12/12/2019"
-            orientation="landscape"
-            openTo="date"
-            format="MM/dd/yyyy"
-            margin="normal"
+            defaultValue='12/12/2019'
+            orientation='landscape'
+            openTo='date'
+            format='MM/dd/yyyy'
+            margin='normal'
             onBlur={(e) => {
               console.log('Triggered because this input lost focus');
             }}
@@ -128,23 +135,26 @@ const AddCampaignDetails = ({
       </Grid>
       <Grid item xs={12} sm={12} md={6}>
         <TextField
-          id="outlined-basic"
+          id='outlined-basic'
           fullWidth
-          label="End Date"
+          label='End Date'
           value={endDate}
           className={mainStyles.placeholderColor}
           onChange={(e) => handleEndDate(e.target.value)}
-          variant="outlined"
+          variant='outlined'
           helperText={
             endDateError ? (
-              <span className={styles.errorText}> End date AFTER Start date </span>
+              <span className={styles.errorText}>
+                {' '}
+                End date AFTER Start date{' '}
+              </span>
             ) : (
-                " "
-              )
+              ' '
+            )
           }
           InputProps={{
             endAdornment: (
-              <InputAdornment className={styles.inputendornment} position="end">
+              <InputAdornment className={styles.inputendornment} position='end'>
                 <Calendar onClick={() => handleEndDateOpen(true)} />
               </InputAdornment>
             ),
@@ -157,30 +167,32 @@ const AddCampaignDetails = ({
             value={endDate}
             onClose={() => handleEndDateOpen(false)}
             onChange={handleEndDate}
-            orientation="landscape"
-            openTo="date"
+            orientation='landscape'
+            openTo='date'
           />
         </MuiPickersUtilsProvider>
       </Grid>
       <Grid item xs={12} sm={12} md={6}>
         <TextField
-          id="outlined-basic"
+          id='outlined-basic'
           fullWidth
-          label="Start Time"
+          label='Start Time'
+          defaultTime={startTime}
           labelClassName={styles.placeholderColor}
+          ampm='true'
           value={startTime}
           onChange={(e) => handleStartTime(e.target.value)}
-          variant="outlined"
+          variant='outlined'
           helperText={
             startTimeError ? (
               <span className={styles.errorText}> Start Time IN FUTURE </span>
             ) : (
-                " "
-              )
+              ' '
+            )
           }
           InputProps={{
             endAdornment: (
-              <InputAdornment className={styles.inputendornment} position="end">
+              <InputAdornment className={styles.inputendornment} position='end'>
                 <Clock onClick={() => handleStartTimeOpen(true)} />
               </InputAdornment>
             ),
@@ -190,37 +202,38 @@ const AddCampaignDetails = ({
           <TimePicker
             className={styles.displayNone}
             open={startTimeOpen}
-            value={startTime}
+            value='00.01'
+            ampm='true'
             onClose={() => handleStartTimeOpen(false)}
             onChange={handleStartTime}
-            orientation="landscape"
-            openTo="time"
+            orientation='landscape'
+            openTo='time'
           />
         </MuiPickersUtilsProvider>
       </Grid>
 
       <Grid item xs={12} sm={12} md={6}>
         <TextField
-          id="time"
+          id='time'
           fullWidth
-          label="End Time"
+          label='End Time'
           labelClassName={styles.placeholderColor}
           value={endTime}
           onChange={(e) => handleEndTime(e.target.value)}
-          variant="outlined"
+          variant='outlined'
           helperText={
             endTimeError ? (
               <span className={styles.errorText}>
-                {" "}
-                End Time AFTER Start Time{" "}
+                {' '}
+                End Time AFTER Start Time{' '}
               </span>
             ) : (
-                " "
-              )
+              ' '
+            )
           }
           InputProps={{
             endAdornment: (
-              <InputAdornment className={styles.inputendornment} position="end">
+              <InputAdornment className={styles.inputendornment} position='end'>
                 <Clock onClick={() => handleEndTimeOpen(true)} />
               </InputAdornment>
             ),
@@ -230,63 +243,56 @@ const AddCampaignDetails = ({
           <TimePicker
             className={styles.displayNone}
             open={endTimeOpen}
-            value={endTime}
+            value='00.01'
             onClose={() => handleEndTimeOpen(false)}
             onChange={handleEndTime}
-            orientation="landscape"
-            openTo="time"
+            orientation='landscape'
+            openTo='time'
           />
         </MuiPickersUtilsProvider>
       </Grid>
       <Grid item xs={12} sm={12} md={6}>
         <TextField
-          id="outlined-basic"
+          id='outlined-basic'
           fullWidth
-          label="Promotion Discount"
+          label='Promotion Discount'
           className={mainStyles.placeholderColor}
           value={discount}
           onChange={handleDiscount}
-          variant="outlined"
-          helperText={" "}
+          variant='outlined'
+          helperText={' '}
         />
       </Grid>
       <Grid item xs={12} sm={12} md={6}>
-        <FormControl fullWidth variant="outlined">
+        <FormControl fullWidth variant='outlined'>
           <Select
-            id="outlined-basic"
+            id='outlined-basic'
             IconComponent={() => <Chevron />}
             fullWidth
-            displayEmpty
+            defaultValue={'Percentage'}
             value={discountType}
             onChange={(e) => handleDiscountType(e.target.value)}
-            variant="outlined"
-            MenuProps={{ variant: "menu" }}
-            // classes={{
-            // 	root: classes.whiteColor,
-            // 	icon: classes.whiteColor
-            // }}            
-            placeholder="Discount Type"
+            variant='outlined'
+            MenuProps={{ variant: 'menu' }}
             input={<SelectMenu />}
           >
-            <MenuItem value="" disabled  >
-              Discount Types
-            </MenuItem>
-            <MenuItem value={"Percentage"} >Percentage</MenuItem>
-            <MenuItem value={"Amount"}>Amount</MenuItem>
+            {/* <MenuItem value='' ></MenuItem> */}
+            <MenuItem value={'Percentage'}>Percentage</MenuItem>
+            <MenuItem value={'Amount'}>Amount</MenuItem>
           </Select>
         </FormControl>
       </Grid>
       <Grid item xs={12} sm={12} md={12}>
         <TextField
-          id="outlined-basic"
+          id='outlined-basic'
           fullWidth
           multiline
           value={customeMessage}
           onChange={handleCustomMessage}
           className={mainStyles.placeholderColor}
           rows={4}
-          label={"Enter a max 1000 characters to send with your invitation"}
-          variant="outlined"
+          label={'Enter a max 1000 characters to send with your invitation'}
+          variant='outlined'
         />
       </Grid>
     </Grid>

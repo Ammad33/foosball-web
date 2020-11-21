@@ -8,14 +8,13 @@ import Popover from '@material-ui/core/Popover';
 import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useHistory } from 'react-router-dom';
-
+import Logout from '../../containers/Logout';
 
 // const useStyles = makeStyles((theme) => ({
 //   typography: {
 //     padding: theme.spacing(2),
 //   },
 // }));
-
 
 const SearchIcon = () => {
   return <SVG src={require('../../assets/Search.svg')} />;
@@ -39,11 +38,10 @@ const Header = () => {
     setAnchorEl(event.currentTarget);
   };
 
-
   const navigate = () => {
     history.push('/settings');
     setAnchorEl(null);
-  }
+  };
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -80,8 +78,16 @@ const Header = () => {
           <Divider className={styles.divider} />
           <div className={styles.menuBarItems}>
             <MenuItem className={styles.itemsFont}>View Profile</MenuItem>
-            <MenuItem className={styles.itemsFont} onClick={() => { navigate() }}>Settings</MenuItem>
-            <MenuItem className={styles.itemsFont}>Sign Out</MenuItem>
+            <MenuItem
+              className={styles.itemsFont}
+              onClick={() => {
+                navigate();
+              }}
+            >
+              Settings
+            </MenuItem>
+            {/* <MenuItem className={styles.itemsFont}>Sign Out</MenuItem> */}
+            <Logout />
           </div>
         </Grid>
       </Popover>
