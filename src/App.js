@@ -15,6 +15,7 @@ import Performance from './containers/Performance';
 import ProtectedRoute from './hoc/ProtectedRoute';
 import Settings from './containers/Settings';
 import UnProtectedRoute from './hoc/UnProtectedRoute';
+import Posts from './containers/Posts';
 import Auth from './hoc/Auth';
 
 const App = () => {
@@ -48,6 +49,11 @@ const App = () => {
           <ProtectedRoute exact path='/settings'>
             <Layout>
               <Settings />
+            </Layout>
+          </ProtectedRoute>
+          <ProtectedRoute exact path='/posts'>
+            <Layout>
+              <Posts />
             </Layout>
           </ProtectedRoute>
           <UnProtectedRoute exact path='/login'>
