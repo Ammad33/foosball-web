@@ -17,6 +17,7 @@ import ProtectedRoute from './hoc/ProtectedRoute';
 import Settings from './containers/Settings';
 import UnProtectedRoute from './hoc/UnProtectedRoute';
 import Posts from './containers/Posts';
+import ReviewBrandMicrosite from './containers/ReviewBrandMicrosite';
 import Auth from './hoc/Auth';
 
 const App = () => {
@@ -55,6 +56,11 @@ const App = () => {
           <ProtectedRoute exact path='/posts'>
             <Layout>
               <Posts />
+            </Layout>
+          </ProtectedRoute>
+          <ProtectedRoute exact path='/review-brand-microsite'>
+            <Layout>
+              <ReviewBrandMicrosite />
             </Layout>
           </ProtectedRoute>
           <UnProtectedRoute exact path='/login'>

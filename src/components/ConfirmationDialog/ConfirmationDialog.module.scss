@@ -4,39 +4,39 @@
   width: 546px !important;
   border-radius: 20px !important;
   .cDialogContent {
-		padding: 74px 49px !important;
-		.cDialogDescription{
-			color: #000000;
-			font-family: Poppins;
-			font-size: 18px;
-			font-weight: 500;
-			letter-spacing: 0;
-			line-height: 31px;
-		}
+    padding: 74px 49px !important;
+    .cDialogDescription {
+      color: #000000;
+      font-family: Poppins;
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: 0;
+      line-height: 31px;
+    }
   }
   .cDialogActions {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     gap: 20px;
-		padding: 38px;
-		.confirm{
-			color: #000000;
-			font-family: Poppins;
-			font-size: 18px;
-			font-weight: 500;
-			letter-spacing: 0;
-			line-height: 31px;
-			text-transform: capitalize;
-		}
+    padding: 38px;
+    .confirm {
+      color: #000000;
+      font-family: Poppins;
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: 0;
+      line-height: 31px;
+      text-transform: capitalize;
+    }
     button {
       border-radius: 25px;
-			color: #FFFFFF;
-			font-family: Poppins;
-			font-size: 19px;
-			font-weight: 500;
-			letter-spacing: 0;
-			line-height: 29px;
+      color: #ffffff;
+      font-family: Poppins;
+      font-size: 19px;
+      font-weight: 500;
+      letter-spacing: 0;
+      line-height: 29px;
       padding-left: 40px;
       padding-right: 40px;
       padding-top: 10px;
