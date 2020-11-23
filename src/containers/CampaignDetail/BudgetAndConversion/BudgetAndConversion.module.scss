@@ -6,6 +6,11 @@
   background-color: $white;
   box-shadow: 0 6px 50px 0 rgba(0, 0, 0, 0.1);
   padding: 32px 41px 20px 35px;
+  .headerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
   .section {
     h5 {
       font-family: Poppins;

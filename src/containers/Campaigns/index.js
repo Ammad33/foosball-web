@@ -146,7 +146,7 @@ const Campaigns = () => {
       }`,
       });
       setCampaigns(campaigns.data.campaigns.campaigns);
-    } catch (e) {}
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -232,8 +232,8 @@ const Campaigns = () => {
             </Grid>
           </Grid>
         ) : (
-          ''
-        )}
+            ''
+          )}
         <Grid container spacing={3}>
           {campaigns.length > 0 &&
             campaigns.map((campaign) => {
@@ -245,7 +245,7 @@ const Campaigns = () => {
                   className={styles.gridItem}
                   item
                   key={campaign.id}
-                  onClick={() => history.push('/campaignDetail')}
+                  onClick={() => history.push(`/campaignDetail/${campaign.id}`)}
                 >
                   <CampaignsCard campaign={campaign} />
                 </Grid>

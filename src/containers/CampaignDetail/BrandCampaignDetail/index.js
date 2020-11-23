@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Avatar, Popover } from '@material-ui/core';
 import styles from './BrandCampaignDetail.module.scss';
 import Chip from '@material-ui/core/Chip';
 import clsx from 'clsx';
 import SVG from 'react-inlinesvg';
-import ChipButton from '../../../components/ChipButton';
+import { API } from 'aws-amplify';
 import {
   MoreVertical,
   Download,
@@ -48,14 +48,17 @@ const CopyIcon = () => {
   return <SVG src={require('../../../assets/copy.svg')} />;
 };
 
-const BrandCampaignDetail = () => {
+const BrandCampaignDetail = ({ campaignId }) => {
+
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [openCDialog, setOpenCDialog] = useState(false);
   const [addCampaign, setAddCampagin] = useState(false);
   const [step, setStep] = useState(1);
+  const [data, setData] = useState(null);
 
   const open = Boolean(anchorEl);
+
   const id = open ? 'simple-popover' : undefined;
   const status = 'closed';
   // const status = 'draft';
@@ -109,6 +112,49 @@ const BrandCampaignDetail = () => {
     }
   };
 
+  const getCampaign = async () => {
+    try {
+      const campaign = await API.graphql({
+        query: `{
+          campaign(brandId: "8ece73cc-3079-4f45-b7bb-4f6007c8344d", id: "${campaignId}") {
+            name
+            startDate
+            endDate
+            discount {
+              ... on PercentageDiscount {
+                __typename
+                percentage
+              }
+              ... on FlatDiscount {
+                __typename
+                amount {
+                  amount
+                  currency
+                }
+              }
+            }
+            budget {
+              amount
+              currency
+            }
+            targetGrossSales {
+              amount
+              currency
+            }
+          }
+      }`,
+      });
+      console.log('campaign', campaign.data.campaign)
+      setData(campaign.data.campaign)
+    } catch (e) {
+    }
+  };
+
+  useEffect(() => {
+    getCampaign();
+  }, []);
+
+
   const getSectionData = () => {
     switch (status) {
       case 'closed':
@@ -151,6 +197,7 @@ const BrandCampaignDetail = () => {
         <AddCampaign
           open={addCampaign}
           step={step}
+          campaign={data}
           handleCancel={() => setAddCampagin(false)}
         />
       )}
@@ -244,7 +291,7 @@ const BrandCampaignDetail = () => {
               </>
             </CampaignDetail>
             <TeamMembers onClick={handleSeeClick} />
-            <BudgetAndConversion />
+            <BudgetAndConversion handleEdit={handleEdit} />
           </div>
           <div className={styles.flexContainer}>
             <Collections handleEdit={handleEdit} />

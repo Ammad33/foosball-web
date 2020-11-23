@@ -30,7 +30,7 @@ const App = () => {
               <Campaigns />
             </Layout>
           </ProtectedRoute>
-          <ProtectedRoute exact path='/campaignDetail'>
+          <ProtectedRoute exact path='/campaignDetail/:campaignId'>
             <Layout>
               <CampaignDetail />
             </Layout>

@@ -294,7 +294,7 @@ function getSteps() {
 
 /*********Main Container of Add Campaign ************/
 
-const AddCampaign = ({ open, handleCancel, step }) => {
+const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   /****** Stepper States ********/
 
   const steps = getSteps();
@@ -358,6 +358,29 @@ const AddCampaign = ({ open, handleCancel, step }) => {
 
   useEffect(() => {
     setActiveStep(step !== undefined ? step : 1);
+    if (campaign && campaign !== null) {
+
+      setCampaignName(campaign.name);
+
+      const startDate = new Date(campaign.startDate * 1000);
+      const endDate = new Date(campaign.endDate * 1000);
+
+      setStartDate(moment(startDate).format('MM/DD/YYYY'));
+      setEndDate(moment(endDate).format('MM/DD/YYYY'));
+      setStartTime(moment(startDate).subtract(1, 'days').startOf('day').format('HH:mm'));
+      setEndTime(moment(endDate).subtract(1, 'days').startOf('day').format('HH:mm'));
+      setDiscount(campaign.discount && campaign.discount !== null ? campaign.discount.__typename === 'FlatDiscount' ? campaign.discount.amount.amount : campaign.discount.percentage : '');
+      setDiscountType(campaign.discount && campaign.discount !== null ? campaign.discount.__typename === 'PercentageDiscount' ? 'Percentage' : campaign.discount.__typename === 'FlatDiscount' ? 'Amount' : '' : '')
+
+      if (campaign.budget && campaign.budget) {
+        setBudget(campaign.budget.amount)
+      }
+
+      if (campaign.targetGrossSales && campaign.targetGrossSales) {
+        setTargetGrossSale(campaign.targetGrossSales.amount)
+      }
+
+    }
   }, [step]);
 
   useEffect(() => {
@@ -786,20 +809,20 @@ const AddCampaign = ({ open, handleCancel, step }) => {
     } else {
       setActiveNext(false);
     }
-	};
-	
+  };
+
 
   const createCampaign = async () => {
-		debugger;
+    debugger;
     try {
-			if (discountType === "Amount"){
-				typ = "FLAT"
-				val = "{\"amount\":{\"amount\": \""+discount+"\",\"currency\":\"USD\"}}"
-			}
-			else {
-				typ = "PERCENTAGE"
-				val = "{\"percentage\":\""+discount+"\"}"
-			}
+      if (discountType === "Amount") {
+        typ = "FLAT"
+        val = "{\"amount\":{\"amount\": \"" + discount + "\",\"currency\":\"USD\"}}"
+      }
+      else {
+        typ = "PERCENTAGE"
+        val = "{\"percentage\":\"" + discount + "\"}"
+      }
       await API.graphql(
         graphqlOperation(
           `mutation createCampaign($input: CreateCampaignInput!) {
@@ -812,17 +835,17 @@ const AddCampaign = ({ open, handleCancel, step }) => {
           }
         }
         `,
-        	{
-						
-						input: {
-						brandId: '8ece73cc-3079-4f45-b7bb-4f6007c8344d',
-						name: campaignName,
-						startDate: Date.parse(`${startDate} ${startTime}`) / 1000,
-						endDate: Date.parse(`${endDate} ${endTime}`) / 1000,
-						discount: {value: val, type: typ},
-						budget: {amount: budget, currency: "USD"}, 
-						targetGrossSales: {amount: targetGrossSale , currency: "USD"}
-						},
+          {
+
+            input: {
+              brandId: '8ece73cc-3079-4f45-b7bb-4f6007c8344d',
+              name: campaignName,
+              startDate: Date.parse(`${startDate} ${startTime}`) / 1000,
+              endDate: Date.parse(`${endDate} ${endTime}`) / 1000,
+              discount: { value: val, type: typ },
+              budget: { amount: budget, currency: "USD" },
+              targetGrossSales: { amount: targetGrossSale, currency: "USD" }
+            },
           }
         )
       );
@@ -1150,8 +1173,8 @@ const AddCampaign = ({ open, handleCancel, step }) => {
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                        <CheckCircleIconSvg viewBox='0 0 31 31' />
-                      )}
+                              <CheckCircleIconSvg viewBox='0 0 31 31' />
+                            )}
                       <span
                         className={
                           activeStep === index
@@ -1164,19 +1187,19 @@ const AddCampaign = ({ open, handleCancel, step }) => {
                       </span>
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
                       {activeStep > index ? (
                         <div className={styles.activeBar} />
                       ) : (
-                        <div className={styles.inActiveBar} />
-                      )}
+                          <div className={styles.inActiveBar} />
+                        )}
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                 </>
               ))}
             </div>
@@ -1189,8 +1212,8 @@ const AddCampaign = ({ open, handleCancel, step }) => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                  <div></div>
-                )}
+                    <div></div>
+                  )}
                 <span onClick={handleCancelCampaignDialog}>
                   <XSVG />
                 </span>

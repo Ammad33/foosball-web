@@ -1,9 +1,10 @@
 import React from 'react';
 import { Edit } from 'react-feather';
 import styles from './CampaignDetail.module.scss';
+import moment from 'moment';
 import clsx from 'clsx';
 
-const CampaignDetail = ({ children, handleEdit }) => {
+const CampaignDetail = ({ children, handleEdit, campaign }) => {
   return (
     <div
       className={clsx(
@@ -17,16 +18,16 @@ const CampaignDetail = ({ children, handleEdit }) => {
       </div>
       <div className={styles.detailSubContent}>
         <h6>Campaign Name</h6>
-        <p>Campaign name here</p>
+        <p>{campaign && campaign.name}</p>
       </div>
       <div className={styles.dateContainer}>
         <div className={styles.detailSubContent}>
           <h6>StartDate, Time</h6>
-          <p>10/10/2020, 24:00</p>
+          <p>{campaign && moment(campaign.startDate * 1000).format('MM/DD/YYYY')}, 24:00</p>
         </div>
         <div className={styles.detailSubContent}>
           <h6>End Date, Time</h6>
-          <p>10/30/2020, 24:00</p>
+          <p>{campaign && moment(campaign.endDate * 1000).format('MM/DD/YYYY')}, 24:00</p>
         </div>
       </div>
       <div className={styles.detailSubContent}>

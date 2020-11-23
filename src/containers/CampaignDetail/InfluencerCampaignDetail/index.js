@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { Avatar, Chip, Popover } from '@material-ui/core';
 import styles from './InfluencerCampaignDetail.module.scss';
@@ -17,14 +17,58 @@ import DeliverablesDetail from '../DeliverablesDetail';
 import Drawer from '../../../components/RightDrawer';
 import CompensationDetail from '../CompensationDetail';
 import AddCampaign from '../../AddCampaign';
+import { API } from 'aws-amplify';
 
-const CampaignDetailInfluencer = () => {
+const CampaignDetailInfluencer = ({ campaignId }) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [addCampaign, setAddCampagin] = useState(false);
   const [step, setStep] = useState(1);
   const [element, setElement] = useState('');
+  const [data, setData] = useState(null);
+
+  const getCampaign = async () => {
+    try {
+      const campaign = await API.graphql({
+        query: `{
+          campaign(brandId: "8ece73cc-3079-4f45-b7bb-4f6007c8344d", id: "${campaignId}") {
+            name
+            startDate
+            endDate
+            discount {
+              ... on PercentageDiscount {
+                __typename
+                percentage
+              }
+              ... on FlatDiscount {
+                __typename
+                amount {
+                  amount
+                  currency
+                }
+              }
+            }
+            budget {
+              amount
+              currency
+            }
+            targetGrossSales {
+              amount
+              currency
+            }
+          }
+      }`,
+      });
+      console.log('campaign', campaign.data.campaign)
+      setData(campaign.data.campaign)
+    } catch (e) {
+    }
+  };
+
+  useEffect(() => {
+    getCampaign();
+  }, []);
 
   const handleEdit = (step) => {
     setAddCampagin(true);
@@ -71,6 +115,7 @@ const CampaignDetailInfluencer = () => {
         <AddCampaign
           open={addCampaign}
           step={step}
+          campaign={data}
           handleCancel={() => setAddCampagin(false)}
         />
       )}
@@ -138,7 +183,7 @@ const CampaignDetailInfluencer = () => {
         <div className={styles.secondContainer}>
           <div>
             <div className={styles.first}>
-              <CampaignDetail handleEdit={handleEdit} />
+              <CampaignDetail campaign={data} handleEdit={handleEdit} />
               <Compensation onClick={handleSeeClick} handleEdit={handleEdit} />
             </div>
             <div style={{ marginTop: '30px' }}>
