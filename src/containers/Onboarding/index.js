@@ -17,6 +17,7 @@ import DisplayName from './DisplayName';
 import Billing from './Billing';
 import { useHistory } from 'react-router-dom';
 import logo from '../../assets/FomoPromo_logo__white.png';
+import { API, graphqlOperation } from 'aws-amplify';
 
 const ChevronSVG = () => {
   return <SVG src={require('../../assets/chevron-down.svg')} />;
@@ -123,12 +124,49 @@ const Onboarding = () => {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
-  const handleNext = (activeSetp, e) => {
+  const handleNext = async (activeSetp, e) => {
     if (activeSetp !== 4) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
     if (activeSetp === 4) {
-      history.push('/signup');
+      console.log(userType);
+      const data = {
+        input: {
+          currencyType: 'USD',
+          timezone: 10,
+        },
+      };
+      switch (userType) {
+        case 'brand':
+          const brandMutationQuery = `mutation createBrand($input: CreateBrandInput!) {
+            createBrand(input: $input) {
+              name
+              timezone
+              currencyType
+            }
+          }
+          `;
+          data.input.name = brandName;
+          await API.graphql(graphqlOperation(brandMutationQuery, data));
+          break;
+
+        case 'influencer':
+          const influencerMutationQuery = `mutation createInfluencer($input: CreateInfluencerInput!) {
+            createInfluencer(input: $input) {
+              name
+              timezone
+              currencyType
+            }
+          }
+          `;
+          data.input.name = displayName;
+          await API.graphql(graphqlOperation(influencerMutationQuery, data));
+          break;
+
+        default:
+          break;
+      }
+      // history.push('/signup');
     }
   };
 
@@ -229,12 +267,12 @@ const Onboarding = () => {
             handleActiveForBrand={setActiveForBrand}
           />
         ) : (
-            <DisplayName
-              displayName={displayName}
-              handleDisplayName={(e) => setDisplayName(e.target.value)}
-              handleActiveForDisplay={setActiveForDisplay}
-            />
-          );
+          <DisplayName
+            displayName={displayName}
+            handleDisplayName={(e) => setDisplayName(e.target.value)}
+            handleActiveForDisplay={setActiveForDisplay}
+          />
+        );
       case 4:
         return <Billing />;
       default:
@@ -262,8 +300,8 @@ const Onboarding = () => {
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                            <CheckCircleIconSvg viewBox='0 0 31 31' />
-                          )}
+                        <CheckCircleIconSvg viewBox='0 0 31 31' />
+                      )}
                       <span
                         className={
                           activeStep == index
@@ -276,19 +314,19 @@ const Onboarding = () => {
                       </span>
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
                       {activeStep > index ? (
                         <div className={styles.activeBar} />
                       ) : (
-                          <div className={styles.inActiveBar} />
-                        )}
+                        <div className={styles.inActiveBar} />
+                      )}
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                 </>
               ))}
             </div>
@@ -301,8 +339,8 @@ const Onboarding = () => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                    <div className={activeStep === 1 ? styles.header : ''} />
-                  )}
+                  <div className={activeStep === 1 ? styles.header : ''} />
+                )}
               </div>
               <div className={styles.stepperAndComponent}>
                 <div className={styles.stepperNumberAndNameContainer}>
@@ -339,8 +377,7 @@ const Onboarding = () => {
             </DialogContent>
 
             <div className={styles.actions}>
-              <div className={styles.finishLater}>
-              </div>
+              <div className={styles.finishLater}></div>
               <button
                 onClick={(e) => handleNext(activeStep, e)}
                 className={clsx(

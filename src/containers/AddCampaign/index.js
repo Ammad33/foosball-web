@@ -25,8 +25,8 @@ import SVG from 'react-inlinesvg';
 import { API, graphqlOperation } from 'aws-amplify';
 import logo from '../../assets/FomoPromo_logo__white.png';
 
-let typ = "";
-let val = "";
+let typ = '';
+let val = '';
 
 const XSVG = () => {
   return <SVG src={require('../../assets/x.svg')} />;
@@ -810,11 +810,15 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       setActiveNext(false);
     }
   };
+<<<<<<< HEAD
 
+=======
+>>>>>>> 01f633f423a5a45017b429e9ed88fe75218d86de
 
   const createCampaign = async () => {
     debugger;
     try {
+<<<<<<< HEAD
       if (discountType === "Amount") {
         typ = "FLAT"
         val = "{\"amount\":{\"amount\": \"" + discount + "\",\"currency\":\"USD\"}}"
@@ -822,6 +826,14 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       else {
         typ = "PERCENTAGE"
         val = "{\"percentage\":\"" + discount + "\"}"
+=======
+      if (discountType === 'Amount') {
+        typ = 'FLAT';
+        val = '{"amount":{"amount": "' + discount + '","currency":"USD"}}';
+      } else {
+        typ = 'PERCENTAGE';
+        val = '{"percentage":"' + discount + '"}';
+>>>>>>> 01f633f423a5a45017b429e9ed88fe75218d86de
       }
       await API.graphql(
         graphqlOperation(
@@ -836,15 +848,23 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         }
         `,
           {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 01f633f423a5a45017b429e9ed88fe75218d86de
             input: {
               brandId: '8ece73cc-3079-4f45-b7bb-4f6007c8344d',
               name: campaignName,
               startDate: Date.parse(`${startDate} ${startTime}`) / 1000,
               endDate: Date.parse(`${endDate} ${endTime}`) / 1000,
               discount: { value: val, type: typ },
+<<<<<<< HEAD
               budget: { amount: budget, currency: "USD" },
               targetGrossSales: { amount: targetGrossSale, currency: "USD" }
+=======
+              budget: { amount: budget, currency: 'USD' },
+              targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
+>>>>>>> 01f633f423a5a45017b429e9ed88fe75218d86de
             },
           }
         )
