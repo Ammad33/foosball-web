@@ -820,6 +820,8 @@ const AddCampaign = ({ open, handleCancel, step }) => {
 						startDate: Date.parse(`${startDate} ${startTime}`) / 1000,
 						endDate: Date.parse(`${endDate} ${endTime}`) / 1000,
 						discount: {value: val, type: typ},
+						budget: {amount: budget, currency: "USD"}, 
+						targetGrossSales: {amount: targetGrossSale , currency: "USD"}
 						},
           }
         )
