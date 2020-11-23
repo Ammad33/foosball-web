@@ -25,8 +25,8 @@ import SVG from 'react-inlinesvg';
 import { API, graphqlOperation } from 'aws-amplify';
 import logo from '../../assets/FomoPromo_logo__white.png';
 
-let typ = "";
-let val = "";
+let typ = '';
+let val = '';
 
 const XSVG = () => {
   return <SVG src={require('../../assets/x.svg')} />;
@@ -786,20 +786,18 @@ const AddCampaign = ({ open, handleCancel, step }) => {
     } else {
       setActiveNext(false);
     }
-	};
-	
+  };
 
   const createCampaign = async () => {
-		debugger;
+    debugger;
     try {
-			if (discountType === "Amount"){
-				typ = "FLAT"
-				val = "{\"amount\":{\"amount\": \""+discount+"\",\"currency\":\"USD\"}}"
-			}
-			else {
-				typ = "PERCENTAGE"
-				val = "{\"percentage\":\""+discount+"\"}"
-			}
+      if (discountType === 'Amount') {
+        typ = 'FLAT';
+        val = '{"amount":{"amount": "' + discount + '","currency":"USD"}}';
+      } else {
+        typ = 'PERCENTAGE';
+        val = '{"percentage":"' + discount + '"}';
+      }
       await API.graphql(
         graphqlOperation(
           `mutation createCampaign($input: CreateCampaignInput!) {
@@ -812,17 +810,16 @@ const AddCampaign = ({ open, handleCancel, step }) => {
           }
         }
         `,
-        	{
-						
-						input: {
-						brandId: '8ece73cc-3079-4f45-b7bb-4f6007c8344d',
-						name: campaignName,
-						startDate: Date.parse(`${startDate} ${startTime}`) / 1000,
-						endDate: Date.parse(`${endDate} ${endTime}`) / 1000,
-						discount: {value: val, type: typ},
-						budget: {amount: budget, currency: "USD"}, 
-						targetGrossSales: {amount: targetGrossSale , currency: "USD"}
-						},
+          {
+            input: {
+              brandId: '8ece73cc-3079-4f45-b7bb-4f6007c8344d',
+              name: campaignName,
+              startDate: Date.parse(`${startDate} ${startTime}`) / 1000,
+              endDate: Date.parse(`${endDate} ${endTime}`) / 1000,
+              discount: { value: val, type: typ },
+              budget: { amount: budget, currency: 'USD' },
+              targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
+            },
           }
         )
       );
