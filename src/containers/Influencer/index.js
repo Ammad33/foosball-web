@@ -134,7 +134,7 @@ const Influencer = () => {
 			try {
 				const campaigns = await API.graphql({
 					query: `{
-					campaigns(brandId: "8ece73cc-3079-4f45-b7bb-4f6007c8344d") {
+					campaigns(brandId: "bd809ffa-35d6-4e93-b0a9-ffc6f4f28451") {
 						campaigns {
 							name
 							description

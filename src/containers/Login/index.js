@@ -41,19 +41,19 @@ const Login = () => {
   const [meData, setMeData] = useState([]);
 
   const onSignin = async () => {
-		debugger;
     try {
       const user = await Auth.signIn(email, password);
       setCurrentUser(user);
-      setLogoutMessage('');
+			setLogoutMessage('');
+			getMeData();
     } catch (e) {
       setErrorMessage(e.message);
       setLogoutMessage('');
     }
 	};
+
 	if (currentUser && currentUser !== null) {
 		getMeData();
-		debugger;
 
   }
 
