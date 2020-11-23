@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import clsx from 'clsx';
 import { Grid, Avatar, Chip, Card, CardContent } from '@material-ui/core';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
@@ -7,14 +7,26 @@ import edit from '../../assets/edit.svg';
 import BrandCampaignDetail from './BrandCampaignDetail';
 import { useHistory } from 'react-router-dom';
 import InfluencerCampaignDetail from './InfluencerCampaignDetail';
+import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
+import { Link2 } from 'react-feather';
+
+
 
 const CampaignDetail = () => {
-  const history = useHistory();
+	const history = useHistory();
+	const [brandState , setBrandState ] = useState(true);
+
+	const handleBrandState = () =>{
+		setBrandState(brandState ? false : true);
+	}
 
   return (
     <div className={styles.detailContainer}>
-      <InfluencerCampaignDetail />
-      {/* <BrandCampaignDetail /> */}
+			<Link onClick={handleBrandState}> Toggle Campiagn Detail influencer</Link>
+			{brandState ? (<InfluencerCampaignDetail />) : (<BrandCampaignDetail />)}
+      
+      
     </div>
   );
 };

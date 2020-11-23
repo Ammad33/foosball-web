@@ -41,6 +41,7 @@ const Login = () => {
   const [meData, setMeData] = useState([]);
 
   const onSignin = async () => {
+		debugger;
     try {
       const user = await Auth.signIn(email, password);
       setCurrentUser(user);
@@ -49,7 +50,12 @@ const Login = () => {
       setErrorMessage(e.message);
       setLogoutMessage('');
     }
-  };
+	};
+	if (currentUser && currentUser !== null) {
+		getMeData();
+		debugger;
+
+  }
 
   const getMeData = async () => {
     try {
@@ -94,9 +100,7 @@ const Login = () => {
     }
   };
 
-  if (currentUser && currentUser !== null) {
-    getMeData();
-  }
+
 
   return (
     <div className={styles.signinContainer}>

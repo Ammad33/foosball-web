@@ -6,8 +6,12 @@ import { Avatar } from '@material-ui/core';
 import ErrorOutlineOutlinedIcon from '@material-ui/icons/ErrorOutlineOutlined';
 import Chip from '@material-ui/core/Chip';
 import clsx from 'clsx';
+import moment from 'moment';
+
 
 const CampaignsCard = ({ campaign}) => {
+	const convertedStartDate = moment(campaign.startDate*1000).format('MM-DD-YYYY');
+	const convertedEndDate = moment(campaign.endDate*1000).format('MM-DD-YYYY');
   return (
     <Card className={styles.campaignCard}>
       <CardContent className={styles.cardContent}>
@@ -25,7 +29,7 @@ const CampaignsCard = ({ campaign}) => {
           <div className={styles.campaignInfo}>
             <span className={styles.campaignName}>{campaign.name}</span>
             <span className={styles.campaignNumber}>
-              <small>{campaign.id}</small>
+              <small>{convertedStartDate} / {convertedEndDate} </small>
             </span>
 						<div className={styles.wrapChip}>
 							<Chip
