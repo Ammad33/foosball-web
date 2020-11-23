@@ -796,10 +796,10 @@ const AddCampaign = ({ open, handleCancel, step }) => {
 				typ = "FLAT"
 				val = "{\"amount\":{\"amount\": \""+discount+"\",\"currency\":\"USD\"}}"
 			}
-			else 
+			else {
 				typ = "PERCENTAGE"
 				val = "{\"percentage\":\""+discount+"\"}"
-
+			}
       await API.graphql(
         graphqlOperation(
           `mutation createCampaign($input: CreateCampaignInput!) {
