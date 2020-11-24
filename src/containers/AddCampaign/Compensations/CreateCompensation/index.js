@@ -14,48 +14,14 @@ import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import CompensationProductItem from './CompensationProductItem';
+import Collection from '../../Collections'
 
 const options = [];
 for (let i = 3; i <= 20; i += 1) {
   options.push(i);
 }
 
-const Accordion = withStyles({
-  root: {
-    marginTop: '10px',
-    boxShadow: 'none',
-    '&:not(:last-child)': {},
-    '&:before': {
-      display: 'none',
-    },
-    '&$expanded': {
-      // margin: 'auto',
-    },
-  },
-  expanded: {},
-})(MuiAccordion);
 
-const AccordionSummary = withStyles({
-  root: {
-    // marginBottom: -1,
-    minHeight: 66,
-    '&$expanded': {
-      // minHeight: 56,
-    },
-  },
-  content: {
-    '&$expanded': {
-      margin: '12px 0',
-    },
-  },
-  expanded: {},
-})(MuiAccordionSummary);
-
-const AccordionDetails = withStyles((theme) => ({
-  root: {
-    padding: theme.spacing(2),
-  },
-}))(MuiAccordionDetails);
 
 const PlusSVG = () => {
   return <SVG src={require('../../../../assets/plus1.svg')} />;
@@ -91,40 +57,7 @@ const CreateCompensation = ({
     handleActiveForCompensationProduct();
   }, [compensationProducts]);
 
-  const [expanded, setExpanded] = React.useState('');
-  const [svg1, setSvg1] = useState(false);
-  const [svg2, setSvg2] = useState(false);
-  const [svg3, setSvg3] = useState(false);
-
-  const handleChange = (panel) => (event, newExpanded) => {
-    debugger;
-    setExpanded(newExpanded ? panel : false);
-    closeSvg();
-    if (panel == 'panel1') {
-      handleCompensationProducts('Drop Cuts');
-      handleSvg1();
-    } else if (panel == 'panel2') {
-      handleCompensationProducts('V-Necks');
-      handleSvg2();
-    } else {
-      handleCompensationProducts('Henleys');
-      handleSvg3();
-    }
-  };
-  const closeSvg = () => {
-    setSvg1(false);
-    setSvg2(false);
-    setSvg3(false);
-  };
-  const handleSvg1 = () => {
-    setSvg1(!svg1);
-  };
-  const handleSvg2 = () => {
-    setSvg2(!svg2);
-  };
-  const handleSvg3 = () => {
-    setSvg3(!svg3);
-  };
+  
   return (
     <Grid container spacing={3}>
       <Grid
@@ -261,142 +194,14 @@ const CreateCompensation = ({
       )}
       {item.compensationType === 'Products' && (
         <Grid item xs={12} sm={12} md={12}>
-          <Accordion
-            square
-            expanded={expanded === 'panel1'}
-            onChange={handleChange('panel1')}
-          >
-            <AccordionSummary
-              className={styles.accordianSummary}
-              aria-controls='panel1d-content'
-              id='panel1d-header'
-            >
-              <Typography className={styles.collectionName}>
-                {' '}
-                Drop Cuts{' '}
-                <span className={styles.svg}>
-                  {svg1 ? <MinusSVG /> : <PlusSVG />}
-                </span>
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              {compensationProduct !== '' ? (
-                <Grid item xs={12} className={styles.collections}>
-                  <Grid
-                    container
-                    spacing={3}
-                    className={styles.collectionContainer}
-                  >
-                    {compensationProductItems.map((compensationItem, index) => {
-                      return (
-                        <Grid item xs={3}>
-                          <CompensationProductItem
-                            compensationItem={compensationItem}
-                            key={index}
-                            compensationProduct={compensationProduct}
-                            compensationProducts={compensationProducts}
-                            handleCompensationProductItem={
-                              handleCompensationProductItem
-                            }
-                          />
-                        </Grid>
-                      );
-                    })}
-                  </Grid>
-                </Grid>
-              ) : null}
-            </AccordionDetails>
-          </Accordion>
-          <Accordion
-            square
-            expanded={expanded === 'panel2'}
-            onChange={handleChange('panel2')}
-          >
-            <AccordionSummary
-              className={styles.accordianSummary}
-              aria-controls='panel2d-content'
-              id='panel2d-header'
-            >
-              <Typography className={styles.collectionName}>
-                V Necks
-                <span className={styles.svg}>
-                  {svg2 ? <MinusSVG /> : <PlusSVG />}
-                </span>
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              {compensationProduct !== '' ? (
-                <Grid item xs={12} className={styles.collections}>
-                  <Grid
-                    container
-                    spacing={3}
-                    className={styles.collectionContainer}
-                  >
-                    {compensationProductItems.map((compensationItem, index) => {
-                      return (
-                        <Grid item xs={3}>
-                          <CompensationProductItem
-                            compensationItem={compensationItem}
-                            key={index}
-                            compensationProduct={compensationProduct}
-                            compensationProducts={compensationProducts}
-                            handleCompensationProductItem={
-                              handleCompensationProductItem
-                            }
-                          />
-                        </Grid>
-                      );
-                    })}
-                  </Grid>
-                </Grid>
-              ) : null}
-            </AccordionDetails>
-          </Accordion>
-          <Accordion
-            square
-            expanded={expanded === 'panel3'}
-            onChange={handleChange('panel3')}
-          >
-            <AccordionSummary
-              className={styles.accordianSummary}
-              aria-controls='panel3d-content'
-              id='panel3d-header'
-            >
-              <Typography className={styles.collectionName}>
-                Henleys
-                <span className={styles.svg}>
-                  {svg3 ? <MinusSVG /> : <PlusSVG />}
-                </span>
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              {compensationProduct !== '' ? (
-                <Grid item xs={12} className={styles.collections}>
-                  <Grid
-                    container
-                    spacing={3}
-                    className={styles.collectionContainer}
-                  >
-                    {compensationProductItems.map((compensationItem, index) => {
-                      return (
-                        <Grid item xs={3}>
-                          <CompensationProductItem
-                            compensationItem={compensationItem}
-                            key={index}
-                            compensationProduct={compensationProduct}
-                            compensationProducts={compensationProducts}
-                            handleCompensationProductItem={
-                              handleCompensationProductItem
-                            }
-                          />
-                        </Grid>
-                      );
-                    })}
-                  </Grid>
-                </Grid>
-              ) : null}
-            </AccordionDetails>
-          </Accordion>
+          <Collection
+						collection={compensationProduct}
+						handleCollection= {handleCompensationProducts}
+						handleCollectionItem={handleCompensationProductItem}
+						collectionItems={compensationProductItems}
+						collections={compensationProducts}
+						handleActiveForCollection={handleActiveForCompensationProduct}
+					/>
         </Grid>
       )}
     </Grid>

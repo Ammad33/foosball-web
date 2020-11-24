@@ -1040,7 +1040,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             handleCompensations={handleCompensations}
             handleCompensationValue={handleCompensationValue}
             handleRemoveCompensation={handleRemoveCompensation}
-            handleActiveForCompensation={setActiveForCompensation}
+						handleActiveForCompensation={setActiveForCompensation}
+						
             compensationProduct={compensationProduct}
             handleCompensationProducts={handleCompensationProducts}
             compensationProductItems={items}

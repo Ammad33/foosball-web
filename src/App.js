@@ -25,6 +25,11 @@ const App = () => {
     <RootContext>
       <HashRouter>
         <Switch>
+				<ProtectedRoute exact path='/campaigns'>
+            <Layout>
+              <Campaigns />
+            </Layout>
+          </ProtectedRoute>
           <ProtectedRoute exact path='/campaigns/:brandId'>
             <Layout>
               <Campaigns />

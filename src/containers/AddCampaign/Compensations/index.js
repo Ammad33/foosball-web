@@ -4,7 +4,13 @@ import AddIcon from '@material-ui/icons/Add';
 import styles from './Compensations.module.scss';
 
 const Compensations = ({ compensations, handleCompensations, handleCompensationValue,
-    handleRemoveCompensation, handleActiveForCompensation,compensationProduct,handleCompensationProducts,compensationProductItems,compensationProducts,handleActiveForCompensationProduct,handleCompensationProductItem  }) => {
+		handleRemoveCompensation, handleActiveForCompensation,
+		compensationProduct,
+		handleCompensationProducts,
+		compensationProductItems,
+		compensationProducts,
+		handleActiveForCompensationProduct,
+		handleCompensationProductItem  }) => {
 
     const [handleAnother, setAnother] = useState(false);
     handleActiveForCompensation()
