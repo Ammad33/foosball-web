@@ -134,7 +134,7 @@ const Campaigns = () => {
     try {
       const campaigns = await API.graphql({
         query: `{
-        campaigns(brandId: "${brandId}") {
+        campaigns(brandId: "8ece73cc-3079-4f45-b7bb-4f6007c8344d") {
           campaigns {
             name
             description

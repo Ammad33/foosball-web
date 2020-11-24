@@ -92,7 +92,7 @@ const Login = () => {
 			debugger;
       setMeData(mydata.data.me.organizations[0].organization.__typename);
       if (mydata.data.me.organizations[0].organization.__typename == 'Brand') {
-        history.push(`/campaigns/${mydata.data.me.organizations[0].organization.id}`);
+        history.push(`/campaigns`);
       } else {
         history.push('/influencer');
       }

@@ -840,7 +840,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         `,
           {
             input: {
-              brandId: brandId,
+              brandId: "8ece73cc-3079-4f45-b7bb-4f6007c8344d",
               name: campaignName,
               startDate: Date.parse(`${startDate} ${startTime}`) / 1000,
               endDate: Date.parse(`${endDate} ${endTime}`) / 1000,

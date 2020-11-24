@@ -19,6 +19,7 @@ import UnProtectedRoute from './hoc/UnProtectedRoute';
 import Posts from './containers/Posts';
 import ReviewBrandMicrosite from './containers/ReviewBrandMicrosite';
 import Auth from './hoc/Auth';
+import Logout from '../src/containers/Logout'
 
 const App = () => {
   return (
@@ -30,11 +31,11 @@ const App = () => {
               <Campaigns />
             </Layout>
           </ProtectedRoute>
-          <ProtectedRoute exact path='/campaigns/:brandId'>
+          {/* <ProtectedRoute exact path='/campaigns/:brandId'>
             <Layout>
               <Campaigns />
             </Layout>
-          </ProtectedRoute>
+          </ProtectedRoute> */}
           <ProtectedRoute exact path='/campaignDetail/:campaignId'>
             <Layout>
               <CampaignDetail />
