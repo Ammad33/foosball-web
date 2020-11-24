@@ -54,15 +54,45 @@
 			}
 			.wrapChip{
 				display: flex;
+				color: #3481EF;
 			
-				.campaignStatus {
-					
+				.statusDraft {
 					width: fit-content;
-					font: normal normal normal 13px/20px Poppins;
 					height: 28px;
 					margin-top: 20px;
-					// margin: 20px 0px;
+					background-color: #3481EF;
+					color: #FFFFFF;
+					font-family: Poppins;
+					font-size: 13px;
+					letter-spacing: 0;
+					line-height: 20px;
+					text-transform: lowercase;
 				}
+				.statusPending{
+					width: fit-content;
+					height: 28px;
+					margin-top: 20px;
+					background-color: #5D6FD3;
+					color: #FFFFFF;
+					font-family: Poppins;
+					font-size: 13px;
+					letter-spacing: 0;
+					line-height: 20px;
+					text-transform: lowercase;
+				}
+				.statusLive{
+					width: fit-content;
+					height: 28px;
+					margin-top: 20px;
+					background-color: #7B5CD9;
+					color: #FFFFFF;
+					font-family: Poppins;
+					font-size: 13px;
+					letter-spacing: 0;
+					line-height: 20px;
+					text-transform: lowercase;
+				}
+				
 				.personAvatar {
 					margin-top: 17px;
 					margin-left: 33px;

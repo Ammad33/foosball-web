@@ -52,10 +52,10 @@ const Login = () => {
     }
 	};
 
-	if (currentUser && currentUser !== null) {
-		getMeData();
+	// if (currentUser && currentUser !== null) {
+	// 	getMeData();
 
-  }
+  // }
 
   const getMeData = async () => {
     try {
@@ -88,10 +88,11 @@ const Login = () => {
 							phoneNumber
 						}
 				}`,
-      });
+			});
+			debugger;
       setMeData(mydata.data.me.organizations[0].organization.__typename);
       if (mydata.data.me.organizations[0].organization.__typename == 'Brand') {
-        history.push('/campaigns');
+        history.push(`/campaigns/${mydata.data.me.organizations[0].organization.id}`);
       } else {
         history.push('/influencer');
       }

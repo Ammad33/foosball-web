@@ -113,6 +113,7 @@ const BrandCampaignDetail = ({ campaignId }) => {
   };
 
   const getCampaign = async () => {
+		
     try {
       const campaign = await API.graphql({
         query: `{
@@ -143,8 +144,9 @@ const BrandCampaignDetail = ({ campaignId }) => {
             }
           }
       }`,
-      });
-      console.log('campaign', campaign.data.campaign)
+			});
+			debugger;
+      //console.log('campaign', campaign.data.campaign)
       setData(campaign.data.campaign)
     } catch (e) {
     }

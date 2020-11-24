@@ -9,7 +9,7 @@ import clsx from 'clsx';
 import moment from 'moment';
 
 
-const CampaignsCard = ({ campaign}) => {
+const CampaignsCard = ({ campaign }) => {
 	const convertedStartDate = moment(campaign.startDate*1000).format('MM-DD-YYYY');
 	const convertedEndDate = moment(campaign.endDate*1000).format('MM-DD-YYYY');
   return (
@@ -32,13 +32,45 @@ const CampaignsCard = ({ campaign}) => {
               <small>{convertedStartDate} / {convertedEndDate} </small>
             </span>
 						<div className={styles.wrapChip}>
-							<Chip
-								className={clsx(
-									styles.campaignStatus,
-									styles[`chip${campaign.status}`]
-								)}
-								label={campaign.status}
-							/>
+							  {campaign.status != "" ? (
+                    <div >
+                      {campaign.status == "PENDING" ? (
+                        <Chip
+													className={clsx(
+														styles.statusPending,
+														styles[`chip${campaign.status}`]
+													)}
+													label={campaign.status}
+												/>
+                      ) : campaign.status == "DRAFT" ? (
+                        <Chip
+													className={clsx(
+														styles.statusDraft,
+														styles[`chip${campaign.status}`]
+													)}
+													label={campaign.status}
+												/>
+                      ) : campaign.status == "LIVE" ? (
+                        <Chip
+													className={clsx(
+														styles.statusLive,
+														styles[`chip${campaign.status}`]
+													)}
+													label={campaign.status}
+												/>
+                      ) : (
+														<Chip
+														className={clsx(
+															styles.statusPending,
+															styles[`chip${campaign.status}`]
+														)}
+														label={campaign.status}
+													/>
+                      )}
+                    </div>
+                  ) : (
+                      ''
+                    )}							
 							<Avatar
 								className={styles.personAvatar}
 								src={

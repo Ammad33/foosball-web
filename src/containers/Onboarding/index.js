@@ -129,44 +129,45 @@ const Onboarding = () => {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
     if (activeSetp === 4) {
-      console.log(userType);
-      const data = {
-        input: {
-          currencyType: 'USD',
-          timezone: 10,
-        },
-      };
-      switch (userType) {
-        case 'brand':
-          const brandMutationQuery = `mutation createBrand($input: CreateBrandInput!) {
-            createBrand(input: $input) {
-              name
-              timezone
-              currencyType
-            }
-          }
-          `;
-          data.input.name = brandName;
-          await API.graphql(graphqlOperation(brandMutationQuery, data));
-          break;
+			/******************************* Api not completed  */
+      // console.log(userType);
+      // const data = {
+      //   input: {
+      //     currencyType: 'USD',
+      //     timezone: 10,
+      //   },
+      // };
+      // switch (userType) {
+      //   case 'brand':
+      //     const brandMutationQuery = `mutation createBrand($input: CreateBrandInput!) {
+      //       createBrand(input: $input) {
+      //         name
+      //         timezone
+      //         currencyType
+      //       }
+      //     }
+      //     `;
+      //     data.input.name = brandName;
+      //     await API.graphql(graphqlOperation(brandMutationQuery, data));
+      //     break;
 
-        case 'influencer':
-          const influencerMutationQuery = `mutation createInfluencer($input: CreateInfluencerInput!) {
-            createInfluencer(input: $input) {
-              name
-              timezone
-              currencyType
-            }
-          }
-          `;
-          data.input.name = displayName;
-          await API.graphql(graphqlOperation(influencerMutationQuery, data));
-          break;
+      //   case 'influencer':
+      //     const influencerMutationQuery = `mutation createInfluencer($input: CreateInfluencerInput!) {
+      //       createInfluencer(input: $input) {
+      //         name
+      //         timezone
+      //         currencyType
+      //       }
+      //     }
+      //     `;
+      //     data.input.name = displayName;
+      //     await API.graphql(graphqlOperation(influencerMutationQuery, data));
+      //     break;
 
-        default:
-          break;
-      }
-      // history.push('/signup');
+      //   default:
+      //     break;
+      // }
+       history.push('/signup');
     }
   };
 
@@ -206,7 +207,7 @@ const Onboarding = () => {
   };
 
   const setActiveForCode = () => {
-    if (first !== '' && second !== '' && third !== '' && fourth !== '') {
+    if (first == 1 && second == 1 && third == 1 && fourth == 1) {
       setActiveNext(true);
     } else setActiveNext(false);
   };

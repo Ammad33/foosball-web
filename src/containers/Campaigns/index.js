@@ -5,7 +5,7 @@ import CampaignsCard from './CampaignsCard';
 import AddIcon from '@material-ui/icons/Add';
 import styles from './Campaings.module.scss';
 import AddCampaign from '../AddCampaign';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { API } from 'aws-amplify';
 import SVG from 'react-inlinesvg';
 import { makeStyles } from '@material-ui/core/styles';
@@ -124,6 +124,7 @@ const IconCampaign = () => {
   return <SVG src={require('../../assets/Campaigns_large.svg')} />;
 };
 const Campaigns = () => {
+	const { brandId } = useParams();
   const history = useHistory();
   const [active, setActive] = useState('ALL');
   const [campaigns, setCampaigns] = useState([]);
@@ -133,7 +134,7 @@ const Campaigns = () => {
     try {
       const campaigns = await API.graphql({
         query: `{
-        campaigns(brandId: "8ece73cc-3079-4f45-b7bb-4f6007c8344d") {
+        campaigns(brandId: "${brandId}") {
           campaigns {
             name
             description

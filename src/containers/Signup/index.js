@@ -42,8 +42,8 @@ const Signup = () => {
   } = useContext(RootContext);
 
   const [passwordShown, setPasswordShown] = useState(false);
-  const [username, setFullname] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setFullname] = useState('');
+  const [username, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [errorState, setErrorState] = useState(false);
@@ -58,7 +58,7 @@ const Signup = () => {
         const user = await Auth.signUp({
           username,
           password,
-          attributes: { email },
+          attributes: { name },
         });
         console.log('response of signup usre, ', user);
         setErrorState(false);

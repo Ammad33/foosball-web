@@ -24,9 +24,12 @@ import Translation from '../../assets/translation.json';
 import SVG from 'react-inlinesvg';
 import { API, graphqlOperation } from 'aws-amplify';
 import logo from '../../assets/FomoPromo_logo__white.png';
+import { useParams } from 'react-router-dom';
+
 
 let typ = '';
 let val = '';
+
 
 const XSVG = () => {
   return <SVG src={require('../../assets/x.svg')} />;
@@ -297,6 +300,7 @@ function getSteps() {
 const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   /****** Stepper States ********/
 
+	const { brandId } = useParams();
   const steps = getSteps();
   const [activeStep, setActiveStep] = useState(step ? step : 1);
   const [activeNext, setActiveNext] = useState(false);
@@ -809,7 +813,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     } else {
       setActiveNext(false);
     }
-  };
+	};
+	
 
   const createCampaign = async () => {
 
@@ -835,11 +840,12 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         `,
           {
             input: {
-              brandId: '8ece73cc-3079-4f45-b7bb-4f6007c8344d',
+              brandId: brandId,
               name: campaignName,
               startDate: Date.parse(`${startDate} ${startTime}`) / 1000,
               endDate: Date.parse(`${endDate} ${endTime}`) / 1000,
-              discount: { value: val, type: typ },
+							discount: { value: val, type: typ },
+							invitationMessage: customeMessage,
               budget: { amount: budget, currency: 'USD' },
               targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
             },
