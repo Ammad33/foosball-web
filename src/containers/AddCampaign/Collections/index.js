@@ -115,7 +115,6 @@ const Collection = ({
 
 	}
 
-	debugger;
   const [open, setOpen] = useState(false);
   return (
     <Grid container>

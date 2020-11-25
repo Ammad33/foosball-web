@@ -89,7 +89,6 @@ const Login = () => {
 						}
 				}`,
 			});
-			debugger;
       setMeData(mydata.data.me.organizations[0].organization.__typename);
       if (mydata.data.me.organizations[0].organization.__typename == 'Brand') {
         history.push(`/campaigns`);

@@ -145,7 +145,6 @@ const BrandCampaignDetail = ({ campaignId }) => {
           }
       }`,
 			});
-			debugger;
       //console.log('campaign', campaign.data.campaign)
       setData(campaign.data.campaign)
     } catch (e) {

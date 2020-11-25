@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, InputAdornment, Select } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CampaignsCard from './CampaignsCard';
+import FormControl from '@material-ui/core/FormControl';
 import AddIcon from '@material-ui/icons/Add';
 import styles from './Campaings.module.scss';
+import SelectMenu from '../../components/SelectMenu';
+import MenuItem from '@material-ui/core/MenuItem';
 import AddCampaign from '../AddCampaign';
 import { useHistory, useParams } from 'react-router-dom';
 import { API } from 'aws-amplify';
@@ -123,18 +126,76 @@ const campaignsData = [
 const IconCampaign = () => {
   return <SVG src={require('../../assets/Campaigns_large.svg')} />;
 };
+
+
 const Campaigns = () => {
-	const { brandId } = useParams();
   const history = useHistory();
   const [active, setActive] = useState('ALL');
   const [campaigns, setCampaigns] = useState([]);
-  const [addCampaign, setAddCampagin] = useState(false);
+	const [addCampaign, setAddCampagin] = useState(false);
+	const [brandId, setBrandId] = useState([]);
+	const [meData, setMeData] = useState([]);
+	const [brandName, setBrandName] = useState([]);
+
+
+	useEffect(() => {
+		getMeData();
+	}, []);
+
+	const handleBrandId = (value) => {
+		setBrandId(value.organization.id);
+	}
+	const handleMeData = (value) => {
+		console.log(value);
+	}
+	
+
+	const getMeData = async () => {
+    try {
+      const mydata = await API.graphql({
+        query: `{
+						me {
+							email
+							fullName
+							id
+							organizations {
+								organization {
+									id
+									name
+									__typename
+									... on Influencer {
+										invites {
+										name
+										}
+									}
+									imageUrl
+									email
+								}
+							}
+							about
+							age
+							companyTitle
+							imageUrl
+							joined
+							modified
+							phoneNumber
+						}
+				}`,
+			});
+			setBrandId(mydata.data.me.organizations[0].organization.id);
+			setMeData(mydata.data.me.organizations)
+			setBrandName(mydata.data.me.organizations[0].organization.__typename)
+			
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const getCampaigns = async () => {
     try {
       const campaigns = await API.graphql({
         query: `{
-        campaigns(brandId: "8ece73cc-3079-4f45-b7bb-4f6007c8344d") {
+        campaigns(brandId: "${brandId}") {
           campaigns {
             name
             description
@@ -148,29 +209,56 @@ const Campaigns = () => {
       });
       setCampaigns(campaigns.data.campaigns.campaigns);
     } catch (e) { }
-  };
+	};
 
   useEffect(() => {
     getCampaigns();
-  }, []);
-
+	}, [brandId,addCampaign]);
+	
   return (
     <>
       <AddCampaign
         open={addCampaign}
-        handleCancel={() => setAddCampagin(false)}
+				handleCancel={() => setAddCampagin(false)}
+				brandId = {brandId} 
+
       />
       <div className={styles.campaignsContainer}>
         <div className={styles.CampaignHeadingContainer}>
           <div className={styles.CampaignHeading}>
             <span>Campaigns</span>
-            <p>
+						<Grid item xs={12} sm={12} md={6} >
+							<FormControl fullWidth variant='outlined' className = {styles.SelectBrandId}>
+								<Select
+									id='Select Brand Id'
+									fullWidth
+									label='Select Brand Id'
+									variant='outlined'
+									value= {brandId}
+									
+									onChange={(e) =>
+										handleBrandId(e.target.value)
+									}
+									
+									MenuProps={{ variant: 'menu' }}
+									input={<SelectMenu />}
+								>
+									<MenuItem value='brandId' disabled>
+										Brand Id
+									</MenuItem>
+									{meData.map((item) => (
+										<MenuItem value={item}>{item.organization.id} </MenuItem>
+									))}
+								</Select>
+							</FormControl>
+						</Grid>
+            {/* <p>
               Most recent <ExpandMoreIcon fontSize='small' />
-            </p>
+            </p> */}
           </div>
-          <button onClick={() => setAddCampagin(true)}>
-            <AddIcon /> New Campaign
-          </button>
+						<button onClick={() => setAddCampagin(true)}>
+							<AddIcon /> New Campaign
+						</button>
         </div>
         <div className={styles.CampaignHeadingButton}>
           <button

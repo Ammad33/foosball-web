@@ -297,10 +297,10 @@ function getSteps() {
 
 /*********Main Container of Add Campaign ************/
 
-const AddCampaign = ({ open, handleCancel, step, campaign }) => {
-  /****** Stepper States ********/
+const AddCampaign = ({ open, handleCancel, step, campaign , brandId }) => {
+	/****** Stepper States ********/
 
-	const { brandId } = useParams();
+
   const steps = getSteps();
   const [activeStep, setActiveStep] = useState(step ? step : 1);
   const [activeNext, setActiveNext] = useState(false);
@@ -569,7 +569,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   /***** Add New Compesation */
 
   const handleCompensations = () => {
-    debugger;
     //const pro = [...compensationProducts]
     const comp = [...compensations];
 
@@ -840,7 +839,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         `,
           {
             input: {
-              brandId: "8ece73cc-3079-4f45-b7bb-4f6007c8344d",
+              brandId: brandId,
               name: campaignName,
               startDate: Date.parse(`${startDate} ${startTime}`) / 1000,
               endDate: Date.parse(`${endDate} ${endTime}`) / 1000,
@@ -851,9 +850,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             },
           }
         )
-      );
+			);
+			// getCampaigns(true);
       handleCancel();
-      window.location.reload(false);
     } catch (e) {
       console.log('Error in mutation for create campaign ', e);
     }
