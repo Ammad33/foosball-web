@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { Grid } from '@material-ui/core'
 import TextField from '../../../components/TextField';
 
-const DisplayName = ({ displayName, handleDisplayName }) => {
+const DisplayName = ({ displayName, handleDisplayName ,handleActiveForDisplay}) => {
     useEffect(() => {
-
+			handleActiveForDisplay();
     }, [displayName])
     return (
         <Grid item md={12}>

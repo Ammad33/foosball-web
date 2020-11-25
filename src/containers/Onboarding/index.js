@@ -100,14 +100,15 @@ const Onboarding = () => {
   const history = useHistory();
   const [activeStep, setActiveStep] = useState(1);
   const [activeNext, setActiveNext] = useState(false);
-  const [userType, setUserType] = useState('');
+  const [userType, setUserType] = useState('influencer');
   const [first, setFirst] = useState('');
   const [second, setSecond] = useState('');
   const [third, setThird] = useState('');
   const [fourth, setFourth] = useState('');
   const [brandName, setBrandName] = useState('');
   const [displayName, setDisplayName] = useState('');
-  const [stepsName, setStepsNames] = useState(['Initial Step', 'User Type']);
+	const [stepsName, setStepsNames] = useState(['Initial Step', 'User Type']);
+	const [stepper , setStepper] = useState(['first','second','third','fourth'])
   const codeEl1 = useRef(null);
   const codeEl2 = useRef(null);
   const codeEl3 = useRef(null);
@@ -115,58 +116,81 @@ const Onboarding = () => {
 
   const subHeading = [
     '',
-    'Tell us what type of user you are so wen can personalize your experince',
-    'Enter the registration code your received in your email',
+    'Tell us just a few things about you so that we can personalize your experince',
     `This is the name that will apear on your brand's public profile`,
     'Setup your primary and secondary billing methods',
+    
   ];
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
   const handleNext = async (activeSetp, e) => {
-    if (activeSetp !== 4) {
+    if (activeSetp !== 3) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    }
-    if (activeSetp === 4) {
+		}
+		if (activeSetp === 1) {
+			if (userType === 'brand') {
+				let sets = [
+					'Initial Step',
+					'User Type',
+					// 'Registration Code',
+					'Brand Name',
+					'Billing',
+				];
+				setStepsNames(sets);
+			} 
+			else if (userType === 'influencer'){
+				let sets = [
+					'Initial Step',
+					'User Type',
+					// 'Registration Code',
+					'Display Name',
+					'Billing',
+				];
+				setStepsNames(sets);
+			}
+			
+		}
+    if (activeSetp === 3) {
 			/******************************* Api not completed  */
-      // console.log(userType);
-      // const data = {
-      //   input: {
-      //     currencyType: 'USD',
-      //     timezone: 10,
-      //   },
-      // };
-      // switch (userType) {
-      //   case 'brand':
-      //     const brandMutationQuery = `mutation createBrand($input: CreateBrandInput!) {
-      //       createBrand(input: $input) {
-      //         name
-      //         timezone
-      //         currencyType
-      //       }
-      //     }
-      //     `;
-      //     data.input.name = brandName;
-      //     await API.graphql(graphqlOperation(brandMutationQuery, data));
-      //     break;
+      console.log(userType);
+      const data = {
+        input: {
+          currencyType: 'USD',
+          timezone: 10,
+        },
+      };
+      switch (userType) {
+        case 'brand':
+          const brandMutationQuery = `mutation createBrand($input: CreateBrandInput!) {
+            createBrand(input: $input) {
+              name
+              timezone
+              currencyType
+            }
+          }
+          `;
+          data.input.name = brandName;
+          await API.graphql(graphqlOperation(brandMutationQuery, data));
+          break;
 
-      //   case 'influencer':
-      //     const influencerMutationQuery = `mutation createInfluencer($input: CreateInfluencerInput!) {
-      //       createInfluencer(input: $input) {
-      //         name
-      //         timezone
-      //         currencyType
-      //       }
-      //     }
-      //     `;
-      //     data.input.name = displayName;
-      //     await API.graphql(graphqlOperation(influencerMutationQuery, data));
-      //     break;
+        case 'influencer':
+          const influencerMutationQuery = `mutation createInfluencer($input: CreateInfluencerInput!) {
+            createInfluencer(input: $input) {
+              name
+              timezone
+              currencyType
+            }
+          }
+          `;
+          data.input.name = displayName;
+          await API.graphql(graphqlOperation(influencerMutationQuery, data));
+          break;
 
-      //   default:
-      //     break;
-      // }
+        default:
+          break;
+      }
        history.push('/signup');
     }
   };
@@ -179,31 +203,32 @@ const Onboarding = () => {
 
   const handleUserType = (value) => {
     setUserType(value);
-    if (value === 'brand') {
-      let sets = [
-        'Initial Step',
-        'User Type',
-        'Registration Code',
-        'Brand Name',
-        'Billing',
-      ];
-      setStepsNames(sets);
-    } else {
-      let sets = [
-        'Initial Step',
-        'User Type',
-        'Registration Code',
-        'Display Name',
-        'Billing',
-      ];
-      setStepsNames(sets);
-    }
+    // if (value === 'brand') {
+    //   let sets = [
+    //     'Initial Step',
+    //     'User Type',
+    //     'Registration Code',
+    //     'Brand Name',
+    //     'Billing',
+    //   ];
+    //   setStepsNames(sets);
+    // } else {
+    //   let sets = [
+    //     'Initial Step',
+    //     'User Type',
+    //     'Registration Code',
+    //     'Display Name',
+    //     'Billing',
+    //   ];
+    //   setStepsNames(sets);
+    // }
   };
 
   const setActiveNextForUserType = () => {
     if (userType !== '') {
       setActiveNext(true);
-    } else setActiveNext(false);
+		} 
+		 else setActiveNext(false);
   };
 
   const setActiveForCode = () => {
@@ -219,7 +244,7 @@ const Onboarding = () => {
   };
 
   const setActiveForDisplay = () => {
-    if (displayName !== '' && userType !== 'brand') {
+    if (displayName !== '' && userType === 'influencer') {
       setActiveNext(true);
     } else setActiveNext(false);
   };
@@ -234,33 +259,33 @@ const Onboarding = () => {
             handleActiveForUserType={setActiveNextForUserType}
           />
         );
+      // case 2:
+      //   return (
+      //     <RegistrationCode
+      //       first={first}
+      //       second={second}
+      //       third={third}
+      //       fourth={fourth}
+      //       codeEl1={codeEl1}
+      //       codeEl2={codeEl2}
+      //       codeEl3={codeEl3}
+      //       codeEl4={codeEl4}
+      //       handleFirst={(e) => {
+      //         setFirst(e.target.value.toUpperCase());
+      //       }}
+      //       handleSecond={(e) => {
+      //         setSecond(e.target.value.toUpperCase());
+      //       }}
+      //       handleThird={(e) => {
+      //         setThird(e.target.value.toUpperCase());
+      //       }}
+      //       handleFourth={(e) => {
+      //         setFourth(e.target.value.toUpperCase());
+      //       }}
+      //       handleActiveForCode={setActiveForCode}
+      //     />
+      //   );
       case 2:
-        return (
-          <RegistrationCode
-            first={first}
-            second={second}
-            third={third}
-            fourth={fourth}
-            codeEl1={codeEl1}
-            codeEl2={codeEl2}
-            codeEl3={codeEl3}
-            codeEl4={codeEl4}
-            handleFirst={(e) => {
-              setFirst(e.target.value.toUpperCase());
-            }}
-            handleSecond={(e) => {
-              setSecond(e.target.value.toUpperCase());
-            }}
-            handleThird={(e) => {
-              setThird(e.target.value.toUpperCase());
-            }}
-            handleFourth={(e) => {
-              setFourth(e.target.value.toUpperCase());
-            }}
-            handleActiveForCode={setActiveForCode}
-          />
-        );
-      case 3:
         return userType === 'brand' ? (
           <BrandName
             brandName={brandName}
@@ -274,7 +299,7 @@ const Onboarding = () => {
             handleActiveForDisplay={setActiveForDisplay}
           />
         );
-      case 4:
+      case 3:
         return <Billing />;
       default:
         return 'Unknown step';
@@ -350,7 +375,7 @@ const Onboarding = () => {
                   </p>
                   <h2>{stepsName[activeStep]}</h2>
                   <p className={styles.subHeading}>
-                    {activeStep === 3 && userType !== 'brand'
+                    {activeStep === 2 && userType !== 'brand'
                       ? 'This is the name that appears on your public profile, use what will be the most recognizable'
                       : subHeading[activeStep]}
                   </p>
@@ -361,7 +386,7 @@ const Onboarding = () => {
                   connector={<QontoConnector />}
                   className={styles.stepperContainer}
                 >
-                  {stepsName.map((label) => (
+                  {stepper.map((label) => (
                     <Step key={label}>
                       <StepLabel StepIconComponent={QontoStepIcon}></StepLabel>
                     </Step>
@@ -387,7 +412,7 @@ const Onboarding = () => {
                 )}
                 disabled={!activeNext}
               >
-                {activeStep == 4 ? 'Complete' : 'Next'}
+                {activeStep == 3 ? 'Complete' : 'Next'}
               </button>
             </div>
           </div>
