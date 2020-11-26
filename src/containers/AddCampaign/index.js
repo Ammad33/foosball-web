@@ -26,10 +26,8 @@ import { API, graphqlOperation } from 'aws-amplify';
 import logo from '../../assets/FomoPromo_logo__white.png';
 import { useParams } from 'react-router-dom';
 
-
 let typ = '';
 let val = '';
-
 
 const XSVG = () => {
   return <SVG src={require('../../assets/x.svg')} />;
@@ -300,8 +298,8 @@ function getSteps() {
 const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   /****** Stepper States ********/
 
-  console.log(campaign);
-  console.log(brandId);
+  console.log('campaign=> ', campaign);
+  console.log('brandId=> ', brandId);
   const steps = getSteps();
   const [activeStep, setActiveStep] = useState(step ? step : 1);
   const [activeNext, setActiveNext] = useState(false);
@@ -361,35 +359,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
     },
   ]);
 
-
-
-  const updateCampaign = async () => {
-
-    const start = Date.parse(`${endDate} ${endTime}`) / 1000;
-    const end = Date.parse(`${startDate} ${startTime}`) / 1000;
-
-    await API.graphql(
-      graphqlOperation(
-        `mutation updateCampaign(input : $input) {
-          id
-        }`,
-        {
-          input: {
-            endDate: end,
-            id: campaign.id,
-            name: campaignName,
-            brandId: "8ece73cc-3079-4f45-b7bb-4f6007c8344d",
-            startDate: start
-          }
-        }
-      )
-    );
-  };
-
   useEffect(() => {
     setActiveStep(step !== undefined ? step : 1);
     if (campaign && campaign !== null) {
-
       setCampaignName(campaign.name);
 
       const startDate = new Date(campaign.startDate * 1000);
@@ -397,19 +369,36 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
 
       setStartDate(moment(startDate).format('MM/DD/YYYY'));
       setEndDate(moment(endDate).format('MM/DD/YYYY'));
-      setStartTime(moment(startDate).subtract(1, 'days').startOf('day').format('HH:mm'));
-      setEndTime(moment(endDate).subtract(1, 'days').startOf('day').format('HH:mm'));
-      setDiscount(campaign.discount && campaign.discount !== null ? campaign.discount.__typename === 'FlatDiscount' ? campaign.discount.amount.amount : campaign.discount.percentage : '');
-      setDiscountType(campaign.discount && campaign.discount !== null ? campaign.discount.__typename === 'PercentageDiscount' ? 'Percentage' : campaign.discount.__typename === 'FlatDiscount' ? 'Amount' : '' : '')
+      setStartTime(
+        moment(startDate).subtract(1, 'days').startOf('day').format('HH:mm')
+      );
+      setEndTime(
+        moment(endDate).subtract(1, 'days').startOf('day').format('HH:mm')
+      );
+      setDiscount(
+        campaign.discount && campaign.discount !== null
+          ? campaign.discount.__typename === 'FlatDiscount'
+            ? campaign.discount.amount.amount
+            : campaign.discount.percentage
+          : ''
+      );
+      setDiscountType(
+        campaign.discount && campaign.discount !== null
+          ? campaign.discount.__typename === 'PercentageDiscount'
+            ? 'Percentage'
+            : campaign.discount.__typename === 'FlatDiscount'
+            ? 'Amount'
+            : ''
+          : ''
+      );
 
       if (campaign.budget && campaign.budget) {
-        setBudget(campaign.budget.amount)
+        setBudget(campaign.budget.amount);
       }
 
       if (campaign.targetGrossSales && campaign.targetGrossSales) {
-        setTargetGrossSale(campaign.targetGrossSales.amount)
+        setTargetGrossSale(campaign.targetGrossSales.amount);
       }
-
     }
   }, [step]);
 
@@ -840,9 +829,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
     }
   };
 
-
   const createCampaign = async () => {
-
     try {
       if (discountType === 'Amount') {
         typ = 'FLAT';
@@ -881,6 +868,38 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
       handleCancel();
     } catch (e) {
       console.log('Error in mutation for create campaign ', e);
+    }
+  };
+
+  const updateCampaign = async () => {
+    console.log('update campaign');
+    try {
+      const start = Date.parse(`${endDate} ${endTime}`) / 1000;
+      const end = Date.parse(`${startDate} ${startTime}`) / 1000;
+
+      await API.graphql(
+        graphqlOperation(
+          `mutation updateCampaign($input : UpdateCampaignInput!) {
+            updateCampaign(input: $input) {
+              name
+            }
+        }`,
+          {
+            input: {
+              brandId: '8ece73cc-3079-4f45-b7bb-4f6007c8344d',
+              id: campaign.id,
+              name: campaignName,
+              endDate: end,
+              startDate: start,
+              // discount: { type: typ, value: val },
+              // budget: { amount: budget, currency: 'USD' },
+              // targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
+            },
+          }
+        )
+      );
+    } catch (e) {
+      console.log('update campaign error ', e);
     }
   };
 
@@ -1066,7 +1085,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
             handleCompensationValue={handleCompensationValue}
             handleRemoveCompensation={handleRemoveCompensation}
             handleActiveForCompensation={setActiveForCompensation}
-
             compensationProduct={compensationProduct}
             handleCompensationProducts={handleCompensationProducts}
             compensationProductItems={items}
@@ -1202,8 +1220,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                              <CheckCircleIconSvg viewBox='0 0 31 31' />
-                            )}
+                        <CheckCircleIconSvg viewBox='0 0 31 31' />
+                      )}
                       <span
                         className={
                           activeStep === index
@@ -1216,19 +1234,19 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                       </span>
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
                       {activeStep > index ? (
                         <div className={styles.activeBar} />
                       ) : (
-                          <div className={styles.inActiveBar} />
-                        )}
+                        <div className={styles.inActiveBar} />
+                      )}
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                 </>
               ))}
             </div>
@@ -1241,8 +1259,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                    <div></div>
-                  )}
+                  <div></div>
+                )}
                 <span onClick={handleCancelCampaignDialog}>
                   <XSVG />
                 </span>
@@ -1281,8 +1299,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                 {activeSave ? (
                   <span
                     onClick={() => {
-                      campaign !== undefined ? updateCampaign() :
-                        createCampaign();
+                      campaign !== undefined
+                        ? updateCampaign()
+                        : createCampaign();
                     }}
                   >
                     Save and finish later
