@@ -170,43 +170,43 @@ const Onboarding = () => {
 		}
     if (activeSetp === 3) {
 			/******************************* Api not completed  */
-      // console.log(userType);
-      // const data = {
-      //   input: {
-      //     currencyType: 'USD',
-      //     timezone: 10,
-      //   },
-      // };
-      // switch (userType) {
-      //   case 'brand':
-      //     const brandMutationQuery = `mutation createBrand($input: CreateBrandInput!) {
-      //       createBrand(input: $input) {
-      //         name
-      //         timezone
-      //         currencyType
-      //       }
-      //     }
-      //     `;
-      //     data.input.name = brandName;
-      //     await API.graphql(graphqlOperation(brandMutationQuery, data));
-      //     break;
+      console.log(userType);
+      const data = {
+        input: {
+          currencyType: 'USD',
+          timezone: 10,
+        },
+      };
+      switch (userType) {
+        case 'brand':
+          const brandMutationQuery = `mutation createBrand($input: CreateBrandInput!) {
+            createBrand(input: $input) {
+              name
+              timezone
+              currencyType
+            }
+          }
+          `;
+          data.input.name = brandName;
+          await API.graphql(graphqlOperation(brandMutationQuery, data));
+          break;
 
-      //   case 'influencer':
-      //     const influencerMutationQuery = `mutation createInfluencer($input: CreateInfluencerInput!) {
-      //       createInfluencer(input: $input) {
-      //         name
-      //         timezone
-      //         currencyType
-      //       }
-      //     }
-      //     `;
-      //     data.input.name = displayName;
-      //     await API.graphql(graphqlOperation(influencerMutationQuery, data));
-      //     break;
+        case 'influencer':
+          const influencerMutationQuery = `mutation createInfluencer($input: CreateInfluencerInput!) {
+            createInfluencer(input: $input) {
+              name
+              timezone
+              currencyType
+            }
+          }
+          `;
+          data.input.name = displayName;
+          await API.graphql(graphqlOperation(influencerMutationQuery, data));
+          break;
 
-      //   default:
-      //     break;
-      // }
+        default:
+          break;
+      }
       history.push('/signup');
     }
   };
