@@ -297,10 +297,11 @@ function getSteps() {
 
 /*********Main Container of Add Campaign ************/
 
-const AddCampaign = ({ open, handleCancel, step, campaign , brandId }) => {
-	/****** Stepper States ********/
+const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
+  /****** Stepper States ********/
 
-
+  console.log(campaign);
+  console.log(brandId);
   const steps = getSteps();
   const [activeStep, setActiveStep] = useState(step ? step : 1);
   const [activeNext, setActiveNext] = useState(false);
@@ -359,6 +360,31 @@ const AddCampaign = ({ open, handleCancel, step, campaign , brandId }) => {
       perTimePeriod: '',
     },
   ]);
+
+
+
+  const updateCampaign = async () => {
+
+    const start = Date.parse(`${endDate} ${endTime}`) / 1000;
+    const end = Date.parse(`${startDate} ${startTime}`) / 1000;
+
+    await API.graphql(
+      graphqlOperation(
+        `mutation updateCampaign(input : $input) {
+          id
+        }`,
+        {
+          input: {
+            endDate: end,
+            id: campaign.id,
+            name: campaignName,
+            brandId: "8ece73cc-3079-4f45-b7bb-4f6007c8344d",
+            startDate: start
+          }
+        }
+      )
+    );
+  };
 
   useEffect(() => {
     setActiveStep(step !== undefined ? step : 1);
@@ -812,8 +838,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign , brandId }) => {
     } else {
       setActiveNext(false);
     }
-	};
-	
+  };
+
 
   const createCampaign = async () => {
 
@@ -828,30 +854,30 @@ const AddCampaign = ({ open, handleCancel, step, campaign , brandId }) => {
       await API.graphql(
         graphqlOperation(
           `mutation createCampaign($input: CreateCampaignInput!) {
-          createCampaign(input: $input) {
-            id
-						name
-						startDate
-						endDate
-						
-          }
-        }
-        `,
+  createCampaign(input: $input) {
+    id
+    name
+    startDate
+    endDate
+
+  }
+}
+`,
           {
             input: {
               brandId: brandId,
               name: campaignName,
-              startDate: Date.parse(`${startDate} ${startTime}`) / 1000,
-              endDate: Date.parse(`${endDate} ${endTime}`) / 1000,
-							discount: { value: val, type: typ },
-							invitationMessage: customeMessage,
+              startDate: Date.parse(`${startDate} ${startTime} `) / 1000,
+              endDate: Date.parse(`${endDate} ${endTime} `) / 1000,
+              discount: { value: val, type: typ },
+              invitationMessage: customeMessage,
               budget: { amount: budget, currency: 'USD' },
               targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
             },
           }
         )
-			);
-			// getCampaigns(true);
+      );
+      // getCampaigns(true);
       handleCancel();
     } catch (e) {
       console.log('Error in mutation for create campaign ', e);
@@ -1039,8 +1065,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign , brandId }) => {
             handleCompensations={handleCompensations}
             handleCompensationValue={handleCompensationValue}
             handleRemoveCompensation={handleRemoveCompensation}
-						handleActiveForCompensation={setActiveForCompensation}
-						
+            handleActiveForCompensation={setActiveForCompensation}
+
             compensationProduct={compensationProduct}
             handleCompensationProducts={handleCompensationProducts}
             compensationProductItems={items}
@@ -1255,7 +1281,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign , brandId }) => {
                 {activeSave ? (
                   <span
                     onClick={() => {
-                      createCampaign();
+                      campaign !== undefined ? updateCampaign() :
+                        createCampaign();
                     }}
                   >
                     Save and finish later
