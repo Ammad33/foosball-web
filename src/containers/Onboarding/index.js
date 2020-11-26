@@ -107,7 +107,7 @@ const Onboarding = () => {
   const [fourth, setFourth] = useState('');
   const [brandName, setBrandName] = useState('');
   const [displayName, setDisplayName] = useState('');
-	const [stepsName, setStepsNames] = useState(['Initial Step', 'User Type']);
+	const [stepsName, setStepsNames] = useState(['Initial Step', 'What type of user are you?']);
 	const [stepper , setStepper] = useState(['first','second','third','fourth'])
   const codeEl1 = useRef(null);
   const codeEl2 = useRef(null);
@@ -116,8 +116,8 @@ const Onboarding = () => {
 
   const subHeading = [
     '',
-    'Tell us just a few things about you so that we can personalize your experince',
-    `This is the name that will apear on your brand's public profile`,
+    'Tell us what type of user you are so we can personalize your experience',
+    `This is the name that will appear on your brand's public profile`,
     'Setup your primary and secondary billing methods',
     
   ];
@@ -133,7 +133,7 @@ const Onboarding = () => {
 			if (userType === 'brand') {
 				let sets = [
 					'Initial Step',
-					'User Type',
+					'What type of user are you?',
 					// 'Registration Code',
 					'Brand Name',
 					'Billing',
@@ -143,7 +143,7 @@ const Onboarding = () => {
 			else if (userType === 'influencer'){
 				let sets = [
 					'Initial Step',
-					'User Type',
+					'What type of user are you?',
 					// 'Registration Code',
 					'Display Name',
 					'Billing',
@@ -154,44 +154,44 @@ const Onboarding = () => {
 		}
     if (activeSetp === 3) {
 			/******************************* Api not completed  */
-      console.log(userType);
-      const data = {
-        input: {
-          currencyType: 'USD',
-          timezone: 10,
-        },
-      };
-      switch (userType) {
-        case 'brand':
-          const brandMutationQuery = `mutation createBrand($input: CreateBrandInput!) {
-            createBrand(input: $input) {
-              name
-              timezone
-              currencyType
-            }
-          }
-          `;
-          data.input.name = brandName;
-          await API.graphql(graphqlOperation(brandMutationQuery, data));
-          break;
+      // console.log(userType);
+      // const data = {
+      //   input: {
+      //     currencyType: 'USD',
+      //     timezone: 10,
+      //   },
+      // };
+      // switch (userType) {
+      //   case 'brand':
+      //     const brandMutationQuery = `mutation createBrand($input: CreateBrandInput!) {
+      //       createBrand(input: $input) {
+      //         name
+      //         timezone
+      //         currencyType
+      //       }
+      //     }
+      //     `;
+      //     data.input.name = brandName;
+      //     await API.graphql(graphqlOperation(brandMutationQuery, data));
+      //     break;
 
-        case 'influencer':
-          const influencerMutationQuery = `mutation createInfluencer($input: CreateInfluencerInput!) {
-            createInfluencer(input: $input) {
-              name
-              timezone
-              currencyType
-            }
-          }
-          `;
-          data.input.name = displayName;
-          await API.graphql(graphqlOperation(influencerMutationQuery, data));
-          break;
+      //   case 'influencer':
+      //     const influencerMutationQuery = `mutation createInfluencer($input: CreateInfluencerInput!) {
+      //       createInfluencer(input: $input) {
+      //         name
+      //         timezone
+      //         currencyType
+      //       }
+      //     }
+      //     `;
+      //     data.input.name = displayName;
+      //     await API.graphql(graphqlOperation(influencerMutationQuery, data));
+      //     break;
 
-        default:
-          break;
-      }
-       history.push('/signup');
+      //   default:
+      //     break;
+      // }
+      history.push('/signup');
     }
   };
 
@@ -371,7 +371,7 @@ const Onboarding = () => {
               <div className={styles.stepperAndComponent}>
                 <div className={styles.stepperNumberAndNameContainer}>
                   <p>
-                    STEP {activeStep} OF {stepsName.length - 1}
+                    STEP {activeStep} OF 3
                   </p>
                   <h2>{stepsName[activeStep]}</h2>
                   <p className={styles.subHeading}>

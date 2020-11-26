@@ -6,6 +6,8 @@ import { Plus, HelpCircle } from 'react-feather';
 import paypal from '../../../assets/paypal.png';
 import clsx from 'clsx';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import { Link } from 'react-router-dom';
+ 
 
 const Billing = () => {
 
@@ -30,8 +32,8 @@ const Billing = () => {
   return (
     <div>
       <p className={styles.billingHeading}>
-        You will be billed automatically every 30 days. See our pricing model
-        for billing info.
+        You will be billed automatically every 30 days. See our <Link to='#'>pricing model </Link> 
+         for billing info.
       </p>
       <p className={styles.primary}>Primary Payment</p>
       <Grid container spacing={3}>
