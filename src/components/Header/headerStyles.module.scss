@@ -13,6 +13,7 @@
 			letter-spacing: 0;
 			line-height: 27px;
 			margin-left: 13px;
+			text-transform: capitalize;
 		}	
 		.email {
 			color: #000000;
@@ -20,6 +21,7 @@
 			font-size: 13px;
 			letter-spacing: 0;
 			line-height: 20px;
+			text-transform: lowercase;
 
 		}
 	}

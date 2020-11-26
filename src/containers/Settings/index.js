@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import styles from './Setting.module.scss';
 import Notifications from './Notifications';
-
+import { API } from 'aws-amplify';
 import Account from './Account';
 import ConnectedAccounts from './ConnectedAccounts';
 import Contacts from './Contacts';
@@ -15,7 +15,15 @@ const Setting = () => {
   const [influncerPosts, setInfluncerPosts] = useState(false);
   const [campaignStart, setCampaignStart] = useState(false);
   const [influencers, setInfluncers] = useState([]);
-  const [brands, setBrands] = useState([]);
+	const [brands, setBrands] = useState([]);
+	const [meData, setMeData] = useState([]);
+	const [fullName , setFullName] = useState('');
+	const [email , setEmail] = useState('');
+ 	const [brandName, setBrandName] = useState([]);
+	const [brandId, setBrandId] = useState([]);
+	useEffect(() => {
+		myData();
+	}, []);
 
   const [newBrand, setNewBrand] = useState({
     brandName: '',
@@ -169,12 +177,68 @@ const Setting = () => {
     data.push(newBrand);
     setBrands(data);
 
-  }
+	}
+	const myData =  async () => {
+		try {
+			const mydata = await API.graphql({
+				query: `{
+					me {
+						email
+						fullName
+						id
+						organizations {
+							organization {
+								id
+								name
+								__typename
+								... on Influencer {
+									invites {
+									name
+									}
+								}
+								imageUrl
+								email
+							}
+						}
+						about
+						age
+						companyTitle
+						imageUrl
+						joined
+						modified
+						phoneNumber
+					}
+			}`,
+			});
+			debugger;
+			setEmail(mydata.data.me.email)
+			setFullName(mydata.data.me.fullName)
+			setBrandName(mydata.data.me.organizations[0].organization.name)
+			
+		} catch (e) {
+			console.log(e);
+		}
+	}
+
 
   const getContents = () => {
     switch (active) {
       case 'account':
-        return <Account />;
+				return <Account 
+				fullname = {fullName}
+				handleFullName ={(e) => {
+					setFullName(e.target.value);
+				}}
+				email = {email}
+				handleEmail = {(e)=> {
+					setEmail(e.target.value)
+				}}
+				brandName = {brandName} 
+				handleBrandName = {(e)=> {
+					setBrandName(e.target.value)
+				}}
+
+				 />;
       case 'notification':
         return (
           <Notifications

@@ -8,6 +8,8 @@ import Button from '@material-ui/core/Button';
 import CDialog from '../../../components/ConfirmationDialog';
 import Translation from '../../../assets/translation.json';
 import SVG from 'react-inlinesvg';
+import { Avatar } from '@material-ui/core';
+
 
 const Eye_offSVG = () => {
   return <SVG src={require('../../../assets/eye-off.svg')} />;
@@ -15,12 +17,12 @@ const Eye_offSVG = () => {
 const EyeSVG = () => {
   return <SVG src={require('../../../assets/eye.svg')} />;
 };
-const Account = () => {
+const Account = ({fullname, handleFullName , email , handleEmail , brandName , handleBrandName}) => {
   const [openCDialog, setOpenCDialog] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
   const [passwordCleared, setPasswordCleared] = useState(false);
   const [passwordChange, setPasswordChange] = useState(false);
-  const [actionType, setActionType] = useState('');
+	const [actionType, setActionType] = useState('');
 
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
@@ -31,7 +33,7 @@ const Account = () => {
   };
   const handleConfirmCDialog = () => {
     setOpenCDialog(false);
-  };
+	};
 
   const getInputEndormentContent = () => {
     if (!passwordCleared) {
@@ -48,17 +50,26 @@ const Account = () => {
       );
     }
   };
-
   return (
     <div>
+			<div className={styles.brandContainter}>
+				<Avatar
+					className={styles.brandImage}
+					alt='Profile'
+					src='https://thumbs.dreamstime.com/z/creative-vector-illustration-default-avatar-profile-placeholder-isolated-background-art-design-grey-photo-blank-template-mo-118823351.jpg'
+				/>
+				<span>Change Profile Picture</span>
+			</div>
       <div className={styles.formContainer}>
         <Grid container spacing={3}>
           <Grid item xs={6}>
             <TextField
               id='outlined-basic'
-              fullWidth
+							fullWidth
+							value = {fullname}
+							onChange={handleFullName}
               label='Full Name'
-              variant='outlined'
+							variant='outlined'
             />
           </Grid>
           <Grid item xs={6}>
@@ -66,7 +77,9 @@ const Account = () => {
               id='outlined-basic'
               fullWidth
               label='Brand Name'
-              variant='outlined'
+							variant='outlined'
+							value = {brandName}
+							onChange = {handleBrandName}
             />
           </Grid>
           <Grid item xs={6}>
@@ -74,7 +87,9 @@ const Account = () => {
               id='outlined-basic'
               fullWidth
               label='Email'
-              variant='outlined'
+							variant='outlined'
+							value = {email}
+							onChange = {handleEmail}
             />
           </Grid>
           <Grid item xs={6}>
@@ -111,8 +126,12 @@ const Account = () => {
               onClick={() => {
                 setActionType('Deactivate');
                 setOpenCDialog(true);
-              }}
-              className={mainStyles.textDangerButton}
+							}}
+							className={clsx(
+								mainStyles.textDangerButton,
+								styles.DeactivateButton
+							)}
+             
             >
               Deactivate Account
             </Button>
@@ -127,7 +146,10 @@ const Account = () => {
                 setActionType('Delete');
                 setOpenCDialog(true);
               }}
-              className={mainStyles.textDangerButton}
+              className={clsx(
+								mainStyles.textDangerButton,
+								styles.DeactivateButton
+							)}
             >
               Delete Account
             </Button>

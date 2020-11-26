@@ -43,3 +43,34 @@
 .inputendornment {
   cursor: pointer;
 }
+
+.DeactivateButton {
+	text-transform: initial !important;
+	color: #DB7474 !important;
+  font-family: Poppins !important;
+  font-size: 19px !important;
+  font-weight: 500 !important; 
+  letter-spacing: 0 !important;
+	line-height: 29px !important;
+	background-color: white !important;
+}
+
+.brandContainter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1.5em;
+  .brandImage {
+    height: 92px;
+		width: 90px;
+		display: flex;
+  }
+  span{
+		color: #3481EF;
+		font-family: Poppins;
+		font-size: 16px;
+		font-weight: 500;
+		letter-spacing: 0;
+		line-height: 25px;
+  }
+}
