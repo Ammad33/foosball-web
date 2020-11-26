@@ -107,7 +107,8 @@ const Onboarding = () => {
   const [fourth, setFourth] = useState('');
   const [brandName, setBrandName] = useState('');
   const [displayName, setDisplayName] = useState('');
-	const [stepsName, setStepsNames] = useState(['Initial Step', 'What type of user are you?']);
+	const [stepsName, setStepsNames] = useState(['Initial Step', 'User Type']);
+	const [headingName, setHeadingName] = useState(['Initial Step', 'What type of user are you?'])
 	const [stepper , setStepper] = useState(['first','second','third','fourth'])
   const codeEl1 = useRef(null);
   const codeEl2 = useRef(null);
@@ -133,15 +134,30 @@ const Onboarding = () => {
 			if (userType === 'brand') {
 				let sets = [
 					'Initial Step',
+					'User Type',
+					// 'Registration Code',
+					'Brand Name',
+					'Billing',
+				];
+				let heading = [
+					'Initial Step',
 					'What type of user are you?',
 					// 'Registration Code',
 					'Brand Name',
 					'Billing',
 				];
 				setStepsNames(sets);
+				setHeadingName(heading);
 			} 
 			else if (userType === 'influencer'){
 				let sets = [
+					'Initial Step',
+					'User Type',
+					// 'Registration Code',
+					'Display Name',
+					'Billing',
+				];
+				let heading = [
 					'Initial Step',
 					'What type of user are you?',
 					// 'Registration Code',
@@ -149,8 +165,8 @@ const Onboarding = () => {
 					'Billing',
 				];
 				setStepsNames(sets);
+				setHeadingName(heading);
 			}
-			
 		}
     if (activeSetp === 3) {
 			/******************************* Api not completed  */
@@ -203,25 +219,7 @@ const Onboarding = () => {
 
   const handleUserType = (value) => {
     setUserType(value);
-    // if (value === 'brand') {
-    //   let sets = [
-    //     'Initial Step',
-    //     'User Type',
-    //     'Registration Code',
-    //     'Brand Name',
-    //     'Billing',
-    //   ];
-    //   setStepsNames(sets);
-    // } else {
-    //   let sets = [
-    //     'Initial Step',
-    //     'User Type',
-    //     'Registration Code',
-    //     'Display Name',
-    //     'Billing',
-    //   ];
-    //   setStepsNames(sets);
-    // }
+   
   };
 
   const setActiveNextForUserType = () => {
@@ -373,7 +371,7 @@ const Onboarding = () => {
                   <p>
                     STEP {activeStep} OF 3
                   </p>
-                  <h2>{stepsName[activeStep]}</h2>
+                  <h2>{headingName[activeStep]}</h2>
                   <p className={styles.subHeading}>
                     {activeStep === 2 && userType !== 'brand'
                       ? 'This is the name that appears on your public profile, use what will be the most recognizable'
