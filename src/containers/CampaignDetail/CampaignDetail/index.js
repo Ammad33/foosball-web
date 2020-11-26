@@ -23,11 +23,11 @@ const CampaignDetail = ({ children, handleEdit, campaign }) => {
       <div className={styles.dateContainer}>
         <div className={styles.detailSubContent}>
           <h6>StartDate, Time</h6>
-          <p>{campaign && moment(campaign.startDate * 1000).format('MM/DD/YYYY')}, 24:00</p>
+          <p>{campaign && moment(campaign.startDate * 1000).format('MM/DD/YYYY, HH:mm')}</p>
         </div>
         <div className={styles.detailSubContent}>
           <h6>End Date, Time</h6>
-          <p>{campaign && moment(campaign.endDate * 1000).format('MM/DD/YYYY')}, 24:00</p>
+          <p>{campaign && moment(campaign.endDate * 1000).format('MM/DD/YYYY, HH:mm' )}</p>
         </div>
       </div>
       <div className={styles.detailSubContent}>
