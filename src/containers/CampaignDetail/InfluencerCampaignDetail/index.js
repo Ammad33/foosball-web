@@ -69,7 +69,7 @@ const CampaignDetailInfluencer = ({ campaignId }) => {
 
   useEffect(() => {
     getCampaign();
-  }, []);
+  }, [addCampaign]);
 
   const handleEdit = (step) => {
     setAddCampagin(true);
