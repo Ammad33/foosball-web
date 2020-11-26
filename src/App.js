@@ -19,14 +19,14 @@ import UnProtectedRoute from './hoc/UnProtectedRoute';
 import Posts from './containers/Posts';
 import ReviewBrandMicrosite from './containers/ReviewBrandMicrosite';
 import Auth from './hoc/Auth';
-import Logout from '../src/containers/Logout'
+import Logout from '../src/containers/Logout';
 
 const App = () => {
   return (
     <RootContext>
       <HashRouter>
         <Switch>
-				<ProtectedRoute exact path='/campaigns'>
+          <ProtectedRoute exact path='/campaigns'>
             <Layout>
               <Campaigns />
             </Layout>
@@ -69,6 +69,9 @@ const App = () => {
               <ReviewBrandMicrosite />
             </Layout>
           </ProtectedRoute>
+          <ProtectedRoute exact path='/onboarding'>
+            <Onboarding />
+          </ProtectedRoute>
           <UnProtectedRoute exact path='/login'>
             <Auth>
               <Login />
@@ -77,11 +80,6 @@ const App = () => {
           <UnProtectedRoute exact path='/signup'>
             <Auth>
               <Signup />
-            </Auth>
-          </UnProtectedRoute>
-          <UnProtectedRoute exact path='/forgot-password'>
-            <Auth>
-              <ForgotPassword />
             </Auth>
           </UnProtectedRoute>
           <UnProtectedRoute exact path='/forgot-password'>

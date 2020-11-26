@@ -15,15 +15,15 @@ const Setting = () => {
   const [influncerPosts, setInfluncerPosts] = useState(false);
   const [campaignStart, setCampaignStart] = useState(false);
   const [influencers, setInfluncers] = useState([]);
-	const [brands, setBrands] = useState([]);
-	const [meData, setMeData] = useState([]);
-	const [fullName , setFullName] = useState('');
-	const [email , setEmail] = useState('');
- 	const [brandName, setBrandName] = useState([]);
-	const [brandId, setBrandId] = useState([]);
-	useEffect(() => {
-		myData();
-	}, []);
+  const [brands, setBrands] = useState([]);
+  const [meData, setMeData] = useState([]);
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [brandName, setBrandName] = useState([]);
+  const [brandId, setBrandId] = useState([]);
+  useEffect(() => {
+    myData();
+  }, []);
 
   const [newBrand, setNewBrand] = useState({
     brandName: '',
@@ -38,7 +38,6 @@ const Setting = () => {
     email: false,
     mobilePhone: false,
   });
-
 
   const [newInfluencer, setNewInfluencer] = useState({
     fullName: '',
@@ -58,33 +57,41 @@ const Setting = () => {
     const newInfluner = { ...newInfluencer };
     newInfluner[fieldName] = value;
     const newInflunerError = { ...newInfluencerError };
-    if (fieldName === 'email' || fieldName === 'mobilePhone' && newInflunerError[fieldName] === true && value !== '') {
+    if (
+      fieldName === 'email' ||
+      (fieldName === 'mobilePhone' &&
+        newInflunerError[fieldName] === true &&
+        value !== '')
+    ) {
       newInflunerError['mobilePhone'] = false;
       newInflunerError['email'] = false;
       setNewInfluencerError(newInflunerError);
-
     } else if (newInflunerError[fieldName] === true && value !== '') {
       newInflunerError[fieldName] = false;
       setNewInfluencerError(newInflunerError);
     }
     setNewInfluencer(newInfluner);
-  }
+  };
 
   const handleNewBrandChange = (value, fieldName) => {
     const brand = { ...newBrand };
     brand[fieldName] = value;
     const brandError = { ...newBrandError };
-    if (fieldName === 'email' || fieldName === 'mobilePhone' && brandError[fieldName] === true && value !== '') {
+    if (
+      fieldName === 'email' ||
+      (fieldName === 'mobilePhone' &&
+        brandError[fieldName] === true &&
+        value !== '')
+    ) {
       brandError['mobilePhone'] = false;
       brandError['email'] = false;
       setNewBrandError(brandError);
-
     } else if (brandError[fieldName] === true && value !== '') {
       brandError[fieldName] = false;
       setNewBrandError(brandError);
     }
     setNewBrand(brand);
-  }
+  };
 
   const clearNewBrand = () => {
     setNewBrand({
@@ -100,7 +107,7 @@ const Setting = () => {
       email: false,
       mobilePhone: false,
     });
-  }
+  };
 
   const setNew = () => {
     setNewInfluencer({
@@ -116,10 +123,9 @@ const Setting = () => {
       email: false,
       mobilePhone: false,
     });
-  }
+  };
 
   const addNewInfluencer = () => {
-
     const newInfluencerErrorr = { ...newInfluencerError };
     if (newInfluencer.fullName === '') {
       newInfluencerErrorr.fullName = true;
@@ -134,7 +140,7 @@ const Setting = () => {
 
     if (newInfluencer.email === '' && newInfluencer.mobilePhone === '') {
       newInfluencerErrorr.mobilePhone = true;
-    };
+    }
 
     setNewInfluencerError(newInfluencerErrorr);
 
@@ -145,11 +151,9 @@ const Setting = () => {
     const data = [...influencers];
     data.push(newInfluencer);
     setInfluncers(data);
-
-  }
+  };
 
   const addNewBrand = () => {
-
     const brandError = { ...newBrandError };
     if (newBrand.brandName === '') {
       brandError.brandName = true;
@@ -161,7 +165,6 @@ const Setting = () => {
     if (newBrand.email === '' && newBrand.mobilePhone === '') {
       brandError.email = true;
     }
-
 
     if (newBrand.email === '' && newBrand.mobilePhone === '') {
       brandError.mobilePhone = true;
@@ -176,12 +179,11 @@ const Setting = () => {
     const data = [...brands];
     data.push(newBrand);
     setBrands(data);
-
-	}
-	const myData =  async () => {
-		try {
-			const mydata = await API.graphql({
-				query: `{
+  };
+  const myData = async () => {
+    try {
+      const mydata = await API.graphql({
+        query: `{
 					me {
 						email
 						fullName
@@ -209,36 +211,35 @@ const Setting = () => {
 						phoneNumber
 					}
 			}`,
-			});
-			debugger;
-			setEmail(mydata.data.me.email)
-			setFullName(mydata.data.me.fullName)
-			setBrandName(mydata.data.me.organizations[0].organization.name)
-			
-		} catch (e) {
-			console.log(e);
-		}
-	}
-
+      });
+      // debugger;
+      setEmail(mydata.data.me.email);
+      setFullName(mydata.data.me.fullName);
+      setBrandName(mydata.data.me.organizations[0].organization.name);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const getContents = () => {
     switch (active) {
       case 'account':
-				return <Account 
-				fullname = {fullName}
-				handleFullName ={(e) => {
-					setFullName(e.target.value);
-				}}
-				email = {email}
-				handleEmail = {(e)=> {
-					setEmail(e.target.value)
-				}}
-				brandName = {brandName} 
-				handleBrandName = {(e)=> {
-					setBrandName(e.target.value)
-				}}
-
-				 />;
+        return (
+          <Account
+            fullname={fullName}
+            handleFullName={(e) => {
+              setFullName(e.target.value);
+            }}
+            email={email}
+            handleEmail={(e) => {
+              setEmail(e.target.value);
+            }}
+            brandName={brandName}
+            handleBrandName={(e) => {
+              setBrandName(e.target.value);
+            }}
+          />
+        );
       case 'notification':
         return (
           <Notifications
@@ -263,16 +264,17 @@ const Setting = () => {
         //   setNew={setNew}
         //   newInfluencerError={newInfluencerError}
 
-
         // />;
-        return <Brands
-          brands={brands}
-          newBrand={newBrand}
-          handleNewBrandChange={handleNewBrandChange}
-          addNewBrand={addNewBrand}
-          clearNewBrand={clearNewBrand}
-          newBrandError={newBrandError}
-        />;
+        return (
+          <Brands
+            brands={brands}
+            newBrand={newBrand}
+            handleNewBrandChange={handleNewBrandChange}
+            addNewBrand={addNewBrand}
+            clearNewBrand={clearNewBrand}
+            newBrandError={newBrandError}
+          />
+        );
       default:
         return 'Unknown step';
     }

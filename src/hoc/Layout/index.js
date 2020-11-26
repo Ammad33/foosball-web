@@ -13,7 +13,6 @@ import Header from './../../components/Header';
 import Brand from '../../components/Brand';
 import { API } from 'aws-amplify';
 
-
 const drawerWidth = 284;
 
 const useStyles = makeStyles((theme) => ({
@@ -64,19 +63,19 @@ function ResponsiveDrawer(props) {
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
-	const [mobileOpen, setMobileOpen] = React.useState(false);
-	const [meData, setMeData] = useState([]);
-	const [brandName, setBrandName] = useState([]);
-	const [brandId, setBrandId] = useState([]);
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [meData, setMeData] = useState([]);
+  const [brandName, setBrandName] = useState([]);
+  const [brandId, setBrandId] = useState([]);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
-	};
-	
-	const myData =  async () => {
-		try {
-			const mydata = await API.graphql({
-				query: `{
+  };
+
+  const myData = async () => {
+    try {
+      const mydata = await API.graphql({
+        query: `{
 						me {
 							email
 							fullName
@@ -104,21 +103,18 @@ function ResponsiveDrawer(props) {
 							phoneNumber
 						}
 				}`,
-			});
-			debugger;
-			setBrandId(mydata.data.me.organizations[0].organization.id);
-			setMeData(mydata.data.me);
-			// setBrandName(mydata.data.me.organizations[0].organization.__typename)
-			
-		} catch (e) {
-			console.log(e);
-		}
-	}
+      });
+      setBrandId(mydata.data.me.organizations[0].organization.id);
+      setMeData(mydata.data.me);
+      // setBrandName(mydata.data.me.organizations[0].organization.__typename)
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
-	useEffect(() => {
-		myData();
-	}, []);
-
+  useEffect(() => {
+    myData();
+  }, []);
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
@@ -137,7 +133,7 @@ function ResponsiveDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Header meData = {meData} />
+          <Header meData={meData} />
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label='mailbox folders'>

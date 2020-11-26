@@ -107,9 +107,17 @@ const Onboarding = () => {
   const [fourth, setFourth] = useState('');
   const [brandName, setBrandName] = useState('');
   const [displayName, setDisplayName] = useState('');
-	const [stepsName, setStepsNames] = useState(['Initial Step', 'User Type']);
-	const [headingName, setHeadingName] = useState(['Initial Step', 'What type of user are you?'])
-	const [stepper , setStepper] = useState(['first','second','third','fourth'])
+  const [stepsName, setStepsNames] = useState(['Initial Step', 'User Type']);
+  const [headingName, setHeadingName] = useState([
+    'Initial Step',
+    'What type of user are you?',
+  ]);
+  const [stepper, setStepper] = useState([
+    'first',
+    'second',
+    'third',
+    'fourth',
+  ]);
   const codeEl1 = useRef(null);
   const codeEl2 = useRef(null);
   const codeEl3 = useRef(null);
@@ -120,7 +128,6 @@ const Onboarding = () => {
     'Tell us what type of user you are so we can personalize your experience',
     `This is the name that will appear on your brand's public profile`,
     'Setup your primary and secondary billing methods',
-    
   ];
 
   const handleBack = () => {
@@ -129,47 +136,46 @@ const Onboarding = () => {
   const handleNext = async (activeSetp, e) => {
     if (activeSetp !== 3) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
-		}
-		if (activeSetp === 1) {
-			if (userType === 'brand') {
-				let sets = [
-					'Initial Step',
-					'User Type',
-					// 'Registration Code',
-					'Brand Name',
-					'Billing',
-				];
-				let heading = [
-					'Initial Step',
-					'What type of user are you?',
-					// 'Registration Code',
-					'Brand Name',
-					'Billing',
-				];
-				setStepsNames(sets);
-				setHeadingName(heading);
-			} 
-			else if (userType === 'influencer'){
-				let sets = [
-					'Initial Step',
-					'User Type',
-					// 'Registration Code',
-					'Display Name',
-					'Billing',
-				];
-				let heading = [
-					'Initial Step',
-					'What type of user are you?',
-					// 'Registration Code',
-					'Display Name',
-					'Billing',
-				];
-				setStepsNames(sets);
-				setHeadingName(heading);
-			}
-		}
+    }
+    if (activeSetp === 1) {
+      if (userType === 'brand') {
+        let sets = [
+          'Initial Step',
+          'User Type',
+          // 'Registration Code',
+          'Brand Name',
+          'Billing',
+        ];
+        let heading = [
+          'Initial Step',
+          'What type of user are you?',
+          // 'Registration Code',
+          'Brand Name',
+          'Billing',
+        ];
+        setStepsNames(sets);
+        setHeadingName(heading);
+      } else if (userType === 'influencer') {
+        let sets = [
+          'Initial Step',
+          'User Type',
+          // 'Registration Code',
+          'Display Name',
+          'Billing',
+        ];
+        let heading = [
+          'Initial Step',
+          'What type of user are you?',
+          // 'Registration Code',
+          'Display Name',
+          'Billing',
+        ];
+        setStepsNames(sets);
+        setHeadingName(heading);
+      }
+    }
     if (activeSetp === 3) {
-			/******************************* Api not completed  */
+      /******************************* Api not completed  */
       console.log(userType);
       const data = {
         input: {
@@ -181,9 +187,7 @@ const Onboarding = () => {
         case 'brand':
           const brandMutationQuery = `mutation createBrand($input: CreateBrandInput!) {
             createBrand(input: $input) {
-              name
-              timezone
-              currencyType
+              imageUploadUrl
             }
           }
           `;
@@ -194,9 +198,7 @@ const Onboarding = () => {
         case 'influencer':
           const influencerMutationQuery = `mutation createInfluencer($input: CreateInfluencerInput!) {
             createInfluencer(input: $input) {
-              name
-              timezone
-              currencyType
+              imageUploadUrl
             }
           }
           `;
@@ -207,7 +209,8 @@ const Onboarding = () => {
         default:
           break;
       }
-      history.push('/signup');
+      console.log(data);
+      history.push('/campaigns');
     }
   };
 
@@ -219,14 +222,12 @@ const Onboarding = () => {
 
   const handleUserType = (value) => {
     setUserType(value);
-   
   };
 
   const setActiveNextForUserType = () => {
     if (userType !== '') {
       setActiveNext(true);
-		} 
-		 else setActiveNext(false);
+    } else setActiveNext(false);
   };
 
   const setActiveForCode = () => {
@@ -368,9 +369,7 @@ const Onboarding = () => {
               </div>
               <div className={styles.stepperAndComponent}>
                 <div className={styles.stepperNumberAndNameContainer}>
-                  <p>
-                    STEP {activeStep} OF 3
-                  </p>
+                  <p>STEP {activeStep} OF 3</p>
                   <h2>{headingName[activeStep]}</h2>
                   <p className={styles.subHeading}>
                     {activeStep === 2 && userType !== 'brand'
