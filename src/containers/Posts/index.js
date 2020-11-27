@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { ChevronRight, Plus } from 'react-feather';
 import { useHistory } from 'react-router-dom';
 import styles from './Posts.module.scss';
@@ -6,11 +6,13 @@ import Post3 from '../../assets/bottle.png';
 import Post2 from '../../assets/snapchat.png';
 import Post1 from '../../assets/main.png';
 import AddPost from './AddPost';
+import { RootContext } from '../../context/RootContext';
 
 const Posts = () => {
 
     const history = useHistory();
     const [addPost, setAddPost] = useState(false);
+    const { activeCampaign } = useContext(RootContext);
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -23,7 +25,7 @@ const Posts = () => {
                 <div className={styles.postHeading}>
                     <span onClick={() => history.push('/campaigns')}>Campaigns</span>
                     <ChevronRight />
-                    <span onClick={() => history.push('/campaignDetail')}>Campaigns Name</span>
+                    <span onClick={() => history.push(`/campaignDetail/${activeCampaign}`)}>Campaigns Name</span>
                     <ChevronRight />
                     <span>Posts</span>
                 </div>

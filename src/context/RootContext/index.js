@@ -8,7 +8,8 @@ export default ({ children }) => {
   const preActiveRoute = localStorage.getItem('route') || 'Campaign';
   const [currentUser, setCurrentUser] = useState(prevUser);
   const [logoutMessage, setLogoutMessage] = useState('');
-  const [activeRoute, setActiveRoute] = useState(preActiveRoute)
+  const [activeRoute, setActiveRoute] = useState(preActiveRoute);
+  const [activeCampaign, setActiveCampaign] = useState('');
 
   useEffect(
     () => {
@@ -26,7 +27,9 @@ export default ({ children }) => {
     logoutMessage,
     setLogoutMessage,
     activeRoute,
-    setActiveRoute
+    setActiveRoute,
+    activeCampaign,
+    setActiveCampaign
   };
 
   return (

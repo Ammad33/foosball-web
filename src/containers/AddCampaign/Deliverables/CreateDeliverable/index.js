@@ -26,7 +26,7 @@ const options = [];
 for (let i = 1; i <= 15; i += 1) {
   options.push(i);
 }
-debugger;
+// debugger;
 const CreateDeliverable = ({
   index,
   deliveries,
@@ -46,8 +46,8 @@ const CreateDeliverable = ({
   const [value, setValue] = useState(youtube);
   useEffect(() => {
     handleSetValue();
-	},[]);
-	
+  }, []);
+
 
 
   const handleSetValue = () => {
@@ -234,17 +234,17 @@ const CreateDeliverable = ({
                 }
               />
             ) : (
-              <RadioButtonUncheckedIcon
-                className={styles.svgDisabled}
-                onClick={() =>
-                  handleDilverableContent(
-                    !deliverableItem.brandTagRequired,
-                    index,
-                    'brandTagRequired'
-                  )
-                }
-              />
-            )}
+                <RadioButtonUncheckedIcon
+                  className={styles.svgDisabled}
+                  onClick={() =>
+                    handleDilverableContent(
+                      !deliverableItem.brandTagRequired,
+                      index,
+                      'brandTagRequired'
+                    )
+                  }
+                />
+              )}
           </Grid>
           <Grid item xs={4}>
             <p
@@ -266,14 +266,14 @@ const CreateDeliverable = ({
               value={deliverableItem && deliverableItem.brandTag}
               onChange={(e) =>
                 handleDilverableContent(e.target.value, index, 'brandTag')
-							}
-							InputProps={{
-								startAdornment: (
-									<InputAdornment  position="start">
-										@
-									</InputAdornment>
-								),
-							}}
+              }
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    @
+                  </InputAdornment>
+                ),
+              }}
             />
           </Grid>
         </Grid>
@@ -292,17 +292,17 @@ const CreateDeliverable = ({
                 }
               />
             ) : (
-              <RadioButtonUncheckedIcon
-                className={styles.svgDisabled}
-                onClick={() =>
-                  handleDilverableContent(
-                    !deliverableItem.hashTagRequired,
-                    index,
-                    'hashTagRequired'
-                  )
-                }
-              />
-            )}
+                <RadioButtonUncheckedIcon
+                  className={styles.svgDisabled}
+                  onClick={() =>
+                    handleDilverableContent(
+                      !deliverableItem.hashTagRequired,
+                      index,
+                      'hashTagRequired'
+                    )
+                  }
+                />
+              )}
           </Grid>
           <Grid item xs={4}>
             <p
@@ -324,14 +324,14 @@ const CreateDeliverable = ({
                 handleDilverableContent(e.target.value, index, 'hashTag')
               }
               variant='outlined'
-							disabled={!deliverableItem.hashTagRequired}
-							InputProps={{
-								startAdornment: (
-									<InputAdornment  position="start">
-										#
-									</InputAdornment>
-								),
-							}}
+              disabled={!deliverableItem.hashTagRequired}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    #
+                  </InputAdornment>
+                ),
+              }}
             />
           </Grid>
         </Grid>
@@ -379,7 +379,7 @@ const CreateDeliverable = ({
             <MenuItem value={'Every other month'}>Every other month </MenuItem>
             <MenuItem value={'Every Week'}>Every Week </MenuItem>
             <MenuItem value={'Every other week'}>Every other week </MenuItem>
-            
+
           </Select>
         </FormControl>
       </Grid>

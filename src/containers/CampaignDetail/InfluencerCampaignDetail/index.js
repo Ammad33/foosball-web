@@ -61,7 +61,7 @@ const CampaignDetailInfluencer = ({ campaignId }) => {
             }
           }
       }`,
-			});
+      });
       console.log('campaign', campaign.data.campaign)
       setData(campaign.data.campaign)
     } catch (e) {
@@ -161,7 +161,7 @@ const CampaignDetailInfluencer = ({ campaignId }) => {
         </div>
         <div className={styles.subHeadingSection}>
           <div className={styles.subCampaignSubHeading}>
-            <p>Promotion: 15%</p>
+            <p>Estimated Compensation: $2,600</p>
             <div className={styles.borderDiv}></div>
             <Chip className={clsx(styles.campaignStatus)} label={'Closed'} />
             <div className={styles.borderDiv}></div>
