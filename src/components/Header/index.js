@@ -21,7 +21,13 @@ const NotificationIcon = () => {
 const Header = (meData) => {
 	const history = useHistory();
 	const [brandId, setBrandId] = useState([]);
-
+	const {
+    setCurrentUser,
+    setLogoutMessage,
+    currentUser,
+    activeRoute,
+    setActiveRoute,
+  } = useContext(RootContext);
 	
   const member = [
     {
@@ -37,7 +43,8 @@ const Header = (meData) => {
   };
 
   const navigate = () => {
-    history.push('/settings');
+		history.push('/settings');
+		setActiveRoute('Settings');
     setAnchorEl(null);
   };
 

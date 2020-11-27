@@ -34,7 +34,8 @@ const CampaignDetailInfluencer = ({ campaignId }) => {
         query: `{
           campaign(brandId: "8ece73cc-3079-4f45-b7bb-4f6007c8344d", id: "${campaignId}") {
             id
-            name
+						name
+						status
             startDate
             endDate
             discount {
@@ -60,7 +61,7 @@ const CampaignDetailInfluencer = ({ campaignId }) => {
             }
           }
       }`,
-      });
+			});
       console.log('campaign', campaign.data.campaign)
       setData(campaign.data.campaign)
     } catch (e) {

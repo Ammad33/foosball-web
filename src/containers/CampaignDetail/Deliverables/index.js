@@ -19,11 +19,11 @@ const Deliverables = ({ onClick, handleEdit }) => {
                 <p>Instagram</p>
             </div>
             <div className={styles.detailSubContent}>
-                <h6>Campaign Type</h6>
+                <h6>Post Type</h6>
                 <p>Story</p>
             </div>
             <div className={styles.detailSubContent}>
-                <h6>Frame Content Type</h6>
+                <h6>Content Type</h6>
                 <p>Video</p>
             </div>
             <div className={styles.detailSubContent}>

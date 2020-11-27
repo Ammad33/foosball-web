@@ -443,7 +443,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
     }
   }, [open]);
 
-  /******* Compensations States */
+	/******* Compensations States */
+	const [compensationPayment, setCompensationPayment] = useState('');
 
   const [compensations, setCompensations] = useState([
     {
@@ -593,6 +594,14 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
     });
     setCompensations(comp);
   };
+
+	/************ Compensation Influencer payment schedule *******/
+
+	const handleCompensationPayment = (value) => {
+    setCompensationPayment(value);
+  };
+
+
 
   /***** Handle Compesation Value ********/
 
@@ -932,11 +941,13 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   /************* Active for compensations */
 
   const setActiveForCompensation = () => {
-    const compensation = [...compensations];
+		const compensation = [...compensations];
+		
 
+		
     let flag = true;
     compensation.forEach((comp) => {
-      if (comp.compensationType === '' || comp.amount === '') {
+      if (comp.compensationType === '' || comp.amount === '' || compensationPayment === '') {
         flag = false;
       }
     });
@@ -966,11 +977,11 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
     setActiveNext(influencer !== null ? true : false);
   };
 
-  /*********************** To disable next button */
+  // /*********************** To disable next button */
 
-  // 	useEffect(() => {
-  //   setActiveNext(true);
-  // });
+  	useEffect(() => {
+    setActiveNext(true);
+  });
 
   const leftSideDawerClick = (index) => {
     if (activeStep >= index) {
@@ -1082,7 +1093,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
             handleCompensations={handleCompensations}
             handleCompensationValue={handleCompensationValue}
             handleRemoveCompensation={handleRemoveCompensation}
-            handleActiveForCompensation={setActiveForCompensation}
+						handleActiveForCompensation={setActiveForCompensation}
+						compensationPayment = {compensationPayment}
+						handleCompensationPayment = {handleCompensationPayment}
             compensationProduct={compensationProduct}
             handleCompensationProducts={handleCompensationProducts}
             compensationProductItems={items}
@@ -1124,7 +1137,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
             targetGrossSale={targetGrossSale}
             collections={collections}
             deliverables={deliveries}
-            compensations={compensations}
+						compensations={compensations}
+						compensationPayment = {compensationPayment}
             selectedNegotiable={selectedNegotiable}
             selectedInfluncer={influencer}
             handleActiveStep={(value) => setActiveStep(value)}

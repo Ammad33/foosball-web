@@ -9,7 +9,7 @@ const EditSVG = ({ onClick }) => {
 	return <SVG src={require('../../../assets/edit.svg')} onClick={onClick} />;
 };
 const ReviewAndSend = ({ campaignName, startDate, endDate, startTime, endTime, discount, discountType,
-	customeMessage, selectedMembers, budget, targetGrossSale, collections, deliverables, compensations, selectedNegotiable, selectedInfluncer, handleActiveStep }) => {
+	customeMessage, selectedMembers, budget, targetGrossSale, collections, deliverables, compensations,compensationPayment, selectedNegotiable, selectedInfluncer, handleActiveStep }) => {
 	return (
 		<div class={styles.mainContainer}>
 			<div class={styles.section}>
@@ -150,13 +150,13 @@ const ReviewAndSend = ({ campaignName, startDate, endDate, startTime, endTime, d
 								</Grid>
 								<Grid item xs={4}>
 									<div className={styles.deliverableItem}>
-										<p>Campaign Type</p>
+										<p>Post Type</p>
 										<span>{item.campaignType}</span>
 									</div>
 								</Grid>
 								<Grid item xs={4}>
 									<div className={styles.deliverableItem}>
-										<p>Frame Content Type</p>
+										<p>Content Type</p>
 										<span>{item.frameType}</span>
 									</div>
 								</Grid>
@@ -195,6 +195,15 @@ const ReviewAndSend = ({ campaignName, startDate, endDate, startTime, endTime, d
 					<h3>Compensation</h3>
 					<EditSVG onClick={() => handleActiveStep(6)} />
 				</div>
+				<Grid container spacing={3}>
+					<Grid item xs={6}>
+						<div className={styles.compensationInfluencer}>
+							<p>Influencer Payment Schedule</p>
+							<span>{compensationPayment}</span>
+						</div>
+					</Grid>
+				</Grid>
+				
 				{
 					compensations.map((item, index) => {
 						return (

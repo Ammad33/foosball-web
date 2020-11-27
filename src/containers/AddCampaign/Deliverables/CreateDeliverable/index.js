@@ -26,7 +26,7 @@ const options = [];
 for (let i = 1; i <= 15; i += 1) {
   options.push(i);
 }
-
+debugger;
 const CreateDeliverable = ({
   index,
   deliveries,

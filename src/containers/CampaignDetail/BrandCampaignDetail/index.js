@@ -118,8 +118,8 @@ const BrandCampaignDetail = ({ campaignId }) => {
       const campaign = await API.graphql({
         query: `{
           campaign(brandId: "8ece73cc-3079-4f45-b7bb-4f6007c8344d", id: "${campaignId}") {
-            name
-            startDate
+						name
+						startDate
             endDate
             discount {
               ... on PercentageDiscount {
@@ -145,7 +145,7 @@ const BrandCampaignDetail = ({ campaignId }) => {
           }
       }`,
 			});
-      //console.log('campaign', campaign.data.campaign)
+      console.log('campaign', campaign.data.campaign)
       setData(campaign.data.campaign)
     } catch (e) {
     }
@@ -242,7 +242,7 @@ const BrandCampaignDetail = ({ campaignId }) => {
         <div className={styles.CampaignHeading}>
           <span onClick={() => history.push('/campaigns')}>Campaigns</span>
           <ChevronRight />
-          <span>Campaigns Name</span>
+          <span>Campaign Name</span>
         </div>
         <div className={styles.campaignBasicInfo}>
           <div className={styles.campaignStatus}>

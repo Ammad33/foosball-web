@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Select, InputAdornment } from '@material-ui/core';
 import TextField from '../../../../components/TextField';
-import FormControl from '@material-ui/core/FormControl';
+	import FormControl from '@material-ui/core/FormControl';
 import SelectMenu from '../../../../components/SelectMenu';
 import MenuItem from '@material-ui/core/MenuItem';
 import styles from './CreateCompensation.module.scss';
@@ -20,8 +20,6 @@ const options = [];
 for (let i = 3; i <= 20; i += 1) {
   options.push(i);
 }
-
-
 
 const PlusSVG = () => {
   return <SVG src={require('../../../../assets/plus1.svg')} />;
@@ -45,7 +43,7 @@ const CreateCompensation = ({
   index,
   item,
   handleCompensationValue,
-  handleRemoveCompensation,
+	handleRemoveCompensation,
   compensationProduct,
   handleCompensationProducts,
   compensationProductItems,
@@ -59,8 +57,8 @@ const CreateCompensation = ({
 
   
   return (
-    <Grid container spacing={3}>
-      <Grid
+    <Grid container spacing={3}> 
+		  <Grid
         item
         xs={12}
         className={clsx(

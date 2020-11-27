@@ -87,6 +87,7 @@ const Collection = ({
 		if (panel == "panel1"){
 			handleCollection("Drop Cuts")
 			handleSvg1();
+			setOpen(true);
 		}
 		else if (panel == "panel2"){
 			handleCollection("V-Necks")
@@ -121,7 +122,27 @@ const Collection = ({
 			<Grid item xs={12} sm={12} md={12}>
 				<Accordion square expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <AccordionSummary className={styles.accordianSummary} aria-controls="panel1d-content" id="panel1d-header">
-          <Typography className={styles.collectionName}> Drop Cuts  <span className={styles.svg} > 
+          <Typography className={styles.collectionName}>
+						 Drop Cutsss{' '}  
+							{collections.find(
+                (item) =>
+                  item.collectionName === 'Drop Cuts' &&
+                  item.collectionItems.length !== 0
+              ) && (
+                <div className='hello'>
+                  <span className = {styles.collectionNumber}>
+                    {open === true &&
+                      collections.find(
+                        (item) => item.collectionName === 'Drop Cuts'
+                      ).collectionItems.length}
+                  </span>
+                </div>
+              )}
+							{' '} 
+						
+					
+					
+					<span className={styles.svg} > 
 					{svg1 ? (
 						<MinusSVG/> ): ( <PlusSVG/>) 
 					 }

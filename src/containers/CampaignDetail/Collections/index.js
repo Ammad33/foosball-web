@@ -15,50 +15,50 @@ const Collections = ({ handleEdit }) => {
             <div className={styles.containerRow}>
                 <div className={styles.boxContainer} >
                     <div className={styles.box}></div>
-                    <p className={styles.boxItem}>Item name/ #</p>
-                    <p className={styles.boxPrice}>$64.99</p>
-                    <p className={styles.boxPrice}>15 in stock</p>
+										<p className={styles.boxItem}>Ben Parker</p>
+										<p className={styles.boxPrice}>$64.22 <span>(1234367)</span></p>
+										<p className={styles.boxPrice}> 25 in stock</p>
                 </div>
-                <div className={styles.boxContainer}>
+								<div className={styles.boxContainer} >
                     <div className={styles.box}></div>
-                    <p className={styles.boxItem}>Item name/ #</p>
-                    <p className={styles.boxPrice}>$64.99</p>
-                    <p className={styles.boxPrice}>15 in stock</p>
+										<p className={styles.boxItem}>Ben Parker</p>
+										<p className={styles.boxPrice}>$30.99 <span>(1476519)</span></p>
+										<p className={styles.boxPrice}>20 in stock</p>
                 </div>
-                <div className={styles.boxContainer}>
+								<div className={styles.boxContainer} >
                     <div className={styles.box}></div>
-                    <p className={styles.boxItem}>Item name/ #</p>
-                    <p className={styles.boxPrice}>$64.99</p>
-                    <p className={styles.boxPrice}>15 in stock</p>
+										<p className={styles.boxItem}>Ben Parker</p>
+										<p className={styles.boxPrice}>$50.99 <span>(1987456)</span></p>
+										<p className={styles.boxPrice}>15 in stock</p>
                 </div>
-                <div className={styles.boxContainer}>
+								<div className={styles.boxContainer} >
                     <div className={styles.box}></div>
-                    <p className={styles.boxItem}>Item name/ #</p>
-                    <p className={styles.boxPrice}>$64.99</p>
-                    <p className={styles.boxPrice}>15 in stock</p>
+										<p className={styles.boxItem}>Ben Parker</p>
+										<p className={styles.boxPrice}>$59.99 <span>(1276124)</span></p>
+										<p className={styles.boxPrice}>30 in stock</p>
                 </div>
             </div>
         </div>
         <div className={styles.collectionSubContent}>
             <h6>V Necks</h6>
             <div className={styles.containerRow}>
-                <div className={styles.boxContainer} >
+								<div className={styles.boxContainer} >
                     <div className={styles.box}></div>
-                    <p className={styles.boxItem}>Item name/ #</p>
-                    <p className={styles.boxPrice}>$64.99</p>
-                    <p className={styles.boxPrice}>15 in stock</p>
+										<p className={styles.boxItem}>Ben Parker</p>
+										<p className={styles.boxPrice}>$20.99 <span>(15263748)</span></p>
+										<p className={styles.boxPrice}>35 in stock</p>
                 </div>
                 <div className={styles.boxContainer} >
                     <div className={styles.box}></div>
-                    <p className={styles.boxItem}>Item name/ #</p>
-                    <p className={styles.boxPrice}>$64.99</p>
-                    <p className={styles.boxPrice}>15 in stock</p>
+										<p className={styles.boxItem}>Ben Parker</p>
+										<p className={styles.boxPrice}>$15.99 <span>(15628394)</span></p>
+										<p className={styles.boxPrice}>20 in stock</p>
                 </div>
-                <div className={styles.boxContainer} >
+								<div className={styles.boxContainer} >
                     <div className={styles.box}></div>
-                    <p className={styles.boxItem}>Item name/ #</p>
-                    <p className={styles.boxPrice}>$64.99</p>
-                    <p className={styles.boxPrice}>15 in stock</p>
+										<p className={styles.boxItem}>Ben Parker</p>
+										<p className={styles.boxPrice}>$45.99 <span>(12313131)</span></p>
+										<p className={styles.boxPrice}>40 in stock</p>
                 </div>
             </div>
         </div>

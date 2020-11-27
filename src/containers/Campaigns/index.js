@@ -227,7 +227,7 @@ const Campaigns = () => {
         <div className={styles.CampaignHeadingContainer}>
           <div className={styles.CampaignHeading}>
             <span>Campaigns</span>
-						<Grid item xs={12} sm={12} md={6} >
+						{/* <Grid item xs={12} sm={12} md={6} >
 							<FormControl fullWidth variant='outlined' className = {styles.SelectBrandId}>
 								<Select
 									id='Select Brand Id'
@@ -251,10 +251,10 @@ const Campaigns = () => {
 									))}
 								</Select>
 							</FormControl>
-						</Grid>
-            {/* <p>
+						</Grid> */}
+            <p>
               Most recent <ExpandMoreIcon fontSize='small' />
-            </p> */}
+            </p>
           </div>
 						<button onClick={() => setAddCampagin(true)}>
 							<AddIcon /> New Campaign

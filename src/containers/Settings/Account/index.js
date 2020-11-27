@@ -19,13 +19,18 @@ const EyeSVG = () => {
 };
 const Account = ({fullname, handleFullName , email , handleEmail , brandName , handleBrandName}) => {
   const [openCDialog, setOpenCDialog] = useState(false);
-  const [passwordShown, setPasswordShown] = useState(false);
+	const [passwordShown, setPasswordShown] = useState(false);
+	const [newPasswordShown, setNewPasswordShown] = useState(false);
   const [passwordCleared, setPasswordCleared] = useState(false);
   const [passwordChange, setPasswordChange] = useState(false);
 	const [actionType, setActionType] = useState('');
+	const [editPassword, setEditPassword] = useState(false);
 
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
+	};
+	const toggleNewPasswordVisiblity = () => {
+    setNewPasswordShown(newPasswordShown ? false : true);
   };
 
   const handleCancelCDialog = () => {
@@ -34,10 +39,14 @@ const Account = ({fullname, handleFullName , email , handleEmail , brandName , h
   const handleConfirmCDialog = () => {
     setOpenCDialog(false);
 	};
+	const handleSetPasswordCleared = () => {
+		setPasswordCleared(true)
+		setEditPassword(true);
+	};
 
   const getInputEndormentContent = () => {
     if (!passwordCleared) {
-      return <a onClick={() => setPasswordCleared(true)}>Change</a>;
+      return <a onClick={handleSetPasswordCleared}>Edit</a>;
     } else {
       return passwordShown ? (
         <div onClick={togglePasswordVisiblity}>
@@ -96,7 +105,7 @@ const Account = ({fullname, handleFullName , email , handleEmail , brandName , h
             <TextField
               id='outlined-basic'
               fullWidth
-              label='Password'
+              label={editPassword ? 'Old Password' : 'Password'}   
               type={passwordShown ? 'text' : 'password'}
               variant='outlined'
               InputProps={{
@@ -111,6 +120,60 @@ const Account = ({fullname, handleFullName , email , handleEmail , brandName , h
               }}
             />
           </Grid>
+					<Grid item xs={6}>
+					</Grid>
+					{
+						editPassword ? (
+						<>
+						<Grid item xs={6}>
+							<TextField
+								id='outlined-basic'
+								fullWidth
+								label='New Password'
+								type={newPasswordShown ? 'text' : 'password'}
+								variant='outlined'
+								InputProps={{
+									endAdornment: (
+										<InputAdornment className={styles.inputendornment} position='end'>
+											<span>
+												{newPasswordShown ? (
+													<div onClick={toggleNewPasswordVisiblity}>
+														{' '}
+														<EyeSVG />{' '}
+													</div>
+												) : (
+													<div onClick={toggleNewPasswordVisiblity}>
+														{' '}
+														<Eye_offSVG />{' '}
+													</div>
+												)}
+											</span>
+										</InputAdornment>
+									),
+								}}
+							/>
+						</Grid>
+						<Grid item xs={6}>
+						</Grid>
+						<Grid item xs={6}>
+							<button
+									className={styles.active}
+									//onClick={}
+								>
+									Update
+							</button>
+							<button
+									className={styles.notActive}
+									//onClick={}
+								>
+									Cancel
+							</button>
+						</Grid>
+
+						</>
+						): (" ")
+					}
+					
         </Grid>
       </div>
       <hr className={mainStyles.hr} />
@@ -140,7 +203,7 @@ const Account = ({fullname, handleFullName , email , handleEmail , brandName , h
         <div className={styles.accountDeletionContainer}>
           <p className={styles.deleteTitle}>Delete Account</p>
           <div className={styles.deleteAccountTextAndButton}>
-            <p>By deleting your account you will lose all your data</p>
+            <p>By deleting your account you will lose all your data.</p>
             <Button
               onClick={() => {
                 setActionType('Delete');

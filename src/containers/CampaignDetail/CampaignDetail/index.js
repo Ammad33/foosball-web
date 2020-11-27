@@ -12,10 +12,17 @@ const CampaignDetail = ({ children, handleEdit, campaign }) => {
         children ? styles.withChildHeight : styles.withNoChildHeight
       )}
     >
-      <div className={styles.headerContainer}>
-        <h1>Campaign Details</h1>
-        <Edit onClick={() => handleEdit(1)} />
-      </div>
+			
+		
+			<div className={styles.headerContainer}>
+				 <h1>Campaign Details</h1>
+				 {campaign && campaign.status == "DRAFT" || campaign && campaign.status == "PENDING" ? ( 
+				 <Edit onClick={() => handleEdit(1)} />
+				 ) : (
+					 ''
+				 )}
+			 </div>
+     
       <div className={styles.detailSubContent}>
         <h6>Campaign Name</h6>
         <p>{campaign && campaign.name}</p>

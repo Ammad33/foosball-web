@@ -42,7 +42,6 @@ const LeftSideDrawer = () => {
   //     console.log('error signing out: ', error);
   //   }
   // };
-
   return (
     <>
       <ListItem

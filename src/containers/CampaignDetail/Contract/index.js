@@ -6,7 +6,7 @@ const Contract = () => {
     <div className={styles.contractContainer}>
       <h1>Contract</h1>
       <div className={styles.detailSubContent}>
-        <h6>Contact has been signed by both parties </h6>
+        <h6>Contract has been signed by both parties </h6>
       </div>
       <button>Preview Contract</button>
     </div>

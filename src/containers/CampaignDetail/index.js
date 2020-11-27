@@ -27,7 +27,7 @@ const CampaignDetail = () => {
 	return (
 		<div className={styles.detailContainer}>
 			<Link onClick={handleBrandState}> Toggle Campiagn Detail influencer</Link>
-			{brandState ? (<InfluencerCampaignDetail campaignId={campaignId} />) : (<BrandCampaignDetail campaignId={campaignId} />)}
+			{brandState ?  (<BrandCampaignDetail campaignId={campaignId} />) : (<InfluencerCampaignDetail campaignId={campaignId} />) }
 
 
 		</div>
