@@ -130,6 +130,43 @@
     letter-spacing: 0;
     line-height: 26px;
   }
+  .offerButtons {
+    display: flex;
+    gap: 15px;
+    .acceptButton {
+      height: 44px;
+      width: 139px;
+      color: $dark1;
+      font-family: Poppins;
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: 0;
+      line-height: 26px;
+    }
+    .negotiateButton {
+      height: 44px;
+      width: 139px;
+      color: $white;
+      font-family: Poppins;
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: 0;
+      line-height: 26px;
+      background-color: #7b5dd9;
+      border: 1px solid $white !important;
+    }
+    .declineButton {
+      height: 44px;
+      width: 139px;
+      color: $white;
+      font-family: Poppins;
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: 0;
+      line-height: 26px;
+      background-color: #7b5dd9;
+    }
+  }
 }
 
 .CampaignHeading {
