@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Avatar, Popover } from '@material-ui/core';
-import styles from './BrandCampaignDetail.module.scss';
+import { useHistory } from 'react-router-dom';
 import Chip from '@material-ui/core/Chip';
 import clsx from 'clsx';
-import SVG from 'react-inlinesvg';
-import { API } from 'aws-amplify';
 import {
   MoreVertical,
   Download,
@@ -13,246 +11,37 @@ import {
   X,
   ChevronRight,
   XCircle,
+  Delete,
+  Trash,
+  AlertCircle,
 } from 'react-feather';
-import Posts from '../Posts';
 import Activity from '../Activity';
-import Performance from '../Performance';
 import CampaignDetail from '../CampaignDetail';
 import TeamMembers from '../TeamMembers';
 import BudgetAndConversion from '../BudgetAndConversion';
 import Deliverables from '../Deliverables';
 import Collections from '../Collections';
-import Contract from '../Contract';
 import Compensation from '../Compensation';
 import Negotiables from '../Negotiables';
-import Translation from '../../../assets/translation.json';
-import CDialog from '../../../components/ConfirmationDialog';
-import Drawer from '../../../components/RightDrawer';
-import ActivityDetail from '../ActivityDetail';
-import CompensationDetail from '../CompensationDetail';
-import DeliverablesDetail from '../DeliverablesDetail';
-import AddCampaign from '../../AddCampaign';
 
-import { useHistory } from 'react-router-dom';
-import TeamMembersDetail from '../TeamMembersDetail';
-import DraftBrandCampaignDetail from '../DraftBrandCampaignDetail';
-import PendingBrandCampaignDetail from '../PendingBrandCampaignDetail';
-import LiveBrandCampaignDetail from '../LiveBrandCampaignDetail';
-import ClosedBrandCampaignDetail from '../ClosedBrandCampaignDetail';
+import styles from './PendingBrandCampaignDetail.module.scss';
 
-const options = [
-  'Message Influencer',
-  'Duplicate Campaign',
-  'Download Campaign',
-];
-
-const LinkIcon = () => {
-  return <SVG src={require('../../../assets/link.svg')} />;
-};
-const CopyIcon = () => {
-  return <SVG src={require('../../../assets/copy.svg')} />;
-};
-
-const BrandCampaignDetail = ({ campaignId, status }) => {
+const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
   const history = useHistory();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [openCDialog, setOpenCDialog] = useState(false);
-  const [addCampaign, setAddCampagin] = useState(false);
-  const [step, setStep] = useState(1);
-  const [data, setData] = useState(null);
-
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-
   const id = open ? 'simple-popover' : undefined;
-  // const status = 'closed';
-  // const status = 'draft';
-  // const status = 'lost';
-  // const status ='draft';
-  // const status ='draft';
-
-  const [openDrawer, setOpenDrawer] = useState(false);
-  const [element, setElement] = useState('');
-
-  const handleEdit = (step) => {
-    setAddCampagin(true);
-    setStep(step);
-  };
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  const handleSeeClick = (value) => {
-    setElement(value);
-    setOpenDrawer(true);
-  };
-
-  const handleCancelCDialog = () => {
-    setOpenCDialog(false);
-  };
-  const handleConfirmCDialog = () => {
-    setOpenCDialog(false);
-  };
-  const handleCloseDrawer = () => {
-    setElement('');
-    setOpenDrawer(false);
-  };
-  const getDrawerElement = (element) => {
-    switch (element) {
-      case 'Activity':
-        return <ActivityDetail type={'Brand'} />;
-      case 'Deliverable':
-        return <DeliverablesDetail />;
-      case 'Compensation':
-        return <CompensationDetail />;
-      case 'TeamMembers':
-        return <TeamMembersDetail />;
-      default:
-        return;
-    }
-  };
-
-  const getCampaign = async () => {
-    try {
-      const campaign = await API.graphql({
-        query: `{
-          campaign(brandId: "8ece73cc-3079-4f45-b7bb-4f6007c8344d", id: "${campaignId}") {
-						name
-						startDate
-            endDate
-            discount {
-              ... on PercentageDiscount {
-                __typename
-                percentage
-              }
-              ... on FlatDiscount {
-                __typename
-                amount {
-                  amount
-                  currency
-                }
-              }
-            }
-            budget {
-              amount
-              currency
-            }
-            targetGrossSales {
-              amount
-              currency
-            }
-          }
-      }`,
-      });
-      console.log('campaign', campaign.data.campaign);
-      setData(campaign.data.campaign);
-    } catch (e) {}
-  };
-
-  const getPage = (status) => {
-    switch (status) {
-      case 'Draft':
-        return (
-          <DraftBrandCampaignDetail
-            handleEdit={handleEdit}
-            handleSeeClick={handleSeeClick}
-          />
-        );
-      case 'Closed':
-        return (
-          <ClosedBrandCampaignDetail
-            handleEdit={handleEdit}
-            handleSeeClick={handleSeeClick}
-          />
-        );
-      case 'Live':
-        return (
-          <LiveBrandCampaignDetail
-            handleEdit={handleEdit}
-            handleSeeClick={handleSeeClick}
-          />
-        );
-      case 'Invite':
-        return <div>Invite</div>;
-      case 'Lost':
-        return <div>Lost</div>;
-      case 'Pending':
-        return (
-          <PendingBrandCampaignDetail
-            handleEdit={handleEdit}
-            handleSeeClick={handleSeeClick}
-          />
-        );
-      case 'Declined':
-        return <div>Declined</div>;
-      default:
-        return <div>Default</div>;
-    }
-  };
-
-  useEffect(() => {
-    getCampaign();
-  }, [addCampaign]);
-
-  const getSectionData = () => {
-    switch (status) {
-      case 'closed':
-        return <Posts />;
-
-        break;
-      case 'draft':
-        return (
-          <div className={styles.campaignDraftContainer}>
-            <h1>Compensation not yet defined</h1>
-            <p>
-              Pickup where you left off and define how you will compensate the
-              influencer
-            </p>
-            <button>Finalize Campaign</button>
-          </div>
-        );
-        break;
-      case 'lost':
-        return (
-          <div className={styles.campaignLostContainer}>
-            <h1>We're sorry this one didn't work out</h1>
-            <p>
-              The influencer declined your campaign and left you a message. Try
-              creating a new campaign.
-            </p>
-            <button>Create new campaign</button>
-          </div>
-        );
-        break;
-
-      default:
-        break;
-    }
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
   return (
     <>
-      {addCampaign && (
-        <AddCampaign
-          open={addCampaign}
-          step={step}
-          campaign={data}
-          handleCancel={() => setAddCampagin(false)}
-        />
-      )}
-      <Drawer anchor={'right'} open={openDrawer} onClose={handleCloseDrawer}>
-        <div className={styles.x}>
-          <X onClick={handleCloseDrawer} />
-        </div>
-        {getDrawerElement(element)}
-      </Drawer>
-      {getPage(status)}
-
-      {/* <Popover
+      <Popover
         id={id}
         open={open}
         anchorEl={anchorEl}
@@ -268,13 +57,9 @@ const BrandCampaignDetail = ({ campaignId, status }) => {
       >
         <div className={styles.popOver}>
           <div>
-            <Mail /> <p> Message Influencer</p>
+            <Mail /> <p>Message Influencer</p>
           </div>
-          <div
-            onClick={() => {
-              setOpenCDialog(true);
-            }}
-          >
+          <div>
             <Copy /> <p>Duplicate Campaign</p>
           </div>
           <div>
@@ -293,21 +78,14 @@ const BrandCampaignDetail = ({ campaignId, status }) => {
         </div>
         <div className={styles.campaignBasicInfo}>
           <div className={styles.campaignStatus}>
-            <div className={styles.micrositeContainer}>
-              <div className={styles.linkIconAndName}>
-                <LinkIcon />
-                <span>Copy Microsite Link</span>
-              </div>
-              <CopyIcon />
-            </div>
             <div>
               <h4 className={styles.promotion}>Promotion: 15%</h4>
             </div>
             <div>
               <Chip
-                className={clsx(styles.customChip, styles[`closedCampaign`])}
+                className={clsx(styles[`pendingCampaign`])}
                 size='small'
-                label='Closed'
+                label='Pending'
               />
             </div>
             <div className={styles.influencerSocial}>
@@ -320,15 +98,21 @@ const BrandCampaignDetail = ({ campaignId, status }) => {
           </div>
         </div>
         <div className={styles.contentContainer}>
-          <div>
-            <Performance />
-          </div>
           <div className={styles.flexContainer}>
-            {getSectionData()}
+            <div className={styles.campaignPendingContainer}>
+              <h1>
+                <AlertCircle />
+                Microsite ready for approval
+              </h1>
+              <p>
+                The influencer has sent you the microsite to review and approve.
+              </p>
+              <button>View</button>
+            </div>
             <Activity onClick={handleSeeClick} />
           </div>
           <div className={styles.flexContainer}>
-            <CampaignDetail handleEdit={handleEdit}>
+            <CampaignDetail campaign={data} handleEdit={handleEdit}>
               <>
                 <h6>Custom Message to Influencer</h6>
                 <p>
@@ -348,20 +132,12 @@ const BrandCampaignDetail = ({ campaignId, status }) => {
           <div className={styles.flexContainer}>
             <Compensation handleEdit={handleEdit} onClick={handleSeeClick} />
             <Negotiables />
-            <Contract />
+            <div style={{ width: '391px' }}></div>
           </div>
         </div>
       </div>
-      <CDialog
-        open={openCDialog}
-        cancelText={'Cancel'}
-        confirmText={'Delete'}
-        onCancel={handleCancelCDialog}
-        onConfirm={handleConfirmCDialog}
-        message={Translation.DIALOG.CAMPAIGN_DELETE_CDIALOG_MSG}
-      /> */}
     </>
   );
 };
 
-export default BrandCampaignDetail;
+export default PendingBrandCampaignDetail;
