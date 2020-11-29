@@ -12,7 +12,7 @@ import {
   Mail,
   X,
   ChevronRight,
-  XCircle
+  XCircle,
 } from 'react-feather';
 import Posts from '../Posts';
 import Activity from '../Activity';
@@ -35,6 +35,7 @@ import AddCampaign from '../../AddCampaign';
 
 import { useHistory } from 'react-router-dom';
 import TeamMembersDetail from '../TeamMembersDetail';
+import DraftBrandCampaignDetail from '../DraftBrandCampaignDetail';
 
 const options = [
   'Message Influencer',
@@ -49,8 +50,7 @@ const CopyIcon = () => {
   return <SVG src={require('../../../assets/copy.svg')} />;
 };
 
-const BrandCampaignDetail = ({ campaignId }) => {
-
+const BrandCampaignDetail = ({ campaignId, status }) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [openCDialog, setOpenCDialog] = useState(false);
@@ -61,7 +61,7 @@ const BrandCampaignDetail = ({ campaignId }) => {
   const open = Boolean(anchorEl);
 
   const id = open ? 'simple-popover' : undefined;
-  const status = 'closed';
+  // const status = 'closed';
   // const status = 'draft';
   // const status = 'lost';
   // const status ='draft';
@@ -114,7 +114,6 @@ const BrandCampaignDetail = ({ campaignId }) => {
   };
 
   const getCampaign = async () => {
-
     try {
       const campaign = await API.graphql({
         query: `{
@@ -146,16 +145,35 @@ const BrandCampaignDetail = ({ campaignId }) => {
           }
       }`,
       });
-      console.log('campaign', campaign.data.campaign)
-      setData(campaign.data.campaign)
-    } catch (e) {
+      console.log('campaign', campaign.data.campaign);
+      setData(campaign.data.campaign);
+    } catch (e) {}
+  };
+
+  const getPage = (status) => {
+    switch (status) {
+      case 'Draft':
+        return <DraftBrandCampaignDetail />;
+      case 'Closed':
+        return <div>Closed</div>;
+      case 'Live':
+        return <div>Live</div>;
+      case 'Invite':
+        return <div>Invite</div>;
+      case 'Lost':
+        return <div>Lost</div>;
+      case 'Pending':
+        return <div>Pending</div>;
+      case 'Declined':
+        return <div>Declined</div>;
+      default:
+        return <div>Default</div>;
     }
   };
 
   useEffect(() => {
     getCampaign();
   }, [addCampaign]);
-
 
   const getSectionData = () => {
     switch (status) {
@@ -209,7 +227,9 @@ const BrandCampaignDetail = ({ campaignId }) => {
         </div>
         {getDrawerElement(element)}
       </Drawer>
-      <Popover
+      {getPage(status)}
+
+      {/* <Popover
         id={id}
         open={open}
         anchorEl={anchorEl}
@@ -316,7 +336,7 @@ const BrandCampaignDetail = ({ campaignId }) => {
         onCancel={handleCancelCDialog}
         onConfirm={handleConfirmCDialog}
         message={Translation.DIALOG.CAMPAIGN_DELETE_CDIALOG_MSG}
-      />
+      /> */}
     </>
   );
 };
