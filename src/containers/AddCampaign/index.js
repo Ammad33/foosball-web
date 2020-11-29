@@ -24,7 +24,6 @@ import Translation from '../../assets/translation.json';
 import SVG from 'react-inlinesvg';
 import { API, graphqlOperation } from 'aws-amplify';
 import logo from '../../assets/FomoPromo_logo__white.png';
-import { useParams } from 'react-router-dom';
 
 let typ = '';
 let val = '';
@@ -443,8 +442,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
     }
   }, [open]);
 
-	/******* Compensations States */
-	const [compensationPayment, setCompensationPayment] = useState('');
+  /******* Compensations States */
+  const [compensationPayment, setCompensationPayment] = useState('');
 
   const [compensations, setCompensations] = useState([
     {
@@ -595,9 +594,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
     setCompensations(comp);
   };
 
-	/************ Compensation Influencer payment schedule *******/
+  /************ Compensation Influencer payment schedule *******/
 
-	const handleCompensationPayment = (value) => {
+  const handleCompensationPayment = (value) => {
     setCompensationPayment(value);
   };
 
@@ -941,10 +940,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   /************* Active for compensations */
 
   const setActiveForCompensation = () => {
-		const compensation = [...compensations];
-		
+    const compensation = [...compensations];
 
-		
+
+
     let flag = true;
     compensation.forEach((comp) => {
       if (comp.compensationType === '' || comp.amount === '' || compensationPayment === '') {
@@ -979,7 +978,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
 
   // /*********************** To disable next button */
 
-  	useEffect(() => {
+  useEffect(() => {
     setActiveNext(true);
   });
 
@@ -1093,9 +1092,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
             handleCompensations={handleCompensations}
             handleCompensationValue={handleCompensationValue}
             handleRemoveCompensation={handleRemoveCompensation}
-						handleActiveForCompensation={setActiveForCompensation}
-						compensationPayment = {compensationPayment}
-						handleCompensationPayment = {handleCompensationPayment}
+            handleActiveForCompensation={setActiveForCompensation}
+            compensationPayment={compensationPayment}
+            handleCompensationPayment={handleCompensationPayment}
             compensationProduct={compensationProduct}
             handleCompensationProducts={handleCompensationProducts}
             compensationProductItems={items}
@@ -1137,8 +1136,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
             targetGrossSale={targetGrossSale}
             collections={collections}
             deliverables={deliveries}
-						compensations={compensations}
-						compensationPayment = {compensationPayment}
+            compensations={compensations}
+            compensationPayment={compensationPayment}
             selectedNegotiable={selectedNegotiable}
             selectedInfluncer={influencer}
             handleActiveStep={(value) => setActiveStep(value)}

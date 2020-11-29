@@ -7,16 +7,17 @@ import edit from '../../assets/edit.svg';
 import BrandCampaignDetail from './BrandCampaignDetail';
 import { useHistory, useParams } from 'react-router-dom';
 import InfluencerCampaignDetail from './InfluencerCampaignDetail';
-import Button from '@material-ui/core/Button';
+import { Select, MenuItem } from '@material-ui/core';
 import Link from '@material-ui/core/Link';
-import { Link2 } from 'react-feather';
+import { Link2, ChevronDown } from 'react-feather';
 import { RootContext } from '../../context/RootContext';
-
+import SelectMenu from '../../components/SelectMenu';
 
 
 const CampaignDetail = () => {
 
 	const history = useHistory();
+	const [status, setStatus] = useState('Closed')
 
 	const { campaignId } = useParams();
 	const [brandState, setBrandState] = useState(true);
@@ -31,8 +32,28 @@ const CampaignDetail = () => {
 
 	return (
 		<div className={styles.detailContainer}>
-			<Link onClick={handleBrandState}> Toggle Campiagn Detail influencer</Link>
-			{brandState ? (<BrandCampaignDetail campaignId={campaignId} />) : (<InfluencerCampaignDetail campaignId={campaignId} />)}
+			<div style={{ display: 'flex', gap: '30px' }}>
+				<Link onClick={handleBrandState}> Toggle Campiagn Detail influencer</Link>
+				<Select
+					id='outlined-basic'
+					defaultValue={'Percentage'}
+					value={status}
+					onChange={(e) => setStatus(e.target.value)}
+					variant='outlined'
+					MenuProps={{ variant: 'menu' }}
+					input={<SelectMenu />}
+				>
+					{/* <MenuItem value='' ></MenuItem> */}
+					<MenuItem value={'Closed'}>Closed</MenuItem>
+					<MenuItem value={'Declined'}>Declined</MenuItem>
+					<MenuItem value={'Invite'}>Invite</MenuItem>
+					<MenuItem value={'Live'}>Live</MenuItem>
+					<MenuItem value={'Lost'}>Lost</MenuItem>
+					<MenuItem value={'Pending'}>Pending</MenuItem>
+
+				</Select>
+			</div>
+			{brandState ? (<BrandCampaignDetail campaignId={campaignId} />) : (<InfluencerCampaignDetail status={status} campaignId={campaignId} />)}
 
 
 		</div>

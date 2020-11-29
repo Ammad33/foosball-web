@@ -4,24 +4,19 @@ import { Avatar, Chip, Popover } from '@material-ui/core';
 import styles from './InfluencerCampaignDetail.module.scss';
 import { ChevronRight, MoreVertical, Download, Mail, X } from 'react-feather';
 import { useHistory } from 'react-router-dom';
-import Performance from '../Performance';
-import Posts from '../Posts';
-import Activity from '../Activity';
-import CampaignDetail from '../CampaignDetail';
-import Compensation from '../Compensation';
-import Deliverables from '../Deliverables';
-import Collections from '../Collections';
-import Contract from '../Contract';
 import ActivityDetail from '../ActivityDetail';
 import DeliverablesDetail from '../DeliverablesDetail';
 import Drawer from '../../../components/RightDrawer';
 import CompensationDetail from '../CompensationDetail';
 import AddCampaign from '../../AddCampaign';
+import ClosedInfluencer from '../ClosedInfluencer';
+import LostInfluencer from '../LostInfluencer';
+import TeamMembersDetail from '../TeamMembersDetail';
+
 import { API } from 'aws-amplify';
 
-const CampaignDetailInfluencer = ({ campaignId }) => {
+const CampaignDetailInfluencer = ({ campaignId, status }) => {
   const history = useHistory();
-  const [anchorEl, setAnchorEl] = React.useState(null);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [addCampaign, setAddCampagin] = useState(false);
   const [step, setStep] = useState(1);
@@ -77,21 +72,30 @@ const CampaignDetailInfluencer = ({ campaignId }) => {
     setStep(step);
   };
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   const handleCloseDrawer = () => {
     setElement('');
     setOpenDrawer(false);
   };
 
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
+  const getPage = (status) => {
+    switch (status) {
+      case 'Closed':
+        return <ClosedInfluencer handleEdit={handleEdit} handleSeeClick={handleSeeClick} />;
+      case 'Live':
+        return <DeliverablesDetail />;
+      case 'Invite':
+        return <CompensationDetail />;
+      case 'Lost':
+        return <LostInfluencer handleEdit={handleEdit} handleSeeClick={handleSeeClick} />;
+      case 'Pending':
+        return <CompensationDetail />;
+      case 'Declined':
+        return <LostInfluencer handleEdit={handleEdit} handleSeeClick={handleSeeClick} />;
+      default:
+        return;
+    }
+  }
 
   const getDrawerElement = (element) => {
     switch (element) {
@@ -101,6 +105,8 @@ const CampaignDetailInfluencer = ({ campaignId }) => {
         return <DeliverablesDetail />;
       case 'Compensation':
         return <CompensationDetail />;
+      case 'TeamMembers':
+        return <TeamMembersDetail />;
       default:
         return;
     }
@@ -127,7 +133,8 @@ const CampaignDetailInfluencer = ({ campaignId }) => {
         </div>
         {getDrawerElement(element)}
       </Drawer>
-      <Popover
+      {getPage(status)}
+      {/* <Popover
         id={id}
         open={open}
         anchorEl={anchorEl}
@@ -197,7 +204,7 @@ const CampaignDetailInfluencer = ({ campaignId }) => {
             <Contract />
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };
