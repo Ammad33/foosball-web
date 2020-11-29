@@ -84,7 +84,7 @@ const LostInfluencer = ({ handleEdit, data, handleSeeClick }) => {
                     <MoreVertical onClick={handleClick} />
                 </div>
                 <div className={styles.firstConatiner} style={{ marginBottom: '30px' }}>
-                    <DeclineCard />
+                    <DeclineCard handleEdit={handleEdit} />
                     <Activity onClick={handleSeeClick} />
                 </div >
                 <div className={styles.firstConatiner}>

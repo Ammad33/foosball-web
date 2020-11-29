@@ -154,7 +154,7 @@ const BrandCampaignDetail = ({ campaignId }) => {
 
   useEffect(() => {
     getCampaign();
-  }, []);
+  }, [addCampaign]);
 
 
   const getSectionData = () => {
