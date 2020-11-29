@@ -77,9 +77,9 @@ const DraftBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
             </div>
             <div>
               <Chip
-                className={clsx(styles[`pendingCampaign`])}
+                className={clsx(styles[`draftCampaign`])}
                 size='small'
-                label='pending'
+                label='Draft'
               />
             </div>
           </div>
