@@ -1,6 +1,9 @@
 
 @import '../../../variable.module.scss';
 
+.fullWidth {
+    max-width: none !important;
+}
 .postContainer {
     max-height: 316px;
     max-width: 813px;

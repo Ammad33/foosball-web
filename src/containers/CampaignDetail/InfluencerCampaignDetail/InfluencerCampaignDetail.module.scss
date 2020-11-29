@@ -59,6 +59,39 @@
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 45.5px;
+
+  .micrositeContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    width: 358px;
+    background-color: #3481ef;
+    border-right: none !important;
+    border-radius: 10px;
+    padding: 0px 20px;
+    color: $white;
+    font-weight: 500;
+    .linkIconAndName {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      // flex: 0 0 250px;
+    }
+  }
+ 
+}
+
+.live {
+  background-color: #7B5CD9 !important;
+}
+
+.invite {
+  background-color: #3481EF !important;
+}
+
+.pending {
+  background-color: #5D6FD3 !important;
 }
 
 .subCampaignSubHeading {

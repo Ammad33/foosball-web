@@ -4,13 +4,14 @@ import styles from './Post.module.scss';
 import Post3 from '../../../assets/post3.png';
 import Post2 from '../../../assets/post2.png';
 import Post1 from '../../../assets/post1.png';
+import clsx from 'clsx';
 
-const Posts = () => {
+const Posts = ({ width }) => {
 
     const history = useHistory();
 
     return (
-        <div className={styles.postContainer}>
+        <div className={clsx(styles.postContainer, width ? styles.fullWidth : '')}>
             <h1>Posts</h1>
             <div className={styles.mainDiv}>
                 <div className={styles.elemtdiv}>

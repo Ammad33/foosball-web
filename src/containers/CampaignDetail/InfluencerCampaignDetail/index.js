@@ -12,7 +12,10 @@ import AddCampaign from '../../AddCampaign';
 import ClosedInfluencer from '../ClosedInfluencer';
 import LostInfluencer from '../LostInfluencer';
 import TeamMembersDetail from '../TeamMembersDetail';
-
+import InviteInfluencer from '../InviteInflunecr';
+import PendingInfluencer from '../PendingInfluencer';
+import LiveInfluencer from '../LiveInfluencer';
+import DeclineInfluencer from '../DeclineInfluencer';
 import { API } from 'aws-amplify';
 
 const CampaignDetailInfluencer = ({ campaignId, status }) => {
@@ -83,15 +86,15 @@ const CampaignDetailInfluencer = ({ campaignId, status }) => {
       case 'Closed':
         return <ClosedInfluencer handleEdit={handleEdit} handleSeeClick={handleSeeClick} />;
       case 'Live':
-        return <DeliverablesDetail />;
+        return <LiveInfluencer handleEdit={handleEdit} handleSeeClick={handleSeeClick} />;
       case 'Invite':
-        return <CompensationDetail />;
+        return <InviteInfluencer handleEdit={handleEdit} handleSeeClick={handleSeeClick} />;
       case 'Lost':
         return <LostInfluencer handleEdit={handleEdit} handleSeeClick={handleSeeClick} />;
       case 'Pending':
-        return <CompensationDetail />;
+        return <PendingInfluencer handleEdit={handleEdit} handleSeeClick={handleSeeClick} />;
       case 'Declined':
-        return <LostInfluencer handleEdit={handleEdit} handleSeeClick={handleSeeClick} />;
+        return <DeclineInfluencer handleEdit={handleEdit} handleSeeClick={handleSeeClick} />;
       default:
         return;
     }
