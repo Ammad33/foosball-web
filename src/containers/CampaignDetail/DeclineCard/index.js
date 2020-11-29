@@ -7,7 +7,7 @@ const DeclineCard = ({ handleEdit }) => {
             <h1>We're sorry this one didn't work out</h1>
             <p className={styles.firstp}>The influencer declined your campaign and left you a message.</p>
             <p className={styles.secondp}>Try creating a new campaign.</p>
-            <button onClick={() => handleEdit(1)} >Create new campaign</button>
+            <button onClick={() => handleEdit()} >Create new campaign</button>
         </div>)
 };
 

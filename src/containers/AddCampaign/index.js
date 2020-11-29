@@ -360,7 +360,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
 
   useEffect(() => {
     setActiveStep(step !== undefined ? step : 1);
-    if (campaign && campaign !== null) {
+    if (campaign && campaign !== null && step !== undefined) {
       setCampaignName(campaign.name);
 
       const startDate = new Date(campaign.startDate * 1000);
