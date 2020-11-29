@@ -12,6 +12,24 @@
       display: flex;
       align-items: center;
       gap: 20px;
+      .micrositeContainer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 60px;
+        width: 358px;
+        background-color: #3481ef;
+        border-right: none !important;
+        border-radius: 10px;
+        padding: 0px 20px;
+        color: $white;
+        font-weight: 500;
+        .linkIconAndName {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+      }
 
       .promotion {
         color: $dark1;
@@ -23,11 +41,11 @@
         margin: 0px;
         padding: 0px;
       }
-      .pendingCampaign {
+      .liveCampaign {
         height: 34px;
-        width: 105px;
+        width: 70px;
         border-radius: 100px;
-        background-color: $brandPending;
+        background-color: $brandLive;
         color: $white;
         font-family: Poppins;
         font-size: 16px;

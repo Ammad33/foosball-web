@@ -6,7 +6,6 @@ import clsx from 'clsx';
 import {
   MoreVertical,
   Download,
-  Copy,
   Mail,
   X,
   ChevronRight,
@@ -14,6 +13,8 @@ import {
   Delete,
   Trash,
   AlertCircle,
+  Copy,
+  Link,
 } from 'react-feather';
 import Activity from '../Activity';
 import CampaignDetail from '../CampaignDetail';
@@ -23,10 +24,13 @@ import Deliverables from '../Deliverables';
 import Collections from '../Collections';
 import Compensation from '../Compensation';
 import Negotiables from '../Negotiables';
+import Posts from '../Posts';
+import Contract from '../Contract';
+import Performance from '../Performance';
 
-import styles from './PendingBrandCampaignDetail.module.scss';
+import styles from './ClosedBrandCampaignDetail.module.scss';
 
-const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
+const ClosedBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -65,9 +69,6 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
           <div>
             <Download /> <p>Download Campaign</p>
           </div>
-          <div>
-            <XCircle /> <p>Cancel Campaign</p>
-          </div>
         </div>
       </Popover>
       <div className={styles.mainContainer}>
@@ -83,9 +84,9 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
             </div>
             <div>
               <Chip
-                className={clsx(styles[`pendingCampaign`])}
+                className={clsx(styles[`closedCampaign`])}
                 size='small'
-                label='Pending'
+                label='Closed'
               />
             </div>
             <div className={styles.influencerSocial}>
@@ -98,17 +99,11 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
           </div>
         </div>
         <div className={styles.contentContainer}>
+          <div>
+            <Performance />
+          </div>
           <div className={styles.flexContainer}>
-            <div className={styles.campaignPendingContainer}>
-              <h1>
-                <AlertCircle />
-                Microsite ready for approval
-              </h1>
-              <p>
-                The influencer has sent you the microsite to review and approve.
-              </p>
-              <button>View</button>
-            </div>
+            <Posts />
             <Activity onClick={handleSeeClick} />
           </div>
           <div className={styles.flexContainer}>
@@ -132,7 +127,7 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
           <div className={styles.flexContainer}>
             <Compensation handleEdit={handleEdit} onClick={handleSeeClick} />
             <Negotiables />
-            <div style={{ width: '391px' }}></div>
+            <Contract />
           </div>
         </div>
       </div>
@@ -140,4 +135,4 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
   );
 };
 
-export default PendingBrandCampaignDetail;
+export default ClosedBrandCampaignDetail;

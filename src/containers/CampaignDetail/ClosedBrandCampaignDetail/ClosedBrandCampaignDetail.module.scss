@@ -12,7 +12,6 @@
       display: flex;
       align-items: center;
       gap: 20px;
-
       .promotion {
         color: $dark1;
         font-family: Poppins;
@@ -23,11 +22,11 @@
         margin: 0px;
         padding: 0px;
       }
-      .pendingCampaign {
+      .closedCampaign {
         height: 34px;
-        width: 105px;
+        width: 96px;
         border-radius: 100px;
-        background-color: $brandPending;
+        background-color: $brandClosed;
         color: $white;
         font-family: Poppins;
         font-size: 16px;

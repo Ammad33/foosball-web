@@ -6,7 +6,6 @@ import clsx from 'clsx';
 import {
   MoreVertical,
   Download,
-  Copy,
   Mail,
   X,
   ChevronRight,
@@ -14,6 +13,8 @@ import {
   Delete,
   Trash,
   AlertCircle,
+  Copy,
+  Link,
 } from 'react-feather';
 import Activity from '../Activity';
 import CampaignDetail from '../CampaignDetail';
@@ -23,10 +24,12 @@ import Deliverables from '../Deliverables';
 import Collections from '../Collections';
 import Compensation from '../Compensation';
 import Negotiables from '../Negotiables';
+import Posts from '../Posts';
+import Contract from '../Contract';
 
-import styles from './PendingBrandCampaignDetail.module.scss';
+import styles from './LiveBrandCampaignDetail.module.scss';
 
-const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
+const LiveBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -66,7 +69,7 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
             <Download /> <p>Download Campaign</p>
           </div>
           <div>
-            <XCircle /> <p>Cancel Campaign</p>
+            <XCircle /> <p>Stop Campaign</p>
           </div>
         </div>
       </Popover>
@@ -78,14 +81,21 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
         </div>
         <div className={styles.campaignBasicInfo}>
           <div className={styles.campaignStatus}>
+            <div className={styles.micrositeContainer}>
+              <div className={styles.linkIconAndName}>
+                <Link />
+                <span>Copy Microsite Link</span>
+              </div>
+              <Copy />
+            </div>
             <div>
               <h4 className={styles.promotion}>Promotion: 15%</h4>
             </div>
             <div>
               <Chip
-                className={clsx(styles[`pendingCampaign`])}
+                className={clsx(styles[`liveCampaign`])}
                 size='small'
-                label='Pending'
+                label='Live'
               />
             </div>
             <div className={styles.influencerSocial}>
@@ -99,16 +109,7 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
         </div>
         <div className={styles.contentContainer}>
           <div className={styles.flexContainer}>
-            <div className={styles.campaignPendingContainer}>
-              <h1>
-                <AlertCircle />
-                Microsite ready for approval
-              </h1>
-              <p>
-                The influencer has sent you the microsite to review and approve.
-              </p>
-              <button>View</button>
-            </div>
+            <Posts />
             <Activity onClick={handleSeeClick} />
           </div>
           <div className={styles.flexContainer}>
@@ -132,7 +133,7 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
           <div className={styles.flexContainer}>
             <Compensation handleEdit={handleEdit} onClick={handleSeeClick} />
             <Negotiables />
-            <div style={{ width: '391px' }}></div>
+            <Contract />
           </div>
         </div>
       </div>
@@ -140,4 +141,4 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
   );
 };
 
-export default PendingBrandCampaignDetail;
+export default LiveBrandCampaignDetail;
