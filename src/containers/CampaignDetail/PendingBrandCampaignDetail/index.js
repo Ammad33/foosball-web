@@ -13,6 +13,7 @@ import {
   XCircle,
   Delete,
   Trash,
+  AlertCircle,
 } from 'react-feather';
 import Activity from '../Activity';
 import CampaignDetail from '../CampaignDetail';
@@ -20,10 +21,12 @@ import TeamMembers from '../TeamMembers';
 import BudgetAndConversion from '../BudgetAndConversion';
 import Deliverables from '../Deliverables';
 import Collections from '../Collections';
+import Compensation from '../Compensation';
+import Negotiables from '../Negotiables';
 
-import styles from './DraftBrandCampaignDetail.module.scss';
+import styles from './PendingBrandCampaignDetail.module.scss';
 
-const DraftBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
+const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -54,13 +57,16 @@ const DraftBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
       >
         <div className={styles.popOver}>
           <div>
+            <Mail /> <p>Message Influencer</p>
+          </div>
+          <div>
             <Copy /> <p>Duplicate Campaign</p>
           </div>
           <div>
             <Download /> <p>Download Campaign</p>
           </div>
           <div>
-            <Trash /> <p>Delete Campaign</p>
+            <XCircle /> <p>Cancel Campaign</p>
           </div>
         </div>
       </Popover>
@@ -79,7 +85,7 @@ const DraftBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
               <Chip
                 className={clsx(styles[`pendingCampaign`])}
                 size='small'
-                label='pending'
+                label='Pending'
               />
             </div>
           </div>
@@ -89,13 +95,15 @@ const DraftBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
         </div>
         <div className={styles.contentContainer}>
           <div className={styles.flexContainer}>
-            <div className={styles.campaignDraftContainer}>
-              <h1>Compensation not yet defined</h1>
+            <div className={styles.campaignPendingContainer}>
+              <h1>
+                <AlertCircle />
+                Microsite ready for approval
+              </h1>
               <p>
-                Pickup where you left off and define how you will compensate the
-                influencer
+                The influencer has sent you the microsite to review and approve.
               </p>
-              <button>Finalize Campaign</button>
+              <button>View</button>
             </div>
             <Activity onClick={handleSeeClick} />
           </div>
@@ -117,10 +125,15 @@ const DraftBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
             <Collections handleEdit={handleEdit} />
             <Deliverables handleEdit={handleEdit} onClick={handleSeeClick} />
           </div>
+          <div className={styles.flexContainer}>
+            <Compensation handleEdit={handleEdit} onClick={handleSeeClick} />
+            <Negotiables />
+            <div style={{ width: '391px' }}></div>
+          </div>
         </div>
       </div>
     </>
   );
 };
 
-export default DraftBrandCampaignDetail;
+export default PendingBrandCampaignDetail;

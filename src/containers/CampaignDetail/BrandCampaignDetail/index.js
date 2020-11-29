@@ -36,6 +36,7 @@ import AddCampaign from '../../AddCampaign';
 import { useHistory } from 'react-router-dom';
 import TeamMembersDetail from '../TeamMembersDetail';
 import DraftBrandCampaignDetail from '../DraftBrandCampaignDetail';
+import PendingBrandCampaignDetail from '../PendingBrandCampaignDetail';
 
 const options = [
   'Message Influencer',
@@ -153,7 +154,12 @@ const BrandCampaignDetail = ({ campaignId, status }) => {
   const getPage = (status) => {
     switch (status) {
       case 'Draft':
-        return <DraftBrandCampaignDetail />;
+        return (
+          <DraftBrandCampaignDetail
+            handleEdit={handleEdit}
+            handleSeeClick={handleSeeClick}
+          />
+        );
       case 'Closed':
         return <div>Closed</div>;
       case 'Live':
@@ -163,7 +169,13 @@ const BrandCampaignDetail = ({ campaignId, status }) => {
       case 'Lost':
         return <div>Lost</div>;
       case 'Pending':
-        return <div>Pending</div>;
+        return (
+          <PendingBrandCampaignDetail
+            handleEdit={handleEdit}
+            handleSeeClick={handleSeeClick}
+          />
+        );
+      // return <div>Pending</div>;
       case 'Declined':
         return <div>Declined</div>;
       default:
