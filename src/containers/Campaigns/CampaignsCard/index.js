@@ -7,6 +7,8 @@ import ErrorOutlineOutlinedIcon from '@material-ui/icons/ErrorOutlineOutlined';
 import Chip from '@material-ui/core/Chip';
 import clsx from 'clsx';
 import moment from 'moment';
+import Tooltip from '@material-ui/core/Tooltip';
+
 
 
 const CampaignsCard = ({ campaign }) => {
@@ -27,7 +29,11 @@ const CampaignsCard = ({ campaign }) => {
         </div>
         <div className={styles.cardDetails}>
           <div className={styles.campaignInfo}>
-            <span className={styles.campaignName}>{campaign.name}</span>
+					 <Tooltip title={campaign.name}> 
+            <span className={styles.campaignName}>{campaign.name.length > 20 ?
+						`${campaign.name.substring(0, 20)}...` : campaign.name
+						}</span> 
+					</Tooltip>
             <span className={styles.campaignNumber}>
               <small>{convertedStartDate} / {convertedEndDate} </small>
             </span>
