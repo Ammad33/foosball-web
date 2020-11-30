@@ -4,6 +4,10 @@ import styles from './CompensationDetail.module.scss';
 const CompensationDetail = () => {
     return (<div className={styles.compensationContainer}>
         <h1>Compensation</h1>
+				<div className={styles.influencerPayment}>
+						<h6>Influencer Schedule Payment </h6>
+						<p className={styles.detailSubContent} >Monthly</p>
+        </div>
         <div className={styles.header}>
             <h6>Compensation Type 1</h6>
             <h6>$2,000*</h6>

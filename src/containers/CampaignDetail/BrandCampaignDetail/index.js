@@ -59,6 +59,7 @@ const BrandCampaignDetail = ({ campaignId, status }) => {
           campaign(brandId: "8ece73cc-3079-4f45-b7bb-4f6007c8344d", id: "${campaignId}") {
 						name
 						startDate
+						status
             endDate
             discount {
               ... on PercentageDiscount {

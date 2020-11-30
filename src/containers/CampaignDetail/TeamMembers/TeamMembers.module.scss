@@ -5,7 +5,21 @@
   border-radius: 10px;
   background-color: $white;
   box-shadow: 0 6px 50px 0 rgba(0, 0, 0, 0.1);
-  padding: 32px 41px 20px 35px;
+	padding: 32px 41px 20px 35px;
+	.headerContainer{
+		display: flex;
+    align-items: center;
+    justify-content: space-between;
+    h3 {
+      color: $dark1;
+      font-family: Poppins;
+      font-size: 23px;
+      font-weight: bold;
+      letter-spacing: 0;
+      line-height: 34px;
+    }
+	}
+
   .membersContainer {
     .memberItem {
       display: flex;

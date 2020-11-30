@@ -44,14 +44,15 @@ const CampaignDetail = () => {
           MenuProps={{ variant: 'menu' }}
           input={<SelectMenu />}
         >
-          {/* <MenuItem value='' ></MenuItem> */}
+          <MenuItem value='' disabled > Select Status</MenuItem> 
           <MenuItem value={'Draft'}>Draft</MenuItem>
+					<MenuItem value={'Pending'}>Pending</MenuItem>
           <MenuItem value={'Closed'}>Closed</MenuItem>
           <MenuItem value={'Declined'}>Declined</MenuItem>
           <MenuItem value={'Invite'}>Invite</MenuItem>
           <MenuItem value={'Live'}>Live</MenuItem>
           <MenuItem value={'Lost'}>Lost</MenuItem>
-          <MenuItem value={'Pending'}>Pending</MenuItem>
+          
         </Select>
       </div>
       {brandState ? (

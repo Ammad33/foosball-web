@@ -10,9 +10,9 @@ const Activity = ({ onClick }) => {
                 <div className={styles.activitySubContent}>
                     <span>9/28</span>
                     <div></div>
-                    <p>Contract signed by both parties</p>
+                    <p>Campaign draft created </p>
                 </div>
-                <div className={styles.border} />
+                {/* <div className={styles.border} />
                 <div className={styles.activitySubContent}>
                     <span>9/27</span>
                     <div></div>
@@ -23,9 +23,9 @@ const Activity = ({ onClick }) => {
                     <span>9/26</span>
                     <div></div>
                     <p>You counter offer</p>
-                </div>
+                </div> */}
             </div>
-            <button onClick={() => onClick('Activity')}>See all</button>
+            {/* <button onClick={() => onClick('Activity')}>See all</button> */}
         </div>
     )
 };

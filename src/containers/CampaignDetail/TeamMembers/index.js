@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './TeamMembers.module.scss';
+import { Edit } from 'react-feather';
 import { Avatar } from '@material-ui/core';
 import ChipButton from './../../../components/ChipButton';
 
@@ -31,10 +32,13 @@ const members = [
   },
 ];
 
-const TeamMembers = ({ onClick }) => {
+const TeamMembers = ({ onClick , handleEdit}) => {
   return (
     <div className={styles.mainContainer}>
+			<div className={styles.headerContainer}>
       <h3>Team Members</h3>
+			<Edit  />
+			</div>
       <div className={styles.membersContainer}>
         {members.map((member) => {
           return (

@@ -110,7 +110,7 @@ const DraftBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
                 </p>
               </>
             </CampaignDetail>
-            <TeamMembers onClick={handleSeeClick} />
+            <TeamMembers onClick={handleSeeClick} handleEdit={handleEdit}/>
             <BudgetAndConversion handleEdit={handleEdit} />
           </div>
           <div className={styles.flexContainer}>

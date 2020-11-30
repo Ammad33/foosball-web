@@ -10,6 +10,10 @@ const Compensation = ({ onClick, handleEdit }) => {
         <Edit onClick={() => handleEdit(6)} />
       </div>
       <div className={styles.conatianer}>
+			<div className={styles.detailSubContent}>
+          <h6>Influencer Schedule Payment </h6>
+          <p>Monthly</p>
+        </div>
         <div className={styles.detailSubContent}>
           <h6>Compensation Type</h6>
           <p>Revenue Share</p>

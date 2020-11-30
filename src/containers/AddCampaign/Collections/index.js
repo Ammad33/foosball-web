@@ -92,10 +92,12 @@ const Collection = ({
 		else if (panel == "panel2"){
 			handleCollection("V-Necks")
 			handleSvg2();
+			setOpen(true);
 		}
 		else{
 			handleCollection("Henleys")
 			handleSvg3();
+			setOpen(true);
 		}
 	};
 	const closeSvg= () =>{
@@ -173,7 +175,23 @@ const Collection = ({
       </Accordion>
       <Accordion square expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
         <AccordionSummary className={styles.accordianSummary} aria-controls="panel2d-content" id="panel2d-header">
-          <Typography className={styles.collectionName}>V Necks
+          <Typography className={styles.collectionName}>
+						 V Necks{' '}  
+							{collections.find(
+                (item) =>
+                  item.collectionName === 'V-Necks' &&
+                  item.collectionItems.length !== 0
+              ) && (
+                <div className='hello'>
+                  <span className = {styles.collectionNumber}>
+                    {open === true &&
+                      collections.find(
+                        (item) => item.collectionName === 'V-Necks'
+                      ).collectionItems.length}
+                  </span>
+                </div>
+              )}
+							{' '} 
 					<span className={styles.svg} > 
 					{svg2 ? (
 						<MinusSVG/> ): ( <PlusSVG/>) 
@@ -205,7 +223,23 @@ const Collection = ({
       </Accordion>
       <Accordion square expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
         <AccordionSummary className={styles.accordianSummary} aria-controls="panel3d-content" id="panel3d-header">
-          <Typography className={styles.collectionName}>Henleys 
+          <Typography className={styles.collectionName}>
+						 Henleys{' '}  
+							{collections.find(
+                (item) =>
+                  item.collectionName === 'Henleys' &&
+                  item.collectionItems.length !== 0
+              ) && (
+                <div className='hello'>
+                  <span className = {styles.collectionNumber}>
+                    {open === true &&
+                      collections.find(
+                        (item) => item.collectionName === 'Henleys'
+                      ).collectionItems.length}
+                  </span>
+                </div>
+              )}
+							{' '} 
 					<span className={styles.svg} > 
 					{svg3 ? (
 						<MinusSVG/> ): ( <PlusSVG/>) 
