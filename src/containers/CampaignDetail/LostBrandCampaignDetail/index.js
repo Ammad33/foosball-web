@@ -102,7 +102,7 @@ const LostBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
                 The influencer declined your campaign and left you a message.
                 Try creating a new campaign.
               </p>
-              <button>Create new campaign</button>
+              <button onClick={() => handleEdit()}>Create new campaign</button>
             </div>
             <Activity onClick={handleSeeClick} />
           </div>

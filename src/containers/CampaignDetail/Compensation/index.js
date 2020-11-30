@@ -10,7 +10,7 @@ const Compensation = ({ onClick, handleEdit }) => {
         <Edit onClick={() => handleEdit(6)} />
       </div>
       <div className={styles.conatianer}>
-			<div className={styles.detailSubContent}>
+        <div className={styles.detailSubContent}>
           <h6>Influencer Schedule Payment </h6>
           <p>Monthly</p>
         </div>
@@ -18,10 +18,10 @@ const Compensation = ({ onClick, handleEdit }) => {
           <h6>Compensation Type</h6>
           <p>Revenue Share</p>
         </div>
-        <div className={styles.detailSubContent}>
+        {/* <div className={styles.detailSubContent}>
           <h6>Revenue Share Percentage</h6>
           <p>2%</p>
-        </div>
+        </div> */}
       </div>
       <button onClick={() => onClick('Compensation')}>See all</button>
     </div>

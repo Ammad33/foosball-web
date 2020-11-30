@@ -32,13 +32,13 @@ const members = [
   },
 ];
 
-const TeamMembers = ({ onClick , handleEdit}) => {
+const TeamMembers = ({ onClick, handleEdit, seeAll }) => {
   return (
     <div className={styles.mainContainer}>
-			<div className={styles.headerContainer}>
-      <h3>Team Members</h3>
-			<Edit  />
-			</div>
+      <div className={styles.headerContainer}>
+        <h3>Team Members</h3>
+        <Edit />
+      </div>
       <div className={styles.membersContainer}>
         {members.map((member) => {
           return (
@@ -49,11 +49,12 @@ const TeamMembers = ({ onClick , handleEdit}) => {
           );
         })}
       </div>
-      <ChipButton
-        handleClick={() => onClick('TeamMembers')}
-        title={'See all'}
-        buttonSize={'sm'}
-      />
+      {seeAll !== false &&
+        <ChipButton
+          handleClick={() => onClick('TeamMembers')}
+          title={'See all'}
+          buttonSize={'sm'}
+        />}
     </div>
   );
 };

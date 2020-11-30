@@ -95,9 +95,9 @@ const DraftBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
                 Pickup where you left off and define how you will compensate the
                 influencer
               </p>
-              <button>Finalize Campaign</button>
+              <button onClick={() => handleEdit(6)}>Finalize Campaign</button>
             </div>
-            <Activity onClick={handleSeeClick} />
+            <Activity seeAll={false} onClick={handleSeeClick} />
           </div>
           <div className={styles.flexContainer}>
             <CampaignDetail campaign={data} handleEdit={handleEdit}>
@@ -110,7 +110,7 @@ const DraftBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
                 </p>
               </>
             </CampaignDetail>
-            <TeamMembers onClick={handleSeeClick} handleEdit={handleEdit}/>
+            <TeamMembers seeAll={false} onClick={handleSeeClick} handleEdit={handleEdit} />
             <BudgetAndConversion handleEdit={handleEdit} />
           </div>
           <div className={styles.flexContainer}>
