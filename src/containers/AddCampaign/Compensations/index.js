@@ -17,19 +17,30 @@ const Chevron = () => {
 };
 
 const Compensations = ({ compensations, handleCompensations, handleCompensationValue,
-		handleRemoveCompensation, handleActiveForCompensation,compensationPayment, handleCompensationPayment,
+		handleRemoveCompensation, handleActiveForCompensation, addAnother,
+		
+		compensationPayment, handleCompensationPayment,
 		compensationProduct,
 		handleCompensationProducts,
 		compensationProductItems,
 		compensationProducts,
 		handleActiveForCompensationProduct,
 		handleCompensationProductItem  }) => {
+			
+		const checkAddAnother = () => {
+			if (addAnother == true){
+				setAnother(true);
+			}
+		}
 
     const [handleAnother, setAnother] = useState(false);
     handleActiveForCompensation()
     useEffect(() => {
+			checkAddAnother()
 
-    }, [compensations])
+		}, [compensations])
+		
+		debugger;
 
     return (<div>
 				<Grid container spacing={3}> 
