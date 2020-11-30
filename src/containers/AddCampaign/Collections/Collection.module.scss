@@ -54,12 +54,31 @@ div {
 }
 .collectionName{
 	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	.heading {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+
+	.quantity{
+		border: 1px solid #7b5cd9;
+    background: #7b5cd9;
+    border-radius: 9999999999999px;
+		color: white;
+		padding: 3px;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	}
 	
 }
 
 
 
 .svg {
-	float:right;
-	margin-top: 3px;
+	margin-left: 28px;
+	margin-top: 5px;
+	
 }

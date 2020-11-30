@@ -125,13 +125,14 @@ const Collection = ({
 				<Accordion square expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <AccordionSummary className={styles.accordianSummary} aria-controls="panel1d-content" id="panel1d-header">
           <Typography className={styles.collectionName}>
-						 Drop Cutsss{' '}  
+					Drop Cut
+						<div className={styles.heading}>  
 							{collections.find(
                 (item) =>
                   item.collectionName === 'Drop Cuts' &&
                   item.collectionItems.length !== 0
               ) && (
-                <div className='hello'>
+                <div className={styles.quantity}>
                   <span className = {styles.collectionNumber}>
                     {open === true &&
                       collections.find(
@@ -140,15 +141,16 @@ const Collection = ({
                   </span>
                 </div>
               )}
-							{' '} 
+							 
 						
 					
 					
-					<span className={styles.svg} > 
-					{svg1 ? (
-						<MinusSVG/> ): ( <PlusSVG/>) 
-					 }
-						</span> 
+							<span className={styles.svg} > 
+							{svg1 ? (
+								<MinusSVG/> ): ( <PlusSVG/>) 
+							}
+								</span> 
+						</div>
 					</Typography>
         </AccordionSummary>
 				<AccordionDetails>
@@ -176,13 +178,14 @@ const Collection = ({
       <Accordion square expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
         <AccordionSummary className={styles.accordianSummary} aria-controls="panel2d-content" id="panel2d-header">
           <Typography className={styles.collectionName}>
-						 V Necks{' '}  
+						 V Necks
+						 <div className={styles.heading}> 
 							{collections.find(
                 (item) =>
                   item.collectionName === 'V-Necks' &&
                   item.collectionItems.length !== 0
               ) && (
-                <div className='hello'>
+                <div className={styles.quantity}>
                   <span className = {styles.collectionNumber}>
                     {open === true &&
                       collections.find(
@@ -191,12 +194,13 @@ const Collection = ({
                   </span>
                 </div>
               )}
-							{' '} 
+							
 					<span className={styles.svg} > 
 					{svg2 ? (
 						<MinusSVG/> ): ( <PlusSVG/>) 
 					 }
 						</span> 
+						</div>
 					</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -224,13 +228,14 @@ const Collection = ({
       <Accordion square expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
         <AccordionSummary className={styles.accordianSummary} aria-controls="panel3d-content" id="panel3d-header">
           <Typography className={styles.collectionName}>
-						 Henleys{' '}  
+						 Henleys
+						 <div className={styles.heading}> 
 							{collections.find(
                 (item) =>
                   item.collectionName === 'Henleys' &&
                   item.collectionItems.length !== 0
               ) && (
-                <div className='hello'>
+                <div className={styles.quantity}>
                   <span className = {styles.collectionNumber}>
                     {open === true &&
                       collections.find(
@@ -245,6 +250,7 @@ const Collection = ({
 						<MinusSVG/> ): ( <PlusSVG/>) 
 					 }
 						</span> 
+						</div>
 					</Typography>
         </AccordionSummary>
         <AccordionDetails>
