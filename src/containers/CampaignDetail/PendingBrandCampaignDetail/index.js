@@ -1,5 +1,18 @@
 import React, { useState } from 'react';
-import { Avatar, Popover, Checkbox } from '@material-ui/core';
+import {
+  Avatar,
+  Popover,
+  Checkbox,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  FormControl,
+  Select,
+  MenuItem,
+  InputLabel,
+  TextareaAutosize,
+} from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import Chip from '@material-ui/core/Chip';
 import clsx from 'clsx';
@@ -14,6 +27,7 @@ import {
   Delete,
   Trash,
   AlertCircle,
+  ChevronDown,
 } from 'react-feather';
 import Activity from '../Activity';
 import CampaignDetail from '../CampaignDetail';
@@ -23,6 +37,7 @@ import Deliverables from '../Deliverables';
 import Collections from '../Collections';
 import Compensation from '../Compensation';
 import Negotiables from '../Negotiables';
+import SelectMenu from '../../../components/SelectMenu';
 
 import styles from './PendingBrandCampaignDetail.module.scss';
 
@@ -30,6 +45,9 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
   const [pendingOffer, setPendingOffer] = useState(false);
+  const [openNegotiateDialog, setOpenNegotiateDialog] = useState(false);
+  const [openDeclineDialog, setOpenDeclineDialog] = useState(false);
+  const [allSet, setAllSet] = useState(false);
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
@@ -42,38 +60,76 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
 
   const getStatusContainerContent = () => {
     return (
-      <div className={styles.campaignPendingContainer}>
-        <h1>
-          {pendingOffer ? (
-            'Sam sent a counter offer'
-          ) : (
-            <>
-              <AlertCircle /> Microsite ready for approval
-            </>
-          )}
-        </h1>
-        {pendingOffer ? (
+      <div
+        className={clsx(
+          styles.campaignPendingContainer,
+          allSet ? styles.allSetCampaignPendingContainer : ''
+        )}
+      >
+        {allSet ? (
           <>
+            <h1>You're all set</h1>
             <p>
-              <i>Sam is proposing a Revenue share of 3% instead of 2%</i>
-            </p>
-            <p>
-              <i>Sam is proposing $40 cash per post instead of $30</i>
+              No action items as of right now. We will let you know when there
+              is something you need to do.
             </p>
           </>
         ) : (
-          <p>
-            The influencer has sent you the microsite to review and approve.
-          </p>
-        )}
-        {pendingOffer ? (
-          <div className={styles.offerButtons}>
-            <button className={styles.acceptButton}>Accept</button>
-            <button className={styles.negotiateButton}>Negotiate</button>
-            <button className={styles.declineButton}>Decline</button>
-          </div>
-        ) : (
-          <button>View</button>
+          <>
+            <h1>
+              {pendingOffer ? (
+                'Sam sent a counter offer'
+              ) : (
+                <>
+                  <AlertCircle /> Microsite ready for approval
+                </>
+              )}
+            </h1>
+            {pendingOffer ? (
+              <>
+                <p>
+                  <i>Sam is proposing a Revenue share of 3% instead of 2%</i>
+                </p>
+                <p>
+                  <i>Sam is proposing $40 cash per post instead of $30</i>
+                </p>
+              </>
+            ) : (
+              <p>
+                The influencer has sent you the microsite to review and approve.
+              </p>
+            )}
+            {pendingOffer ? (
+              <div className={styles.offerButtons}>
+                <button
+                  className={styles.acceptButton}
+                  onClick={() => setAllSet(true)}
+                >
+                  Accept
+                </button>
+                <button
+                  className={styles.negotiateButton}
+                  onClick={() => setOpenNegotiateDialog(true)}
+                >
+                  Negotiate
+                </button>
+                <button
+                  className={styles.declineButton}
+                  onClick={() => setOpenDeclineDialog(true)}
+                >
+                  Decline
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => {
+                  history.push('/review-brand-microsite');
+                }}
+              >
+                View
+              </button>
+            )}
+          </>
         )}
       </div>
     );
@@ -173,6 +229,66 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
           </div>
         </div>
       </div>
+
+      <Dialog
+        disableBackdropClick
+        disableEscapeKeyDown
+        aria-labelledby='Negotiate Dialog'
+        open={openNegotiateDialog}
+        classes={{ paper: styles.negotiationDialog }}
+      >
+        <DialogTitle className={styles.dialogTitle} id='negotiate-dialog-title'>
+          <p className={styles.titleText}>Negotiate</p>
+        </DialogTitle>
+        <DialogContent className={styles.dialogContent}>
+          <FormControl className={styles.selectFormControl} variant='outlined'>
+            <InputLabel id='demo-simple-select-outlined-label'>
+              Negotiated Item
+            </InputLabel>
+            <Select
+              labelId='demo-simple-select-outlined-label'
+              id='demo-simple-select-outlined'
+              MenuProps={{ variant: 'menu' }}
+              label='Negotiated Item'
+            >
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+            </Select>
+          </FormControl>
+        </DialogContent>
+        <DialogActions className={styles.dialogActions}>
+          <button onClick={() => setOpenNegotiateDialog(false)}>Cancel</button>
+          <button className={clsx(styles.sendButton, styles.disabled)}>
+            Send to Influencer
+          </button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog
+        disableBackdropClick
+        disableEscapeKeyDown
+        aria-labelledby='Decline Dialog'
+        open={openDeclineDialog}
+        classes={{ paper: styles.declineDialog }}
+      >
+        <DialogTitle className={styles.dialogTitle} id='decline-dialog-title'>
+          <p className={styles.titleText}>
+            Send the influencer a message with your decline
+          </p>
+        </DialogTitle>
+        <DialogContent className={styles.dialogContent}>
+          <textarea
+            className={styles.rejectionTextContainer}
+            placeholder='Enter custom message'
+          />
+        </DialogContent>
+        <DialogActions className={styles.dialogActions}>
+          <button onClick={() => setOpenDeclineDialog(false)}>Cancel</button>
+          <button className={clsx(styles.sendButton, styles.active)}>
+            Send to Influencer
+          </button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
