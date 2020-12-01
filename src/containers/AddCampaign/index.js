@@ -980,9 +980,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
 
   // /*********************** To disable next button */
 
-  // useEffect(() => {
-  //   setActiveNext(true);
-  // });
+  useEffect(() => {
+    setActiveNext(true);
+  });
 
   const leftSideDawerClick = (index) => {
     if (activeStep >= index) {

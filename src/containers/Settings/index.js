@@ -5,8 +5,8 @@ import Notifications from './Notifications';
 import { API } from 'aws-amplify';
 import Account from './Account';
 import ConnectedAccounts from './ConnectedAccounts';
-import Contacts from './Contacts';
 import Brands from './Brands';
+import Billing from './Billing';
 
 const Setting = () => {
   const [active, setActive] = useState('account');
@@ -14,7 +14,7 @@ const Setting = () => {
   const [signContracts, setSignContracts] = useState(true);
   const [influncerPosts, setInfluncerPosts] = useState(false);
   const [campaignStart, setCampaignStart] = useState(false);
-  const [influencers, setInfluncers] = useState([]);
+  //const [influencers, setInfluncers] = useState([]);
   const [brands, setBrands] = useState([]);
   const [meData, setMeData] = useState([]);
   const [fullName, setFullName] = useState('');
@@ -39,39 +39,39 @@ const Setting = () => {
     mobilePhone: false,
   });
 
-  const [newInfluencer, setNewInfluencer] = useState({
-    fullName: '',
-    instagramHandler: '',
-    email: '',
-    mobilePhone: '',
-  });
+  // const [newInfluencer, setNewInfluencer] = useState({
+  //   fullName: '',
+  //   instagramHandler: '',
+  //   email: '',
+  //   mobilePhone: '',
+  // });
 
-  const [newInfluencerError, setNewInfluencerError] = useState({
-    fullName: false,
-    instagramHandler: false,
-    email: false,
-    mobilePhone: false,
-  });
+  // const [newInfluencerError, setNewInfluencerError] = useState({
+  //   fullName: false,
+  //   instagramHandler: false,
+  //   email: false,
+  //   mobilePhone: false,
+  // });
 
-  const handleNewInfluencerChange = (value, fieldName) => {
-    const newInfluner = { ...newInfluencer };
-    newInfluner[fieldName] = value;
-    const newInflunerError = { ...newInfluencerError };
-    if (
-      fieldName === 'email' ||
-      (fieldName === 'mobilePhone' &&
-        newInflunerError[fieldName] === true &&
-        value !== '')
-    ) {
-      newInflunerError['mobilePhone'] = false;
-      newInflunerError['email'] = false;
-      setNewInfluencerError(newInflunerError);
-    } else if (newInflunerError[fieldName] === true && value !== '') {
-      newInflunerError[fieldName] = false;
-      setNewInfluencerError(newInflunerError);
-    }
-    setNewInfluencer(newInfluner);
-  };
+  // const handleNewInfluencerChange = (value, fieldName) => {
+  //   const newInfluner = { ...newInfluencer };
+  //   newInfluner[fieldName] = value;
+  //   const newInflunerError = { ...newInfluencerError };
+  //   if (
+  //     fieldName === 'email' ||
+  //     (fieldName === 'mobilePhone' &&
+  //       newInflunerError[fieldName] === true &&
+  //       value !== '')
+  //   ) {
+  //     newInflunerError['mobilePhone'] = false;
+  //     newInflunerError['email'] = false;
+  //     setNewInfluencerError(newInflunerError);
+  //   } else if (newInflunerError[fieldName] === true && value !== '') {
+  //     newInflunerError[fieldName] = false;
+  //     setNewInfluencerError(newInflunerError);
+  //   }
+  //   setNewInfluencer(newInfluner);
+  // };
 
   const handleNewBrandChange = (value, fieldName) => {
     const brand = { ...newBrand };
@@ -109,49 +109,49 @@ const Setting = () => {
     });
   };
 
-  const setNew = () => {
-    setNewInfluencer({
-      fullName: '',
-      instagramHandler: '',
-      email: '',
-      mobilePhone: '',
-    });
+  // const setNew = () => {
+  //   setNewInfluencer({
+  //     fullName: '',
+  //     instagramHandler: '',
+  //     email: '',
+  //     mobilePhone: '',
+  //   });
 
-    setNewInfluencerError({
-      fullName: false,
-      instagramHandler: false,
-      email: false,
-      mobilePhone: false,
-    });
-  };
+  //   setNewInfluencerError({
+  //     fullName: false,
+  //     instagramHandler: false,
+  //     email: false,
+  //     mobilePhone: false,
+  //   });
+  // };
 
-  const addNewInfluencer = () => {
-    const newInfluencerErrorr = { ...newInfluencerError };
-    if (newInfluencer.fullName === '') {
-      newInfluencerErrorr.fullName = true;
-    }
-    if (newInfluencer.instagramHandler === '') {
-      newInfluencerErrorr.instagramHandler = true;
-    }
+  // const addNewInfluencer = () => {
+  //   const newInfluencerErrorr = { ...newInfluencerError };
+  //   if (newInfluencer.fullName === '') {
+  //     newInfluencerErrorr.fullName = true;
+  //   }
+  //   if (newInfluencer.instagramHandler === '') {
+  //     newInfluencerErrorr.instagramHandler = true;
+  //   }
 
-    if (newInfluencer.email === '' && newInfluencer.mobilePhone === '') {
-      newInfluencerErrorr.email = true;
-    }
+  //   if (newInfluencer.email === '' && newInfluencer.mobilePhone === '') {
+  //     newInfluencerErrorr.email = true;
+  //   }
 
-    if (newInfluencer.email === '' && newInfluencer.mobilePhone === '') {
-      newInfluencerErrorr.mobilePhone = true;
-    }
+  //   if (newInfluencer.email === '' && newInfluencer.mobilePhone === '') {
+  //     newInfluencerErrorr.mobilePhone = true;
+  //   }
 
-    setNewInfluencerError(newInfluencerErrorr);
+  //   setNewInfluencerError(newInfluencerErrorr);
 
-    if (Object.values(newInfluencerErrorr).includes(true)) {
-      return;
-    }
+  //   if (Object.values(newInfluencerErrorr).includes(true)) {
+  //     return;
+  //   }
 
-    const data = [...influencers];
-    data.push(newInfluencer);
-    setInfluncers(data);
-  };
+  //   const data = [...influencers];
+  //   data.push(newInfluencer);
+  //   setInfluncers(data);
+  // };
 
   const addNewBrand = () => {
     const brandError = { ...newBrandError };
@@ -254,7 +254,9 @@ const Setting = () => {
           />
         );
       case 'connectedAccounts':
-        return <ConnectedAccounts />;
+				return <ConnectedAccounts />;
+			case 'billing': 
+				return <Billing />
       case 'contacts':
         // return <Contacts
         //   influencers={influencers}
@@ -304,10 +306,10 @@ const Setting = () => {
           Connected Accounts
         </button>
         <button
-          className={active === 'contacts' ? styles.active : ''}
-          onClick={() => setActive('contacts')}
+          className={active === 'billing' ? styles.active : ''}
+          onClick={() => setActive('billing')}
         >
-          Contacts
+          Billing
         </button>
       </div>
       <Grid containers>{getContents()}</Grid>
