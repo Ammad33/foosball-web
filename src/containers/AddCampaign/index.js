@@ -443,8 +443,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   }, [open]);
 
   /******* Compensations States */
-	const [compensationPayment, setCompensationPayment] = useState('');
-	const [addAnother , setAddAnother ] = useState('false');
+  const [compensationPayment, setCompensationPayment] = useState('');
+  const [addAnother, setAddAnother] = useState('false');
 
   const [compensations, setCompensations] = useState([
     {
@@ -953,8 +953,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
     });
     setActiveNext(flag);
     if (!flag) {
-			setActiveForCompensationProduct();
-			setAddAnother(true);
+      setActiveForCompensationProduct();
+      setAddAnother(true);
     }
   };
 
@@ -1094,8 +1094,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
             handleCompensations={handleCompensations}
             handleCompensationValue={handleCompensationValue}
             handleRemoveCompensation={handleRemoveCompensation}
-						handleActiveForCompensation={setActiveForCompensation}
-						addAnother = {addAnother}
+            handleActiveForCompensation={setActiveForCompensation}
+            addAnother={addAnother}
             compensationPayment={compensationPayment}
             handleCompensationPayment={handleCompensationPayment}
             compensationProduct={compensationProduct}
@@ -1310,7 +1310,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
 
             <div className={styles.actions}>
               <div className={styles.finishLater}>
-                {activeSave ? (
+                {activeSave || campaign !== undefined ? (
                   <span
                     onClick={() => {
                       campaign !== undefined
