@@ -127,30 +127,27 @@ const IconCampaign = () => {
   return <SVG src={require('../../assets/Campaigns_large.svg')} />;
 };
 
-
 const Campaigns = () => {
   const history = useHistory();
   const [active, setActive] = useState('ALL');
   const [campaigns, setCampaigns] = useState([]);
-	const [addCampaign, setAddCampagin] = useState(false);
-	const [brandId, setBrandId] = useState([]);
-	const [meData, setMeData] = useState([]);
-	const [brandName, setBrandName] = useState([]);
+  const [addCampaign, setAddCampagin] = useState(false);
+  const [brandId, setBrandId] = useState([]);
+  const [meData, setMeData] = useState([]);
+  const [brandName, setBrandName] = useState([]);
 
+  useEffect(() => {
+    getMeData();
+  }, []);
 
-	useEffect(() => {
-		getMeData();
-	}, []);
+  const handleBrandId = (value) => {
+    setBrandId(value.organization.id);
+  };
+  const handleMeData = (value) => {
+    console.log(value);
+  };
 
-	const handleBrandId = (value) => {
-		setBrandId(value.organization.id);
-	}
-	const handleMeData = (value) => {
-		console.log(value);
-	}
-	
-
-	const getMeData = async () => {
+  const getMeData = async () => {
     try {
       const mydata = await API.graphql({
         query: `{
@@ -181,11 +178,10 @@ const Campaigns = () => {
 							phoneNumber
 						}
 				}`,
-			});
-			setBrandId(mydata.data.me.organizations[0].organization.id);
-			setMeData(mydata.data.me.organizations)
-			setBrandName(mydata.data.me.organizations[0].organization.__typename)
-			
+      });
+      setBrandId(mydata.data.me.organizations[0].organization.id);
+      setMeData(mydata.data.me.organizations);
+      setBrandName(mydata.data.me.organizations[0].organization.__typename);
     } catch (e) {
       console.log(e);
     }
@@ -208,26 +204,25 @@ const Campaigns = () => {
       }`,
       });
       setCampaigns(campaigns.data.campaigns.campaigns);
-    } catch (e) { }
-	};
+    } catch (e) {}
+  };
 
   useEffect(() => {
     getCampaigns();
-	}, [brandId,addCampaign]);
-	
+  }, [brandId, addCampaign]);
+
   return (
     <>
       <AddCampaign
         open={addCampaign}
-				handleCancel={() => setAddCampagin(false)}
-				brandId = {brandId} 
-
+        handleCancel={() => setAddCampagin(false)}
+        brandId={brandId}
       />
       <div className={styles.campaignsContainer}>
         <div className={styles.CampaignHeadingContainer}>
           <div className={styles.CampaignHeading}>
             <span>Campaigns</span>
-						{/* <Grid item xs={12} sm={12} md={6} >
+            {/* <Grid item xs={12} sm={12} md={6} >
 							<FormControl fullWidth variant='outlined' className = {styles.SelectBrandId}>
 								<Select
 									id='Select Brand Id'
@@ -256,9 +251,9 @@ const Campaigns = () => {
               Most recent <ExpandMoreIcon fontSize='small' />
             </p>
           </div>
-						<button onClick={() => setAddCampagin(true)}>
-							<AddIcon /> New Campaign
-						</button>
+          <button onClick={() => setAddCampagin(true)}>
+            <AddIcon /> New Campaign
+          </button>
         </div>
         <div className={styles.CampaignHeadingButton}>
           <button
@@ -321,8 +316,8 @@ const Campaigns = () => {
             </Grid>
           </Grid>
         ) : (
-            ''
-          )}
+          ''
+        )}
         <Grid container spacing={3}>
           {campaigns.length > 0 &&
             campaigns.map((campaign) => {
