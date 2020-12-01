@@ -57,13 +57,15 @@ const CampaignDetailInfluencer = ({ campaignId, status }) => {
               amount
               currency
             }
+            brand {
+              id
+            }
           }
       }`,
       });
-      console.log('campaign', campaign.data.campaign)
-      setData(campaign.data.campaign)
-    } catch (e) {
-    }
+      console.log('campaign', campaign.data.campaign);
+      setData(campaign.data.campaign);
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -75,7 +77,6 @@ const CampaignDetailInfluencer = ({ campaignId, status }) => {
     setStep(step);
   };
 
-
   const handleCloseDrawer = () => {
     setElement('');
     setOpenDrawer(false);
@@ -84,21 +85,57 @@ const CampaignDetailInfluencer = ({ campaignId, status }) => {
   const getPage = (status) => {
     switch (status) {
       case 'Closed':
-        return <ClosedInfluencer handleEdit={handleEdit} handleSeeClick={handleSeeClick} />;
+        return (
+          <ClosedInfluencer
+            data={data}
+            handleEdit={handleEdit}
+            handleSeeClick={handleSeeClick}
+          />
+        );
       case 'Live':
-        return <LiveInfluencer handleEdit={handleEdit} handleSeeClick={handleSeeClick} />;
+        return (
+          <LiveInfluencer
+            data={data}
+            handleEdit={handleEdit}
+            handleSeeClick={handleSeeClick}
+          />
+        );
       case 'Invite':
-        return <InviteInfluencer handleEdit={handleEdit} handleSeeClick={handleSeeClick} />;
+        return (
+          <InviteInfluencer
+            data={data}
+            handleEdit={handleEdit}
+            handleSeeClick={handleSeeClick}
+          />
+        );
       case 'Lost':
-        return <LostInfluencer handleEdit={handleEdit} handleSeeClick={handleSeeClick} />;
+        return (
+          <LostInfluencer
+            data={data}
+            handleEdit={handleEdit}
+            handleSeeClick={handleSeeClick}
+          />
+        );
       case 'Pending':
-        return <PendingInfluencer handleEdit={handleEdit} handleSeeClick={handleSeeClick} />;
+        return (
+          <PendingInfluencer
+            data={data}
+            handleEdit={handleEdit}
+            handleSeeClick={handleSeeClick}
+          />
+        );
       case 'Declined':
-        return <DeclineInfluencer handleEdit={handleEdit} handleSeeClick={handleSeeClick} />;
+        return (
+          <DeclineInfluencer
+            data={data}
+            handleEdit={handleEdit}
+            handleSeeClick={handleSeeClick}
+          />
+        );
       default:
         return;
     }
-  }
+  };
 
   const getDrawerElement = (element) => {
     switch (element) {
@@ -127,6 +164,7 @@ const CampaignDetailInfluencer = ({ campaignId, status }) => {
           open={addCampaign}
           step={step}
           campaign={data}
+          brandId={data.brand.id}
           handleCancel={() => setAddCampagin(false)}
         />
       )}

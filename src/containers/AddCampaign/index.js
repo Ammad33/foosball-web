@@ -386,8 +386,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
           ? campaign.discount.__typename === 'PercentageDiscount'
             ? 'Percentage'
             : campaign.discount.__typename === 'FlatDiscount'
-              ? 'Amount'
-              : ''
+            ? 'Amount'
+            : ''
           : ''
       );
 
@@ -600,8 +600,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   const handleCompensationPayment = (value) => {
     setCompensationPayment(value);
   };
-
-
 
   /***** Handle Compesation Value ********/
 
@@ -861,7 +859,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
 `,
           {
             input: {
-              brandId: brandId,
+              brandId,
               name: campaignName,
               startDate: Date.parse(`${startDate} ${startTime} `) / 1000,
               endDate: Date.parse(`${endDate} ${endTime} `) / 1000,
@@ -881,7 +879,15 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   };
 
   const updateCampaign = async () => {
-    console.log('update campaign');
+    console.log('update campaign', brandId);
+    console.log('campaign ', campaign);
+    if (discountType === 'Amount') {
+      typ = 'FLAT';
+      val = '{"amount":{"amount": "' + discount + '","currency":"USD"}}';
+    } else {
+      typ = 'PERCENTAGE';
+      val = '{"percentage":"' + discount + '"}';
+    }
     try {
       const end = Date.parse(`${endDate} ${endTime}`) / 1000;
       const start = Date.parse(`${startDate} ${startTime}`) / 1000;
@@ -895,11 +901,15 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
         }`,
           {
             input: {
-              brandId: '8ece73cc-3079-4f45-b7bb-4f6007c8344d',
+              brandId,
               id: campaign.id,
               name: campaignName,
               endDate: end,
               startDate: start,
+              discount: { value: val, type: typ },
+              invitationMessage: customeMessage,
+              budget: { amount: budget, currency: 'USD' },
+              targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
             },
           }
         )
@@ -943,11 +953,13 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   const setActiveForCompensation = () => {
     const compensation = [...compensations];
 
-
-
     let flag = true;
     compensation.forEach((comp) => {
-      if (comp.compensationType === '' || comp.amount === '' || compensationPayment === '') {
+      if (
+        comp.compensationType === '' ||
+        comp.amount === '' ||
+        compensationPayment === ''
+      ) {
         flag = false;
       }
     });
@@ -1234,8 +1246,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                              <CheckCircleIconSvg viewBox='0 0 31 31' />
-                            )}
+                        <CheckCircleIconSvg viewBox='0 0 31 31' />
+                      )}
                       <span
                         className={
                           activeStep === index
@@ -1248,19 +1260,19 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                       </span>
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
                       {activeStep > index ? (
                         <div className={styles.activeBar} />
                       ) : (
-                          <div className={styles.inActiveBar} />
-                        )}
+                        <div className={styles.inActiveBar} />
+                      )}
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                 </>
               ))}
             </div>
@@ -1273,8 +1285,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                    <div></div>
-                  )}
+                  <div></div>
+                )}
                 <span onClick={handleCancelCampaignDialog}>
                   <XSVG />
                 </span>

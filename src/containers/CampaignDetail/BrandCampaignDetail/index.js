@@ -57,6 +57,7 @@ const BrandCampaignDetail = ({ campaignId, status }) => {
       const campaign = await API.graphql({
         query: `{
           campaign(brandId: "8ece73cc-3079-4f45-b7bb-4f6007c8344d", id: "${campaignId}") {
+            id
 						name
 						startDate
 						status
@@ -81,6 +82,9 @@ const BrandCampaignDetail = ({ campaignId, status }) => {
             targetGrossSales {
               amount
               currency
+            }
+            brand {
+              id
             }
           }
       }`,
@@ -164,6 +168,7 @@ const BrandCampaignDetail = ({ campaignId, status }) => {
           open={addCampaign}
           step={step}
           campaign={data}
+          brandId={data.brand.id}
           handleCancel={() => setAddCampagin(false)}
         />
       )}
