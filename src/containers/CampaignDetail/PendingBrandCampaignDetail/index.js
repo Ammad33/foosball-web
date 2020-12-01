@@ -224,7 +224,7 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
           </div>
           <div className={styles.flexContainer}>
             <Compensation handleEdit={handleEdit} onClick={handleSeeClick} />
-            <Negotiables />
+            <Negotiables data={data} handleEdit={handleEdit} />
             <div style={{ width: '391px' }}></div>
           </div>
         </div>

@@ -126,7 +126,7 @@ const ClosedBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
           </div>
           <div className={styles.flexContainer}>
             <Compensation handleEdit={handleEdit} onClick={handleSeeClick} />
-            <Negotiables />
+            <Negotiables data={data} />
             <Contract />
           </div>
         </div>

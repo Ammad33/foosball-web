@@ -86,6 +86,14 @@ const BrandCampaignDetail = ({ campaignId, status }) => {
             brand {
               id
             }
+            negotiables {
+              campaign_duration
+              monthly_retainer_fee
+              post_fee
+              post_frequency
+              revenue_share
+              story_fee
+            }
           }
       }`,
       });
