@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import styles from './BrandCampaignDetail.module.scss';
 import { API } from 'aws-amplify';
 import { X } from 'react-feather';
@@ -14,11 +14,13 @@ import PendingBrandCampaignDetail from '../PendingBrandCampaignDetail';
 import LiveBrandCampaignDetail from '../LiveBrandCampaignDetail';
 import ClosedBrandCampaignDetail from '../ClosedBrandCampaignDetail';
 import LostBrandCampaignDetail from '../LostBrandCampaignDetail';
+import { RootContext } from '../../../context/RootContext'
 
 const BrandCampaignDetail = ({ campaignId, status }) => {
   const [addCampaign, setAddCampagin] = useState(false);
   const [step, setStep] = useState(1);
   const [data, setData] = useState(null);
+  const { brandId } = useContext(RootContext);
 
   const [openDrawer, setOpenDrawer] = useState(false);
   const [element, setElement] = useState('');
@@ -56,7 +58,7 @@ const BrandCampaignDetail = ({ campaignId, status }) => {
     try {
       const campaign = await API.graphql({
         query: `{
-          campaign(brandId: "8ece73cc-3079-4f45-b7bb-4f6007c8344d", id: "${campaignId}") {
+          campaign(brandId: "${brandId}", id: "${campaignId}") {
             id
 						name
 						startDate
@@ -83,6 +85,11 @@ const BrandCampaignDetail = ({ campaignId, status }) => {
               amount
               currency
             }
+            brandTeam {
+              id
+              imageUrl
+              fullName
+            }
             brand {
               id
             }
@@ -91,7 +98,7 @@ const BrandCampaignDetail = ({ campaignId, status }) => {
       });
       console.log('campaign', campaign.data.campaign);
       setData(campaign.data.campaign);
-    } catch (e) {}
+    } catch (e) { }
   };
 
   const getPage = (status) => {

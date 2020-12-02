@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import clsx from 'clsx';
 import { Avatar, Chip, Popover } from '@material-ui/core';
 import styles from './InfluencerCampaignDetail.module.scss';
@@ -17,6 +17,7 @@ import PendingInfluencer from '../PendingInfluencer';
 import LiveInfluencer from '../LiveInfluencer';
 import DeclineInfluencer from '../DeclineInfluencer';
 import { API } from 'aws-amplify';
+import { RootContext } from '../../../context/RootContext';
 
 const CampaignDetailInfluencer = ({ campaignId, status }) => {
   const history = useHistory();
@@ -25,12 +26,13 @@ const CampaignDetailInfluencer = ({ campaignId, status }) => {
   const [step, setStep] = useState(1);
   const [element, setElement] = useState('');
   const [data, setData] = useState(null);
+  const { brandId } = useContext(RootContext);
 
   const getCampaign = async () => {
     try {
       const campaign = await API.graphql({
         query: `{
-          campaign(brandId: "8ece73cc-3079-4f45-b7bb-4f6007c8344d", id: "${campaignId}") {
+          campaign(brandId: "${brandId}", id: "${campaignId}") {
             id
 						name
 						status
@@ -57,6 +59,11 @@ const CampaignDetailInfluencer = ({ campaignId, status }) => {
               amount
               currency
             }
+            brandTeam {
+              id
+              imageUrl
+              fullName
+            }
             brand {
               id
             }
@@ -65,7 +72,7 @@ const CampaignDetailInfluencer = ({ campaignId, status }) => {
       });
       console.log('campaign', campaign.data.campaign);
       setData(campaign.data.campaign);
-    } catch (e) {}
+    } catch (e) { }
   };
 
   useEffect(() => {

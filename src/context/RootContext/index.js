@@ -6,10 +6,12 @@ export default ({ children }) => {
 
   const prevUser = JSON.parse(window.localStorage.getItem('user')) || null;
   const preActiveRoute = localStorage.getItem('route') || 'Campaign';
+  const bId = localStorage.getItem('bId') || null;
   const [currentUser, setCurrentUser] = useState(prevUser);
   const [logoutMessage, setLogoutMessage] = useState('');
   const [activeRoute, setActiveRoute] = useState(preActiveRoute);
   const [activeCampaign, setActiveCampaign] = useState('');
+  const [brandId, setBrandIdd] = useState(bId);
 
   useEffect(
     () => {
@@ -17,8 +19,10 @@ export default ({ children }) => {
       else window.localStorage.setItem('user', JSON.stringify(currentUser));
       if (!activeRoute) localStorage.removeItem('route');
       else localStorage.setItem('route', activeRoute)
+      if (!brandId) localStorage.removeItem('bId')
+      else localStorage.setItem('bId', brandId)
     },
-    [currentUser, activeRoute]
+    [currentUser, activeRoute, brandId]
   );
 
   const defaultContext = {
@@ -29,7 +33,9 @@ export default ({ children }) => {
     activeRoute,
     setActiveRoute,
     activeCampaign,
-    setActiveCampaign
+    setActiveCampaign,
+    brandId,
+    setBrandIdd
   };
 
   return (

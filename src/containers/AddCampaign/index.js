@@ -302,6 +302,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   const steps = getSteps();
   const [activeStep, setActiveStep] = useState(step ? step : 1);
   const [activeNext, setActiveNext] = useState(false);
+  const [team, setTeam] = useState([]);
 
   /****** Campaign Detail States ********/
 
@@ -381,13 +382,14 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
             : campaign.discount.percentage
           : ''
       );
+      setSelectedMemebers(campaign.brandTeam && campaign.brandTeam !== null ? campaign.brandTeam.map(item => item.id) : [])
       setDiscountType(
         campaign.discount && campaign.discount !== null
           ? campaign.discount.__typename === 'PercentageDiscount'
             ? 'Percentage'
             : campaign.discount.__typename === 'FlatDiscount'
-            ? 'Amount'
-            : ''
+              ? 'Amount'
+              : ''
           : ''
       );
 
@@ -533,6 +535,36 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   const [collections, setCollections] = useState([]);
 
   /**** Add New deliverable */
+
+  useEffect(() => {
+    getTeam()
+  }, [brandId]);
+
+  const getTeam = async () => {
+    try {
+
+      const team = await API.graphql({
+        query: `{
+          brand(id:"${brandId}") {
+            users {
+              user {
+                imageUrl
+                id
+                fullName
+              }
+            }
+          }
+        }`
+      });
+      console.log('Team', team);
+      if (team.data !== null && team.data.brand !== null) {
+        setTeam(team.data.brand.users);
+      }
+      // setTeam(campaign.data.campaign);
+    } catch (e) {
+      console.log(e)
+    }
+  };
 
   const handleDeliverable = () => {
     const deliverables = [...deliveries];
@@ -684,10 +716,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   const addMember = (member) => {
     const opts = [...selectedMembers];
 
-    const optIndex = opts.findIndex((item) => item.name === member.name);
+    const optIndex = opts.findIndex((item) => item === member.id);
 
     if (optIndex === -1) {
-      opts.push(member);
+      opts.push(member.id);
       setSelectedMemebers(opts);
     } else {
       opts.splice(optIndex, 1);
@@ -867,6 +899,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
               invitationMessage: customeMessage,
               budget: { amount: budget, currency: 'USD' },
               targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
+              team: selectedMembers
             },
           }
         )
@@ -910,6 +943,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
               invitationMessage: customeMessage,
               budget: { amount: budget, currency: 'USD' },
               targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
+              team: selectedMembers
             },
           }
         )
@@ -1057,7 +1091,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
           <AddTeamMembers
             selectedMembers={selectedMembers}
             handleAdd={addMember}
-            members={members}
+            members={team}
             handleActiveNext={() => setActiveNext(true)}
           />
         );
@@ -1246,8 +1280,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                        <CheckCircleIconSvg viewBox='0 0 31 31' />
-                      )}
+                              <CheckCircleIconSvg viewBox='0 0 31 31' />
+                            )}
                       <span
                         className={
                           activeStep === index
@@ -1260,19 +1294,19 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                       </span>
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
                       {activeStep > index ? (
                         <div className={styles.activeBar} />
                       ) : (
-                        <div className={styles.inActiveBar} />
-                      )}
+                          <div className={styles.inActiveBar} />
+                        )}
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                 </>
               ))}
             </div>
@@ -1285,8 +1319,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                  <div></div>
-                )}
+                    <div></div>
+                  )}
                 <span onClick={handleCancelCampaignDialog}>
                   <XSVG />
                 </span>

@@ -32,22 +32,36 @@ const members = [
   },
 ];
 
-const TeamMembers = ({ onClick, handleEdit, seeAll }) => {
+const TeamMembers = ({ onClick, handleEdit, seeAll, brandTeam }) => {
   return (
     <div className={styles.mainContainer}>
       <div className={styles.headerContainer}>
         <h3>Team Members</h3>
-        <Edit />
+        <Edit onClick={() => handleEdit(2)} />
       </div>
       <div className={styles.membersContainer}>
-        {members.map((member) => {
-          return (
-            <div className={styles.memberItem}>
-              <Avatar src={member.img} />
-              <span>{member.name}</span>
-            </div>
-          );
-        })}
+        {brandTeam && brandTeam.length > 0 ?
+          <>
+            {brandTeam.map((member) => {
+              return (
+                <div className={styles.memberItem}>
+                  <Avatar src={member.imageUrl} />
+                  <span>{member.fullName}</span>
+                </div>
+              );
+            })}
+          </>
+          :
+          <>
+            {members.map((member) => {
+              return (
+                <div className={styles.memberItem}>
+                  <Avatar src={member.img} />
+                  <span>{member.name}</span>
+                </div>
+              );
+            })}
+          </>}
       </div>
       {seeAll !== false &&
         <ChipButton

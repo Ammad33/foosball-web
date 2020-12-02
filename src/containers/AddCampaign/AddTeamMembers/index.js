@@ -12,12 +12,12 @@ const AddTeamMembers = ({ selectedMembers, handleAdd, members, handleActiveNext 
   return (
     <div className={styles.mainContainer}>
       {members.map((member) => {
-        const index = selectedMembers.findIndex(item => item.name === member.name);
+        const index = selectedMembers.findIndex(item => item === member.user.id);
         return (
-          <div className={styles.memberRow} key={member.id}>
-            <Avatar alt='Member Img' src={member.avatar} className={styles.memberAvatar} />
-            <p className={styles.memberName}>{member.name}</p>
-            {index === -1 ? <button onClick={() => handleAdd(member)}> Add</button> : <CheckCircleIcon onClick={() => handleAdd(member)} />}
+          <div className={styles.memberRow} key={member.user.id}>
+            <Avatar alt='Member Img' src={member.user.imageUrl && member.user.imageUrl !== null ? member.user.imageUrl : ''} className={styles.memberAvatar} />
+            <p className={styles.memberName}>{member.user.fullName}</p>
+            {index === -1 ? <button onClick={() => handleAdd(member.user)}> Add</button> : <CheckCircleIcon className={styles.svg} onClick={() => handleAdd(member.user)} />}
           </div>
         );
       })}

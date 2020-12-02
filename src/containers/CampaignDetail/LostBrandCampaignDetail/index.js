@@ -117,7 +117,8 @@ const LostBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
                 </p>
               </>
             </CampaignDetail>
-            <TeamMembers onClick={handleSeeClick} />
+            <TeamMembers onClick={handleSeeClick} handleEdit={handleEdit}
+              brandTeam={data && data.brandTeam !== null ? data.brandTeam : []} />
             <BudgetAndConversion handleEdit={handleEdit} data={data} />
           </div>
           <div className={styles.flexContainer}>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Grid, InputAdornment, Select } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CampaignsCard from './CampaignsCard';
@@ -11,6 +11,7 @@ import AddCampaign from '../AddCampaign';
 import { useHistory, useParams } from 'react-router-dom';
 import { API } from 'aws-amplify';
 import SVG from 'react-inlinesvg';
+import { RootContext } from '../../context/RootContext';
 import { makeStyles } from '@material-ui/core/styles';
 
 const campaignsData = [
@@ -135,6 +136,7 @@ const Campaigns = () => {
   const [brandId, setBrandId] = useState([]);
   const [meData, setMeData] = useState([]);
   const [brandName, setBrandName] = useState([]);
+  const { setBrandIdd } = useContext(RootContext);
 
   useEffect(() => {
     getMeData();
@@ -180,6 +182,7 @@ const Campaigns = () => {
 				}`,
       });
       setBrandId(mydata.data.me.organizations[0].organization.id);
+      setBrandIdd(mydata.data.me.organizations[0].organization.id);
       setMeData(mydata.data.me.organizations);
       setBrandName(mydata.data.me.organizations[0].organization.__typename);
     } catch (e) {
@@ -204,7 +207,7 @@ const Campaigns = () => {
       }`,
       });
       setCampaigns(campaigns.data.campaigns.campaigns);
-    } catch (e) {}
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -213,11 +216,13 @@ const Campaigns = () => {
 
   return (
     <>
-      <AddCampaign
-        open={addCampaign}
-        handleCancel={() => setAddCampagin(false)}
-        brandId={brandId}
-      />
+      {addCampaign &&
+        <AddCampaign
+          open={addCampaign}
+          handleCancel={() => setAddCampagin(false)}
+          brandId={brandId}
+        />
+      }
       <div className={styles.campaignsContainer}>
         <div className={styles.CampaignHeadingContainer}>
           <div className={styles.CampaignHeading}>
@@ -316,8 +321,8 @@ const Campaigns = () => {
             </Grid>
           </Grid>
         ) : (
-          ''
-        )}
+            ''
+          )}
         <Grid container spacing={3}>
           {campaigns.length > 0 &&
             campaigns.map((campaign) => {

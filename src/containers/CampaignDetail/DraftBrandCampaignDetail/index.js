@@ -114,6 +114,7 @@ const DraftBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
               seeAll={false}
               onClick={handleSeeClick}
               handleEdit={handleEdit}
+              brandTeam={data && data.brandTeam !== null ? data.brandTeam : []}
             />
             <BudgetAndConversion handleEdit={handleEdit} data={data} />
           </div>
