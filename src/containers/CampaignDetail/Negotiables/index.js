@@ -1,13 +1,23 @@
 import React from 'react';
 import styles from './Negotiables.module.scss';
+import { Edit } from 'react-feather';
 
-const Negotiables = () => {
+const Negotiables = ({ handleEdit, data }) => {
   return (
     <div className={styles.mainContainer}>
-      <h1>Negotiables</h1>
-      <p>Post Fee</p>
-      <p>Story Fee</p>
-      <p>Campaign Duration</p>
+      <div className={styles.headerContainer}>
+        <h1>Negotiables</h1>
+        {handleEdit ? <Edit onClick={() => handleEdit(7)} /> : ''}
+      </div>
+      {data?.negotiables ? (
+        <>
+          <p>Post Fee</p>
+          <p>Story Fee</p>
+          <p>Campaign Duration</p>
+        </>
+      ) : (
+        ''
+      )}
     </div>
   );
 };
