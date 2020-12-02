@@ -80,12 +80,22 @@ const CheckCircleIconSvg = (prop) => {
 };
 
 let negotialbleOptions = [
-  { id: 1, isChecked: true, text: 'Post Fee' },
-  { id: 2, isChecked: true, text: 'Revenue Share %' },
-  { id: 3, isChecked: true, text: 'Story Fee' },
-  { id: 4, isChecked: true, text: 'Post Frequency' },
-  { id: 5, isChecked: true, text: 'Monthly Retainer Fee' },
-  { id: 6, isChecked: true, text: 'Campaign Duration' },
+  { id: 1, isChecked: true, key: 'post_fee', text: 'Post Fee' },
+  { id: 2, isChecked: true, key: 'revenue_share', text: 'Revenue Share %' },
+  { id: 3, isChecked: true, key: 'story_fee', text: 'Story Fee' },
+  { id: 4, isChecked: true, key: 'post_frequency', text: 'Post Frequency' },
+  {
+    id: 5,
+    isChecked: true,
+    key: 'monthly_retainer_fee',
+    text: 'Monthly Retainer Fee',
+  },
+  {
+    id: 6,
+    isChecked: true,
+    key: 'campaign_duration',
+    text: 'Campaign Duration',
+  },
 ];
 
 const fb = { campaignType: ['Story', 'Post'], frameType: ['Video', 'Image'] };
@@ -382,14 +392,18 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
             : campaign.discount.percentage
           : ''
       );
-      setSelectedMemebers(campaign.brandTeam && campaign.brandTeam !== null ? campaign.brandTeam.map(item => item.id) : [])
+      setSelectedMemebers(
+        campaign.brandTeam && campaign.brandTeam !== null
+          ? campaign.brandTeam.map((item) => item.id)
+          : []
+      );
       setDiscountType(
         campaign.discount && campaign.discount !== null
           ? campaign.discount.__typename === 'PercentageDiscount'
             ? 'Percentage'
             : campaign.discount.__typename === 'FlatDiscount'
-              ? 'Amount'
-              : ''
+            ? 'Amount'
+            : ''
           : ''
       );
 
@@ -399,6 +413,18 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
 
       if (campaign.targetGrossSales && campaign.targetGrossSales) {
         setTargetGrossSale(campaign.targetGrossSales.amount);
+      }
+      if (campaign.negotiables) {
+        const negotiables = [...selectedNegotiable];
+        const keys = Object.keys(campaign.negotiables);
+        keys.forEach((key) => {
+          negotiables.map((negotiable) => {
+            if (negotiable.key === key) {
+              negotiable.isChecked = campaign.negotiables[key];
+            }
+            return negotiable;
+          });
+        });
       }
     }
   }, [step]);
@@ -438,7 +464,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
         },
       ]);
       setSelectedMemebers([]);
-      // setSelectedNegotiable([negotialbleOptions]);
       setSelectedInfluncer(null);
       setActiveStep(1);
     }
@@ -516,7 +541,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
 
   /** Negotiable Options */
 
-  const [selectedNegotiable, setSelectedNegotiable] = useState(
+  const [selectedNegotiable, setSelectedNegotiables] = useState(
     negotialbleOptions
   );
 
@@ -537,12 +562,11 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   /**** Add New deliverable */
 
   useEffect(() => {
-    getTeam()
+    getTeam();
   }, [brandId]);
 
   const getTeam = async () => {
     try {
-
       const team = await API.graphql({
         query: `{
           brand(id:"${brandId}") {
@@ -554,7 +578,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
               }
             }
           }
-        }`
+        }`,
       });
       console.log('Team', team);
       if (team.data !== null && team.data.brand !== null) {
@@ -562,7 +586,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
       }
       // setTeam(campaign.data.campaign);
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
   };
 
@@ -659,7 +683,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
       if (opt.id === option.id) {
         opt.isChecked = !opt.isChecked;
       }
-      setSelectedNegotiable(opts);
+      setSelectedNegotiables(opts);
     });
   };
 
@@ -868,6 +892,14 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
     }
   };
 
+  const getNegotiablesObjectForAPI = () => {
+    let data = {};
+    selectedNegotiable.forEach((negotiable) => {
+      data[negotiable.key] = negotiable.isChecked;
+    });
+    return data;
+  };
+
   const createCampaign = async () => {
     try {
       if (discountType === 'Amount') {
@@ -880,15 +912,15 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
       await API.graphql(
         graphqlOperation(
           `mutation createCampaign($input: CreateCampaignInput!) {
-  createCampaign(input: $input) {
-    id
-    name
-    startDate
-    endDate
+        createCampaign(input: $input) {
+          id
+          name
+          startDate
+          endDate
 
-  }
-}
-`,
+        }
+      }
+      `,
           {
             input: {
               brandId,
@@ -899,7 +931,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
               invitationMessage: customeMessage,
               budget: { amount: budget, currency: 'USD' },
               targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
-              team: selectedMembers
+              team: selectedMembers,
+              negotiables: getNegotiablesObjectForAPI(),
             },
           }
         )
@@ -943,7 +976,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
               invitationMessage: customeMessage,
               budget: { amount: budget, currency: 'USD' },
               targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
-              team: selectedMembers
+              team: selectedMembers,
+              negotiables: getNegotiablesObjectForAPI(),
             },
           }
         )
@@ -1280,8 +1314,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                              <CheckCircleIconSvg viewBox='0 0 31 31' />
-                            )}
+                        <CheckCircleIconSvg viewBox='0 0 31 31' />
+                      )}
                       <span
                         className={
                           activeStep === index
@@ -1294,19 +1328,19 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                       </span>
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
                       {activeStep > index ? (
                         <div className={styles.activeBar} />
                       ) : (
-                          <div className={styles.inActiveBar} />
-                        )}
+                        <div className={styles.inActiveBar} />
+                      )}
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                 </>
               ))}
             </div>
@@ -1319,8 +1353,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                    <div></div>
-                  )}
+                  <div></div>
+                )}
                 <span onClick={handleCancelCampaignDialog}>
                   <XSVG />
                 </span>

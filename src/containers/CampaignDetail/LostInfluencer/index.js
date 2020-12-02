@@ -99,8 +99,11 @@ const LostInfluencer = ({ handleEdit, data, handleSeeClick }) => {
               </p>
             </>
           </CampaignDetail>
-          <TeamMembers onClick={handleSeeClick} handleEdit={handleEdit}
-            brandTeam={data && data.brandTeam !== null ? data.brandTeam : []} />
+          <TeamMembers
+            onClick={handleSeeClick}
+            handleEdit={handleEdit}
+            brandTeam={data && data.brandTeam !== null ? data.brandTeam : []}
+          />
           <BudgetAndConversion data={data} handleEdit={handleEdit} />
         </div>
         <div className={styles.secondContainer} style={{ marginTop: '30px' }}>
@@ -113,7 +116,7 @@ const LostInfluencer = ({ handleEdit, data, handleSeeClick }) => {
         </div>
         <div className={styles.first}>
           <Compensation onClick={handleSeeClick} handleEdit={handleEdit} />
-          <Negotiables />
+          <Negotiables data={data} />
         </div>
       </div>
     </>
