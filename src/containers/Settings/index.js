@@ -19,7 +19,8 @@ const Setting = () => {
   const [meData, setMeData] = useState([]);
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
-  const [brandName, setBrandName] = useState([]);
+	const [brandName, setBrandName] = useState([]);
+	const [typeName, setTypeName] = useState([]);
   const [brandId, setBrandId] = useState([]);
   useEffect(() => {
     myData();
@@ -215,12 +216,13 @@ const Setting = () => {
       // debugger;
       setEmail(mydata.data.me.email);
       setFullName(mydata.data.me.fullName);
-      setBrandName(mydata.data.me.organizations[0].organization.name);
+			setBrandName(mydata.data.me.organizations[0].organization.name);
+			setTypeName(mydata.data.me.organizations[0].organization.__typename)
     } catch (e) {
       console.log(e);
     }
-  };
-
+	};
+		
   const getContents = () => {
     switch (active) {
       case 'account':
@@ -246,7 +248,8 @@ const Setting = () => {
             actionRequired={actionRequired}
             signContracts={signContracts}
             influncerPosts={influncerPosts}
-            campaignStart={campaignStart}
+						campaignStart={campaignStart}
+						typeName = {typeName}
             hanldeActionRequired={(e) => setActionRequired(e.target.checked)}
             hanldeSignContracts={(e) => setSignContracts(e.target.checked)}
             hanldeInfluencerPost={(e) => setInfluncerPosts(e.target.checked)}
@@ -254,29 +257,32 @@ const Setting = () => {
           />
         );
       case 'connectedAccounts':
-				return <ConnectedAccounts />;
+				return (
+					<ConnectedAccounts 
+						typeName = {typeName}
+						/>);
 			case 'billing': 
 				return <Billing />
-      case 'contacts':
-        // return <Contacts
-        //   influencers={influencers}
-        //   newInfluencer={newInfluencer}
-        //   handleNewInfluencerChange={handleNewInfluencerChange}
-        //   addNewInfluencer={addNewInfluencer}
-        //   setNew={setNew}
-        //   newInfluencerError={newInfluencerError}
+      // case 'contacts':
+			// return <Contacts
+			//   influencers={influencers}
+			//   newInfluencer={newInfluencer}
+			//   handleNewInfluencerChange={handleNewInfluencerChange}
+			//   addNewInfluencer={addNewInfluencer}
+			//   setNew={setNew}
+			//   newInfluencerError={newInfluencerError}
 
-        // />;
-        return (
-          <Brands
-            brands={brands}
-            newBrand={newBrand}
-            handleNewBrandChange={handleNewBrandChange}
-            addNewBrand={addNewBrand}
-            clearNewBrand={clearNewBrand}
-            newBrandError={newBrandError}
-          />
-        );
+			// />;
+      //   return (
+      //     <Brands
+      //       brands={brands}
+      //       newBrand={newBrand}
+      //       handleNewBrandChange={handleNewBrandChange}
+      //       addNewBrand={addNewBrand}
+      //       clearNewBrand={clearNewBrand}
+      //       newBrandError={newBrandError}
+      //     />
+      //   );
       default:
         return 'Unknown step';
     }
@@ -312,7 +318,8 @@ const Setting = () => {
           Billing
         </button>
       </div>
-      <Grid containers>{getContents()}</Grid>
+			<Grid containers>{getContents()}</Grid>
+      
     </div>
   );
 };

@@ -267,7 +267,7 @@ const Contacts = ({ }) => {
 														<Facebook />
 														<div className={styles.influencername}>999</div>
 													</span> 
-												</TableCell>
+												</TableCell> 
 												<TableCell align="right" className={styles.avatarName}><MoreVertical onClick={handleClick} /></TableCell>
 											</TableRow>
 											<TableRow>

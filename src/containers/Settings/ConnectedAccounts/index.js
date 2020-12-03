@@ -3,11 +3,10 @@ import BrandConnectAccounts from './BrandConnectAccounts';
 import InfluencerConnectAccounts from './InfluencerConnectAccounts';
 import styles from './ConnectedAccounts.module.scss';
 
-const ConnectedAccounts = () => {
+const ConnectedAccounts = ({typeName}) => {
   return (
     <div className={styles.mainContainer}>
-      {/* <BrandConnectAccounts /> */}
-      <InfluencerConnectAccounts />
+			{typeName == 'Brand'? (<BrandConnectAccounts /> ): (<InfluencerConnectAccounts />)}
     </div>
   );
 };

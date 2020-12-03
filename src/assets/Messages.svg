@@ -1,4 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="17.411" height="21.501" viewBox="0 0 22.05 17.411">
-<defs>
-<style>
-.a2{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><g transform="translate(1.391 1)"><path class="a2" d="M3.926,4H19.338a1.932,1.932,0,0,1,1.926,1.926V17.485a1.932,1.932,0,0,1-1.926,1.926H3.926A1.932,1.932,0,0,1,2,17.485V5.926A1.932,1.932,0,0,1,3.926,4Z" transform="translate(-1.998 -4)"/><path class="a2" d="M21.264,6l-9.632,6.742L2,6" transform="translate(-1.998 -4.074)"/></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="23px" height="18px" viewBox="0 0 23 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>BD6439C7-34FD-4C1D-9B6E-35CE28F772A0</title>
+    <g id="Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Profile---Brand-View-Own" transform="translate(-416.000000, -437.000000)" fill-rule="nonzero" stroke="#000000" stroke-width="2">
+            <g id="Messages" transform="translate(417.500000, 438.000000)">
+                <path d="M2,0 L18,0 C19.1000004,0 20,0.900000095 20,2 L20,14 C20,15.1000004 19.1000004,16 18,16 L2,16 C0.900000095,16 0,15.1000004 0,14 L0,2 C0,0.900000095 0.900000095,0 2,0 Z" id="Path-11"></path>
+                <path d="M20,2 L10,9 L0,2" id="Path-12"></path>
+            </g>
+        </g>
+    </g>
+</svg>

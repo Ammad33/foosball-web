@@ -84,7 +84,7 @@ const Header = (meData) => {
           </div>
           <Divider className={styles.divider} />
           <div className={styles.menuBarItems}>
-            <MenuItem className={styles.itemsFont}>View Profile</MenuItem>
+            <MenuItem className={styles.itemsFont}  onClick={() => { history.push('/profile');}}>View Profile</MenuItem>
             <MenuItem
               className={styles.itemsFont}
               onClick={() => {

@@ -7,7 +7,6 @@ import ActivityDetail from '../ActivityDetail';
 import CompensationDetail from '../CompensationDetail';
 import DeliverablesDetail from '../DeliverablesDetail';
 import AddCampaign from '../../AddCampaign';
-
 import TeamMembersDetail from '../TeamMembersDetail';
 import DraftBrandCampaignDetail from '../DraftBrandCampaignDetail';
 import PendingBrandCampaignDetail from '../PendingBrandCampaignDetail';
