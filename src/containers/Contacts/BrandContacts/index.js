@@ -256,17 +256,18 @@ const Contacts = ({ }) => {
 												<TableCell className={styles.avatarName}>Lennie James</TableCell>
 												<TableCell className={styles.avatarName}>marketing@gmail.com</TableCell>
 												<TableCell className={styles.avatarNameSocial}>
-													<span className={styles.instaIcon}>
+													<div className={styles.instaIcon}>
 														<Instagram />
-														<div className={styles.instafollowers}>345</div> </span>
-													<span className={styles.ytIcon}>
+														<p className={styles.instafollowers}>345</p> 
+													</div>
+												 <span className={styles.ytIcon}>
 														<Youtube />
 														<div className={styles.ytfollowers}> 456</div>
 													</span>
 													<span className={styles.fbIcon}>
 														<Facebook />
 														<div className={styles.influencername}>999</div>
-													</span> 
+													</span>   
 												</TableCell> 
 												<TableCell align="right" className={styles.avatarName}><MoreVertical onClick={handleClick} /></TableCell>
 											</TableRow>

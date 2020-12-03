@@ -303,7 +303,7 @@ const Setting = () => {
           className={active === 'notification' ? styles.active : ''}
           onClick={() => setActive('notification')}
         >
-          Notification
+          Notifications
         </button>
         <button
           className={active === 'connectedAccounts' ? styles.active : ''}
