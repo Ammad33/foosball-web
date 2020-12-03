@@ -20,7 +20,8 @@ import Posts from './containers/Posts';
 import ReviewBrandMicrosite from './containers/ReviewBrandMicrosite';
 import Auth from './hoc/Auth';
 import Logout from '../src/containers/Logout';
-import Contacts from './containers/Contacts/BrandContacts'
+import Contacts from './containers/Contacts/BrandContacts';
+import Profile from './containers/Profile/BrandProfile';
 
 const App = () => {
   return (
@@ -58,6 +59,11 @@ const App = () => {
           <ProtectedRoute exact path='/settings'>
             <Layout>
               <Settings />
+            </Layout>
+          </ProtectedRoute>
+					<ProtectedRoute exact path='/profile'>
+            <Layout>
+              <Profile/>
             </Layout>
           </ProtectedRoute>
 					<ProtectedRoute exact path='/contacts'>

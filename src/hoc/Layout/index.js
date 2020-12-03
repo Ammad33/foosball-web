@@ -58,7 +58,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
 }));
-
 function ResponsiveDrawer(props) {
   const { window } = props;
   const classes = useStyles();
@@ -66,7 +65,12 @@ function ResponsiveDrawer(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [meData, setMeData] = useState([]);
   const [brandName, setBrandName] = useState([]);
-  const [brandId, setBrandId] = useState([]);
+	const [brandId, setBrandId] = useState([]);
+	
+	useEffect(() => {
+		myData();
+	}, []);
+	
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -103,8 +107,8 @@ function ResponsiveDrawer(props) {
 							phoneNumber
 						}
 				}`,
-      });
-      setBrandId(mydata.data.me.organizations[0].organization.id);
+			});
+      // setBrandId(mydata.data.me.organizations[0].organization.id);
       setMeData(mydata.data.me);
       // setBrandName(mydata.data.me.organizations[0].organization.__typename)
     } catch (e) {
@@ -112,13 +116,9 @@ function ResponsiveDrawer(props) {
     }
   };
 
-  useEffect(() => {
-    myData();
-  }, []);
-
+ 
   const container =
-    window !== undefined ? () => window().document.body : undefined;
-
+    window !== undefined ? () => window().document.body : undefined;	
   return (
     <div className={classes.root}>
       <CssBaseline />
