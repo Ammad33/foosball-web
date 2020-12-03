@@ -38,6 +38,7 @@ const CampaignDetail = () => {
 						status
             startDate
             endDate
+            invitationMessage
             discount {
               ... on PercentageDiscount {
                 __typename

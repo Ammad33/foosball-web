@@ -374,7 +374,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
 
       const startDate = new Date(campaign.startDate * 1000);
       const endDate = new Date(campaign.endDate * 1000);
-
+      setCustomMessage(campaign.invitationMessage && campaign.invitationMessage !== null ? campaign.invitationMessage : '')
       setStartDate(moment(startDate).format('MM/DD/YYYY'));
       setEndDate(moment(endDate).format('MM/DD/YYYY'));
       setStartTime(
@@ -929,6 +929,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
               targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
               team: selectedMembers,
               negotiables: getNegotiablesObjectForAPI(),
+              invitationMessage: customeMessage
             },
           }
         )
@@ -973,6 +974,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
               targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
               team: selectedMembers,
               negotiables: getNegotiablesObjectForAPI(),
+              invitationMessage: customeMessage
             },
           }
         )
