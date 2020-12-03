@@ -31,7 +31,12 @@ const Account = ({fullname, handleFullName , email , handleEmail , brandName , h
 	};
 	const toggleNewPasswordVisiblity = () => {
     setNewPasswordShown(newPasswordShown ? false : true);
-  };
+	};
+	
+	const handleCancelPassword = () => {
+		setEditPassword(false);
+		setPasswordCleared(false);
+	};
 
   const handleCancelCDialog = () => {
     setOpenCDialog(false);
@@ -164,7 +169,7 @@ const Account = ({fullname, handleFullName , email , handleEmail , brandName , h
 							</button>
 							<button
 									className={styles.notActive}
-									//onClick={}
+									onClick={handleCancelPassword}
 								>
 									Cancel
 							</button>

@@ -18,9 +18,21 @@ const NotificationIcon = () => {
   return <SVG src={require('../../assets/Notification.svg')} />;
 };
 
+const ChevronDown = () => {
+  return (
+      <SVG src={require('../../assets/chevron-downn.svg')} />
+  );
+};
+const ChevronUp = () => {
+  return (
+      <SVG src={require('../../assets/chevron-up.svg')} />
+  );
+};
+
 const Header = (meData) => {
 	const history = useHistory();
 	const [brandId, setBrandId] = useState([]);
+	const [brandDropDown , setBrandDropDown] = useState(false);
 	const {
     setCurrentUser,
     setLogoutMessage,
@@ -39,6 +51,7 @@ const Header = (meData) => {
   ];
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
+		debugger;
     setAnchorEl(event.currentTarget);
   };
 
@@ -105,6 +118,11 @@ const Header = (meData) => {
           <input className={styles.searchInput} type='search'></input>
         </div>
         <div className={styles.notificationAndProfile}>
+					<div onClick={handleClick}>Brand Name
+						<ChevronDown 
+            
+						/>
+						 </div>
           <Badge className={'cursor-pointer'} color='secondary' variant='dot'>
             <NotificationIcon />
           </Badge>
