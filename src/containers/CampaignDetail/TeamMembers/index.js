@@ -52,18 +52,21 @@ const TeamMembers = ({ onClick, handleEdit, seeAll, brandTeam }) => {
             })}
           </>
           :
-          <>
-            {members.map((member) => {
-              return (
-                <div className={styles.memberItem}>
-                  <Avatar src={member.img} />
-                  <span>{member.name}</span>
-                </div>
-              );
-            })}
-          </>}
+          null
+          // <>
+          //   {members.map((member) => {
+          //     return (
+          //       <div className={styles.memberItem}>
+          //         <Avatar src={member.img} />
+          //         <span>{member.name}</span>
+          //       </div>
+          //     );
+          //   })}
+          // </>
+        }
+
       </div>
-      {seeAll !== false &&
+      {brandTeam && brandTeam !== null && brandTeam.length > 3 &&
         <ChipButton
           handleClick={() => onClick('TeamMembers')}
           title={'See all'}

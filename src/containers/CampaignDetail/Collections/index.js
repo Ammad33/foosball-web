@@ -3,7 +3,7 @@ import styles from './Collections.module.scss';
 import { Edit } from 'react-feather';
 import { useHistory } from 'react-router-dom';
 
-const Collections = ({ handleEdit }) => {
+const Collections = ({ handleEdit, removeSeeAll }) => {
   const history = useHistory();
   return (<div className={styles.collectionContainer}>
     <div className={styles.headerContainer}>
@@ -62,7 +62,7 @@ const Collections = ({ handleEdit }) => {
         </div>
       </div>
     </div>
-    <button onClick={() => history.push('/collections')} >See all</button>
+    {removeSeeAll == true ? null : <button onClick={() => history.push('/collections')} >See all</button>}
   </div>);
 }
 

@@ -5,6 +5,7 @@ import moment from 'moment';
 import clsx from 'clsx';
 
 const CampaignDetail = ({ children, handleEdit, campaign }) => {
+  console.log(campaign);
   // debugger;
   return (
     <div
@@ -16,11 +17,11 @@ const CampaignDetail = ({ children, handleEdit, campaign }) => {
       <div className={styles.headerContainer}>
         <h1>Campaign Details</h1>
         {(campaign && campaign.status == 'DRAFT') ||
-        (campaign && campaign.status == 'PENDING') ? (
-          <Edit onClick={() => handleEdit(1)} />
-        ) : (
-          ''
-        )}
+          (campaign && campaign.status == 'PENDING') ? (
+            <Edit onClick={() => handleEdit(1)} />
+          ) : (
+            ''
+          )}
       </div>
 
       <div className={styles.detailSubContent}>
@@ -45,13 +46,13 @@ const CampaignDetail = ({ children, handleEdit, campaign }) => {
       </div>
       <div className={styles.detailSubContent}>
         <h6>Promotion Discount</h6>
-        <p>15%</p>
+        <p>{campaign && campaign.discount && campaign.discount.amount ? campaign.discount.amount.amount : campaign && campaign.discount && campaign.discount.percentage ? campaign.discount.percentage : ''} {campaign && campaign.discount && campaign.discount.percentage ? '%' : ''}</p>
       </div>
       {children ? (
         <div className={styles.detailSubContent}>{children}</div>
       ) : (
-        ''
-      )}
+          ''
+        )}
     </div>
   );
 };

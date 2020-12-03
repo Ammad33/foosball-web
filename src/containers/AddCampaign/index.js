@@ -380,10 +380,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
       setStartDate(moment(startDate).format('MM/DD/YYYY'));
       setEndDate(moment(endDate).format('MM/DD/YYYY'));
       setStartTime(
-        moment(startDate).subtract(1, 'days').startOf('day').format('HH:mm')
+        moment(startDate).format('HH:mm')
       );
       setEndTime(
-        moment(endDate).subtract(1, 'days').startOf('day').format('HH:mm')
+        moment(endDate).format('HH:mm')
       );
       setDiscount(
         campaign.discount && campaign.discount !== null
@@ -402,8 +402,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
           ? campaign.discount.__typename === 'PercentageDiscount'
             ? 'Percentage'
             : campaign.discount.__typename === 'FlatDiscount'
-            ? 'Amount'
-            : ''
+              ? 'Amount'
+              : ''
           : ''
       );
 
@@ -1314,8 +1314,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                        <CheckCircleIconSvg viewBox='0 0 31 31' />
-                      )}
+                              <CheckCircleIconSvg viewBox='0 0 31 31' />
+                            )}
                       <span
                         className={
                           activeStep === index
@@ -1328,19 +1328,19 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                       </span>
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
                       {activeStep > index ? (
                         <div className={styles.activeBar} />
                       ) : (
-                        <div className={styles.inActiveBar} />
-                      )}
+                          <div className={styles.inActiveBar} />
+                        )}
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                 </>
               ))}
             </div>
@@ -1353,8 +1353,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                  <div></div>
-                )}
+                    <div></div>
+                  )}
                 <span onClick={handleCancelCampaignDialog}>
                   <XSVG />
                 </span>
