@@ -307,8 +307,6 @@ function getSteps() {
 const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   /****** Stepper States ********/
 
-  console.log('campaign=> ', campaign);
-  console.log('brandId=> ', brandId);
   const steps = getSteps();
   const [activeStep, setActiveStep] = useState(step ? step : 1);
   const [activeNext, setActiveNext] = useState(false);
@@ -355,17 +353,17 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
 
   const [deliveries, setDeliveries] = useState([
     {
-      deliverableDeadDate: '',
-      socialPlatform: '',
-      frameType: '',
-      campaignType: '',
-      frameRequired: '',
+      deadlineDate: '',
+      platform: '',
+      frameContentType: '',
+      deliverableType: '',
+      framesRequired: '',
       brandTag: '',
       brandTagRequired: false,
       hashTag: '',
       hashTagRequired: false,
-      NoPost: '',
-      perTimePeriod: '',
+      posts: '',
+      frequency: '',
     },
   ]);
 
@@ -450,17 +448,17 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
       ]);
       setDeliveries([
         {
-          deliverableDeadDate: '',
-          socialPlatform: '',
-          frameType: '',
-          campaignType: '',
-          frameRequired: '',
+          deadlineDate: '',
+          platform: '',
+          frameContentType: '',
+          deliverableType: '',
+          framesRequired: '',
           brandTag: '',
           brandTagRequired: false,
           hashTag: '',
           hashTagRequired: false,
-          NoPost: '',
-          perTimePeriod: '',
+          posts: '',
+          frequency: '',
         },
       ]);
       setSelectedMemebers([]);
@@ -580,11 +578,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
           }
         }`,
       });
-      console.log('Team', team);
       if (team.data !== null && team.data.brand !== null) {
         setTeam(team.data.brand.users);
       }
-      // setTeam(campaign.data.campaign);
     } catch (e) {
       console.log(e);
     }
@@ -594,17 +590,17 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
     const deliverables = [...deliveries];
 
     deliverables.push({
-      deliverableDeadDate: '',
-      socialPlatform: '',
-      frameType: '',
-      campaignType: '',
-      frameRequired: '',
+      deadlineDate: '',
+      platform: '',
+      frameContentType: '',
+      deliverableType: '',
+      framesRequired: '',
       brandTag: '',
       brandTagRequired: false,
       hashTag: '',
       hashTagRequired: false,
-      NoPost: '',
-      perTimePeriod: '',
+      posts: '',
+      frequency: '',
     });
 
     setDeliveries(deliverables);
@@ -614,7 +610,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
 
   const handleDeliverDeadlineDate = (date, index) => {
     const opts = [...deliveries];
-    opts[index].deliverableDeadDate =
+    opts[index].deadlineDate =
       date !== '' && moment(date, 'MM/DD/YYYY', true).isValid()
         ? moment(date).format('L')
         : date;
@@ -945,8 +941,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   };
 
   const updateCampaign = async () => {
-    console.log('update campaign', brandId);
-    console.log('campaign ', campaign);
+
     if (discountType === 'Amount') {
       typ = 'FLAT';
       val = '{"amount":{"amount": "' + discount + '","currency":"USD"}}';
@@ -996,13 +991,13 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
     let flag = true;
     deliverables.forEach((delive) => {
       if (
-        delive.deliverableDeadDate === '' ||
-        delive.socialPlatform === '' ||
-        delive.campaignType === '' ||
-        delive.frameType === '' ||
-        delive.frameRequired === '' ||
-        delive.NoPost === '' ||
-        delive.perTimePeriod === ''
+        delive.deadlineDate === '' ||
+        delive.platform === '' ||
+        delive.deliverableType === '' ||
+        delive.frameContentType === '' ||
+        delive.framesRequired === '' ||
+        delive.posts === '' ||
+        delive.frequency === ''
       ) {
         flag = false;
       }
@@ -1225,6 +1220,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
             selectedInfluncer={influencer}
             handleActiveStep={(value) => setActiveStep(value)}
             toggleComponent={toggleComponent}
+            team={team}
           />
         );
       default:

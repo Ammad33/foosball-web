@@ -8,8 +8,8 @@ import moment from 'moment';
 const EditSVG = ({ onClick }) => {
 	return <SVG src={require('../../../assets/edit.svg')} onClick={onClick} />;
 };
-const ReviewAndSend = ({ campaignName, startDate, endDate, startTime, endTime, discount, discountType,
-	customeMessage, selectedMembers, budget, targetGrossSale, collections, deliverables, compensations,compensationPayment, selectedNegotiable, selectedInfluncer, handleActiveStep }) => {
+const ReviewAndSend = ({ team, campaignName, startDate, endDate, startTime, endTime, discount, discountType,
+	customeMessage, selectedMembers, budget, targetGrossSale, collections, deliverables, compensations, compensationPayment, selectedNegotiable, selectedInfluncer, handleActiveStep }) => {
 	return (
 		<div class={styles.mainContainer}>
 			<div class={styles.section}>
@@ -65,13 +65,17 @@ const ReviewAndSend = ({ campaignName, startDate, endDate, startTime, endTime, d
 				<div className={styles.teamMembersContainer}>
 					<Grid container spacing={3}>
 						{selectedMembers.length > 0 && selectedMembers.map((member, index) => {
-							return (
-								<Grid item xs={4} key={index}>
-									<div className={styles.teamMemberItem}>
-										<Avatar src={member.avatar} />
-										<span>{member.name}</span>
-									</div>
-								</Grid>);
+							const element = team.findIndex(item => item.user.id === member);
+							if (element !== -1) {
+								return (
+									<Grid item xs={4} key={index}>
+										<div className={styles.teamMemberItem}>
+											<Avatar src={team[element].user.imageUrl} />
+											<span>{team[element].user.fullName}</span>
+										</div>
+									</Grid>);
+							}
+
 						})
 						}
 					</Grid>
@@ -145,25 +149,25 @@ const ReviewAndSend = ({ campaignName, startDate, endDate, startTime, endTime, d
 								<Grid item xs={4}>
 									<div className={styles.deliverableItem}>
 										<p>Social Platform</p>
-										<span>{item.socialPlatform}</span>
+										<span>{item.platform}</span>
 									</div>
 								</Grid>
 								<Grid item xs={4}>
 									<div className={styles.deliverableItem}>
 										<p>Post Type</p>
-										<span>{item.campaignType}</span>
+										<span>{item.deliverableType}</span>
 									</div>
 								</Grid>
 								<Grid item xs={4}>
 									<div className={styles.deliverableItem}>
 										<p>Content Type</p>
-										<span>{item.frameType}</span>
+										<span>{item.frameContentType}</span>
 									</div>
 								</Grid>
 								<Grid item xs={4}>
 									<div className={styles.deliverableItem}>
 										<p>Frames Required</p>
-										<span>{item.frameRequired}</span>
+										<span>{item.framesRequired}</span>
 									</div>
 								</Grid>
 								<Grid item xs={4}>
@@ -203,7 +207,7 @@ const ReviewAndSend = ({ campaignName, startDate, endDate, startTime, endTime, d
 						</div>
 					</Grid>
 				</Grid>
-				
+
 				{
 					compensations.map((item, index) => {
 						return (

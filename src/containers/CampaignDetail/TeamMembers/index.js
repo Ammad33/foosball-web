@@ -66,7 +66,7 @@ const TeamMembers = ({ onClick, handleEdit, seeAll, brandTeam }) => {
         }
 
       </div>
-      {brandTeam && brandTeam !== null && brandTeam.length > 3 &&
+      {brandTeam && brandTeam !== null && brandTeam.length > 5 &&
         <ChipButton
           handleClick={() => onClick('TeamMembers')}
           title={'See all'}

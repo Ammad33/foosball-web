@@ -7,7 +7,6 @@ const Negotiables = ({ handleEdit, data }) => {
     const keys = Object.keys(data.negotiables);
     return keys.map((key) => {
       if (data.negotiables[key]) {
-        console.log(key);
         switch (key) {
           case 'monthly_retainer_fee':
             return <p>Monthly Retainer Fee</p>;

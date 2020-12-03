@@ -12,14 +12,83 @@ import Link from '@material-ui/core/Link';
 import { Link2, ChevronDown } from 'react-feather';
 import { RootContext } from '../../context/RootContext';
 import SelectMenu from '../../components/SelectMenu';
+import { API } from 'aws-amplify';
 
 const CampaignDetail = () => {
-  const history = useHistory();
-  const [status, setStatus] = useState('Closed');
+  const [status, setStatus] = useState('');
+  const [addCampaign, setAddCampagin] = useState(false);
 
   const { campaignId } = useParams();
   const [brandState, setBrandState] = useState(true);
-  const { setActiveCampaign } = useContext(RootContext);
+  const { setActiveCampaign, brandId } = useContext(RootContext);
+
+  const [data, setData] = useState(null);
+
+  String.prototype.toProperCase = function () {
+    return this.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+  };
+
+  const getCampaign = async () => {
+    try {
+      const campaign = await API.graphql({
+        query: `{
+          campaign(brandId: "${brandId}", id: "${campaignId}") {
+            id
+						name
+						status
+            startDate
+            endDate
+            discount {
+              ... on PercentageDiscount {
+                __typename
+                percentage
+              }
+              ... on FlatDiscount {
+                __typename
+                amount {
+                  amount
+                  currency
+                }
+              }
+            }
+            budget {
+              amount
+              currency
+            }
+            targetGrossSales {
+              amount
+              currency
+            }
+            brandTeam {
+              id
+              imageUrl
+              fullName
+            }
+            brand {
+              id
+            }
+            negotiables {
+              campaign_duration
+              monthly_retainer_fee
+              post_fee
+              post_frequency
+              revenue_share
+              story_fee
+            }
+          }
+      }`,
+      });
+      setData(campaign.data.campaign);
+      if (campaign.data && campaign.data !== null && campaign.data.campaign !== null) {
+        setStatus(campaign.data.campaign.status ? campaign.data.campaign.status : 'CLOSED')
+      }
+    } catch (e) { }
+  };
+
+  useEffect(() => {
+    getCampaign();
+  }, [addCampaign]);
+
 
   const handleBrandState = () => {
     setBrandState(brandState ? false : true);
@@ -44,22 +113,22 @@ const CampaignDetail = () => {
           MenuProps={{ variant: 'menu' }}
           input={<SelectMenu />}
         >
-          <MenuItem value='' disabled > Select Status</MenuItem> 
-          <MenuItem value={'Draft'}>Draft</MenuItem>
-					<MenuItem value={'Pending'}>Pending</MenuItem>
-          <MenuItem value={'Closed'}>Closed</MenuItem>
-          <MenuItem value={'Declined'}>Declined</MenuItem>
-          <MenuItem value={'Invite'}>Invite</MenuItem>
-          <MenuItem value={'Live'}>Live</MenuItem>
-          <MenuItem value={'Lost'}>Lost</MenuItem>
-          
+          <MenuItem value='' disabled > Select Status</MenuItem>
+          <MenuItem value={'DRAFT'}>Draft</MenuItem>
+          <MenuItem value={'PENDING'}>Pending</MenuItem>
+          <MenuItem value={'CLOSED'}>Closed</MenuItem>
+          <MenuItem value={'DECLINED'}>Declined</MenuItem>
+          <MenuItem value={'INVITE'}>Invite</MenuItem>
+          <MenuItem value={'LIVE'}>Live</MenuItem>
+          <MenuItem value={'LOST'}>Lost</MenuItem>
+
         </Select>
       </div>
       {brandState ? (
-        <BrandCampaignDetail status={status} campaignId={campaignId} />
+        <BrandCampaignDetail status={status} data={data} addCampaign={addCampaign} setAddCampagin={setAddCampagin} />
       ) : (
-        <InfluencerCampaignDetail status={status} campaignId={campaignId} />
-      )}
+          <InfluencerCampaignDetail status={status} data={data} addCampaign={addCampaign} setAddCampagin={setAddCampagin} />
+        )}
     </div>
   );
 };

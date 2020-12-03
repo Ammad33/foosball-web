@@ -107,8 +107,10 @@
   }
   button {
     margin-top: 80px;
+    outline: none;
+    border: none;
     height: 44px;
-    width: 194px;
+    width: 210px;
     border-radius: 100px;
     background-color: $white;
     color: $dark1;

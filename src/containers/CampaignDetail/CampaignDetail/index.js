@@ -5,8 +5,6 @@ import moment from 'moment';
 import clsx from 'clsx';
 
 const CampaignDetail = ({ children, handleEdit, campaign }) => {
-  console.log(campaign);
-  // debugger;
   return (
     <div
       className={clsx(

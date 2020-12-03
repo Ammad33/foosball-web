@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react';
 import styles from './BrandCampaignDetail.module.scss';
-import { API } from 'aws-amplify';
 import { X } from 'react-feather';
 import Drawer from '../../../components/RightDrawer';
 import ActivityDetail from '../ActivityDetail';
@@ -15,12 +14,9 @@ import ClosedBrandCampaignDetail from '../ClosedBrandCampaignDetail';
 import LostBrandCampaignDetail from '../LostBrandCampaignDetail';
 import { RootContext } from '../../../context/RootContext'
 
-const BrandCampaignDetail = ({ campaignId, status }) => {
-  const [addCampaign, setAddCampagin] = useState(false);
-  const [step, setStep] = useState(1);
-  const [data, setData] = useState(null);
-  const { brandId } = useContext(RootContext);
+const BrandCampaignDetail = ({ status, addCampaign, setAddCampagin, data }) => {
 
+  const [step, setStep] = useState(1);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [element, setElement] = useState('');
 
@@ -53,64 +49,64 @@ const BrandCampaignDetail = ({ campaignId, status }) => {
     }
   };
 
-  const getCampaign = async () => {
-    try {
-      const campaign = await API.graphql({
-        query: `{
-          campaign(brandId: "${brandId}", id: "${campaignId}") {
-            id
-						name
-						startDate
-						status
-            endDate
-            discount {
-              ... on PercentageDiscount {
-                __typename
-                percentage
-              }
-              ... on FlatDiscount {
-                __typename
-                amount {
-                  amount
-                  currency
-                }
-              }
-            }
-            budget {
-              amount
-              currency
-            }
-            targetGrossSales {
-              amount
-              currency
-            }
-            brandTeam {
-              id
-              imageUrl
-              fullName
-            }
-            brand {
-              id
-            }
-            negotiables {
-              campaign_duration
-              monthly_retainer_fee
-              post_fee
-              post_frequency
-              revenue_share
-              story_fee
-            }
-          }
-      }`,
-      });
-      console.log('campaign', campaign.data.campaign);
-      setData(campaign.data.campaign);
-    } catch (e) { }
-  };
+  // const getCampaign = async () => {
+  //   try {
+  //     const campaign = await API.graphql({
+  //       query: `{
+  //         campaign(brandId: "${brandId}", id: "${campaignId}") {
+  //           id
+  // 					name
+  // 					startDate
+  // 					status
+  //           endDate
+  //           discount {
+  //             ... on PercentageDiscount {
+  //               __typename
+  //               percentage
+  //             }
+  //             ... on FlatDiscount {
+  //               __typename
+  //               amount {
+  //                 amount
+  //                 currency
+  //               }
+  //             }
+  //           }
+  //           budget {
+  //             amount
+  //             currency
+  //           }
+  //           targetGrossSales {
+  //             amount
+  //             currency
+  //           }
+  //           brandTeam {
+  //             id
+  //             imageUrl
+  //             fullName
+  //           }
+  //           brand {
+  //             id
+  //           }
+  //           negotiables {
+  //             campaign_duration
+  //             monthly_retainer_fee
+  //             post_fee
+  //             post_frequency
+  //             revenue_share
+  //             story_fee
+  //           }
+  //         }
+  //     }`,
+  //     });
+  //     console.log('campaign', campaign.data.campaign);
+  //     setData(campaign.data.campaign);
+  //   } catch (e) { }
+  // };
 
   const getPage = (status) => {
     switch (status) {
-      case 'Draft':
+      case 'DRAFT':
         return (
           <DraftBrandCampaignDetail
             handleEdit={handleEdit}
@@ -118,7 +114,7 @@ const BrandCampaignDetail = ({ campaignId, status }) => {
             data={data}
           />
         );
-      case 'Closed':
+      case 'CLOSED':
         return (
           <ClosedBrandCampaignDetail
             handleEdit={handleEdit}
@@ -126,7 +122,7 @@ const BrandCampaignDetail = ({ campaignId, status }) => {
             data={data}
           />
         );
-      case 'Live':
+      case 'LIVE':
         return (
           <LiveBrandCampaignDetail
             handleEdit={handleEdit}
@@ -134,7 +130,7 @@ const BrandCampaignDetail = ({ campaignId, status }) => {
             data={data}
           />
         );
-      case 'Invite':
+      case 'INVITE':
         return (
           <PendingBrandCampaignDetail
             handleEdit={handleEdit}
@@ -142,7 +138,7 @@ const BrandCampaignDetail = ({ campaignId, status }) => {
             data={data}
           />
         );
-      case 'Lost':
+      case 'LOST':
         return (
           <LostBrandCampaignDetail
             handleEdit={handleEdit}
@@ -150,7 +146,7 @@ const BrandCampaignDetail = ({ campaignId, status }) => {
             data={data}
           />
         );
-      case 'Pending':
+      case 'PENDING':
         return (
           <PendingBrandCampaignDetail
             handleEdit={handleEdit}
@@ -158,7 +154,7 @@ const BrandCampaignDetail = ({ campaignId, status }) => {
             data={data}
           />
         );
-      case 'Declined':
+      case 'DECLINED':
         return (
           <LostBrandCampaignDetail
             handleEdit={handleEdit}
@@ -170,10 +166,6 @@ const BrandCampaignDetail = ({ campaignId, status }) => {
         return <div>Default</div>;
     }
   };
-
-  useEffect(() => {
-    getCampaign();
-  }, [addCampaign]);
 
   return (
     <>
@@ -192,7 +184,7 @@ const BrandCampaignDetail = ({ campaignId, status }) => {
         </div>
         {getDrawerElement(element)}
       </Drawer>
-      {getPage(status)}
+      {status !== '' && getPage(status)}
     </>
   );
 };
