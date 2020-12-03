@@ -36,7 +36,7 @@ const Billing = () => {
             className={clsx(primaryBillingType === 'CC' ? styles.active : '')}
             onClick={() => handlePrimaryBilling('CC')}
           >
-            <Plus /> Add Credit Card
+            <Plus /> Add credit card
           </button>
         </Grid>
         <Grid item xs={4} className={styles.imageItem}>
@@ -138,7 +138,7 @@ const Billing = () => {
               )}
               onClick={() => handleSecondaryBilling('CC')}
             >
-              <Plus /> Add Credit Card
+              <Plus /> Add credit card
             </button>
           </Grid>
           <Grid item xs={4} className={styles.imageItem}>

@@ -10,6 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { useHistory } from 'react-router-dom';
 import { RootContext } from './../../context/RootContext';
 import Logout from '../../containers/Logout';
+import SelectBrand from './SelectBrand';
 
 const SearchIcon = () => {
   return <SVG src={require('../../assets/Search.svg')} />;
@@ -118,11 +119,9 @@ const Header = (meData) => {
           <input className={styles.searchInput} type='search'></input>
         </div>
         <div className={styles.notificationAndProfile}>
-					<div onClick={handleClick}>Brand Name
-						<ChevronDown 
-            
-						/>
-						 </div>
+					<div>
+						<SelectBrand />
+					</div>
           <Badge className={'cursor-pointer'} color='secondary' variant='dot'>
             <NotificationIcon />
           </Badge>
