@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Edit } from 'react-feather';
 import { InputAdornment, Grid, Avatar, Popover } from '@material-ui/core';
 import styles from './popularProducts.module.scss';
@@ -11,6 +11,7 @@ import EditPopularProducts from './EditPopularProducts';
 const PopularProducts = ({ handleEdit }) => {
 	const [editOpen, setEditOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
+	const [popularProducts, setPopularProducts] = useState(false);
 
 	const handleClose = () => {
 		setAnchorEl(null);
@@ -25,38 +26,45 @@ const PopularProducts = ({ handleEdit }) => {
 				<Edit onClick={() => { setEditOpen(true); setAnchorEl(null) }} />
 			</div>
 			<EditPopularProducts open={editOpen} closeAdd={() => setEditOpen(false)} />
-			<Grid container >
-				<Grid item xs={2}>
-					<div className={styles.mainDiv}>
-						<div className={styles.elemtdiv}>
-							<img alt="post1" src={DataImage} />
-							<div className={styles.postsDescription}> vanilla plant </div>
-							<div > $28</div>
-						</div>
-						<div className={styles.elemtdiv}>
-							<img alt="post2" src={DataImage} />
-							<div className={styles.postsDescription}> vanilla plant </div>
-							<div > $28</div>
-						</div>
-						<div className={styles.elemtdiv}>
-							<img alt="post3" src={DataImage} />
-							<div className={styles.postsDescription}> vanilla plant </div>
-							<div > $28</div>
-						</div>
-						<div className={styles.elemtdiv}>
-							<img alt="post3" src={DataImage} />
-							<div className={styles.postsDescription}> vanilla plant </div>
-							<div > $28</div>
-						</div>
-						<div className={styles.elemtdiv}>
-							<img alt="post3" src={DataImage} />
-							<div className={styles.postsDescription}> vanilla plant </div>
-							<div > $28</div>
-						</div>
+			{popularProducts ? (
+				<Grid container >
+					<Grid item xs={2}>
+						<div className={styles.mainDiv}>
+							<div className={styles.elemtdiv}>
+								<img alt="post1" src={DataImage} />
+								<div className={styles.postsDescription}> vanilla plant </div>
+								<div > $28</div>
+							</div>
+							<div className={styles.elemtdiv}>
+								<img alt="post2" src={DataImage} />
+								<div className={styles.postsDescription}> vanilla plant </div>
+								<div > $28</div>
+							</div>
+							<div className={styles.elemtdiv}>
+								<img alt="post3" src={DataImage} />
+								<div className={styles.postsDescription}> vanilla plant </div>
+								<div > $28</div>
+							</div>
+							<div className={styles.elemtdiv}>
+								<img alt="post3" src={DataImage} />
+								<div className={styles.postsDescription}> vanilla plant </div>
+								<div > $28</div>
+							</div>
+							<div className={styles.elemtdiv}>
+								<img alt="post3" src={DataImage} />
+								<div className={styles.postsDescription}> vanilla plant </div>
+								<div > $28</div>
+							</div>
 
-					</div>
+						</div>
+					</Grid>
 				</Grid>
-			</Grid>
+			) : (
+					<div className={styles.detailSubContent}>
+						<p>Show influencers your most popular products, or select any products you would like to feature here.</p>
+					</div>
+				)}
+
 		</div>
 	);
 };

@@ -1,0 +1,67 @@
+@import '../../../../variable.module.scss';
+.influencerInfoContainer {
+  &.withChildHeight {
+    height: 454px;
+  }
+  &.withNoChildHeight {
+		height: 311px;
+		
+	}
+	height: 208px !important;
+  width: 311px !important;
+  border-radius: 10px;
+  background-color: #FFFFFF;
+  box-shadow: 0 6px 50px 0 rgba(0,0,0,0.1);
+	padding: 32px 41px 20px 35px;
+	margin-left: 10px;
+	margin-top: 20px;
+	.socialIcons{
+		justify-content: center;
+		display: flex;
+	}
+  .headerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    h1 {
+      color: $dark1;
+      font-family: Poppins;
+      font-size: 23px;
+      font-weight: bold;
+      letter-spacing: 0;
+      line-height: 34px;
+    }
+  }
+
+  .detailSubContent {
+		margin-top: 24px;
+		color: #000000;
+		font-family: Poppins;
+		font-size: 18px;
+		font-weight: bold;
+		letter-spacing: 0;
+		line-height: 27px;
+		text-align: center;
+	}
+	.influencerHandler {
+		justify-content: center;
+		display: flex;
+		color: #000000;
+		font-family: Poppins;
+		font-size: 15px;
+		letter-spacing: 0;
+		line-height: 23px;
+	
+	}
+
+  .dateContainer {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-direction: row;
+  }
+}
+
+.svgContainer{
+	display: flex;
+}
