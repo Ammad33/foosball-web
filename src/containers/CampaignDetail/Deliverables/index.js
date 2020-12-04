@@ -4,6 +4,20 @@ import { Edit } from 'react-feather';
 
 const Deliverables = ({ onClick, handleEdit, deliverables }) => {
   console.log('deliverables ', deliverables);
+
+  const getPostFrequency = (frequency) => {
+    switch (frequency) {
+      case 'BI_WEEKLY':
+        return 'Every 1 Week';
+      case 'BI_MONTHLY':
+        return 'Every 1 Month';
+      case 'WEEK':
+        return 'in Week';
+      case 'MONTH':
+        return 'in Month';
+    }
+  };
+
   return (
     <div className={styles.deliverableContainer}>
       <div className={styles.headerContainer}>
@@ -12,35 +26,63 @@ const Deliverables = ({ onClick, handleEdit, deliverables }) => {
       </div>
       <div className={styles.detailSubContent}>
         <h6>Deliverable Deadline</h6>
-        <p>October 30, 2020</p>
+        <p>
+          {deliverables && deliverables.length
+            ? deliverables[0].deadlineDate
+            : ''}
+        </p>
       </div>
       <div className={styles.detailSubContent}>
         <h6>Social Platform</h6>
-        <p>Instagram</p>
+        <p>
+          {deliverables && deliverables.length ? deliverables[0].platform : ''}
+        </p>
       </div>
       <div className={styles.detailSubContent}>
         <h6>Post Type</h6>
-        <p>Story</p>
+        <p>
+          {deliverables && deliverables.length
+            ? deliverables[0].deliverableType
+            : ''}
+        </p>
       </div>
       <div className={styles.detailSubContent}>
         <h6>Content Type</h6>
-        <p>Video</p>
+        <p>
+          {deliverables && deliverables.length
+            ? deliverables[0].frameContentType
+            : ''}
+        </p>
       </div>
       <div className={styles.detailSubContent}>
         <h6>Frames Required</h6>
-        <p>5</p>
+        <p>
+          {deliverables && deliverables.length
+            ? deliverables[0].framesRequired
+            : ''}
+        </p>
       </div>
       <div className={styles.detailSubContent}>
         <h6>Brand tag</h6>
-        <p>Required- @shopgoodtobe</p>
+        <p>
+          @{deliverables && deliverables.length ? deliverables[0].brandTag : ''}
+        </p>
       </div>
       <div className={styles.detailSubContent}>
         <h6>Hashtag</h6>
-        <p>Required- @shopgoodtobe</p>
+        <p>
+          #{deliverables && deliverables.length ? deliverables[0].hashTag : ''}
+        </p>
       </div>
       <div className={styles.detailSubContent} style={{ marginBottom: '20px' }}>
         <h6>Post Frequency</h6>
-        <p>5 posts every 1 month</p>
+        <p>
+          {deliverables && deliverables.length
+            ? `${deliverables[0].posts} posts ${getPostFrequency(
+                deliverables[0].frequency
+              )}`
+            : ''}
+        </p>
       </div>
       {deliverables && deliverables.length > 1 ? (
         <button onClick={() => onClick('Deliverable')}>See all</button>
