@@ -14,7 +14,6 @@ const Notification = ({ actionRequired,
 	hanldeInfluencerPost,
 	hanldeCampaignStart }) => {
 
-	debugger;
 
 	return (
 		<>
