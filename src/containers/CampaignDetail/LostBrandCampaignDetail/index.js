@@ -128,7 +128,7 @@ const LostBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
             />
           </div>
           <div className={styles.flexContainer}>
-            <Compensation handleEdit={handleEdit} onClick={handleSeeClick} />
+            <Compensation handleEdit={handleEdit} onClick={handleSeeClick} compensation={data && data.compensation && data.compensation[0]} />
             <Negotiables data={data} />
             <div style={{ width: '391px' }}></div>
           </div>

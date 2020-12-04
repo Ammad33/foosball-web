@@ -409,11 +409,13 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
           ? campaign.discount.__typename === 'PercentageDiscount'
             ? 'Percentage'
             : campaign.discount.__typename === 'FlatDiscount'
-            ? 'Amount'
-            : ''
+              ? 'Amount'
+              : ''
           : ''
       );
-
+      if (campaign.compensation && campaign.compensation !== null) {
+        setCompensation(campaign.compensation)
+      }
       if (campaign.budget && campaign.budget) {
         setBudget(campaign.budget.amount);
       }
@@ -932,8 +934,66 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
     return data;
   };
 
+  const setCompensation = (compensation) => {
+    let compensationsForm = compensation.map((item) => {
+      switch (item.__typename) {
+        case 'CompRevenueShare':
+          return ({
+            compensationType: 'REVENUE_SHARE',
+            amount: item.percentage * 1000
+          });
+        case 'CompCashPerPost':
+          return ({
+            compensationType: 'CASH_PER_POST',
+            amount: item.amount.amount
+          });
+        case 'CompCashPerMonthlyDeliverable':
+          return ({
+            compensationType: 'CASH_PER_MONTHLY_DELIVERABLE',
+            amount: item.amount.amount
+          });
+        case 'CompGiftCard':
+          return ({
+            compensationType: 'GIFT_CARD',
+            amount: item.amount.amount
+          });
+      }
+    });
+    setCompensations(compensationsForm)
+  }
+
+  const getCompensations = () => {
+    let compensation = compensations.map(item => {
+      switch (item.compensationType) {
+        case 'REVENUE_SHARE':
+          return ({
+            type: 'REVENUE_SHARE',
+            value: '{ "percentage": "' + item.amount / 1000 + '"}'
+          });
+        case 'CASH_PER_POST':
+          return ({
+            type: 'CASH_PER_POST',
+            value: '{"amount":{"amount": "' + item.amount + '","currency":"USD"}}'
+          });
+        case 'CASH_PER_MONTHLY_DELIVERABLE':
+          return ({
+            type: 'CASH_PER_MONTHLY_DELIVERABLE',
+            value: '{"amount":{"amount": "' + item.amount + '","currency":"USD"}}'
+          });
+        case 'GIFT_CARD':
+          return ({
+            type: 'GIFT_CARD',
+            value: '{"amount":{"amount": "' + item.amount + '","currency":"USD"}, "code": "ABC123" }'
+          });
+      }
+    }
+    );
+    return compensation;
+  }
+
   const createCampaign = async () => {
     try {
+
       if (discountType === 'Amount') {
         typ = 'FLAT';
         val = '{"amount":{"amount": "' + discount + '","currency":"USD"}}';
@@ -967,6 +1027,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
               negotiables: getNegotiablesObjectForAPI(),
               invitationMessage: customeMessage,
               deliverables: getDeliverablesForAPI(),
+              compensation: getCompensations()
             },
           }
         )
@@ -1011,6 +1072,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
               team: selectedMembers,
               negotiables: getNegotiablesObjectForAPI(),
               invitationMessage: customeMessage,
+              compensation: getCompensations()
               // deliverables: getDeliverablesForAPI(),
             },
           }
@@ -1056,7 +1118,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
     const compensation = [...compensations];
 
     let flag = true;
-    compensation.forEach((comp) => {
+    compensation && compensation.forEach((comp) => {
       if (
         comp.compensationType === '' ||
         comp.amount === '' ||
@@ -1349,8 +1411,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                        <CheckCircleIconSvg viewBox='0 0 31 31' />
-                      )}
+                              <CheckCircleIconSvg viewBox='0 0 31 31' />
+                            )}
                       <span
                         className={
                           activeStep === index
@@ -1363,19 +1425,19 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                       </span>
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
                       {activeStep > index ? (
                         <div className={styles.activeBar} />
                       ) : (
-                        <div className={styles.inActiveBar} />
-                      )}
+                          <div className={styles.inActiveBar} />
+                        )}
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                 </>
               ))}
             </div>
@@ -1388,8 +1450,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                  <div></div>
-                )}
+                    <div></div>
+                  )}
                 <span onClick={handleCancelCampaignDialog}>
                   <XSVG />
                 </span>

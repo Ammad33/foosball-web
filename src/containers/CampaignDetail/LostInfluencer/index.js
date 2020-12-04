@@ -119,7 +119,7 @@ const LostInfluencer = ({ handleEdit, data, handleSeeClick }) => {
           </div>
         </div>
         <div className={styles.first}>
-          <Compensation onClick={handleSeeClick} handleEdit={handleEdit} />
+          <Compensation onClick={handleSeeClick} handleEdit={handleEdit} compensation={data && data.compensation && data.compensation[0]} />
           <Negotiables data={data} />
         </div>
       </div>

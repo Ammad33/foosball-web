@@ -87,7 +87,7 @@ const PendingInfluencer = ({ handleEdit, data, handleSeeClick }) => {
           <div>
             <div className={styles.first}>
               <CampaignDetail campaign={data} handleEdit={handleEdit} />
-              <Compensation onClick={handleSeeClick} handleEdit={handleEdit} />
+              <Compensation onClick={handleSeeClick} handleEdit={handleEdit} compensation={data && data.compensation && data.compensation[0]} />
             </div>
             <div style={{ marginTop: '30px' }}>
               <Collections handleEdit={handleEdit} />

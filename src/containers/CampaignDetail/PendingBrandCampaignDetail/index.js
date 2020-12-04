@@ -75,62 +75,62 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
             </p>
           </>
         ) : (
-          <>
-            <h1>
-              {pendingOffer ? (
-                'Sam sent a counter offer'
-              ) : (
-                <>
-                  <AlertCircle /> Microsite ready for approval
+            <>
+              <h1>
+                {pendingOffer ? (
+                  'Sam sent a counter offer'
+                ) : (
+                    <>
+                      <AlertCircle /> Microsite ready for approval
                 </>
-              )}
-            </h1>
-            {pendingOffer ? (
-              <>
-                <p>
-                  <i>Sam is proposing a Revenue share of 3% instead of 2%</i>
-                </p>
-                <p>
-                  <i>Sam is proposing $40 cash per post instead of $30</i>
-                </p>
-              </>
-            ) : (
-              <p>
-                The influencer has sent you the microsite to review and approve.
-              </p>
-            )}
-            {pendingOffer ? (
-              <div className={styles.offerButtons}>
-                <button
-                  className={styles.acceptButton}
-                  onClick={() => setAllSet(true)}
-                >
-                  Accept
+                  )}
+              </h1>
+              {pendingOffer ? (
+                <>
+                  <p>
+                    <i>Sam is proposing a Revenue share of 3% instead of 2%</i>
+                  </p>
+                  <p>
+                    <i>Sam is proposing $40 cash per post instead of $30</i>
+                  </p>
+                </>
+              ) : (
+                  <p>
+                    The influencer has sent you the microsite to review and approve.
+                  </p>
+                )}
+              {pendingOffer ? (
+                <div className={styles.offerButtons}>
+                  <button
+                    className={styles.acceptButton}
+                    onClick={() => setAllSet(true)}
+                  >
+                    Accept
                 </button>
-                <button
-                  className={styles.negotiateButton}
-                  onClick={() => setOpenNegotiateDialog(true)}
-                >
-                  Negotiate
+                  <button
+                    className={styles.negotiateButton}
+                    onClick={() => setOpenNegotiateDialog(true)}
+                  >
+                    Negotiate
                 </button>
-                <button
-                  className={styles.declineButton}
-                  onClick={() => setOpenDeclineDialog(true)}
-                >
-                  Decline
+                  <button
+                    className={styles.declineButton}
+                    onClick={() => setOpenDeclineDialog(true)}
+                  >
+                    Decline
                 </button>
-              </div>
-            ) : (
-              <button
-                onClick={() => {
-                  history.push('/review-brand-microsite');
-                }}
-              >
-                View
-              </button>
-            )}
-          </>
-        )}
+                </div>
+              ) : (
+                  <button
+                    onClick={() => {
+                      history.push('/review-brand-microsite');
+                    }}
+                  >
+                    View
+                  </button>
+                )}
+            </>
+          )}
       </div>
     );
   };
@@ -231,7 +231,7 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
             />
           </div>
           <div className={styles.flexContainer}>
-            <Compensation handleEdit={handleEdit} onClick={handleSeeClick} />
+            <Compensation handleEdit={handleEdit} onClick={handleSeeClick} compensation={data && data.compensation && data.compensation[0]} />
             <Negotiables data={data} handleEdit={handleEdit} />
             <div style={{ width: '391px' }}></div>
           </div>

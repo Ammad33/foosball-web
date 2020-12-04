@@ -109,7 +109,7 @@ const LiveInfluencer = ({ handleEdit, data, handleSeeClick }) => {
           <div>
             <div className={styles.first}>
               <CampaignDetail campaign={data} handleEdit={handleEdit} />
-              <Compensation onClick={handleSeeClick} handleEdit={handleEdit} />
+              <Compensation compensation={data && data.compensation && data.compensation[0]} onClick={handleSeeClick} handleEdit={handleEdit} />
             </div>
             <div style={{ marginTop: '30px' }}>
               <Collections handleEdit={handleEdit} />
