@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Grid, Select, InputAdornment } from '@material-ui/core';
 import TextField from '../../../../components/TextField';
-	import FormControl from '@material-ui/core/FormControl';
+import FormControl from '@material-ui/core/FormControl';
 import SelectMenu from '../../../../components/SelectMenu';
 import MenuItem from '@material-ui/core/MenuItem';
 import styles from './CreateCompensation.module.scss';
@@ -43,7 +43,7 @@ const CreateCompensation = ({
   index,
   item,
   handleCompensationValue,
-	handleRemoveCompensation,
+  handleRemoveCompensation,
   compensationProduct,
   handleCompensationProducts,
   compensationProductItems,
@@ -55,10 +55,10 @@ const CreateCompensation = ({
     handleActiveForCompensationProduct();
   }, [compensationProducts]);
 
-  
+
   return (
-    <Grid container spacing={3}> 
-		  <Grid
+    <Grid container spacing={3}>
+      <Grid
         item
         xs={12}
         className={clsx(
@@ -193,13 +193,13 @@ const CreateCompensation = ({
       {item.compensationType === 'Products' && (
         <Grid item xs={12} sm={12} md={12}>
           <Collection
-						collection={compensationProduct}
-						handleCollection= {handleCompensationProducts}
-						handleCollectionItem={handleCompensationProductItem}
-						collectionItems={compensationProductItems}
-						collections={compensationProducts}
-						handleActiveForCollection={handleActiveForCompensationProduct}
-					/>
+            collection={compensationProduct}
+            handleCollection={handleCompensationProducts}
+            handleCollectionItem={handleCompensationProductItem}
+            collectionItems={compensationProductItems}
+            collections={compensationProducts}
+            handleActiveForCollection={handleActiveForCompensationProduct}
+          />
         </Grid>
       )}
     </Grid>

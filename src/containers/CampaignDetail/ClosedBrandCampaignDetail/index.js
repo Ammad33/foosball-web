@@ -7,14 +7,8 @@ import {
   MoreVertical,
   Download,
   Mail,
-  X,
   ChevronRight,
-  XCircle,
-  Delete,
-  Trash,
-  AlertCircle,
   Copy,
-  Link,
 } from 'react-feather';
 import Activity from '../Activity';
 import CampaignDetail from '../CampaignDetail';
