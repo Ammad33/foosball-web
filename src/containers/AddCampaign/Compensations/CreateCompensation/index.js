@@ -96,20 +96,19 @@ const CreateCompensation = ({
             <MenuItem value='' disabled>
               Compensation Type
             </MenuItem>
-            <MenuItem value={'Cash per post'}>Cash per post</MenuItem>
-            <MenuItem value={'Cash per monthly deliverable'}>
+            <MenuItem value={'CASH_PER_POST'}>Cash per post</MenuItem>
+            <MenuItem value={'CASH_PER_MONTHLY_DELIVERABLE'}>
               Cash per monthly deliverable
             </MenuItem>
-            <MenuItem value={'Revenue Share'}>Revenue Share</MenuItem>
-            <MenuItem value={'Gift Card'}>Gift Card</MenuItem>
-            <MenuItem value={'Products'}>Products</MenuItem>
+            <MenuItem value={'REVENUE_SHARE'}>Revenue Share</MenuItem>
+            <MenuItem value={'GIFT_CARD'}>Gift Card</MenuItem>
+            <MenuItem value={'PRODUCT'}>Products</MenuItem>
           </Select>
         </FormControl>
       </Grid>
 
       {item.compensationType != '' &&
-        (item.compensationType == 'Cash per post' ||
-          item.compensationType == 'Cash per monthly deliverable') && (
+        (
           <Grid item xs={12} sm={12} md={12}>
             <TextField
               id='outlined-basic'

@@ -41,6 +41,34 @@ const CampaignDetail = () => {
             startDate
             endDate
             invitationMessage
+            compensation {
+              ... on CompRevenueShare {
+                __typename
+                percentage
+              }
+              ... on CompCashPerPost {
+                __typename
+                amount {
+                  amount
+                  currency
+                }
+              }
+              ... on CompCashPerMonthlyDeliverable {
+                __typename
+                amount {
+                  amount
+                  currency
+                }
+              }
+              ... on CompGiftCard {
+                __typename
+                amount {
+                  amount
+                  currency
+                }
+                code
+              }
+            }
             discount {
               ... on PercentageDiscount {
                 __typename
@@ -120,7 +148,7 @@ const CampaignDetail = () => {
             : 'CLOSED'
         );
       }
-    } catch (e) {}
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -171,13 +199,13 @@ const CampaignDetail = () => {
           setAddCampagin={setAddCampagin}
         />
       ) : (
-        <InfluencerCampaignDetail
-          status={status}
-          data={data}
-          addCampaign={addCampaign}
-          setAddCampagin={setAddCampagin}
-        />
-      )}
+          <InfluencerCampaignDetail
+            status={status}
+            data={data}
+            addCampaign={addCampaign}
+            setAddCampagin={setAddCampagin}
+          />
+        )}
     </div>
   );
 };
