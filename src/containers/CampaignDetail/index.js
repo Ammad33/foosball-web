@@ -25,7 +25,9 @@ const CampaignDetail = () => {
   const [data, setData] = useState(null);
 
   String.prototype.toProperCase = function () {
-    return this.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+    return this.replace(/\w\S*/g, function (txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
   };
 
   const getCampaign = async () => {
@@ -76,20 +78,54 @@ const CampaignDetail = () => {
               revenue_share
               story_fee
             }
+            deliverables {
+              brandTag
+              deadlineDate
+              deliverableType
+              description
+              frameContentType
+              framesRequired
+              frequency
+              hashTag
+              id
+              platform
+              posts
+            }
           }
       }`,
       });
+      campaign.data.campaign.deliverables.map((deliverable) => {
+        deliverable.deliverableType =
+          deliverable.deliverableType.charAt(0).toUpperCase() +
+          deliverable.deliverableType.toLowerCase().slice(1);
+        deliverable.frameContentType =
+          deliverable.frameContentType.charAt(0).toUpperCase() +
+          deliverable.frameContentType.toLowerCase().slice(1);
+        deliverable.platform =
+          deliverable.platform.charAt(0).toUpperCase() +
+          deliverable.platform.toLowerCase().slice(1);
+        deliverable.deadlineDate = new Date(
+          deliverable.deadlineDate * 1000
+        ).toDateString();
+      });
       setData(campaign.data.campaign);
-      if (campaign.data && campaign.data !== null && campaign.data.campaign !== null) {
-        setStatus(campaign.data.campaign.status ? campaign.data.campaign.status : 'CLOSED')
+      if (
+        campaign.data &&
+        campaign.data !== null &&
+        campaign.data.campaign !== null
+      ) {
+        setStatus(
+          campaign.data.campaign.status
+            ? campaign.data.campaign.status
+            : 'CLOSED'
+        );
       }
-    } catch (e) { }
+    } catch (e) {}
   };
 
   useEffect(() => {
     getCampaign();
   }, [addCampaign]);
-
 
   const handleBrandState = () => {
     setBrandState(brandState ? false : true);
@@ -114,7 +150,10 @@ const CampaignDetail = () => {
           MenuProps={{ variant: 'menu' }}
           input={<SelectMenu />}
         >
-          <MenuItem value='' disabled > Select Status</MenuItem>
+          <MenuItem value='' disabled>
+            {' '}
+            Select Status
+          </MenuItem>
           <MenuItem value={'DRAFT'}>Draft</MenuItem>
           <MenuItem value={'PENDING'}>Pending</MenuItem>
           <MenuItem value={'CLOSED'}>Closed</MenuItem>
@@ -122,14 +161,23 @@ const CampaignDetail = () => {
           <MenuItem value={'INVITE'}>Invite</MenuItem>
           <MenuItem value={'LIVE'}>Live</MenuItem>
           <MenuItem value={'LOST'}>Lost</MenuItem>
-
         </Select>
       </div>
       {brandState ? (
-        <BrandCampaignDetail status={status} data={data} addCampaign={addCampaign} setAddCampagin={setAddCampagin} />
+        <BrandCampaignDetail
+          status={status}
+          data={data}
+          addCampaign={addCampaign}
+          setAddCampagin={setAddCampagin}
+        />
       ) : (
-          <InfluencerCampaignDetail status={status} data={data} addCampaign={addCampaign} setAddCampagin={setAddCampagin} />
-        )}
+        <InfluencerCampaignDetail
+          status={status}
+          data={data}
+          addCampaign={addCampaign}
+          setAddCampagin={setAddCampagin}
+        />
+      )}
     </div>
   );
 };

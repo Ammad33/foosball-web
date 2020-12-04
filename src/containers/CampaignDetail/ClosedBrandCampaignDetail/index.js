@@ -117,12 +117,20 @@ const ClosedBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
                 </p>
               </>
             </CampaignDetail>
-            <TeamMembers onClick={handleSeeClick} handleEdit={handleEdit} brandTeam={data && data.brandTeam !== null ? data.brandTeam : []} />
+            <TeamMembers
+              onClick={handleSeeClick}
+              handleEdit={handleEdit}
+              brandTeam={data && data.brandTeam !== null ? data.brandTeam : []}
+            />
             <BudgetAndConversion handleEdit={handleEdit} data={data} />
           </div>
           <div className={styles.flexContainer}>
             <Collections handleEdit={handleEdit} />
-            <Deliverables handleEdit={handleEdit} onClick={handleSeeClick} />
+            <Deliverables
+              deliverables={data.deliverables}
+              handleEdit={handleEdit}
+              onClick={handleSeeClick}
+            />
           </div>
           <div className={styles.flexContainer}>
             <Compensation handleEdit={handleEdit} onClick={handleSeeClick} />

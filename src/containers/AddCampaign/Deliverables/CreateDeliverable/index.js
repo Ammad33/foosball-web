@@ -30,10 +30,6 @@ for (let i = 1; i <= 15; i += 1) {
 }
 // debugger;
 
-
-
-
-
 const CreateDeliverable = ({
   index,
   deliveries,
@@ -51,28 +47,30 @@ const CreateDeliverable = ({
   const [error, setError] = useState(false);
   const [post, setPost] = useState(false);
   const [options, setOptions] = useState(false);
-
-  const [value, setValue] = useState(youtube);
+  const [platform, setPlatform] = useState({
+    postType: ['Does not apply'],
+    frameContentType: ['Does not apply'],
+  });
+  console.log('platform ', platform);
   useEffect(() => {
     handleSetValue();
-  }, [deliverableItem.socialPlatform]);
+  }, [deliverableItem.platform]);
 
   const handlePostType = (value, index, name) => {
-    if (value == "Post") {
+    if (value == 'Post') {
       setPost(true);
       handleDilverableContent(value, index, name);
     } else {
       setPost(false);
       handleDilverableContent(value, index, name);
     }
-
-  }
+  };
   const handleSocialPlatform = (value, index, name) => {
-    if (value == "Youtube") {
+    if (value == 'Youtube') {
       setOptions(true);
       setPost(true);
       handleDilverableContent(value, index, name);
-    } else if (value == "Tictock") {
+    } else if (value == 'Tiktok') {
       setOptions(true);
       setPost(true);
       handleDilverableContent(value, index, name);
@@ -80,16 +78,24 @@ const CreateDeliverable = ({
       setOptions(false);
       handleDilverableContent(value, index, name);
     }
-
-  }
-
-
+  };
 
   const handleSetValue = () => {
-    if (deliverableItem.platform === 'Youtube') setValue(youtube);
-    else if (deliverableItem.platform === 'Instagram') setValue(insta);
-    else if (deliverableItem.platform === 'Tictock') setValue(tictock);
-    else setValue(fb);
+    console.log('platform selected', deliverableItem.platform);
+    switch (deliverableItem.platform) {
+      case 'Youtube':
+        setPlatform(youtube);
+        break;
+      case 'Instagram':
+        setPlatform(insta);
+        break;
+      case 'Tiktok':
+        setPlatform(tictock);
+        break;
+      case 'Facebook':
+        setPlatform(fb);
+        break;
+    }
   };
 
   return (
@@ -147,7 +153,7 @@ const CreateDeliverable = ({
         </MuiPickersUtilsProvider>
       </Grid>
       <Grid item xs={12} sm={12} md={6}>
-        <FormControl fullWidth variant='outlined' >
+        <FormControl fullWidth variant='outlined'>
           <TextField
             id='Social Platform'
             fullWidth
@@ -158,20 +164,19 @@ const CreateDeliverable = ({
             helperText={error ? <span> error </span> : ' '}
             onChange={(e) =>
               handleSocialPlatform(e.target.value, index, 'platform')
-
             }
             MenuProps={{ variant: 'menu' }}
             // input={<SelectMenu />}
             select
             SelectProps={{ IconComponent: () => <Chevron /> }}
           >
-            <MenuItem value="Social Platform" disabled>
+            <MenuItem value='Social Platform' disabled>
               Social Platform
             </MenuItem>
             <MenuItem value={'Instagram'}>Instagram </MenuItem>
-            <MenuItem value={'fb'}>Facebook </MenuItem>
+            <MenuItem value={'Facebook'}>Facebook </MenuItem>
             <MenuItem value={'Youtube'}>Youtube</MenuItem>
-            <MenuItem value={'Tictock'}>Tiktok</MenuItem>
+            <MenuItem value={'Tiktok'}>Tiktok</MenuItem>
           </TextField>
         </FormControl>
       </Grid>
@@ -188,27 +193,25 @@ const CreateDeliverable = ({
             value={deliverableItem && deliverableItem.deliverableType}
             onChange={(e) =>
               handlePostType(e.target.value, index, 'deliverableType')
-
             }
             MenuProps={{ variant: 'menu' }}
             select
             SelectProps={{ IconComponent: () => <Chevron /> }}
-
           >
             <MenuItem value='Post Type' disabled>
               Post Type
             </MenuItem>
-            {value.campaignType.map((item) => (
+            {platform.postType.map((item) => (
               <MenuItem value={item}>{item} </MenuItem>
             ))}
           </TextField>
         </FormControl>
       </Grid>
       <Grid item xs={12} sm={12} md={6}>
-        <FormControl fullWidth variant='outlined' >
+        <FormControl fullWidth variant='outlined'>
           <TextField
             disabled={options ? true : false}
-            labelId="demo-simple-select-outlined-label"
+            labelId='demo-simple-select-outlined-label'
             id='Content Type'
             fullWidth
             label='Content Type'
@@ -223,25 +226,24 @@ const CreateDeliverable = ({
             MenuProps={{ variant: 'menu' }}
             select
             SelectProps={{ IconComponent: () => <Chevron /> }}
-
           >
             <MenuItem value='Content Type' disabled>
               Content Type
             </MenuItem>
-            {value.frameType.map((item) => (
+            {platform.frameContentType.map((item) => (
               <MenuItem value={item}>{item} </MenuItem>
             ))}
           </TextField>
         </FormControl>
       </Grid>
       <Grid item xs={12} sm={12} md={6} className={styles.marginbottom}>
-        <FormControl fullWidth variant='outlined' >
+        <FormControl fullWidth variant='outlined'>
           <TextField
             disabled={post ? true : false}
-            labelId="demo-simple-select-disabled-label"
-            id="demo-simple-select-disabled-Frame-Required"
+            labelId='demo-simple-select-disabled-label'
+            id='demo-simple-select-disabled-Frame-Required'
             fullWidth
-            label="Frames Required"
+            label='Frames Required'
             variant='outlined'
             className={mainStyles.placeholderColor}
             helperText={error ? <span> error </span> : ' '}
@@ -253,7 +255,7 @@ const CreateDeliverable = ({
             select
             SelectProps={{ IconComponent: () => <Chevron /> }}
           >
-            <MenuItem value="Frame Required" disabled>
+            <MenuItem value='Frame Required' disabled>
               Frame Required
             </MenuItem>
             {frames.map((frame) => (
@@ -278,17 +280,17 @@ const CreateDeliverable = ({
                 }
               />
             ) : (
-                <RadioButtonUncheckedIcon
-                  className={styles.svgDisabled}
-                  onClick={() =>
-                    handleDilverableContent(
-                      !deliverableItem.brandTagRequired,
-                      index,
-                      'brandTagRequired'
-                    )
-                  }
-                />
-              )}
+              <RadioButtonUncheckedIcon
+                className={styles.svgDisabled}
+                onClick={() =>
+                  handleDilverableContent(
+                    !deliverableItem.brandTagRequired,
+                    index,
+                    'brandTagRequired'
+                  )
+                }
+              />
+            )}
           </Grid>
           <Grid item xs={4}>
             <p
@@ -313,9 +315,7 @@ const CreateDeliverable = ({
               }
               InputProps={{
                 startAdornment: (
-                  <InputAdornment position="start">
-                    @
-                  </InputAdornment>
+                  <InputAdornment position='start'>@</InputAdornment>
                 ),
               }}
             />
@@ -336,17 +336,17 @@ const CreateDeliverable = ({
                 }
               />
             ) : (
-                <RadioButtonUncheckedIcon
-                  className={styles.svgDisabled}
-                  onClick={() =>
-                    handleDilverableContent(
-                      !deliverableItem.hashTagRequired,
-                      index,
-                      'hashTagRequired'
-                    )
-                  }
-                />
-              )}
+              <RadioButtonUncheckedIcon
+                className={styles.svgDisabled}
+                onClick={() =>
+                  handleDilverableContent(
+                    !deliverableItem.hashTagRequired,
+                    index,
+                    'hashTagRequired'
+                  )
+                }
+              />
+            )}
           </Grid>
           <Grid item xs={4}>
             <p
@@ -371,9 +371,7 @@ const CreateDeliverable = ({
               disabled={!deliverableItem.hashTagRequired}
               InputProps={{
                 startAdornment: (
-                  <InputAdornment position="start">
-                    #
-                  </InputAdornment>
+                  <InputAdornment position='start'>#</InputAdornment>
                 ),
               }}
             />
@@ -423,7 +421,6 @@ const CreateDeliverable = ({
             <MenuItem value={'Every other month'}>Every other month </MenuItem>
             <MenuItem value={'Every Week'}>Every Week </MenuItem>
             <MenuItem value={'Every other week'}>Every other week </MenuItem>
-
           </Select>
         </FormControl>
       </Grid>
