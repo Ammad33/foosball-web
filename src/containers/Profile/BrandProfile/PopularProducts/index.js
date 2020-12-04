@@ -1,21 +1,30 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Edit } from 'react-feather';
-import { Grid, InputAdornment, Select } from '@material-ui/core';
+import { InputAdornment, Grid, Avatar, Popover } from '@material-ui/core';
 import styles from './popularProducts.module.scss';
 import moment from 'moment';
 import clsx from 'clsx';
-import { Avatar } from '@material-ui/core';
-import DataImage from '../../../../assets/dummy.png'
+import DataImage from '../../../../assets/dummy.png';
+import EditPopularProducts from './EditPopularProducts';
 
 
 const PopularProducts = ({ handleEdit }) => {
-	// debugger;
+	const [editOpen, setEditOpen] = useState(false);
+	const [anchorEl, setAnchorEl] = React.useState(null);
+
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
+
+	const open = Boolean(anchorEl);
+	const id = open ? 'simple-popover' : undefined;
 	return (
 		<div className={styles.postContainer}>
 			<div className={styles.headingContainer}>
-				<h1>Popular</h1>
-				<Edit onClick={() => handleEdit(1)} />
+				<h1>Popular Products</h1>
+				<Edit onClick={() => { setEditOpen(true); setAnchorEl(null) }} />
 			</div>
+			<EditPopularProducts open={editOpen} closeAdd={() => setEditOpen(false)} />
 			<Grid container >
 				<Grid item xs={2}>
 					<div className={styles.mainDiv}>
