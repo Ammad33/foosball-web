@@ -417,10 +417,10 @@ const CreateDeliverable = ({
             <MenuItem value='' disabled>
               Per Time Period
             </MenuItem>
-            <MenuItem value={'Every Month'}> Every Month </MenuItem>
-            <MenuItem value={'Every other month'}>Every other month </MenuItem>
-            <MenuItem value={'Every Week'}>Every Week </MenuItem>
-            <MenuItem value={'Every other week'}>Every other week </MenuItem>
+            <MenuItem value={'MONTH'}> Every Month </MenuItem>
+            <MenuItem value={'BI_MONTHLY'}>Every other month </MenuItem>
+            <MenuItem value={'WEEK'}>Every Week </MenuItem>
+            <MenuItem value={'BI_WEEKLY'}>Every other week </MenuItem>
           </Select>
         </FormControl>
       </Grid>

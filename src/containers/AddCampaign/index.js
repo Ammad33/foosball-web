@@ -24,6 +24,7 @@ import Translation from '../../assets/translation.json';
 import SVG from 'react-inlinesvg';
 import { API, graphqlOperation } from 'aws-amplify';
 import logo from '../../assets/FomoPromo_logo__white.png';
+import * as _ from 'lodash';
 
 let typ = '';
 let val = '';
@@ -370,12 +371,12 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
           ? campaign.discount.__typename === 'PercentageDiscount'
             ? 'Percentage'
             : campaign.discount.__typename === 'FlatDiscount'
-              ? 'Amount'
-              : ''
+            ? 'Amount'
+            : ''
           : ''
       );
       if (campaign.compensation && campaign.compensation !== null) {
-        setCompensation(campaign.compensation)
+        setCompensation(campaign.compensation);
       }
       if (campaign.budget && campaign.budget) {
         setBudget(campaign.budget.amount);
@@ -397,8 +398,14 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
         });
       }
       if (campaign.deliverables && campaign.deliverables.length) {
-        console.log('set deliverables');
-        console.log(campaign.deliverables);
+        campaign.deliverables.map((deliverable) => {
+          if (deliverable.deadlineDate) {
+            deliverable.deadlineDate = new Date(
+              deliverable.deadlineDate
+            ).toLocaleDateString();
+          }
+          return deliverable;
+        });
         setDeliveries(campaign.deliverables);
       }
     }
@@ -877,25 +884,29 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
     data.map((deliverable) => {
       delete deliverable.brandTagRequired;
       delete deliverable.hashTagRequired;
+      delete deliverable.id;
       deliverable.deadlineDate =
-        Date.parse(`${deliverable.deadlineDate} `) / 1000;
+        Date.parse(`${deliverable.deadlineDate}`) / 1000;
+      console.log('deadline date ', deliverable.deadlineDate);
       deliverable.platform = deliverable.platform.toUpperCase();
       deliverable.deliverableType = deliverable.deliverableType.toUpperCase();
       deliverable.frameContentType = deliverable.frameContentType.toUpperCase();
-      switch (deliverable.frequency) {
-        case 'Every Month':
-          deliverable.frequency = 'MONTH';
-          break;
-        case 'Every other month':
-          deliverable.frequency = 'BI_MONTHLY';
-          break;
-        case 'Every Week':
-          deliverable.frequency = 'WEEK';
-          break;
-        case 'Every other week':
-          deliverable.frequency = 'BI_WEEKLY';
-          break;
-      }
+      return deliverable;
+
+      // switch (deliverable.frequency) {
+      //   case 'Every Month':
+      //     deliverable.frequency = 'MONTH';
+      //     break;
+      //   case 'Every other month':
+      //     deliverable.frequency = 'BI_MONTHLY';
+      //     break;
+      //   case 'Every Week':
+      //     deliverable.frequency = 'WEEK';
+      //     break;
+      //   case 'Every other week':
+      //     deliverable.frequency = 'BI_WEEKLY';
+      //     break;
+      // }
     });
     return data;
   };
@@ -904,62 +915,65 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
     let compensationsForm = compensation.map((item) => {
       switch (item.__typename) {
         case 'CompRevenueShare':
-          return ({
+          return {
             compensationType: 'REVENUE_SHARE',
-            amount: item.percentage * 1000
-          });
+            amount: item.percentage * 1000,
+          };
         case 'CompCashPerPost':
-          return ({
+          return {
             compensationType: 'CASH_PER_POST',
-            amount: item.amount.amount
-          });
+            amount: item.amount.amount,
+          };
         case 'CompCashPerMonthlyDeliverable':
-          return ({
+          return {
             compensationType: 'CASH_PER_MONTHLY_DELIVERABLE',
-            amount: item.amount.amount
-          });
+            amount: item.amount.amount,
+          };
         case 'CompGiftCard':
-          return ({
+          return {
             compensationType: 'GIFT_CARD',
-            amount: item.amount.amount
-          });
+            amount: item.amount.amount,
+          };
       }
     });
-    setCompensations(compensationsForm)
-  }
+    setCompensations(compensationsForm);
+  };
 
   const getCompensations = () => {
-    let compensation = compensations.map(item => {
+    let compensation = compensations.map((item) => {
       switch (item.compensationType) {
         case 'REVENUE_SHARE':
-          return ({
+          return {
             type: 'REVENUE_SHARE',
-            value: '{ "percentage": "' + item.amount / 1000 + '"}'
-          });
+            value: '{ "percentage": "' + item.amount / 1000 + '"}',
+          };
         case 'CASH_PER_POST':
-          return ({
+          return {
             type: 'CASH_PER_POST',
-            value: '{"amount":{"amount": "' + item.amount + '","currency":"USD"}}'
-          });
+            value:
+              '{"amount":{"amount": "' + item.amount + '","currency":"USD"}}',
+          };
         case 'CASH_PER_MONTHLY_DELIVERABLE':
-          return ({
+          return {
             type: 'CASH_PER_MONTHLY_DELIVERABLE',
-            value: '{"amount":{"amount": "' + item.amount + '","currency":"USD"}}'
-          });
+            value:
+              '{"amount":{"amount": "' + item.amount + '","currency":"USD"}}',
+          };
         case 'GIFT_CARD':
-          return ({
+          return {
             type: 'GIFT_CARD',
-            value: '{"amount":{"amount": "' + item.amount + '","currency":"USD"}, "code": "ABC123" }'
-          });
+            value:
+              '{"amount":{"amount": "' +
+              item.amount +
+              '","currency":"USD"}, "code": "ABC123" }',
+          };
       }
-    }
-    );
-    return compensation;
-  }
+    });
+    return _.compact(compensation);
+  };
 
   const createCampaign = async () => {
     try {
-
       if (discountType === 'Amount') {
         typ = 'FLAT';
         val = '{"amount":{"amount": "' + discount + '","currency":"USD"}}';
@@ -993,12 +1007,11 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
               negotiables: getNegotiablesObjectForAPI(),
               invitationMessage: customeMessage,
               deliverables: getDeliverablesForAPI(),
-              compensation: getCompensations()
+              compensation: getCompensations(),
             },
           }
         )
       );
-      // getDeliverablesForAPI();
       handleCancel();
     } catch (e) {
       console.log('Error in mutation for create campaign ', e);
@@ -1038,8 +1051,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
               team: selectedMembers,
               negotiables: getNegotiablesObjectForAPI(),
               invitationMessage: customeMessage,
-              compensation: getCompensations()
-              // deliverables: getDeliverablesForAPI(),
+              compensation: getCompensations(),
+              deliverables: getDeliverablesForAPI(),
             },
           }
         )
@@ -1084,15 +1097,16 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
     const compensation = [...compensations];
 
     let flag = true;
-    compensation && compensation.forEach((comp) => {
-      if (
-        comp.compensationType === '' ||
-        comp.amount === '' ||
-        compensationPayment === ''
-      ) {
-        flag = false;
-      }
-    });
+    compensation &&
+      compensation.forEach((comp) => {
+        if (
+          comp.compensationType === '' ||
+          comp.amount === '' ||
+          compensationPayment === ''
+        ) {
+          flag = false;
+        }
+      });
     setActiveNext(flag);
     if (!flag) {
       setActiveForCompensationProduct();
@@ -1377,8 +1391,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                              <CheckCircleIconSvg viewBox='0 0 31 31' />
-                            )}
+                        <CheckCircleIconSvg viewBox='0 0 31 31' />
+                      )}
                       <span
                         className={
                           activeStep === index
@@ -1391,19 +1405,19 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                       </span>
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
                       {activeStep > index ? (
                         <div className={styles.activeBar} />
                       ) : (
-                          <div className={styles.inActiveBar} />
-                        )}
+                        <div className={styles.inActiveBar} />
+                      )}
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                 </>
               ))}
             </div>
@@ -1416,8 +1430,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                    <div></div>
-                  )}
+                  <div></div>
+                )}
                 <span onClick={handleCancelCampaignDialog}>
                   <XSVG />
                 </span>
