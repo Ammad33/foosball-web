@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import styles from './Contacts.module.scss';
 import { Plus, MoreVertical, Mail, Edit, Trash } from 'react-feather';
 import { InputAdornment, Grid, Avatar, Popover } from '@material-ui/core';
-import TextField from '../../../components/TextField';
-import { Search } from 'react-feather';
 import AddContact from './AddContact';
 import EditContact from './EditContact';
 import { makeStyles, withStyles } from "@material-ui/core/styles";
@@ -19,6 +17,8 @@ import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import SVG from 'react-inlinesvg';
 import { Facebook, Youtube, Instagram } from 'react-feather';
+import { Link } from 'react-router-dom';
+
 
 
 const Users = () => {
@@ -164,7 +164,7 @@ const Contacts = ({ }) => {
 			</div>
 			<div className={styles.contactsBanner}>
 				<p className={styles.firstp}>Get 1 free campaign credit</p>
-				<p className={styles.secondp}>For every person you invite that joins FOMO Promo and creates a campaign. Learn more here.</p>
+				<p className={styles.secondp}>For every person you invite that joins FOMO Promo and creates a campaign.<Link to='#' style={{color: "#FFFFFF" ,textDecorationLine: 'underline'}} >Learn more here.</Link></p>
 			</div>
 			<AddContact
 				newInfluencer={newInfluencer}
