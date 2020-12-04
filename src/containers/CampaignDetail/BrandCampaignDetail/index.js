@@ -12,10 +12,9 @@ import PendingBrandCampaignDetail from '../PendingBrandCampaignDetail';
 import LiveBrandCampaignDetail from '../LiveBrandCampaignDetail';
 import ClosedBrandCampaignDetail from '../ClosedBrandCampaignDetail';
 import LostBrandCampaignDetail from '../LostBrandCampaignDetail';
-import { RootContext } from '../../../context/RootContext'
+import { RootContext } from '../../../context/RootContext';
 
 const BrandCampaignDetail = ({ status, addCampaign, setAddCampagin, data }) => {
-
   const [step, setStep] = useState(1);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [element, setElement] = useState('');
@@ -39,7 +38,7 @@ const BrandCampaignDetail = ({ status, addCampaign, setAddCampagin, data }) => {
       case 'Activity':
         return <ActivityDetail type={'Brand'} />;
       case 'Deliverable':
-        return <DeliverablesDetail />;
+        return <DeliverablesDetail deliverables={data && data.deliverables} />;
       case 'Compensation':
         return <CompensationDetail />;
       case 'TeamMembers':

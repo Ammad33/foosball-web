@@ -3,8 +3,6 @@ import styles from './Deliverables.module.scss';
 import { Edit } from 'react-feather';
 
 const Deliverables = ({ onClick, handleEdit, deliverables }) => {
-  console.log('deliverables ', deliverables);
-
   const getPostFrequency = (frequency) => {
     switch (frequency) {
       case 'BI_WEEKLY':

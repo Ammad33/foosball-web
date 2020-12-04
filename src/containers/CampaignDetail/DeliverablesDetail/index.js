@@ -1,88 +1,73 @@
 import React from 'react';
 import styles from './DeliverablesDetail.module.scss';
 
-const DeliverablesDetail = () => {
-    return (
-        <div className={styles.deliverableContainer}>
+const DeliverablesDetail = ({ deliverables }) => {
+  const getPostFrequency = (frequency) => {
+    switch (frequency) {
+      case 'BI_WEEKLY':
+        return 'Every 1 Week';
+      case 'BI_MONTHLY':
+        return 'Every 1 Month';
+      case 'WEEK':
+        return 'in Week';
+      case 'MONTH':
+        return 'in Month';
+    }
+  };
 
-            <h1>Deliverables</h1>
-            <h6 className={styles.subHeader}>
-                Deliverable1
-             </h6>
+  return (
+    <div className={styles.deliverableContainer}>
+      <h1>Deliverables</h1>
+      {deliverables.map((deliverable, index) => {
+        return (
+          <React.Fragment key={index}>
+            <h6 className={styles.subHeader}>Deliverable {index + 1}</h6>
             <div className={styles.detailSubContent}>
-                <h6>Deliverable Deadline</h6>
-                <p>October 30, 2020</p>
-            </div>
-            <div className={styles.detailSubContent}>
-                <h6>Social Platform</h6>
-                <p>Instagram</p>
-            </div>
-            <div className={styles.detailSubContent}>
-                <h6>Post Type</h6>
-                <p>Story</p>
+              <h6>Deliverable Deadline</h6>
+              <p>{deliverable ? deliverable.deadlineDate : ''}</p>
             </div>
             <div className={styles.detailSubContent}>
-                <h6>Content Type</h6>
-                <p>Video</p>
+              <h6>Social Platform</h6>
+              <p>{deliverable ? deliverable.platform : ''}</p>
             </div>
             <div className={styles.detailSubContent}>
-                <h6>Frames Required</h6>
-                <p>5</p>
+              <h6>Post Type</h6>
+              <p> {deliverable ? deliverable.deliverableType : ''}</p>
             </div>
             <div className={styles.detailSubContent}>
-                <h6>Brand tag</h6>
-                <p>Required- @shopgoodtobe</p>
+              <h6>Content Type</h6>
+              <p> {deliverable ? deliverable.frameContentType : ''}</p>
             </div>
             <div className={styles.detailSubContent}>
-                <h6>Hashtag</h6>
-                <p>Required- @shopgoodtobe</p>
-            </div>
-            <div className={styles.detailSubContent} style={{ marginBottom: '20px' }}>
-                <h6>Post Frequency</h6>
-                <p>5 posts every 1 month</p>
-            </div>
-
-            <h6 className={styles.subHeader}>
-                Deliverable2
-             </h6>
-            <div className={styles.detailSubContent}>
-                <h6>Deliverable Deadline</h6>
-                <p>October 30, 2020</p>
+              <h6>Frames Required</h6>
+              <p> {deliverable ? deliverable.framesRequired : ''}</p>
             </div>
             <div className={styles.detailSubContent}>
-                <h6>Social Platform</h6>
-                <p>Instagram</p>
+              <h6>Brand tag</h6>
+              <p>@{deliverable ? deliverable.brandTag : ''}</p>
             </div>
             <div className={styles.detailSubContent}>
-                <h6>Post Type</h6>
-                <p>Story</p>
+              <h6>Hashtag</h6>
+              <p>#{deliverable ? deliverable.hashTag : ''}</p>
             </div>
-            <div className={styles.detailSubContent}>
-                <h6>Content Type</h6>
-                <p>Video</p>
+            <div
+              className={styles.detailSubContent}
+              style={{ marginBottom: '20px' }}
+            >
+              <h6>Post Frequency</h6>
+              <p>
+                {deliverable
+                  ? `${deliverable.posts} posts ${getPostFrequency(
+                      deliverable.frequency
+                    )}`
+                  : ''}
+              </p>
             </div>
-            <div className={styles.detailSubContent}>
-                <h6>Frames Required</h6>
-                <p>5</p>
-            </div>
-            <div className={styles.detailSubContent}>
-                <h6>Brand tag</h6>
-                <p>Required- @shopgoodtobe</p>
-            </div>
-            <div className={styles.detailSubContent}>
-                <h6>Hashtag</h6>
-                <p>Required- @shopgoodtobe</p>
-            </div>
-            <div className={styles.detailSubContent}>
-                <h6>Post Frequency</h6>
-                <p>5 posts every 1 month</p>
-            </div>
-            <div className={styles.detailTotalContent}>
-                <h6>Post Total:</h6>
-                <h6>20 posts</h6>
-            </div>
-        </div>
-    );
+          </React.Fragment>
+        );
+      })}
+    </div>
+  );
 };
 
 export default DeliverablesDetail;
