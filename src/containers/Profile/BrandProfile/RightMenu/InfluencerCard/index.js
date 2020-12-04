@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Edit } from 'react-feather';
 import styles from './InfluencerCard.module.scss';
 import moment from 'moment';
@@ -7,23 +7,29 @@ import CardContent from '@material-ui/core/CardContent';
 import { Avatar } from '@material-ui/core';
 import clsx from 'clsx';
 import { Facebook, Youtube, Instagram } from 'react-feather';
+import InflencerBrandProfile from '../../../InfluencerProfile';
 
 
 
 
 const InfluencerCard = ({ influencer }) => {
-	// debugger;
+	const [influencerProfile, setInfluencerProfile] = useState(false);
+	// const handleInfluencerProfile = () => {
+	// 	setInfluencerProfile(true)
+	// 	debugger;
+	// 	return (
+			
+	// 	)
+	// }
 	return (
 		<div>
-		
-
 			<Card
 				// className={clsx(
 				// 	styles.influencerCard,
 				// 	selected ? styles.selectedInfluencer : ''
 				// )}
 				className={styles.influencerCard}
-			// onClick={() => toggleInfluncer(influencer)}
+			 onClick={<InflencerBrandProfile />}
 			>
 				<CardContent className={styles.cardContent}>
 					<div className={styles.cardDetails}>

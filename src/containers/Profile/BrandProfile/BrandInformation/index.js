@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { Edit } from 'react-feather';
+import React, { useState } from 'react';
+import { Edit, Phone } from 'react-feather';
 import { InputAdornment, Grid, Avatar, Popover } from '@material-ui/core';
 import styles from './BrandInformation.module.scss';
 import moment from 'moment';
@@ -27,6 +27,7 @@ const Globe = () => {
 const BrandInformation = ({ handleEdit }) => {
 	const [editOpen, setEditOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
+	const [brandInformation, setBrandInformation] = useState(false);
 
 	const handleClose = () => {
 		setAnchorEl(null);
@@ -56,29 +57,50 @@ const BrandInformation = ({ handleEdit }) => {
 					horizontal: 'right',
 				}}
 			>
-				</Popover>
-				<div className={styles.detailSubContent}>
-					<p>Premium Vitamins and Powders, Tailored to You, Delivered right to your door.</p>
-				</div>
-				<div className={styles.detailSubContent}>
-					<div className={styles.svgContainer}>
-						<Messages />
-						<span style={{ marginLeft: "10px" }} > customerservice@careof.com </span>
+			</Popover>
+			{brandInformation ? (
+				<>
+					<div className={styles.detailSubContent}>
+						<p>Premium Vitamins and Powders, Tailored to You, Delivered right to your door.</p>
 					</div>
-					<div className={styles.svgContainer}>
-						<Globe />
-						<span style={{ marginLeft: "10px" }} > www.careof.com </span>
-					</div >
-					<div className={styles.svgContainer}>
-						<Globe />
-						<span style={{ marginLeft: "10px" }} > 414-444-888 </span>
-					</div>
+					<div className={styles.detailSubContent}>
+						<div className={styles.svgContainer}>
+							<Messages />
+							<span style={{ marginLeft: "10px" }} > customerservice@careof.com </span>
+						</div>
+						<div className={styles.svgContainer}>
+							<Globe />
+							<span style={{ marginLeft: "10px" }} > www.careof.com </span>
+						</div >
+						<div className={styles.svgContainer}>
+							<Phone />
+							<span style={{ marginLeft: "10px" }} > 414-444-888 </span>
+						</div>
 
-				</div>
-      
-     
-    </div>
-  );
+					</div>
+				</>) : (
+					<>
+						<div className={styles.detailSubContent}>
+							<p>Tell influencers a little about your brand and your products in your bio.</p>
+						</div>
+						<div className={styles.detailSubContent}>
+							<div className={styles.svgContainer}>
+								<Messages />
+								<span style={{ marginLeft: "10px" }} > </span>
+							</div>
+							<div className={styles.svgContainer}>
+								<Globe />
+								<span style={{ marginLeft: "10px" }} ></span>
+							</div >
+							<div className={styles.svgContainer}>
+								<Phone />
+								<span style={{ marginLeft: "10px" }} ></span>
+							</div>
+						</div>
+						</>
+				)}
+					</div>
+				);
 };
 
 export default BrandInformation;

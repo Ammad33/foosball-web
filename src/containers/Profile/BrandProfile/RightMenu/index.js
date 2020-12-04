@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid } from '@material-ui/core';
 import InfluencerCard from './InfluencerCard';
 import styles from './RightMenu.module.scss';
@@ -70,7 +70,7 @@ const RightMenu = ({ }) => {
 							style={{ marginTop: 20 }}
 							key={influencer.socialTag}
 							item            >
-							<InfluencerCard influencer={influencer} />
+							<InfluencerCard influencer={influencer}/>
 						</Grid>
 					);
 				})}

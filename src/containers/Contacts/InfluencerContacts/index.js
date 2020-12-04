@@ -18,6 +18,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import SVG from 'react-inlinesvg';
+import { Link } from 'react-router-dom';
+
 
 
 const Users = () => {
@@ -163,7 +165,7 @@ const InfluencerContacts = ({ }) => {
 			</div>
 			<div className={styles.contactsBanner}>
 				<p className={styles.firstp}>Get 1 free campaign credit</p>
-				<p className={styles.secondp}>For every person you invite that joins FOMO Promo and creates a campaign. Learn more here.</p>
+				<p className={styles.secondp}>For every person you invite that joins FOMO Promo and creates a campaign.<Link to='#' style={{color: "#FFFFFF" ,textDecorationLine: 'underline'}} >Learn more here.</Link>.</p>
 			</div>
 			<AddContact
 				newInfluencer={newInfluencer}

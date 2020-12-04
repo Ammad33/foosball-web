@@ -98,13 +98,22 @@ let negotialbleOptions = [
   },
 ];
 
-const fb = { campaignType: ['Story', 'Post'], frameType: ['Video', 'Image'] };
-const insta = {
-  campaignType: ['Story', 'Post'],
-  frameType: ['Video', 'Image'],
+const fb = {
+  postType: ['Story', 'Post'],
+  frameContentType: ['Video', 'Image'],
 };
-const tictock = { campaignType: ['Video'], frameType: ['Does not apply'] };
-const youtube = { campaignType: ['Video'], frameType: ['Does not apply'] };
+const insta = {
+  postType: ['Story', 'Post'],
+  frameContentType: ['Video', 'Image'],
+};
+const tictock = {
+  postType: ['Does not apply'],
+  frameContentType: ['Does not apply'],
+};
+const youtube = {
+  postType: ['Does not apply'],
+  frameContentType: ['Does not apply'],
+};
 
 const influencers = [
   {
@@ -374,15 +383,15 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
 
       const startDate = new Date(campaign.startDate * 1000);
       const endDate = new Date(campaign.endDate * 1000);
-      setCustomMessage(campaign.invitationMessage && campaign.invitationMessage !== null ? campaign.invitationMessage : '')
+      setCustomMessage(
+        campaign.invitationMessage && campaign.invitationMessage !== null
+          ? campaign.invitationMessage
+          : ''
+      );
       setStartDate(moment(startDate).format('MM/DD/YYYY'));
       setEndDate(moment(endDate).format('MM/DD/YYYY'));
-      setStartTime(
-        moment(startDate).format('HH:mm')
-      );
-      setEndTime(
-        moment(endDate).format('HH:mm')
-      );
+      setStartTime(moment(startDate).format('HH:mm'));
+      setEndTime(moment(endDate).format('HH:mm'));
       setDiscount(
         campaign.discount && campaign.discount !== null
           ? campaign.discount.__typename === 'FlatDiscount'
@@ -400,8 +409,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
           ? campaign.discount.__typename === 'PercentageDiscount'
             ? 'Percentage'
             : campaign.discount.__typename === 'FlatDiscount'
-              ? 'Amount'
-              : ''
+            ? 'Amount'
+            : ''
           : ''
       );
 
@@ -895,6 +904,33 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
     });
     return data;
   };
+  const getDeliverablesForAPI = () => {
+    const data = [...deliveries];
+    data.map((deliverable) => {
+      delete deliverable.brandTagRequired;
+      delete deliverable.hashTagRequired;
+      deliverable.deadlineDate =
+        Date.parse(`${deliverable.deadlineDate} `) / 1000;
+      deliverable.platform = deliverable.platform.toUpperCase();
+      deliverable.deliverableType = deliverable.deliverableType.toUpperCase();
+      deliverable.frameContentType = deliverable.frameContentType.toUpperCase();
+      switch (deliverable.frequency) {
+        case 'Every Month':
+          deliverable.frequency = 'MONTH';
+          break;
+        case 'Every other month':
+          deliverable.frequency = 'BI_MONTHLY';
+          break;
+        case 'Every Week':
+          deliverable.frequency = 'WEEK';
+          break;
+        case 'Every other week':
+          deliverable.frequency = 'BI_WEEKLY';
+          break;
+      }
+    });
+    return data;
+  };
 
   const createCampaign = async () => {
     try {
@@ -929,12 +965,13 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
               targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
               team: selectedMembers,
               negotiables: getNegotiablesObjectForAPI(),
-              invitationMessage: customeMessage
+              invitationMessage: customeMessage,
+              deliverables: getDeliverablesForAPI(),
             },
           }
         )
       );
-      // getCampaigns(true);
+      // getDeliverablesForAPI();
       handleCancel();
     } catch (e) {
       console.log('Error in mutation for create campaign ', e);
@@ -942,7 +979,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   };
 
   const updateCampaign = async () => {
-
     if (discountType === 'Amount') {
       typ = 'FLAT';
       val = '{"amount":{"amount": "' + discount + '","currency":"USD"}}';
@@ -974,7 +1010,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
               targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
               team: selectedMembers,
               negotiables: getNegotiablesObjectForAPI(),
-              invitationMessage: customeMessage
+              invitationMessage: customeMessage,
+              // deliverables: getDeliverablesForAPI(),
             },
           }
         )
@@ -1312,8 +1349,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                              <CheckCircleIconSvg viewBox='0 0 31 31' />
-                            )}
+                        <CheckCircleIconSvg viewBox='0 0 31 31' />
+                      )}
                       <span
                         className={
                           activeStep === index
@@ -1326,19 +1363,19 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                       </span>
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
                       {activeStep > index ? (
                         <div className={styles.activeBar} />
                       ) : (
-                          <div className={styles.inActiveBar} />
-                        )}
+                        <div className={styles.inActiveBar} />
+                      )}
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                 </>
               ))}
             </div>
@@ -1351,8 +1388,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                    <div></div>
-                  )}
+                  <div></div>
+                )}
                 <span onClick={handleCancelCampaignDialog}>
                   <XSVG />
                 </span>

@@ -116,7 +116,11 @@ const DraftBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
           </div>
           <div className={styles.flexContainer}>
             <Collections removeSeeAll={true} handleEdit={handleEdit} />
-            <Deliverables handleEdit={handleEdit} onClick={handleSeeClick} />
+            <Deliverables
+              deliverables={data.deliverables}
+              handleEdit={handleEdit}
+              onClick={handleSeeClick}
+            />
           </div>
         </div>
       </div>

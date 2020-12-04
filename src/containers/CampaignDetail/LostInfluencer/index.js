@@ -111,7 +111,11 @@ const LostInfluencer = ({ handleEdit, data, handleSeeClick }) => {
             <Collections handleEdit={handleEdit} />
           </div>
           <div className={styles.second}>
-            <Deliverables handleEdit={handleEdit} onClick={handleSeeClick} />
+            <Deliverables
+              deliverables={data.deliverables}
+              handleEdit={handleEdit}
+              onClick={handleSeeClick}
+            />
           </div>
         </div>
         <div className={styles.first}>
