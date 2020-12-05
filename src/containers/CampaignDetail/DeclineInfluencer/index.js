@@ -11,6 +11,7 @@ import Collections from '../Collections';
 import { useHistory } from 'react-router-dom';
 import InviteCard from '../InviteCard';
 import DeclineCard from '../DelinneCard';
+import _ from 'lodash';
 
 const DeclineInfluencer = ({ handleEdit, data, handleSeeClick }) => {
   const history = useHistory();
@@ -88,7 +89,7 @@ const DeclineInfluencer = ({ handleEdit, data, handleSeeClick }) => {
           <div>
             <div className={styles.first}>
               <CampaignDetail campaign={data} handleEdit={handleEdit} />
-              <Compensation compensation={data && data.compensation && data.compensation[0]} onClick={handleSeeClick} handleEdit={handleEdit} />
+              <Compensation compensation={data && data.compensation && data.compensation !== null ? _.compact(data.compensation) : []} onClick={handleSeeClick} handleEdit={handleEdit} />
             </div>
             <div style={{ marginTop: '30px' }}>
               <Collections handleEdit={handleEdit} />

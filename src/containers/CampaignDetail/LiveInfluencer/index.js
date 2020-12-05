@@ -20,6 +20,7 @@ import Collections from '../Collections';
 import Contract from '../Contract';
 import LiveCard from '../LiveCard';
 import { useHistory } from 'react-router-dom';
+import _ from 'lodash';
 
 const LiveInfluencer = ({ handleEdit, data, handleSeeClick }) => {
   const history = useHistory();
@@ -109,7 +110,7 @@ const LiveInfluencer = ({ handleEdit, data, handleSeeClick }) => {
           <div>
             <div className={styles.first}>
               <CampaignDetail campaign={data} handleEdit={handleEdit} />
-              <Compensation compensation={data && data.compensation && data.compensation[0]} onClick={handleSeeClick} handleEdit={handleEdit} />
+              <Compensation compensation={data && data.compensation && data.compensation !== null ? _.compact(data.compensation) : []} onClick={handleSeeClick} handleEdit={handleEdit} />
             </div>
             <div style={{ marginTop: '30px' }}>
               <Collections handleEdit={handleEdit} />

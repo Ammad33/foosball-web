@@ -10,6 +10,7 @@ import Deliverables from '../Deliverables';
 import Collections from '../Collections';
 import { useHistory } from 'react-router-dom';
 import InviteCard from '../InviteCard';
+import _ from 'lodash';
 
 const InviteInfluencer = ({ handleEdit, data, handleSeeClick }) => {
   const history = useHistory();
@@ -87,7 +88,7 @@ const InviteInfluencer = ({ handleEdit, data, handleSeeClick }) => {
           <div>
             <div className={styles.first}>
               <CampaignDetail campaign={data} handleEdit={handleEdit} />
-              <Compensation compensation={data && data.compensation && data.compensation[0]} onClick={handleSeeClick} handleEdit={handleEdit} />
+              <Compensation compensation={data && data.compensation && data.compensation !== null ? _.compact(data.compensation) : []} onClick={handleSeeClick} handleEdit={handleEdit} />
             </div>
             <div style={{ marginTop: '30px' }}>
               <Collections handleEdit={handleEdit} />

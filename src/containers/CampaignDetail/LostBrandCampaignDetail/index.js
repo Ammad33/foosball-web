@@ -18,6 +18,7 @@ import Deliverables from '../Deliverables';
 import Collections from '../Collections';
 import Compensation from '../Compensation';
 import Negotiables from '../Negotiables';
+import _ from 'lodash';
 
 import styles from './LostBrandCampaignDetail.module.scss';
 
@@ -128,7 +129,7 @@ const LostBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
             />
           </div>
           <div className={styles.flexContainer}>
-            <Compensation handleEdit={handleEdit} onClick={handleSeeClick} compensation={data && data.compensation && data.compensation[0]} />
+            <Compensation handleEdit={handleEdit} onClick={handleSeeClick} compensation={data && data.compensation && data.compensation !== null ? _.compact(data.compensation) : []} />
             <Negotiables data={data} />
             <div style={{ width: '391px' }}></div>
           </div>

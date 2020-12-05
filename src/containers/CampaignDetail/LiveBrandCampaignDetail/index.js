@@ -22,6 +22,7 @@ import Compensation from '../Compensation';
 import Negotiables from '../Negotiables';
 import Posts from '../Posts';
 import Contract from '../Contract';
+import _ from 'lodash';
 
 import styles from './LiveBrandCampaignDetail.module.scss';
 
@@ -135,7 +136,7 @@ const LiveBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
             />
           </div>
           <div className={styles.flexContainer}>
-            <Compensation compensation={data && data.compensation && data.compensation[0]} handleEdit={handleEdit} onClick={handleSeeClick} />
+            <Compensation compensation={data && data.compensation && data.compensation !== null ? _.compact(data.compensation) : []} handleEdit={handleEdit} onClick={handleSeeClick} />
             <Negotiables data={data} />
             <Contract />
           </div>

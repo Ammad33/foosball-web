@@ -6,8 +6,7 @@ import { Plus, HelpCircle } from 'react-feather';
 import paypal from '../../../assets/paypal.png';
 import clsx from 'clsx';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import { Link } from 'react-router-dom';
- 
+
 
 const Billing = () => {
   const [primaryBillingType, setPrimaryBillingType] = useState(null);
@@ -71,7 +70,7 @@ const Billing = () => {
                 variant='outlined'
               />
             </Grid>
-						<Grid item md={4}>
+            <Grid item md={4}>
             </Grid>
             <Grid item md={4}>
               <TextField
@@ -97,7 +96,7 @@ const Billing = () => {
                 variant='outlined'
               />
             </Grid>
-						<Grid item md={4}>
+            <Grid item md={4}>
             </Grid>
             <Grid item md={4}>
               <TextField
@@ -175,8 +174,8 @@ const Billing = () => {
                   variant='outlined'
                 />
               </Grid>
-							<Grid item md={4}>
-            	</Grid>
+              <Grid item md={4}>
+              </Grid>
               <Grid item md={4}>
                 <TextField
                   id='outlined-basic'
@@ -201,8 +200,8 @@ const Billing = () => {
                   variant='outlined'
                 />
               </Grid>
-							<Grid item md={4}>
-            	</Grid>
+              <Grid item md={4}>
+              </Grid>
               <Grid item md={4}>
                 <TextField
                   id='outlined-basic'

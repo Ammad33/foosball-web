@@ -10,6 +10,7 @@ import Deliverables from '../Deliverables';
 import Collections from '../Collections';
 import { useHistory } from 'react-router-dom';
 import PendingCard from '../PendingCard';
+import _ from 'lodash';
 
 const PendingInfluencer = ({ handleEdit, data, handleSeeClick }) => {
   const history = useHistory();
@@ -87,7 +88,7 @@ const PendingInfluencer = ({ handleEdit, data, handleSeeClick }) => {
           <div>
             <div className={styles.first}>
               <CampaignDetail campaign={data} handleEdit={handleEdit} />
-              <Compensation onClick={handleSeeClick} handleEdit={handleEdit} compensation={data && data.compensation && data.compensation[0]} />
+              <Compensation onClick={handleSeeClick} handleEdit={handleEdit} compensation={data && data.compensation && data.compensation !== null ? _.compact(data.compensation) : []} />
             </div>
             <div style={{ marginTop: '30px' }}>
               <Collections handleEdit={handleEdit} />

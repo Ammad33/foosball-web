@@ -3,8 +3,9 @@ import styles from './Compensation.module.scss';
 import { Edit } from 'react-feather';
 
 const Compensation = ({ onClick, handleEdit, compensation }) => {
+
   const getCompensationType = () => {
-    switch (compensation.__typename) {
+    switch (compensation[0].__typename) {
       case 'CompRevenueShare':
         return (
           <p>Revenue Share</p>);
@@ -14,10 +15,12 @@ const Compensation = ({ onClick, handleEdit, compensation }) => {
         return (<p>Cash Per Monthly Deliverable</p>);
       case 'CompGiftCard':
         return (<p>Gift Card</p>);
+      default:
+        return '';
     }
   }
   const getCompensationHeading = () => {
-    switch (compensation.__typename) {
+    switch (compensation[0].__typename) {
       case 'CompRevenueShare':
         return (
           <h6>Revenue Share Percentage</h6>);
@@ -31,16 +34,16 @@ const Compensation = ({ onClick, handleEdit, compensation }) => {
   }
 
   const getCompensationAmount = () => {
-    switch (compensation.__typename) {
+    switch (compensation[0].__typename) {
       case 'CompRevenueShare':
         return (
-          <p>{compensation.percentage && compensation.percentage * 1000}%</p>);
+          <p>{compensation[0].percentage && compensation[0].percentage * 1000}%</p>);
       case 'CompCashPerPost':
-        return (<p>{compensation.amount && compensation.amount.amount}$</p>);
+        return (<p>{compensation[0].amount && compensation[0].amount.amount}$</p>);
       case 'CompCashPerMonthlyDeliverable':
-        return (<p>{compensation.amount && compensation.amount.amount}$</p>);
+        return (<p>{compensation[0].amount && compensation[0].amount.amount}$</p>);
       case 'CompGiftCard':
-        return (<p>{compensation.amount && compensation.amount.amount}$</p>);
+        return (<p>{compensation[0].amount && compensation[0].amount.amount}$</p>);
     }
   }
   return (
@@ -60,13 +63,13 @@ const Compensation = ({ onClick, handleEdit, compensation }) => {
         <div className={styles.detailSubContent}>
           <h6>Compensation Type</h6>
           {
-            getCompensationType()
+            compensation && compensation.length > 0 && getCompensationType()
           }
 
         </div>
         <div className={styles.detailSubContent}>
-          {getCompensationHeading()}
-          <p>{getCompensationAmount()}</p>
+          {compensation && compensation.length > 0 && getCompensationHeading()}
+          <p>{compensation && compensation.length > 0 && getCompensationAmount()}</p>
         </div>
       </div>
       <button onClick={() => onClick('Compensation')}>See all</button>

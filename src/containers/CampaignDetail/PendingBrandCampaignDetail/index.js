@@ -38,6 +38,7 @@ import Collections from '../Collections';
 import Compensation from '../Compensation';
 import Negotiables from '../Negotiables';
 import SelectMenu from '../../../components/SelectMenu';
+import _ from 'lodash';
 
 import styles from './PendingBrandCampaignDetail.module.scss';
 
@@ -231,7 +232,7 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
             />
           </div>
           <div className={styles.flexContainer}>
-            <Compensation handleEdit={handleEdit} onClick={handleSeeClick} compensation={data && data.compensation && data.compensation[0]} />
+            <Compensation handleEdit={handleEdit} onClick={handleSeeClick} compensation={data && data.compensation && data.compensation !== null ? _.compact(data.compensation) : []} />
             <Negotiables data={data} handleEdit={handleEdit} />
             <div style={{ width: '391px' }}></div>
           </div>

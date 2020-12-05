@@ -8,12 +8,6 @@ import styles from './CreateCompensation.module.scss';
 import { Trash } from 'react-feather';
 import clsx from 'clsx';
 import SVG from 'react-inlinesvg';
-import { withStyles } from '@material-ui/core/styles';
-import MuiAccordion from '@material-ui/core/Accordion';
-import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
-import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
-import Typography from '@material-ui/core/Typography';
-import CompensationProductItem from './CompensationProductItem';
 import Collection from '../../Collections'
 
 const options = [];

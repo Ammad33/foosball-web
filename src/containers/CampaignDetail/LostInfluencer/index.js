@@ -16,6 +16,7 @@ import { useHistory } from 'react-router-dom';
 import TeamMembers from '../TeamMembers';
 import BudgetAndConversion from '../BudgetAndConversion';
 import Negotiables from '../Negotiables';
+import _ from 'lodash';
 
 const LostInfluencer = ({ handleEdit, data, handleSeeClick }) => {
   const history = useHistory();
@@ -119,7 +120,7 @@ const LostInfluencer = ({ handleEdit, data, handleSeeClick }) => {
           </div>
         </div>
         <div className={styles.first}>
-          <Compensation onClick={handleSeeClick} handleEdit={handleEdit} compensation={data && data.compensation && data.compensation[0]} />
+          <Compensation onClick={handleSeeClick} handleEdit={handleEdit} compensation={data && data.compensation && data.compensation !== null ? _.compact(data.compensation) : []} />
           <Negotiables data={data} />
         </div>
       </div>

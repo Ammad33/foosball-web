@@ -8,34 +8,21 @@ import Popover from '@material-ui/core/Popover';
 import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useHistory } from 'react-router-dom';
-import { ChevronUp , ChevronDown} from 'react-feather';
+import { ChevronUp, ChevronDown } from 'react-feather';
+import { RootContext } from '../../../context/RootContext';
 
 
-
-
-
-// const ChevronDown = () => {
-// 	return (
-// 		<SVG src={require('../../../assets/chevron-downn.svg')} />
-// 	);
-// };
-// const ChevronUp = () => {
-// 	return (
-// 		<SVG src={require('../../../assets/chevron-up.svg')} />
-// 	);
-// };
-
-const SelectBrand = (meData) => {
+const SelectBrand = () => {
 	const history = useHistory();
+
+	const { setBrandIdd,
+		brands,
+		brandName,
+		setBrandName } = useContext(RootContext);
+
+
 	const [brandDropDown, setBrandDropDown] = useState(false);
-	const member = [
-		{
-			id: 1,
-			name: 'Ben Parker',
-			avatar:
-				'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-		},
-	];
+
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const handleClick = (event) => {
 		setBrandDropDown(true);
@@ -49,6 +36,7 @@ const SelectBrand = (meData) => {
 
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
+
 	return (
 		<>
 			<Popover
@@ -61,7 +49,7 @@ const SelectBrand = (meData) => {
 					horizontal: 'center',
 				}}
 				PaperProps={{
-					style: { width: '206px', height: '120px' },
+					style: { width: '300px', height: '190px' },
 				}}
 				transformOrigin={{
 					vertical: 'top',
@@ -70,33 +58,34 @@ const SelectBrand = (meData) => {
 			>
 				<Grid>
 					<div className={styles.popOverContainer}>
-						<MenuItem>
-							<div className={styles.brandContainter}>
-								<Avatar
-									className={styles.brandImage}
-									alt='Profile'
-									src='https://thumbs.dreamstime.com/z/creative-vector-illustration-default-avatar-profile-placeholder-isolated-background-art-design-grey-photo-blank-template-mo-118823351.jpg'
-								/>
-								<span>Brand Name 1 </span>
-							</div>
-							</MenuItem>
-							<MenuItem>
-							<div className={styles.brandContainter}>
-								<Avatar
-									className={styles.brandImage}
-									alt='Profile'
-									src='https://thumbs.dreamstime.com/z/creative-vector-illustration-default-avatar-profile-placeholder-isolated-background-art-design-grey-photo-blank-template-mo-118823351.jpg'
-								/>
-								<span>Brand Name 2 </span>
-							</div>
-							</MenuItem>
+						{
+							brands && brands !== null && brands.map((item, index) => {
+								return (<MenuItem key={index} onClick={() => {
+									setBrandIdd(item.organization && item.organization.id);
+									setBrandName(item.organization && item.organization.name);
+									handleClose();
+									if (history.location.pathname !== '/campaigns') {
+										history.push('/')
+									}
+								}}>
+									<div className={styles.brandContainter}>
+										<Avatar
+											className={styles.brandImage}
+											alt='Profile'
+											src={item.organization && item.organization.imageUrl}
+										/>
+										<span>{item.organization && item.organization.name}</span>
+									</div>
+								</MenuItem>)
+							})
+						}
 					</div>
 				</Grid>
 			</Popover>
 			<div>
-				<div onClick={handleClick} className={styles.brandDropDown}>Brand Name
-						<div className={styles.brandDropDownSVG}>{
-							brandDropDown ? (<ChevronUp />) : (<ChevronDown />) }  </div>
+				<div onClick={handleClick} className={styles.brandDropDown}>{brandName && brandName !== '' ? brandName : 'Brand Name'}
+					<div className={styles.brandDropDownSVG}>{
+						brandDropDown ? (<ChevronUp />) : (<ChevronDown />)}</div>
 				</div>
 			</div>
 		</>

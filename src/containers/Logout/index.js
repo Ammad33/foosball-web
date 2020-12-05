@@ -8,32 +8,36 @@ import styles from './Logout.module.scss';
 
 
 const Logout = () => {
-	const history = useHistory();
+
   const {
     setCurrentUser,
     setLogoutMessage,
-    currentUser,
-    activeRoute,
-    setActiveRoute,
+    setBrandName,
+    setBrandIdd, setRoute, setBrands
   } = useContext(RootContext);
 
-	const signOut = async () => {
+  const signOut = async () => {
     try {
       const signOut = await Auth.signOut({ global: true });
       setLogoutMessage('Successfully logged out');
-      setCurrentUser(null);
+      setCurrentUser();
+      setBrands(null);
+      setBrandName();
+      setBrandIdd();
+      setRoute('/');
+
     } catch (error) {
       console.log('error signing out: ', error);
     }
-	};
-	
-	return (
-		<>
-		<MenuItem className={styles.itemsFont} onClick={signOut} >
-      Logout
+  };
+
+  return (
+    <>
+      <MenuItem className={styles.itemsFont} onClick={signOut} >
+        Logout
     </MenuItem>
-		</>
-	)
+    </>
+  )
 
 };
 
