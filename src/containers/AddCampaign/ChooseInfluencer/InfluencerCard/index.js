@@ -7,6 +7,23 @@ import clsx from 'clsx';
 import { Facebook, Youtube, Instagram } from 'react-feather';
 
 const InfluencerCard = ({ influencer, selected, toggleInfluncer }) => {
+  const calculateFollowersCount = (count) => {
+    console.log('count ', count);
+    let millions = (count / 1000000).toString().split('.');
+    let thousands = (count / 1000).toString().split('.');
+    if (millions[0] !== '0') {
+      console.log('send million', millions);
+      return `${
+        millions[1] ? [millions[0], millions[1][0]].join('.') : millions[0]
+      }m`;
+    } else {
+      console.log('send thousands', thousands);
+      return `${
+        thousands[1] ? [thousands[0], thousands[1][0]].join('.') : thousands[0]
+      }k`;
+    }
+    return '';
+  };
   return (
     <Card
       className={clsx(
@@ -20,65 +37,47 @@ const InfluencerCard = ({ influencer, selected, toggleInfluncer }) => {
           <div className={styles.personInfo}>
             <Avatar className={styles.personAvatar} src={influencer.imageUrl} />
           </div>
-          <span className={styles.first_last}>
-            {influencer.name}
-            <div className={styles.influencername}>@influencerTag</div>
-          </span>
-          {influencer.socialIdentities &&
-            influencer.socialIdentities.map((social) => {
-              switch (social.platform) {
-                case 'INSTAGRAM':
-                  return (
-                    <span className={styles.instaIcon}>
-                      <Instagram />
-                      <div className={styles.instafollowers}>
-                        {social.followerCount}
-                      </div>{' '}
-                    </span>
-                  );
-                case 'FACEBOOK':
-                  return (
-                    <span className={styles.fbIcon}>
-                      <Facebook />
-                      <div className={styles.influencername}>
-                        {social.followerCount}
+          <div className={styles.first_last}>
+            <p>{influencer.name}</p>
+            <p className={styles.influencername}>@influencerTag</p>
+          </div>
+          <div className={styles.socialContainer}>
+            {influencer.socialIdentities &&
+              influencer.socialIdentities.map((social) => {
+                switch (social.platform) {
+                  case 'INSTAGRAM':
+                    return (
+                      <div className={styles.socialItem}>
+                        <Instagram />
+                        <span className={styles.countText}>
+                          {calculateFollowersCount(social.followerCount)}
+                        </span>
                       </div>
-                    </span>
-                  );
-                case 'YOUTUBE':
-                  return (
-                    <span className={styles.ytIcon}>
-                      <Youtube />
-                      <div className={styles.ytfollowers}>
-                        {' '}
-                        {social.followerCount}
+                    );
+                  case 'FACEBOOK':
+                    return (
+                      <div className={styles.socialItem}>
+                        <Facebook />
+                        <span className={styles.countText}>
+                          {calculateFollowersCount(social.followerCount)}
+                        </span>
                       </div>
-                    </span>
-                  );
+                    );
+                  case 'YOUTUBE':
+                    return (
+                      <div className={styles.socialItem}>
+                        <Youtube />
+                        <span className={styles.countText}>
+                          {calculateFollowersCount(social.followerCount)}
+                        </span>
+                      </div>
+                    );
 
-                default:
-                  return '';
-              }
-            })}
-          {/* <span className={styles.instaIcon}>
-            <Instagram />
-            <div className={styles.instafollowers}>
-              {influencer.instaFollowers}
-            </div>{' '}
-          </span>
-          <span className={styles.ytIcon}>
-            <Youtube />
-            <div className={styles.ytfollowers}>
-              {' '}
-              {influencer.youtubeFollowers}
-            </div>
-          </span>
-          <span className={styles.fbIcon}>
-            <Facebook />
-            <div className={styles.influencername}>
-              {influencer.facebookFollowers}
-            </div>
-          </span> */}
+                  default:
+                    return '';
+                }
+              })}
+          </div>
         </div>
       </CardContent>
     </Card>
