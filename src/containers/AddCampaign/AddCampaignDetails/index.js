@@ -60,13 +60,6 @@ const AddCampaignDetails = ({
     campaignName,
     startDate,
     endDate,
-    discount,
-    discountType,
-    customeMessage,
-    startDateError,
-    endDateError,
-    startTimeError,
-    endTimeError,
   ]);
 
   useEffect(() => {
@@ -104,8 +97,8 @@ const AddCampaignDetails = ({
             startDateError ? (
               <span className={styles.errorText}> Start Date IN FUTURE </span>
             ) : (
-              ' '
-            )
+                ' '
+              )
           }
           InputProps={{
             endAdornment: (
@@ -149,8 +142,8 @@ const AddCampaignDetails = ({
                 End date AFTER Start date{' '}
               </span>
             ) : (
-              ' '
-            )
+                ' '
+              )
           }
           InputProps={{
             endAdornment: (
@@ -187,8 +180,8 @@ const AddCampaignDetails = ({
             startTimeError ? (
               <span className={styles.errorText}> Start Time IN FUTURE </span>
             ) : (
-              ' '
-            )
+                ' '
+              )
           }
           InputProps={{
             endAdornment: (
@@ -228,8 +221,8 @@ const AddCampaignDetails = ({
                 End Time AFTER Start Time{' '}
               </span>
             ) : (
-              ' '
-            )
+                ' '
+              )
           }
           InputProps={{
             endAdornment: (

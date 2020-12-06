@@ -14,6 +14,7 @@ import PendingInfluencer from '../PendingInfluencer';
 import LiveInfluencer from '../LiveInfluencer';
 import DeclineInfluencer from '../DeclineInfluencer';
 import DraftBrandCampaignDetail from '../DraftBrandCampaignDetail';
+import _ from 'lodash';
 
 const CampaignDetailInfluencer = ({ status, addCampaign, setAddCampagin, data }) => {
 
@@ -101,7 +102,7 @@ const CampaignDetailInfluencer = ({ status, addCampaign, setAddCampagin, data })
       case 'Deliverable':
         return <DeliverablesDetail />;
       case 'Compensation':
-        return <CompensationDetail />;
+        return <CompensationDetail compensations={data && data.compensation && data.compensation !== null ? _.compact(data.compensation) : []} budget={data.budget.amount} />;
       case 'TeamMembers':
         return <TeamMembersDetail />;
       default:

@@ -10,6 +10,51 @@ const EditSVG = ({ onClick }) => {
 };
 const ReviewAndSend = ({ team, campaignName, startDate, endDate, startTime, endTime, discount, discountType,
 	customeMessage, selectedMembers, budget, targetGrossSale, collections, deliverables, compensations, compensationPayment, selectedNegotiable, selectedInfluncer, handleActiveStep }) => {
+
+	const getCompensationType = (compensation) => {
+		switch (compensation) {
+			case 'REVENUE_SHARE':
+				return (
+					'Revenue Share');
+			case 'CASH_PER_POST':
+				return ('Cash Per Post');
+			case 'CASH_PER_MONTHLY_DELIVERABLE':
+				return ('Cash Per Monthly Deliverable');
+			case 'GIFT_CARD':
+				return ('Gift Card');
+		}
+	}
+
+	const getCompensationHeading = (compensation) => {
+
+		switch (compensation) {
+			case 'REVENUE_SHARE':
+				return (
+					'Revenue Share Percentage');
+			case 'CASH_PER_POST':
+				return ('Amount per Post');
+			case 'CASH_PER_MONTHLY_DELIVERABLE':
+				return ('Amount Per Monthly Deliverable');
+			case 'GIFT_CARD':
+				return ('Amount Per Gift Card');
+		}
+	}
+
+	const getCompensationAmount = (compensation) => {
+
+		switch (compensation.compensationType) {
+			case 'REVENUE_SHARE':
+				return (
+					<span>{compensation.amount && compensation.amount}% ({budget} $)</span>);
+			case 'CASH_PER_POST':
+				return (<span>{compensation.amount && compensation.amount}$</span>);
+			case 'CASH_PER_MONTHLY_DELIVERABLE':
+				return (<span>{compensation.amount && compensation.amount}$</span>);
+			case 'GIFT_CARD':
+				return (<span>{compensation.amount && compensation.amount}$</span>);
+		}
+	}
+
 	return (
 		<div class={styles.mainContainer}>
 			<div class={styles.section}>
@@ -216,13 +261,13 @@ const ReviewAndSend = ({ team, campaignName, startDate, endDate, startTime, endT
 									<Grid item xs={4}>
 										<div className={styles.compensationItem}>
 											<p>Compensation Type</p>
-											<span>{item.compensationType}</span>
+											<span>{getCompensationType(item.compensationType)}</span>
 										</div>
 									</Grid>
 									<Grid item xs={6}>
 										<div className={styles.compensationItem}>
-											<p>Revenue Share Percentage</p>
-											<span>{item.amount}%({budget} $)</span>
+											<p>{getCompensationHeading(item.compensationType)}</p>
+											{getCompensationAmount(item)}
 										</div>
 									</Grid>
 								</Grid>

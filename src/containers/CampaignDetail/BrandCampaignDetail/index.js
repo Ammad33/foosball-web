@@ -13,6 +13,7 @@ import LiveBrandCampaignDetail from '../LiveBrandCampaignDetail';
 import ClosedBrandCampaignDetail from '../ClosedBrandCampaignDetail';
 import LostBrandCampaignDetail from '../LostBrandCampaignDetail';
 import { RootContext } from '../../../context/RootContext';
+import _ from 'lodash';
 
 const BrandCampaignDetail = ({ status, addCampaign, setAddCampagin, data }) => {
   const [step, setStep] = useState(1);
@@ -40,7 +41,7 @@ const BrandCampaignDetail = ({ status, addCampaign, setAddCampagin, data }) => {
       case 'Deliverable':
         return <DeliverablesDetail deliverables={data && data.deliverables} />;
       case 'Compensation':
-        return <CompensationDetail />;
+        return <CompensationDetail compensations={data && data.compensation && data.compensation !== null ? _.compact(data.compensation) : []} budget={data.budget.amount} />;
       case 'TeamMembers':
         return <TeamMembersDetail />;
       default:

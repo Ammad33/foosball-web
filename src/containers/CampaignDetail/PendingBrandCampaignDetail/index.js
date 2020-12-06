@@ -126,6 +126,7 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
                     onClick={() => {
                       history.push('/review-brand-microsite');
                     }}
+                    style={{ border: 'none' }}
                   >
                     View
                   </button>

@@ -303,6 +303,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
       setEndDate(moment(endDate).format('MM/DD/YYYY'));
       setStartTime(moment(startDate).format('HH:mm'));
       setEndTime(moment(endDate).format('HH:mm'));
+      if (campaign.name !== '' && startDate !== '' && endDate !== '') {
+        setActiveSave(true);
+      }
       setDiscount(
         campaign.discount && campaign.discount !== null
           ? campaign.discount.__typename === 'FlatDiscount'
@@ -320,8 +323,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
           ? campaign.discount.__typename === 'PercentageDiscount'
             ? 'Percentage'
             : campaign.discount.__typename === 'FlatDiscount'
-            ? 'Amount'
-            : ''
+              ? 'Amount'
+              : ''
           : ''
       );
       if (campaign.compensation && campaign.compensation !== null) {
@@ -399,12 +402,15 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
       setActiveStep(1);
     }
   }, [open]);
+
   useEffect(() => {
     getTeam();
   }, [brandId]);
-  useEffect(() => {
-    setActiveNext(true);
-  });
+
+  // useEffect(() => {
+  //   setActiveNext(true);
+  // });
+
   useEffect(() => {
     getInfluencers();
   }, []);
@@ -988,6 +994,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
         deliverables: getDeliverablesForAPI(),
         compensation: getCompensations(),
       };
+      if (data.deliverables.length === 1 && data.deliverables[0].platform === '') {
+        delete data.deliverables;
+      }
       if (influencer && influencer.id) {
         data.influencerId = influencer.id;
       }
@@ -1041,6 +1050,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
         compensation: getCompensations(),
         deliverables: getDeliverablesForAPI(),
       };
+      if (data.deliverables.length === 1 && data.deliverables[0].platform === '') {
+        delete data.deliverables;
+      }
+
       if (influencer && influencer.id) {
         data.influencerId = influencer.id;
       }
@@ -1100,8 +1113,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
       compensation.forEach((comp) => {
         if (
           comp.compensationType === '' ||
-          comp.amount === '' ||
-          compensationPayment === ''
+          comp.amount === ''
         ) {
           flag = false;
         }
@@ -1187,7 +1199,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
             handleCustomMessage={(e) => {
               setCustomMessage(e.target.value);
             }}
-            filledForm={filledForm}
+            filledForm={partialFilledForm}
             partialFilledForm={partialFilledForm}
           />
         );
@@ -1253,7 +1265,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
             handleCompensationProducts={handleCompensationProducts}
             compensationProductItems={items}
             compensationProducts={compensationProducts}
-            handleActiveForCompensationProduct={setActiveForCompensationProduct}
+            handleActiveForCompensationProduct={setActiveForCompensation}
             handleCompensationProductItem={handleCompensationProductItem}
           />
         );
@@ -1305,9 +1317,16 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   };
 
   const partialFilledForm = () => {
+
     if (campaignName !== '' && startDate !== '' && endDate !== '') {
       setActiveSave(true);
-    } else setActiveSave(false);
+      setActiveNext(true);
+      console.log('active');
+    } else {
+      setActiveSave(false);
+      setActiveNext(false);
+      console.log('Inactive');
+    }
   };
 
   const filledForm = () => {
@@ -1386,8 +1405,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                        <CheckCircleIconSvg viewBox='0 0 31 31' />
-                      )}
+                              <CheckCircleIconSvg viewBox='0 0 31 31' />
+                            )}
                       <span
                         className={
                           activeStep === index
@@ -1400,19 +1419,19 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                       </span>
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
                       {activeStep > index ? (
                         <div className={styles.activeBar} />
                       ) : (
-                        <div className={styles.inActiveBar} />
-                      )}
+                          <div className={styles.inActiveBar} />
+                        )}
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                 </>
               ))}
             </div>
@@ -1425,8 +1444,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                  <div></div>
-                )}
+                    <div></div>
+                  )}
                 <span onClick={handleCancelCampaignDialog}>
                   <XSVG />
                 </span>
@@ -1462,7 +1481,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
 
             <div className={styles.actions}>
               <div className={styles.finishLater}>
-                {activeSave || campaign !== undefined ? (
+                {activeSave || (campaign !== undefined && activeSave) ? (
                   <span
                     onClick={() => {
                       campaign !== undefined
@@ -1475,7 +1494,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                 ) : null}
               </div>
               <button
-                onClick={(e) => handleNext(activeStep, e)}
+                onClick={(e) => activeStep == 9 ? createCampaign() : handleNext(activeStep, e)}
                 className={clsx(
                   styles.nextButton,
                   activeNext ? styles.activeButton : styles.inActiveButton

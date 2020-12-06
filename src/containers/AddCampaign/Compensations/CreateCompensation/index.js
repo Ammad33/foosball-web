@@ -47,7 +47,7 @@ const CreateCompensation = ({
 }) => {
   useEffect(() => {
     handleActiveForCompensationProduct();
-  }, [compensationProducts]);
+  }, [compensations]);
 
 
   return (
