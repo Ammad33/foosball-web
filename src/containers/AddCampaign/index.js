@@ -116,59 +116,6 @@ const youtube = {
   frameContentType: ['Does not apply'],
 };
 
-const influencers = [
-  {
-    avatar:
-      'https://images.unsplash.com/photo-1474176857210-7287d38d27c6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-    name: 'Mark',
-    socialTag: 'aatikta',
-    instaFollowers: '10k',
-    youtubeFollowers: '20k',
-    facebookFollowers: '30k',
-    selected: false,
-  },
-  {
-    avatar:
-      'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-    name: 'Julie',
-    socialTag: 'jurica',
-    instaFollowers: '20k',
-    youtubeFollowers: '20k',
-    facebookFollowers: '40k',
-    selected: false,
-  },
-  {
-    avatar:
-      'https://images.unsplash.com/photo-1474176857210-7287d38d27c6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-    name: 'Muntasir',
-    socialTag: 'aatiktas',
-    instaFollowers: '50k',
-    youtubeFollowers: '70k',
-    facebookFollowers: '60k',
-    selected: false,
-  },
-  {
-    avatar:
-      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-    name: 'Sam',
-    socialTag: 'miracle',
-    instaFollowers: '32k',
-    youtubeFollowers: '29k',
-    facebookFollowers: '45k',
-    selected: false,
-  },
-  {
-    avatar:
-      'https://images.unsplash.com/photo-1563237023-b1e970526dcb?ixlib=rb-1.2.1&auto=format&fit=crop&w=802&q=80',
-    name: 'Chris',
-    socialTag: 'happy',
-    instaFollowers: '22k',
-    youtubeFollowers: '23k',
-    facebookFollowers: '33k',
-    selected: true,
-  },
-];
-
 const items = [
   {
     id: 1,
@@ -338,6 +285,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
     },
   ]);
 
+  const [influencers, setInfluencers] = useState([]);
+
   useEffect(() => {
     setActiveStep(step !== undefined ? step : 1);
     if (campaign && campaign !== null && step !== undefined) {
@@ -371,8 +320,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
           ? campaign.discount.__typename === 'PercentageDiscount'
             ? 'Percentage'
             : campaign.discount.__typename === 'FlatDiscount'
-              ? 'Amount'
-              : ''
+            ? 'Amount'
+            : ''
           : ''
       );
       if (campaign.compensation && campaign.compensation !== null) {
@@ -450,7 +399,54 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
       setActiveStep(1);
     }
   }, [open]);
+  useEffect(() => {
+    getTeam();
+  }, [brandId]);
+  useEffect(() => {
+    setActiveNext(true);
+  });
+  useEffect(() => {
+    getInfluencers();
+  }, []);
 
+  const getInfluencers = async () => {
+    try {
+      const influencers = await API.graphql({
+        query: `{
+          influencers(input: {}) {
+            influencers {
+              id
+              name
+              imageUrl
+              socialIdentities {
+                followerCount
+                handle
+                platform
+              }
+            }
+          }
+        }`,
+      });
+      if (
+        influencers &&
+        influencers.data &&
+        influencers.data.influencers &&
+        influencers.data.influencers.influencers &&
+        influencers.data.influencers.influencers.length
+      ) {
+        setInfluencers(influencers.data.influencers.influencers);
+      }
+      if (campaign && campaign.influencer && campaign.influencer.id) {
+        const selectedInfluencer = _.find(
+          influencers.data.influencers.influencers,
+          ['id', campaign.influencer.id]
+        );
+        setInfluencer(selectedInfluencer);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
   /******* Compensations States */
   const [compensationPayment, setCompensationPayment] = useState('');
   const [addAnother, setAddAnother] = useState('false');
@@ -542,10 +538,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   const [collections, setCollections] = useState([]);
 
   /**** Add New deliverable */
-
-  useEffect(() => {
-    getTeam();
-  }, [brandId]);
 
   const getTeam = async () => {
     try {
@@ -981,6 +973,24 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
         typ = 'PERCENTAGE';
         val = '{"percentage":"' + discount + '"}';
       }
+      const data = {
+        brandId,
+        name: campaignName,
+        startDate: Date.parse(`${startDate} ${startTime} `) / 1000,
+        endDate: Date.parse(`${endDate} ${endTime} `) / 1000,
+        discount: { value: val, type: typ },
+        invitationMessage: customeMessage,
+        budget: { amount: budget, currency: 'USD' },
+        targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
+        team: selectedMembers,
+        negotiables: getNegotiablesObjectForAPI(),
+        invitationMessage: customeMessage,
+        deliverables: getDeliverablesForAPI(),
+        compensation: getCompensations(),
+      };
+      if (influencer && influencer.id) {
+        data.influencerId = influencer.id;
+      }
       await API.graphql(
         graphqlOperation(
           `mutation createCampaign($input: CreateCampaignInput!) {
@@ -994,21 +1004,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
       }
       `,
           {
-            input: {
-              brandId,
-              name: campaignName,
-              startDate: Date.parse(`${startDate} ${startTime} `) / 1000,
-              endDate: Date.parse(`${endDate} ${endTime} `) / 1000,
-              discount: { value: val, type: typ },
-              invitationMessage: customeMessage,
-              budget: { amount: budget, currency: 'USD' },
-              targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
-              team: selectedMembers,
-              negotiables: getNegotiablesObjectForAPI(),
-              invitationMessage: customeMessage,
-              deliverables: getDeliverablesForAPI(),
-              compensation: getCompensations(),
-            },
+            input: data,
           }
         )
       );
@@ -1029,7 +1025,25 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
     try {
       const end = Date.parse(`${endDate} ${endTime}`) / 1000;
       const start = Date.parse(`${startDate} ${startTime}`) / 1000;
-
+      const data = {
+        brandId,
+        id: campaign.id,
+        name: campaignName,
+        endDate: end,
+        startDate: start,
+        discount: { value: val, type: typ },
+        invitationMessage: customeMessage,
+        budget: { amount: budget, currency: 'USD' },
+        targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
+        team: selectedMembers,
+        negotiables: getNegotiablesObjectForAPI(),
+        invitationMessage: customeMessage,
+        compensation: getCompensations(),
+        deliverables: getDeliverablesForAPI(),
+      };
+      if (influencer && influencer.id) {
+        data.influencerId = influencer.id;
+      }
       await API.graphql(
         graphqlOperation(
           `mutation updateCampaign($input : UpdateCampaignInput!) {
@@ -1038,22 +1052,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
             }
         }`,
           {
-            input: {
-              brandId,
-              id: campaign.id,
-              name: campaignName,
-              endDate: end,
-              startDate: start,
-              discount: { value: val, type: typ },
-              invitationMessage: customeMessage,
-              budget: { amount: budget, currency: 'USD' },
-              targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
-              team: selectedMembers,
-              negotiables: getNegotiablesObjectForAPI(),
-              invitationMessage: customeMessage,
-              compensation: getCompensations(),
-              deliverables: getDeliverablesForAPI(),
-            },
+            input: data,
           }
         )
       );
@@ -1135,10 +1134,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   };
 
   // /*********************** To disable next button */
-
-  useEffect(() => {
-    setActiveNext(true);
-  });
 
   const leftSideDawerClick = (index) => {
     if (activeStep >= index) {
@@ -1391,8 +1386,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                              <CheckCircleIconSvg viewBox='0 0 31 31' />
-                            )}
+                        <CheckCircleIconSvg viewBox='0 0 31 31' />
+                      )}
                       <span
                         className={
                           activeStep === index
@@ -1405,19 +1400,19 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                       </span>
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
                       {activeStep > index ? (
                         <div className={styles.activeBar} />
                       ) : (
-                          <div className={styles.inActiveBar} />
-                        )}
+                        <div className={styles.inActiveBar} />
+                      )}
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                 </>
               ))}
             </div>
@@ -1430,8 +1425,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                    <div></div>
-                  )}
+                  <div></div>
+                )}
                 <span onClick={handleCancelCampaignDialog}>
                   <XSVG />
                 </span>

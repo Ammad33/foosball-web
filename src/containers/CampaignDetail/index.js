@@ -10,7 +10,6 @@ import SelectMenu from '../../components/SelectMenu';
 import { API } from 'aws-amplify';
 
 const CampaignDetail = () => {
-
   const [status, setStatus] = useState('');
   const [addCampaign, setAddCampagin] = useState(false);
 
@@ -115,6 +114,9 @@ const CampaignDetail = () => {
               platform
               posts
             }
+            influencer {
+              id
+            }
           }
       }`,
       });
@@ -144,7 +146,7 @@ const CampaignDetail = () => {
             : 'CLOSED'
         );
       }
-    } catch (e) { }
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -195,13 +197,13 @@ const CampaignDetail = () => {
           setAddCampagin={setAddCampagin}
         />
       ) : (
-          <InfluencerCampaignDetail
-            status={status}
-            data={data}
-            addCampaign={addCampaign}
-            setAddCampagin={setAddCampagin}
-          />
-        )}
+        <InfluencerCampaignDetail
+          status={status}
+          data={data}
+          addCampaign={addCampaign}
+          setAddCampagin={setAddCampagin}
+        />
+      )}
     </div>
   );
 };
