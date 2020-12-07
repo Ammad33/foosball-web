@@ -42,7 +42,15 @@ const BrandInformation = ({ handleEdit }) => {
 				<h1>Brand Information</h1>
 				<Edit onClick={() => { setEditOpen(true); setAnchorEl(null) }} />
 			</div>
-			<EditBrand open={editOpen} closeAdd={() => setEditOpen(false)} />
+			<EditBrand 
+			open={editOpen} 
+			closeAdd={() => setEditOpen(false)} 
+			brandName = "Brand Name"
+			bio ="Premium Vitamins and Powders, Tailored to You, Delivered right to your door."
+			email = "customerservice@careof.com"
+			website = "www.careof.com"
+			phoneNo = "414-444-888"
+			/>
 			<Popover
 				id={id}
 				open={open}

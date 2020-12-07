@@ -164,7 +164,7 @@ const Contacts = ({ }) => {
 			</div>
 			<div className={styles.contactsBanner}>
 				<p className={styles.firstp}>Get 1 free campaign credit</p>
-				<p className={styles.secondp}>For every person you invite that joins FOMO Promo and creates a campaign.<Link to='#' style={{color: "#FFFFFF" ,textDecorationLine: 'underline'}} >Learn more here.</Link></p>
+				<p className={styles.secondp}>For every person you invite that joins fomopromo and creates a campaign.<Link to='#' style={{color: "#FFFFFF" ,textDecorationLine: 'underline'}} >Learn more here.</Link></p>
 			</div>
 			<AddContact
 				newInfluencer={newInfluencer}

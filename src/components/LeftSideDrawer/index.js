@@ -6,6 +6,7 @@ import { Button } from '@material-ui/core';
 import { Auth } from 'aws-amplify';
 import { RootContext } from './../../context/RootContext';
 import styles from './LeftSide.module.scss';
+import { Users } from 'react-feather';
 
 const IconProspects = () => {
   return <SVG src={require('../../assets/Prospects.svg')} />;
@@ -78,7 +79,7 @@ const LeftSideDrawer = () => {
       />
 
 			<ListItem
-        icon={<IconMessages />}
+        icon={<Users />}
         active={activeRoute === 'Contacts' ? true : false}
         onClick={() => { 
 					setActiveRoute('Contacts')	

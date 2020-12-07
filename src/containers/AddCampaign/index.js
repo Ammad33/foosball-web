@@ -1078,28 +1078,38 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   /************* Active for deliverable */
 
   const setActiveForDeliverables = () => {
+		debugger;
     const deliverables = [...deliveries];
 
     let flag = true;
-    deliverables.forEach((delive) => {
-      if (
-        delive.deadlineDate === '' ||
-        delive.platform === '' ||
-        delive.deliverableType === '' ||
-        delive.frameContentType === '' ||
-        delive.framesRequired === '' ||
-        delive.posts === '' ||
-        delive.frequency === ''
-      ) {
-        flag = false;
-      }
-      if (
-        (delive.brandTagRequired === true && delive.brandTag === '') ||
-        (delive.hashTagRequired === true && delive.hashTag === '')
-      ) {
-        flag = false;
-      }
-    });
+    // deliverables.forEach((delive) => {
+		// 	if (delive.platform === 'Facebook')
+		// 		{
+		// 			if (delive.deliverableType == 'Post'){
+		// 				delive.framesRequired = null;
+		// 			}
+		// 			else if (delive.framesRequired == null) {
+		// 				delive.framesRequired = '';
+		// 			}
+		// 		}
+    //   if (
+    //     delive.deadlineDate === '' ||
+    //     delive.platform === '' ||
+    //     delive.deliverableType === '' ||
+    //     delive.frameContentType === '' ||
+    //     delive.framesRequired === '' ||
+    //     delive.posts === '' ||
+    //     delive.frequency === ''
+    //   ) {
+    //     flag = false;
+    //   }
+    //   if (
+    //     (delive.brandTagRequired === true && delive.brandTag === '') ||
+    //     (delive.hashTagRequired === true && delive.hashTag === '')
+    //   ) {
+    //     flag = false;
+    //   }
+    // });
     setActiveNext(flag);
   };
 
@@ -1367,7 +1377,13 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   };
 
   const handleCancelCampaignDialog = () => {
-    setOpenCDialog(true);
+		debugger;
+		if (campaignName != '' && startDate != '' && endDate != ''){
+			setOpenCDialog(true);
+		}
+		else {
+			handleCancel();
+		}
   };
 
   const handleCancelCDialog = () => {
