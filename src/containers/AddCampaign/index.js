@@ -325,17 +325,23 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
           ? campaign.discount.__typename === 'PercentageDiscount'
             ? 'Percentage'
             : campaign.discount.__typename === 'FlatDiscount'
-              ? 'Amount'
-              : ''
+            ? 'Amount'
+            : ''
           : ''
       );
-      if (campaign.compensation && campaign.compensation !== null && campaign.compensation.length !== 0) {
+      if (
+        campaign.compensation &&
+        campaign.compensation !== null &&
+        campaign.compensation.length !== 0
+      ) {
         setCompensation(campaign.compensation);
       } else {
-        setCompensations([{
-          compensationType: '',
-          amount: '',
-        }])
+        setCompensations([
+          {
+            compensationType: '',
+            amount: '',
+          },
+        ]);
       }
       if (campaign.budget && campaign.budget) {
         setBudget(campaign.budget.amount);
@@ -363,6 +369,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
               deliverable.deadlineDate
             ).toLocaleDateString();
           }
+          deliverable.brandTagRequired = deliverable.brandTag ? true : false;
+          deliverable.hashTagRequired = deliverable.hashTag ? true : false;
           return deliverable;
         });
         setDeliveries(campaign.deliverables);
@@ -648,7 +656,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   const handleCompensationValue = (value, index, fieldName) => {
     const comp = [...compensations];
     if (fieldName === 'compensationType') {
-      const found = comp.findIndex(item => item.compensationType === value);
+      const found = comp.findIndex((item) => item.compensationType === value);
       if (found !== -1 || value == 'PRODUCT') {
         return;
       }
@@ -977,7 +985,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
             value:
               '{"amount":{"amount": "' +
               item.amount +
-              '","currency":"USD"}, "code": "' + giftCode + '" }',
+              '","currency":"USD"}, "code": "' +
+              giftCode +
+              '" }',
           };
       }
     });
@@ -1008,7 +1018,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
         deliverables: getDeliverablesForAPI(),
         compensation: getCompensations(),
       };
-      if (data.deliverables.length === 1 && data.deliverables[0].platform === '') {
+      if (
+        data.deliverables.length === 1 &&
+        data.deliverables[0].platform === ''
+      ) {
         delete data.deliverables;
       }
       if (influencer && influencer.id) {
@@ -1064,7 +1077,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
         compensation: getCompensations(),
         deliverables: getDeliverablesForAPI(),
       };
-      if (data.deliverables.length === 1 && data.deliverables[0].platform === '') {
+      if (
+        data.deliverables.length === 1 &&
+        data.deliverables[0].platform === ''
+      ) {
         delete data.deliverables;
       }
 
@@ -1137,9 +1153,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
       compensation.forEach((comp) => {
         if (
           comp.compensationType === '' ||
-          comp.amount === '' || (comp.compensationType === 'GIFT_CARD' && giftCode === '')
+          comp.amount === '' ||
+          (comp.compensationType === 'GIFT_CARD' && giftCode === '')
         ) {
-
           flag = false;
         }
       });
@@ -1294,7 +1310,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
             handleCompensationProductItem={handleCompensationProductItem}
             giftCode={giftCode}
             handleGiftCode={(e) => setGiftCode(e.target.value)}
-
           />
         );
       case 7:
@@ -1345,7 +1360,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   };
 
   const partialFilledForm = () => {
-
     if (campaignName !== '' && startDate !== '' && endDate !== '') {
       setActiveSave(true);
     } else {
@@ -1393,8 +1407,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   const handleCancelCampaignDialog = () => {
     if (campaignName != '' && startDate != '' && endDate != '') {
       setOpenCDialog(true);
-    }
-    else {
+    } else {
       handleCancel();
     }
   };
@@ -1434,8 +1447,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                              <CheckCircleIconSvg viewBox='0 0 31 31' />
-                            )}
+                        <CheckCircleIconSvg viewBox='0 0 31 31' />
+                      )}
                       <span
                         className={
                           activeStep === index
@@ -1448,19 +1461,19 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                       </span>
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
                       {activeStep > index ? (
                         <div className={styles.activeBar} />
                       ) : (
-                          <div className={styles.inActiveBar} />
-                        )}
+                        <div className={styles.inActiveBar} />
+                      )}
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                 </>
               ))}
             </div>
@@ -1473,8 +1486,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                    <div></div>
-                  )}
+                  <div></div>
+                )}
                 <span onClick={handleCancelCampaignDialog}>
                   <XSVG />
                 </span>
@@ -1523,14 +1536,24 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                 ) : null}
               </div>
               <button
-                onClick={(e) => campaign !== undefined && activeStep === 9 ? updateCampaign() : activeStep == 9 ? createCampaign() : handleNext(activeStep, e)}
+                onClick={(e) =>
+                  campaign !== undefined && activeStep === 9
+                    ? updateCampaign()
+                    : activeStep == 9
+                    ? createCampaign()
+                    : handleNext(activeStep, e)
+                }
                 className={clsx(
                   styles.nextButton,
                   activeNext ? styles.activeButton : styles.inActiveButton
                 )}
                 disabled={!activeNext}
               >
-                {campaign !== undefined && activeStep === 9 ? 'Update Campaign' : activeStep == 9 ? 'Send Invite' : 'Next'}
+                {campaign !== undefined && activeStep === 9
+                  ? 'Update Campaign'
+                  : activeStep == 9
+                  ? 'Send Invite'
+                  : 'Next'}
               </button>
             </div>
           </div>

@@ -269,6 +269,18 @@ const CreateDeliverable = ({
           <Grid item xs={1} className={styles.optionsItem}>
             {deliverableItem && deliverableItem.brandTagRequired ? (
               <CheckCircleIcon
+                onClick={() => {
+                  handleDilverableContent(
+                    !deliverableItem.brandTagRequired,
+                    index,
+                    'brandTagRequired'
+                  );
+                  handleDilverableContent('', index, 'brandTag');
+                }}
+              />
+            ) : (
+              <RadioButtonUncheckedIcon
+                className={styles.svgDisabled}
                 onClick={() =>
                   handleDilverableContent(
                     !deliverableItem.brandTagRequired,
@@ -277,18 +289,7 @@ const CreateDeliverable = ({
                   )
                 }
               />
-            ) : (
-                <RadioButtonUncheckedIcon
-                  className={styles.svgDisabled}
-                  onClick={() =>
-                    handleDilverableContent(
-                      !deliverableItem.brandTagRequired,
-                      index,
-                      'brandTagRequired'
-                    )
-                  }
-                />
-              )}
+            )}
           </Grid>
           <Grid item xs={4}>
             <p
@@ -325,6 +326,18 @@ const CreateDeliverable = ({
           <Grid item xs={1} className={styles.optionsItem}>
             {deliverableItem && deliverableItem.hashTagRequired ? (
               <CheckCircleIcon
+                onClick={() => {
+                  handleDilverableContent(
+                    !deliverableItem.hashTagRequired,
+                    index,
+                    'hashTagRequired'
+                  );
+                  handleDilverableContent('', index, 'hashTag');
+                }}
+              />
+            ) : (
+              <RadioButtonUncheckedIcon
+                className={styles.svgDisabled}
                 onClick={() =>
                   handleDilverableContent(
                     !deliverableItem.hashTagRequired,
@@ -333,18 +346,7 @@ const CreateDeliverable = ({
                   )
                 }
               />
-            ) : (
-                <RadioButtonUncheckedIcon
-                  className={styles.svgDisabled}
-                  onClick={() =>
-                    handleDilverableContent(
-                      !deliverableItem.hashTagRequired,
-                      index,
-                      'hashTagRequired'
-                    )
-                  }
-                />
-              )}
+            )}
           </Grid>
           <Grid item xs={4}>
             <p
