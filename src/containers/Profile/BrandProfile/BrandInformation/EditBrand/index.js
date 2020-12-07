@@ -5,7 +5,7 @@ import TextField from '../../../../../components/TextField';
 import { HelpCircle } from 'react-feather';
 
 
-const EditBrand = ({ open, handleChange, closeAdd }) => {
+const EditBrand = ({ open, handleChange, closeAdd, brandName , bio , email , website , phoneNo }) => {
 
     return (
         <Dialog
@@ -21,7 +21,8 @@ const EditBrand = ({ open, handleChange, closeAdd }) => {
                         id='outlined-basic'
                         fullWidth
                         label='Brand Name'
-                        variant='outlined'
+												variant='outlined'
+												value = {brandName}
                         // value="Sam Ozkural"
                     />
                 </Grid>
@@ -31,7 +32,8 @@ const EditBrand = ({ open, handleChange, closeAdd }) => {
                         id='outlined-basic'
                         fullWidth
                         label='Bio'
-                        variant='outlined'
+												variant='outlined'
+												value = {bio}
                         // value="@samozkural"
                     />
                 </Grid>
@@ -41,7 +43,8 @@ const EditBrand = ({ open, handleChange, closeAdd }) => {
                         id='outlined-basic'
                         fullWidth
                         label='Email'
-                        variant='outlined'
+												variant='outlined'
+												value = {email}
 												// value="samozkural@gmail.com"
 												InputProps={{
 													endAdornment: (
@@ -56,8 +59,10 @@ const EditBrand = ({ open, handleChange, closeAdd }) => {
                     <TextField
                         id='outlined-basic'
                         fullWidth
-                        label='Website Url'
-                        variant='outlined'
+                        label='Website URL'
+												variant='outlined'
+												value = {website}
+												
                         // value="samozkural@gmail.com"
                     />
                 </Grid>
@@ -69,6 +74,7 @@ const EditBrand = ({ open, handleChange, closeAdd }) => {
                         fullWidth
                         label='Mobile Number'
 												variant='outlined'
+												value = {phoneNo}
 												InputProps={{
 													endAdornment: (
 														<InputAdornment position='end'>

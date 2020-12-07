@@ -108,6 +108,7 @@ const Account = ({fullname, handleFullName , email , handleEmail , brandName , h
           </Grid>
           <Grid item xs={6}>
             <TextField
+							disabled = {editPassword ? false : true}
               id='outlined-basic'
               fullWidth
               label={editPassword ? 'Old Password' : 'Password'}   

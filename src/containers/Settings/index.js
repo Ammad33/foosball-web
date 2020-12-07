@@ -237,7 +237,7 @@ const Setting = () => {
             }}
             brandName={brandName}
             handleBrandName={(e) => {
-              setBrandName(e.target.value);
+            setBrandName(e.target.value);
             }}
           />
         );

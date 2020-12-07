@@ -9,6 +9,7 @@ import DoneIcon from '@material-ui/icons/Done';
 
 
 
+
 const EditProduct = ({ open, handleChange, closeAdd }) => {
 	 const handleDelete = () => {
     console.info('You clicked the delete icon.');

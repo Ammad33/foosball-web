@@ -112,7 +112,7 @@ const InfluencerConnectAccounts = () => {
       <div className={styles.influencerSocialAccountsContainer}>
         {socialAccounts.map((account) => {
           return (
-            <div className={styles.influencerSocialAccountItem}>
+            <div className={styles.influencerSocialAccountItem} style={{marginTop: "25px"}}>
               <p className={styles.title}>{account.name}</p>
               <div className={styles.contentContainer}>
                 <div>{account.svg}</div>

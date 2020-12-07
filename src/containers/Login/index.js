@@ -25,7 +25,14 @@ const Login = () => {
 
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
-  };
+	};
+	
+
+  const handleKeypress = e => {
+	if (e.keyCode === 13) {
+		onSignin();
+	}
+};
 
   const {
     currentUser,
@@ -108,7 +115,8 @@ const Login = () => {
       <TextField
         id='outlined-basic'
         onChange={(e) => setEmail(e.target.value)}
-        label='Email'
+				label='Email'				
+				onKeyDown={handleKeypress}
         variant='outlined'
         type='text'
       />
@@ -116,7 +124,8 @@ const Login = () => {
         id='outlined-basic'
         onChange={(e) => setPassword(e.target.value)}
         label='Password'
-        variant='outlined'
+				variant='outlined'
+				onKeyDown={handleKeypress}
         type={passwordShown ? 'text' : 'password'}
         InputProps={{
           endAdornment: (
