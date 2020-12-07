@@ -46,7 +46,7 @@ const LeftSideDrawer = () => {
   return (
     <>
       <ListItem
-				className = {styles.listItem}
+        className={styles.listItem}
         icon={<IconCampaign />}
         active={activeRoute === 'Campaign' ? true : false}
         title={'Campaigns'}
@@ -78,13 +78,13 @@ const LeftSideDrawer = () => {
         title={'Messages'}
       />
 
-			<ListItem
+      <ListItem
         icon={<Users />}
         active={activeRoute === 'Contacts' ? true : false}
-        onClick={() => { 
-					setActiveRoute('Contacts')	
-					history.push('/contacts')
-				}}
+        onClick={() => {
+          setActiveRoute('Contacts')
+          history.push('/contacts')
+        }}
         title={'Contacts'}
       />
 
@@ -111,7 +111,7 @@ const LeftSideDrawer = () => {
         </Button>
       </div> */}
 
-      <div className={styles.tokenContainer}>
+      {/* <div className={styles.tokenContainer}>
         <p>Email: {currentUser.attributes.email}</p>
         <p>Access Token: </p>
         <p className={styles.token}>
@@ -125,7 +125,7 @@ const LeftSideDrawer = () => {
         <p className={styles.token}>
           {currentUser.signInUserSession.refreshToken.token}
         </p>
-      </div>
+      </div> */}
     </>
   );
 };
