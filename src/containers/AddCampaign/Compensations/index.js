@@ -16,6 +16,8 @@ const Chevron = () => {
   );
 };
 
+
+
 const Compensations = ({
   compensations,
   handleCompensations,
@@ -38,6 +40,9 @@ const Compensations = ({
       setAnother(true);
     }
   };
+
+  console.log(compensations);
+  console.log(compensations);
 
   const [handleAnother, setAnother] = useState(false);
   handleActiveForCompensation();
@@ -99,12 +104,12 @@ const Compensations = ({
           handleCompensationProductItem={handleCompensationProductItem}
         />
       ))}
-      {handleAnother && (
+      {compensations.length > 0 && compensations.length !== 4 &&
         <button className={styles.addDeliverable} onClick={handleCompensations}>
           {' '}
           <AddIcon /> Add another compensation type
         </button>
-      )}
+      }
     </div>
   );
 };

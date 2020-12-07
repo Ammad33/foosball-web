@@ -327,8 +327,13 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
               : ''
           : ''
       );
-      if (campaign.compensation && campaign.compensation !== null) {
+      if (campaign.compensation && campaign.compensation !== null && campaign.compensation.length !== 0) {
         setCompensation(campaign.compensation);
+      } else {
+        setCompensations([{
+          compensationType: '',
+          amount: '',
+        }])
       }
       if (campaign.budget && campaign.budget) {
         setBudget(campaign.budget.amount);
@@ -639,7 +644,12 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
 
   const handleCompensationValue = (value, index, fieldName) => {
     const comp = [...compensations];
-
+    if (fieldName === 'compensationType') {
+      const found = comp.findIndex(item => item.compensationType === value);
+      if (found !== -1) {
+        return;
+      }
+    }
     comp[index][fieldName] = value;
 
     setCompensations(comp);
