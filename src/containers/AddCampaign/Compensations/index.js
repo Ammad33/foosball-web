@@ -34,6 +34,8 @@ const Compensations = ({
   compensationProducts,
   handleActiveForCompensationProduct,
   handleCompensationProductItem,
+  giftCode,
+  handleGiftCode
 }) => {
   const checkAddAnother = () => {
     if (addAnother == true) {
@@ -87,6 +89,8 @@ const Compensations = ({
       </Grid>
       {compensations.map((item, index) => (
         <CreateCompensation
+          giftCode={giftCode}
+          handleGiftCode={handleGiftCode}
           item={item}
           key={index}
           compensations={compensations}

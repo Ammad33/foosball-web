@@ -23,7 +23,7 @@ const CompensationDetail = ({ compensations, budget }) => {
         switch (compensation.__typename) {
             case 'CompRevenueShare':
                 return (
-                    <h6>${compensation.percentage && compensation.percentage * parseFloat(budget)}</h6>);
+                    <h6>${parseFloat(compensation.percentage && compensation.percentage * parseFloat(budget)).toFixed(2)}</h6>);
             case 'CompCashPerPost':
                 return (<h6>${compensation.amount && compensation.amount.amount}</h6>);
             case 'CompCashPerMonthlyDeliverable':
@@ -65,12 +65,12 @@ const CompensationDetail = ({ compensations, budget }) => {
         let total = 0;
         compensations.forEach(item => {
             if (item.__typename === 'CompRevenueShare') {
-                total = total + parseInt(item.percentage * parseFloat(budget));
+                total = total + parseFloat(item.percentage * parseFloat(budget));
             } else {
-                total = total + parseInt(item.amount.amount);
+                total = total + parseFloat(item.amount.amount);
             }
         })
-        return total;
+        return parseFloat(total).toFixed(2);
     }
 
     return (<div className={styles.compensationContainer}>

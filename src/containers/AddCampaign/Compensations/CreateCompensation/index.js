@@ -44,11 +44,13 @@ const CreateCompensation = ({
   compensationProducts,
   handleActiveForCompensationProduct,
   handleCompensationProductItem,
+  giftCode,
+  handleGiftCode
 }) => {
   useEffect(() => {
     handleActiveForCompensationProduct();
   }, [compensations]);
-
+  console.log(item);
 
   return (
     <Grid container spacing={3}>
@@ -66,7 +68,7 @@ const CreateCompensation = ({
         )}
       </Grid>
       <Grid item xs={12} className={styles.marginbottomSelect}>
-        <FormControl fullWidth variant='outlined'>
+        <FormControl fullWidth variant='outlined-123'>
           <Select
             labelId='demo-simple-select-outlined-label'
             id='demo-simple-select-outlined'
@@ -91,9 +93,7 @@ const CreateCompensation = ({
               Compensation Type
             </MenuItem>
             <MenuItem value={'CASH_PER_POST'}>Cash per post</MenuItem>
-            <MenuItem value={'CASH_PER_MONTHLY_DELIVERABLE'}>
-              Cash per monthly deliverable
-            </MenuItem>
+            <MenuItem value={'CASH_PER_MONTHLY_DELIVERABLE'}>Cash per monthly deliverable</MenuItem>
             <MenuItem value={'REVENUE_SHARE'}>Revenue Share</MenuItem>
             <MenuItem value={'GIFT_CARD'}>Gift Card</MenuItem>
             <MenuItem value={'PRODUCT'}>Products</MenuItem>
@@ -101,7 +101,7 @@ const CreateCompensation = ({
         </FormControl>
       </Grid>
 
-      {item.compensationType != '' &&
+      {item.compensationType !== '' && item.compensationType !== 'REVENUE_SHARE' && item.compensationType !== 'GIFT_CARD' &&
         (
           <Grid item xs={12} sm={12} md={12}>
             <TextField
@@ -122,7 +122,7 @@ const CreateCompensation = ({
             />
           </Grid>
         )}
-      {item.compensationType === 'Revenue Share' && (
+      {item.compensationType === 'REVENUE_SHARE' && (
         <Grid item xs={12} sm={12} md={12}>
           <FormControl fullWidth variant='outlined'>
             <Select
@@ -151,11 +151,11 @@ const CreateCompensation = ({
           </FormControl>
         </Grid>
       )}
-      {item.compensationType === 'Gift Card' && (
+      {item.compensationType === 'GIFT_CARD' &&
         <Grid item xs={12} sm={12} md={12}>
           <TextField
             className={styles.marginbottomSelect}
-            id='outlined-basic'
+            id='outlined-basic123'
             fullWidth
             type='number'
             label='Enter Amount'
@@ -175,14 +175,12 @@ const CreateCompensation = ({
             fullWidth
             label='Paste gift card code'
             variant='outlined'
-            value={item.giftcode}
+            value={giftCode}
             className={styles.giftCard}
-            onChange={(e) =>
-              handleCompensationValue(e.target.value, index, 'giftcode')
-            }
+            onChange={handleGiftCode}
           />
         </Grid>
-      )}
+      }
       {item.compensationType === 'Products' && (
         <Grid item xs={12} sm={12} md={12}>
           <Collection

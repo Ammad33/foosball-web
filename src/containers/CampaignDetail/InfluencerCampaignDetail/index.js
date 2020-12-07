@@ -15,6 +15,7 @@ import LiveInfluencer from '../LiveInfluencer';
 import DeclineInfluencer from '../DeclineInfluencer';
 import DraftBrandCampaignDetail from '../DraftBrandCampaignDetail';
 import _ from 'lodash';
+import { parse } from 'path';
 
 const CampaignDetailInfluencer = ({ status, addCampaign, setAddCampagin, data }) => {
 
@@ -132,12 +133,12 @@ const CampaignDetailInfluencer = ({ status, addCampaign, setAddCampagin, data })
     let total = 0;
     compensations && compensations !== null && compensations.length > 0 && compensations.forEach(item => {
       if (item.__typename === 'CompRevenueShare' && data && data.budget) {
-        total = total + parseInt(item.percentage * parseFloat(data && data.budget));
+        total = total + parseFloat(item.percentage) * parseInt(data.budget.amount);
       } else {
-        total = total + parseInt(item.amount.amount);
+        total = total + parseFloat(item.amount.amount);
       }
     })
-    return total;
+    return parseFloat(total).toFixed(2);
   }
 
   return (

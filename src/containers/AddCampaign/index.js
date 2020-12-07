@@ -258,6 +258,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   const [startTimeOpen, setStartTimeOpen] = useState(false);
   const [endTimeOpen, setEndTimeOpen] = useState(false);
 
+  const [giftCode, setGiftCode] = useState('');
+
   /***** Budget and Target Sales ********/
 
   const [budget, setBudget] = useState('');
@@ -647,7 +649,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
     const comp = [...compensations];
     if (fieldName === 'compensationType') {
       const found = comp.findIndex(item => item.compensationType === value);
-      if (found !== -1) {
+      if (found !== -1 || value == 'PRODUCT') {
         return;
       }
     }
@@ -939,6 +941,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
             amount: item.amount.amount,
           };
         case 'CompGiftCard':
+          setGiftCode(item.code);
           return {
             compensationType: 'GIFT_CARD',
             amount: item.amount.amount,
@@ -974,7 +977,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
             value:
               '{"amount":{"amount": "' +
               item.amount +
-              '","currency":"USD"}, "code": "ABC123" }',
+              '","currency":"USD"}, "code": "' + giftCode + '" }',
           };
       }
     });
@@ -1134,8 +1137,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
       compensation.forEach((comp) => {
         if (
           comp.compensationType === '' ||
-          comp.amount === ''
+          comp.amount === '' || (comp.compensationType === 'GIFT_CARD' && giftCode === '')
         ) {
+
           flag = false;
         }
       });
@@ -1288,6 +1292,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
             compensationProducts={compensationProducts}
             handleActiveForCompensationProduct={setActiveForCompensation}
             handleCompensationProductItem={handleCompensationProductItem}
+            giftCode={giftCode}
+            handleGiftCode={(e) => setGiftCode(e.target.value)}
+
           />
         );
       case 7:
@@ -1516,14 +1523,14 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                 ) : null}
               </div>
               <button
-                onClick={(e) => activeStep == 9 ? createCampaign() : handleNext(activeStep, e)}
+                onClick={(e) => campaign !== undefined && activeStep === 9 ? updateCampaign() : activeStep == 9 ? createCampaign() : handleNext(activeStep, e)}
                 className={clsx(
                   styles.nextButton,
                   activeNext ? styles.activeButton : styles.inActiveButton
                 )}
                 disabled={!activeNext}
               >
-                {activeStep == 9 ? 'Send Invite' : 'Next'}
+                {campaign !== undefined && activeStep === 9 ? 'Update Campaign' : activeStep == 9 ? 'Send Invite' : 'Next'}
               </button>
             </div>
           </div>
