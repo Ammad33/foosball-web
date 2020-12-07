@@ -56,7 +56,7 @@ const EditBrand = ({ open, handleChange, closeAdd }) => {
                     <TextField
                         id='outlined-basic'
                         fullWidth
-                        label='Website Url'
+                        label='Website URL'
                         variant='outlined'
                         // value="samozkural@gmail.com"
                     />

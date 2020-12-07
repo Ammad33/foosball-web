@@ -10,7 +10,7 @@ import EditProduct from './EditProduct';
 const ProductCategories = ({ handleEdit }) => {
 	const [editOpen, setEditOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
-	const [productCategories, setProductCategories] = useState(false);
+	const [productCategories, setProductCategories] = useState(true);
 
 	const handleClose = () => {
 		setAnchorEl(null);

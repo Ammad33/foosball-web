@@ -11,7 +11,7 @@ import EditPopularProducts from './EditPopularProducts';
 const PopularProducts = ({ handleEdit }) => {
 	const [editOpen, setEditOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
-	const [popularProducts, setPopularProducts] = useState(false);
+	const [popularProducts, setPopularProducts] = useState(true);
 
 	const handleClose = () => {
 		setAnchorEl(null);

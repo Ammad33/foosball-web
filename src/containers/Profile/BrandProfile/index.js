@@ -25,8 +25,8 @@ const BrandProfile = () => {
 		<>
 			<div className={styles.ProfileContainer}>
 				<Grid container>
-					<Grid container spacing={3} md={10}>
-						<Grid item xs={12} sm={12} md={10}>
+					<Grid container spacing={3} md={9}>
+						<Grid item xs={12} sm={12} md={9}>
 
 							<div className={styles.ProfileHeading}>
 								<Avatar
@@ -45,15 +45,15 @@ const BrandProfile = () => {
 						<Grid item xs={12} sm={12} md={5}>
 							<BrandInformation />
 						</Grid>
-						<Grid item xs={12} sm={12} md={5}>
+						<Grid item xs={12} sm={12} md={6}>
 							<ProductCategories />
 						</Grid>
-						<Grid item xs={12} sm={12} md={8}>
+						<Grid item xs={12} sm={12} md={11}>
 							<PopularProducts />
 						</Grid>
 					</Grid>
-					<Grid item xs={12} sm={12} md={2} className={styles.exploreInfluencers} >
-						<RightMenu/>
+					<Grid item xs={12} sm={12} md={1} className={styles.exploreInfluencers} >
+						<RightMenu />
 					</Grid>
 				</Grid>
 

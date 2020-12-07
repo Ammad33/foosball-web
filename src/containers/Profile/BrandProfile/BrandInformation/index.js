@@ -27,7 +27,7 @@ const Globe = () => {
 const BrandInformation = ({ handleEdit }) => {
 	const [editOpen, setEditOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
-	const [brandInformation, setBrandInformation] = useState(false);
+	const [brandInformation, setBrandInformation] = useState(true);
 
 	const handleClose = () => {
 		setAnchorEl(null);
