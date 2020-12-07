@@ -40,6 +40,8 @@ const CampaignDetailInfluencer = ({ status, addCampaign, setAddCampagin, data })
             handleEdit={handleEdit}
             handleSeeClick={handleSeeClick}
             data={data}
+            getTotal={getTotal}
+            name={data && data.name}
           />
         );
       case 'CLOSED':
@@ -48,6 +50,8 @@ const CampaignDetailInfluencer = ({ status, addCampaign, setAddCampagin, data })
             data={data}
             handleEdit={handleEdit}
             handleSeeClick={handleSeeClick}
+            getTotal={getTotal}
+            name={data && data.name}
           />
         );
       case 'LIVE':
@@ -56,6 +60,8 @@ const CampaignDetailInfluencer = ({ status, addCampaign, setAddCampagin, data })
             data={data}
             handleEdit={handleEdit}
             handleSeeClick={handleSeeClick}
+            getTotal={getTotal}
+            name={data && data.name}
           />
         );
       case 'INVITE':
@@ -64,6 +70,8 @@ const CampaignDetailInfluencer = ({ status, addCampaign, setAddCampagin, data })
             data={data}
             handleEdit={handleEdit}
             handleSeeClick={handleSeeClick}
+            getTotal={getTotal}
+            name={data && data.name}
           />
         );
       case 'LOST':
@@ -72,6 +80,8 @@ const CampaignDetailInfluencer = ({ status, addCampaign, setAddCampagin, data })
             data={data}
             handleEdit={handleEdit}
             handleSeeClick={handleSeeClick}
+            getTotal={getTotal}
+            name={data && data.name}
           />
         );
       case 'PENDING':
@@ -80,6 +90,8 @@ const CampaignDetailInfluencer = ({ status, addCampaign, setAddCampagin, data })
             data={data}
             handleEdit={handleEdit}
             handleSeeClick={handleSeeClick}
+            getTotal={getTotal}
+            name={data && data.name}
           />
         );
       case 'DECLINED':
@@ -88,6 +100,8 @@ const CampaignDetailInfluencer = ({ status, addCampaign, setAddCampagin, data })
             data={data}
             handleEdit={handleEdit}
             handleSeeClick={handleSeeClick}
+            getTotal={getTotal}
+            name={data && data.name}
           />
         );
       default:
@@ -114,6 +128,17 @@ const CampaignDetailInfluencer = ({ status, addCampaign, setAddCampagin, data })
     setElement(value);
     setOpenDrawer(true);
   };
+  const getTotal = (compensations) => {
+    let total = 0;
+    compensations && compensations !== null && compensations.length > 0 && compensations.forEach(item => {
+      if (item.__typename === 'CompRevenueShare' && data && data.budget) {
+        total = total + parseInt(item.percentage * parseFloat(data && data.budget));
+      } else {
+        total = total + parseInt(item.amount.amount);
+      }
+    })
+    return total;
+  }
 
   return (
     <>

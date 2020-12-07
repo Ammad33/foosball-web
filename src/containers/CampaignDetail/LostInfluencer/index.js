@@ -18,7 +18,7 @@ import BudgetAndConversion from '../BudgetAndConversion';
 import Negotiables from '../Negotiables';
 import _ from 'lodash';
 
-const LostInfluencer = ({ handleEdit, data, handleSeeClick }) => {
+const LostInfluencer = ({ handleEdit, data, handleSeeClick, name }) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -64,11 +64,11 @@ const LostInfluencer = ({ handleEdit, data, handleSeeClick }) => {
         <div className={styles.CampaignHeading}>
           <span onClick={() => history.push('/campaigns')}>Campaigns</span>
           <ChevronRight />
-          <span>Campaigns Name</span>
+          <span>{name}</span>
         </div>
         <div className={styles.subHeadingSection}>
           <div className={styles.subCampaignSubHeading}>
-            <p>Promotion: 15%</p>
+            <p>Promotion: {data && data.discount && data.discount.amount ? data.discount.amount.amount : data && data.discount && data.discount.percentage ? data.discount.percentage : ''} {data && data.discount && data.discount.percentage ? '%' : data.discount.amount ? '$' : ''}</p>
             <div className={styles.borderDiv}></div>
             <Chip
               className={clsx(styles.campaignStatus, styles.lost)}

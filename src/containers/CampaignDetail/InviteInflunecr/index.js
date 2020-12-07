@@ -12,7 +12,7 @@ import { useHistory } from 'react-router-dom';
 import InviteCard from '../InviteCard';
 import _ from 'lodash';
 
-const InviteInfluencer = ({ handleEdit, data, handleSeeClick }) => {
+const InviteInfluencer = ({ handleEdit, data, handleSeeClick, getTotal, name }) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -58,11 +58,11 @@ const InviteInfluencer = ({ handleEdit, data, handleSeeClick }) => {
         <div className={styles.CampaignHeading}>
           <span onClick={() => history.push('/campaigns')}>Campaigns</span>
           <ChevronRight />
-          <span>Campaigns Name</span>
+          <span>{name}</span>
         </div>
         <div className={styles.subHeadingSection}>
           <div className={styles.subCampaignSubHeading}>
-            <p>Estimated Compensation: $2,600</p>
+            <p>Estimated Compensation: ${getTotal(data && data.compensation)}</p>
             <div className={styles.borderDiv}></div>
             <Chip
               className={clsx(styles.campaignStatus, styles.invite)}

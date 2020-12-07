@@ -112,6 +112,7 @@ const BrandCampaignDetail = ({ status, addCampaign, setAddCampagin, data }) => {
             handleEdit={handleEdit}
             handleSeeClick={handleSeeClick}
             data={data}
+            name={data && data.name}
           />
         );
       case 'CLOSED':
@@ -120,6 +121,7 @@ const BrandCampaignDetail = ({ status, addCampaign, setAddCampagin, data }) => {
             handleEdit={handleEdit}
             handleSeeClick={handleSeeClick}
             data={data}
+            name={data && data.name}
           />
         );
       case 'LIVE':
@@ -128,6 +130,7 @@ const BrandCampaignDetail = ({ status, addCampaign, setAddCampagin, data }) => {
             handleEdit={handleEdit}
             handleSeeClick={handleSeeClick}
             data={data}
+            name={data && data.name}
           />
         );
       case 'INVITE':
@@ -136,6 +139,7 @@ const BrandCampaignDetail = ({ status, addCampaign, setAddCampagin, data }) => {
             handleEdit={handleEdit}
             handleSeeClick={handleSeeClick}
             data={data}
+            name={data && data.name}
           />
         );
       case 'LOST':
@@ -144,6 +148,7 @@ const BrandCampaignDetail = ({ status, addCampaign, setAddCampagin, data }) => {
             handleEdit={handleEdit}
             handleSeeClick={handleSeeClick}
             data={data}
+            name={data && data.name}
           />
         );
       case 'PENDING':
@@ -152,6 +157,7 @@ const BrandCampaignDetail = ({ status, addCampaign, setAddCampagin, data }) => {
             handleEdit={handleEdit}
             handleSeeClick={handleSeeClick}
             data={data}
+            name={data && data.name}
           />
         );
       case 'DECLINED':
@@ -160,6 +166,7 @@ const BrandCampaignDetail = ({ status, addCampaign, setAddCampagin, data }) => {
             handleEdit={handleEdit}
             handleSeeClick={handleSeeClick}
             data={data}
+            name={data && data.name}
           />
         );
       default:

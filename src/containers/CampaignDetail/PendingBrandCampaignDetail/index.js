@@ -42,7 +42,7 @@ import _ from 'lodash';
 
 import styles from './PendingBrandCampaignDetail.module.scss';
 
-const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
+const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
   const [pendingOffer, setPendingOffer] = useState(false);
@@ -172,12 +172,12 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick }) => {
         <div className={styles.CampaignHeading}>
           <span onClick={() => history.push('/campaigns')}>Campaigns</span>
           <ChevronRight />
-          <span>Campaign Name</span>
+          <span>{name}</span>
         </div>
         <div className={styles.campaignBasicInfo}>
           <div className={styles.campaignStatus}>
             <div>
-              <h4 className={styles.promotion}>Promotion: 15%</h4>
+              <h4 className={styles.promotion}>Promotion: {data && data.discount && data.discount.amount ? data.discount.amount.amount : data && data.discount && data.discount.percentage ? data.discount.percentage : ''} {data && data.discount && data.discount.percentage ? '%' : data.discount.amount ? '$' : ''}</h4>
             </div>
             <div>
               <Chip

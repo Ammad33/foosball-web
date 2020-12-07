@@ -56,10 +56,16 @@ const AddCampaignDetails = ({
   // const classes = useStyles();
   useEffect(() => {
     filledForm();
+    partialFilledForm();
   }, [
     campaignName,
     startDate,
     endDate,
+    startTime,
+    endTime,
+    discount,
+    discountType,
+    customeMessage
   ]);
 
   useEffect(() => {

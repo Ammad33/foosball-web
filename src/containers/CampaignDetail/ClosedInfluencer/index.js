@@ -14,7 +14,7 @@ import Contract from '../Contract';
 import { useHistory } from 'react-router-dom';
 import _ from 'lodash';
 
-const ClosedInfluencer = ({ handleEdit, data, handleSeeClick }) => {
+const ClosedInfluencer = ({ handleEdit, data, handleSeeClick, getTotal, name }) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -60,11 +60,11 @@ const ClosedInfluencer = ({ handleEdit, data, handleSeeClick }) => {
         <div className={styles.CampaignHeading}>
           <span onClick={() => history.push('/campaigns')}>Campaigns</span>
           <ChevronRight />
-          <span>Campaigns Name</span>
+          <span>{name}</span>
         </div>
         <div className={styles.subHeadingSection}>
           <div className={styles.subCampaignSubHeading}>
-            <p>Estimated Compensation: $2,600</p>
+            <p>Estimated Compensation: ${getTotal(data && data.compensation)}</p>
             <div className={styles.borderDiv}></div>
             <Chip className={clsx(styles.campaignStatus)} label={'Closed'} />
             <div className={styles.borderDiv}></div>

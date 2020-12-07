@@ -366,6 +366,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
         setDeliveries(campaign.deliverables);
       }
     }
+    filledForm();
   }, [step]);
 
   useEffect(() => {
@@ -1088,20 +1089,20 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   /************* Active for deliverable */
 
   const setActiveForDeliverables = () => {
-		debugger;
+    debugger;
     const deliverables = [...deliveries];
 
     let flag = true;
     // deliverables.forEach((delive) => {
-		// 	if (delive.platform === 'Facebook')
-		// 		{
-		// 			if (delive.deliverableType == 'Post'){
-		// 				delive.framesRequired = null;
-		// 			}
-		// 			else if (delive.framesRequired == null) {
-		// 				delive.framesRequired = '';
-		// 			}
-		// 		}
+    // 	if (delive.platform === 'Facebook')
+    // 		{
+    // 			if (delive.deliverableType == 'Post'){
+    // 				delive.framesRequired = null;
+    // 			}
+    // 			else if (delive.framesRequired == null) {
+    // 				delive.framesRequired = '';
+    // 			}
+    // 		}
     //   if (
     //     delive.deadlineDate === '' ||
     //     delive.platform === '' ||
@@ -1219,7 +1220,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
             handleCustomMessage={(e) => {
               setCustomMessage(e.target.value);
             }}
-            filledForm={partialFilledForm}
+            filledForm={filledForm}
             partialFilledForm={partialFilledForm}
           />
         );
@@ -1340,12 +1341,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
 
     if (campaignName !== '' && startDate !== '' && endDate !== '') {
       setActiveSave(true);
-      setActiveNext(true);
-      console.log('active');
     } else {
       setActiveSave(false);
-      setActiveNext(false);
-      console.log('Inactive');
     }
   };
 
@@ -1354,8 +1351,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
       campaignName !== '' &&
       startDate !== '' &&
       endDate !== '' &&
-      startTime !== '' &&
-      endTime !== '' &&
+      startTime !== '00:00' &&
+      endTime !== '00:00' &&
       discount !== '' &&
       discountType !== '' &&
       customeMessage !== '' &&
@@ -1387,13 +1384,12 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   };
 
   const handleCancelCampaignDialog = () => {
-		debugger;
-		if (campaignName != '' && startDate != '' && endDate != ''){
-			setOpenCDialog(true);
-		}
-		else {
-			handleCancel();
-		}
+    if (campaignName != '' && startDate != '' && endDate != '') {
+      setOpenCDialog(true);
+    }
+    else {
+      handleCancel();
+    }
   };
 
   const handleCancelCDialog = () => {
