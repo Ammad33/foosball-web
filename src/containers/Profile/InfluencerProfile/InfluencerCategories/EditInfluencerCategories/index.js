@@ -4,7 +4,16 @@ import styles from './EditInfluencerCategories.module.scss';
 import TextField from '../../../../../components/TextField';
 import { HelpCircle, Search } from 'react-feather';
 import Chip from '@material-ui/core/Chip';
-import DoneIcon from '@material-ui/icons/Done';
+import SVG from 'react-inlinesvg';
+
+
+const Done = () => {
+	return (
+	<span className={styles.Done}>
+  	 <SVG src={require('../../../../../assets/check.svg')} />
+	</span>
+	)
+};
 
 
 
@@ -47,7 +56,7 @@ const EditInfluencerCategories = ({ open, handleChange, closeAdd }) => {
 					label="Active Lifestyle"
 					className={styles.chip}
 					onDelete={handleDelete}
-					deleteIcon={<DoneIcon />}
+					deleteIcon={<Done />}
 				// onClick={}
 				/>
 				<Chip
@@ -55,7 +64,7 @@ const EditInfluencerCategories = ({ open, handleChange, closeAdd }) => {
 					label="Beauty"
 					className={styles.chip}
 					onDelete={handleDelete}
-					deleteIcon={<DoneIcon />}
+					deleteIcon={<Done />}
 
 				// onClick={}
 				/>
@@ -64,7 +73,7 @@ const EditInfluencerCategories = ({ open, handleChange, closeAdd }) => {
 					label="Clean Editing"
 					className={styles.chip}
 					onDelete={handleDelete}
-					deleteIcon={<DoneIcon />}
+					deleteIcon={<Done />}
 
 				// onClick={}
 				/>
@@ -73,7 +82,7 @@ const EditInfluencerCategories = ({ open, handleChange, closeAdd }) => {
 					label="Clickable"
 					className={styles.chip}
 					onDelete={handleDelete}
-					deleteIcon={<DoneIcon />}
+					deleteIcon={<Done />}
 				// onClick={}
 				/>
 				<Chip
@@ -81,7 +90,7 @@ const EditInfluencerCategories = ({ open, handleChange, closeAdd }) => {
 					label="Clickable"
 					className={styles.chip}
 					onDelete={handleDelete}
-					deleteIcon={<DoneIcon />}
+					deleteIcon={<Done />}
 				// onClick={}
 				/>
 				<Chip
@@ -89,7 +98,7 @@ const EditInfluencerCategories = ({ open, handleChange, closeAdd }) => {
 					label="Clickable"
 					className={styles.chip}
 					onDelete={handleDelete}
-					deleteIcon={<DoneIcon />}
+					deleteIcon={<Done />}
 				// onClick={}
 				/>
 

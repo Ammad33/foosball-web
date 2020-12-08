@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,6 +10,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import LeftSideDrawer from '../../components/LeftSideDrawer';
 import Header from './../../components/Header';
+import { RootContext } from './../../context/RootContext';
 import Brand from '../../components/Brand';
 import { API } from 'aws-amplify';
 
@@ -64,8 +65,14 @@ function ResponsiveDrawer(props) {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [meData, setMeData] = useState([]);
-  const [brandName, setBrandName] = useState([]);
-	const [brandId, setBrandId] = useState([]);
+
+	const { 
+		setBrandIdd,
+		brands,
+		brandName,
+		setBrandName,
+		brandType,
+		setBrandType } = useContext(RootContext);
 	
 	useEffect(() => {
 		myData();
@@ -110,13 +117,12 @@ function ResponsiveDrawer(props) {
 			});
       // setBrandId(mydata.data.me.organizations[0].organization.id);
       setMeData(mydata.data.me);
-      // setBrandName(mydata.data.me.organizations[0].organization.__typename)
+      // setBrandType(mydata.data.me.organizations[0].organization.__typename)
     } catch (e) {
       console.log(e);
     }
   };
 
- 
   const container =
     window !== undefined ? () => window().document.body : undefined;	
   return (
@@ -133,7 +139,7 @@ function ResponsiveDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Header meData={meData} />
+          <Header    meData={meData} brandType = {brandType} />
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label='mailbox folders'>

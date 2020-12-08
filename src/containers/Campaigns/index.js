@@ -28,8 +28,8 @@ const Campaigns = () => {
     if (!brandId || brandId === '') {
       getMeData();
     }
-  }, []);
-
+	}, []);
+	
   const getMeData = async () => {
     try {
       const mydata = await API.graphql({
@@ -72,7 +72,6 @@ const Campaigns = () => {
       console.log(e);
     }
   };
-
   const getCampaigns = async () => {
     try {
       const campaigns = await API.graphql({
@@ -88,8 +87,8 @@ const Campaigns = () => {
           }
         }
       }`,
-      });
-      setCampaigns(campaigns.data.campaigns.campaigns);
+			});
+			setCampaigns(campaigns.data.campaigns.campaigns);
     } catch (e) { }
   };
 
@@ -97,7 +96,7 @@ const Campaigns = () => {
   useEffect(() => {
     if (brandId !== '') {
       setCampaigns([]);
-      getCampaigns();
+			getCampaigns();
     }
   }, [brandId, addCampaign]);
 
