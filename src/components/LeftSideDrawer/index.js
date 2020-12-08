@@ -74,7 +74,10 @@ const LeftSideDrawer = () => {
       <ListItem
         icon={<IconMessages />}
         active={activeRoute === 'Messages' ? true : false}
-        onClick={() => setActiveRoute('Messages')}
+        onClick={() => {
+          setActiveRoute('Messages');
+          history.push('/messages');
+        }}
         title={'Messages'}
       />
 
@@ -82,8 +85,8 @@ const LeftSideDrawer = () => {
         icon={<Users />}
         active={activeRoute === 'Contacts' ? true : false}
         onClick={() => {
-          setActiveRoute('Contacts')
-          history.push('/contacts')
+          setActiveRoute('Contacts');
+          history.push('/contacts');
         }}
         title={'Contacts'}
       />

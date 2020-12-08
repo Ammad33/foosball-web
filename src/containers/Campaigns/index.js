@@ -15,7 +15,6 @@ const IconCampaign = () => {
 };
 
 const Campaigns = () => {
-
   const history = useHistory();
   const [active, setActive] = useState('ALL');
   const [campaigns, setCampaigns] = useState([]);
@@ -72,7 +71,6 @@ const Campaigns = () => {
       console.log(e);
     }
   };
-
   const getCampaigns = async () => {
     try {
       const campaigns = await API.graphql({
@@ -90,9 +88,8 @@ const Campaigns = () => {
       }`,
       });
       setCampaigns(campaigns.data.campaigns.campaigns);
-    } catch (e) { }
+    } catch (e) {}
   };
-
 
   useEffect(() => {
     if (brandId !== '') {
@@ -101,17 +98,15 @@ const Campaigns = () => {
     }
   }, [brandId, addCampaign]);
 
-
-
   return (
     <>
-      {addCampaign &&
+      {addCampaign && (
         <AddCampaign
           open={addCampaign}
           handleCancel={() => setAddCampagin(false)}
           brandId={brandId}
         />
-      }
+      )}
       <div className={styles.campaignsContainer}>
         <div className={styles.CampaignHeadingContainer}>
           <div className={styles.CampaignHeading}>
@@ -185,8 +180,8 @@ const Campaigns = () => {
             </Grid>
           </Grid>
         ) : (
-            ''
-          )}
+          ''
+        )}
         <Grid container spacing={3}>
           {campaigns.length > 0 &&
             campaigns.map((campaign) => {

@@ -22,7 +22,6 @@
     cursor: pointer;
   }
 }
-
 .CampaignHeadingButton {
   display: flex;
   flex-direction: row;
@@ -43,7 +42,6 @@
     outline: none;
   }
 }
-
 .allActive {
   background-color: $dark1 !important;
   border: none !important;
@@ -54,7 +52,6 @@
   outline: none;
   font-family: 'Poppins Light', sans-serif;
 }
-
 .draftActive {
   background-color: $brandDraft !important;
   border: none !important;
@@ -65,7 +62,6 @@
   outline: none;
   font-family: 'Poppins Light', sans-serif;
 }
-
 .liveActive {
   background-color: $brandLive !important;
   border: none !important;
@@ -86,7 +82,6 @@
   outline: none;
   font-family: 'Poppins Light', sans-serif;
 }
-
 .closedActive {
   background-color: $brandClosed !important;
   border: none !important;
@@ -97,7 +92,6 @@
   outline: none;
   font-family: 'Poppins Light', sans-serif;
 }
-
 .lostActive {
   background-color: $brandLost !important;
   border: none !important;
@@ -108,7 +102,6 @@
   outline: none;
   font-family: 'Poppins Light', sans-serif;
 }
-
 .gridItem {
   min-width: 395px;
   max-width: 395px;
@@ -118,7 +111,6 @@
   padding: 0px !important;
   margin: 12px !important;
 }
-
 .CampaignHeadingContainer {
   display: flex;
   flex-direction: row;
@@ -150,7 +142,7 @@
     outline: none;
   }
 }
-.noCampaignYet{
+.noCampaignYet {
   color: #000000;
   font-family: Poppins;
   font-size: 28px;
@@ -158,7 +150,7 @@
   letter-spacing: 0;
   line-height: 42px;
 }
-.noCampaignYetHelper{
+.noCampaignYetHelper {
   color: #000000;
   font-family: Poppins;
   font-size: 19px;
@@ -167,4 +159,3 @@
   line-height: 20px;
   text-align: center;
 }
-

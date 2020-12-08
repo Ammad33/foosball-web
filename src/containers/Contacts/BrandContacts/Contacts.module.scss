@@ -178,6 +178,7 @@
 	display: flex !important;
 	align-items: center !important;
 	margin-left: 25px	; 
+	margin-top: 10px;
 }
 .avatar {
 	height: 46px;
@@ -192,14 +193,15 @@
   line-height: 25px !important;
 }
 .avatarNameSocial{
-	 display: flex !important;
+	display: flex !important;
 	margin-left: 20px !important;
 	color: #000000 !important;
   font-family: Poppins !important; 
   font-size: 16px !important;
   letter-spacing: 0 !important;
-	line-height: 25px !important;
-	margin-bottom: 10px !important;
+	// line-height: 25px !important;
+	margin-bottom: 15px !important;
+	align-items: center;
 }
 
 

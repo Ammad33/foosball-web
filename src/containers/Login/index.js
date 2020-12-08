@@ -63,7 +63,6 @@ const Login = () => {
 	// 	getMeData();
 
   // }
-
   const getMeData = async () => {
     try {
       const mydata = await API.graphql({
@@ -97,11 +96,6 @@ const Login = () => {
 				}`,
 			});
       setMeData(mydata.data.me.organizations[0].organization.__typename);
-      if (mydata.data.me.organizations[0].organization.__typename == 'Brand') {
-        history.push(`/campaigns`);
-      } else {
-        history.push('/influencer');
-      }
     } catch (e) {
       console.log(e);
     }

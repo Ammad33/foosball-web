@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState , useHistory, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import styles from './Setting.module.scss';
 import Notifications from './Notifications';
@@ -6,6 +6,8 @@ import { API } from 'aws-amplify';
 import Account from './Account';
 import ConnectedAccounts from './ConnectedAccounts';
 import Billing from './Billing';
+import { RootContext } from '../../context/RootContext';
+
 
 const Setting = () => {
   const [active, setActive] = useState('account');
@@ -20,7 +22,11 @@ const Setting = () => {
   const [email, setEmail] = useState('');
   const [brandName, setBrandName] = useState([]);
   const [typeName, setTypeName] = useState([]);
-  const [brandId, setBrandId] = useState([]);
+	const [brandId, setBrandId] = useState([]);
+	const { 
+		brandType
+		 } = useContext(RootContext);
+
   useEffect(() => {
     myData();
   }, []);
@@ -216,11 +222,13 @@ const Setting = () => {
       setEmail(mydata.data.me.email);
       setFullName(mydata.data.me.fullName);
       setBrandName(mydata.data.me.organizations[0].organization.name);
-      setTypeName(mydata.data.me.organizations[0].organization.__typename)
+      setTypeName(mydata.data.me.organizations[1].organization.__typename)
     } catch (e) {
       console.log(e);
     }
-  };
+	};
+	debugger;
+
 
   const getContents = () => {
     switch (active) {
@@ -258,7 +266,7 @@ const Setting = () => {
       case 'connectedAccounts':
         return (
           <ConnectedAccounts
-            typeName={typeName}
+            typeName={brandType}
           />);
       case 'billing':
         return <Billing />
