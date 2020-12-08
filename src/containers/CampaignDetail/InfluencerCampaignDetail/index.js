@@ -17,7 +17,7 @@ import DraftBrandCampaignDetail from '../DraftBrandCampaignDetail';
 import _ from 'lodash';
 import { parse } from 'path';
 
-const CampaignDetailInfluencer = ({ status, addCampaign, setAddCampagin, data }) => {
+const CampaignDetailInfluencer = ({ status, handleDelete, addCampaign, setAddCampagin, data }) => {
 
   const [openDrawer, setOpenDrawer] = useState(false);
   const [step, setStep] = useState(1);
@@ -43,6 +43,8 @@ const CampaignDetailInfluencer = ({ status, addCampaign, setAddCampagin, data })
             data={data}
             getTotal={getTotal}
             name={data && data.name}
+            handleDelete={handleDelete}
+
           />
         );
       case 'CLOSED':
@@ -53,6 +55,7 @@ const CampaignDetailInfluencer = ({ status, addCampaign, setAddCampagin, data })
             handleSeeClick={handleSeeClick}
             getTotal={getTotal}
             name={data && data.name}
+            handleDelete={handleDelete}
           />
         );
       case 'LIVE':
@@ -63,6 +66,7 @@ const CampaignDetailInfluencer = ({ status, addCampaign, setAddCampagin, data })
             handleSeeClick={handleSeeClick}
             getTotal={getTotal}
             name={data && data.name}
+            handleDelete={handleDelete}
           />
         );
       case 'INVITE':
@@ -73,6 +77,7 @@ const CampaignDetailInfluencer = ({ status, addCampaign, setAddCampagin, data })
             handleSeeClick={handleSeeClick}
             getTotal={getTotal}
             name={data && data.name}
+            handleDelete={handleDelete}
           />
         );
       case 'LOST':
@@ -83,6 +88,7 @@ const CampaignDetailInfluencer = ({ status, addCampaign, setAddCampagin, data })
             handleSeeClick={handleSeeClick}
             getTotal={getTotal}
             name={data && data.name}
+            handleDelete={handleDelete}
           />
         );
       case 'PENDING':
@@ -93,6 +99,7 @@ const CampaignDetailInfluencer = ({ status, addCampaign, setAddCampagin, data })
             handleSeeClick={handleSeeClick}
             getTotal={getTotal}
             name={data && data.name}
+            handleDelete={handleDelete}
           />
         );
       case 'DECLINED':
@@ -103,6 +110,7 @@ const CampaignDetailInfluencer = ({ status, addCampaign, setAddCampagin, data })
             handleSeeClick={handleSeeClick}
             getTotal={getTotal}
             name={data && data.name}
+            handleDelete={handleDelete}
           />
         );
       default:

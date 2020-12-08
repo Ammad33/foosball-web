@@ -19,7 +19,7 @@ import Collections from '../Collections';
 
 import styles from './DraftBrandCampaignDetail.module.scss';
 
-const DraftBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) => {
+const DraftBrandCampaignDetail = ({ handleDelete, handleEdit, data, handleSeeClick, name }) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -55,7 +55,7 @@ const DraftBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) =>
           <div>
             <Download /> <p>Download Campaign</p>
           </div>
-          <div>
+          <div onClick={() => { handleDelete(); console.log('Hello') }}>
             <Trash /> <p>Delete Campaign</p>
           </div>
         </div>
