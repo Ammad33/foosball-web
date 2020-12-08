@@ -15,7 +15,7 @@ import LostBrandCampaignDetail from '../LostBrandCampaignDetail';
 import { RootContext } from '../../../context/RootContext';
 import _ from 'lodash';
 
-const BrandCampaignDetail = ({ status, addCampaign, setAddCampagin, data }) => {
+const BrandCampaignDetail = ({ handleDelete, status, addCampaign, setAddCampagin, data }) => {
   const [step, setStep] = useState(1);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [element, setElement] = useState('');
@@ -113,6 +113,7 @@ const BrandCampaignDetail = ({ status, addCampaign, setAddCampagin, data }) => {
             handleSeeClick={handleSeeClick}
             data={data}
             name={data && data.name}
+            handleDelete={handleDelete}
           />
         );
       case 'CLOSED':
@@ -122,6 +123,7 @@ const BrandCampaignDetail = ({ status, addCampaign, setAddCampagin, data }) => {
             handleSeeClick={handleSeeClick}
             data={data}
             name={data && data.name}
+            handleDelete={handleDelete}
           />
         );
       case 'LIVE':
@@ -131,6 +133,7 @@ const BrandCampaignDetail = ({ status, addCampaign, setAddCampagin, data }) => {
             handleSeeClick={handleSeeClick}
             data={data}
             name={data && data.name}
+            handleDelete={handleDelete}
           />
         );
       case 'INVITE':
@@ -140,6 +143,7 @@ const BrandCampaignDetail = ({ status, addCampaign, setAddCampagin, data }) => {
             handleSeeClick={handleSeeClick}
             data={data}
             name={data && data.name}
+            handleDelete={handleDelete}
           />
         );
       case 'LOST':
@@ -149,6 +153,7 @@ const BrandCampaignDetail = ({ status, addCampaign, setAddCampagin, data }) => {
             handleSeeClick={handleSeeClick}
             data={data}
             name={data && data.name}
+            handleDelete={handleDelete}
           />
         );
       case 'PENDING':
@@ -158,6 +163,7 @@ const BrandCampaignDetail = ({ status, addCampaign, setAddCampagin, data }) => {
             handleSeeClick={handleSeeClick}
             data={data}
             name={data && data.name}
+            handleDelete={handleDelete}
           />
         );
       case 'DECLINED':
@@ -167,6 +173,7 @@ const BrandCampaignDetail = ({ status, addCampaign, setAddCampagin, data }) => {
             handleSeeClick={handleSeeClick}
             data={data}
             name={data && data.name}
+            handleDelete={handleDelete}
           />
         );
       default:

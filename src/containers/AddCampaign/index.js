@@ -229,6 +229,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   const [activeStep, setActiveStep] = useState(step ? step : 1);
   const [activeNext, setActiveNext] = useState(false);
   const [team, setTeam] = useState([]);
+  const [search, setSearch] = useState('');
 
   /****** Campaign Detail States ********/
 
@@ -563,6 +564,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                 imageUrl
                 id
                 fullName
+                email
               }
             }
           }
@@ -1170,6 +1172,15 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
     setActiveNext(influencer !== null ? true : false);
   };
 
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+    const members = [...team];
+    setTeam(members.filter(item => item.user.email.includes(e.target.value)));
+    if (e.target.value === '') {
+      getTeam();
+    }
+  }
+
   // /*********************** To disable next button */
 
   const leftSideDawerClick = (index) => {
@@ -1235,6 +1246,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
             handleAdd={addMember}
             members={team}
             handleActiveNext={() => setActiveNext(true)}
+            search={search}
+            handleSearch={handleSearch}
           />
         );
       case 3:

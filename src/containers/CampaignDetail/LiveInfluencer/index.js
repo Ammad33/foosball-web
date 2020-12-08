@@ -8,6 +8,7 @@ import {
   Mail,
   Link,
   Copy,
+  Trash
 } from 'react-feather';
 import clsx from 'clsx';
 import Performance from '../Performance';
@@ -22,7 +23,7 @@ import LiveCard from '../LiveCard';
 import { useHistory } from 'react-router-dom';
 import _ from 'lodash';
 
-const LiveInfluencer = ({ handleEdit, data, handleSeeClick, getTotal, name }) => {
+const LiveInfluencer = ({ handleDelete, handleEdit, data, handleSeeClick, getTotal, name }) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -60,6 +61,9 @@ const LiveInfluencer = ({ handleEdit, data, handleSeeClick, getTotal, name }) =>
           <div className={styles.secondElement}>
             {' '}
             <Download /> <p>Download Campaign</p>
+            <div onClick={handleDelete}>
+              <Trash /> <p>Delete Campaign</p>
+            </div>
           </div>
         </div>
       </Popover>

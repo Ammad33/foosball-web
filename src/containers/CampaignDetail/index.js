@@ -1,15 +1,17 @@
 import React, { useState, useContext, useEffect } from 'react';
 import styles from './CampaignsDetails.module.scss';
 import BrandCampaignDetail from './BrandCampaignDetail';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import InfluencerCampaignDetail from './InfluencerCampaignDetail';
 import { Select, MenuItem } from '@material-ui/core';
 import Link from '@material-ui/core/Link';
 import { RootContext } from '../../context/RootContext';
 import SelectMenu from '../../components/SelectMenu';
-import { API } from 'aws-amplify';
+import { API, graphqlOperation } from 'aws-amplify';
 
 const CampaignDetail = () => {
+
+  const history = useHistory();
   const [status, setStatus] = useState('');
   const [addCampaign, setAddCampagin] = useState(false);
 
@@ -24,6 +26,23 @@ const CampaignDetail = () => {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
   };
+
+  const handleDelete = async () => {
+
+    try {
+      await API.graphql(
+        graphqlOperation(`mutation deleteCampaign($brandId: ID!, $id: ID!) {
+          deleteCampaign(brandId: $brandId, id:$id)
+        }`, {
+          brandId: brandId,
+          id: campaignId
+        })
+      );
+      history.push('/')
+    } catch (e) {
+      console.log('delete campaign error ', e);
+    }
+  }
 
   const getCampaign = async () => {
     try {
@@ -146,7 +165,7 @@ const CampaignDetail = () => {
             : 'CLOSED'
         );
       }
-    } catch (e) {}
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -195,15 +214,17 @@ const CampaignDetail = () => {
           data={data}
           addCampaign={addCampaign}
           setAddCampagin={setAddCampagin}
+          handleDelete={handleDelete}
         />
       ) : (
-        <InfluencerCampaignDetail
-          status={status}
-          data={data}
-          addCampaign={addCampaign}
-          setAddCampagin={setAddCampagin}
-        />
-      )}
+          <InfluencerCampaignDetail
+            status={status}
+            data={data}
+            addCampaign={addCampaign}
+            setAddCampagin={setAddCampagin}
+            handleDelete={handleDelete}
+          />
+        )}
     </div>
   );
 };
