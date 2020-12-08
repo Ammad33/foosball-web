@@ -15,20 +15,21 @@ import { RootContext } from '../../../context/RootContext';
 const SelectBrand = () => {
 	const history = useHistory();
 
-	const { setBrandIdd,
+	const {
+		setBrandIdd,
 		brands,
 		brandName,
-		setBrandName } = useContext(RootContext);
+		setBrandName,
+		brandType,
+		setBrandType } = useContext(RootContext);
 
 
 	const [brandDropDown, setBrandDropDown] = useState(false);
-
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const handleClick = (event) => {
 		setBrandDropDown(true);
 		setAnchorEl(event.currentTarget);
 	};
-
 	const handleClose = () => {
 		setAnchorEl(null);
 		setBrandDropDown(false);
@@ -36,7 +37,6 @@ const SelectBrand = () => {
 
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
-
 	return (
 		<>
 			<Popover
@@ -63,10 +63,15 @@ const SelectBrand = () => {
 								return (<MenuItem key={index} onClick={() => {
 									setBrandIdd(item.organization && item.organization.id);
 									setBrandName(item.organization && item.organization.name);
+									setBrandType(item.organization && item.organization.__typename);
 									handleClose();
-									if (history.location.pathname !== '/campaigns') {
-										history.push('/')
+									// if (history.location.pathname !== '/campaigns') {
+									// 	history.push('/')
+									// }
+									if (item.organization.__typename == "Brand") {
+										history.push('/campaigns')
 									}
+									else { history.push('/influencer') }
 								}}>
 									<div className={styles.brandContainter}>
 										<Avatar

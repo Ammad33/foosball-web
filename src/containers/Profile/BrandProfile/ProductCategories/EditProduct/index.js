@@ -5,10 +5,16 @@ import TextField from '../../../../../components/TextField';
 import { HelpCircle, Search } from 'react-feather';
 import Chip from '@material-ui/core/Chip';
 import DoneIcon from '@material-ui/icons/Done';
+import SVG from 'react-inlinesvg';
 
 
-
-
+const Done = () => {
+	return (
+	<span className={styles.doneIcon}>
+  	 <SVG src={require('../../../../../assets/check.svg')} />
+	</span>
+	)
+};
 
 const EditProduct = ({ open, handleChange, closeAdd }) => {
 	 const handleDelete = () => {
@@ -48,7 +54,7 @@ const EditProduct = ({ open, handleChange, closeAdd }) => {
 					label="Active Lifestyle"
 					className={styles.chip}
 					onDelete={handleDelete}
-					deleteIcon={<DoneIcon />}
+					deleteIcon={<Done />}
 				// onClick={}
 				/>
 				<Chip
@@ -56,7 +62,7 @@ const EditProduct = ({ open, handleChange, closeAdd }) => {
 					label="Beauty"
 					className={styles.chip}
 					onDelete={handleDelete}
-					deleteIcon={<DoneIcon />}
+					deleteIcon={<Done />}
 
 				// onClick={}
 				/>
@@ -65,7 +71,7 @@ const EditProduct = ({ open, handleChange, closeAdd }) => {
 					label="Clean Editing"
 					className={styles.chip}
 					onDelete={handleDelete}
-					deleteIcon={<DoneIcon />}
+					deleteIcon={<Done />}
 
 				// onClick={}
 				/>
@@ -74,7 +80,7 @@ const EditProduct = ({ open, handleChange, closeAdd }) => {
 					label="Clickable"
 					className={styles.chip}
 					onDelete={handleDelete}
-					deleteIcon={<DoneIcon />}
+					deleteIcon={<Done />}
 				// onClick={}
 				/>
 				<Chip
@@ -82,7 +88,7 @@ const EditProduct = ({ open, handleChange, closeAdd }) => {
 					label="Clickable"
 					className={styles.chip}
 					onDelete={handleDelete}
-					deleteIcon={<DoneIcon />}
+					deleteIcon={<Done />}
 				// onClick={}
 				/>
 				<Chip
@@ -90,7 +96,7 @@ const EditProduct = ({ open, handleChange, closeAdd }) => {
 					label="Clickable"
 					className={styles.chip}
 					onDelete={handleDelete}
-					deleteIcon={<DoneIcon />}
+					deleteIcon={<Done />}
 				// onClick={}
 				/>
 

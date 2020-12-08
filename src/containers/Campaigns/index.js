@@ -71,7 +71,6 @@ const Campaigns = () => {
       console.log(e);
     }
   };
-
   const getCampaigns = async () => {
     try {
       const campaigns = await API.graphql({

@@ -423,9 +423,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
     getTeam();
   }, [brandId]);
 
-  // useEffect(() => {
-  //   setActiveNext(true);
-  // });
+  useEffect(() => {
+    setActiveNext(true);
+  });
 
   useEffect(() => {
     getInfluencers();
@@ -1108,7 +1108,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   /************* Active for deliverable */
 
   const setActiveForDeliverables = () => {
-    debugger;
+    //debugger;
     const deliverables = [...deliveries];
 
     let flag = true;
