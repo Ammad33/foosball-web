@@ -9,8 +9,8 @@ const Messages = () => {
 
   return (
     <div className={styles.mainContainer}>
-      <div className={styles.CampaignHeadingContainer}>
-        <div className={styles.CampaignHeading}>
+      <div className={styles.headingAndButtonsContainer}>
+        <div className={styles.headingAndDropdown}>
           <span>Messages</span>
           <p>
             Newest to oldest <ExpandMoreIcon fontSize='small' />
@@ -20,7 +20,7 @@ const Messages = () => {
           <AddIcon /> New Message
         </button>
       </div>
-      <div className={styles.CampaignHeadingButton}>
+      <div className={styles.messageFiltersContainer}>
         <button
           className={active === 'All' ? styles.active : ''}
           onClick={() => setActive('All')}
