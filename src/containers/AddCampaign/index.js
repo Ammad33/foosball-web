@@ -423,9 +423,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
     getTeam();
   }, [brandId]);
 
-  // useEffect(() => {
-  //   setActiveNext(true);
-  // });
+  useEffect(() => {
+    setActiveNext(true);
+  });
 
   useEffect(() => {
     getInfluencers();
