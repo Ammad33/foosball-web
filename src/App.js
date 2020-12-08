@@ -18,6 +18,7 @@ import Settings from './containers/Settings';
 import UnProtectedRoute from './hoc/UnProtectedRoute';
 import Posts from './containers/Posts';
 import ReviewBrandMicrosite from './containers/ReviewBrandMicrosite';
+import Messages from './containers/Messages';
 import Auth from './hoc/Auth';
 import Logout from '../src/containers/Logout';
 import Contacts from './containers/Contacts/BrandContacts';
@@ -61,12 +62,12 @@ const App = () => {
               <Settings />
             </Layout>
           </ProtectedRoute>
-					<ProtectedRoute exact path='/profile'>
+          <ProtectedRoute exact path='/profile'>
             <Layout>
-              <Profile/>
+              <Profile />
             </Layout>
           </ProtectedRoute>
-					<ProtectedRoute exact path='/contacts'>
+          <ProtectedRoute exact path='/contacts'>
             <Layout>
               <Contacts />
             </Layout>
@@ -83,6 +84,11 @@ const App = () => {
           </ProtectedRoute>
           <ProtectedRoute exact path='/onboarding'>
             <Onboarding />
+          </ProtectedRoute>
+          <ProtectedRoute exact path='/messages'>
+            <Layout>
+              <Messages />
+            </Layout>
           </ProtectedRoute>
           <UnProtectedRoute exact path='/login'>
             <Auth>
