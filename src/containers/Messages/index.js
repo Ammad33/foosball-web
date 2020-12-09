@@ -3,6 +3,7 @@ import styles from './Message.module.scss';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddIcon from '@material-ui/icons/Add';
 import ConversationListItem from './ConversationListItem';
+import * as _ from 'lodash';
 
 const allConversations = [
   {
@@ -185,16 +186,27 @@ const allConversations = [
 const Messages = () => {
   const [active, setActive] = useState('All');
   const [conversations, setConversations] = useState(allConversations);
+  const [displayedConversations, setDisplayedConversations] = useState(
+    allConversations
+  );
 
   const filterConversations = (filterType) => {
+    let convs = [...conversations];
     switch (filterType) {
       case 'All':
+        setDisplayedConversations(convs);
         break;
       case 'Unread':
+        convs = _.filter(convs, 'unreadMessages');
+        setDisplayedConversations(convs);
         break;
       case 'Read':
+        convs = _.filter(convs, ['unreadMessages', 0]);
+        setDisplayedConversations(convs);
         break;
       case 'Archived':
+        convs = _.filter(convs, 'archived');
+        setDisplayedConversations(convs);
         break;
     }
   };
@@ -215,31 +227,43 @@ const Messages = () => {
       <div className={styles.messageFiltersContainer}>
         <button
           className={active === 'All' ? styles.active : ''}
-          onClick={() => setActive('All')}
+          onClick={() => {
+            setActive('All');
+            filterConversations('All');
+          }}
         >
           All
         </button>
         <button
           className={active === 'Unread' ? styles.active : ''}
-          onClick={() => setActive('Unread')}
+          onClick={() => {
+            setActive('Unread');
+            filterConversations('Unread');
+          }}
         >
           Unread
         </button>
         <button
           className={active === 'Read' ? styles.active : ''}
-          onClick={() => setActive('Read')}
+          onClick={() => {
+            setActive('Read');
+            filterConversations('Read');
+          }}
         >
           Read
         </button>
         <button
           className={active === 'Archived' ? styles.active : ''}
-          onClick={() => setActive('Archived')}
+          onClick={() => {
+            setActive('Archived');
+            filterConversations('Archived');
+          }}
         >
           Archived
         </button>
       </div>
       <div className={styles.conversationsContainer}>
-        {conversations.map((conversation, index) => (
+        {displayedConversations.map((conversation, index) => (
           <ConversationListItem conversation={conversation} key={index} />
         ))}
       </div>

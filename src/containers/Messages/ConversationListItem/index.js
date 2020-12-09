@@ -18,7 +18,20 @@ const ConversationListItem = ({ conversation }) => {
   };
 
   const getTitle = (members) => {
-    return '';
+    switch (members.length) {
+      case 1:
+        return members[0].memberName;
+      case 2:
+        return `${members[0].memberName}, ${members[1].memberName}`;
+      case 3:
+        return `${members[0].memberName}, ${members[1].memberName}, ${members[2].memberName}`;
+      case 4:
+        return `${members[0].memberName}, ${members[1].memberName}, ${members[2].memberName}, ${members[3].memberName}`;
+      default:
+        return `${members[0].memberName}, ${members[1].memberName}, ${
+          members[2].memberName
+        }, ${members[3].memberName}, +${members.length - 4} others`;
+    }
   };
 
   return (
