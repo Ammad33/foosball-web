@@ -26,16 +26,6 @@ const TeamMembers = ({ onClick, handleEdit, seeAll, brandTeam }) => {
           </>
           :
           null
-          // <>
-          //   {members.map((member) => {
-          //     return (
-          //       <div className={styles.memberItem}>
-          //         <Avatar src={member.img} />
-          //         <span>{member.name}</span>
-          //       </div>
-          //     );
-          //   })}
-          // </>
         }
 
       </div>

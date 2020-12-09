@@ -53,7 +53,11 @@ const CampaignDetail = ({ children, handleEdit, campaign }) => {
               <h6>Custom Message to Influencer</h6>
               <p>{campaign.invitationMessage}</p>
 
-            </> : children}</div>
+            </> :
+            <>
+              <h6>Custom Message to Influencer</h6>
+            </>}
+        </div>
       ) : (
           ''
         )}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -25,6 +25,7 @@ import SVG from 'react-inlinesvg';
 import { API, graphqlOperation } from 'aws-amplify';
 import logo from '../../assets/FomoPromo_logo__white.png';
 import * as _ from 'lodash';
+import { RootContext } from '../../context/RootContext';
 
 let typ = '';
 let val = '';
@@ -222,7 +223,7 @@ function getSteps() {
 
 /*********Main Container of Add Campaign ************/
 
-const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
+const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   /****** Stepper States ********/
 
   const steps = getSteps();
@@ -230,6 +231,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   const [activeNext, setActiveNext] = useState(false);
   const [team, setTeam] = useState([]);
   const [search, setSearch] = useState('');
+  const [campaigns, setCampaigns] = useState([]);
+  const { brandId } = useContext(RootContext);
+  const [campaignError, setCampaignError] = useState('');
 
   /****** Campaign Detail States ********/
 
@@ -326,8 +330,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
           ? campaign.discount.__typename === 'PercentageDiscount'
             ? 'Percentage'
             : campaign.discount.__typename === 'FlatDiscount'
-            ? 'Amount'
-            : ''
+              ? 'Amount'
+              : ''
           : ''
       );
       if (
@@ -424,9 +428,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
     getTeam();
   }, [brandId]);
 
-  useEffect(() => {
-    setActiveNext(true);
-  });
+  // useEffect(() => {
+  //   setActiveNext(true);
+  // });
 
   useEffect(() => {
     getInfluencers();
@@ -1205,6 +1209,25 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
     } else return;
   };
 
+  const handleCampaignName = (e) => {
+
+    // setCampaignError('');
+    console.log(campaigns);
+
+    setCampaignName(e.target.value);
+    if (e.target.value !== '') {
+
+      const index = campaigns.findIndex(item => item.name === e.target.value);
+
+      if (index !== -1) {
+        setCampaignError('This name already exists');
+      } else {
+        setCampaignError('');
+      }
+    }
+  }
+  console.log(campaignError);
+
   const getStepContent = (activeStep) => {
     switch (activeStep) {
       case 1:
@@ -1222,13 +1245,12 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
             discount={discount}
             discountType={discountType}
             customeMessage={customeMessage}
-            handleCampaignName={(e) => {
-              setCampaignName(e.target.value);
-            }}
+            handleCampaignName={handleCampaignName}
             startDateOpen={startDateOpen}
             endDateOpen={endDateOpen}
             startTimeOpen={startTimeOpen}
             endTimeOpen={endTimeOpen}
+            campaignError={campaignError}
             // handleValidation={handleDateTimeValidation}
             handleStartDate={handleStartDate}
             handleStartDateOpen={(value) => setStartDateOpen(value)}
@@ -1373,20 +1395,40 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   };
 
   const partialFilledForm = () => {
-    if (campaignName !== '' && startDate !== '' && endDate !== '') {
+    if (campaignName !== '' && startDate !== '' && endDate !== '' && campaignError === '') {
       setActiveSave(true);
     } else {
       setActiveSave(false);
     }
   };
 
+  useEffect(() => {
+    getCampaigns();
+  }, []);
+
+  const getCampaigns = async () => {
+    try {
+      const campaigns = await API.graphql({
+        query: `{
+        campaigns(brandId: "${brandId}") {
+          campaigns {
+            name
+          }
+        }
+      }`,
+      });
+      setCampaigns(campaigns.data.campaigns.campaigns);
+    } catch (e) { }
+  };
+
   const filledForm = () => {
     if (
+      campaignError === '' &&
       campaignName !== '' &&
       startDate !== '' &&
       endDate !== '' &&
-      startTime !== '00:00' &&
-      endTime !== '00:00' &&
+      startTime !== '' &&
+      endTime !== '' &&
       discount !== '' &&
       discountType !== '' &&
       customeMessage !== '' &&
@@ -1460,8 +1502,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                        <CheckCircleIconSvg viewBox='0 0 31 31' />
-                      )}
+                              <CheckCircleIconSvg viewBox='0 0 31 31' />
+                            )}
                       <span
                         className={
                           activeStep === index
@@ -1474,19 +1516,19 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                       </span>
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
                       {activeStep > index ? (
                         <div className={styles.activeBar} />
                       ) : (
-                        <div className={styles.inActiveBar} />
-                      )}
+                          <div className={styles.inActiveBar} />
+                        )}
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                 </>
               ))}
             </div>
@@ -1499,8 +1541,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                  <div></div>
-                )}
+                    <div></div>
+                  )}
                 <span onClick={handleCancelCampaignDialog}>
                   <XSVG />
                 </span>
@@ -1553,8 +1595,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                   campaign !== undefined && activeStep === 9
                     ? updateCampaign()
                     : activeStep == 9
-                    ? createCampaign()
-                    : handleNext(activeStep, e)
+                      ? createCampaign()
+                      : handleNext(activeStep, e)
                 }
                 className={clsx(
                   styles.nextButton,
@@ -1565,8 +1607,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
                 {campaign !== undefined && activeStep === 9
                   ? 'Update Campaign'
                   : activeStep == 9
-                  ? 'Send Invite'
-                  : 'Next'}
+                    ? 'Send Invite'
+                    : 'Next'}
               </button>
             </div>
           </div>

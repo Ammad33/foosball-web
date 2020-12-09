@@ -1,4 +1,4 @@
-import { Calendar, Clock } from 'react-feather';
+import { Calendar, Clock, AlertCircle } from 'react-feather';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { Grid, InputAdornment, Select } from '@material-ui/core';
@@ -52,6 +52,7 @@ const AddCampaignDetails = ({
   handleEndTimeOpen,
   filledForm,
   partialFilledForm,
+  campaignError
 }) => {
   // const classes = useStyles();
   useEffect(() => {
@@ -82,8 +83,18 @@ const AddCampaignDetails = ({
           onChange={handleCampaignName}
           label='Campaign Name'
           className={mainStyles.placeholderColor}
-          helperText={' '}
+          helperText={campaignError && campaignError !== '' && <span className={styles.errorMessage}>{campaignError}</span>}
           variant='outlined'
+          InputProps={{
+            endAdornment: (
+              campaignError && campaignError !== '' &&
+              <InputAdornment className={styles.inputendornment} position='end'>
+                <AlertCircle color='#D55656' />
+              </InputAdornment>
+
+            ),
+          }}
+
         />
       </Grid>
       <Grid item xs={12} sm={12} md={6}>
