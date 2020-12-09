@@ -72,7 +72,9 @@ const Compensation = ({ onClick, handleEdit, compensation }) => {
           <p>{compensation && compensation.length > 0 && getCompensationAmount()}</p>
         </div>
       </div>
-      <button onClick={() => onClick('Compensation')}>See all</button>
+      {compensation && compensation.length > 1 &&
+        <button onClick={() => onClick('Compensation')}>See all</button>
+      }
     </div>
   );
 };

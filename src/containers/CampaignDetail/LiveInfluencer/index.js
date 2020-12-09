@@ -61,10 +61,10 @@ const LiveInfluencer = ({ handleDelete, handleEdit, data, handleSeeClick, getTot
           <div className={styles.secondElement}>
             {' '}
             <Download /> <p>Download Campaign</p>
-            <div onClick={handleDelete}>
-              <Trash /> <p>Delete Campaign</p>
-            </div>
           </div>
+          {/* <div className={styles.secondElement} onClick={handleDelete}>
+            <Trash /> <p>Delete Campaign</p>
+          </div> */}
         </div>
       </Popover>
 
