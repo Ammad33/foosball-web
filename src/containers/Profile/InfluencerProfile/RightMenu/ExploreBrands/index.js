@@ -27,7 +27,7 @@ const ExploreBrands = ({ influencer }) => {
 		<div>
 			<Card
 				className={styles.influencerCard}
-				//onClick={() => history.push('/brandProfile')}
+				onClick={() => history.push('/brandProfile')}
 			>
 				<CardContent className={styles.cardContent}>
 					<div className={styles.cardDetails}>

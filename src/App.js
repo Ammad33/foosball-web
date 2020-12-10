@@ -22,8 +22,8 @@ import Messages from './containers/Messages';
 import Reports from './containers/Reports';
 import Auth from './hoc/Auth';
 import Logout from '../src/containers/Logout';
-import Contacts from './containers/Contacts/BrandContacts';
-import Profile from './containers/Profile/BrandProfile';
+import Contacts from './containers/Contacts';
+import Profile from './containers/Profile';
 import InfluencerProfile from './containers/Profile/InfluencerProfile';
 import BrandProfile from './containers/Profile/BrandProfile';
 
