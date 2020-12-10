@@ -9,7 +9,7 @@ import SVG from 'react-inlinesvg';
 
 const Done = () => {
 	return (
-	<span className={styles.Done}>
+	<span className={styles.doneIcon}>
   	 <SVG src={require('../../../../../assets/check.svg')} />
 	</span>
 	)

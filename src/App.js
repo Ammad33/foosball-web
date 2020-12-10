@@ -19,10 +19,13 @@ import UnProtectedRoute from './hoc/UnProtectedRoute';
 import Posts from './containers/Posts';
 import ReviewBrandMicrosite from './containers/ReviewBrandMicrosite';
 import Messages from './containers/Messages';
+import Reports from './containers/Reports';
 import Auth from './hoc/Auth';
 import Logout from '../src/containers/Logout';
-import Contacts from './containers/Contacts/BrandContacts';
-import Profile from './containers/Profile/BrandProfile';
+import Contacts from './containers/Contacts';
+import Profile from './containers/Profile';
+import InfluencerProfile from './containers/Profile/InfluencerProfile';
+import BrandProfile from './containers/Profile/BrandProfile';
 
 const App = () => {
   return (
@@ -65,6 +68,21 @@ const App = () => {
           <ProtectedRoute exact path='/profile'>
             <Layout>
               <Profile />
+            </Layout>
+          </ProtectedRoute>
+					<ProtectedRoute exact path='/influencerProfile'>
+            <Layout>
+              <InfluencerProfile/>
+            </Layout>
+          </ProtectedRoute>
+					<ProtectedRoute exact path='/brandProfile'>
+            <Layout>
+              <BrandProfile/>
+            </Layout>
+          </ProtectedRoute>
+					<ProtectedRoute exact path='/reports'>
+            <Layout>
+              <Reports />
             </Layout>
           </ProtectedRoute>
           <ProtectedRoute exact path='/contacts'>
