@@ -18,7 +18,7 @@ const EditContact = ({ open, handleChange, closeAdd }) => {
                     <TextField
                         id='outlined-basic'
                         fullWidth
-                        label='Full name'
+                        label='Brand name'
                         variant='outlined'
                         value="Sam Ozkural"
                     />
@@ -27,7 +27,7 @@ const EditContact = ({ open, handleChange, closeAdd }) => {
                     <TextField
                         id='outlined-basic'
                         fullWidth
-                        label='Instagram handle'
+                        label='Point of contact name'
                         variant='outlined'
                         value="@samozkural"
                     />
