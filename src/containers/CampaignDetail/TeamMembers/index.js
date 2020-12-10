@@ -29,16 +29,16 @@ const TeamMembers = ({ onClick, handleEdit, seeAll, brandTeam }) => {
         }
 
       </div>
-      {/* {brandTeam && brandTeam !== null && brandTeam.length > 5 && */}
-      <div style={{ position: 'absolute', bottom: '20px' }}>
-        <ChipButton
+      {brandTeam && brandTeam !== null && brandTeam.length > 5 &&
+        <div style={{ position: 'absolute', bottom: '20px' }}>
+          <ChipButton
 
-          handleClick={() => onClick('TeamMembers')}
-          title={'See all'}
-          buttonSize={'sm'}
-        />
-      </div>
-      {/* } */}
+            handleClick={() => onClick('TeamMembers')}
+            title={'See all'}
+            buttonSize={'sm'}
+          />
+        </div>
+      }
     </div>
   );
 };
