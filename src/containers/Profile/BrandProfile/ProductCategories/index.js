@@ -49,39 +49,33 @@ const ProductCategories = ({ viewBrandProfile }) => {
 					<Chip
 						size="medium"
 						label="Active Lifestyle"
-						className={styles.chip}
+						className={styles.Lifestyle}
 					// onClick={}
 					/>
 					<Chip
 						size="medium"
 						label="Beauty"
-						className={styles.chip}
+						className={styles.Beauty}
 
 					// onClick={}
 					/>
 					<Chip
 						size="medium"
 						label="Clean Editing"
-						className={styles.chip}
+						className={styles.Editing}
 
 					// onClick={}
 					/>
 					<Chip
 						size="medium"
-						label="Clickable"
-						className={styles.chip}
+						label="Fitness"
+						className={styles.Fitness}
 					// onClick={}
 					/>
 					<Chip
 						size="medium"
-						label="Clickable"
-						className={styles.chip}
-					// onClick={}
-					/>
-					<Chip
-						size="medium"
-						label="Clickable"
-						className={styles.chip}
+						label="Healthy Living"
+						className={styles.Living}
 					// onClick={}
 					/>
 

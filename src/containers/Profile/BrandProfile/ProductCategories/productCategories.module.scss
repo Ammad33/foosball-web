@@ -29,7 +29,8 @@
   }
 
   .detailSubContent {
-    margin-top: 24px;
+		margin-top: 24px;
+		width: 90%;
     h6 {
       letter-spacing: 0px;
       font-size: 18px;
@@ -55,8 +56,28 @@
     flex-direction: row;
   }
 }
-.chip{
+.Lifestyle{
 	background-color: #4EA9DA !important;
+	margin: 5px 0px 0px 5px ;
+	color: #FFFFFF !important;
+}
+.Beauty{
+	background-color: #5D6FD3 !important;
+	margin: 5px 0px 0px 5px ;
+	color: #FFFFFF !important;
+}
+.Editing{
+	background-color: #7B5CD9 !important;
+	margin: 5px 0px 0px 5px ;
+	color: #FFFFFF !important;
+}
+.Fitness{
+	background-color: #3481EF !important;
+	margin: 5px 0px 0px 5px ;
+	color: #FFFFFF !important;
+}
+.Living{
+	background-color: #B485C5 !important;
 	margin: 5px 0px 0px 5px ;
 	color: #FFFFFF !important;
 }

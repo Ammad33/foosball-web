@@ -5,7 +5,7 @@ import { InputAdornment, Grid, Avatar, Popover } from '@material-ui/core';
 import TextField from '../../../components/TextField';
 import { Search } from 'react-feather';
 import AddContact from '../BrandContacts/AddContact';
-import EditContact from '../BrandContacts/EditContact';
+import EditContact from './EditContact';
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import AddIcon from '@material-ui/icons/Add';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -165,7 +165,7 @@ const InfluencerContacts = ({ }) => {
 			</div>
 			<div className={styles.contactsBanner}>
 				<p className={styles.firstp}>Get 1 free campaign credit</p>
-				<p className={styles.secondp}>For every person you invite that joins fomopromo and creates a campaign.<Link to='#' style={{color: "#FFFFFF" ,textDecorationLine: 'underline'}} >Learn more here.</Link>.</p>
+				<p className={styles.secondp}>For every person you invite that joins fomopromo and creates a campaign. <Link to='#' style={{color: "#FFFFFF" ,textDecorationLine: 'underline'}} >Learn more here.</Link>.</p>
 			</div>
 			<AddContact
 				newInfluencer={newInfluencer}
