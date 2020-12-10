@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import styles from './ConversationListItem.module.scss';
+import mainStyles from './../../../index.module.scss';
 import clsx from 'clsx';
 import { Avatar } from '@material-ui/core';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import { Popover } from '@material-ui/core';
-import { Download, Copy, MoreVertical } from 'react-feather';
-const ConversationListItem = ({ conversation }) => {
+import { Download, MoreVertical, Archive } from 'react-feather';
+const ConversationListItem = ({ conversation, handleItemClick }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
@@ -52,7 +53,7 @@ const ConversationListItem = ({ conversation }) => {
       >
         <div className={styles.popOver}>
           <div>
-            <Copy /> <p>Archive Conversation</p>
+            <Archive /> <p>Archive Conversation</p>
           </div>
           <div>
             <Download /> <p>Download Campaign</p>
@@ -66,6 +67,7 @@ const ConversationListItem = ({ conversation }) => {
             ? styles.unreadBackground
             : styles.readBackground
         )}
+        onClick={() => handleItemClick(conversation)}
       >
         <div className={styles.avatarContainer}>
           {conversation.members.length > 1 ? (
@@ -88,6 +90,13 @@ const ConversationListItem = ({ conversation }) => {
           <p className={styles.message}>{conversation.message}</p>
         </div>
         <div className={styles.badgeAndMenu}>
+          {conversation.unreadMessages ? (
+            <span className={mainStyles.countBadge}>
+              {conversation.unreadMessages}
+            </span>
+          ) : (
+            ''
+          )}
           <MoreVertical onClick={handleClick} />
         </div>
       </div>

@@ -1,84 +1,77 @@
 .collections {
-    padding: 31px 50px !important;
+  padding: 31px 50px !important;
 }
-
 
 .collectionContainer {
-    margin-top: 28px;
+  margin-top: 28px;
 }
 
-.dropDownCustomizeSvg{
-	svg{
-		margin-left: -36px;
-		margin-right: 20px;
-	}
+.dropDownCustomizeSvg {
+  svg {
+    margin-left: -36px;
+    margin-right: 20px;
+  }
 }
 
 .menuItem {
- display: flex !important;
- flex-direction: row !important;
- justify-content: space-between !important;
-div {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  div {
     height: 31px;
     width: 31px;
     border-radius: 100px;
     span {
-
-  color: #FFFFFF;
-  font-family: Poppins;
-  font-size: 14px !important;
-  font-weight: 500 !important;
-  letter-spacing: 0;
-  line-height: 21px;
-  margin-left: 12px;
+      color: #ffffff;
+      font-family: Poppins;
+      font-size: 14px !important;
+      font-weight: 500 !important;
+      letter-spacing: 0;
+      line-height: 21px;
+      margin-left: 12px;
     }
-    background-color: #7B5CD9;
-    
- }
+    background-color: #7b5cd9;
+  }
 }
 
-.product{
-	padding-bottom: 20px !important;
-& > label{
-	line-height: 18px !important;
-}
+.product {
+  padding-bottom: 20px !important;
+  & > label {
+    line-height: 18px !important;
+  }
 }
 
 .accordianSummary {
-	box-sizing: border-box !important;
+  box-sizing: border-box !important;
   height: 66px;
   width: 100%;
   border: 1px solid #939393 !important;
   border-radius: 5px !important;
-  background-color: #FFFFFF !important;
+  background-color: #ffffff !important;
 }
-.collectionName{
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	.heading {
-		display: flex;
-		align-items: center;
-		justify-content: flex-end;
+.collectionName {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .heading {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 
-	.quantity{
-		border: 1px solid #7b5cd9;
-    background: #7b5cd9;
-    border-radius: 9999999999999px;
-		color: white;
-		padding: 3px;
-		padding-left: 10px;
-		padding-right: 10px;
-	}
-	}
-	
+    .quantity {
+      border: 1px solid #7b5cd9;
+      background: #7b5cd9;
+      border-radius: 9999999999999px;
+      color: white;
+      padding: 3px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
 }
-
-
 
 .svg {
-	margin-left: 28px;
-	margin-top: 5px;
-	
+  margin-left: 28px;
+  margin-top: 5px;
 }

@@ -146,6 +146,16 @@ p {
   opacity: 1;
 }
 
+.countBadge {
+  border: 1px solid $primary1;
+  background: $primary1;
+  border-radius: 100px;
+  color: white;
+  padding: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 .placeholderColor {
   & > label {
     color: #7e7e7e !important;

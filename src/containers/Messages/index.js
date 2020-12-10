@@ -186,6 +186,7 @@ const allConversations = [
 const Messages = () => {
   const [active, setActive] = useState('All');
   const [conversations, setConversations] = useState(allConversations);
+  const [selectedConversation, setSelectedConversation] = useState(null);
   const [displayedConversations, setDisplayedConversations] = useState(
     allConversations
   );
@@ -213,60 +214,74 @@ const Messages = () => {
 
   return (
     <div className={styles.mainContainer}>
-      <div className={styles.headingAndButtonsContainer}>
-        <div className={styles.headingAndDropdown}>
-          <span>Messages</span>
-          <p>
-            Newest to oldest <ExpandMoreIcon fontSize='small' />
-          </p>
+      <div className={styles.conversationsSection}>
+        <div className={styles.headingAndButtonsContainer}>
+          <div className={styles.headingAndDropdown}>
+            <span>Messages</span>
+            <p>
+              Newest to oldest <ExpandMoreIcon fontSize='small' />
+            </p>
+          </div>
+          <button>
+            <AddIcon /> New Message
+          </button>
         </div>
-        <button>
-          <AddIcon /> New Message
-        </button>
+        <div className={styles.messageFiltersContainer}>
+          <button
+            className={active === 'All' ? styles.active : ''}
+            onClick={() => {
+              setActive('All');
+              filterConversations('All');
+            }}
+          >
+            All
+          </button>
+          <button
+            className={active === 'Unread' ? styles.active : ''}
+            onClick={() => {
+              setActive('Unread');
+              filterConversations('Unread');
+            }}
+          >
+            Unread
+          </button>
+          <button
+            className={active === 'Read' ? styles.active : ''}
+            onClick={() => {
+              setActive('Read');
+              filterConversations('Read');
+            }}
+          >
+            Read
+          </button>
+          <button
+            className={active === 'Archived' ? styles.active : ''}
+            onClick={() => {
+              setActive('Archived');
+              filterConversations('Archived');
+            }}
+          >
+            Archived
+          </button>
+        </div>
+        <div className={styles.conversationsContainer}>
+          {displayedConversations.map((conversation, index) => (
+            <ConversationListItem
+              handleItemClick={(conversation) => {
+                setSelectedConversation(conversation);
+                console.log('set conversation ', conversation);
+              }}
+              conversation={conversation}
+              key={index}
+            />
+          ))}
+        </div>
       </div>
-      <div className={styles.messageFiltersContainer}>
-        <button
-          className={active === 'All' ? styles.active : ''}
-          onClick={() => {
-            setActive('All');
-            filterConversations('All');
-          }}
-        >
-          All
-        </button>
-        <button
-          className={active === 'Unread' ? styles.active : ''}
-          onClick={() => {
-            setActive('Unread');
-            filterConversations('Unread');
-          }}
-        >
-          Unread
-        </button>
-        <button
-          className={active === 'Read' ? styles.active : ''}
-          onClick={() => {
-            setActive('Read');
-            filterConversations('Read');
-          }}
-        >
-          Read
-        </button>
-        <button
-          className={active === 'Archived' ? styles.active : ''}
-          onClick={() => {
-            setActive('Archived');
-            filterConversations('Archived');
-          }}
-        >
-          Archived
-        </button>
-      </div>
-      <div className={styles.conversationsContainer}>
-        {displayedConversations.map((conversation, index) => (
-          <ConversationListItem conversation={conversation} key={index} />
-        ))}
-      </div>
+      {/* {selectedConversation ? (
+        <div style={{ width: '885px' }}>Msg Details</div>
+      ) : (
+        'Not selected'
+      )} */}
     </div>
   );
 };

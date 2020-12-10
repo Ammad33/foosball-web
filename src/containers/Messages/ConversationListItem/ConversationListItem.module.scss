@@ -1,12 +1,14 @@
 @import '../../../variable.module.scss';
 .conversationListItem {
   height: 105px;
-  width: 1232px;
+  // width: 1232px;
   border-bottom: 1px solid $dark3;
   padding: 23px;
   display: flex;
+  flex: auto;
   align-items: center;
   gap: 5px;
+  cursor: pointer;
   .titleAndMessageContainer {
     flex: auto;
     .title {
@@ -32,10 +34,41 @@
       line-height: 16px;
     }
   }
+  .badgeAndMenu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
 }
 .readBackground {
   background: #efefef;
 }
 .unreadBackground {
   background: $white;
+}
+
+.popOver {
+  width: 286px;
+  background-color: $white;
+  box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.16);
+  padding: 35px 29px;
+
+  div {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+    cursor: pointer;
+    margin-bottom: 55px;
+    p {
+      color: $dark1;
+      font-family: Poppins;
+      font-size: 18px;
+      letter-spacing: 0;
+      line-height: 27px;
+    }
+  }
+  :last-child {
+    margin-bottom: 0px;
+  }
 }

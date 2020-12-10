@@ -3,6 +3,10 @@
   height: 100%;
   max-width: 1232px;
   margin: auto;
+  display: flex;
+  .conversationsSection {
+    flex: auto;
+  }
   .messageFiltersContainer {
     display: flex;
     flex-direction: row;
