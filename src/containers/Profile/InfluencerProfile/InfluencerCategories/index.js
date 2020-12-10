@@ -7,7 +7,7 @@ import Chip from '@material-ui/core/Chip';
 import { InputAdornment, Grid, Avatar, Popover } from '@material-ui/core';
 import EditInfluencerCategories from './EditInfluencerCategories';
 
-const InfluencerCategories = ({ handleEdit}) => {
+const InfluencerCategories = ({ viewInfluencerProfile}) => {
   const [editOpen, setEditOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -23,7 +23,9 @@ const InfluencerCategories = ({ handleEdit}) => {
     >
       <div className={styles.headerContainer}>
         <h1>Influencing Categories</h1>
-				<Edit onClick={() => { setEditOpen(true); setAnchorEl(null) }} />
+				{viewInfluencerProfile? (
+					''
+				): (<Edit onClick={() => { setEditOpen(true); setAnchorEl(null) }} />)}
       </div>
 			<EditInfluencerCategories open={editOpen} closeAdd={() => setEditOpen(false)} />
 			<Popover

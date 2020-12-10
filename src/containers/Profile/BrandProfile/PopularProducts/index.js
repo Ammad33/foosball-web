@@ -8,7 +8,7 @@ import DataImage from '../../../../assets/dummy.png';
 import EditPopularProducts from './EditPopularProducts';
 
 
-const PopularProducts = ({ handleEdit }) => {
+const PopularProducts = ({ viewBrandProfile }) => {
 	const [editOpen, setEditOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [popularProducts, setPopularProducts] = useState(true);
@@ -23,7 +23,9 @@ const PopularProducts = ({ handleEdit }) => {
 		<div className={styles.postContainer}>
 			<div className={styles.headingContainer}>
 				<h1>Popular Products</h1>
-				<Edit onClick={() => { setEditOpen(true); setAnchorEl(null) }} />
+				{viewBrandProfile ? (
+					""
+				) : (<Edit onClick={() => { setEditOpen(true); setAnchorEl(null) }} />)}
 			</div>
 			<EditPopularProducts open={editOpen} closeAdd={() => setEditOpen(false)} />
 			{popularProducts ? (

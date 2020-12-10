@@ -67,7 +67,10 @@ const LeftSideDrawer = () => {
         icon={<IconReports />}
         active={activeRoute === 'Reports' ? true : false}
         title={'Reports'}
-        onClick={() => setActiveRoute('Reports')}
+        onClick={() => {
+					setActiveRoute('Reports')
+					history.push('/reports');
+				}}
         title={'Reports'}
       />
 

@@ -7,7 +7,7 @@ import Chip from '@material-ui/core/Chip';
 import { InputAdornment, Grid, Avatar, Popover } from '@material-ui/core';
 import EditProduct from './EditProduct';
 
-const ProductCategories = ({ handleEdit }) => {
+const ProductCategories = ({ viewBrandProfile }) => {
 	const [editOpen, setEditOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [productCategories, setProductCategories] = useState(true);
@@ -24,7 +24,9 @@ const ProductCategories = ({ handleEdit }) => {
 		>
 			<div className={styles.headerContainer}>
 				<h1>Product Categories</h1>
-				<Edit onClick={() => { setEditOpen(true); setAnchorEl(null) }} />
+				{viewBrandProfile ? (
+					""
+				) : (<Edit onClick={() => { setEditOpen(true); setAnchorEl(null) }} />)}
 			</div>
 			<EditProduct open={editOpen} closeAdd={() => setEditOpen(false)} />
 			<Popover
