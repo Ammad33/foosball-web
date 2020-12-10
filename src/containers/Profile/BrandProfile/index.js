@@ -20,14 +20,19 @@ import RightMenu from './RightMenu';
 
 
 const BrandProfile = () => {
-
+	const history = useHistory()
+	const [viewBrandProfile, setViewBrandProfile] = useState(false);
+	useEffect(() => {
+		if (history.location.pathname == "/brandProfile")
+			setViewBrandProfile(true);
+	});
+	//debugger;
 	return (
 		<>
 			<div className={styles.ProfileContainer}>
 				<Grid container>
 					<Grid container spacing={3} md={9}>
-						<Grid item xs={12} sm={12} md={9}>
-
+						<Grid item xs={12} sm={12} md={12} style={{ display: 'flex' }}>
 							<div className={styles.ProfileHeading}>
 								<Avatar
 									className={styles.brandImage}
@@ -37,27 +42,37 @@ const BrandProfile = () => {
 								<div>
 									<div className={styles.brandName}>
 										Brand Name
+									</div>
+									{viewBrandProfile ? (<button >Message</button>
+									) : (
+											<Link to='#'>Change Profile Photo</Link>
+										)}
+								</div>								
 							</div>
-									<Link to='#'>Change Profile Picture</Link>
-								</div>
+						{viewBrandProfile ? (
+							<div className={styles.ButtonContainer}>
+								<button className={styles.prospects}>
+									Add to Prospects
+									</button>
 							</div>
-						</Grid>
-						<Grid item xs={12} sm={12} md={5}>
-							<BrandInformation />
-						</Grid>
-						<Grid item xs={12} sm={12} md={6}>
-							<ProductCategories />
-						</Grid>
-						<Grid item xs={12} sm={12} md={11}>
-							<PopularProducts />
-						</Grid>
+						) : ('')}
 					</Grid>
-					<Grid item xs={12} sm={12} md={1} className={styles.exploreInfluencers} >
-						<RightMenu />
+					<Grid item xs={12} sm={12} md={5}>
+						{(viewBrandProfile || !viewBrandProfile) && <BrandInformation viewBrandProfile={viewBrandProfile} />}
+					</Grid>
+					<Grid item xs={12} sm={12} md={6}>
+						{(viewBrandProfile || !viewBrandProfile) && <ProductCategories viewBrandProfile={viewBrandProfile} />}
+					</Grid>
+					<Grid item xs={12} sm={12} md={11}>
+						{(viewBrandProfile || !viewBrandProfile) && <PopularProducts viewBrandProfile={viewBrandProfile} />}
 					</Grid>
 				</Grid>
+				<Grid item xs={12} sm={12} md={1} className={styles.exploreInfluencers} >
+					{(viewBrandProfile || !viewBrandProfile) && <RightMenu viewBrandProfile={viewBrandProfile} />}
+				</Grid>
+				</Grid>
 
-			</div>
+		</div>
 
 		</>
 	);

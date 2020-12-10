@@ -107,7 +107,7 @@ const InfluencerConnectAccounts = () => {
     <div className={styles.mainContainer}>
       <h5>
         Connecting your social accounts allows us to populate your profile,
-        making you a more attrictive candidate for brand campaigns
+        making you a more attractive candidate for brand campaigns
       </h5>
       <div className={styles.influencerSocialAccountsContainer}>
         {socialAccounts.map((account) => {

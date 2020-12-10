@@ -15,7 +15,10 @@ import LostBrandCampaignDetail from '../LostBrandCampaignDetail';
 import { RootContext } from '../../../context/RootContext';
 import _ from 'lodash';
 
-const BrandCampaignDetail = ({ handleDelete, status, addCampaign, setAddCampagin, data }) => {
+const BrandCampaignDetail = ({ handleDelete, status, addCampaign, updateCampaign, setAddCampagin, data, addInTeam,
+  removeInTeam, search,
+  handleSearch, selectedMembers,
+  team }) => {
   const [step, setStep] = useState(1);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [element, setElement] = useState('');
@@ -31,6 +34,9 @@ const BrandCampaignDetail = ({ handleDelete, status, addCampaign, setAddCampagin
   };
 
   const handleCloseDrawer = () => {
+    if (element === 'TeamMembers') {
+      updateCampaign();
+    }
     setElement('');
     setOpenDrawer(false);
   };
@@ -43,66 +49,17 @@ const BrandCampaignDetail = ({ handleDelete, status, addCampaign, setAddCampagin
       case 'Compensation':
         return <CompensationDetail compensations={data && data.compensation && data.compensation !== null ? _.compact(data.compensation) : []} budget={data.budget.amount} />;
       case 'TeamMembers':
-        return <TeamMembersDetail />;
+        return <TeamMembersDetail addInTeam={addInTeam}
+          removeInTeam={removeInTeam}
+          search={search}
+          handleSearch={handleSearch}
+          selectedMembers={selectedMembers}
+          team={team} />;
       default:
         return;
     }
   };
 
-  // const getCampaign = async () => {
-  //   try {
-  //     const campaign = await API.graphql({
-  //       query: `{
-  //         campaign(brandId: "${brandId}", id: "${campaignId}") {
-  //           id
-  // 					name
-  // 					startDate
-  // 					status
-  //           endDate
-  //           discount {
-  //             ... on PercentageDiscount {
-  //               __typename
-  //               percentage
-  //             }
-  //             ... on FlatDiscount {
-  //               __typename
-  //               amount {
-  //                 amount
-  //                 currency
-  //               }
-  //             }
-  //           }
-  //           budget {
-  //             amount
-  //             currency
-  //           }
-  //           targetGrossSales {
-  //             amount
-  //             currency
-  //           }
-  //           brandTeam {
-  //             id
-  //             imageUrl
-  //             fullName
-  //           }
-  //           brand {
-  //             id
-  //           }
-  //           negotiables {
-  //             campaign_duration
-  //             monthly_retainer_fee
-  //             post_fee
-  //             post_frequency
-  //             revenue_share
-  //             story_fee
-  //           }
-  //         }
-  //     }`,
-  //     });
-  //     console.log('campaign', campaign.data.campaign);
-  //     setData(campaign.data.campaign);
-  //   } catch (e) { }
-  // };
 
   const getPage = (status) => {
     switch (status) {

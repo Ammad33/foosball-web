@@ -30,11 +30,15 @@ const TeamMembers = ({ onClick, handleEdit, seeAll, brandTeam }) => {
 
       </div>
       {brandTeam && brandTeam !== null && brandTeam.length > 5 &&
-        <ChipButton
-          handleClick={() => onClick('TeamMembers')}
-          title={'See all'}
-          buttonSize={'sm'}
-        />}
+        <div style={{ position: 'absolute', bottom: '20px' }}>
+          <ChipButton
+
+            handleClick={() => onClick('TeamMembers')}
+            title={'See all'}
+            buttonSize={'sm'}
+          />
+        </div>
+      }
     </div>
   );
 };

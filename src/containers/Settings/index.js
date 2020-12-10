@@ -227,7 +227,7 @@ const Setting = () => {
       console.log(e);
     }
 	};
-	debugger;
+	//debugger;
 
 
   const getContents = () => {

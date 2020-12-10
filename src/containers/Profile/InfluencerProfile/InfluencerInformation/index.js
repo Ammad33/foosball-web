@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Edit, Phone } from 'react-feather';
 import { InputAdornment, Grid, Avatar, Popover } from '@material-ui/core';
 import styles from './InfluencerInformation.module.scss';
@@ -24,13 +24,14 @@ const Globe = () => {
 	);
 };
 
-const BrandInformation = ({ handleEdit }) => {
+const InfluencerInformation = ({ viewInfluencerProfile }) => {
 	const [editOpen, setEditOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
 
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
+	debugger;
 
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
@@ -39,7 +40,9 @@ const BrandInformation = ({ handleEdit }) => {
 		<div className={styles.influencerInfoContainer}>
 			<div className={styles.headerContainer}>
 				<h1>Influencer Information</h1>
-				<Edit onClick={() => { setEditOpen(true); setAnchorEl(null) }} />
+				{viewInfluencerProfile? (
+					''
+				): (<Edit onClick={() => { setEditOpen(true); setAnchorEl(null) }} />)}
 			</div>
 			<EditInfluencerInformation open={editOpen} closeAdd={() => setEditOpen(false)} />
 			<Popover
@@ -56,29 +59,29 @@ const BrandInformation = ({ handleEdit }) => {
 					horizontal: 'right',
 				}}
 			>
-				</Popover>
-				<div className={styles.detailSubContent}>
-					<p>Lifestyle and healthy living influencer, CEO of Sam Ozkural Jewelry,Wife and Mother.</p>
+			</Popover>
+			<div className={styles.detailSubContent}>
+				<p>Lifestyle and healthy living influencer, CEO of Sam Ozkural Jewelry,Wife and Mother.</p>
+			</div>
+			<div className={styles.detailSubContent}>
+				<div className={styles.svgContainer}>
+					<Messages />
+					<span style={{ marginLeft: "20px" }} > customerservice@careof.com </span>
 				</div>
-				<div className={styles.detailSubContent}>
-					<div className={styles.svgContainer}>
-						<Messages />
-						<span style={{ marginLeft: "20px" }} > customerservice@careof.com </span>
-					</div>
-					<div className={styles.svgContainer}>
-						<Globe />
-						<span style={{ marginLeft: "20px" }} > www.careof.com </span>
-					</div >
-					<div className={styles.svgContainer}>
-						<Phone />
-						<span style={{ marginLeft: "20px" }} > 414-444-888 </span>
-					</div>
+				<div className={styles.svgContainer}>
+					<Globe />
+					<span style={{ marginLeft: "20px" }} > www.careof.com </span>
+				</div >
+				<div className={styles.svgContainer}>
+					<Phone />
+					<span style={{ marginLeft: "20px" }} > 414-444-888 </span>
+				</div>
 
-				</div>
-      
-     
-    </div>
-  );
+			</div>
+
+
+		</div>
+	);
 };
 
-export default BrandInformation;
+export default InfluencerInformation;
