@@ -64,7 +64,7 @@ const Header = (meData, brandType) => {
 
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
-	//debugger;
+	debugger;
 	return (
 		<>
 			<Popover

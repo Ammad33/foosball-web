@@ -32,17 +32,8 @@ const LeftSideDrawer = () => {
     currentUser,
     activeRoute,
     setActiveRoute,
-  } = useContext(RootContext);
-
-  // const signOut = async () => {
-  //   try {
-  //     const signOut = await Auth.signOut({ global: true });
-  //     setLogoutMessage('Successfully logged out');
-  //     setCurrentUser(null);
-  //   } catch (error) {
-  //     console.log('error signing out: ', error);
-  //   }
-  // };
+	} = useContext(RootContext);
+	
   return (
     <>
       <ListItem
