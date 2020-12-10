@@ -26,7 +26,7 @@ const Social = ({ handleEdit }) => {
 
 	return (
 		<>
-			<Grid container spacing={3} md={10}>
+			<Grid container spacing={3} md={11}>
 				<Grid item xs={12} sm={12} md={4}>
 					<div className={styles.influencerInfoContainer}>
 						<div className={styles.socialIcons} >

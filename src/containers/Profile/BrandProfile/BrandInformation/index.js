@@ -24,7 +24,7 @@ const Globe = () => {
 	);
 };
 
-const BrandInformation = ({ handleEdit }) => {
+const BrandInformation = ({ viewBrandProfile }) => {
 	const [editOpen, setEditOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [brandInformation, setBrandInformation] = useState(true);
@@ -35,21 +35,22 @@ const BrandInformation = ({ handleEdit }) => {
 
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
-
 	return (
 		<div className={styles.brandInfoContainer}>
 			<div className={styles.headerContainer}>
 				<h1>Brand Information</h1>
-				<Edit onClick={() => { setEditOpen(true); setAnchorEl(null) }} />
+				{viewBrandProfile ? (
+					""
+				) : (<Edit onClick={() => { setEditOpen(true); setAnchorEl(null) }} />)}
 			</div>
-			<EditBrand 
-			open={editOpen} 
-			closeAdd={() => setEditOpen(false)} 
-			brandName = "Brand Name"
-			bio ="Premium Vitamins and Powders, Tailored to You, Delivered right to your door."
-			email = "customerservice@careof.com"
-			website = "www.careof.com"
-			phoneNo = "414-444-888"
+			<EditBrand
+				open={editOpen}
+				closeAdd={() => setEditOpen(false)}
+				brandName="Brand Name"
+				bio="Premium Vitamins and Powders, Tailored to You, Delivered right to your door."
+				email="customerservice@careof.com"
+				website="www.careof.com"
+				phoneNo="414-444-888"
 			/>
 			<Popover
 				id={id}
@@ -105,10 +106,10 @@ const BrandInformation = ({ handleEdit }) => {
 								<span style={{ marginLeft: "10px" }} ></span>
 							</div>
 						</div>
-						</>
+					</>
 				)}
-					</div>
-				);
+		</div>
+	);
 };
 
 export default BrandInformation;
