@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Avatar } from '@material-ui/core';
 import ChipButton from '../../../components/ChipButton';
+import TextField from '../../../components/TextField';
 import styles from './TeamMembersDetail.module.scss';
 import * as _ from 'lodash';
 
@@ -82,7 +83,15 @@ const allTeamMembers = [
   },
 ];
 
-const TeamMembersDetail = () => {
+const TeamMembersDetail = ({
+  addInTeam,
+  removeInTeam,
+  search,
+  handleSearch,
+  selectedMembers,
+  team }) => {
+
+  console.log(team);
   const [addedMembers, setMembers] = useState(addedTeamMembers);
   const [teamMembers, setTeamMembers] = useState(allTeamMembers);
 
@@ -100,24 +109,34 @@ const TeamMembersDetail = () => {
       <h3>Team Members</h3>
       <div className={styles.membersContainer}>
         <div className={styles.addedMembersList}>
-          {addedMembers.map((member) => {
+          {selectedMembers.map((member) => {
             return (
               <div className={styles.listItem} key={member.id}>
-                <Avatar src={member.avatar} />
-                <span>{member.name}</span>
+                <Avatar src={member.imageUrl} />
+                <span>{member.fullName}</span>
               </div>
             );
           })}
         </div>
-        <div>
+        <p className={styles.memberHeading}>Add other members to this Campaign</p>
+        <TextField
+          id='outlined-basic'
+          fullWidth
+          type='text'
+          label='Search or invite by email address'
+          variant='outlined'
+          value={search}
+          onChange={handleSearch}
+        />
+        <div style={{ marginTop: '35px' }}>
           <div className={styles.addMembersList}>
-            {teamMembers.map((member) => {
+            {team.map((member) => {
               return (
                 <div className={styles.listItem} key={member.id}>
-                  <Avatar src={member.avatar} />
-                  <span>{member.name}</span>
+                  <Avatar src={member.imageUrl} />
+                  <span>{member.fullName}</span>
                   <ChipButton
-                    handleClick={() => addTeamMemberClick(member)}
+                    handleClick={() => addInTeam(member)}
                     title={'Add'}
                     buttonSize={'sm'}
                   />

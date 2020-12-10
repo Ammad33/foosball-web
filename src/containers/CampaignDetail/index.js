@@ -8,6 +8,7 @@ import Link from '@material-ui/core/Link';
 import { RootContext } from '../../context/RootContext';
 import SelectMenu from '../../components/SelectMenu';
 import { API, graphqlOperation } from 'aws-amplify';
+import _ from 'lodash';
 
 const CampaignDetail = () => {
 
@@ -18,6 +19,9 @@ const CampaignDetail = () => {
   const { campaignId } = useParams();
   const [brandState, setBrandState] = useState(true);
   const { setActiveCampaign, brandId } = useContext(RootContext);
+  const [selectedMembers, setSelectedMemebers] = useState([]);
+  const [team, setTeam] = useState([]);
+  const [search, setSearch] = useState('');
 
   const [data, setData] = useState(null);
 
@@ -26,6 +30,34 @@ const CampaignDetail = () => {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
   };
+
+  const handleSearch = async (e) => {
+    setSearch(e.target.value);
+
+    const members = [...team];
+    setTeam(members.filter(item => item.email.includes(e.target.value)));
+    if (e.target.value === '') {
+
+      let teamData = await getTeam();
+
+      teamData = teamData.map(item => item.user);
+
+      if (selectedMembers && selectedMembers !== null && selectedMembers.length !== 0) {
+        let data = teamData && teamData !== null && teamData.map(item => {
+          const index = selectedMembers.findIndex(sec => sec.email === item.email);
+          if (index !== -1) {
+            return
+          } else {
+            return item;
+          }
+        });
+        setTeam(_.compact(data));
+      } else {
+        setTeam(teamData);
+      }
+
+    }
+  }
 
   const handleDelete = async () => {
 
@@ -43,6 +75,35 @@ const CampaignDetail = () => {
       console.log('delete campaign error ', e);
     }
   }
+
+  const updateCampaign = async () => {
+
+    try {
+
+      const data = {
+        brandId,
+        id: campaignId,
+        team: selectedMembers.map(item => item.id),
+      };
+
+      await API.graphql(
+        graphqlOperation(
+          `mutation updateCampaign($input : UpdateCampaignInput!) {
+            updateCampaign(input: $input) {
+              name
+            }
+        }`,
+          {
+            input: data,
+          }
+        )
+      );
+      getCampaign();
+    } catch (e) {
+      console.log('update campaign error ', e);
+    }
+  };
+
 
   const getCampaign = async () => {
     try {
@@ -108,6 +169,7 @@ const CampaignDetail = () => {
               id
               imageUrl
               fullName
+              email
             }
             brand {
               id
@@ -139,6 +201,7 @@ const CampaignDetail = () => {
           }
       }`,
       });
+
       campaign.data.campaign.deliverables.map((deliverable) => {
         deliverable.deliverableType =
           deliverable.deliverableType.charAt(0).toUpperCase() +
@@ -153,6 +216,7 @@ const CampaignDetail = () => {
           deliverable.deadlineDate * 1000
         ).toDateString();
       });
+
       setData(campaign.data.campaign);
       if (
         campaign.data &&
@@ -164,9 +228,75 @@ const CampaignDetail = () => {
             ? campaign.data.campaign.status
             : 'CLOSED'
         );
+
+        setSelectedMemebers(campaign.data.campaign.brandTeam
+          ? campaign.data.campaign.brandTeam : []);
+
+        let teamData = await getTeam();
+        teamData = teamData.map(item => item.user);
+
+        if (campaign.data.campaign.brandTeam && campaign.data.campaign.brandTeam !== null && campaign.data.campaign.brandTeam.length !== 0) {
+          let data = teamData && teamData !== null && teamData.map(item => {
+            const index = campaign.data.campaign.brandTeam.findIndex(sec => sec.email === item.email);
+            console.log(index);
+            if (index !== -1) {
+              return
+            } else {
+              return item;
+            }
+          });
+          setTeam(_.compact(data));
+        } else {
+          setTeam(teamData);
+        }
       }
     } catch (e) { }
   };
+
+  const getTeam = async () => {
+    try {
+      const team = await API.graphql({
+        query: `{
+          brand(id:"${brandId}") {
+            users {
+              user {
+                imageUrl
+                id
+                fullName
+                email
+              }
+            }
+          }
+        }`,
+      });
+      if (team.data !== null && team.data.brand !== null) {
+        return team.data.brand.users;
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const addInTeam = (memeber) => {
+    const members = [...selectedMembers];
+    members.push(memeber);
+    setSelectedMemebers(members);
+    const total = [...team];
+    const index = total.findIndex(item => item.email === memeber.email);
+    total.splice(index, 1);
+    setTeam(total);
+  }
+
+  const removeInTeam = (memeber) => {
+    const total = [...selectedMembers];
+    const index = total.findIndex(item => item.email === memeber.email);
+    total.splice(index, 1);
+    setSelectedMemebers(total);
+    const members = [...team];
+    members.push(memeber);
+    setTeam(members);
+  }
+
 
   useEffect(() => {
     getCampaign();
@@ -178,6 +308,8 @@ const CampaignDetail = () => {
   useEffect(() => {
     setActiveCampaign(campaignId);
   }, []);
+
+
 
   return (
     <div className={styles.detailContainer}>
@@ -215,6 +347,13 @@ const CampaignDetail = () => {
           addCampaign={addCampaign}
           setAddCampagin={setAddCampagin}
           handleDelete={handleDelete}
+          selectedMembers={selectedMembers}
+          team={team}
+          addInTeam={addInTeam}
+          removeInTeam={removeInTeam}
+          search={search}
+          handleSearch={handleSearch}
+          updateCampaign={updateCampaign}
         />
       ) : (
           <InfluencerCampaignDetail
@@ -223,6 +362,13 @@ const CampaignDetail = () => {
             addCampaign={addCampaign}
             setAddCampagin={setAddCampagin}
             handleDelete={handleDelete}
+            selectedMembers={selectedMembers}
+            team={team}
+            addInTeam={addInTeam}
+            removeInTeam={removeInTeam}
+            search={search}
+            handleSearch={handleSearch}
+            updateCampaign={updateCampaign}
           />
         )}
     </div>

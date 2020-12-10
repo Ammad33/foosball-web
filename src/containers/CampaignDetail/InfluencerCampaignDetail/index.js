@@ -17,7 +17,10 @@ import DraftBrandCampaignDetail from '../DraftBrandCampaignDetail';
 import _ from 'lodash';
 import { parse } from 'path';
 
-const CampaignDetailInfluencer = ({ status, handleDelete, addCampaign, setAddCampagin, data }) => {
+const CampaignDetailInfluencer = ({ status, handleDelete, addCampaign, setAddCampagin, data, addInTeam,
+  removeInTeam, search,
+  handleSearch, selectedMembers,
+  team, updateCampaign }) => {
 
   const [openDrawer, setOpenDrawer] = useState(false);
   const [step, setStep] = useState(1);
@@ -29,6 +32,9 @@ const CampaignDetailInfluencer = ({ status, handleDelete, addCampaign, setAddCam
   };
 
   const handleCloseDrawer = () => {
+    if (element === 'TeamMembers') {
+      updateCampaign();
+    }
     setElement('');
     setOpenDrawer(false);
   };
@@ -45,6 +51,8 @@ const CampaignDetailInfluencer = ({ status, handleDelete, addCampaign, setAddCam
             name={data && data.name}
             handleDelete={handleDelete}
 
+
+
           />
         );
       case 'CLOSED':
@@ -56,6 +64,7 @@ const CampaignDetailInfluencer = ({ status, handleDelete, addCampaign, setAddCam
             getTotal={getTotal}
             name={data && data.name}
             handleDelete={handleDelete}
+
           />
         );
       case 'LIVE':
@@ -67,6 +76,7 @@ const CampaignDetailInfluencer = ({ status, handleDelete, addCampaign, setAddCam
             getTotal={getTotal}
             name={data && data.name}
             handleDelete={handleDelete}
+
           />
         );
       case 'INVITE':
@@ -78,6 +88,7 @@ const CampaignDetailInfluencer = ({ status, handleDelete, addCampaign, setAddCam
             getTotal={getTotal}
             name={data && data.name}
             handleDelete={handleDelete}
+
           />
         );
       case 'LOST':
@@ -89,6 +100,7 @@ const CampaignDetailInfluencer = ({ status, handleDelete, addCampaign, setAddCam
             getTotal={getTotal}
             name={data && data.name}
             handleDelete={handleDelete}
+
           />
         );
       case 'PENDING':
@@ -100,6 +112,7 @@ const CampaignDetailInfluencer = ({ status, handleDelete, addCampaign, setAddCam
             getTotal={getTotal}
             name={data && data.name}
             handleDelete={handleDelete}
+
           />
         );
       case 'DECLINED':
@@ -111,6 +124,7 @@ const CampaignDetailInfluencer = ({ status, handleDelete, addCampaign, setAddCam
             getTotal={getTotal}
             name={data && data.name}
             handleDelete={handleDelete}
+
           />
         );
       default:
@@ -127,7 +141,12 @@ const CampaignDetailInfluencer = ({ status, handleDelete, addCampaign, setAddCam
       case 'Compensation':
         return <CompensationDetail compensations={data && data.compensation && data.compensation !== null ? _.compact(data.compensation) : []} budget={data.budget.amount} />;
       case 'TeamMembers':
-        return <TeamMembersDetail />;
+        return <TeamMembersDetail addInTeam={addInTeam}
+          removeInTeam={removeInTeam}
+          search={search}
+          handleSearch={handleSearch}
+          selectedMembers={selectedMembers}
+          team={team} />;
       default:
         return;
     }
