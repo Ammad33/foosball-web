@@ -8,7 +8,6 @@ const Profile = () => {
 	const {
 		brandType
 	} = useContext(RootContext);
-	debugger;
 	return (
 		<>
 			<div>

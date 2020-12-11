@@ -26,7 +26,6 @@ const frames = [];
 for (let i = 1; i <= 15; i += 1) {
   frames.push(i);
 }
-// debugger;
 
 const CreateDeliverable = ({
   index,

@@ -218,7 +218,6 @@ const Setting = () => {
 					}
 			}`,
       });
-      // debugger;
       setEmail(mydata.data.me.email);
       setFullName(mydata.data.me.fullName);
       setBrandName(mydata.data.me.organizations[0].organization.name);
@@ -227,7 +226,6 @@ const Setting = () => {
       console.log(e);
     }
 	};
-	//debugger;
 
 
   const getContents = () => {
