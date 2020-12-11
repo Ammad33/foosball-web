@@ -18,7 +18,6 @@ const ExploreBrands = ({ influencer }) => {
 	const [influencerProfile, setInfluencerProfile] = useState(false);
 	// const handleInfluencerProfile = () => {
 	// 	setInfluencerProfile(true)
-	// 	debugger;
 	// 	return (
 
 	// 	)

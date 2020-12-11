@@ -1110,7 +1110,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign, brandId }) => {
   /************* Active for deliverable */
 
   const setActiveForDeliverables = () => {
-    //debugger;
     const deliverables = [...deliveries];
 
     let flag = true;

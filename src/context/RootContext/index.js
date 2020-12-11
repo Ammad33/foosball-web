@@ -4,7 +4,6 @@ export const RootContext = React.createContext();
 
 export default ({ children }) => {
 
-	//debugger;
   const prevUser = JSON.parse(window.localStorage.getItem('user')) || null;
   const preActiveRoute = localStorage.getItem('route') || 'Campaign';
   const brandsStored = JSON.parse(localStorage.getItem('brands')) || null;

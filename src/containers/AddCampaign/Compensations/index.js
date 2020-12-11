@@ -52,7 +52,6 @@ const Compensations = ({
     checkAddAnother();
   }, [compensations]);
 
-  // debugger;
 
   return (
     <div>

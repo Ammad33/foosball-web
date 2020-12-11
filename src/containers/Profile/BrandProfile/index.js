@@ -26,7 +26,6 @@ const BrandProfile = () => {
 		if (history.location.pathname == "/brandProfile")
 			setViewBrandProfile(true);
 	});
-	//debugger;
 	return (
 		<>
 			<div className={styles.ProfileContainer}>

@@ -31,7 +31,6 @@ const InfluencerInformation = ({ viewInfluencerProfile }) => {
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
-	debugger;
 
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
