@@ -47,7 +47,7 @@ const Header = (meData, brandType) => {
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
 	};
-	
+
 	const navigate = () => {
 		history.push('/settings');
 		setActiveRoute('Settings');
@@ -65,7 +65,6 @@ const Header = (meData, brandType) => {
 
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
-	debugger;
 	return (
 		<>
 			<Popover

@@ -39,7 +39,6 @@ const Notification = () => {
 
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
-	debugger;
 	return (
 		<>
 			<Popover
@@ -85,7 +84,7 @@ const Notification = () => {
 				</Grid> */}
 			</Popover>
 			<div onClick={handleClick}>
-			<NotificationIcon />
+				<NotificationIcon />
 			</div>
 		</>
 	);
