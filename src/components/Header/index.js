@@ -47,7 +47,7 @@ const Header = (meData, brandType) => {
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
 	};
-	
+
 	const navigate = () => {
 		history.push('/settings');
 		setActiveRoute('Settings');
