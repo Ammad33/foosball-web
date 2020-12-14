@@ -26,6 +26,7 @@ import Contacts from './containers/Contacts';
 import Profile from './containers/Profile';
 import InfluencerProfile from './containers/Profile/InfluencerProfile';
 import BrandProfile from './containers/Profile/BrandProfile';
+import Team from './containers/Team'
 
 const App = () => {
   return (
@@ -59,6 +60,11 @@ const App = () => {
           </ProtectedRoute>
           <ProtectedRoute exact path='/addCampaign'>
             <AddCampaign />
+          </ProtectedRoute>
+					<ProtectedRoute exact path='/team'>
+            <Layout>
+              <Team />
+            </Layout>
           </ProtectedRoute>
           <ProtectedRoute exact path='/settings'>
             <Layout>
