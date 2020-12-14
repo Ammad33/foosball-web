@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { Avatar } from '@material-ui/core';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import { Popover } from '@material-ui/core';
-import Image1 from '../../../assets/bottle.png';
+import Image1 from '../../../assets/dummygrey';
 import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -25,9 +25,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-
-
-
+import { makeStyles } from '@material-ui/core/styles';
 
 
 const SharedFile = ({ }) => {
@@ -36,6 +34,14 @@ const SharedFile = ({ }) => {
 	const id = open ? 'simple-popover' : undefined;
 	const [imageOpen, setImageOpen] = useState(false);
 	const [active, setActive] = useState('images');
+
+	// const useStyles = () => ({
+	// 	listItemText:{
+	// 		fontSize:'41px',//Insert your required size
+	// 	}
+	// });
+
+
 
 
 	const handleClickOpen = () => {
@@ -56,12 +62,17 @@ const SharedFile = ({ }) => {
 	return (
 		<>
 			<Dialog
+				PaperProps={{
+					style: {
+						height: "400px",
+						width: "550px"
+					}
+				}}
 				open={imageOpen}
 				onClose={handleCloseImage}
 				aria-labelledby="responsive-dialog-title"
-				contentStyle={{ width: "50%", height: "50%" }}
-			>
-				<DialogTitle id="responsive-dialog-title" className={styles.dialogTitle}><Download /> <p>Sam Ozkural 10-08  5.38pm</p></DialogTitle>
+			>	<div className={styles.dialogTitleContainer}> 
+				<DialogTitle id="responsive-dialog-title" className={styles.dialogTitle}><Download /></DialogTitle></div>
 				<DialogContent >
 					<DialogContentText>
 						<img

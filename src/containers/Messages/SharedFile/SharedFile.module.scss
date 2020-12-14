@@ -9,16 +9,15 @@
 
 		button {
 			height: 36px;
-			width: 162px;
+			// width: 162px;
 			background: transparent;
 			border: none !important;
 			font-size: 17px;
 			line-height: 26px;
-			padding: 5px 16px;
 			font-family: 'Poppins Regular', sans-serif;
 			cursor: pointer;
 			display: flex;
-			padding: 12px 0px 12px 20px !important;
+			// padding: 12px 0px 12px 20px !important;
 			align-items: center;
 		}
 
@@ -37,9 +36,8 @@
 			background-color: #000000 !important;
 			border: none !important;
 			color: #FFFFFF;
-			padding: 8px 16px;
 			border-radius: 100px;
-			font-size: 12px;
+			font-size: 17px !important;
 			outline: none;
 			font-family: 'Poppins Light', sans-serif;
 		}
@@ -97,12 +95,32 @@
 		margin: 20px 0px 0px 15px;
 	}
 }
-
-
-.dialogTitle {
+.dialogTitleContainer{
 	display: flex;
 
+}
+
+.dialogTitle {
+
+	svg {
+		display: flex;
+
+	}
 	p {
-		font-size: 20px;
+		display: flex !important;
+		color: #000000;
+		font-family: Poppins;
+		font-size: 17px;
+		letter-spacing: 0;
+		line-height: 26px;
+	
+	}
+	span {
+		color: #939393;
+		font-family: Poppins;
+		font-size: 12px;
+		letter-spacing: 0;
+		line-height: 18px;
+	
 	}
 }
