@@ -70,17 +70,17 @@ const App = () => {
               <Profile />
             </Layout>
           </ProtectedRoute>
-					<ProtectedRoute exact path='/influencerProfile'>
+          <ProtectedRoute exact path='/influencerProfile'>
             <Layout>
-              <InfluencerProfile/>
+              <InfluencerProfile />
             </Layout>
           </ProtectedRoute>
-					<ProtectedRoute exact path='/brandProfile'>
+          <ProtectedRoute exact path='/brandProfile'>
             <Layout>
-              <BrandProfile/>
+              <BrandProfile />
             </Layout>
           </ProtectedRoute>
-					<ProtectedRoute exact path='/reports'>
+          <ProtectedRoute exact path='/reports'>
             <Layout>
               <Reports />
             </Layout>
