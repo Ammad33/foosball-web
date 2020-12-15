@@ -118,7 +118,32 @@
 	.headerContainer {
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
+		// justify-content: space-between;
+		padding: 30px 0px 20px 54px;
+
+
+		.avatar {
+			width: 46px;
+			height: 46px;
+
+			
+		}
+		span {
+			color: #000000;
+			font-family: Poppins;
+			font-size: 16px;
+			letter-spacing: 0;
+			line-height: 25px;
+			margin-left: 15px;
+			width: 62%;
+		}
+		.dropDown {
+			width: 164px;
+			height: 49px;
+			margin-bottom: 8px;
+		}
+
+
 
 		h1 {
 			color: $dark1;
@@ -129,6 +154,7 @@
 			line-height: 34px;
 		}
 	}
+
 	.itemImage {
 		width: 46px;
 		height: 46px;
@@ -136,26 +162,11 @@
 		align-items: center;
 		padding: 27px 0px 0px 41px;
 
-		p {
-			color: #000000;
-			font-family: Poppins;
-			font-size: 16px;
-			letter-spacing: 0;
-			line-height: 25px;
-			margin-left: 25px;
-		}
-	}
 
-	.dropdown {
-		width: 46px;
-		height: 46px;
-		display: flex;
-		align-items: center;
-		padding: 27px 0px 0px 0px;
 	}
-
 	.divider {
-		margin-top: 30px;
+		width: 94%;
+		margin-left: 36px;
 	}
 }
 
@@ -163,8 +174,7 @@
 	width: 100%;
 	display: flex;
 	justify-content: center;
-	margin-top: 120px
-		// color: #000000;
+	margin-top: 120px // color: #000000;
 		// font-family: Poppins;
 		// font-size: 28px;
 		// font-weight: 500;
@@ -173,7 +183,7 @@
 }
 
 .noMembersText {
-	h6{
+	h6 {
 		color: #000000;
 		font-family: Poppins;
 		font-size: 28px;
@@ -184,7 +194,8 @@
 		margin: 29px 0px 0px 0px;
 
 	}
-	p{
+
+	p {
 		color: #000000;
 		font-family: Poppins;
 		font-size: 19px;
@@ -193,7 +204,7 @@
 		line-height: 20px;
 		text-align: center;
 		margin: 25px 0px 0px 0px;
-	
+
 	}
 }
 
