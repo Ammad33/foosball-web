@@ -18,10 +18,11 @@ const Campaigns = () => {
   const history = useHistory();
   const [active, setActive] = useState('ALL');
   const [campaigns, setCampaigns] = useState([]);
+  const [bkupCampaigns, setBkupCampaigns] = useState([]);
   const [addCampaign, setAddCampagin] = useState(false);
   const [meData, setMeData] = useState([]);
   const [brandName, setBrandName] = useState([]);
-  const { brandId, setBrands } = useContext(RootContext);
+  const { brandId, setBrands, searchValue } = useContext(RootContext);
 
   useEffect(() => {
     if (!brandId || brandId === '') {
@@ -63,8 +64,6 @@ const Campaigns = () => {
       });
 
       setBrands(mydata.data.me.organizations);
-      // setBrandId(mydata.data.me.organizations[0].organization.id);
-      // setBrandIdd(mydata.data.me.organizations[0].organization.id);
       setMeData(mydata.data.me.organizations);
       setBrandName(mydata.data.me.organizations[0].organization.__typename);
     } catch (e) {
@@ -88,6 +87,7 @@ const Campaigns = () => {
       }`,
       });
       setCampaigns(campaigns.data.campaigns.campaigns);
+      setBkupCampaigns(campaigns.data.campaigns.campaigns);
     } catch (e) {}
   };
 
@@ -97,6 +97,22 @@ const Campaigns = () => {
       getCampaigns();
     }
   }, [brandId, addCampaign]);
+
+  useEffect(() => {
+    searchCampaigns();
+  }, [searchValue]);
+
+  const searchCampaigns = () => {
+    let copiedCampaigns = [...bkupCampaigns];
+    if (searchValue.trim()) {
+      copiedCampaigns = copiedCampaigns.filter((campaign) => {
+        return (
+          campaign.name.toLowerCase().indexOf(searchValue.toLowerCase()) > -1
+        );
+      });
+    }
+    setCampaigns(copiedCampaigns);
+  };
 
   return (
     <>

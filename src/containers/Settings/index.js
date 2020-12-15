@@ -1,4 +1,4 @@
-import React, { useContext, useState , useHistory, useEffect } from 'react';
+import React, { useContext, useState, useHistory, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import styles from './Setting.module.scss';
 import Notifications from './Notifications';
@@ -8,7 +8,6 @@ import ConnectedAccounts from './ConnectedAccounts';
 import Billing from './Billing';
 import { RootContext } from '../../context/RootContext';
 
-
 const Setting = () => {
   const [active, setActive] = useState('account');
   const [actionRequired, setActionRequired] = useState(true);
@@ -17,15 +16,13 @@ const Setting = () => {
   const [campaignStart, setCampaignStart] = useState(false);
   //const [influencers, setInfluncers] = useState([]);
   const [brands, setBrands] = useState([]);
-  const [meData, setMeData] = useState([]);
+  const [imgUrl, setImgUrl] = useState([]);
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [brandName, setBrandName] = useState([]);
   const [typeName, setTypeName] = useState([]);
-	const [brandId, setBrandId] = useState([]);
-	const { 
-		brandType
-		 } = useContext(RootContext);
+  const [brandId, setBrandId] = useState([]);
+  const { brandType } = useContext(RootContext);
 
   useEffect(() => {
     myData();
@@ -220,13 +217,13 @@ const Setting = () => {
       });
       setEmail(mydata.data.me.email);
       setFullName(mydata.data.me.fullName);
+      setImgUrl(mydata.data.me.imageUrl);
       setBrandName(mydata.data.me.organizations[0].organization.name);
-      setTypeName(mydata.data.me.organizations[1].organization.__typename)
+      setTypeName(mydata.data.me.organizations[1].organization.__typename);
     } catch (e) {
       console.log(e);
     }
-	};
-
+  };
 
   const getContents = () => {
     switch (active) {
@@ -234,6 +231,7 @@ const Setting = () => {
         return (
           <Account
             fullname={fullName}
+            imgUrl={imgUrl}
             handleFullName={(e) => {
               setFullName(e.target.value);
             }}
@@ -243,7 +241,7 @@ const Setting = () => {
             }}
             brandName={brandName}
             handleBrandName={(e) => {
-            setBrandName(e.target.value);
+              setBrandName(e.target.value);
             }}
           />
         );
@@ -262,12 +260,9 @@ const Setting = () => {
           />
         );
       case 'connectedAccounts':
-        return (
-          <ConnectedAccounts
-            typeName={brandType}
-          />);
+        return <ConnectedAccounts typeName={brandType} />;
       case 'billing':
-        return <Billing />
+        return <Billing />;
       // case 'contacts':
       // return <Contacts
       //   influencers={influencers}
@@ -324,7 +319,6 @@ const Setting = () => {
         </button>
       </div>
       <Grid containers>{getContents()}</Grid>
-
     </div>
   );
 };
