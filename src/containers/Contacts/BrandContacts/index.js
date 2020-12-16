@@ -19,6 +19,7 @@ import SVG from 'react-inlinesvg';
 import { Facebook, Youtube, Instagram } from 'react-feather';
 import { Link } from 'react-router-dom';
 import { RootContext } from '../../../context/RootContext';
+import { API, graphqlOperation } from 'aws-amplify';
 
 const Users = () => {
   return <SVG src={require('../../../assets/users.svg')} />;
@@ -70,7 +71,7 @@ const Contacts = ({}) => {
   const [brandContacts, setBrandContacts] = useState('');
   const [contacts, setContacts] = useState(dummyContacts);
   const [bkupContacts, setBkupContacts] = useState(dummyContacts);
-  const { searchValue } = useContext(RootContext);
+  const { searchValue, brandId } = useContext(RootContext);
   const classes = useStyles();
 
   const [newInfluencer, setNewInfluencer] = useState({
@@ -171,16 +172,44 @@ const Contacts = ({}) => {
     searchContacts();
   }, [searchValue]);
 
+  useEffect(() => {
+    getContacts();
+  }, [brandId]);
+
   const searchContacts = () => {
     let copiedContacts = [...bkupContacts];
     if (searchValue.trim()) {
       copiedContacts = copiedContacts.filter((contact) => {
         return (
-          contact.name.toLowerCase().indexOf(searchValue.toLowerCase()) > -1
+          contact?.user?.fullName
+            .toLowerCase()
+            .indexOf(searchValue.toLowerCase()) > -1
         );
       });
     }
     setContacts(copiedContacts);
+  };
+
+  const getContacts = async () => {
+    try {
+      console.log('get contacts');
+      const data = (
+        await API.graphql({
+          query: `{
+			brand(id: "${brandId}") {
+					users {
+					  user {
+						fullName
+					  }
+					}
+				  }
+		  }`,
+        })
+      ).data?.brand?.users;
+      console.log(data);
+      setContacts(data || []);
+      setBkupContacts(data || []);
+    } catch (e) {}
   };
 
   return (
@@ -309,7 +338,9 @@ const Contacts = ({}) => {
                             className={styles.avatar}
                             src='https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80'
                           />{' '}
-                          <p className={styles.avatarName}>{contact.name}</p>
+                          <p className={styles.avatarName}>
+                            {contact?.user?.fullName}
+                          </p>
                         </TableCell>
                         <TableCell className={styles.avatarName}>
                           Lennie James

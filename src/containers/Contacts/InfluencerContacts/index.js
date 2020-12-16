@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import styles from './InfluencerContacts.module.scss';
 import { Plus, MoreVertical, Mail, Edit, Trash } from 'react-feather';
 import { InputAdornment, Grid, Avatar, Popover } from '@material-ui/core';
@@ -6,12 +6,12 @@ import TextField from '../../../components/TextField';
 import { Search } from 'react-feather';
 import AddContact from '../BrandContacts/AddContact';
 import EditContact from './EditContact';
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-import MuiTableCell from "@material-ui/core/TableCell";
+import MuiTableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
@@ -19,165 +19,239 @@ import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import SVG from 'react-inlinesvg';
 import { Link } from 'react-router-dom';
-
-
+import { RootContext } from '../../../context/RootContext';
+import { API, graphqlOperation } from 'aws-amplify';
 
 const Users = () => {
   return <SVG src={require('../../../assets/users.svg')} />;
 };
 
-
 const TableCell = withStyles({
-	root: {
-		borderBottom: "none"
-	}
+  root: {
+    borderBottom: 'none',
+  },
 })(MuiTableCell);
 
-const useStyles = makeStyles(theme => ({
-	root: {
-		width: "100%",
-		marginTop: theme.spacing(3),
-		overflowX: "auto",
-		borderRadius: "10px"
-	},
-	table: {
-		minWidth: 650
-	}
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    marginTop: theme.spacing(3),
+    overflowX: 'auto',
+    borderRadius: '10px',
+  },
+  table: {
+    minWidth: 650,
+  },
 }));
 
-const InfluencerContacts = ({ }) => {
+const dummyContacts = [
+  { name: 'Mark' },
+  { name: 'Sam' },
+  { name: 'Daniel' },
+  { name: 'Jared' },
+  { name: 'Jeromy' },
+  { name: 'Glenn' },
+  { name: 'Jim' },
+  { name: 'Tim' },
+  { name: 'Tony' },
+  { name: 'John' },
+  { name: 'David' },
+  { name: 'Miller' },
+  { name: 'Keiron' },
+  { name: 'Pollard' },
+  { name: 'Chris' },
+  { name: 'Gayle' },
+];
 
+const InfluencerContacts = ({}) => {
+  const [search, setSearch] = useState('');
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [influencers, setInfluncers] = useState([]);
+  const [addOpen, setAddOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
+  const [brandContacts, setBrandContacts] = useState('');
+  const [contacts, setContacts] = useState(dummyContacts);
+  const [bkupContacts, setBkupContacts] = useState(dummyContacts);
+  const { searchValue, brandId } = useContext(RootContext);
+  const classes = useStyles();
 
-	const [search, setSearch] = useState('');
-	const [anchorEl, setAnchorEl] = React.useState(null);
-	const [influencers, setInfluncers] = useState([]);
-	const [addOpen, setAddOpen] = useState(false);
-	const [editOpen, setEditOpen] = useState(false);
-	const [brandContacts, setBrandContacts] = useState('');
-	const classes = useStyles();
+  const [newInfluencer, setNewInfluencer] = useState({
+    fullName: '',
+    instagramHandler: '',
+    email: '',
+    mobilePhone: '',
+  });
 
-	const [newInfluencer, setNewInfluencer] = useState({
-		fullName: '',
-		instagramHandler: '',
-		email: '',
-		mobilePhone: '',
-	});
+  const [newInfluencerError, setNewInfluencerError] = useState({
+    fullName: false,
+    instagramHandler: false,
+    email: false,
+    mobilePhone: false,
+  });
 
-	const [newInfluencerError, setNewInfluencerError] = useState({
-		fullName: false,
-		instagramHandler: false,
-		email: false,
-		mobilePhone: false,
-	});
+  const handleNewInfluencerChange = (value, fieldName) => {
+    const newInfluner = { ...newInfluencer };
+    newInfluner[fieldName] = value;
+    const newInflunerError = { ...newInfluencerError };
+    if (
+      fieldName === 'email' ||
+      (fieldName === 'mobilePhone' &&
+        newInflunerError[fieldName] === true &&
+        value !== '')
+    ) {
+      newInflunerError['mobilePhone'] = false;
+      newInflunerError['email'] = false;
+      setNewInfluencerError(newInflunerError);
+    } else if (newInflunerError[fieldName] === true && value !== '') {
+      newInflunerError[fieldName] = false;
+      setNewInfluencerError(newInflunerError);
+    }
+    setNewInfluencer(newInfluner);
+  };
 
-	const handleNewInfluencerChange = (value, fieldName) => {
-		const newInfluner = { ...newInfluencer };
-		newInfluner[fieldName] = value;
-		const newInflunerError = { ...newInfluencerError };
-		if (
-			fieldName === 'email' ||
-			(fieldName === 'mobilePhone' &&
-				newInflunerError[fieldName] === true &&
-				value !== '')
-		) {
-			newInflunerError['mobilePhone'] = false;
-			newInflunerError['email'] = false;
-			setNewInfluencerError(newInflunerError);
-		} else if (newInflunerError[fieldName] === true && value !== '') {
-			newInflunerError[fieldName] = false;
-			setNewInfluencerError(newInflunerError);
-		}
-		setNewInfluencer(newInfluner);
-	};
+  const setNew = () => {
+    setNewInfluencer({
+      fullName: '',
+      instagramHandler: '',
+      email: '',
+      mobilePhone: '',
+    });
 
-	const setNew = () => {
-		setNewInfluencer({
-			fullName: '',
-			instagramHandler: '',
-			email: '',
-			mobilePhone: '',
-		});
+    setNewInfluencerError({
+      fullName: false,
+      instagramHandler: false,
+      email: false,
+      mobilePhone: false,
+    });
+  };
 
-		setNewInfluencerError({
-			fullName: false,
-			instagramHandler: false,
-			email: false,
-			mobilePhone: false,
-		});
-	};
+  const addNewInfluencer = () => {
+    const newInfluencerErrorr = { ...newInfluencerError };
+    if (newInfluencer.fullName === '') {
+      newInfluencerErrorr.fullName = true;
+    }
+    if (newInfluencer.instagramHandler === '') {
+      newInfluencerErrorr.instagramHandler = true;
+    }
 
-	const addNewInfluencer = () => {
-		const newInfluencerErrorr = { ...newInfluencerError };
-		if (newInfluencer.fullName === '') {
-			newInfluencerErrorr.fullName = true;
-		}
-		if (newInfluencer.instagramHandler === '') {
-			newInfluencerErrorr.instagramHandler = true;
-		}
+    if (newInfluencer.email === '' && newInfluencer.mobilePhone === '') {
+      newInfluencerErrorr.email = true;
+    }
 
-		if (newInfluencer.email === '' && newInfluencer.mobilePhone === '') {
-			newInfluencerErrorr.email = true;
-		}
+    if (newInfluencer.email === '' && newInfluencer.mobilePhone === '') {
+      newInfluencerErrorr.mobilePhone = true;
+    }
 
-		if (newInfluencer.email === '' && newInfluencer.mobilePhone === '') {
-			newInfluencerErrorr.mobilePhone = true;
-		}
+    setNewInfluencerError(newInfluencerErrorr);
 
-		setNewInfluencerError(newInfluencerErrorr);
+    if (Object.values(newInfluencerErrorr).includes(true)) {
+      return;
+    }
 
-		if (Object.values(newInfluencerErrorr).includes(true)) {
-			return;
-		}
+    const data = [...influencers];
+    data.push(newInfluencer);
+    setInfluncers(data);
+  };
 
-		const data = [...influencers];
-		data.push(newInfluencer);
-		setInfluncers(data);
-	};
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-	const handleClick = (event) => {
-		setAnchorEl(event.currentTarget);
-	};
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
-	const handleClose = () => {
-		setAnchorEl(null);
-	};
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
 
-	const open = Boolean(anchorEl);
-	const id = open ? 'simple-popover' : undefined;
+  const closeHandle = () => {
+    setAddOpen(false);
+    setNew();
+  };
 
-	const closeHandle = () => {
-		setAddOpen(false);
-		setNew();
-	}
+  useEffect(() => {
+    searchContacts();
+  }, [searchValue]);
 
-	return (
-		<div className={styles.contactsContainer}>
-			<div className={styles.contactsHeadingContainer}>
-				<div className={styles.contactsHeading}>
-					<span>Contacts</span>
-					<p>
-						Alphabetical<ExpandMoreIcon fontSize='small' />
-					</p>
-				</div>
-				<button onClick={() => setAddOpen(true)}>
-					<AddIcon /> Add Brands
-							</button>
-			</div>
-			<div className={styles.contactsBanner}>
-				<p className={styles.firstp}>Get 1 free campaign credit</p>
-				<p className={styles.secondp}>For every person you invite that joins fomopromo and creates a campaign. <Link to='#' style={{color: "#FFFFFF" ,textDecorationLine: 'underline'}} >Learn more here.</Link>.</p>
-			</div>
-			<AddContact
-				newInfluencer={newInfluencer}
-				handleNewInfluencerChange={handleNewInfluencerChange}
-				addNewInfluencer={addNewInfluencer}
-				setNew={setNew}
-				open={addOpen}
-				newInfluencerError={newInfluencerError}
-				closeAdd={closeHandle}
-			/>
-			<EditContact open={editOpen} closeAdd={() => setEditOpen(false)} />
-			{/* <div className={styles.inviteContainer}>
+  useEffect(() => {
+    getContacts();
+  }, [brandId]);
+
+  const searchContacts = () => {
+    let copiedContacts = [...bkupContacts];
+    if (searchValue.trim()) {
+      copiedContacts = copiedContacts.filter((contact) => {
+        return (
+          contact?.user?.fullName
+            .toLowerCase()
+            .indexOf(searchValue.toLowerCase()) > -1
+        );
+      });
+    }
+    setContacts(copiedContacts);
+  };
+
+  const getContacts = async () => {
+    try {
+      console.log('get contacts');
+      const data = (
+        await API.graphql({
+          query: `{
+			brand(id: "${brandId}") {
+					users {
+					  user {
+						fullName
+					  }
+					}
+				  }
+		  }`,
+        })
+      ).data?.brand?.users;
+      console.log(data);
+      setContacts(data || []);
+      setBkupContacts(data || []);
+    } catch (e) {}
+  };
+
+  return (
+    <div className={styles.contactsContainer}>
+      <div className={styles.contactsHeadingContainer}>
+        <div className={styles.contactsHeading}>
+          <span>Contacts</span>
+          <p>
+            Alphabetical
+            <ExpandMoreIcon fontSize='small' />
+          </p>
+        </div>
+        <button onClick={() => setAddOpen(true)}>
+          <AddIcon /> Add Brands
+        </button>
+      </div>
+      <div className={styles.contactsBanner}>
+        <p className={styles.firstp}>Get 1 free campaign credit</p>
+        <p className={styles.secondp}>
+          For every person you invite that joins fomopromo and creates a
+          campaign.{' '}
+          <Link
+            to='#'
+            style={{ color: '#FFFFFF', textDecorationLine: 'underline' }}
+          >
+            Learn more here.
+          </Link>
+          .
+        </p>
+      </div>
+      <AddContact
+        newInfluencer={newInfluencer}
+        handleNewInfluencerChange={handleNewInfluencerChange}
+        addNewInfluencer={addNewInfluencer}
+        setNew={setNew}
+        open={addOpen}
+        newInfluencerError={newInfluencerError}
+        closeAdd={closeHandle}
+      />
+      <EditContact open={editOpen} closeAdd={() => setEditOpen(false)} />
+      {/* <div className={styles.inviteContainer}>
                 <span onClick={() => setAddOpen(true)} className={styles.inviteSpan}><Plus /> Invite influencers to work with</span>
                 <p>When you invite other users to FOMO Promo and they sign up and create a campaign, you can get a credit for one campaign. See more details <span>here</span>.</p>
             </div>
@@ -195,27 +269,39 @@ const InfluencerContacts = ({ }) => {
                     variant='outlined'
                 />
             </div> */}
-			<Popover
-				id={id}
-				open={open}
-				anchorEl={anchorEl}
-				onClose={handleClose}
-				anchorOrigin={{
-					vertical: 'bottom',
-					horizontal: 'left',
-				}}
-				transformOrigin={{
-					vertical: 'top',
-					horizontal: 'right',
-				}}
-			>
-				<div className={styles.popOver}>
-					<div className={styles.editDiv} onClick={() => { setEditOpen(true); setAnchorEl(null) }}> <Edit /> <p>Edit </p></div>
-					<div className={styles.deleteDiv}> <Trash /> <p>Delete</p></div>
-				</div>
-			</Popover>
-			<Grid container alignItems="center" >
-				{/* <Grid item xs={4} className={styles.itemImage}>
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+      >
+        <div className={styles.popOver}>
+          <div
+            className={styles.editDiv}
+            onClick={() => {
+              setEditOpen(true);
+              setAnchorEl(null);
+            }}
+          >
+            {' '}
+            <Edit /> <p>Edit </p>
+          </div>
+          <div className={styles.deleteDiv}>
+            {' '}
+            <Trash /> <p>Delete</p>
+          </div>
+        </div>
+      </Popover>
+      <Grid container alignItems='center'>
+        {/* <Grid item xs={4} className={styles.itemImage}>
                             {i % 2 !== 0 ?
                                 <div className={styles.withoutAvatar} >
                                     <Mail />
@@ -241,75 +327,78 @@ const InfluencerContacts = ({ }) => {
                         <Grid item xs={2} >	
                             <MoreVertical style={{ float: 'right' }} onClick={handleClick} />
                         </Grid> */}
-					{brandContacts.length < 1 ? (
-						<TableContainer component={Paper} className={classes.root}>
-						<div className={styles.tableWrap}> 
-							<Table aria-label="simple table">
-								<TableBody>
-									{[...Array(5)].map((_, i) => (
-										<>
-											<TableRow key={"key"}>
-												<TableCell className={styles.firstTableCell}>
-													<Avatar
-														className={styles.avatar}
-														src='https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80'
-													/> <p className={styles.avatarName}>Care</p></TableCell>
-												<TableCell  className={styles.avatarName}>Lennie James</TableCell>
-												<TableCell  className={styles.avatarName}>marketing@gmail.com</TableCell>
-												<TableCell align="right" className={styles.avatarName}><MoreVertical onClick={handleClick} /></TableCell>
-											</TableRow>
-											<TableRow>
-												<TableCell>
-													<Divider variant="FullWidth" />
-												</TableCell>
-												<TableCell>
-													<Divider variant="FullWidth" />
-												</TableCell>
-												<TableCell>
-													<Divider variant="FullWidth" />
-												</TableCell>
-												<TableCell>
-													<Divider variant="FullWidth" />
-												</TableCell>
-											</TableRow>
-	
-										</>
-									))}
-								</TableBody>
-							</Table>
-							</div>
-						</TableContainer>
-					): (
-						<Grid
-							container
-							spacing={0}
-							direction='column'
-							alignItems='center'
-							justify='center'
-							style={{ paddingTop: '15%' }}
-						>
-							<Grid item xs={12}>
-								<Users />
-							</Grid>
-							<Grid item xs={12}>
-								<div className={styles.noCampaignYet}>No Contacts Yet</div>
-							</Grid>
-							<Grid item xs={12}>
-								<div className={styles.noCampaignYetHelper}>
-									Invite Brands to FOMO Promo so you can collaborate on campaigns
-								</div>
-							</Grid>
+        {brandContacts.length < 1 ? (
+          <TableContainer component={Paper} className={classes.root}>
+            <div className={styles.tableWrap}>
+              <Table aria-label='simple table'>
+                <TableBody>
+                  {contacts.map((contact, i) => (
+                    <>
+                      <TableRow key={'key'}>
+                        <TableCell className={styles.firstTableCell}>
+                          <Avatar
+                            className={styles.avatar}
+                            src='https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80'
+                          />{' '}
+                          <p className={styles.avatarName}>
+                            {contact?.user?.fullName}
+                          </p>
+                        </TableCell>
+                        <TableCell className={styles.avatarName}>
+                          Lennie James
+                        </TableCell>
+                        <TableCell className={styles.avatarName}>
+                          marketing@gmail.com
+                        </TableCell>
+                        <TableCell align='right' className={styles.avatarName}>
+                          <MoreVertical onClick={handleClick} />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <Divider variant='FullWidth' />
+                        </TableCell>
+                        <TableCell>
+                          <Divider variant='FullWidth' />
+                        </TableCell>
+                        <TableCell>
+                          <Divider variant='FullWidth' />
+                        </TableCell>
+                        <TableCell>
+                          <Divider variant='FullWidth' />
+                        </TableCell>
+                      </TableRow>
+                    </>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </TableContainer>
+        ) : (
+          <Grid
+            container
+            spacing={0}
+            direction='column'
+            alignItems='center'
+            justify='center'
+            style={{ paddingTop: '15%' }}
+          >
+            <Grid item xs={12}>
+              <Users />
+            </Grid>
+            <Grid item xs={12}>
+              <div className={styles.noCampaignYet}>No Contacts Yet</div>
+            </Grid>
+            <Grid item xs={12}>
+              <div className={styles.noCampaignYetHelper}>
+                Invite Brands to FOMO Promo so you can collaborate on campaigns
+              </div>
+            </Grid>
           </Grid>
-					)
-
-					}							
-				
-					
-			</Grid>
-
-
-		</div>
-	);
-}
+        )}
+      </Grid>
+    </div>
+  );
+};
 
 export default InfluencerContacts;
