@@ -6,13 +6,20 @@ import { HelpCircle } from 'react-feather';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import SVG from 'react-inlinesvg';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
-import TeamData from '../TeamData'
+import SelectedMembers from './SelectedMembers'
+
+const Plus = () => {
+	return (
+		<SVG src={require('../../../assets/pluslarge.svg')} />
+	);
+};
 
 const AddMember = ({ open, closeAdd }) => {
-	const [inviteMember, setInviteMember] = useState(	{name: ''});
+	const [inviteMember, setInviteMember] = useState({ name: '' });
 	const [newMember, setNewMember] = React.useState({
 		name: ''
 	});
@@ -22,7 +29,7 @@ const AddMember = ({ open, closeAdd }) => {
 	];
 
 
-	const handleInviteMember = (e,value) => {
+	const handleInviteMember = (e, value) => {
 		debugger;
 		setInviteMember({
 			name: value.inputValue
@@ -30,30 +37,12 @@ const AddMember = ({ open, closeAdd }) => {
 	}
 
 	const [value, setValue] = React.useState(null);
-	const [opens, toggleOpen] = React.useState(false);
 
-	const handleClose = () => {
-		setDialogValue({
-			title: '',
-			year: '',
-		});
 
-		toggleOpen(false);
-	};
 
-	const [dialogValue, setDialogValue] = React.useState({
-		title: '',
-		year: '',
-	});
 
-	const handleSubmit = (event) => {
-		event.preventDefault();
-		setValue({
-			name: dialogValue.title,
-		});
 
-		handleClose();
-	}
+
 
 	return (
 		<Dialog
@@ -62,41 +51,6 @@ const AddMember = ({ open, closeAdd }) => {
 			open={open}
 			onClose={closeAdd}
 		>
-			{/* <Dialog open={opens} onClose={handleClose} aria-labelledby="form-dialog-title">
-					<form onSubmit={handleSubmit}>
-						<DialogTitle id="form-dialog-title">Add a new film</DialogTitle>
-						<DialogContent>
-							<DialogContentText>
-								Did you miss any film in our list? Please, add it!
-            </DialogContentText>
-							<TextField
-								autoFocus
-								margin="dense"
-								id="name"
-								value={dialogValue.title}
-								onChange={(event) => setDialogValue({ ...dialogValue, title: event.target.value })}
-								label="title"
-								type="text"
-							/>
-							<TextField
-								margin="dense"
-								id="name"
-								value={dialogValue.year}
-								onChange={(event) => setDialogValue({ ...dialogValue, year: event.target.value })}
-								label="year"
-								type="number"
-							/>
-						</DialogContent>
-						<DialogActions>
-							<Button onClick={handleClose} color="primary">
-								Cancel
-            </Button>
-							<Button type="submit" color="primary">
-								Add
-            </Button>
-						</DialogActions>
-					</form>
-				</Dialog> */}
 			<div className={styles.content}>
 				<h6>Add members to your team </h6>
 				<Grid item xs={12} >
@@ -105,14 +59,11 @@ const AddMember = ({ open, closeAdd }) => {
 						onChange={(event, newValue) => {
 							if (typeof newValue === 'string') {
 								// timeout to avoid instant validation of the dialog's form.
-								setTimeout(() => {
-									toggleOpen(true);
-									setNewMember({
-										name: newValue,
-									});
+								setNewMember({
+									name: newValue,
 								});
 							} else if (newValue && newValue.inputValue) {
-								toggleOpen(true);
+								debugger;
 								handleInviteMember(event, newValue);
 								setNewMember({
 									name: newValue.inputValue,
@@ -127,7 +78,7 @@ const AddMember = ({ open, closeAdd }) => {
 							if (params.inputValue !== '') {
 								filtered.push({
 									inputValue: params.inputValue,
-									title: `+ "${params.inputValue}"`,
+								title: `+ "${params.inputValue}"`,
 								});
 							}
 
@@ -152,7 +103,7 @@ const AddMember = ({ open, closeAdd }) => {
 						style={{ width: 750 }}
 						freeSolo
 						renderInput={(params) => (
-							<TextField {...params} label="Free solo dialog" variant="outlined" fullWidth = {true}/>
+							<TextField {...params} label="Invite members" variant="outlined" />
 						)}
 					/>
 					{/* <TextField
@@ -171,15 +122,15 @@ const AddMember = ({ open, closeAdd }) => {
 				</Grid>
 			</div>
 			{inviteMember.name.length > 1 ? (
-				<TeamData
+				<SelectedMembers
 					TeamMembers={inviteMember} />
 			) : ("")}
-
-
-			<div className={styles.footer} >
-				<span onClick={closeAdd}>Cancel</span>
-				<div>
-					<button>Invite</button>
+			<div className={styles.footerContainer}>
+				<div className={styles.footer} >
+					<span onClick={closeAdd}>Cancel</span>
+					<div>
+						<button>Invite</button>
+					</div>
 				</div>
 			</div>
 

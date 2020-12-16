@@ -1,36 +1,37 @@
 import React, { useState, useEffect, useContext } from 'react';
 import AddIcon from '@material-ui/icons/Add';
 import { InputAdornment, Grid, Avatar, Popover } from '@material-ui/core';
-import styles from './TeamData.module.scss';
+import styles from './SelectedMembers.module.scss';
 import { useHistory } from 'react-router-dom';
 import { API } from 'aws-amplify';
 import SVG from 'react-inlinesvg';
-import { RootContext } from '../../../context/RootContext';
+import { RootContext } from '../../../../context/RootContext';
 import { Plus, MoreVertical, Mail, Edit, Trash } from 'react-feather';
-import TextField from '../../../components/TextField';
+import TextField from '../../../../components/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
-import CDialog from '../../../components/ConfirmationDialog';
-import Translation from '../../../assets/translation.json';
+import CDialog from '../../../../components/ConfirmationDialog';
+import Translation from '../../../../assets/translation.json';
 import { Link } from 'react-router-dom';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
-import AddMember from '../AddMember';
 
 const Xcircle = () => {
 	return (
-		<SVG src={require('../../../assets/x-circle.svg')} />
+		<SVG src={require('../../../../assets/x-circle.svg')} />
 	);
 };
-
 
 const Msg = () => {
 	return (
-		<SVG src={require('../../../assets/Msg.svg')} />
+		<SVG src={require('../../../../assets/Msg.svg')} />
 	);
 };
 
-const TeamData = ({ TeamMembers, index, handleRemoveMember }) => {
+
+
+
+const SelectedMembers = ({ TeamMembers, index, handleRemoveMember }) => {
 	debugger;
 	const history = useHistory();
 	const [anchorEl, setAnchorEl] = React.useState(null);
@@ -62,13 +63,13 @@ const TeamData = ({ TeamMembers, index, handleRemoveMember }) => {
 		setAnchorEl(null);
 	};
 	const handleCancelCDialog = () => {
-    setOpenCDialog(false);
-  };
-  const handleConfirmCDialog = (index) => {
+		setOpenCDialog(false);
+	};
+	const handleConfirmCDialog = (index) => {
 		setOpenCDialog(false);
 		handleRemoveMember(index)
 
-  };
+	};
 
 	useEffect(() => {
 
@@ -81,11 +82,6 @@ const TeamData = ({ TeamMembers, index, handleRemoveMember }) => {
 
 	return (
 		<>
-
-			<AddMember
-				open={addOpen}
-				closeAdd={closeHandle}
-			/>
 			<Popover
 				id={id}
 				open={open}
@@ -112,21 +108,13 @@ const TeamData = ({ TeamMembers, index, handleRemoveMember }) => {
 							src='https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80'
 						/>
 					) : (
-							<div className={styles.msgSVG}> 
+							<div className={styles.msgSVG}>
 								<Msg className={styles.avatar} />
 							</div>
 						)}
 					<span>
 						{TeamMembers.name}
 					</span>
-					{TeamMembers.invitationAccepted ? (
-						<p>
-							<Link to='#' style={{ color: 'transparent', marginRight: '20px' }}>Resend Invitation</Link>
-						</p>
-					) : (
-							<p >
-								<Link to='#' style={{ marginRight: '20px' }}>Resend Invitation</Link>
-							</p>)}
 					<Select
 						className={styles.dropDown}
 						value="Member"
@@ -146,7 +134,7 @@ const TeamData = ({ TeamMembers, index, handleRemoveMember }) => {
 					<MoreVertical style={{ float: 'right', marginLeft: "30px" }} onClick={handleClick} />
 
 				</div>
-				<Divider className={styles.divider} />
+				{/* <Divider className={styles.divider} /> */}
 			</div>
 			<CDialog
 				open={openCDialog}
@@ -160,4 +148,4 @@ const TeamData = ({ TeamMembers, index, handleRemoveMember }) => {
 	);
 };
 
-export default TeamData;
+export default SelectedMembers;

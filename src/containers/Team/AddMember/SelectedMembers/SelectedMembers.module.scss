@@ -1,4 +1,4 @@
-@import '../../../variable.module.scss';
+@import '../../../../variable.module.scss';
 
 .popOver {
 	padding: 20px 33px;
@@ -26,7 +26,7 @@
 	display: flex;
 	align-items: center;
 	// justify-content: space-between;
-	padding: 30px 0px 20px 54px;
+	padding: 30px 0px 20px 40px;
 	.msgSVG{
 		border: 1px solid #CCCCCC;
     background: #CCCCCC;
@@ -49,7 +49,7 @@
 		letter-spacing: 0;
 		line-height: 25px;
 		margin-left: 15px;
-		width: 62%;
+		width: 58%;
 	}
 	.dropDown {
 		width: 164px;
@@ -67,5 +67,5 @@
 }
 .divider {
 	width: 94%;
-	margin-left: 36px !important;
+	margin-left: 25px !important;
 }
