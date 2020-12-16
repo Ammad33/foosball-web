@@ -3,14 +3,11 @@ import styles from '../InfluencerCampaignDetail/InfluencerCampaignDetail.module.
 import { Avatar, Chip, Popover } from '@material-ui/core';
 import { ChevronRight, MoreVertical, Download, Mail, X } from 'react-feather';
 import clsx from 'clsx';
-import Performance from '../Performance';
-import Posts from '../Posts';
 import Activity from '../Activity';
 import CampaignDetail from '../CampaignDetail';
 import Compensation from '../Compensation';
 import Deliverables from '../Deliverables';
 import Collections from '../Collections';
-import Contract from '../Contract';
 import DeclineCard from '../DeclineCard';
 import { useHistory } from 'react-router-dom';
 import TeamMembers from '../TeamMembers';
