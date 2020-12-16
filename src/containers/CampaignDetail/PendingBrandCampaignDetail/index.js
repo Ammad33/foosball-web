@@ -10,8 +10,7 @@ import {
   FormControl,
   Select,
   MenuItem,
-  InputLabel,
-  TextareaAutosize,
+  InputLabel
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import Chip from '@material-ui/core/Chip';

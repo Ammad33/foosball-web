@@ -85,24 +85,10 @@ const allTeamMembers = [
 
 const TeamMembersDetail = ({
   addInTeam,
-  removeInTeam,
   search,
   handleSearch,
   selectedMembers,
   team }) => {
-
-  console.log(team);
-  const [addedMembers, setMembers] = useState(addedTeamMembers);
-  const [teamMembers, setTeamMembers] = useState(allTeamMembers);
-
-  const addTeamMemberClick = (member) => {
-    let addedTeamMembers = [...addedMembers, member];
-    let remainingTeamMembers = [...teamMembers];
-    _.remove(remainingTeamMembers, (mem) => mem.id === member.id);
-    setMembers(addedTeamMembers);
-    setTeamMembers(remainingTeamMembers);
-    console.log(member);
-  };
 
   return (
     <div className={styles.mainContainer}>

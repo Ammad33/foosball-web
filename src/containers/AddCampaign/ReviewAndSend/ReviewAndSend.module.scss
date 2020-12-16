@@ -9,6 +9,32 @@
     }
   }
 }
+
+.influe {
+  display: flex;
+  justify-content: center;
+}
+
+.influencerContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap:12px;
+  margin-bottom: 19px;
+  margin-top: 8px;
+  .avatar {
+    height: 52px;
+    width: 52px;
+  }
+  p {
+    color: #000000;
+    font-family: Poppins;
+font-size: 18px;
+font-weight: 500;
+letter-spacing: 0;
+line-height: 27px;
+  }
+}
 .titleAndAction {
   display: flex;
   justify-content: space-between;
@@ -48,6 +74,32 @@
   }
 }
 
+.estimateText {
+  color: #000000;
+  font-family: Poppins;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 21px;
+
+}
+
+.compensationBadge {
+  height: 27px;
+  width: 180px;
+  border-radius: 6px;
+  background-color: #DB7474; 
+  p {
+    margin-top: 10px;
+    padding:5px 10px;
+    color: #FFFFFF;
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0;
+  
+  }
+}
+
 .collectionContainer {
   .collectionSection {
     .sectionTitle {
@@ -74,7 +126,38 @@
   }
 }
 
+.postTotalContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  h4 {
+    color: #7B5CD9;
+    font-family: Poppins;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 30px;
+  }
+  h5 {
+    color: #7B5CD9;
+    font-family: Poppins;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 30px;
+  }
+}
+
 .deliverablesContainer {
+  h4 {
+    color: #7B5CD9;
+    font-family: Poppins;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 30px;
+    margin-bottom: 12px;
+  }
   margin-bottom: 16px;
   .deliverableItem {
     p {
@@ -113,5 +196,29 @@
       font-size: 18px;
       font-weight: 500;
     }
+  }
+}
+
+.compensationHeading {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 40px;
+  margin-bottom: 10px;
+  h4 {
+    color: #7B5CD9;
+  font-family: Poppins;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 30px;
+  }
+  h5 {
+    color: #7B5CD9;
+    font-family: Poppins;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 30px;
   }
 }

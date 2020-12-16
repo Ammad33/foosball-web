@@ -7,8 +7,7 @@ import {
   Download,
   Mail,
   Link,
-  Copy,
-  Trash
+  Copy
 } from 'react-feather';
 import clsx from 'clsx';
 import Performance from '../Performance';

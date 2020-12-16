@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../InfluencerCampaignDetail/InfluencerCampaignDetail.module.scss';
 import { Avatar, Chip, Popover } from '@material-ui/core';
-import { ChevronRight, MoreVertical, Download, Mail, X } from 'react-feather';
+import { ChevronRight, MoreVertical, Download, Mail } from 'react-feather';
 import clsx from 'clsx';
 import Performance from '../Performance';
 import Posts from '../Posts';

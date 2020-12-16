@@ -15,7 +15,6 @@ import LiveInfluencer from '../LiveInfluencer';
 import DeclineInfluencer from '../DeclineInfluencer';
 import DraftBrandCampaignDetail from '../DraftBrandCampaignDetail';
 import _ from 'lodash';
-import { parse } from 'path';
 
 const CampaignDetailInfluencer = ({ status, handleDelete, addCampaign, setAddCampagin, data, addInTeam,
   removeInTeam, search,
@@ -137,7 +136,7 @@ const CampaignDetailInfluencer = ({ status, handleDelete, addCampaign, setAddCam
       case 'Activity':
         return <ActivityDetail />;
       case 'Deliverable':
-        return <DeliverablesDetail />;
+        return <DeliverablesDetail deliverables={data && data.deliverables} />;
       case 'Compensation':
         return <CompensationDetail compensations={data && data.compensation && data.compensation !== null ? _.compact(data.compensation) : []} budget={data.budget.amount} />;
       case 'TeamMembers':

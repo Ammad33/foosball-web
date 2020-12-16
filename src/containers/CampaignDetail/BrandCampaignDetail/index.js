@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react';
+import React, { useState } from 'react';
 import styles from './BrandCampaignDetail.module.scss';
 import { X } from 'react-feather';
 import Drawer from '../../../components/RightDrawer';
@@ -12,7 +12,6 @@ import PendingBrandCampaignDetail from '../PendingBrandCampaignDetail';
 import LiveBrandCampaignDetail from '../LiveBrandCampaignDetail';
 import ClosedBrandCampaignDetail from '../ClosedBrandCampaignDetail';
 import LostBrandCampaignDetail from '../LostBrandCampaignDetail';
-import { RootContext } from '../../../context/RootContext';
 import _ from 'lodash';
 
 const BrandCampaignDetail = ({ handleDelete, status, addCampaign, updateCampaign, setAddCampagin, data, addInTeam,

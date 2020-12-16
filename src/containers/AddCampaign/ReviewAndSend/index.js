@@ -11,6 +11,11 @@ const EditSVG = ({ onClick }) => {
 const ReviewAndSend = ({ team, campaignName, startDate, endDate, startTime, endTime, discount, discountType,
 	customeMessage, selectedMembers, budget, targetGrossSale, collections, deliverables, compensations, compensationPayment, selectedNegotiable, selectedInfluncer, handleActiveStep }) => {
 
+	let totalPosts = 0;
+	deliverables.forEach(item => {
+		totalPosts = totalPosts + parseInt(item.posts);
+	});
+
 	const getCompensationType = (compensation) => {
 		switch (compensation) {
 			case 'REVENUE_SHARE':
@@ -55,8 +60,37 @@ const ReviewAndSend = ({ team, campaignName, startDate, endDate, startTime, endT
 		}
 	}
 
+	const getCompensationTypeValue = (compensation) => {
+		switch (compensation.compensationType) {
+			case 'REVENUE_SHARE':
+				return (
+					<h5>${parseFloat(compensation.amount && (compensation.amount / 1000 * parseFloat(budget)).toFixed(2))}</h5>);
+			case 'CASH_PER_POST':
+				return (<h5>${compensation.amount && compensation.amount}</h5>);
+			case 'CASH_PER_MONTHLY_DELIVERABLE':
+				return (<h5>${compensation.amount && compensation.amount}</h5>);
+			case 'GIFT_CARD':
+				return (<h5>${compensation.amount && compensation.amount}</h5>);
+		}
+	}
+
+	const getTotal = () => {
+		let total = 0;
+		compensations.forEach(item => {
+			if (item.compensationType === 'REVENUE_SHARE') {
+				total = total + parseFloat(item.amount / 1000 * parseFloat(budget));
+			} else {
+				total = total + parseFloat(item.amount);
+			}
+		})
+		return parseFloat(total).toFixed(2);
+	}
+
 	return (
 		<div class={styles.mainContainer}>
+			<div className={styles.influe}>
+				<div className={styles.influencerContainer}><Avatar className={styles.avatar} src={selectedInfluncer.imageUrl} /> <p>{selectedInfluncer.name}</p></div>
+			</div>
 			<div class={styles.section}>
 				<div className={styles.titleAndAction}>
 					<h3>Campaign Details</h3>
@@ -147,6 +181,9 @@ const ReviewAndSend = ({ team, campaignName, startDate, endDate, startTime, endT
 						</Grid>
 					</Grid>
 				</div>
+				<div className={styles.compensationBadge}>
+					<p>You are $600 over budget</p>
+				</div>
 			</div>
 			<div class={styles.section}>
 				<div className={styles.titleAndAction}>
@@ -184,6 +221,7 @@ const ReviewAndSend = ({ team, campaignName, startDate, endDate, startTime, endT
 				{
 					deliverables.map((item, index) => {
 						return (<div className={styles.deliverablesContainer}>
+							<h4 style={index > 0 ? { marginTop: '40px' } : {}}>Deliverable {index + 1}</h4>
 							<Grid container spacing={3} key={index}>
 								<Grid item xs={4}>
 									<div className={styles.deliverableItem}>
@@ -238,6 +276,10 @@ const ReviewAndSend = ({ team, campaignName, startDate, endDate, startTime, endT
 						)
 					})
 				}
+				<div className={styles.postTotalContainer}>
+					<h4>Post Total:</h4>
+					<h5>{totalPosts} Posts</h5>
+				</div>
 			</div>
 			<div class={styles.section}>
 				<div className={styles.titleAndAction}>
@@ -257,6 +299,7 @@ const ReviewAndSend = ({ team, campaignName, startDate, endDate, startTime, endT
 					compensations.map((item, index) => {
 						return (
 							<div className={styles.compensationContainer} key={index}>
+								<div className={styles.compensationHeading}><h4>Compensation Type {index + 1}</h4>{getCompensationTypeValue(item)}</div>
 								<Grid container spacing={3}>
 									<Grid item xs={4}>
 										<div className={styles.compensationItem}>
@@ -275,7 +318,11 @@ const ReviewAndSend = ({ team, campaignName, startDate, endDate, startTime, endT
 						)
 					})
 				}
-
+				<div className={styles.compensationHeading}><h4>Total Compensation Estimate:</h4><h5>${getTotal()}</h5></div>
+				<div style={{ margin: '20px 0px 10px 0px' }} className={styles.compensationBadge}>
+					<p>You are $600 over budget</p>
+				</div>
+				<p className={styles.estimateText}>* estimated amount based on target sales</p>
 			</div>
 			<div class={styles.section}>
 				<div className={styles.titleAndAction}>
@@ -300,26 +347,7 @@ const ReviewAndSend = ({ team, campaignName, startDate, endDate, startTime, endT
 					</Grid>
 				</div>
 			</div>
-			<div class={styles.section}>
-				<div className={styles.titleAndAction}>
-					<h3>Influencer</h3>
-					<EditSVG onClick={() => handleActiveStep(8)} />
-				</div>
-				<div className={styles.influencerContainer}>
-					<Grid container spacing={3}>
-						<Grid item xs={4}>
-							<div className={styles.influencerItem}>
-								<Avatar
-									className={styles.avatarMedium}
-									src={selectedInfluncer.avatar}
-								/>
-								<p>@{selectedInfluncer.name}</p>
-							</div>
-						</Grid>
-					</Grid>
-				</div>
-			</div>
-		</div>
+		</div >
 	);
 };
 

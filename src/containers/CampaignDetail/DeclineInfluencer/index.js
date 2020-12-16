@@ -9,7 +9,6 @@ import Compensation from '../Compensation';
 import Deliverables from '../Deliverables';
 import Collections from '../Collections';
 import { useHistory } from 'react-router-dom';
-import InviteCard from '../InviteCard';
 import DeclineCard from '../DelinneCard';
 import _ from 'lodash';
 
