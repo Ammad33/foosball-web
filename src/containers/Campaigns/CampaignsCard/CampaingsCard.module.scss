@@ -35,9 +35,11 @@
       }
     }
   }
+
   .cardDetails {
-    padding: 10px 10px 0px 32px;
+    padding: 0px 10px 0px 32px;
     display: flex;
+    align-items: center;
     gap: 5px;
     flex: auto;
     .campaignInfo {
@@ -91,7 +93,9 @@
 					letter-spacing: 0;
 					line-height: 20px;
 					text-transform: lowercase;
-				}
+        }
+        
+
 				
 				.personAvatar {
 					margin-top: 17px;
@@ -110,6 +114,9 @@
 				}
 			}
     }
+    .iconInfo {
+      margin-right: 20px;
+    }
     .personInfo {
       text-align: center;
       min-width: 100px;
@@ -117,6 +124,32 @@
       margin-top: 15px;
     
     }
+  }
+}
+
+.popOver {
+  width: 284px;
+  background-color: #ffffff;
+  box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.16);
+  padding: 35px 28px;
+
+  div {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+    cursor: pointer;
+    margin-bottom: 40px;
+    p {
+      color: $dark1;
+      font-family: Poppins;
+      font-size: 18px;
+      letter-spacing: 0;
+      line-height: 27px;
+    }
+  }
+  :last-child {
+    margin-bottom: 0px;
   }
 }
 

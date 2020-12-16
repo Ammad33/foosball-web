@@ -172,7 +172,9 @@ const CampaignDetail = () => {
               email
             }
             brand {
+              imageUrl
               id
+              name
             }
             negotiables {
               campaign_duration
@@ -196,6 +198,8 @@ const CampaignDetail = () => {
               posts
             }
             influencer {
+              imageUrl
+              name
               id
             }
           }

@@ -6,7 +6,7 @@ import AddIcon from '@material-ui/icons/Add';
 import styles from './Campaings.module.scss';
 import AddCampaign from '../AddCampaign';
 import { useHistory } from 'react-router-dom';
-import { API } from 'aws-amplify';
+import { API, graphqlOperation } from 'aws-amplify';
 import SVG from 'react-inlinesvg';
 import { RootContext } from '../../context/RootContext';
 
@@ -88,7 +88,7 @@ const Campaigns = () => {
       });
       setCampaigns(campaigns.data.campaigns.campaigns);
       setBkupCampaigns(campaigns.data.campaigns.campaigns);
-    } catch (e) {}
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -113,6 +113,24 @@ const Campaigns = () => {
     }
     setCampaigns(copiedCampaigns);
   };
+
+  const handleDelete = async (campaignId) => {
+
+    try {
+      await API.graphql(
+        graphqlOperation(`mutation deleteCampaign($brandId: ID!, $id: ID!) {
+          deleteCampaign(brandId: $brandId, id:$id)
+        }`, {
+          brandId: brandId,
+          id: campaignId
+        })
+      );
+      getCampaigns();
+    } catch (e) {
+      console.log('delete campaign error ', e);
+    }
+  }
+
 
   return (
     <>
@@ -196,8 +214,8 @@ const Campaigns = () => {
             </Grid>
           </Grid>
         ) : (
-          ''
-        )}
+            ''
+          )}
         <Grid container spacing={3}>
           {campaigns.length > 0 &&
             campaigns.map((campaign) => {
@@ -209,9 +227,8 @@ const Campaigns = () => {
                   className={styles.gridItem}
                   item
                   key={campaign.id}
-                  onClick={() => history.push(`/campaignDetail/${campaign.id}`)}
                 >
-                  <CampaignsCard campaign={campaign} />
+                  <CampaignsCard campaign={campaign} onClick={() => history.push(`/campaignDetail/${campaign.id}`)} handleDelete={handleDelete} />
                 </Grid>
               );
             })}
