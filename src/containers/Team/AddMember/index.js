@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Dialog, Grid } from '@material-ui/core';
 import styles from './AddMember.module.scss';
 import TextField from '../../../components/TextField';
@@ -7,10 +7,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import SVG from 'react-inlinesvg';
+import { RootContext } from '../../../context/RootContext';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
 import SelectedMembers from './SelectedMembers'
+import { API, graphqlOperation } from 'aws-amplify';
+
 
 const Plus = () => {
 	return (
@@ -23,6 +26,8 @@ const AddMember = ({ open, closeAdd }) => {
 	const [newMember, setNewMember] = React.useState({
 		name: ''
 	});
+	const { brands , brandId , roleId } = useContext(RootContext);
+	const [data , setData] = useState([]); 
 	const filter = createFilterOptions();
 
 	const top100Films = [
@@ -30,7 +35,6 @@ const AddMember = ({ open, closeAdd }) => {
 
 
 	const handleInviteMember = (e, value) => {
-		debugger;
 		setInviteMember({
 			name: value.inputValue
 		});
@@ -39,10 +43,57 @@ const AddMember = ({ open, closeAdd }) => {
 	const [value, setValue] = React.useState(null);
 
 
+	const getMeData = async () => {
+    try {
+      const mydata = await API.graphql({
+        query: `{
+						me {
+							id
+							organizations {
+								organization {
+									id
+									roles {
+										id
+									}
+								}
+							}
+						}
+				}`,
+			});
+			// debugger;
+      setData(mydata.data.me);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
 
-
-
+	const assignRole = async () => {
+		try {
+			const data = {
+				organizationId: "8ece73cc-3079-4f45-b7bb-4f6007c8344d",
+				roleId: "a94b4e45-f72a-4d75-9d31-e4a2cf791775",
+				userId: "b9a59121-fd68-434f-a52c-93036203ee26"
+			};
+			await API.graphql(
+				graphqlOperation(
+					`mutation assignRole($input: AssignRoleInput!) {
+						assignRole(input: $input) 
+      }
+      `,
+					{
+						input:data
+					}
+				)
+			);
+		} catch (e) {
+			console.log('Error in mutation for Invite Member ', e);
+		}
+	};
+	debugger;
+	useEffect(() => {
+		getMeData();
+	}, []);
 
 	return (
 		<Dialog
@@ -63,7 +114,7 @@ const AddMember = ({ open, closeAdd }) => {
 									name: newValue,
 								});
 							} else if (newValue && newValue.inputValue) {
-								debugger;
+								// debugger;
 								handleInviteMember(event, newValue);
 								setNewMember({
 									name: newValue.inputValue,
@@ -129,7 +180,7 @@ const AddMember = ({ open, closeAdd }) => {
 				<div className={styles.footer} >
 					<span onClick={closeAdd}>Cancel</span>
 					<div>
-						<button>Invite</button>
+						<button onClick={assignRole}>Invite</button>
 					</div>
 				</div>
 			</div>

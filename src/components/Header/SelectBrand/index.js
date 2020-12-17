@@ -12,16 +12,17 @@ import { ChevronUp, ChevronDown } from 'react-feather';
 import { RootContext } from '../../../context/RootContext';
 
 const SelectBrand = () => {
-  const history = useHistory();
+	const history = useHistory();
 
-  const {
-    setBrandIdd,
-    brands,
-    brandName,
-    setBrandName,
-    brandType,
-    setBrandType,
-  } = useContext(RootContext);
+	const {
+		setBrandIdd,
+		brands,
+		brandName,
+		setBrandName,
+		brandType,
+		roleId,
+		setRoleId,
+		setBrandType } = useContext(RootContext);
 
   const [brandDropDown, setBrandDropDown] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -66,9 +67,8 @@ const SelectBrand = () => {
                     onClick={() => {
                       setBrandIdd(item.organization && item.organization.id);
                       setBrandName(item.organization && item.organization.name);
-                      setBrandType(
-                        item.organization && item.organization.__typename
-                      );
+                      setBrandType(item.organization && item.organization.__typename);
+											setRoleId(item.organization && item.organization.roles[0].id);
                       handleClose();
                       // if (history.location.pathname !== '/campaigns') {
                       // 	history.push('/')

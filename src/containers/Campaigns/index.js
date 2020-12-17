@@ -50,6 +50,9 @@ const Campaigns = () => {
 									}
 									imageUrl
 									email
+									roles {
+										id
+									}
 								}
 							}
 							about
