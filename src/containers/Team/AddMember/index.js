@@ -90,7 +90,6 @@ const AddMember = ({ open, closeAdd }) => {
 			console.log('Error in mutation for Invite Member ', e);
 		}
 	};
-	debugger;
 	useEffect(() => {
 		getMeData();
 	}, []);

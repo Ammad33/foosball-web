@@ -133,7 +133,6 @@ const Campaigns = () => {
 			console.log('delete campaign error ', e);
 		}
 	}
-	debugger;
 
 	return (
 		<>
