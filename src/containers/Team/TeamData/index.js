@@ -31,7 +31,7 @@ const Msg = () => {
 };
 
 const TeamData = ({ TeamMembers, index, handleRemoveMember }) => {
-	debugger;
+	
 	const history = useHistory();
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [addOpen, setAddOpen] = useState(false);
@@ -106,10 +106,10 @@ const TeamData = ({ TeamMembers, index, handleRemoveMember }) => {
 			</Popover>
 			<div>
 				<div className={styles.headerContainer}>
-					{TeamMembers.invitationAccepted ? (
+					{TeamMembers.user.imageUrl !== null ? (
 						<Avatar
 							className={styles.avatar}
-							src='https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80'
+							src= {TeamMembers.user.imageUrl}
 						/>
 					) : (
 							<div className={styles.msgSVG}> 
@@ -117,7 +117,7 @@ const TeamData = ({ TeamMembers, index, handleRemoveMember }) => {
 							</div>
 						)}
 					<span>
-						{TeamMembers.name}
+						{TeamMembers.user.fullName}
 					</span>
 					{TeamMembers.invitationAccepted ? (
 						<p>

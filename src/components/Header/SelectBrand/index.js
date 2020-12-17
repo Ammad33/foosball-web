@@ -21,6 +21,8 @@ const SelectBrand = () => {
 		brandName,
 		setBrandName,
 		brandType,
+		roleId,
+		setRoleId,
 		setBrandType } = useContext(RootContext);
 
 
@@ -64,6 +66,7 @@ const SelectBrand = () => {
 									setBrandIdd(item.organization && item.organization.id);
 									setBrandName(item.organization && item.organization.name);
 									setBrandType(item.organization && item.organization.__typename);
+									setRoleId(item.organization && item.organization.roles[0].id);
 									handleClose();
 									// if (history.location.pathname !== '/campaigns') {
 									// 	history.push('/')

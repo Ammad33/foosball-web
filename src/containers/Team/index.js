@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import AddIcon from '@material-ui/icons/Add';
 import { InputAdornment, Grid, Avatar, Popover } from '@material-ui/core';
+import { Auth } from 'aws-amplify';
 import styles from './Team.module.scss';
 import { useHistory } from 'react-router-dom';
 import { API } from 'aws-amplify';
@@ -62,9 +63,63 @@ const Team = () => {
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [addOpen, setAddOpen] = useState(false);
 	const [editOpen, setEditOpen] = useState(false);
+	const [teams, setTeam] = useState([]);
+
+	const { brandId } = useContext(RootContext);
+
+
+	// const verifyUser = async () => {
+  //   try {
+  //       const user = await Auth.userAttributes({
+  //         username,
+  //         password,
+  //         attributes: { name },
+  //       });
+  //       setCurrentUser(loggedInUser);
+  //       console.log(user);
+  //       setErrorState(false);
+  //       setLogoutMessage('');
+  //       setErrorMessage('');
+  //       history.push('/onboarding');
+      
+  //   } catch (e) {
+  //     setErrorMessage(e.message);
+  //     setErrorState(true);
+  //     setLogoutMessage('');
+  //   }
+  // };
+
+
+
+	// debugger;
+	const getTeam = async () => {
+		try {
+			const team = await API.graphql({
+				query: `{
+          brand(id:"${brandId}") {
+            users {
+              user {
+                imageUrl
+                id
+                fullName
+								email
+								
+              }
+            }
+          }
+        }`,
+			});
+			// debugger;
+			if (team.data !== null && team.data.brand !== null) {
+				setTeam(team.data.brand.users);
+			}
+		} catch (e) {
+			console.log(e);
+		}
+	};
 
 	const handleRemoveMember = (index) => {
-		debugger;
+		// debugger;
 		const mem = [...members]
 		const mem2 = [...TeamMembers]
 		mem2.splice(index, 1);
@@ -91,13 +146,15 @@ const Team = () => {
 	}
 
 	useEffect(() => {
-
+		
 	}, []);
 
 
 	useEffect(() => {
-
+		getTeam();
 	}, []);
+
+	debugger;
 
 	return (
 		<>
@@ -124,7 +181,7 @@ const Team = () => {
 				</div>
 			</div>
 
-			{teamMember.length === 1 ? (
+			{teams.length == 0 ? (
 				<div>
 					<div className={styles.noMembers}>
 						<Grid alignItems="center">
@@ -141,17 +198,19 @@ const Team = () => {
 					</div>
 				</div>
 			) : (
-				<div className={styles.TeamInfoContainer}>
-						
-					{members.map((member,index)=> (
-						
-						<TeamData 
-						TeamMembers ={member}
-						index = {index}
-						handleRemoveMember = {handleRemoveMember} />
-					))
-					}
-				</div>
+					<div className={styles.TeamInfoContainer}>
+						{teams && teams !== null ? (
+							teams.map((team, index) => (
+
+								<TeamData
+									TeamMembers={team}
+									index={index}
+									handleRemoveMember={handleRemoveMember} />
+							))
+
+						) : ('')
+						}
+					</div>
 				)
 			}
 		</>

@@ -32,7 +32,6 @@ const Msg = () => {
 
 
 const SelectedMembers = ({ TeamMembers, index, handleRemoveMember }) => {
-	debugger;
 	const history = useHistory();
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [addOpen, setAddOpen] = useState(false);

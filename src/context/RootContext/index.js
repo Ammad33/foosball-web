@@ -8,7 +8,8 @@ export default ({ children }) => {
   const brandsStored = JSON.parse(localStorage.getItem('brands')) || null;
   const bId = localStorage.getItem('bId') || null;
   const bName = localStorage.getItem('bName') || null;
-  const bType = localStorage.getItem('bType') || null;
+	const bType = localStorage.getItem('bType') || null;
+	const rId = localStorage.getItem('rId') || null; 
   const [currentUser, setCurrentUser] = useState(prevUser);
   const [logoutMessage, setLogoutMessage] = useState('');
   const [activeRoute, setActiveRoute] = useState(preActiveRoute);
@@ -16,7 +17,8 @@ export default ({ children }) => {
   const [brandId, setBrandIdd] = useState(bId);
   const [brands, setBrands] = useState(brandsStored);
   const [brandName, setBrandName] = useState(bName);
-  const [brandType, setBrandType] = useState(bType);
+	const [brandType, setBrandType] = useState(bType);
+	const [roleId, setRoleId] = useState(rId);
   const [searchValue, setSearchValue] = useState('');
 
   useEffect(() => {
@@ -31,8 +33,10 @@ export default ({ children }) => {
     if (!brandName) localStorage.removeItem('bName');
     else localStorage.setItem('bName', brandName);
     if (!brandType) localStorage.removeItem('bType');
-    else localStorage.setItem('bType', brandType);
-  }, [currentUser, activeRoute, brandId, brands, brandName, brandType]);
+		else localStorage.setItem('bType', brandType);
+		if (!roleId) localStorage.removeItem('rId');
+		else localStorage.setItem('rId', roleId);
+  }, [currentUser, activeRoute, brandId, brands, brandName, brandType , roleId]);
 
   const defaultContext = {
     currentUser,
@@ -50,7 +54,9 @@ export default ({ children }) => {
     brandName,
     setBrandName,
     brandType,
-    setBrandType,
+		setBrandType,
+		roleId,
+		setRoleId,
     searchValue,
     setSearchValue,
   };

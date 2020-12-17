@@ -101,6 +101,9 @@ function ResponsiveDrawer(props) {
 										name
 										}
 									}
+									roles {
+										id
+									}
 									imageUrl
 									email
 								}

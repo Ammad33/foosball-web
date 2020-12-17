@@ -12,21 +12,12 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import FacebookSVG from '../../assets/facebook-logo-2019-thumb.png';
 import GoogleSVG from '../../assets/google-logo-icon-png-transparent-background-osteopathy-16.png';
 import AppleSVG from '../../assets/apple-logo-png-index-content-uploads-10.png';
-
 import { Link } from 'react-router-dom';
 
-// const FacebookSVG = () => {
-//   return <SVG src={require('../../assets/facebook-logo-2019-thumb.png')} />;
-// };
-// const GoogleSVG = () => {
-//   return <SVG src={require('../../assets/google-logo-icon-png-transparent-background-osteopathy-16.png')} />;
-// };
-// const AppleSVG = () => {
-//   return <SVG src={require('../../assets/apple-logo-png-index-content-uploads-10.png')} />;
-// };
 const Eye_offSVG = () => {
   return <SVG src={require('../../assets/eye-off.svg')} />;
 };
+
 const EyeSVG = () => {
   return <SVG src={require('../../assets/eye.svg')} />;
 };
