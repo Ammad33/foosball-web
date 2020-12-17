@@ -1,16 +1,16 @@
 import React from 'react';
 import { Avatar } from '@material-ui/core';
 import styles from './Brand.module.scss';
+import logo from '../../assets/fomoPromo_logo.png';
 
 const Brand = () => {
   return (
     <div className={styles.brandContainter}>
-      <Avatar
-        className={styles.brandImage}
-        alt='Profile'
-        src='https://thumbs.dreamstime.com/z/creative-vector-illustration-default-avatar-profile-placeholder-isolated-background-art-design-grey-photo-blank-template-mo-118823351.jpg'
+      <img
+        // className={styles.brandImage}
+				alt='Profile'
+				src= {logo}
       />
-      <span>Logo Here </span>
     </div>
   );
 };

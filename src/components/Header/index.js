@@ -12,6 +12,7 @@ import { RootContext } from './../../context/RootContext';
 import Logout from '../../containers/Logout';
 import SelectBrand from './SelectBrand';
 import Notification from '../../containers/Notification';
+import Help from '../../components/Header/Help';
 import { DebounceInput } from 'react-debounce-input';
 
 const SearchIcon = () => {
@@ -162,6 +163,9 @@ const Header = (meData, brandType) => {
           <div>
             <SelectBrand />
           </div>
+					<div >
+						<Help />
+					</div>
           <Badge className={'cursor-pointer'} color='secondary' variant='dot'>
             <Notification />
           </Badge>
