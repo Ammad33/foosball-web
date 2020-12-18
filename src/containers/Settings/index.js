@@ -2,7 +2,7 @@ import React, { useContext, useState, useHistory, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import styles from './Setting.module.scss';
 import Notifications from './Notifications';
-import { API } from 'aws-amplify';
+import { API, Auth } from 'aws-amplify';
 import Account from './Account';
 import ConnectedAccounts from './ConnectedAccounts';
 import Billing from './Billing';
@@ -14,19 +14,29 @@ const Setting = () => {
   const [signContracts, setSignContracts] = useState(true);
   const [influncerPosts, setInfluncerPosts] = useState(false);
   const [campaignStart, setCampaignStart] = useState(false);
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
   //const [influencers, setInfluncers] = useState([]);
   const [brands, setBrands] = useState([]);
   const [imgUrl, setImgUrl] = useState([]);
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
-  const [brandName, setBrandName] = useState([]);
+  const [brandNamee, setBrandNamee] = useState([]);
   const [typeName, setTypeName] = useState([]);
   const [brandId, setBrandId] = useState([]);
-  const { brandType } = useContext(RootContext);
+  const { brandType, brandName } = useContext(RootContext);
+
+  console.log(brandName);
 
   useEffect(() => {
     myData();
   }, []);
+
+  useEffect(() => {
+
+    setBrandNamee(brandName)
+
+  }, [brandName]);
 
   const [newBrand, setNewBrand] = useState({
     brandName: '',
@@ -218,12 +228,23 @@ const Setting = () => {
       setEmail(mydata.data.me.email);
       setFullName(mydata.data.me.fullName);
       setImgUrl(mydata.data.me.imageUrl);
-      setBrandName(mydata.data.me.organizations[0].organization.name);
+      setBrandNamee(brandName);
       setTypeName(mydata.data.me.organizations[1].organization.__typename);
     } catch (e) {
       console.log(e);
     }
   };
+
+  const handleChangePassword = async () => {
+    const currentUser = await Auth.currentAuthenticatedUser();
+    await Auth.changePassword(
+      currentUser,
+      oldPassword,
+      newPassword
+    );
+    setNewPassword('');
+    setOldPassword('');
+  }
 
   const getContents = () => {
     switch (active) {
@@ -239,10 +260,15 @@ const Setting = () => {
             handleEmail={(e) => {
               setEmail(e.target.value);
             }}
-            brandName={brandName}
+            brandName={brandNamee}
             handleBrandName={(e) => {
-              setBrandName(e.target.value);
+              setBrandNamee(e.target.value);
             }}
+            oldPassword={oldPassword}
+            newPassword={newPassword}
+            setOldPassword={(e) => setOldPassword(e.target.value)}
+            setNewPassword={(e) => setNewPassword(e.target.value)}
+            handleChangePassword={handleChangePassword}
           />
         );
       case 'notification':

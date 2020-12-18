@@ -1,9 +1,6 @@
 import React, { useContext, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Avatar, Badge, Grid } from '@material-ui/core';
+import { Avatar, Tooltip } from '@material-ui/core';
 import styles from './SelectBrand.module.scss';
-import SVG from 'react-inlinesvg';
-// import MenuBar from '../../containers/MenuBar';
 import Popover from '@material-ui/core/Popover';
 import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -12,17 +9,18 @@ import { ChevronUp, ChevronDown } from 'react-feather';
 import { RootContext } from '../../../context/RootContext';
 
 const SelectBrand = () => {
-	const history = useHistory();
+  const history = useHistory();
 
-	const {
-		setBrandIdd,
-		brands,
-		brandName,
-		setBrandName,
-		brandType,
-		roleId,
-		setRoleId,
-		setBrandType } = useContext(RootContext);
+  const {
+    setBrandIdd,
+    brands,
+    brandName,
+    setBrandName,
+    brandType,
+    roleId,
+    setRoleId,
+    setBrandType,
+    influencers } = useContext(RootContext);
 
   const [brandDropDown, setBrandDropDown] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -49,49 +47,101 @@ const SelectBrand = () => {
           horizontal: 'center',
         }}
         PaperProps={{
-          style: { width: '300px', height: '190px' },
+          style: {
+            width: '206px',
+            marginTop: '22px'
+          },
         }}
         transformOrigin={{
           vertical: 'top',
           horizontal: 'center',
         }}
       >
-        <Grid>
-          <div className={styles.popOverContainer}>
-            {brands &&
-              brands !== null &&
-              brands.map((item, index) => {
-                return (
-                  <MenuItem
-                    key={index}
-                    onClick={() => {
-                      setBrandIdd(item.organization && item.organization.id);
-                      setBrandName(item.organization && item.organization.name);
-                      setBrandType(item.organization && item.organization.__typename);
-											setRoleId(item.organization && item.organization.roles[0].id);
-                      handleClose();
-                      // if (history.location.pathname !== '/campaigns') {
-                      // 	history.push('/')
-                      // }
-                      // if (item.organization.__typename == "Brand") {
-                      // 	history.push('/campaigns')
-                      // }
-                      // else { history.push('/influencer') }
-                    }}
-                  >
-                    <div className={styles.brandContainter}>
+
+        <div className={styles.popOverContainer}>
+          {brands &&
+            brands !== null && brands.length !== 0 &&
+            <div className={styles.innerPopOver}>
+              <p className={styles.heading}>Brands</p>
+              {brands &&
+                brands !== null &&
+                brands.map((item, index) => {
+                  return (
+                    // <MenuItem>
+                    <div key={index}
+                      onClick={() => {
+                        setBrandIdd(item.organization && item.organization.id);
+                        setBrandName(item.organization && item.organization.name);
+                        setBrandType(item.organization && item.organization.__typename);
+                        setRoleId(item.organization && item.organization.roles[0].id);
+                        handleClose();
+                        // if (history.location.pathname !== '/campaigns') {
+                        // 	history.push('/')
+                        // }
+                        // if (item.organization.__typename == "Brand") {
+                        // 	history.push('/campaigns')
+                        // }
+                        // else { history.push('/influencer') }
+                      }} className={styles.brandContainter}>
                       <Avatar
                         className={styles.brandImage}
                         alt='Profile'
                         src={item.organization && item.organization.imageUrl}
                       />
-                      <span>{item.organization && item.organization.name}</span>
+                      <Tooltip title={item.organization && item.organization.name}>
+                        <span>{item.organization && item.organization.name}</span>
+                      </Tooltip>
                     </div>
-                  </MenuItem>
-                );
-              })}
-          </div>
-        </Grid>
+                    // </MenuItem>
+                  );
+                })}
+            </div>
+          }
+          {brands &&
+            brands !== null && brands.length !== 0 &&
+            <Divider />
+          }
+          {influencers &&
+            influencers !== null && influencers.length !== 0 &&
+            <div className={styles.innerPopOver}>
+              <p className={styles.heading}>Influencers</p>
+              {influencers &&
+                influencers !== null &&
+                influencers.map((item, index) => {
+                  return (
+                    // <MenuItem>
+                    <div key={index}
+                      onClick={() => {
+                        setBrandIdd(item.organization && item.organization.id);
+                        setBrandName(item.organization && item.organization.name);
+                        setBrandType(item.organization && item.organization.__typename);
+                        setRoleId(item.organization && item.organization.roles[0].id);
+                        handleClose();
+                        // if (history.location.pathname !== '/campaigns') {
+                        // 	history.push('/')
+                        // }
+                        // if (item.organization.__typename == "Brand") {
+                        // 	history.push('/campaigns')
+                        // }
+                        // else { history.push('/influencer') }
+                      }} className={styles.brandContainter}>
+                      <Avatar
+                        className={styles.brandImage}
+                        alt='Profile'
+                        src={item.organization && item.organization.imageUrl}
+                      />
+                      <Tooltip title={item.organization && item.organization.name}>
+                        <span>{item.organization && item.organization.name}</span>
+                      </Tooltip>
+                    </div>
+                    // </MenuItem>
+                  );
+                })}
+            </div>
+          }
+
+
+        </div>
       </Popover>
       <div>
         <div onClick={handleClick} className={styles.brandDropDown}>

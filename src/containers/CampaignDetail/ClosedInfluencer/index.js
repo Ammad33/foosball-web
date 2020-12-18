@@ -15,6 +15,7 @@ import { useHistory } from 'react-router-dom';
 import _ from 'lodash';
 
 const ClosedInfluencer = ({ handleEdit, data, handleSeeClick, getTotal, name }) => {
+
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);

@@ -1,9 +1,7 @@
 import React, { useContext, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import { Avatar, Badge, Grid } from '@material-ui/core';
 import styles from './headerStyles.module.scss';
 import SVG from 'react-inlinesvg';
-// import MenuBar from '../../containers/MenuBar';
 import Popover from '@material-ui/core/Popover';
 import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -18,16 +16,7 @@ import { DebounceInput } from 'react-debounce-input';
 const SearchIcon = () => {
   return <SVG src={require('../../assets/Search.svg')} />;
 };
-const NotificationIcon = () => {
-  return <SVG src={require('../../assets/Notification.svg')} />;
-};
 
-const ChevronDown = () => {
-  return <SVG src={require('../../assets/chevron-downn.svg')} />;
-};
-const ChevronUp = () => {
-  return <SVG src={require('../../assets/chevron-up.svg')} />;
-};
 
 const Header = (meData, brandType) => {
   const history = useHistory();
@@ -150,22 +139,14 @@ const Header = (meData, brandType) => {
             }}
             className={styles.searchInput}
           />
-          {/* <input
-            value={searchValue}
-            onChange={(e) => {
-              setSearchValue(e.target.value);
-            }}
-            className={styles.searchInput}
-            type='search'
-          ></input> */}
         </div>
         <div className={styles.notificationAndProfile}>
           <div>
             <SelectBrand />
           </div>
-					<div >
-						<Help />
-					</div>
+          <div >
+            <Help />
+          </div>
           <Badge className={'cursor-pointer'} color='secondary' variant='dot'>
             <Notification />
           </Badge>

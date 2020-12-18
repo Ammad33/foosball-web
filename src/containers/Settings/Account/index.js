@@ -24,6 +24,11 @@ const Account = ({
   handleEmail,
   brandName,
   handleBrandName,
+  oldPassword,
+  newPassword,
+  setOldPassword,
+  setNewPassword,
+  handleChangePassword
 }) => {
   const [openCDialog, setOpenCDialog] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
@@ -65,10 +70,10 @@ const Account = ({
           <EyeSVG />
         </div>
       ) : (
-        <div onClick={togglePasswordVisiblity}>
-          <Eye_offSVG />
-        </div>
-      );
+          <div onClick={togglePasswordVisiblity}>
+            <Eye_offSVG />
+          </div>
+        );
     }
   };
   return (
@@ -114,6 +119,8 @@ const Account = ({
               disabled={editPassword ? false : true}
               id='outlined-basic'
               fullWidth
+              value={oldPassword}
+              onChange={setOldPassword}
               label={editPassword ? 'Old Password' : 'Password'}
               type={passwordShown ? 'text' : 'password'}
               variant='outlined'
@@ -137,6 +144,8 @@ const Account = ({
                   id='outlined-basic'
                   fullWidth
                   label='New Password'
+                  value={newPassword}
+                  onChange={setNewPassword}
                   type={newPasswordShown ? 'text' : 'password'}
                   variant='outlined'
                   InputProps={{
@@ -152,11 +161,11 @@ const Account = ({
                               <EyeSVG />{' '}
                             </div>
                           ) : (
-                            <div onClick={toggleNewPasswordVisiblity}>
-                              {' '}
-                              <Eye_offSVG />{' '}
-                            </div>
-                          )}
+                              <div onClick={toggleNewPasswordVisiblity}>
+                                {' '}
+                                <Eye_offSVG />{' '}
+                              </div>
+                            )}
                         </span>
                       </InputAdornment>
                     ),
@@ -167,7 +176,7 @@ const Account = ({
               <Grid item xs={6}>
                 <button
                   className={styles.active}
-                  //onClick={}
+                  onClick={handleChangePassword}
                 >
                   Update
                 </button>
@@ -180,8 +189,8 @@ const Account = ({
               </Grid>
             </>
           ) : (
-            ' '
-          )}
+              ' '
+            )}
         </Grid>
       </div>
       <hr className={mainStyles.hr} />

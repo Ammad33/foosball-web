@@ -66,18 +66,18 @@ function ResponsiveDrawer(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [meData, setMeData] = useState([]);
 
-	const { 
-		setBrandIdd,
-		brands,
-		brandName,
-		setBrandName,
-		brandType,
-		setBrandType } = useContext(RootContext);
-	
-	useEffect(() => {
-		myData();
-	}, []);
-	
+  const {
+    setBrandIdd,
+    brands,
+    brandName,
+    setBrandName,
+    brandType,
+    setBrandType } = useContext(RootContext);
+
+  useEffect(() => {
+    myData();
+  }, []);
+
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -117,17 +117,18 @@ function ResponsiveDrawer(props) {
 							phoneNumber
 						}
 				}`,
-			});
+      });
       // setBrandId(mydata.data.me.organizations[0].organization.id);
       setMeData(mydata.data.me);
       // setBrandType(mydata.data.me.organizations[0].organization.__typename)
     } catch (e) {
       console.log(e);
+      setMeData(e.data.me);
     }
   };
 
   const container =
-    window !== undefined ? () => window().document.body : undefined;	
+    window !== undefined ? () => window().document.body : undefined;
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -142,7 +143,7 @@ function ResponsiveDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Header    meData={meData} brandType = {brandType} />
+          <Header meData={meData} brandType={brandType} />
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label='mailbox folders'>
