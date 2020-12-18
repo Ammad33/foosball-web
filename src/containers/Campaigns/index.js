@@ -135,21 +135,23 @@ const Campaigns = () => {
   };
 
   const handleDelete = async (campaignId) => {
-
     try {
       await API.graphql(
-        graphqlOperation(`mutation deleteCampaign($brandId: ID!, $id: ID!) {
+        graphqlOperation(
+          `mutation deleteCampaign($brandId: ID!, $id: ID!) {
           deleteCampaign(brandId: $brandId, id:$id)
-        }`, {
-          brandId: brandId,
-          id: campaignId
-        })
+        }`,
+          {
+            brandId: brandId,
+            id: campaignId,
+          }
+        )
       );
       getCampaigns();
     } catch (e) {
       console.log('delete campaign error ', e);
     }
-  }
+  };
 
   return (
     <>
@@ -171,8 +173,10 @@ const Campaigns = () => {
           {brandType === 'Brand' ? (
             <button onClick={() => setAddCampagin(true)}>
               <AddIcon /> New Campaign
-            </button>) : ('')}
-
+            </button>
+          ) : (
+              ''
+            )}
         </div>
         <div className={styles.CampaignHeadingButton}>
           <button
@@ -190,8 +194,8 @@ const Campaigns = () => {
             </button>
           ) : (
               <button
-                className={active === "INVITE" ? styles.inviteActive : ""}
-                onClick={() => setActive("INVITE")}
+                className={active === 'INVITE' ? styles.inviteActive : ''}
+                onClick={() => setActive('INVITE')}
               >
                 Invite
               </button>
@@ -223,8 +227,8 @@ const Campaigns = () => {
             </button>
           ) : (
               <button
-                className={active === "DECLINED" ? styles.declinedActive : ""}
-                onClick={() => setActive("DECLINED")}
+                className={active === 'DECLINED' ? styles.declinedActive : ''}
+                onClick={() => setActive('DECLINED')}
               >
                 Declined
               </button>
@@ -262,12 +266,14 @@ const Campaigns = () => {
                 return null;
               }
               return (
-                <Grid
-                  className={styles.gridItem}
-                  item
-                  key={campaign.id}
-                >
-                  <CampaignsCard campaign={campaign} onClick={() => history.push(`/campaignDetail/${campaign.id}`)} handleDelete={handleDelete} />
+                <Grid className={styles.gridItem} item key={campaign.id}>
+                  <CampaignsCard
+                    campaign={campaign}
+                    onClick={() =>
+                      history.push(`/campaignDetail/${campaign.id}`)
+                    }
+                    handleDelete={handleDelete}
+                  />
                 </Grid>
               );
             })}

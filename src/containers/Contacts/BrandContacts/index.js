@@ -43,34 +43,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const dummyContacts = [
-  { name: 'Mark' },
-  { name: 'Sam' },
-  { name: 'Daniel' },
-  { name: 'Jared' },
-  { name: 'Jeromy' },
-  { name: 'Glenn' },
-  { name: 'Jim' },
-  { name: 'Tim' },
-  { name: 'Tony' },
-  { name: 'John' },
-  { name: 'David' },
-  { name: 'Miller' },
-  { name: 'Keiron' },
-  { name: 'Pollard' },
-  { name: 'Chris' },
-  { name: 'Gayle' },
-];
-
 const Contacts = ({}) => {
-  const [search, setSearch] = useState('');
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [influencers, setInfluncers] = useState([]);
   const [addOpen, setAddOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
-  const [brandContacts, setBrandContacts] = useState('');
-  const [contacts, setContacts] = useState(dummyContacts);
-  const [bkupContacts, setBkupContacts] = useState(dummyContacts);
+  const [contacts, setContacts] = useState([]);
+  const [bkupContacts, setBkupContacts] = useState([]);
   const { searchValue, brandId } = useContext(RootContext);
   const classes = useStyles();
 
@@ -109,6 +87,10 @@ const Contacts = ({}) => {
   };
 
   const setNew = () => {
+    if (hasFormError()) {
+      return;
+    }
+    handleAPICall();
     setNewInfluencer({
       fullName: '',
       instagramHandler: '',
@@ -124,7 +106,14 @@ const Contacts = ({}) => {
     });
   };
 
-  const addNewInfluencer = () => {
+  const addNewInfluencer = async () => {
+    if (hasFormError()) {
+      return;
+    }
+    handleAPICall();
+  };
+
+  const hasFormError = () => {
     const newInfluencerErrorr = { ...newInfluencerError };
     if (newInfluencer.fullName === '') {
       newInfluencerErrorr.fullName = true;
@@ -144,12 +133,34 @@ const Contacts = ({}) => {
     setNewInfluencerError(newInfluencerErrorr);
 
     if (Object.values(newInfluencerErrorr).includes(true)) {
-      return;
+      return true;
     }
 
-    const data = [...influencers];
-    data.push(newInfluencer);
-    setInfluncers(data);
+    return false;
+  };
+
+  const handleAPICall = async () => {
+    try {
+      const data = {
+        input: {
+          name: newInfluencer.fullName,
+          currencyType: 'USD',
+          timezone: 10,
+        },
+      };
+      await API.graphql(
+        graphqlOperation(
+          `
+            mutation createInfluencer($input : CreateInfluencerInput!) {
+              createInfluencer(input: $input) {
+                imageUploadUrl
+              }
+            }
+            `,
+          data
+        )
+      );
+    } catch (e) {}
   };
 
   const handleClick = (event) => {
@@ -192,21 +203,19 @@ const Contacts = ({}) => {
 
   const getContacts = async () => {
     try {
-      console.log('get contacts');
       const data = (
         await API.graphql({
           query: `{
-			brand(id: "${brandId}") {
-					users {
-					  user {
-						fullName
-					  }
-					}
-				  }
-		  }`,
+			              brand(id: "${brandId}") {
+					            users {
+					              user {
+						              fullName
+					              }
+					            }
+				            }
+                  }`,
         })
       ).data?.brand?.users;
-      console.log(data);
       setContacts(data || []);
       setBkupContacts(data || []);
     } catch (e) {}
@@ -240,33 +249,16 @@ const Contacts = ({}) => {
         </p>
       </div>
       <AddContact
-        newInfluencer={newInfluencer}
-        handleNewInfluencerChange={handleNewInfluencerChange}
-        addNewInfluencer={addNewInfluencer}
+        formData={newInfluencer}
+        handleFormChange={handleNewInfluencerChange}
+        handleAdd={addNewInfluencer}
         setNew={setNew}
         open={addOpen}
-        newInfluencerError={newInfluencerError}
+        formError={newInfluencerError}
         closeAdd={closeHandle}
+        type={'Influencer'}
       />
       <EditContact open={editOpen} closeAdd={() => setEditOpen(false)} />
-      {/* <div className={styles.inviteContainer}>
-                <span onClick={() => setAddOpen(true)} className={styles.inviteSpan}><Plus /> Invite influencers to work with</span>
-                <p>When you invite other users to FOMO Promo and they sign up and create a campaign, you can get a credit for one campaign. See more details <span>here</span>.</p>
-            </div>
-            <div className={styles.searchContainer}>
-                <TextField
-                    id='outlined-basic'
-                    fullWidth
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    label=''
-                    helperText={" "}
-                    InputProps={{
-                        startAdornment: <InputAdornment position="start"><Search /></InputAdornment>
-                    }}
-                    variant='outlined'
-                />
-            </div> */}
       <Popover
         id={id}
         open={open}
@@ -299,33 +291,7 @@ const Contacts = ({}) => {
         </div>
       </Popover>
       <Grid container alignItems='center'>
-        {/* <Grid item xs={4} className={styles.itemImage}>
-                            {i % 2 !== 0 ?
-                                <div className={styles.withoutAvatar} >
-                                    <Mail />
-                                </div> :
-                                <Avatar
-                                    className={styles.avatar}
-                                    src='https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80'
-                                />}
-                            <p>
-                                Sam O166zkural
-                    </p>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <p>
-                                @samozkural
-                    </p>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <p>  [...Array(5)].map((_, i) =>
-                                samozkural@gmail.com
-                    </p>
-                        </Grid>
-                        <Grid item xs={2} >	
-                            <MoreVertical style={{ float: 'right' }} onClick={handleClick} />
-                        </Grid> */}
-        {brandContacts.length < 1 ? (
+        {contacts.length ? (
           <TableContainer component={Paper} className={classes.root}>
             <div className={styles.tableWrap}>
               <Table aria-label='simple table'>
