@@ -86,8 +86,10 @@ const Campaigns = () => {
 
       }
       setMeData(mydata.data.me.organizations);
+
     } catch (e) {
-      console.log(e);
+      setMeData(e.data.me.organizations);
+
     }
   };
   const getCampaigns = async () => {
