@@ -1,9 +1,6 @@
 import React, { useContext, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Avatar, Badge, Grid, Tooltip } from '@material-ui/core';
+import { Avatar, Tooltip } from '@material-ui/core';
 import styles from './SelectBrand.module.scss';
-import SVG from 'react-inlinesvg';
-// import MenuBar from '../../containers/MenuBar';
 import Popover from '@material-ui/core/Popover';
 import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';

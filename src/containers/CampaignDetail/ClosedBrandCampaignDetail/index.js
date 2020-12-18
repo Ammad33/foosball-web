@@ -26,6 +26,7 @@ import _ from 'lodash';
 import styles from './ClosedBrandCampaignDetail.module.scss';
 
 const ClosedBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) => {
+
   const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);

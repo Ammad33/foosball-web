@@ -2,8 +2,6 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import ListItem from './ListItem';
 import SVG from 'react-inlinesvg';
-import { Button } from '@material-ui/core';
-import { Auth } from 'aws-amplify';
 import { RootContext } from './../../context/RootContext';
 import styles from './LeftSide.module.scss';
 import { Users } from 'react-feather';
@@ -32,8 +30,8 @@ const LeftSideDrawer = () => {
     currentUser,
     activeRoute,
     setActiveRoute,
-	} = useContext(RootContext);
-	
+  } = useContext(RootContext);
+
   return (
     <>
       <ListItem
@@ -59,9 +57,9 @@ const LeftSideDrawer = () => {
         active={activeRoute === 'Reports' ? true : false}
         title={'Reports'}
         onClick={() => {
-					setActiveRoute('Reports')
-					history.push('/reports');
-				}}
+          setActiveRoute('Reports')
+          history.push('/reports');
+        }}
         title={'Reports'}
       />
 

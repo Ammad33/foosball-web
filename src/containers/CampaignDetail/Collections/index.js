@@ -4,7 +4,9 @@ import { Edit } from 'react-feather';
 import { useHistory } from 'react-router-dom';
 
 const Collections = ({ handleEdit, removeSeeAll }) => {
+
   const history = useHistory();
+
   return (<div className={styles.collectionContainer}>
     <div className={styles.headerContainer}>
       <h1>Collection</h1>

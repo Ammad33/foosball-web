@@ -13,6 +13,7 @@ import DeclineCard from '../DelinneCard';
 import _ from 'lodash';
 
 const DeclineInfluencer = ({ handleEdit, data, handleSeeClick, getTotal, name }) => {
+
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
