@@ -27,6 +27,7 @@ import Profile from './containers/Profile';
 import InfluencerProfile from './containers/Profile/InfluencerProfile';
 import BrandProfile from './containers/Profile/BrandProfile';
 import Team from './containers/Team'
+import Wallet from './containers/Wallet';
 
 const App = () => {
   return (
@@ -94,6 +95,11 @@ const App = () => {
           <ProtectedRoute exact path='/contacts'>
             <Layout>
               <Contacts />
+            </Layout>
+          </ProtectedRoute>
+					<ProtectedRoute exact path='/wallet'>
+            <Layout>
+              <Wallet />
             </Layout>
           </ProtectedRoute>
           <ProtectedRoute exact path='/posts'>
