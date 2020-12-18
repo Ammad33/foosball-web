@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import styles from './Contacts.module.scss';
-import { Plus, MoreVertical, Mail, Edit, Trash } from 'react-feather';
-import { InputAdornment, Grid, Avatar, Popover } from '@material-ui/core';
+import { MoreVertical, Edit, Trash } from 'react-feather';
+import { Grid, Avatar, Popover } from '@material-ui/core';
 import AddContact from './AddContact';
 import EditContact from './EditContact';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -11,7 +11,6 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import MuiTableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
@@ -90,7 +89,7 @@ const Contacts = ({}) => {
     if (hasFormError()) {
       return;
     }
-    handleAPICall();
+    handleAPICall(false);
     setNewInfluencer({
       fullName: '',
       instagramHandler: '',
@@ -110,7 +109,7 @@ const Contacts = ({}) => {
     if (hasFormError()) {
       return;
     }
-    handleAPICall();
+    handleAPICall(true);
   };
 
   const hasFormError = () => {
@@ -139,7 +138,7 @@ const Contacts = ({}) => {
     return false;
   };
 
-  const handleAPICall = async () => {
+  const handleAPICall = async (closeDialog) => {
     try {
       const data = {
         input: {
@@ -160,6 +159,9 @@ const Contacts = ({}) => {
           data
         )
       );
+      if (closeDialog) {
+        setAddOpen(false);
+      }
     } catch (e) {}
   };
 

@@ -17,7 +17,7 @@ import Divider from '@material-ui/core/Divider';
 import SVG from 'react-inlinesvg';
 import { Link } from 'react-router-dom';
 import { RootContext } from '../../../context/RootContext';
-import { API } from 'aws-amplify';
+import { API, graphqlOperation } from 'aws-amplify';
 
 const Users = () => {
   return <SVG src={require('../../../assets/users.svg')} />;
@@ -42,9 +42,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const InfluencerContacts = ({}) => {
-  const [search, setSearch] = useState('');
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [influencers, setInfluncers] = useState([]);
   const [addOpen, setAddOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [brandContacts, setBrandContacts] = useState('');
@@ -53,82 +51,118 @@ const InfluencerContacts = ({}) => {
   const { searchValue, brandId } = useContext(RootContext);
   const classes = useStyles();
 
-  const [newInfluencer, setNewInfluencer] = useState({
-    fullName: '',
-    instagramHandler: '',
+  const [brand, setNewBrand] = useState({
+    brandName: '',
+    pointOfContact: '',
     email: '',
     mobilePhone: '',
   });
 
-  const [newInfluencerError, setNewInfluencerError] = useState({
-    fullName: false,
-    instagramHandler: false,
+  const [brandErrors, setNewBrandErrors] = useState({
+    brandName: false,
+    pointOfContact: false,
     email: false,
     mobilePhone: false,
   });
 
-  const handleNewInfluencerChange = (value, fieldName) => {
-    const newInfluner = { ...newInfluencer };
-    newInfluner[fieldName] = value;
-    const newInflunerError = { ...newInfluencerError };
+  const handleFormChange = (value, fieldName) => {
+    const newBrand = { ...brand };
+    newBrand[fieldName] = value;
+    const brandError = { ...brandErrors };
     if (
       fieldName === 'email' ||
       (fieldName === 'mobilePhone' &&
-        newInflunerError[fieldName] === true &&
+        brandError[fieldName] === true &&
         value !== '')
     ) {
-      newInflunerError['mobilePhone'] = false;
-      newInflunerError['email'] = false;
-      setNewInfluencerError(newInflunerError);
-    } else if (newInflunerError[fieldName] === true && value !== '') {
-      newInflunerError[fieldName] = false;
-      setNewInfluencerError(newInflunerError);
+      brandError['mobilePhone'] = false;
+      brandError['email'] = false;
+      setNewBrandErrors(brandError);
+    } else if (brandError[fieldName] === true && value !== '') {
+      brandError[fieldName] = false;
+      setNewBrandErrors(brandError);
     }
-    setNewInfluencer(newInfluner);
+    setNewBrand(newBrand);
   };
 
   const setNew = () => {
-    setNewInfluencer({
-      fullName: '',
-      instagramHandler: '',
+    if (hasFormError()) {
+      return;
+    }
+    handleAPICall(false);
+    setNewBrand({
+      brandName: '',
+      pointOfContact: '',
       email: '',
       mobilePhone: '',
     });
 
-    setNewInfluencerError({
-      fullName: false,
-      instagramHandler: false,
+    setNewBrandErrors({
+      brandName: false,
+      pointOfContact: false,
       email: false,
       mobilePhone: false,
     });
   };
 
-  const addNewInfluencer = () => {
-    const newInfluencerErrorr = { ...newInfluencerError };
-    if (newInfluencer.fullName === '') {
-      newInfluencerErrorr.fullName = true;
-    }
-    if (newInfluencer.instagramHandler === '') {
-      newInfluencerErrorr.instagramHandler = true;
-    }
-
-    if (newInfluencer.email === '' && newInfluencer.mobilePhone === '') {
-      newInfluencerErrorr.email = true;
-    }
-
-    if (newInfluencer.email === '' && newInfluencer.mobilePhone === '') {
-      newInfluencerErrorr.mobilePhone = true;
-    }
-
-    setNewInfluencerError(newInfluencerErrorr);
-
-    if (Object.values(newInfluencerErrorr).includes(true)) {
+  const addNewBrand = () => {
+    if (hasFormError()) {
       return;
     }
+    handleAPICall(true);
+  };
 
-    const data = [...influencers];
-    data.push(newInfluencer);
-    setInfluncers(data);
+  const hasFormError = () => {
+    const brandError = { ...brandErrors };
+    if (brand.brandName === '') {
+      brandError.brandName = true;
+    }
+    if (brand.pointOfContact === '') {
+      brandError.pointOfContact = true;
+    }
+
+    if (brand.email === '' && brand.mobilePhone === '') {
+      brandError.email = true;
+    }
+
+    if (brand.email === '' && brand.mobilePhone === '') {
+      brandError.mobilePhone = true;
+    }
+
+    setNewBrandErrors(brandError);
+
+    if (Object.values(brandError).includes(true)) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const handleAPICall = async (closeDialog) => {
+    try {
+      const data = {
+        input: {
+          name: brand.brandName,
+          currencyType: 'USD',
+          timezone: 10,
+        },
+      };
+      await API.graphql(
+        graphqlOperation(
+          `
+            mutation createBrand($input : CreateBrandInput!) {
+              createBrand(input: $input) {
+                imageUploadUrl
+              }
+            }
+            `,
+          data
+        )
+      );
+      if (closeDialog) {
+        setAddOpen(false);
+      }
+    } catch (e) {}
   };
 
   const handleClick = (event) => {
@@ -219,12 +253,12 @@ const InfluencerContacts = ({}) => {
         </p>
       </div>
       <AddContact
-        formData={newInfluencer}
-        handleFormChange={handleNewInfluencerChange}
-        handleAdd={addNewInfluencer}
+        formData={brand}
+        handleFormChange={handleFormChange}
+        handleAdd={addNewBrand}
         setNew={setNew}
         open={addOpen}
-        formError={newInfluencerError}
+        formError={brandErrors}
         closeAdd={closeHandle}
         type={'Brand'}
       />
