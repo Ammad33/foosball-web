@@ -54,7 +54,7 @@ const AddCampaignDetails = ({
   partialFilledForm,
   campaignError
 }) => {
-  // const classes = useStyles();
+
   useEffect(() => {
     filledForm();
     partialFilledForm();
@@ -107,7 +107,7 @@ const AddCampaignDetails = ({
           label='Start Date'
           className={mainStyles.placeholderColor}
           variant='outlined'
-          onBlur={(e) => {
+          onBlur={() => {
             console.log('Triggered because this input lost focus');
           }}
           helperText={
@@ -136,7 +136,7 @@ const AddCampaignDetails = ({
             openTo='date'
             format='MM/dd/yyyy'
             margin='normal'
-            onBlur={(e) => {
+            onBlur={() => {
               console.log('Triggered because this input lost focus');
             }}
             onClose={() => handleStartDateOpen(false)}

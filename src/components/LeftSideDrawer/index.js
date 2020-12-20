@@ -4,7 +4,7 @@ import ListItem from './ListItem';
 import SVG from 'react-inlinesvg';
 import { RootContext } from './../../context/RootContext';
 import styles from './LeftSide.module.scss';
-import { Users } from 'react-feather';
+import { Users, Mail } from 'react-feather';
 
 const IconProspects = () => {
   return <SVG src={require('../../assets/Prospects.svg')} />;
@@ -12,9 +12,7 @@ const IconProspects = () => {
 const IconCampaign = () => {
   return <SVG src={require('../../assets/Campaigns.svg')} />;
 };
-const IconMessages = () => {
-  return <SVG src={require('../../assets/Messages.svg')} />;
-};
+
 const IconReports = () => {
   return <SVG src={require('../../assets/Reports.svg')} />;
 };
@@ -25,9 +23,6 @@ const IconWallet = () => {
 const LeftSideDrawer = () => {
   const history = useHistory();
   const {
-    setCurrentUser,
-    setLogoutMessage,
-    currentUser,
     activeRoute,
     setActiveRoute,
   } = useContext(RootContext);
@@ -64,7 +59,7 @@ const LeftSideDrawer = () => {
       />
 
       <ListItem
-        icon={<IconMessages />}
+        icon={<Mail />}
         active={activeRoute === 'Messages' ? true : false}
         onClick={() => {
           setActiveRoute('Messages');

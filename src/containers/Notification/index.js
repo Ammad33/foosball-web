@@ -1,17 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Avatar, Badge, Grid } from '@material-ui/core';
+import { Avatar, Grid } from '@material-ui/core';
 import styles from './notifications.module.scss';
 import SVG from 'react-inlinesvg';
-// import MenuBar from '../../containers/MenuBar';
 import Popover from '@material-ui/core/Popover';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
-import MenuItem from '@material-ui/core/MenuItem';
-import { useHistory } from 'react-router-dom';
-import { RootContext } from './../../context/RootContext';
 
 const notifications = [
 	{
@@ -69,20 +64,10 @@ const Notification = () => {
 	const NotificationIcon = () => {
 		return <SVG src={require('../../assets/Notification.svg')} />;
 	};
-	const history = useHistory();
-	const [notificationDropDown, setNotificationDropDown] = useState(false);
 
-	const {
-		setCurrentUser,
-		setLogoutMessage,
-		currentUser,
-		activeRoute,
-		setActiveRoute,
-	} = useContext(RootContext);
+	const [anchorEl, setAnchorEl] = useState(null);
 
-	const [anchorEl, setAnchorEl] = React.useState(null);
 	const handleClick = (event) => {
-		setNotificationDropDown(true);
 		setAnchorEl(event.currentTarget);
 	};
 
@@ -95,6 +80,7 @@ const Notification = () => {
 
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
+
 	return (
 		<>
 			<Popover
@@ -107,14 +93,11 @@ const Notification = () => {
 					horizontal: 'center',
 				}}
 				PaperProps={{
-					style: { width: '378px', height: '770px' },
+					style: { width: '378px', height: '780px', marginTop: "22px" },
 				}}
 				transformOrigin={{
 					vertical: 'top',
 					horizontal: 'right',
-				}}
-				anchorPosition= {{
-					top: '20px',
 				}}
 			>
 				<Grid container item xs={12} spacing={3}>

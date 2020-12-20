@@ -80,12 +80,12 @@ const Collection = ({
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
     closeSvg()
-    if (panel == "panel1") {
+    if (panel === "panel1") {
       handleCollection("Drop Cuts")
       handleSvg1();
       setOpen(true);
     }
-    else if (panel == "panel2") {
+    else if (panel === "panel2") {
       handleCollection("V-Necks")
       handleSvg2();
       setOpen(true);

@@ -21,7 +21,6 @@ const Campaigns = () => {
   const [bkupCampaigns, setBkupCampaigns] = useState([]);
   const [addCampaign, setAddCampagin] = useState(false);
   const [meData, setMeData] = useState([]);
-  // const [brandName, setBrandName] = useState([]);
   const { brandId, setBrands, searchValue, brandType, setInfluencers, setBrandIdd, setBrandName } = useContext(RootContext);
 
   useEffect(() => {
@@ -29,6 +28,7 @@ const Campaigns = () => {
       getMeData();
     }
   }, []);
+
 
   const getMeData = async () => {
     try {
@@ -88,7 +88,30 @@ const Campaigns = () => {
       setMeData(mydata.data.me.organizations);
 
     } catch (e) {
-      setMeData(e.data.me.organizations);
+      if (e.data) {
+        let brandsData = [];
+        let influencersData = [];
+        e.data.me.organizations !== null && e.data.me.organizations.forEach(item => {
+          if (item.organization.__typename == "Influencer") {
+            influencersData.push(item);
+          } else if (item.organization.__typename === "Brand") {
+            brandsData.push(item);
+          }
+        })
+        setBrands(brandsData);
+        setInfluencers(influencersData);
+        if (brandsData.length > 0) {
+          setBrandName(brandsData[0].organization.name);
+          setBrandIdd(brandsData[0].organization.id);
+        } else if (influencersData.length > 0) {
+          setBrandName(influencersData[0].organization.name);
+          setBrandIdd(influencersData[0].organization.id);
+
+        }
+        setMeData(e.data.me.organizations);
+
+      }
+
 
     }
   };
