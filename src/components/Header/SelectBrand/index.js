@@ -3,21 +3,16 @@ import { Avatar, Tooltip } from '@material-ui/core';
 import styles from './SelectBrand.module.scss';
 import Popover from '@material-ui/core/Popover';
 import Divider from '@material-ui/core/Divider';
-import MenuItem from '@material-ui/core/MenuItem';
-import { useHistory } from 'react-router-dom';
 import { ChevronUp, ChevronDown } from 'react-feather';
 import { RootContext } from '../../../context/RootContext';
 
 const SelectBrand = () => {
-  const history = useHistory();
 
   const {
     setBrandIdd,
     brands,
     brandName,
     setBrandName,
-    brandType,
-    roleId,
     setRoleId,
     setBrandType,
     influencers } = useContext(RootContext);
@@ -67,7 +62,6 @@ const SelectBrand = () => {
                 brands !== null &&
                 brands.map((item, index) => {
                   return (
-                    // <MenuItem>
                     <div key={index}
                       onClick={() => {
                         setBrandIdd(item.organization && item.organization.id);
@@ -92,7 +86,6 @@ const SelectBrand = () => {
                         <span>{item.organization && item.organization.name}</span>
                       </Tooltip>
                     </div>
-                    // </MenuItem>
                   );
                 })}
             </div>
@@ -109,7 +102,6 @@ const SelectBrand = () => {
                 influencers !== null &&
                 influencers.map((item, index) => {
                   return (
-                    // <MenuItem>
                     <div key={index}
                       onClick={() => {
                         setBrandIdd(item.organization && item.organization.id);
@@ -134,7 +126,6 @@ const SelectBrand = () => {
                         <span>{item.organization && item.organization.name}</span>
                       </Tooltip>
                     </div>
-                    // </MenuItem>
                   );
                 })}
             </div>

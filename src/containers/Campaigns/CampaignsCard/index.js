@@ -13,7 +13,6 @@ import {
   Download,
   Copy,
   Mail,
-  XCircle,
   Trash
 } from 'react-feather';
 
@@ -28,6 +27,12 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
   };
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+  };
+
+  String.prototype.toProperCase = function () {
+    return this.replace(/\w\S*/g, function (txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
   };
 
 
@@ -102,7 +107,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
                           styles.statusPending,
                           styles[`chip${campaign.status}`]
                         )}
-                        label={campaign.status}
+                        label={campaign.status && campaign.status.toProperCase()}
                       />
                     ) : campaign.status == 'DRAFT' ? (
                       <Chip
@@ -110,7 +115,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
                           styles.statusDraft,
                           styles[`chip${campaign.status}`]
                         )}
-                        label={campaign.status}
+                        label={campaign.status && campaign.status.toProperCase()}
                       />
                     ) : campaign.status == 'LIVE' ? (
                       <Chip
@@ -118,7 +123,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
                           styles.statusLive,
                           styles[`chip${campaign.status}`]
                         )}
-                        label={campaign.status}
+                        label={campaign.status && campaign.status.toProperCase()}
                       />
                     ) : (
                             <Chip
@@ -126,7 +131,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
                                 styles.statusPending,
                                 styles[`chip${campaign.status}`]
                               )}
-                              label={campaign.status}
+                              label={campaign.status && campaign.status.toProperCase()}
                             />
                           )}
                   </div>

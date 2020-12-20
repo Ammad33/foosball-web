@@ -1,9 +1,6 @@
-import React, { useState } from 'react';
-import { Edit, Phone } from 'react-feather';
-import { InputAdornment, Grid, Avatar, Popover } from '@material-ui/core';
+import React from 'react';
+import { Grid } from '@material-ui/core';
 import styles from './Social.module.scss';
-import moment from 'moment';
-import clsx from 'clsx';
 import SVG from 'react-inlinesvg';
 
 const Facebook = () => {
@@ -22,7 +19,7 @@ const Youtube = () => {
 	);
 };
 
-const Social = ({ handleEdit }) => {
+const Social = () => {
 
 	return (
 		<>

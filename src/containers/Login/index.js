@@ -1,10 +1,9 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { API } from 'aws-amplify';
 import { TextField, Button, InputAdornment } from '@material-ui/core';
 import styles from './Login.module.scss';
 import { RootContext } from '../../context/RootContext';
 import { Auth } from 'aws-amplify';
-import { Redirect } from 'react-router-dom';
 import mainStyles from './../../index.module.scss';
 import SVG from 'react-inlinesvg';
 import { useHistory } from 'react-router-dom';
@@ -20,19 +19,21 @@ const EyeSVG = () => {
 };
 
 const Login = () => {
+
   const history = useHistory();
+
   const [passwordShown, setPasswordShown] = useState(false);
 
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
-	};
-	
+  };
+
 
   const handleKeypress = e => {
-	if (e.keyCode === 13) {
-		onSignin();
-	}
-};
+    if (e.keyCode === 13) {
+      onSignin();
+    }
+  };
 
   const {
     currentUser,
@@ -51,18 +52,14 @@ const Login = () => {
     try {
       const user = await Auth.signIn(email, password);
       setCurrentUser(user);
-			setLogoutMessage('');
-			getMeData();
+      setLogoutMessage('');
+      getMeData();
     } catch (e) {
       setErrorMessage(e.message);
       setLogoutMessage('');
     }
-	};
+  };
 
-	// if (currentUser && currentUser !== null) {
-	// 	getMeData();
-
-  // }
   const getMeData = async () => {
     try {
       const mydata = await API.graphql({
@@ -94,7 +91,7 @@ const Login = () => {
 							phoneNumber
 						}
 				}`,
-			});
+      });
       setMeData(mydata.data.me.organizations[0].organization.__typename);
     } catch (e) {
       console.log(e);
@@ -109,8 +106,8 @@ const Login = () => {
       <TextField
         id='outlined-basic'
         onChange={(e) => setEmail(e.target.value)}
-				label='Email'				
-				onKeyDown={handleKeypress}
+        label='Email'
+        onKeyDown={handleKeypress}
         variant='outlined'
         type='text'
       />
@@ -118,8 +115,8 @@ const Login = () => {
         id='outlined-basic'
         onChange={(e) => setPassword(e.target.value)}
         label='Password'
-				variant='outlined'
-				onKeyDown={handleKeypress}
+        variant='outlined'
+        onKeyDown={handleKeypress}
         type={passwordShown ? 'text' : 'password'}
         InputProps={{
           endAdornment: (
@@ -131,11 +128,11 @@ const Login = () => {
                     <EyeSVG />{' '}
                   </div>
                 ) : (
-                  <div onClick={togglePasswordVisiblity}>
-                    {' '}
-                    <EyeOffSVG />{' '}
-                  </div>
-                )}
+                    <div onClick={togglePasswordVisiblity}>
+                      {' '}
+                      <EyeOffSVG />{' '}
+                    </div>
+                  )}
               </span>
             </InputAdornment>
           ),

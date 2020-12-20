@@ -23,10 +23,10 @@ const Setting = () => {
   const [email, setEmail] = useState('');
   const [brandNamee, setBrandNamee] = useState([]);
   const [typeName, setTypeName] = useState([]);
-  const [brandId, setBrandId] = useState([]);
   const { brandType, brandName } = useContext(RootContext);
 
-  console.log(brandName);
+
+
 
   useEffect(() => {
     myData();

@@ -1,7 +1,5 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
-import SVG from 'react-inlinesvg';
-import { Button, MenuItem } from '@material-ui/core';
+import { MenuItem } from '@material-ui/core';
 import { Auth } from 'aws-amplify';
 import { RootContext } from './../../context/RootContext';
 import styles from './Logout.module.scss';
@@ -13,7 +11,8 @@ const Logout = () => {
     setCurrentUser,
     setLogoutMessage,
     setBrandName,
-    setBrandIdd, setRoute, setBrands,setbrandType
+    setBrandIdd, setRoute, setBrands, setbrandType,
+    setInfluencers
   } = useContext(RootContext);
 
   const signOut = async () => {
@@ -22,9 +21,10 @@ const Logout = () => {
       setLogoutMessage('Successfully logged out');
       setCurrentUser();
       setBrands(null);
+      setInfluencers(null);
       setBrandName();
-			setBrandIdd();
-			setbrandType();
+      setBrandIdd();
+      setbrandType();
       setRoute('/');
 
     } catch (error) {
