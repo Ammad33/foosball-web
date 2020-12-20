@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { RootContext } from './../../context/RootContext';
 
 import BrandContacts from './BrandContacts';
@@ -11,8 +11,8 @@ const Contacts = () => {
 	return (
 		<>
 			<div>
-				{brandType === 'Brand'? (<BrandContacts />) : (<InfluencerContacts />) }
-		</div>
+				{brandType === 'Brand' ? (<BrandContacts />) : (<InfluencerContacts />)}
+			</div>
 		</>
 	)
 };

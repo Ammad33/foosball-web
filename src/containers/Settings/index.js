@@ -1,4 +1,4 @@
-import React, { useContext, useState, useHistory, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import styles from './Setting.module.scss';
 import Notifications from './Notifications';
@@ -16,7 +16,6 @@ const Setting = () => {
   const [campaignStart, setCampaignStart] = useState(false);
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
-  //const [influencers, setInfluncers] = useState([]);
   const [brands, setBrands] = useState([]);
   const [imgUrl, setImgUrl] = useState([]);
   const [fullName, setFullName] = useState('');
@@ -24,8 +23,6 @@ const Setting = () => {
   const [brandNamee, setBrandNamee] = useState([]);
   const [typeName, setTypeName] = useState([]);
   const { brandType, brandName } = useContext(RootContext);
-
-
 
 
   useEffect(() => {
@@ -232,6 +229,11 @@ const Setting = () => {
       setTypeName(mydata.data.me.organizations[1].organization.__typename);
     } catch (e) {
       console.log(e);
+      if (e.data) {
+        setEmail(e.data.me.email);
+        setFullName(e.data.me.fullName);
+        setImgUrl(e.data.me.imageUrl);
+      }
     }
   };
 
