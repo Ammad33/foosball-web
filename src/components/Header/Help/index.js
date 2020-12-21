@@ -42,7 +42,33 @@ const Help = () => {
 			>
 				<Grid>
 					<div className={styles.popOverContainer}>
-
+						<div className={styles.popOverHeader}>
+							<h6> Need help with something?</h6>
+							<p> Give us a few details and someone will be in touch with you.</p>
+						</div>
+						<TextField
+							id='outlined-basic'
+							fullWidth
+							// value={startDate}
+							// onChange={(e) => handleStartDate(e.target.value)}
+							label='Campaign Name'
+							className={styles.textField}
+							variant='outlined'
+						/>
+						<TextField
+							id='outlined-basic'
+							fullWidth
+							// value={startDate}
+							// onChange={(e) => handleStartDate(e.target.value)}
+							label='Let us know what you need help with'
+							className={styles.commentField}
+							variant='outlined'
+						/>
+						<div className= {styles.buttonContainer}>
+							<button className={styles.submit}>
+								<p> Submit </p>
+							</button>
+						</div>
 					</div>
 				</Grid>
 			</Popover>
