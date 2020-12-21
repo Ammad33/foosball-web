@@ -21,14 +21,23 @@ const Campaigns = () => {
   const [bkupCampaigns, setBkupCampaigns] = useState([]);
   const [addCampaign, setAddCampagin] = useState(false);
   const [meData, setMeData] = useState([]);
-  const { brandId, setBrands, searchValue, brandType, setInfluencers, setBrandIdd, setBrandName } = useContext(RootContext);
+  const {
+    brandId,
+    setBrands,
+    searchValue,
+    brandType,
+    setInfluencers,
+    setBrandIdd,
+    setBrandName,
+    setShowLoader,
+  } = useContext(RootContext);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!brandId || brandId === '') {
       getMeData();
     }
   }, []);
-
 
   const getMeData = async () => {
     try {
@@ -68,13 +77,14 @@ const Campaigns = () => {
 
       let brandsData = [];
       let influencersData = [];
-      mydata.data.me.organizations !== null && mydata.data.me.organizations.forEach(item => {
-        if (item.organization.__typename == "Influencer") {
-          influencersData.push(item);
-        } else if (item.organization.__typename === "Brand") {
-          brandsData.push(item);
-        }
-      })
+      mydata.data.me.organizations !== null &&
+        mydata.data.me.organizations.forEach((item) => {
+          if (item.organization.__typename == 'Influencer') {
+            influencersData.push(item);
+          } else if (item.organization.__typename === 'Brand') {
+            brandsData.push(item);
+          }
+        });
       setBrands(brandsData);
       setInfluencers(influencersData);
       if (brandsData.length > 0) {
@@ -83,21 +93,20 @@ const Campaigns = () => {
       } else if (influencersData.length > 0) {
         setBrandName(influencersData[0].organization.name);
         setBrandIdd(influencersData[0].organization.id);
-
       }
       setMeData(mydata.data.me.organizations);
-
     } catch (e) {
       if (e.data) {
         let brandsData = [];
         let influencersData = [];
-        e.data.me.organizations !== null && e.data.me.organizations.forEach(item => {
-          if (item.organization.__typename == "Influencer") {
-            influencersData.push(item);
-          } else if (item.organization.__typename === "Brand") {
-            brandsData.push(item);
-          }
-        })
+        e.data.me.organizations !== null &&
+          e.data.me.organizations.forEach((item) => {
+            if (item.organization.__typename == 'Influencer') {
+              influencersData.push(item);
+            } else if (item.organization.__typename === 'Brand') {
+              brandsData.push(item);
+            }
+          });
         setBrands(brandsData);
         setInfluencers(influencersData);
         if (brandsData.length > 0) {
@@ -106,17 +115,15 @@ const Campaigns = () => {
         } else if (influencersData.length > 0) {
           setBrandName(influencersData[0].organization.name);
           setBrandIdd(influencersData[0].organization.id);
-
         }
         setMeData(e.data.me.organizations);
-
       }
-
-
     }
   };
   const getCampaigns = async () => {
     try {
+      setLoading(true);
+      setShowLoader(true);
       const campaigns = await API.graphql({
         query: `{
         campaigns(brandId: "${brandId}") {
@@ -133,7 +140,12 @@ const Campaigns = () => {
       });
       setCampaigns(campaigns.data.campaigns.campaigns);
       setBkupCampaigns(campaigns.data.campaigns.campaigns);
-    } catch (e) { }
+      setLoading(false);
+      setShowLoader(false);
+    } catch (e) {
+      setLoading(false);
+      setShowLoader(false);
+    }
   };
 
   useEffect(() => {
@@ -200,8 +212,8 @@ const Campaigns = () => {
               <AddIcon /> New Campaign
             </button>
           ) : (
-              ''
-            )}
+            ''
+          )}
         </div>
         <div className={styles.CampaignHeadingButton}>
           <button
@@ -218,13 +230,13 @@ const Campaigns = () => {
               Draft
             </button>
           ) : (
-              <button
-                className={active === 'INVITE' ? styles.inviteActive : ''}
-                onClick={() => setActive('INVITE')}
-              >
-                Invite
-              </button>
-            )}
+            <button
+              className={active === 'INVITE' ? styles.inviteActive : ''}
+              onClick={() => setActive('INVITE')}
+            >
+              Invite
+            </button>
+          )}
           <button
             className={active === 'PENDING' ? styles.pendingActive : ''}
             onClick={() => setActive('PENDING')}
@@ -251,15 +263,15 @@ const Campaigns = () => {
               Lost
             </button>
           ) : (
-              <button
-                className={active === 'DECLINED' ? styles.declinedActive : ''}
-                onClick={() => setActive('DECLINED')}
-              >
-                Declined
-              </button>
-            )}
+            <button
+              className={active === 'DECLINED' ? styles.declinedActive : ''}
+              onClick={() => setActive('DECLINED')}
+            >
+              Declined
+            </button>
+          )}
         </div>
-        {campaigns.length == 0 ? (
+        {campaigns.length == 0 && !loading ? (
           <Grid
             container
             spacing={0}
@@ -282,8 +294,8 @@ const Campaigns = () => {
             </Grid>
           </Grid>
         ) : (
-            ''
-          )}
+          ''
+        )}
         <Grid container spacing={3}>
           {campaigns.length > 0 &&
             campaigns.map((campaign) => {

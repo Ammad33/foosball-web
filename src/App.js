@@ -26,7 +26,8 @@ import Contacts from './containers/Contacts';
 import Profile from './containers/Profile';
 import InfluencerProfile from './containers/Profile/InfluencerProfile';
 import BrandProfile from './containers/Profile/BrandProfile';
-import Team from './containers/Team'
+import Team from './containers/Team';
+import Loader from './containers/Loader';
 
 const App = () => {
   return (
@@ -61,7 +62,7 @@ const App = () => {
           <ProtectedRoute exact path='/addCampaign'>
             <AddCampaign />
           </ProtectedRoute>
-					<ProtectedRoute exact path='/team'>
+          <ProtectedRoute exact path='/team'>
             <Layout>
               <Team />
             </Layout>
@@ -76,17 +77,17 @@ const App = () => {
               <Profile />
             </Layout>
           </ProtectedRoute>
-					<ProtectedRoute exact path='/influencerProfile'>
+          <ProtectedRoute exact path='/influencerProfile'>
             <Layout>
-              <InfluencerProfile/>
+              <InfluencerProfile />
             </Layout>
           </ProtectedRoute>
-					<ProtectedRoute exact path='/brandProfile'>
+          <ProtectedRoute exact path='/brandProfile'>
             <Layout>
-              <BrandProfile/>
+              <BrandProfile />
             </Layout>
           </ProtectedRoute>
-					<ProtectedRoute exact path='/reports'>
+          <ProtectedRoute exact path='/reports'>
             <Layout>
               <Reports />
             </Layout>
@@ -145,6 +146,7 @@ const App = () => {
           <Redirect exact from='/' to='/campaigns' />
         </Switch>
       </HashRouter>
+      <Loader />
     </RootContext>
   );
 };

@@ -6,7 +6,8 @@ export default ({ children }) => {
   const prevUser = JSON.parse(window.localStorage.getItem('user')) || null;
   const preActiveRoute = localStorage.getItem('route') || 'Campaign';
   const brandsStored = JSON.parse(localStorage.getItem('brands')) || null;
-  const influencerStored = JSON.parse(localStorage.getItem('influencers')) || null;
+  const influencerStored =
+    JSON.parse(localStorage.getItem('influencers')) || null;
   const bId = localStorage.getItem('bId') || null;
   const bName = localStorage.getItem('bName') || null;
   const bType = localStorage.getItem('bType') || null;
@@ -22,6 +23,7 @@ export default ({ children }) => {
   const [roleId, setRoleId] = useState(rId);
   const [searchValue, setSearchValue] = useState('');
   const [influencers, setInfluencers] = useState(influencerStored);
+  const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
     if (!currentUser) window.localStorage.clear();
@@ -32,7 +34,8 @@ export default ({ children }) => {
     else localStorage.setItem('bId', brandId);
     if (!brands || brands == null) localStorage.removeItem('brands');
     else localStorage.setItem('brands', JSON.stringify(brands));
-    if (!influencers || influencers == null) localStorage.removeItem('influencers');
+    if (!influencers || influencers == null)
+      localStorage.removeItem('influencers');
     else localStorage.setItem('influencers', JSON.stringify(influencers));
     if (!brandName) localStorage.removeItem('bName');
     else localStorage.setItem('bName', brandName);
@@ -40,7 +43,16 @@ export default ({ children }) => {
     else localStorage.setItem('bType', brandType);
     if (!roleId) localStorage.removeItem('rId');
     else localStorage.setItem('rId', roleId);
-  }, [currentUser, activeRoute, brandId, brands, brandName, brandType, roleId, influencers]);
+  }, [
+    currentUser,
+    activeRoute,
+    brandId,
+    brands,
+    brandName,
+    brandType,
+    roleId,
+    influencers,
+  ]);
 
   const defaultContext = {
     currentUser,
@@ -64,7 +76,9 @@ export default ({ children }) => {
     searchValue,
     setSearchValue,
     influencers,
-    setInfluencers
+    setInfluencers,
+    showLoader,
+    setShowLoader,
   };
 
   return (
