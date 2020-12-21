@@ -23,7 +23,7 @@ export default ({ children }) => {
   const [roleId, setRoleId] = useState(rId);
   const [searchValue, setSearchValue] = useState('');
   const [influencers, setInfluencers] = useState(influencerStored);
-  const [showLoader, setShowLoader] = useState(true);
+  const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
     if (!currentUser) window.localStorage.clear();
