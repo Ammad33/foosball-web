@@ -22,10 +22,7 @@ const IconWallet = () => {
 };
 const LeftSideDrawer = () => {
   const history = useHistory();
-  const {
-    activeRoute,
-    setActiveRoute,
-  } = useContext(RootContext);
+  const { activeRoute, setActiveRoute } = useContext(RootContext);
 
   return (
     <>
@@ -52,7 +49,7 @@ const LeftSideDrawer = () => {
         active={activeRoute === 'Reports' ? true : false}
         title={'Reports'}
         onClick={() => {
-          setActiveRoute('Reports')
+          setActiveRoute('Reports');
           history.push('/reports');
         }}
         title={'Reports'}
@@ -84,38 +81,6 @@ const LeftSideDrawer = () => {
         title={'Wallets'}
         onClick={() => setActiveRoute('Wallets')}
       />
-
-      {/* <ListItem
-        icon={<IconSettings />}
-        active={activeRoute === 'Settings' ? true : false}
-        title={'Settings'}
-        onClick={() => {
-          setActiveRoute('Settings');
-          history.push('/settings');
-        }}
-      /> */}
-
-      {/* <div className={styles.logoutButton}>
-        <Button onClick={signOut} variant='contained' color='secondary'>
-          Logout
-        </Button>
-      </div> */}
-
-      {/* <div className={styles.tokenContainer}>
-        <p>Email: {currentUser.attributes.email}</p>
-        <p>Access Token: </p>
-        <p className={styles.token}>
-          {currentUser.signInUserSession.accessToken.jwtToken}
-        </p>
-        <p>Id Token: </p>
-        <p className={styles.token}>
-          {currentUser.signInUserSession.idToken.jwtToken}
-        </p>
-        <p>Refresh Token: </p>
-        <p className={styles.token}>
-          {currentUser.signInUserSession.refreshToken.token}
-        </p>
-      </div> */}
     </>
   );
 };
