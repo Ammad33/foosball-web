@@ -178,6 +178,13 @@
   }
 }
 
+.dropDownCustomizeSvg{
+  svg{
+    margin-left: -36px;
+    margin-right: 20px;
+  }
+}
+
 .CampaignHeading {
   display: flex;
   flex-direction: row;
@@ -207,14 +214,14 @@
 }
 
 .negotiationDialog {
-  width: 667px;
+  width: 100%;
+  height: 100%;
   max-width: 667px !important;
   max-height: 686px !important;
   margin: 0px !important;
   padding: 41px 38px !important;
   .dialogTitle {
     padding: 0px !important;
-    margin-bottom: 29px;
     .titleText {
       font-family: Poppins;
       font-size: 20px;
@@ -224,7 +231,34 @@
     }
   }
   .dialogContent {
-    padding: 0px !important;
+    padding-bottom: 0px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    padding-top: 29px !important;
+    .marginbottomSelect{
+      margin-bottom: 19px !important;
+    }
+
+    .addMore {
+      display: flex;
+      flex-direction: row;
+      gap:8px;
+      align-items: center;
+      cursor: pointer;
+      margin-top: 19px;
+      svg {
+width: 26px;
+height: 28px;
+      }
+      p{
+        color: #000000;
+        font-family: Poppins;
+        font-size: 16px;
+        letter-spacing: 0;
+        line-height: 25px;
+      }
+    }
+    
     .selectFormControl {
       width: 100%;
     }
@@ -238,11 +272,13 @@
       font-weight: 500;
       letter-spacing: 0;
       line-height: 27px;
+      border:none;
     }
     .sendButton {
       height: 52px;
       width: 241px;
       border-radius: 100px;
+      border:none;
       &.disabled {
         color: #959595;
         background-color: #cccccc;
@@ -263,7 +299,7 @@
   padding: 41px 38px !important;
   .dialogTitle {
     padding: 0px !important;
-    margin-bottom: 29px;
+    // margin-bottom: 29px;
     .titleText {
       font-family: Poppins;
       font-size: 20px;
@@ -273,7 +309,10 @@
     }
   }
   .dialogContent {
-    padding: 0px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    padding-bottom: 0px !important;
+    padding-top: 29px !important;
     margin-bottom: 20px;
     .rejectionTextContainer {
       font-family: Poppins;
@@ -294,11 +333,14 @@
       font-weight: 500;
       letter-spacing: 0;
       line-height: 27px;
+      margin-right: 12px;
+      border:none;
     }
     .sendButton {
       height: 52px;
       width: 241px;
       border-radius: 100px;
+      border:none;
       &.disabled {
         color: #959595;
         background-color: #cccccc;
