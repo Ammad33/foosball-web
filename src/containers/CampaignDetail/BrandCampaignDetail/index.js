@@ -17,7 +17,7 @@ import _ from 'lodash';
 const BrandCampaignDetail = ({ handleDelete, status, addCampaign, updateCampaign, setAddCampagin, data, addInTeam,
   removeInTeam, search,
   handleSearch, selectedMembers,
-  team }) => {
+  team, setAll }) => {
   const [step, setStep] = useState(1);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [element, setElement] = useState('');
@@ -70,6 +70,8 @@ const BrandCampaignDetail = ({ handleDelete, status, addCampaign, updateCampaign
             data={data}
             name={data && data.name}
             handleDelete={handleDelete}
+            handleActiveStep={handleActiveStep}
+            setAll={setAll}
           />
         );
       case 'CLOSED':
@@ -134,6 +136,36 @@ const BrandCampaignDetail = ({ handleDelete, status, addCampaign, updateCampaign
         );
       default:
         return <div>Default</div>;
+    }
+  };
+
+  const handleActiveStep = () => {
+
+    let negotialble = true;
+    Object.values(data.negotiables).map(item => {
+      if (item === true) {
+        negotialble = false;
+      }
+    });
+
+    if ((data.discount && data.discount.percentage && data.discount.percentage === "" || data.discount.amount && data.discount.amount.amount === '') || data.invitationMessage === "") {
+      setStep(1);
+      setAddCampagin(true);
+    } else if ((data.budget.amount === "") || (data.targetGrossSales.amount === "")) {
+      setStep(3);
+      setAddCampagin(true);
+    } else if (data.deliverables && data.deliverables.length === 0) {
+      setStep(5);
+      setAddCampagin(true);
+    } else if (data.compensation && data.compensation.length === 0) {
+      setStep(6);
+      setAddCampagin(true);
+    } else if (negotialble) {
+      setStep(7);
+      setAddCampagin(true);
+    } else if (data.influencer === null) {
+      setStep(8);
+      setAddCampagin(true);
     }
   };
 

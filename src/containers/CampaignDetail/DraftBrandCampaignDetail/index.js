@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Popover } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import Chip from '@material-ui/core/Chip';
@@ -15,11 +15,11 @@ import CampaignDetail from '../CampaignDetail';
 import TeamMembers from '../TeamMembers';
 import BudgetAndConversion from '../BudgetAndConversion';
 import Deliverables from '../Deliverables';
+import PendingCard from '../PendingCard'
 import Collections from '../Collections';
-
 import styles from './DraftBrandCampaignDetail.module.scss';
 
-const DraftBrandCampaignDetail = ({ handleDelete, handleEdit, data, handleSeeClick, name }) => {
+const DraftBrandCampaignDetail = ({ setAll, handleActiveStep, handleDelete, handleEdit, data, handleSeeClick, name }) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -85,16 +85,19 @@ const DraftBrandCampaignDetail = ({ handleDelete, handleEdit, data, handleSeeCli
         </div>
         <div className={styles.contentContainer}>
           <div className={styles.flexContainer}>
-            <div className={styles.campaignDraftContainer}>
-              <h1>Compensation not yet defined</h1>
-              <p>
-                Pickup where you left off and define how you will compensate the
-                influencer
+            {setAll === true ? <PendingCard /> :
+              <div className={styles.campaignDraftContainer}>
+                <h1>Compensation not yet defined</h1>
+                <p>
+                  Pickup where you left off and define how you will compensate the
+                  influencer
               </p>
-              <button onClick={() => handleEdit(6)}>Finalize Campaign</button>
-            </div>
+                <button onClick={handleActiveStep}>Finalize Campaign</button>
+              </div>
+            }
             <Activity seeAll={false} onClick={handleSeeClick} />
           </div>
+
           <div className={styles.flexContainer}>
             <CampaignDetail campaign={data} handleEdit={handleEdit}>
               <>
