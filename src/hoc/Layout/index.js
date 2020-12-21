@@ -72,7 +72,6 @@ function ResponsiveDrawer(props) {
     myData();
   }, []);
 
-
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -112,9 +111,7 @@ function ResponsiveDrawer(props) {
 						}
 				}`,
       });
-      // setBrandId(mydata.data.me.organizations[0].organization.id);
       setMeData(mydata.data.me);
-      // setBrandType(mydata.data.me.organizations[0].organization.__typename)
     } catch (e) {
       console.log(e);
       setMeData(e.data.me);

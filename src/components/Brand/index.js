@@ -5,11 +5,7 @@ import logo from '../../assets/fomoPromo_logo.png';
 const Brand = () => {
   return (
     <div className={styles.brandContainter}>
-      <img
-        // className={styles.brandImage}
-        alt='Profile'
-        src={logo}
-      />
+      <img alt='Profile' src={logo} />
     </div>
   );
 };

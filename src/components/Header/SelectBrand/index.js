@@ -7,7 +7,6 @@ import { ChevronUp, ChevronDown } from 'react-feather';
 import { RootContext } from '../../../context/RootContext';
 
 const SelectBrand = () => {
-
   const {
     setBrandIdd,
     brands,
@@ -15,7 +14,8 @@ const SelectBrand = () => {
     setBrandName,
     setRoleId,
     setBrandType,
-    influencers } = useContext(RootContext);
+    influencers,
+  } = useContext(RootContext);
 
   const [brandDropDown, setBrandDropDown] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -44,7 +44,7 @@ const SelectBrand = () => {
         PaperProps={{
           style: {
             width: '206px',
-            marginTop: '22px'
+            marginTop: '22px',
           },
         }}
         transformOrigin={{
@@ -52,86 +52,90 @@ const SelectBrand = () => {
           horizontal: 'center',
         }}
       >
-
         <div className={styles.popOverContainer}>
-          {brands &&
-            brands !== null && brands.length !== 0 &&
+          {brands && brands !== null && brands.length !== 0 && (
             <div className={styles.innerPopOver}>
               <p className={styles.heading}>Brands</p>
               {brands &&
                 brands !== null &&
                 brands.map((item, index) => {
                   return (
-                    <div key={index}
+                    <div
+                      key={index}
                       onClick={() => {
                         setBrandIdd(item.organization && item.organization.id);
-                        setBrandName(item.organization && item.organization.name);
-                        setBrandType(item.organization && item.organization.__typename);
-                        setRoleId(item.organization && item.organization.roles[0].id);
+                        setBrandName(
+                          item.organization && item.organization.name
+                        );
+                        setBrandType(
+                          item.organization && item.organization.__typename
+                        );
+                        setRoleId(
+                          item.organization && item.organization.roles[0].id
+                        );
                         handleClose();
-                        // if (history.location.pathname !== '/campaigns') {
-                        // 	history.push('/')
-                        // }
-                        // if (item.organization.__typename == "Brand") {
-                        // 	history.push('/campaigns')
-                        // }
-                        // else { history.push('/influencer') }
-                      }} className={styles.brandContainter}>
+                      }}
+                      className={styles.brandContainter}
+                    >
                       <Avatar
                         className={styles.brandImage}
                         alt='Profile'
                         src={item.organization && item.organization.imageUrl}
                       />
-                      <Tooltip title={item.organization && item.organization.name}>
-                        <span>{item.organization && item.organization.name}</span>
+                      <Tooltip
+                        title={item.organization && item.organization.name}
+                      >
+                        <span>
+                          {item.organization && item.organization.name}
+                        </span>
                       </Tooltip>
                     </div>
                   );
                 })}
             </div>
-          }
-          {brands &&
-            brands !== null && brands.length !== 0 &&
-            <Divider />
-          }
-          {influencers &&
-            influencers !== null && influencers.length !== 0 &&
+          )}
+          {brands && brands !== null && brands.length !== 0 && <Divider />}
+          {influencers && influencers !== null && influencers.length !== 0 && (
             <div className={styles.innerPopOver}>
               <p className={styles.heading}>Influencers</p>
               {influencers &&
                 influencers !== null &&
                 influencers.map((item, index) => {
                   return (
-                    <div key={index}
+                    <div
+                      key={index}
                       onClick={() => {
                         setBrandIdd(item.organization && item.organization.id);
-                        setBrandName(item.organization && item.organization.name);
-                        setBrandType(item.organization && item.organization.__typename);
-                        setRoleId(item.organization && item.organization.roles[0].id);
+                        setBrandName(
+                          item.organization && item.organization.name
+                        );
+                        setBrandType(
+                          item.organization && item.organization.__typename
+                        );
+                        setRoleId(
+                          item.organization && item.organization.roles[0].id
+                        );
                         handleClose();
-                        // if (history.location.pathname !== '/campaigns') {
-                        // 	history.push('/')
-                        // }
-                        // if (item.organization.__typename == "Brand") {
-                        // 	history.push('/campaigns')
-                        // }
-                        // else { history.push('/influencer') }
-                      }} className={styles.brandContainter}>
+                      }}
+                      className={styles.brandContainter}
+                    >
                       <Avatar
                         className={styles.brandImage}
                         alt='Profile'
                         src={item.organization && item.organization.imageUrl}
                       />
-                      <Tooltip title={item.organization && item.organization.name}>
-                        <span>{item.organization && item.organization.name}</span>
+                      <Tooltip
+                        title={item.organization && item.organization.name}
+                      >
+                        <span>
+                          {item.organization && item.organization.name}
+                        </span>
                       </Tooltip>
                     </div>
                   );
                 })}
             </div>
-          }
-
-
+          )}
         </div>
       </Popover>
       <div>
