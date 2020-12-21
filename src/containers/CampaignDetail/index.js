@@ -74,7 +74,7 @@ const CampaignDetail = () => {
     } catch (e) {
       console.log('delete campaign error ', e);
     }
-  }
+  };
 
   const updateCampaign = async () => {
 
@@ -206,6 +206,8 @@ const CampaignDetail = () => {
       }`,
       });
 
+      console.log(campaign.data.campaign);
+
       campaign.data.campaign.deliverables.map((deliverable) => {
         deliverable.deliverableType =
           deliverable.deliverableType.charAt(0).toUpperCase() +
@@ -306,6 +308,33 @@ const CampaignDetail = () => {
     getCampaign();
   }, [addCampaign]);
 
+  const [setAll, setSetAll] = useState(false);
+
+  useEffect(() => {
+
+    if (data && data !== null) {
+      let negotialble = true;
+      Object.values(data.negotiables).map(item => {
+        if (item === true) {
+          negotialble = false;
+        }
+      });
+
+      if ((data.discount && data.discount.percentage && data.discount.percentage !== "" || data.discount.amount && data.discount.amount.amount !== '')
+        && data.invitationMessage !== ""
+        && (data.budget.amount !== "")
+        && (data.targetGrossSales.amount !== "")
+        && (data.deliverables && data.deliverables.length !== 0)
+        && (data.compensation && data.compensation.length !== 0)
+        && negotialble === false
+        && data.influencer !== null) {
+        setSetAll(true);
+      }
+    }
+
+  }, [data])
+
+
   const handleBrandState = () => {
     setBrandState(brandState ? false : true);
   };
@@ -358,6 +387,7 @@ const CampaignDetail = () => {
           search={search}
           handleSearch={handleSearch}
           updateCampaign={updateCampaign}
+          setAll={setAll}
         />
       ) : (
           <InfluencerCampaignDetail
@@ -373,6 +403,7 @@ const CampaignDetail = () => {
             search={search}
             handleSearch={handleSearch}
             updateCampaign={updateCampaign}
+            setAll={setAll}
           />
         )}
     </div>
