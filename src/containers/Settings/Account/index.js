@@ -28,7 +28,8 @@ const Account = ({
   newPassword,
   setOldPassword,
   setNewPassword,
-  handleChangePassword
+	handleChangePassword,
+	
 }) => {
   const [openCDialog, setOpenCDialog] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
@@ -37,6 +38,8 @@ const Account = ({
   const [passwordChange, setPasswordChange] = useState(false);
   const [actionType, setActionType] = useState('');
   const [editPassword, setEditPassword] = useState(false);
+
+	
 
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
@@ -57,13 +60,14 @@ const Account = ({
     setOpenCDialog(false);
   };
   const handleSetPasswordCleared = () => {
+		
     setPasswordCleared(true);
     setEditPassword(true);
   };
 
   const getInputEndormentContent = () => {
     if (!passwordCleared) {
-      return <a onClick={handleSetPasswordCleared}>Edit</a>;
+      return <a onClick={handleSetPasswordCleared} >Edit</a>;
     } else {
       return passwordShown ? (
         <div onClick={togglePasswordVisiblity}>
@@ -75,7 +79,7 @@ const Account = ({
           </div>
         );
     }
-  };
+	};
   return (
     <div>
       <div className={styles.brandContainter}>
@@ -119,7 +123,7 @@ const Account = ({
               disabled={editPassword ? false : true}
               id='outlined-basic'
               fullWidth
-              value={oldPassword}
+              value= {editPassword ? oldPassword : 'Password'}
               onChange={setOldPassword}
               label={editPassword ? 'Old Password' : 'Password'}
               type={passwordShown ? 'text' : 'password'}

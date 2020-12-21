@@ -51,8 +51,6 @@ const Team = () => {
     getTeam();
   }, []);
 
-  debugger;
-
   return (
     <>
       <AddMember open={addOpen} closeAdd={closeHandle} />
