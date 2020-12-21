@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Edit, Phone } from 'react-feather';
-import { InputAdornment, Grid, Avatar, Popover } from '@material-ui/core';
+import { Popover } from '@material-ui/core';
 import styles from './BrandInformation.module.scss';
-import moment from 'moment';
-import clsx from 'clsx';
 import SVG from 'react-inlinesvg';
+import { Globe } from 'react-feather';
 import EditBrand from './EditBrand';
 
 
@@ -13,13 +12,6 @@ const Messages = () => {
 	return (
 		<span >
 			<SVG src={require('../../../../assets/Messages.svg')} />
-		</span>
-	);
-};
-const Globe = () => {
-	return (
-		<span >
-			<SVG src={require('../../../../assets/globe.svg')} />
 		</span>
 	);
 };
@@ -35,6 +27,7 @@ const BrandInformation = ({ viewBrandProfile }) => {
 
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
+
 	return (
 		<div className={styles.brandInfoContainer}>
 			<div className={styles.headerContainer}>

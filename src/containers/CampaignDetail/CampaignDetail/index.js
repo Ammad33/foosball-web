@@ -23,8 +23,8 @@ const CampaignDetail = ({ children, handleEdit, campaign }) => {
       </div>
 
       <div className={styles.detailSubContent}>
-        <h6>Campaign Name</h6>
-        <p>{campaign && campaign.name}</p>
+        <h6>Campaign ID</h6>
+        <p>{campaign && campaign.id}</p>
       </div>
       <div className={styles.dateContainer}>
         <div className={styles.detailSubContent}>

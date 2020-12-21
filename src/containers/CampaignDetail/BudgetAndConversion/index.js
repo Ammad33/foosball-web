@@ -6,7 +6,7 @@ const BudgetAndConversion = ({ handleEdit, data }) => {
   return (
     <div className={styles.mainContainer}>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <h3>Budget And Conversion</h3>
+        <h3>Budget & Conversion</h3>
         <Edit onClick={() => handleEdit(3)} />
       </div>
       <div className={styles.section}>

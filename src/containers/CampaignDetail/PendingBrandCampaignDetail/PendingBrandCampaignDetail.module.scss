@@ -148,6 +148,7 @@
       font-weight: 500;
       letter-spacing: 0;
       line-height: 26px;
+      border: none;
     }
     .negotiateButton {
       height: 44px;
@@ -160,6 +161,7 @@
       line-height: 26px;
       background-color: #7b5dd9;
       border: 1px solid $white !important;
+      border: none;
     }
     .declineButton {
       height: 44px;
@@ -171,6 +173,7 @@
       letter-spacing: 0;
       line-height: 26px;
       background-color: #7b5dd9;
+      border: none;
     }
   }
 }
