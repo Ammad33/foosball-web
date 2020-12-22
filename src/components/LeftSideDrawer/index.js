@@ -78,16 +78,6 @@ const LeftSideDrawer = () => {
         title={'Contacts'}
       />
 
-      <ListItem
-        icon={<IconWallet />}
-        active={activeRoute === 'Wallets' ? true : false}
-        title={'Wallets'}
-        onClick={() => {
-          setActiveRoute('Wallet');
-          history.push('/wallet');
-        }}
-      />
-
       {/* <ListItem
         icon={<IconSettings />}
         active={activeRoute === 'Settings' ? true : false}

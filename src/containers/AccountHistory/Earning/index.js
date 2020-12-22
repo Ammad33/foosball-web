@@ -92,8 +92,8 @@ const Earning = ({ data, handleExpandClick, expanded }) => {
 
 			<div>
 				<Grid item xs={6}>
-					<div className={styles.walletEarningInfoContainer}>
-						<div className={styles.walletEarningContainer}>
+					<div className={styles.accountHistoryEarningInfoContainer}>
+						<div className={styles.accountHistoryEarningContainer}>
 							<h1> Your influencer marketing sales this month</h1>
 							<div className={styles.chart}> </div>
 						</div>

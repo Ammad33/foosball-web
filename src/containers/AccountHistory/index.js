@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './Wallet.module.scss';
+import styles from './AccountHistory.module.scss';
 import { Grid } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Paperclip, MoreVertical, Archive, Trash } from 'react-feather';
@@ -7,8 +7,8 @@ import Avatar from '@material-ui/core/Avatar';
 import SVG from 'react-inlinesvg';
 import Earning from './Earning'
 
-const Wallet = () => {
-	const [active, setActive] = useState('Earnings');	
+const AccountHistory = () => {
+	const [active, setActive] = useState('Influencer Invoices');	
 	const [expanded, setExpanded] = React.useState((0));
 
 	const handleExpandClick = (event , index) => {
@@ -187,27 +187,27 @@ const Wallet = () => {
 	return (
 		<>
 			<div className={styles.mainContainer}>
-				<div className={styles.walletHeadingContainer}>
-					<div className={styles.walletHeading}>
-						<span>Wallet</span>
+				<div className={styles.accountHistoryHeadingContainer}>
+					<div className={styles.accountHistoryHeading}>
+						<span>Account History</span>
 					</div>
 				</div>
 				<div className={styles.FiltersContainer}>
 					<button
-						className={active === 'Earnings' ? styles.active : ''}
+						className={active === 'Influencer Invoices' ? styles.active : ''}
 						onClick={() => {
-							setActive('Earnings');
+							setActive('Influencer Invoices');
 						}}
 					>
-						Earnings
+						Influencer Invoices
           </button>
 					<button
-						className={active === 'Billing' ? styles.active : ''}
+						className={active === 'fomopromo Invoices' ? styles.active : ''}
 						onClick={() => {
-							setActive('Billing');
+							setActive('fomopromo Invoices');
 						}}
 					>
-						Billing
+						fomopromo Invoices
           </button>
 				</div >
 				<div>
@@ -221,4 +221,4 @@ const Wallet = () => {
 	);
 };
 
-export default Wallet;
+export default AccountHistory;

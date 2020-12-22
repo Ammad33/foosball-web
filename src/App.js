@@ -27,7 +27,7 @@ import Profile from './containers/Profile';
 import InfluencerProfile from './containers/Profile/InfluencerProfile';
 import BrandProfile from './containers/Profile/BrandProfile';
 import Team from './containers/Team'
-import Wallet from './containers/Wallet';
+import AccountHistory from './containers/AccountHistory';
 
 const App = () => {
   return (
@@ -97,9 +97,9 @@ const App = () => {
               <Contacts />
             </Layout>
           </ProtectedRoute>
-					<ProtectedRoute exact path='/wallet'>
+					<ProtectedRoute exact path='/accountHistory'>
             <Layout>
-              <Wallet />
+              <AccountHistory />
             </Layout>
           </ProtectedRoute>
           <ProtectedRoute exact path='/posts'>

@@ -43,7 +43,7 @@ const Header = (meData, brandType) => {
     setAnchorEl(null);
 	};
   const openAccountHistory = () => {
-    history.push('/wallets');
+    history.push('/accountHistory');
     setActiveRoute('AccountHistory');
     setAnchorEl(null);
   };

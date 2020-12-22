@@ -3,6 +3,7 @@ import { Grid } from '@material-ui/core';
 import styles from './Help.module.scss';
 import SVG from 'react-inlinesvg';
 import Popover from '@material-ui/core/Popover';
+import TextField from '../../TextField';
 
 const HelpIcon = () => {
 	return <SVG src={require('../../../assets/help-circle.svg')} />;

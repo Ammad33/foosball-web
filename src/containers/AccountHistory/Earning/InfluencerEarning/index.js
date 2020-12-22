@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './InfluencerdEarning.module.scss';
+import styles from './InfluencerEarning.module.scss';
 import { Grid } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Paperclip, MoreVertical, Archive, Trash } from 'react-feather';
