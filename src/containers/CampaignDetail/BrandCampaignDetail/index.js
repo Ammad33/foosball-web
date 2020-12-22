@@ -140,7 +140,6 @@ const BrandCampaignDetail = ({ handleDelete, status, addCampaign, updateCampaign
   };
 
   const handleActiveStep = () => {
-
     let negotialble = true;
     Object.values(data.negotiables).map(item => {
       if (item === true) {

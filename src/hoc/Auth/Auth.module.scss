@@ -1,30 +1,34 @@
 @import './../../variable.module.scss';
 .authContainer {
-  //height: 100%;
   display: flex;
   .logoAndComponent {
-    padding: 40px;
-    width: 50%;
+		width: 50%;
+		margin-top: 0px;
+		height: 1080px;
     .logoDiv {
-      width: 184px;
+			// margin: 40px 40px 0px 40px;
+			width: 184px;
+			padding: 40px 40px 0 40px;
       height: 81px;
       display: flex;
       align-items: center;
       justify-content: center; //margin-bottom: 100px;
     }
     .formDiv {
-      margin: 113px 0px 246px 245px; //208px
+      margin: 73px 0px 246px 245px; //208px
     }
   }
   .sidebar {
     width: 50%;
-    background-color: $authSidebarBackground;
+    // background-color: $authSidebarBackground;
     display: flex;
     position: relative;
     min-height: 100vh; //min-height: -webkit-fill-available;
     img {
-      width: 100%;
-      height: 100%;
+      width: 987px;
+			height: 1080px;
+			align-self: center;
+			display: flex;
     }
   }
 }
