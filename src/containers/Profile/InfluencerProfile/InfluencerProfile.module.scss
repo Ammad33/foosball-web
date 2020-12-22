@@ -1,13 +1,29 @@
 @import '../../../variable.module.scss';
-.ProfileContainer {
-  width: 1500px;
-	margin: auto;
-	display: flex;
+.mainContainer {
+  width: 1588px !important;
+  max-width: 1588px !important;
+  min-width: 1588px !important;
+  display: flex;
+  .contentContainer {
+    width: 1169px !important;
+    max-width: 1169px !important;
+    min-width: 1169px !important;
+    border-right: 1px solid $dark3;
+    padding-left: 74px;
+    padding-right: 97px;
+    padding-top: 40px;
+    padding-bottom: 30px;
+  }
+  .rightSidebar {
+    width: 418px !important;
+    max-width: 418px !important;
+    min-width: 418px !important;
+  }
 }
 .ProfileHeading {
-	display: flex;
+  display: flex;
   flex-direction: row;
-	gap: 25px;
+  gap: 25px;
   align-items: center;
   margin-bottom: 20px;
   margin-top: 2em;
@@ -15,72 +31,70 @@
     font-family: 'Poppins', sans-serif;
     font-size: 33px;
     font-weight: 500;
-	}
-	.InfluencerDetails {
-		button {
-			padding: 18px 20px;
-			height: 25px;
-			width: 111px;;
-			font-family: Poppins;
-			font-size: 15px;
-			font-weight: 500;
-			letter-spacing: 0;
-			line-height: 23px;
-			color: #ffffff;
-			background: #000000;
-			border: none;
-			border-radius: 100px;
-			display: flex;
-			align-items: center;
-			cursor: pointer;
-		}
-	}
-
+  }
+  .InfluencerDetails {
+    button {
+      padding: 18px 20px;
+      height: 25px;
+      width: 111px;
+      font-family: Poppins;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0;
+      line-height: 23px;
+      color: #ffffff;
+      background: #000000;
+      border: none;
+      border-radius: 100px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+  }
 
   p {
     align-items: center;
     cursor: pointer;
-	}
-	.InfluencerImage{
-		display: flex;
-		box-sizing: border-box;
-		height: 118px;
-		width: 119px;
-		// border: 0.5px solid #CCCCCC;
-	}
-
+  }
+  .InfluencerImage {
+    display: flex;
+    box-sizing: border-box;
+    height: 118px;
+    width: 119px;
+    // border: 0.5px solid #CCCCCC;
+  }
 }
 .ButtonContainer {
-	display: flex;
+  display: flex;
   flex-direction: row;
-	gap: 25px;
+  gap: 25px;
   align-items: center;
   margin-bottom: 20px;
-	margin-top: 2em;
-	width: 58%;
-	justify-content: flex-end;
-	align-items: baseline;
-	.prospects{
-		color: #000000;
-		font-family: Poppins;
-		font-size: 17px;
-		font-weight: 500;
-		letter-spacing: 0;
-		line-height: 26px;
+  margin-top: 2em;
+  width: 58%;
+  justify-content: flex-end;
+  align-items: baseline;
+  .prospects {
+    color: #000000;
+    font-family: Poppins;
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 26px;
     background: #ffffff;
-		border: 2px solid #000000;
+    border: 2px solid #000000;
     border-radius: 100px;
     padding: 10px 16px;
     display: flex;
     align-items: center;
     cursor: pointer;
-	}
-	button {
-		font-family: Poppins;
-		font-size: 17px;
-		font-weight: 500;
-		letter-spacing: 0;
-		line-height: 26px;
+  }
+  button {
+    font-family: Poppins;
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 26px;
     color: #ffffff;
     background: #000000;
     border: none;
@@ -103,36 +117,31 @@
   }
 }
 .InfluencerName {
-	color: #000000;
-	font-family: Poppins;
-	font-size: 20px;
-	font-weight: 600;
-	letter-spacing: 0;
-	line-height: 30px;
-	margin-bottom: 2px;
-
-}	.address{
-	color: #000000;
-	font-family: Poppins;
-	font-size: 14px;
-	letter-spacing: 0;
-	margin-bottom: 12px;
-	line-height: 21px;
+  color: #000000;
+  font-family: Poppins;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 30px;
+  margin-bottom: 2px;
+}
+.address {
+  color: #000000;
+  font-family: Poppins;
+  font-size: 14px;
+  letter-spacing: 0;
+  margin-bottom: 12px;
+  line-height: 21px;
 }
 .ProfileHeadingContainer {
 }
-.divider{
-	box-sizing: border-box;
+.divider {
+  box-sizing: border-box;
   height: 1206px;
   width: 1px;
-  border: 1px solid #CCCCCC;
+  border: 1px solid #cccccc;
 }
-.exploreBrands{
-	border-left: 1px solid #CCCCCC;
-	padding-left: 40px;
+.exploreBrands {
+  border-left: 1px solid #cccccc;
+  padding-left: 40px;
 }
-
-
-
-
-
