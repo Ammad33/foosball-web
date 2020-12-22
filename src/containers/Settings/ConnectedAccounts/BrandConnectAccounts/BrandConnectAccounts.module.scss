@@ -1,23 +1,39 @@
 @import '../../../../variable.module.scss';
-.contentContainer {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  margin: 30px auto;
-  .shopifyLogo {
-    height: 50px;
-    width: 175px;
-  }
-  .inputField {
-    flex: 0 0 360px;
-  }
-  .storeSync {
-    display: flex;
-    align-items: center;
-    font-weight: 500;
-    cursor: pointer;
-  }
-  .inputendornmentCheck {
-    color: $primary1 !important;
-  }
+
+.mainContainer {
+	p {
+		color: #000000;
+		font-family: Poppins;
+		font-size: 18px;
+		font-weight: 500;
+		letter-spacing: 0;
+		line-height: 27px;
+	}
+
+	.contentContainer {
+		display: flex;
+		align-items: center;
+		gap: 20px;
+		margin: 58px auto;
+
+		.shopifyLogo {
+			height: 50px;
+			width: 175px;
+		}
+
+		.inputField {
+			flex: 0 0 360px;
+		}
+
+		.storeSync {
+			display: flex;
+			align-items: center;
+			font-weight: 500;
+			cursor: pointer;
+		}
+
+		.inputendornmentCheck {
+			color: $primary1 !important;
+		}
+	}
 }

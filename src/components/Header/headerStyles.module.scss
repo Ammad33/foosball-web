@@ -48,34 +48,34 @@
   align-items: center;
   justify-content: space-between;
   padding: 5px 0px;
-  width: 100%;
+  width: 98%;
   gap: 50px;
   .searchContainer {
-    flex: 1;
-    position: relative;
+    // flex: 1;
+		// position: relative;
+		margin-top: 10px;
+
+		width: 70%;
     .headerSearchIcon {
       position: absolute;
-      top: calc(50% - 14px);
-      left: 0px !important;
+      // top: calc(50% - 14px);
       font-size: 30px !important;
     }
     .searchInput {
-      width: 100%;
+      width: 75%;
       border-radius: 5px;
       height: 50px;
-      padding: 10px 0px;
+      // padding: 10px 0px;
       border: none;
       padding-left: 45px;
       &:focus {
         outline: none;
       }
     }
-  }
-  .notificationAndProfile {
-    display: flex;
-    gap: 75px;
-    align-items: center;
-    margin-right: 30px;
+	}
+	.selectBrandContainer {
+		margin-top: 5px;
+		width: 250px;
 	}
 	.memberAvatar {
 		height: 49px; 

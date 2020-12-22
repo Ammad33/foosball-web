@@ -8,7 +8,6 @@ import { Popover } from '@material-ui/core';
 import { Download, MoreVertical, Archive, Trash } from 'react-feather';
 
 const ConversationListItem = ({ handleItemClick, conversation, index }) => {
-	debugger;
 	const [anchorEl, setAnchorEl] = useState(null);
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;

@@ -17,8 +17,6 @@
   padding: 0 !important;
   height: 100%;
   .cardStatus {
-    min-height: 25px;
-    max-height: 25px;
     font-size: 13px !important;
     .alertBadge {
       background-color: $danger;
@@ -37,7 +35,8 @@
   }
 
   .cardDetails {
-    padding: 0px 10px 0px 32px;
+		padding: 0px 10px 0px 32px;
+		height: 100%;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -57,11 +56,12 @@
 			.wrapChip{
 				display: flex;
 				color: #3481EF;
+				margin-top: 14px;
 			
 				.statusDraft {
 					width: fit-content;
 					height: 28px;
-					margin-top: 20px;
+					
 					background-color: #3481EF;
 					color: #FFFFFF;
 					font-family: Poppins;
@@ -73,7 +73,6 @@
 				.statusPending{
 					width: fit-content;
 					height: 28px;
-					margin-top: 20px;
 					background-color: #5D6FD3;
 					color: #FFFFFF;
 					font-family: Poppins;
@@ -85,7 +84,6 @@
 				.statusLive{
 					width: fit-content;
 					height: 28px;
-					margin-top: 20px;
 					background-color: #7B5CD9;
 					color: #FFFFFF;
 					font-family: Poppins;
@@ -98,13 +96,11 @@
 
 				
 				.personAvatar {
-					margin-top: 17px;
 					margin-left: 33px;
 					height: 30px;
 					width: 30px;
 				}
 			  .mediaTag {
-					margin-top: 21px;
 					margin-left: 5px;
 					color: #000000;
 					font-family: Poppins;
