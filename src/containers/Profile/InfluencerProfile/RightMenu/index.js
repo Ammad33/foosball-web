@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Grid } from '@material-ui/core';
 import InfluencerCard from './InfluencerCard';
 import ExploreBrands from './ExploreBrands';
@@ -62,11 +62,11 @@ const influencers = [
 	},
 ];
 
-const RightMenu = ({viewInfluencerProfile }) => {
+const RightMenu = ({ viewInfluencerProfile }) => {
 	return (
 		<div className={styles.container}>
 			<div >
-				<p className={styles.heading}>{viewInfluencerProfile? 'Similar Influencers' : 'Explore Brands'} </p>
+				<p className={styles.heading}>{viewInfluencerProfile ? 'Similar Influencers' : 'Explore Brands'} </p>
 			</div>
 			<Grid container spacing={2}>
 				{influencers.map((influencer) => {
@@ -76,7 +76,7 @@ const RightMenu = ({viewInfluencerProfile }) => {
 							style={{ marginTop: 20 }}
 							key={influencer.socialTag}
 							item>
-								{viewInfluencerProfile? (<InfluencerCard influencer={influencer}/>): (<ExploreBrands influencer={influencer}/>)
+							{viewInfluencerProfile ? (<InfluencerCard influencer={influencer} />) : (<ExploreBrands influencer={influencer} />)
 							}
 						</Grid>
 					);

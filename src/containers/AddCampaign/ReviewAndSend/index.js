@@ -27,6 +27,8 @@ const ReviewAndSend = ({ team, campaignName, startDate, endDate, startTime, endT
 				return ('Cash Per Monthly Deliverable');
 			case 'GIFT_CARD':
 				return ('Gift Card');
+			default:
+				return '';
 		}
 	}
 
@@ -42,6 +44,8 @@ const ReviewAndSend = ({ team, campaignName, startDate, endDate, startTime, endT
 				return ('Amount Per Monthly Deliverable');
 			case 'GIFT_CARD':
 				return ('Amount Per Gift Card');
+			default:
+				return '';
 		}
 	}
 
@@ -57,6 +61,8 @@ const ReviewAndSend = ({ team, campaignName, startDate, endDate, startTime, endT
 				return (<span>{compensation.amount && compensation.amount}$</span>);
 			case 'GIFT_CARD':
 				return (<span>{compensation.amount && compensation.amount}$</span>);
+			default:
+				return <span></span>
 		}
 	}
 
@@ -71,8 +77,11 @@ const ReviewAndSend = ({ team, campaignName, startDate, endDate, startTime, endT
 				return (<h5>${compensation.amount && compensation.amount}</h5>);
 			case 'GIFT_CARD':
 				return (<h5>${compensation.amount && compensation.amount}</h5>);
+			default:
+				return <h5></h5>
 		}
 	}
+
 
 	const getTotal = () => {
 		let total = 0;

@@ -18,6 +18,7 @@ const BrandCampaignDetail = ({ handleDelete, status, addCampaign, updateCampaign
   removeInTeam, search,
   handleSearch, selectedMembers,
   team, setAll }) => {
+
   const [step, setStep] = useState(1);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [element, setElement] = useState('');
@@ -141,7 +142,7 @@ const BrandCampaignDetail = ({ handleDelete, status, addCampaign, updateCampaign
 
   const handleActiveStep = () => {
     let negotialble = true;
-    Object.values(data.negotiables).map(item => {
+    Object.values(data.negotiables).forEach(item => {
       if (item === true) {
         negotialble = false;
       }

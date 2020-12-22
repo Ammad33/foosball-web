@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Select, InputAdornment } from '@material-ui/core';
+import { Grid, Select } from '@material-ui/core';
 import SelectMenu from '../../../components/SelectMenu';
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -38,13 +38,10 @@ const Compensations = ({
   handleGiftCode
 }) => {
   const checkAddAnother = () => {
-    if (addAnother == true) {
+    if (addAnother === true) {
       setAnother(true);
     }
   };
-
-  console.log(compensations);
-  console.log(compensations);
 
   const [handleAnother, setAnother] = useState(false);
   handleActiveForCompensation();

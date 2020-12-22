@@ -21,12 +21,7 @@ const SearchIcon = () => {
 const Header = (meData, brandType) => {
 	const history = useHistory();
 	const [brandId, setBrandId] = useState([]);
-	const [brandDropDown, setBrandDropDown] = useState(false);
 	const {
-		setCurrentUser,
-		setLogoutMessage,
-		currentUser,
-		activeRoute,
 		setActiveRoute,
 		searchValue,
 		setSearchValue,
