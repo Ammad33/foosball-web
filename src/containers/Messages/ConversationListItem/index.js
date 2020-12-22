@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { Avatar } from '@material-ui/core';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import { Popover } from '@material-ui/core';
-import { Download, MoreVertical, Archive, Trash } from 'react-feather';
+import { MoreVertical, Archive, Trash } from 'react-feather';
 
 const ConversationListItem = ({ handleItemClick, conversation, index }) => {
 	const [anchorEl, setAnchorEl] = useState(null);

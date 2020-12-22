@@ -20,13 +20,12 @@ import {
   Download,
   Copy,
   Mail,
-  X,
   ChevronRight,
   XCircle,
   AlertCircle,
-  ChevronDown,
   Plus,
 } from 'react-feather';
+
 import Activity from '../Activity';
 import CampaignDetail from '../CampaignDetail';
 import TeamMembers from '../TeamMembers';
