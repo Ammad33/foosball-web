@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Brand.module.scss';
-import logo from '../../assets/fomoPromo_logo.png';
+import logo from '../../assets/logo.png';
 
 const Brand = () => {
   return (
