@@ -16,7 +16,7 @@ import DeclineInfluencer from '../DeclineInfluencer';
 import DraftBrandCampaignDetail from '../DraftBrandCampaignDetail';
 import _ from 'lodash';
 
-const CampaignDetailInfluencer = ({ status, handleDelete, addCampaign, setAddCampagin, data, addInTeam,
+const CampaignDetailInfluencer = ({ headingValue, status, handleDelete, addCampaign, setAddCampagin, data, addInTeam,
   removeInTeam, search,
   handleSearch, selectedMembers,
   team, updateCampaign, setAll
@@ -83,6 +83,7 @@ const CampaignDetailInfluencer = ({ status, handleDelete, addCampaign, setAddCam
             handleDelete={handleDelete}
             handleActiveStep={handleActiveStep}
             setAll={setAll}
+            headingValue={headingValue}
           />
         );
       case 'CLOSED':

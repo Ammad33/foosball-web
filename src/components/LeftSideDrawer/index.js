@@ -52,7 +52,6 @@ const LeftSideDrawer = () => {
           setActiveRoute('Reports');
           history.push('/reports');
         }}
-        title={'Reports'}
       />
 
       <ListItem

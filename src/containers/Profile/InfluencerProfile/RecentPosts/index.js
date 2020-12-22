@@ -1,14 +1,10 @@
-import React, { useState } from 'react';
-import { Edit } from 'react-feather';
-import { InputAdornment, Grid, Avatar, Popover } from '@material-ui/core';
+import React from 'react';
+import { Grid, } from '@material-ui/core';
 import styles from './RecentPosts.module.scss';
-import moment from 'moment';
-import clsx from 'clsx';
-import DataImage from '../../../../assets/dummy.png';
 import Post2 from '../../../../assets/post1.png';
 import Post1 from '../../../../assets/main.png';
 
-const RecentPosts = ({ handleEdit }) => {
+const RecentPosts = () => {
 	return (
 		<div className={styles.postContainer}>
 			<div className={styles.headingContainer}>
@@ -45,7 +41,7 @@ const RecentPosts = ({ handleEdit }) => {
 						</div>
 					</Grid>
 				</div>
-				</Grid>
+			</Grid>
 		</div >
 	);
 };

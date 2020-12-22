@@ -30,6 +30,8 @@ const Compensation = ({ onClick, handleEdit, compensation }) => {
         return (<h6>Amount Per Monthly Deliverable</h6>);
       case 'CompGiftCard':
         return (<h6>Gift Card Amount</h6>);
+      default:
+        return <h6></h6>;
     }
   }
 
@@ -44,6 +46,8 @@ const Compensation = ({ onClick, handleEdit, compensation }) => {
         return (<p>{compensation[0].amount && compensation[0].amount.amount}$</p>);
       case 'CompGiftCard':
         return (<p>{compensation[0].amount && compensation[0].amount.amount}$</p>);
+      default:
+        return <p></p>;
     }
   }
   return (

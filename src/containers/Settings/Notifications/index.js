@@ -51,7 +51,7 @@ const Notification = ({ actionRequired,
 				/>
 			</div>
 			<Divider />
-			{typeName == 'Brand'? (
+			{typeName === 'Brand' ? (
 				<div className={styles.notifictionItem}>
 					<div >
 						<p className={styles.heading}>

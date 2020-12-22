@@ -1,17 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Grid } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import CampaignsCard from "./CampaignsCard";
-import AddIcon from "@material-ui/icons/Add";
 import styles from "./Campaings.module.scss";
-import { Redirect } from 'react-router-dom';
-import AddCampaign from "../AddCampaign";
 import { useHistory } from "react-router-dom";
 import { API } from "aws-amplify";
 import SVG from "react-inlinesvg";
-import { makeStyles } from "@material-ui/core/styles";
-import { RootContext } from '../../context/RootContext';
-
 
 const IconCampaign = () => {
   return <SVG src={require("../../assets/Campaigns_large.svg")} />;
@@ -20,14 +14,11 @@ const Influencer = () => {
   const history = useHistory();
   const [active, setActive] = useState("ALL");
   const [campaigns, setCampaigns] = useState([]);
-	const [addCampaign, setAddCampagin] = useState(false);
-	const { brandId, setBrands,brandType } = useContext(RootContext);
-
 
   const getCampaigns = async () => {
-			try {
-				const campaigns = await API.graphql({
-					query: `{
+    try {
+      const campaigns = await API.graphql({
+        query: `{
 					campaigns(brandId: "bd809ffa-35d6-4e93-b0a9-ffc6f4f28451") {
 						campaigns {
 							name
@@ -39,24 +30,22 @@ const Influencer = () => {
 						}
 					}
 				}`,
-				});
-				console.log(campaigns.data);
-				console.log("Asa");
-				setCampaigns(campaigns.data.campaigns.campaigns);
-			} 
-			catch (e) {}
+      });
+      setCampaigns(campaigns.data.campaigns.campaigns);
+    }
+    catch (e) { }
   };
 
- 
 
-	useEffect(() => {
-		getCampaigns();
-	}, []);
+
+  useEffect(() => {
+    getCampaigns();
+  }, []);
 
   return (
     <>
 
-      
+
       <div className={styles.campaignsContainer}>
         <div className={styles.CampaignHeadingContainer}>
           <div className={styles.CampaignHeading}>
@@ -104,7 +93,7 @@ const Influencer = () => {
             Declined
           </button>
         </div>
-        {campaigns.length == 0 ? (
+        {campaigns.length === 0 ? (
           <Grid
             container
             spacing={0}
@@ -116,7 +105,7 @@ const Influencer = () => {
             <Grid item xs={12}>
               <IconCampaign />
             </Grid>
-            <Grid  item xs={12}>
+            <Grid item xs={12}>
               <div className={styles.noCampaignYet}>No Campaigns Yet</div>
             </Grid>
             <Grid item xs={12}>
@@ -124,14 +113,14 @@ const Influencer = () => {
             </Grid>
           </Grid>
         ) : (
-          ""
-        )}
+            ""
+          )}
         <Grid container spacing={3}>
           {campaigns.length > 0 &&
             campaigns.map((campaign) => {
-							if (campaign.status !== active && active !== "ALL"){
-								return null;
-							}
+              if (campaign.status !== active && active !== "ALL") {
+                return null;
+              }
               return (
                 <Grid
                   className={styles.gridItem}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Popover } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import Chip from '@material-ui/core/Chip';
@@ -19,7 +19,7 @@ import PendingCard from '../PendingCard'
 import Collections from '../Collections';
 import styles from './DraftBrandCampaignDetail.module.scss';
 
-const DraftBrandCampaignDetail = ({ setAll, handleActiveStep, handleDelete, handleEdit, data, handleSeeClick, name }) => {
+const DraftBrandCampaignDetail = ({ headingValue, setAll, handleActiveStep, handleDelete, handleEdit, data, handleSeeClick, name }) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -87,7 +87,7 @@ const DraftBrandCampaignDetail = ({ setAll, handleActiveStep, handleDelete, hand
           <div className={styles.flexContainer}>
             {setAll === true ? <PendingCard /> :
               <div className={styles.campaignDraftContainer}>
-                <h1>Compensation not yet defined</h1>
+                <h1>{headingValue} not yet defined</h1>
                 <p>
                   Pickup where you left off and define how you will compensate the
                   influencer

@@ -75,7 +75,7 @@ const RightMenu = ({ viewInfluencerProfile }) => {
 							className={styles.gridItem}
 							style={{ marginTop: 20 }}
 							key={influencer.socialTag}
-							item>
+						>
 							{viewInfluencerProfile ? (<InfluencerCard influencer={influencer} />) : (<ExploreBrands influencer={influencer} />)
 							}
 						</Grid>

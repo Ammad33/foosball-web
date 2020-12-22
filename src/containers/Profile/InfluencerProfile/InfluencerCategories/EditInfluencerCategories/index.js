@@ -2,16 +2,16 @@ import React from 'react';
 import { Grid, InputAdornment, Dialog } from '@material-ui/core';
 import styles from './EditInfluencerCategories.module.scss';
 import TextField from '../../../../../components/TextField';
-import { HelpCircle, Search } from 'react-feather';
+import { Search } from 'react-feather';
 import Chip from '@material-ui/core/Chip';
 import SVG from 'react-inlinesvg';
 
 
 const Done = () => {
 	return (
-	<span className={styles.doneIcon}>
-  	 <SVG src={require('../../../../../assets/check.svg')} />
-	</span>
+		<span className={styles.doneIcon}>
+			<SVG src={require('../../../../../assets/check.svg')} />
+		</span>
 	)
 };
 
@@ -19,9 +19,9 @@ const Done = () => {
 
 
 const EditInfluencerCategories = ({ open, handleChange, closeAdd }) => {
-	 const handleDelete = () => {
-    console.info('You clicked the delete icon.');
-  };
+	const handleDelete = () => {
+		console.info('You clicked the delete icon.');
+	};
 
 
 	return (

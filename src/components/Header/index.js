@@ -18,9 +18,8 @@ const SearchIcon = () => {
 };
 
 
-const Header = (meData, brandType) => {
+const Header = (meData) => {
 	const history = useHistory();
-	const [brandId, setBrandId] = useState([]);
 	const {
 		setActiveRoute,
 		searchValue,

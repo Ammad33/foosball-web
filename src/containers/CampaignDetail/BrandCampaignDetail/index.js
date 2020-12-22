@@ -14,7 +14,7 @@ import ClosedBrandCampaignDetail from '../ClosedBrandCampaignDetail';
 import LostBrandCampaignDetail from '../LostBrandCampaignDetail';
 import _ from 'lodash';
 
-const BrandCampaignDetail = ({ handleDelete, status, addCampaign, updateCampaign, setAddCampagin, data, addInTeam,
+const BrandCampaignDetail = ({ headingValue, handleDelete, status, addCampaign, updateCampaign, setAddCampagin, data, addInTeam,
   removeInTeam, search,
   handleSearch, selectedMembers,
   team, setAll }) => {
@@ -73,6 +73,7 @@ const BrandCampaignDetail = ({ handleDelete, status, addCampaign, updateCampaign
             handleDelete={handleDelete}
             handleActiveStep={handleActiveStep}
             setAll={setAll}
+            headingValue={headingValue}
           />
         );
       case 'CLOSED':

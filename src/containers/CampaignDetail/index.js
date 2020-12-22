@@ -22,6 +22,7 @@ const CampaignDetail = () => {
   const [selectedMembers, setSelectedMemebers] = useState([]);
   const [team, setTeam] = useState([]);
   const [search, setSearch] = useState('');
+  const [headingValue, setHeadingValue] = useState('');
 
   const [data, setData] = useState(null);
 
@@ -311,7 +312,7 @@ const CampaignDetail = () => {
   const [setAll, setSetAll] = useState(false);
 
   useEffect(() => {
-
+    setSetAll(false);
     if (data && data !== null) {
       let negotialble = true;
       Object.values(data.negotiables).map(item => {
@@ -332,17 +333,48 @@ const CampaignDetail = () => {
       }
     }
 
-  }, [data])
+  }, [data]);
 
+
+  const handleHeading = () => {
+
+    let negotialble = true;
+    Object.values(data.negotiables).forEach(item => {
+      if (item === true) {
+        negotialble = false;
+      }
+    });
+
+    if ((data.discount && data.discount.percentage && data.discount.percentage === "" || data.discount.amount && data.discount.amount.amount === '') || data.invitationMessage === "") {
+      setHeadingValue('Campaign Detail');
+    } else if ((data.budget.amount === "")) {
+      setHeadingValue('Budget');
+    } else if (data.targetGrossSales.amount === "") {
+      setHeadingValue('Target Gross Sale');
+    } else if (data.deliverables && data.deliverables.length === 0) {
+      setHeadingValue('Deliverable');
+    } else if (data.compensation && data.compensation.length === 0) {
+      setHeadingValue('Compensation');
+    } else if (negotialble) {
+      setHeadingValue('Negotiable');
+    } else if (data.influencer === null) {
+      setHeadingValue('Influencer');
+    }
+  };
 
   const handleBrandState = () => {
     setBrandState(brandState ? false : true);
   };
+
   useEffect(() => {
     setActiveCampaign(campaignId);
   }, []);
 
-
+  useEffect(() => {
+    if (data !== null) {
+      handleHeading();
+    }
+  }, [data])
 
   return (
     <div className={styles.detailContainer}>
@@ -388,6 +420,7 @@ const CampaignDetail = () => {
           handleSearch={handleSearch}
           updateCampaign={updateCampaign}
           setAll={setAll}
+          headingValue={headingValue}
         />
       ) : (
           <InfluencerCampaignDetail
@@ -404,6 +437,7 @@ const CampaignDetail = () => {
             handleSearch={handleSearch}
             updateCampaign={updateCampaign}
             setAll={setAll}
+            headingValue={headingValue}
           />
         )}
     </div>
