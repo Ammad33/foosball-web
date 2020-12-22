@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import styles from './Post.module.scss';
-import Post3 from '../../../assets/post3.png';
+import Post3 from '../../../assets/bottle.png';
 import Post2 from '../../../assets/post2.png';
 import Post1 from '../../../assets/post1.png';
 import clsx from 'clsx';

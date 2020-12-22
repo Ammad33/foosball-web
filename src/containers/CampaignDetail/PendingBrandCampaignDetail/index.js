@@ -8,13 +8,13 @@ import {
   DialogContent,
   DialogActions,
   FormControl,
-  Select,
-  MenuItem,
-  InputLabel
+  MenuItem
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import Chip from '@material-ui/core/Chip';
+import { Select, Grid } from '@material-ui/core';
 import clsx from 'clsx';
+import TextField from '../../../components/TextField';
 import {
   MoreVertical,
   Download,
@@ -23,10 +23,9 @@ import {
   X,
   ChevronRight,
   XCircle,
-  Delete,
-  Trash,
   AlertCircle,
   ChevronDown,
+  Plus,
 } from 'react-feather';
 import Activity from '../Activity';
 import CampaignDetail from '../CampaignDetail';
@@ -38,8 +37,22 @@ import Compensation from '../Compensation';
 import Negotiables from '../Negotiables';
 import SelectMenu from '../../../components/SelectMenu';
 import _ from 'lodash';
+import SVG from 'react-inlinesvg';
 
 import styles from './PendingBrandCampaignDetail.module.scss';
+
+const Chevron = () => {
+  return (
+    <span className={styles.dropDownCustomizeSvg}>
+      <SVG src={require('../../../assets/chevron-downn.svg')} />
+    </span>
+  );
+};
+
+const options = [];
+for (let i = 3; i <= 20; i += 1) {
+  options.push(i);
+}
 
 const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) => {
   const history = useHistory();
@@ -50,6 +63,9 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) 
   const [allSet, setAllSet] = useState(false);
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
+  const [negotitaedItem, setNegotiatedItem] = useState('');
+  const [percentage, setPercentage] = useState('');
+  const [customeMessage, setCustomeMessage] = useState('');
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -252,24 +268,79 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) 
           <p className={styles.titleText}>Negotiate</p>
         </DialogTitle>
         <DialogContent className={styles.dialogContent}>
-          <FormControl className={styles.selectFormControl} variant='outlined'>
-            <InputLabel id='demo-simple-select-outlined-label'>
-              Negotiated Item
-            </InputLabel>
-            <Select
-              labelId='demo-simple-select-outlined-label'
-              id='demo-simple-select-outlined'
-              MenuProps={{ variant: 'menu' }}
+          <FormControl fullWidth variant='outlined'>
+            <TextField
+              className={styles.marginbottomSelect}
+              id='Negotiated Item'
+              fullWidth
               label='Negotiated Item'
+              variant='outlined'
+              value={negotitaedItem}
+              onChange={(e) =>
+                setNegotiatedItem(e.target.value)
+              }
+              MenuProps={{ variant: 'menu' }}
+              select
+              SelectProps={{ IconComponent: () => <Chevron /> }}
             >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-            </Select>
+              <MenuItem value='' disabled>
+                Negotiated Item
+            </MenuItem>
+
+              <MenuItem value={'10'}>10</MenuItem>
+              <MenuItem value={'20'}>20</MenuItem>
+
+            </TextField>
           </FormControl>
+          {
+            negotitaedItem !== '' &&
+
+            <>
+              <Grid xs={12} className={styles.marginbottomSelect}>
+                <FormControl fullWidth variant='outlined'>
+                  <Select
+                    id='revenue'
+                    fullWidth
+                    label='Enter Revenue Share'
+                    variant='outlined'
+                    value={percentage}
+                    onChange={(e) =>
+                      setPercentage(e.target.value)
+                    }
+                    displayEmpty
+                    IconComponent={() => <Chevron />}
+                    MenuProps={{ variant: 'menu' }}
+                    input={<SelectMenu />}
+                  >
+                    <MenuItem value='' disabled>
+                      Select Revenue Share Percentage
+                    </MenuItem>
+                    {options.map((option) => (
+                      <MenuItem key={option} value={option}>
+                        {option}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={12} md={12}>
+                <TextField
+                  id='outlined-basic'
+                  fullWidth
+                  multiline
+                  value={customeMessage}
+                  onChange={(e) => setCustomeMessage(e.target.value)}
+                  rows={12}
+                  label={'Enter custom message'}
+                  variant='outlined'
+                />
+              </Grid>
+              <div className={styles.addMore}><Plus /><p>Negotiate another item</p></div>
+            </>}
         </DialogContent>
         <DialogActions className={styles.dialogActions}>
           <button onClick={() => setOpenNegotiateDialog(false)}>Cancel</button>
-          <button className={clsx(styles.sendButton, styles.disabled)}>
+          <button className={clsx(styles.sendButton, negotitaedItem !== '' ? styles.active : styles.disabled)}>
             Send to Influencer
           </button>
         </DialogActions>
@@ -288,10 +359,18 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) 
           </p>
         </DialogTitle>
         <DialogContent className={styles.dialogContent}>
-          <textarea
-            className={styles.rejectionTextContainer}
-            placeholder='Enter custom message'
-          />
+          <Grid item xs={12} sm={12} md={12}>
+            <TextField
+              id='outlined-basic'
+              fullWidth
+              multiline
+              value={customeMessage}
+              onChange={(e) => setCustomeMessage(e.target.value)}
+              rows={12}
+              label={'Enter custom message'}
+              variant='outlined'
+            />
+          </Grid>
         </DialogContent>
         <DialogActions className={styles.dialogActions}>
           <button onClick={() => setOpenDeclineDialog(false)}>Cancel</button>

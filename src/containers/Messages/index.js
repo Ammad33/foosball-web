@@ -258,6 +258,9 @@ const Messages = () => {
 		setSharedFilesSelected(false);
 	};
 
+	const handleSelectedConversation = (conversation,index) => {
+		setSelectedConversation(conversation)
+	}
 
 	const [anchorEl, setAnchorEl] = useState(null);
 	const open = Boolean(anchorEl);
@@ -414,12 +417,8 @@ const Messages = () => {
 							{displayedConversations.map((conversation, index) =>
 								(
 									<ConversationListItem
-										handleItemClick={(conversation) => {
-											setSelectedConversation(conversation);
-											console.log('set conversation ', conversation);
-										}}
-										conversation={conversation}
-										key={index}
+										handleItemClick={handleSelectedConversation}										conversation={conversation}
+										index={index}
 									/>
 								)
 							)
