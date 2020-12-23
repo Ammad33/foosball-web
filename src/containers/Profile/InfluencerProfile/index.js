@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import styles from './InfluencerProfile.module.scss';
 import { Avatar } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
 import SVG from 'react-inlinesvg';
 import { Link } from 'react-router-dom';
 import InfluencerInformation from './InfluencerInformation';
@@ -28,7 +27,6 @@ const MapPin = () => {
 };
 
 const InfluencerProfile = () => {
-  const [viewInfluencerProfile, setViewInfluencerProfile] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
   useEffect(() => {
     const isOwner = localStorage.getItem('isOwner');
