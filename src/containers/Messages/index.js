@@ -63,6 +63,23 @@ const allConversations = [
         id: true,
         message: `Okay Yes I did get that.`,
       },
+      ,
+      {
+        id: false,
+        message: `Okay Thanks.`,
+      },
+      {
+        id: true,
+        message: `Could you upload the first post so that my team and I can take alook? thanks..`,
+      },
+      {
+        id: false,
+        message: `I uploaded the first post on the 9th and I also added the URL. Let me know if you got it.`,
+      },
+      {
+        id: true,
+        message: `Okay Yes I did get that.`,
+      },
     ],
     message:
       'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
@@ -333,7 +350,7 @@ const Messages = () => {
             <Archive /> <p>Archive Conversation</p>
           </div>
           <div>
-            <Paperclip /> <p>View Shared Files</p>
+            <Paperclip /> <p onClick={handleSharedFiles}>View Shared Files</p>
           </div>
           <div>
             <Trash /> <p>Delete Conversation</p>
@@ -392,6 +409,7 @@ const Messages = () => {
                 onClick={() => {
                   setActive('All');
                   filterConversations('All');
+                  setSharedFilesSelected(false);
                 }}
               >
                 All
@@ -401,6 +419,7 @@ const Messages = () => {
                 onClick={() => {
                   setActive('Unread');
                   filterConversations('Unread');
+                  setSharedFilesSelected(false);
                 }}
               >
                 Unread
@@ -410,6 +429,7 @@ const Messages = () => {
                 onClick={() => {
                   setActive('Read');
                   filterConversations('Read');
+                  setSharedFilesSelected(false);
                 }}
               >
                 Read
@@ -419,6 +439,7 @@ const Messages = () => {
                 onClick={() => {
                   setActive('Archived');
                   filterConversations('Archived');
+                  setSharedFilesSelected(false);
                 }}
               >
                 Archived
@@ -434,34 +455,27 @@ const Messages = () => {
             >
               {displayedConversations.map((conversation, index) => (
                 <ConversationListItem
-                  handleItemClick={(conversation) => {
-                    setSelectedConversation(conversation);
-                    console.log('set conversation ', conversation);
-                  }}
+                  handleItemClick={handleSelectedConversation}
                   conversation={conversation}
                   key={index}
+                  index={index}
                 />
               ))}
             </div>
           </div>
         </div>
-        {selectedConversation !== null && (
-          // Object.keys(selectedConversation).length === 0 ?
-          //   <div style={{ width: '885px' }}>Msg Details</div> :
-          <div className={styles.chatContainer}>
-            {Object.keys(selectedConversation).length === 0 ? (
-              <div className={styles.topInputConatiner}>
-                <TextField
-                  id='outlined-basic'
-                  fullWidth
-                  label='Type in the recipient'
-                  variant='outlined'
-                />
-              </div>
-            ) : (
-              <>
+        {selectedConversation !== null &&
+          (sharedFilesSelected ? (
+            <>
+              <div className={styles.chatContainer}>
                 <div className={styles.topAvatarConatiner}>
-                  <div></div>
+                  <div className={styles.backToConv} onClick={handleBack}>
+                    <span>
+                      <ChevronSVG />
+                    </span>
+                    <p>Back to conversation</p>
+                  </div>
+                  <div className={styles.ShareFileHeading}>Shared Files</div>
                   <div className={styles.avatarContainer}>
                     <>
                       {selectedConversation.members.length > 1 ? (
@@ -484,26 +498,70 @@ const Messages = () => {
                       </span>
                     </div>
                   </div>
-                  <MoreVertical onClick={handleClick} />
                 </div>
-                <Chat messages={selectedConversation.messages} />
-              </>
-            )}
-
-            <div className={styles.inputContainer}>
-              <Paperclip />
-              <TextField
-                id='outlined-basic'
-                fullWidth
-                label='Type your message'
-                variant='outlined'
-              />
+                <SharedFile />
+                {/* <Chat messages={selectedConversation.messages} /> */}
+              </div>
+            </>
+          ) : (
+            // Object.keys(selectedConversation).length === 0 ?
+            //   <div style={{ width: '885px' }}>Msg Details</div> :
+            <div className={styles.chatContainer}>
+              {Object.keys(selectedConversation).length === 0 ? (
+                <div className={styles.topInputConatiner}>
+                  <TextField
+                    id='outlined-basic'
+                    fullWidth
+                    label='Type in the recipient'
+                    variant='outlined'
+                  />
+                </div>
+              ) : (
+                <>
+                  <div className={styles.topAvatarConatiner}>
+                    <div></div>
+                    <div className={styles.avatarContainer}>
+                      <>
+                        {selectedConversation.members.length > 1 ? (
+                          <AvatarGroup max={5}>
+                            {selectedConversation.members.map(
+                              (member, index) => (
+                                <Avatar key={index} src={member.imgUrl} />
+                              )
+                            )}
+                          </AvatarGroup>
+                        ) : (
+                          <Avatar
+                            src={
+                              'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80'
+                            }
+                          />
+                        )}
+                      </>
+                      <div className={styles.titleAndMessageContainer}>
+                        <span className={styles.title}>
+                          {getTitle(selectedConversation.members)}
+                        </span>
+                      </div>
+                    </div>
+                    <MoreVertical onClick={handleClick} />
+                  </div>
+                  <Chat messages={selectedConversation.messages} />
+                </>
+              )}
+              <div className={styles.inputContainer}>
+                <Paperclip />
+                <TextField
+                  id='outlined-basic'
+                  fullWidth
+                  label='Type your message'
+                  variant='outlined'
+                />
+              </div>
             </div>
-          </div>
-        )}
+          ))}
       </div>
     </>
   );
 };
-
 export default Messages;

@@ -117,6 +117,7 @@
   margin: 0 auto;
   width: 100%;
   position: relative;
+  margin-right: -20px;
 }
 
 .chatContainerSelected {
@@ -216,5 +217,27 @@
 
   :last-child {
     margin-bottom: 0px;
+  }
+}
+
+.ShareFileHeading {
+  color: #000000;
+  font-family: Poppins;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 30px;
+}
+.backToConv {
+  display: flex;
+  align-items: center;
+  margin-left: 22px;
+  p {
+    color: #000000;
+    font-family: Poppins;
+    font-size: 17px;
+    letter-spacing: 0;
+    line-height: 26px;
+    margin-left: 15px;
   }
 }
