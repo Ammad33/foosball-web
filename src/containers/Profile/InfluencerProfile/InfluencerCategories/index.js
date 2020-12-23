@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { Edit, Search } from 'react-feather';
+import { Edit } from 'react-feather';
 import styles from './InfluencerCategories.module.scss';
-import moment from 'moment';
-import clsx from 'clsx';
 import Chip from '@material-ui/core/Chip';
-import { InputAdornment, Grid, Avatar, Popover } from '@material-ui/core';
+import { Popover } from '@material-ui/core';
 import EditInfluencerCategories from './EditInfluencerCategories';
 
 const InfluencerCategories = ({ viewInfluencerProfile }) => {
@@ -49,33 +47,27 @@ const InfluencerCategories = ({ viewInfluencerProfile }) => {
 					size="medium"
 					label="Active Lifestyle"
 					className={styles.Lifestyle}
-				// onClick={}
 				/>
 				<Chip
 					size="medium"
 					label="Beauty"
 					className={styles.Beauty}
-
-				// onClick={}
 				/>
 				<Chip
 					size="medium"
 					label="Clean Editing"
 					className={styles.Editing}
 
-				// onClick={}
 				/>
 				<Chip
 					size="medium"
 					label="Fitness"
 					className={styles.Fitness}
-				// onClick={}
 				/>
 				<Chip
 					size="medium"
 					label="Healthy Living"
 					className={styles.Living}
-				// onClick={}
 				/>
 			</div>
 		</div>

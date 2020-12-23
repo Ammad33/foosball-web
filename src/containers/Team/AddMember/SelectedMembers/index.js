@@ -1,19 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react';
-import AddIcon from '@material-ui/icons/Add';
-import { InputAdornment, Grid, Avatar, Popover } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import { Avatar, Popover } from '@material-ui/core';
 import styles from './SelectedMembers.module.scss';
-import { useHistory } from 'react-router-dom';
-import { API } from 'aws-amplify';
 import SVG from 'react-inlinesvg';
-import { RootContext } from '../../../../context/RootContext';
-import { Plus, MoreVertical, Mail, Edit, Trash } from 'react-feather';
-import TextField from '../../../../components/TextField';
+import { MoreVertical } from 'react-feather';
 import MenuItem from '@material-ui/core/MenuItem';
-import Divider from '@material-ui/core/Divider';
 import CDialog from '../../../../components/ConfirmationDialog';
 import Translation from '../../../../assets/translation.json';
-import { Link } from 'react-router-dom';
-import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 
 const Xcircle = () => {
@@ -32,10 +24,8 @@ const Msg = () => {
 
 
 const SelectedMembers = ({ TeamMembers, index, handleRemoveMember }) => {
-	const history = useHistory();
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [addOpen, setAddOpen] = useState(false);
-	const [editOpen, setEditOpen] = useState(false);
 	const [openCDialog, setOpenCDialog] = useState(false);
 
 	const handleClick = (event) => {

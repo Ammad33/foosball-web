@@ -86,55 +86,55 @@ const AddContact = ({
             </Grid>
           </>
         ) : (
-          <>
-            <Grid
-              item
-              xs={12}
-              className={formError.name ? styles.errorElement : styles.element}
-            >
-              <TextField
-                id='outlined-basic'
-                fullWidth
-                label='Brand Name'
-                variant='outlined'
-                value={formData.brandName}
-                onChange={(e) => handleFormChange(e.target.value, 'brandName')}
-                helperText={
-                  formError.brandName && (
-                    <span className={styles.errorText}>
-                      Brand name is required{' '}
-                    </span>
-                  )
+            <>
+              <Grid
+                item
+                xs={12}
+                className={formError.name ? styles.errorElement : styles.element}
+              >
+                <TextField
+                  id='outlined-basic'
+                  fullWidth
+                  label='Brand Name'
+                  variant='outlined'
+                  value={formData.brandName}
+                  onChange={(e) => handleFormChange(e.target.value, 'brandName')}
+                  helperText={
+                    formError.brandName && (
+                      <span className={styles.errorText}>
+                        Brand name is required{' '}
+                      </span>
+                    )
+                  }
+                />
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                className={
+                  formError.pointOfContact ? styles.errorElement : styles.element
                 }
-              />
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              className={
-                formError.pointOfContact ? styles.errorElement : styles.element
-              }
-            >
-              <TextField
-                id='outlined-basic'
-                fullWidth
-                label='Point of contact name'
-                variant='outlined'
-                value={formData.pointOfContact}
-                onChange={(e) =>
-                  handleFormChange(e.target.value, 'pointOfContact')
-                }
-                helperText={
-                  formError.pointOfContact && (
-                    <span className={styles.errorText}>
-                      Point of contact name is required
-                    </span>
-                  )
-                }
-              />
-            </Grid>
-          </>
-        )}
+              >
+                <TextField
+                  id='outlined-basic'
+                  fullWidth
+                  label='Point of contact name'
+                  variant='outlined'
+                  value={formData.pointOfContact}
+                  onChange={(e) =>
+                    handleFormChange(e.target.value, 'pointOfContact')
+                  }
+                  helperText={
+                    formError.pointOfContact && (
+                      <span className={styles.errorText}>
+                        Point of contact name is required
+                      </span>
+                    )
+                  }
+                />
+              </Grid>
+            </>
+          )}
 
         <Grid
           item
@@ -158,7 +158,7 @@ const AddContact = ({
           />
         </Grid>
 
-        <Grid item xs={12} className={styles.element}>
+        {/* <Grid item xs={12} className={styles.element}>
           <p className={styles.or}>OR</p>
         </Grid>
 
@@ -185,7 +185,7 @@ const AddContact = ({
               )
             }
           />
-        </Grid>
+        </Grid> */}
       </div>
       <div className={styles.footer}>
         <span onClick={closeAdd}>Cancel</span>

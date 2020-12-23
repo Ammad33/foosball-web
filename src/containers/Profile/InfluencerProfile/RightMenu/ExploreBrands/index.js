@@ -1,17 +1,9 @@
 import React, { useState } from 'react';
-import { Edit } from 'react-feather';
 import styles from './ExploreBrands.module.scss';
-import moment from 'moment';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { Avatar } from '@material-ui/core';
-import clsx from 'clsx';
-import { Facebook, Youtube, Instagram } from 'react-feather';
-import InflencerBrandProfile from '../../../InfluencerProfile';
 import { useHistory } from 'react-router-dom';
-
-
-
 
 const ExploreBrands = ({ influencer }) => {
 	const history = useHistory();

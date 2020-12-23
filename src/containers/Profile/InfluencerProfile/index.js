@@ -31,7 +31,7 @@ const InfluencerProfile = () => {
   const history = useHistory();
   const [viewInfluencerProfile, setViewInfluencerProfile] = useState(false);
   useEffect(() => {
-    if (history.location.pathname == '/influencerProfile')
+    if (history.location.pathname === '/influencerProfile')
       setViewInfluencerProfile(true);
   });
 
@@ -53,8 +53,8 @@ const InfluencerProfile = () => {
               {viewInfluencerProfile ? (
                 <button>Message</button>
               ) : (
-                <Link to='#'>Change Profile Photo</Link>
-              )}
+                  <Link to='#'>Change Profile Photo</Link>
+                )}
             </div>
           </div>
           {viewInfluencerProfile ? (
@@ -63,8 +63,8 @@ const InfluencerProfile = () => {
               <button>Start Campaign</button>
             </div>
           ) : (
-            ''
-          )}
+              ''
+            )}
         </Grid>
         <Grid item xs={12} sm={12} md={5}>
           {(viewInfluencerProfile && (

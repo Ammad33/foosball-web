@@ -659,7 +659,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     const comp = [...compensations];
     if (fieldName === 'compensationType') {
       const found = comp.findIndex((item) => item.compensationType === value);
-      if (found !== -1 || value == 'PRODUCT') {
+      if (found !== -1 || value === 'PRODUCT') {
         return;
       }
     }
@@ -815,7 +815,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   /*************Start Time/Date validation************/
   const handleStartTimeDateValidation = (time, date) => {
-    const mom = moment();
+
     const startDateTime = moment(date + ' ' + time);
     if (startDateTime.isBefore(moment())) {
       setStartTimeError(true);
@@ -1116,7 +1116,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
     deliverables.forEach((delive) => {
       if (delive.platform === 'Facebook') {
-        if (delive.deliverableType == 'Post') {
+        if (delive.deliverableType === 'Post') {
           delive.framesRequired = null;
         }
         else if (delive.framesRequired == null) {
@@ -1437,7 +1437,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   };
 
   const handleNext = (activeSetp) => {
-    if (activeStep == 1) {
+    if (activeStep === 1) {
       const startDateTime = moment(startDate + ' ' + startTime);
       if (startDateTime.isBefore(moment())) {
         setStartTimeError(true);
@@ -1455,7 +1455,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   };
 
   const handleCancelCampaignDialog = () => {
-    if (campaignName != '' && startDate != '' && endDate != '') {
+    if (campaignName !== '' && startDate !== '' && endDate !== '') {
       setOpenCDialog(true);
     } else {
       handleCancel();
@@ -1589,7 +1589,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                 onClick={(e) =>
                   campaign !== undefined && activeStep === 9
                     ? updateCampaign()
-                    : activeStep == 9
+                    : activeStep === 9
                       ? createCampaign()
                       : handleNext(activeStep, e)
                 }
@@ -1601,7 +1601,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
               >
                 {campaign !== undefined && activeStep === 9
                   ? 'Update Campaign'
-                  : activeStep == 9
+                  : activeStep === 9
                     ? 'Send Invite'
                     : 'Next'}
               </button>

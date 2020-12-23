@@ -43,7 +43,7 @@ const EditContact = ({ open, handleChange, closeAdd }) => {
                     />
                 </Grid>
 
-                <Grid item xs={12} className={styles.element}>
+                {/* <Grid item xs={12} className={styles.element}>
                     <p className={styles.or}>OR</p>
                 </Grid>
 
@@ -55,7 +55,7 @@ const EditContact = ({ open, handleChange, closeAdd }) => {
                         variant='outlined'
 
                     />
-                </Grid>
+                </Grid> */}
             </div>
             <div className={styles.footer} >
                 <span onClick={closeAdd}>Cancel</span>

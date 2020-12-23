@@ -1,24 +1,13 @@
 import React, { useState } from 'react';
 import styles from './Earning.module.scss';
 import { Grid } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Paperclip, MoreVertical, Archive, Trash } from 'react-feather';
-import Avatar from '@material-ui/core/Avatar';
 import SVG from 'react-inlinesvg';
-import Divider from '@material-ui/core/Divider';
 import { ChevronUp, ChevronDown } from 'react-feather';
 import MenuItem from '@material-ui/core/MenuItem';
 import Popover from '@material-ui/core/Popover';
 
 import { makeStyles } from '@material-ui/core/styles';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import IconButton from '@material-ui/core/IconButton';
 import BrandEarning from './BrandEarning';
-import InfluencerEarning from './InfluencerEarning'
-
-
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -26,17 +15,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const PlusSVG = () => {
-	return <SVG src={require('../../../assets/plus1.svg')} />;
-};
-
-const MinusSVG = () => {
-	return <SVG src={require('../../../assets/minus1.svg')} />;
-};
-
 
 const Earning = ({ data, handleExpandClick, expanded }) => {
-	const classes = useStyles();
 
 	const [filterDropdown, setFilterDropdown] = useState(false);
 	const [selectedFilter, setSelectedFilter] = useState('Brand')

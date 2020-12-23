@@ -1,18 +1,13 @@
 import React, { useState } from 'react';
 import styles from './AccountHistory.module.scss';
-import { Grid } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Paperclip, MoreVertical, Archive, Trash } from 'react-feather';
-import Avatar from '@material-ui/core/Avatar';
-import SVG from 'react-inlinesvg';
 import Earning from './Earning'
 
 const AccountHistory = () => {
-	const [active, setActive] = useState('Influencer Invoices');	
+	const [active, setActive] = useState('Influencer Invoices');
 	const [expanded, setExpanded] = React.useState((0));
 
-	const handleExpandClick = (event , index) => {
-		if (expanded == event.currentTarget.dataset["target"]){
+	const handleExpandClick = (event) => {
+		if (expanded === event.currentTarget.dataset["target"]) {
 			setExpanded(0)
 		}
 		else {
@@ -23,7 +18,7 @@ const AccountHistory = () => {
 	const branddata = [
 		{
 			id: 1,
-			campaign: 'CampaignName' ,
+			campaign: 'CampaignName',
 			date: '11/1/2020 - 12/1/2020',
 			img: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
 			member: 'Sam Ozkural',
@@ -36,8 +31,8 @@ const AccountHistory = () => {
 			totalInfluencerPayout: '$9891',
 		},
 		{
-			id: 2,	
-			campaign: 'CampaignName' ,
+			id: 2,
+			campaign: 'CampaignName',
 			date: '11/1/2020 - 12/1/2020',
 			img: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
 			member: 'Sam Ozkural',
@@ -50,8 +45,8 @@ const AccountHistory = () => {
 			totalInfluencerPayout: '$9891',
 		},
 		{
-			id: 3,	
-			campaign: 'CampaignName' ,
+			id: 3,
+			campaign: 'CampaignName',
 			date: '11/1/2020 - 12/1/2020',
 			img: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
 			member: 'Sam Ozkural',
@@ -64,8 +59,8 @@ const AccountHistory = () => {
 			totalInfluencerPayout: '$9891',
 		},
 		{
-			id: 4,	
-			campaign: 'CampaignName' ,
+			id: 4,
+			campaign: 'CampaignName',
 			date: '11/1/2020 - 12/1/2020',
 			img: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
 			member: 'Sam Ozkural',
@@ -78,8 +73,8 @@ const AccountHistory = () => {
 			totalInfluencerPayout: '$9891',
 		},
 		{
-			id: 5,	
-			campaign: 'CampaignName' ,
+			id: 5,
+			campaign: 'CampaignName',
 			date: '11/1/2020 - 12/1/2020',
 			img: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
 			member: 'Sam Ozkural',
@@ -92,8 +87,8 @@ const AccountHistory = () => {
 			totalInfluencerPayout: '$9891',
 		},
 		{
-			id: 6,	
-			campaign: 'CampaignName' ,
+			id: 6,
+			campaign: 'CampaignName',
 			date: '11/1/2020 - 12/1/2020',
 			img: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
 			member: 'Sam Ozkural',
@@ -112,7 +107,7 @@ const AccountHistory = () => {
 	const influencerData = [
 		{
 			id: 1,
-			campaign: 'CampaignName' ,
+			campaign: 'CampaignName',
 			date: '11/1/2020 - 12/1/2020',
 			img: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
 			member: 'Care / of',
@@ -123,8 +118,8 @@ const AccountHistory = () => {
 			totalSale: '$9891',
 		},
 		{
-			id: 2,	
-			campaign: 'CampaignName' ,
+			id: 2,
+			campaign: 'CampaignName',
 			date: '11/1/2020 - 12/1/2020',
 			img: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
 			member: 'Sam Ozkural',
@@ -135,8 +130,8 @@ const AccountHistory = () => {
 			totalSale: '$9891',
 		},
 		{
-			id: 3,	
-			campaign: 'CampaignName' ,
+			id: 3,
+			campaign: 'CampaignName',
 			date: '11/1/2020 - 12/1/2020',
 			img: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
 			member: 'Sam Ozkural',
@@ -147,8 +142,8 @@ const AccountHistory = () => {
 			totalSale: '$9891',
 		},
 		{
-			id: 4,	
-			campaign: 'CampaignName' ,
+			id: 4,
+			campaign: 'CampaignName',
 			date: '11/1/2020 - 12/1/2020',
 			img: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
 			member: 'Sam Ozkural',
@@ -159,8 +154,8 @@ const AccountHistory = () => {
 			totalSale: '$9891',
 		},
 		{
-			id: 5,	
-			campaign: 'CampaignName' ,
+			id: 5,
+			campaign: 'CampaignName',
 			date: '11/1/2020 - 12/1/2020',
 			img: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
 			member: 'Sam Ozkural',
@@ -171,8 +166,8 @@ const AccountHistory = () => {
 			totalSale: '$9891',
 		},
 		{
-			id: 6,	
-			campaign: 'CampaignName' ,
+			id: 6,
+			campaign: 'CampaignName',
 			date: '11/1/2020 - 12/1/2020',
 			img: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
 			member: 'Sam Ozkural',
@@ -210,9 +205,9 @@ const AccountHistory = () => {
           </button>
 				</div >
 				<div>
-					<Earning  data = {branddata}
-					handleExpandClick = {handleExpandClick}
-					expanded = {expanded} />
+					<Earning data={branddata}
+						handleExpandClick={handleExpandClick}
+						expanded={expanded} />
 				</div>
 			</div>
 

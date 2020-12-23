@@ -1,14 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './InfluencerEarning.module.scss';
-import { Grid } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Paperclip, MoreVertical, Archive, Trash } from 'react-feather';
 import Avatar from '@material-ui/core/Avatar';
 import SVG from 'react-inlinesvg';
 import Divider from '@material-ui/core/Divider';
 
-
-import { makeStyles } from '@material-ui/core/styles';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';

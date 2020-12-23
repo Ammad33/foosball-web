@@ -1,19 +1,13 @@
-import React, { useState, useEffect, useContext } from 'react';
-import AddIcon from '@material-ui/icons/Add';
-import { InputAdornment, Grid, Avatar, Popover } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import { Avatar, Popover } from '@material-ui/core';
 import styles from './TeamData.module.scss';
-import { useHistory } from 'react-router-dom';
-import { API } from 'aws-amplify';
 import SVG from 'react-inlinesvg';
-import { RootContext } from '../../../context/RootContext';
-import { Plus, MoreVertical, Mail, Edit, Trash } from 'react-feather';
-import TextField from '../../../components/TextField';
+import { MoreVertical } from 'react-feather';
 import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
 import CDialog from '../../../components/ConfirmationDialog';
 import Translation from '../../../assets/translation.json';
 import { Link } from 'react-router-dom';
-import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import AddMember from '../AddMember';
 
@@ -26,10 +20,9 @@ const Msg = () => {
 };
 
 const TeamData = ({ TeamMembers, index, handleRemoveMember }) => {
-  const history = useHistory();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [addOpen, setAddOpen] = useState(false);
-  const [editOpen, setEditOpen] = useState(false);
   const [openCDialog, setOpenCDialog] = useState(false);
 
   const handleClick = (event) => {
@@ -43,12 +36,12 @@ const TeamData = ({ TeamMembers, index, handleRemoveMember }) => {
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
-  const handleTeam = () => {};
+  const handleTeam = () => { };
   const closeHandle = () => {
     setAddOpen(false);
   };
 
-  const openDialog = (index) => {
+  const openDialog = () => {
     setOpenCDialog(true);
     setAnchorEl(null);
   };
@@ -60,9 +53,9 @@ const TeamData = ({ TeamMembers, index, handleRemoveMember }) => {
     handleRemoveMember(index);
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   return (
     <>
@@ -93,10 +86,10 @@ const TeamData = ({ TeamMembers, index, handleRemoveMember }) => {
           {TeamMembers.user.imageUrl !== null ? (
             <Avatar className={styles.avatar} src={TeamMembers.user.imageUrl} />
           ) : (
-            <div className={styles.msgSVG}>
-              <Msg className={styles.avatar} />
-            </div>
-          )}
+              <div className={styles.msgSVG}>
+                <Msg className={styles.avatar} />
+              </div>
+            )}
           <span>{TeamMembers.user.fullName}</span>
           {TeamMembers.invitationAccepted ? (
             <p>
@@ -108,12 +101,12 @@ const TeamData = ({ TeamMembers, index, handleRemoveMember }) => {
               </Link>
             </p>
           ) : (
-            <p>
-              <Link to='#' style={{ marginRight: '20px' }}>
-                Resend Invitation
+              <p>
+                <Link to='#' style={{ marginRight: '20px' }}>
+                  Resend Invitation
               </Link>
-            </p>
-          )}
+              </p>
+            )}
           <Select
             className={styles.dropDown}
             value='Member'

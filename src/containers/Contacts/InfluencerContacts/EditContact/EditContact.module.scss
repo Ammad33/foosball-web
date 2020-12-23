@@ -1,6 +1,8 @@
 @import '../../../../variable.module.scss';
 .editContact {
   width: 838px !important;
+  height: 523px !important;
+  max-height: 523px !important;
   max-width: 838px !important;
   border-radius: 20px !important;
   background-color: $white !important;
@@ -14,7 +16,7 @@
     letter-spacing: 0;
     line-height: 34px;
     margin: 0px;
-    margin-bottom: 35px;
+    margin-bottom: 48px;
   }
 
 

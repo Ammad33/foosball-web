@@ -111,7 +111,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 							<div className={styles.wrapChip}>
 								{campaign.status !== '' ? (
 									<div>
-										{campaign.status == 'PENDING' ? (
+										{campaign.status === 'PENDING' ? (
 											<Chip
 												className={clsx(
 													styles.statusPending,
