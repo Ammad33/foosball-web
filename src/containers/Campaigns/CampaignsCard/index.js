@@ -109,7 +109,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 								</small>
 							</span>
 							<div className={styles.wrapChip}>
-								{campaign.status != '' ? (
+								{campaign.status !== '' ? (
 									<div>
 										{campaign.status == 'PENDING' ? (
 											<Chip
@@ -119,7 +119,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 												)}
 												label={campaign.status && campaign.status.toProperCase()}
 											/>
-										) : campaign.status == 'DRAFT' ? (
+										) : campaign.status === 'DRAFT' ? (
 											<Chip
 												className={clsx(
 													styles.statusDraft,
@@ -127,7 +127,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 												)}
 												label={campaign.status && campaign.status.toProperCase()}
 											/>
-										) : campaign.status == 'LIVE' ? (
+										) : campaign.status === 'LIVE' ? (
 											<Chip
 												className={clsx(
 													styles.statusLive,

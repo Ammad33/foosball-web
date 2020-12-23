@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './Performance.module.scss';
 import { useHistory } from 'react-router-dom';
-import ChipButton from './../../../components/ChipButton';
 
 const Performance = () => {
 

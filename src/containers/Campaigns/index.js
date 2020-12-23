@@ -79,7 +79,7 @@ const Campaigns = () => {
       let influencersData = [];
       mydata.data.me.organizations !== null &&
         mydata.data.me.organizations.forEach((item) => {
-          if (item.organization.__typename == 'Influencer') {
+          if (item.organization.__typename === 'Influencer') {
             influencersData.push(item);
           } else if (item.organization.__typename === 'Brand') {
             brandsData.push(item);
@@ -101,7 +101,7 @@ const Campaigns = () => {
         let influencersData = [];
         e.data.me.organizations !== null &&
           e.data.me.organizations.forEach((item) => {
-            if (item.organization.__typename == 'Influencer') {
+            if (item.organization.__typename === 'Influencer') {
               influencersData.push(item);
             } else if (item.organization.__typename === 'Brand') {
               brandsData.push(item);
@@ -120,6 +120,7 @@ const Campaigns = () => {
       }
     }
   };
+
   const getCampaigns = async () => {
     try {
       setLoading(true);
@@ -212,8 +213,8 @@ const Campaigns = () => {
               <AddIcon /> New Campaign
             </button>
           ) : (
-            ''
-          )}
+              ''
+            )}
         </div>
         <div className={styles.CampaignHeadingButton}>
           <button
@@ -230,13 +231,13 @@ const Campaigns = () => {
               Draft
             </button>
           ) : (
-            <button
-              className={active === 'INVITE' ? styles.inviteActive : ''}
-              onClick={() => setActive('INVITE')}
-            >
-              Invite
-            </button>
-          )}
+              <button
+                className={active === 'INVITE' ? styles.inviteActive : ''}
+                onClick={() => setActive('INVITE')}
+              >
+                Invite
+              </button>
+            )}
           <button
             className={active === 'PENDING' ? styles.pendingActive : ''}
             onClick={() => setActive('PENDING')}
@@ -263,15 +264,15 @@ const Campaigns = () => {
               Lost
             </button>
           ) : (
-            <button
-              className={active === 'DECLINED' ? styles.declinedActive : ''}
-              onClick={() => setActive('DECLINED')}
-            >
-              Declined
-            </button>
-          )}
+              <button
+                className={active === 'DECLINED' ? styles.declinedActive : ''}
+                onClick={() => setActive('DECLINED')}
+              >
+                Declined
+              </button>
+            )}
         </div>
-        {campaigns.length == 0 && !loading ? (
+        {campaigns.length === 0 && !loading ? (
           <Grid
             container
             spacing={0}
@@ -294,8 +295,8 @@ const Campaigns = () => {
             </Grid>
           </Grid>
         ) : (
-          ''
-        )}
+            ''
+          )}
         <Grid container spacing={3}>
           {campaigns.length > 0 &&
             campaigns.map((campaign) => {

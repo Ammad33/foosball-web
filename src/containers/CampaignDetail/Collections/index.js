@@ -64,7 +64,7 @@ const Collections = ({ handleEdit, removeSeeAll }) => {
         </div>
       </div>
     </div>
-    {removeSeeAll == true ? null : <button onClick={() => history.push('/collections')} >See all</button>}
+    {removeSeeAll === true ? null : <button onClick={() => history.push('/collections')} >See all</button>}
   </div>);
 }
 

@@ -1,0 +1,79 @@
+@import './../../../variable.module.scss';
+
+.accountHistoryEarningInfoContainer {
+	height: 387px;
+	width: 1234px;
+	border-radius: 10px;
+	background-color: #FFFFFF;
+	box-shadow: 0 6px 50px 0 rgba(0, 0, 0, 0.1);
+	padding: 32px 41px 20px 35px;
+
+	.accountHistoryEarningContainer {
+		align-items: center;
+		justify-content: space-between;
+
+		h1 {
+			color: #000000;
+			font-family: Poppins;
+			font-size: 23px;
+			font-weight: bold;
+			letter-spacing: 0;
+			line-height: 34px;
+		}
+
+		.chart {
+			margin-top: 25px;
+			height: 265px;
+			width: 780px;
+			border-radius: 10px;
+			background-color: #D8D8D8;
+			box-shadow: 0 6px 50px 0 rgba(0, 0, 0, 0.1);
+
+		}
+	}
+}
+
+.popOverContainer {
+	margin-top: 15px;
+}
+
+.brandDropDown{
+	margin-right: 5px !important;
+	display: flex;
+}
+.brandDropDownSVG {
+	margin-left: 5px;
+}
+.brandContainter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  .brandImage {
+    height: 34px;
+    width: 34px;
+  }
+  span{
+		color: #000000;
+		font-family: Poppins;
+		font-size: 15px;
+		letter-spacing: 0;
+		line-height: 23px;
+  }
+}
+
+
+.dateFilter {
+	display: flex;
+
+	p {
+		display: flex;
+		width: 300px;
+		height: 100px;
+		align-items: center;
+		color: #000000;
+		font-family: Poppins;
+		font-size: 17px;
+		letter-spacing: 0;
+		line-height: 26px;
+	}
+}

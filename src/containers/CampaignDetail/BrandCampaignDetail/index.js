@@ -14,10 +14,11 @@ import ClosedBrandCampaignDetail from '../ClosedBrandCampaignDetail';
 import LostBrandCampaignDetail from '../LostBrandCampaignDetail';
 import _ from 'lodash';
 
-const BrandCampaignDetail = ({ handleDelete, status, addCampaign, updateCampaign, setAddCampagin, data, addInTeam,
+const BrandCampaignDetail = ({ headingValue, handleDelete, status, addCampaign, updateCampaign, setAddCampagin, data, addInTeam,
   removeInTeam, search,
   handleSearch, selectedMembers,
   team, setAll }) => {
+
   const [step, setStep] = useState(1);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [element, setElement] = useState('');
@@ -72,6 +73,7 @@ const BrandCampaignDetail = ({ handleDelete, status, addCampaign, updateCampaign
             handleDelete={handleDelete}
             handleActiveStep={handleActiveStep}
             setAll={setAll}
+            headingValue={headingValue}
           />
         );
       case 'CLOSED':
@@ -141,7 +143,7 @@ const BrandCampaignDetail = ({ handleDelete, status, addCampaign, updateCampaign
 
   const handleActiveStep = () => {
     let negotialble = true;
-    Object.values(data.negotiables).map(item => {
+    Object.values(data.negotiables).forEach(item => {
       if (item === true) {
         negotialble = false;
       }

@@ -3,6 +3,7 @@ import styles from './Negotiables.module.scss';
 import { Edit } from 'react-feather';
 
 const Negotiables = ({ handleEdit, data }) => {
+
   const getNegotiablesData = () => {
     const keys = Object.keys(data.negotiables);
     return keys.map((key) => {

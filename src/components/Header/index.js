@@ -18,15 +18,9 @@ const SearchIcon = () => {
 };
 
 
-const Header = (meData, brandType) => {
+const Header = (meData) => {
 	const history = useHistory();
-	const [brandId, setBrandId] = useState([]);
-	const [brandDropDown, setBrandDropDown] = useState(false);
 	const {
-		setCurrentUser,
-		setLogoutMessage,
-		currentUser,
-		activeRoute,
 		setActiveRoute,
 		searchValue,
 		setSearchValue,
@@ -40,6 +34,11 @@ const Header = (meData, brandType) => {
 	const openSettings = () => {
 		history.push('/settings');
 		setActiveRoute('Settings');
+		setAnchorEl(null);
+	};
+	const openAccountHistory = () => {
+		history.push('/accountHistory');
+		setActiveRoute('AccountHistory');
 		setAnchorEl(null);
 	};
 	const openProfile = () => {
@@ -71,11 +70,11 @@ const Header = (meData, brandType) => {
 					horizontal: 'center',
 				}}
 				PaperProps={{
-					style: { width: '331px', height: '380px' },
+					style: { width: '331px', height: '454px', marginTop: '20px' },
 				}}
 				transformOrigin={{
 					vertical: 'top',
-					horizontal: 'center',
+					horizontal: 'right',
 				}}
 			>
 				<Grid className={styles.menuBarGrid}>
@@ -121,6 +120,14 @@ const Header = (meData, brandType) => {
 							}}
 						>
 							Settings
+            </MenuItem>
+						<MenuItem
+							className={styles.itemsFont}
+							onClick={() => {
+								openAccountHistory();
+							}}
+						>
+							Account History
             </MenuItem>
 						<Logout />
 					</div>

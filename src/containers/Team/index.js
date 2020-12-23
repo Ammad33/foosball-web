@@ -41,7 +41,7 @@ const Team = () => {
     }
   };
 
-  const handleRemoveMember = (index) => {};
+  const handleRemoveMember = (index) => { };
 
   const closeHandle = () => {
     setAddOpen(false);
@@ -66,7 +66,7 @@ const Team = () => {
         </div>
       </div>
 
-      {teams.length == 0 ? (
+      {teams.length === 0 ? (
         <div>
           <div className={styles.noMembers}>
             <Grid alignItems='center'>
@@ -79,18 +79,18 @@ const Team = () => {
           </div>
         </div>
       ) : (
-        <div className={styles.TeamInfoContainer}>
-          {teams && teams !== null
-            ? teams.map((team, index) => (
+          <div className={styles.TeamInfoContainer}>
+            {teams && teams !== null
+              ? teams.map((team, index) => (
                 <TeamData
                   TeamMembers={team}
                   index={index}
                   handleRemoveMember={handleRemoveMember}
                 />
               ))
-            : ''}
-        </div>
-      )}
+              : ''}
+          </div>
+        )}
     </>
   );
 };

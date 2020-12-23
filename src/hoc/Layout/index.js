@@ -114,7 +114,7 @@ function ResponsiveDrawer(props) {
       setMeData(mydata.data.me);
     } catch (e) {
       console.log(e);
-      setMeData(e.data.me);
+      // setMeData(e.mydata.data.me);
     }
   };
 

@@ -13,6 +13,8 @@ const Deliverables = ({ onClick, handleEdit, deliverables }) => {
         return 'in Week';
       case 'MONTH':
         return 'in Month';
+      default:
+        return '';
     }
   };
 
@@ -77,16 +79,16 @@ const Deliverables = ({ onClick, handleEdit, deliverables }) => {
         <p>
           {deliverables && deliverables.length
             ? `${deliverables[0].posts} posts ${getPostFrequency(
-                deliverables[0].frequency
-              )}`
+              deliverables[0].frequency
+            )}`
             : ''}
         </p>
       </div>
       {deliverables && deliverables.length > 1 ? (
         <button onClick={() => onClick('Deliverable')}>See all</button>
       ) : (
-        ''
-      )}
+          ''
+        )}
     </div>
   );
 };

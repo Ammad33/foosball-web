@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
@@ -26,8 +26,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Loader = () => {
+
   const classes = useStyles();
   const { showLoader } = useContext(RootContext);
+
   return (
     <Backdrop className={classes.backdrop} open={showLoader}>
       <div className={classes.contentContainer}>

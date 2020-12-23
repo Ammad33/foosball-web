@@ -2,24 +2,23 @@ import React from 'react';
 import { Grid, InputAdornment, Dialog } from '@material-ui/core';
 import styles from './EditProduct.module.scss';
 import TextField from '../../../../../components/TextField';
-import { HelpCircle, Search } from 'react-feather';
+import { Search } from 'react-feather';
 import Chip from '@material-ui/core/Chip';
-import DoneIcon from '@material-ui/icons/Done';
 import SVG from 'react-inlinesvg';
 
 
 const Done = () => {
 	return (
-	<span className={styles.doneIcon}>
-  	 <SVG src={require('../../../../../assets/check.svg')} />
-	</span>
+		<span className={styles.doneIcon}>
+			<SVG src={require('../../../../../assets/check.svg')} />
+		</span>
 	)
 };
 
-const EditProduct = ({ open, handleChange, closeAdd }) => {
-	 const handleDelete = () => {
-    console.info('You clicked the delete icon.');
-  };
+const EditProduct = ({ open, closeAdd }) => {
+	const handleDelete = () => {
+		console.info('You clicked the delete icon.');
+	};
 
 
 	return (

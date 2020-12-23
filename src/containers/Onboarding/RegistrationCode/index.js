@@ -48,7 +48,6 @@ const RegistrationCode = ({
     <Grid container spacing={3}>
       <Grid item xs={3} className={styles.root}>
         <input
-          id='input-code-1'
           maxlength='1'
           value={first}
           type='text'
@@ -61,7 +60,6 @@ const RegistrationCode = ({
       </Grid>
       <Grid item xs={3} className={styles.root}>
         <input
-          id='input-code-2'
           maxlength='1'
           value={second}
           type='text'
@@ -73,7 +71,6 @@ const RegistrationCode = ({
       </Grid>
       <Grid item xs={3} className={styles.root}>
         <input
-          id='input-code-3'
           maxlength='1'
           value={third}
           type='text'
@@ -85,7 +82,6 @@ const RegistrationCode = ({
       </Grid>
       <Grid item xs={3} className={styles.root}>
         <input
-          id='input-code-4'
           maxlength='1'
           value={fourth}
           type='text'

@@ -52,7 +52,6 @@ const LeftSideDrawer = () => {
           setActiveRoute('Reports');
           history.push('/reports');
         }}
-        title={'Reports'}
       />
 
       <ListItem
@@ -73,13 +72,6 @@ const LeftSideDrawer = () => {
           history.push('/contacts');
         }}
         title={'Contacts'}
-      />
-
-      <ListItem
-        icon={<IconWallet />}
-        active={activeRoute === 'Wallets' ? true : false}
-        title={'Wallets'}
-        onClick={() => setActiveRoute('Wallets')}
       />
     </>
   );

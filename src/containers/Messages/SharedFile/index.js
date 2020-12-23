@@ -1,31 +1,17 @@
 import React, { useState } from 'react';
 import styles from './SharedFile.module.scss';
-import mainStyles from './../../../index.module.scss';
-import clsx from 'clsx';
-import { Avatar } from '@material-ui/core';
-import AvatarGroup from '@material-ui/lab/AvatarGroup';
-import { Popover } from '@material-ui/core';
 import Image1 from '../../../assets/dummygrey';
 import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { Download } from 'react-feather';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import IconButton from '@material-ui/core/IconButton';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import { makeStyles } from '@material-ui/core/styles';
+
 
 
 const SharedFile = ({ }) => {
@@ -71,8 +57,8 @@ const SharedFile = ({ }) => {
 				open={imageOpen}
 				onClose={handleCloseImage}
 				aria-labelledby="responsive-dialog-title"
-			>	<div className={styles.dialogTitleContainer}> 
-				<DialogTitle id="responsive-dialog-title" className={styles.dialogTitle}><Download /></DialogTitle></div>
+			>	<div className={styles.dialogTitleContainer}>
+					<DialogTitle id="responsive-dialog-title" className={styles.dialogTitle}><Download /></DialogTitle></div>
 				<DialogContent >
 					<DialogContentText>
 						<img
