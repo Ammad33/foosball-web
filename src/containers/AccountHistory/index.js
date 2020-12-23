@@ -12,7 +12,6 @@ const AccountHistory = () => {
 	const [expanded, setExpanded] = React.useState((0));
 
 	const handleExpandClick = (event , index) => {
-		debugger;
 		if (expanded == event.currentTarget.dataset["target"]){
 			setExpanded(0)
 		}
