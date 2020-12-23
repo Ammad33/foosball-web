@@ -1615,7 +1615,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         confirmText={'Keep working'}
         onCancel={handleCancelCDialog}
         onConfirm={handleConfirmCDialog}
-        message={Translation.DIALOG.CAMPAIGN_CDIALOG_MSG}
+        message={campaign ? 'Are you sure you want to exit? You will lose any updates to this campaign since your last save.' : Translation.DIALOG.CAMPAIGN_CDIALOG_MSG}
       />
     </>
   );
