@@ -29,12 +29,12 @@ const BrandProfile = () => {
               )}
             </div>
           </div>
-          {!isOwner ? (
+          {isOwner ? (
+            ''
+          ) : (
             <div className={styles.buttonContainer}>
               <button className={styles.addButton}>Add to Prospects</button>
             </div>
-          ) : (
-            ''
           )}
         </div>
         <div className={styles.profileDetails}>
