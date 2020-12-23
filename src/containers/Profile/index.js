@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { RootContext } from './../../context/RootContext';
 
 import BrandProfile from './BrandProfile';
@@ -8,12 +8,11 @@ const Profile = () => {
 	const {
 		brandType
 	} = useContext(RootContext);
-	debugger;
 	return (
 		<>
 			<div>
-				{brandType === 'Brand'? (<BrandProfile />) : (<InfluencerProfile />) }
-		</div>
+				{brandType === 'Brand' ? (<BrandProfile />) : (<InfluencerProfile />)}
+			</div>
 		</>
 	)
 };

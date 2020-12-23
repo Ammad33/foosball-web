@@ -26,7 +26,6 @@ const frames = [];
 for (let i = 1; i <= 15; i += 1) {
   frames.push(i);
 }
-// debugger;
 
 const CreateDeliverable = ({
   index,
@@ -55,7 +54,7 @@ const CreateDeliverable = ({
   }, [deliverableItem.platform]);
 
   const handlePostType = (value, index, name) => {
-    if (value == 'Post') {
+    if (value === 'Post') {
       setPost(true);
       handleDilverableContent(value, index, name);
     } else {
@@ -64,11 +63,11 @@ const CreateDeliverable = ({
     }
   };
   const handleSocialPlatform = (value, index, name) => {
-    if (value == 'Youtube') {
+    if (value === 'Youtube') {
       setOptions(true);
       setPost(true);
       handleDilverableContent(value, index, name);
-    } else if (value == 'Tiktok') {
+    } else if (value === 'Tiktok') {
       setOptions(true);
       setPost(true);
       handleDilverableContent(value, index, name);
@@ -279,17 +278,17 @@ const CreateDeliverable = ({
                 }}
               />
             ) : (
-              <RadioButtonUncheckedIcon
-                className={styles.svgDisabled}
-                onClick={() =>
-                  handleDilverableContent(
-                    !deliverableItem.brandTagRequired,
-                    index,
-                    'brandTagRequired'
-                  )
-                }
-              />
-            )}
+                <RadioButtonUncheckedIcon
+                  className={styles.svgDisabled}
+                  onClick={() =>
+                    handleDilverableContent(
+                      !deliverableItem.brandTagRequired,
+                      index,
+                      'brandTagRequired'
+                    )
+                  }
+                />
+              )}
           </Grid>
           <Grid item xs={4}>
             <p
@@ -336,17 +335,17 @@ const CreateDeliverable = ({
                 }}
               />
             ) : (
-              <RadioButtonUncheckedIcon
-                className={styles.svgDisabled}
-                onClick={() =>
-                  handleDilverableContent(
-                    !deliverableItem.hashTagRequired,
-                    index,
-                    'hashTagRequired'
-                  )
-                }
-              />
-            )}
+                <RadioButtonUncheckedIcon
+                  className={styles.svgDisabled}
+                  onClick={() =>
+                    handleDilverableContent(
+                      !deliverableItem.hashTagRequired,
+                      index,
+                      'hashTagRequired'
+                    )
+                  }
+                />
+              )}
           </Grid>
           <Grid item xs={4}>
             <p

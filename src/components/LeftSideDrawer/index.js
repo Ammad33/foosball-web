@@ -2,11 +2,9 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import ListItem from './ListItem';
 import SVG from 'react-inlinesvg';
-import { Button } from '@material-ui/core';
-import { Auth } from 'aws-amplify';
 import { RootContext } from './../../context/RootContext';
 import styles from './LeftSide.module.scss';
-import { Users } from 'react-feather';
+import { Users, Mail } from 'react-feather';
 
 const IconProspects = () => {
   return <SVG src={require('../../assets/Prospects.svg')} />;
@@ -14,9 +12,7 @@ const IconProspects = () => {
 const IconCampaign = () => {
   return <SVG src={require('../../assets/Campaigns.svg')} />;
 };
-const IconMessages = () => {
-  return <SVG src={require('../../assets/Messages.svg')} />;
-};
+
 const IconReports = () => {
   return <SVG src={require('../../assets/Reports.svg')} />;
 };
@@ -26,14 +22,8 @@ const IconWallet = () => {
 };
 const LeftSideDrawer = () => {
   const history = useHistory();
-  const {
-    setCurrentUser,
-    setLogoutMessage,
-    currentUser,
-    activeRoute,
-    setActiveRoute,
-	} = useContext(RootContext);
-	
+  const { activeRoute, setActiveRoute } = useContext(RootContext);
+
   return (
     <>
       <ListItem
@@ -59,14 +49,13 @@ const LeftSideDrawer = () => {
         active={activeRoute === 'Reports' ? true : false}
         title={'Reports'}
         onClick={() => {
-					setActiveRoute('Reports')
-					history.push('/reports');
-				}}
-        title={'Reports'}
+          setActiveRoute('Reports');
+          history.push('/reports');
+        }}
       />
 
       <ListItem
-        icon={<IconMessages />}
+        icon={<Mail />}
         active={activeRoute === 'Messages' ? true : false}
         onClick={() => {
           setActiveRoute('Messages');
@@ -84,45 +73,6 @@ const LeftSideDrawer = () => {
         }}
         title={'Contacts'}
       />
-
-      <ListItem
-        icon={<IconWallet />}
-        active={activeRoute === 'Wallets' ? true : false}
-        title={'Wallets'}
-        onClick={() => setActiveRoute('Wallets')}
-      />
-
-      {/* <ListItem
-        icon={<IconSettings />}
-        active={activeRoute === 'Settings' ? true : false}
-        title={'Settings'}
-        onClick={() => {
-          setActiveRoute('Settings');
-          history.push('/settings');
-        }}
-      /> */}
-
-      {/* <div className={styles.logoutButton}>
-        <Button onClick={signOut} variant='contained' color='secondary'>
-          Logout
-        </Button>
-      </div> */}
-
-      {/* <div className={styles.tokenContainer}>
-        <p>Email: {currentUser.attributes.email}</p>
-        <p>Access Token: </p>
-        <p className={styles.token}>
-          {currentUser.signInUserSession.accessToken.jwtToken}
-        </p>
-        <p>Id Token: </p>
-        <p className={styles.token}>
-          {currentUser.signInUserSession.idToken.jwtToken}
-        </p>
-        <p>Refresh Token: </p>
-        <p className={styles.token}>
-          {currentUser.signInUserSession.refreshToken.token}
-        </p>
-      </div> */}
     </>
   );
 };

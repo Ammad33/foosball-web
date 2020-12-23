@@ -30,6 +30,8 @@ const CompensationDetail = ({ compensations, budget }) => {
                 return (<h6>${compensation.amount && compensation.amount.amount}</h6>);
             case 'CompGiftCard':
                 return (<h6>${compensation.amount && compensation.amount.amount}</h6>);
+            default:
+                return <h6></h6>;
         }
     }
 
@@ -44,6 +46,8 @@ const CompensationDetail = ({ compensations, budget }) => {
                 return (<h6>Amount Per Monthly Deliverable</h6>);
             case 'CompGiftCard':
                 return (<h6>Gift Card Amount</h6>);
+            default:
+                return <h6></h6>
         }
     }
 
@@ -58,6 +62,8 @@ const CompensationDetail = ({ compensations, budget }) => {
                 return (<p>{compensation.amount && compensation.amount.amount}$</p>);
             case 'CompGiftCard':
                 return (<p>{compensation.amount && compensation.amount.amount}$</p>);
+            default:
+                return <p></p>;
         }
     }
 

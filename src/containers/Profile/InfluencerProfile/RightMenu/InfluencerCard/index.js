@@ -1,28 +1,15 @@
-import React, {useState} from 'react';
-import { Edit } from 'react-feather';
+import React, { useState } from 'react';
 import styles from './InfluencerCard.module.scss';
-import moment from 'moment';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { Avatar } from '@material-ui/core';
-import clsx from 'clsx';
 import { Facebook, Youtube, Instagram } from 'react-feather';
-import InflencerBrandProfile from '../../../InfluencerProfile';
 import { useHistory } from 'react-router-dom';
 
-
-
-
 const InfluencerCard = ({ influencer }) => {
+
 	const history = useHistory();
-	const [influencerProfile, setInfluencerProfile] = useState(false);
-	// const handleInfluencerProfile = () => {
-	// 	setInfluencerProfile(true)
-	// 	debugger;
-	// 	return (
-			
-	// 	)
-	// }
+
 	return (
 		<div>
 			<Card
@@ -32,7 +19,7 @@ const InfluencerCard = ({ influencer }) => {
 				// )}
 				className={styles.influencerCard}
 				onClick={() => history.push('/influencerProfile')}
-				>
+			>
 				<CardContent className={styles.cardContent}>
 					<div className={styles.cardDetails}>
 						<div className={styles.personInfo}>
@@ -57,10 +44,6 @@ const InfluencerCard = ({ influencer }) => {
 					</div>
 				</CardContent>
 			</Card>
-
-
-
-
 		</div>
 	);
 };

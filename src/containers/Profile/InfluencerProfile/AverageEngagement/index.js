@@ -1,10 +1,6 @@
-import React, {useState} from 'react';
-import { Edit } from 'react-feather';
-import { InputAdornment, Grid, Avatar, Popover } from '@material-ui/core';
+import React from 'react';
+import { Grid } from '@material-ui/core';
 import styles from './AverageEngagement.module.scss';
-import moment from 'moment';
-import clsx from 'clsx';
-import DataImage from '../../../../assets/dummy.png';
 import SVG from 'react-inlinesvg';
 
 const Facebook = () => {
@@ -41,7 +37,7 @@ const Twitch = () => {
 
 
 
-const AverageEngagement = ({ handleEdit }) => {
+const AverageEngagement = () => {
 
 	return (
 		<div className={styles.postContainer}>
@@ -51,38 +47,38 @@ const AverageEngagement = ({ handleEdit }) => {
 			<Grid container spacing={1} >
 				<Grid item md={5}>
 					<div className={styles.mainDiv}>
-							<Instagram />
-							<div className={styles.iconDescription}> 60.8% Engagement</div>
+						<Instagram />
+						<div className={styles.iconDescription}> 60.8% Engagement</div>
 					</div>
 				</Grid>
 				<Grid item md={5}>
 					<div className={styles.mainDiv}>
-							<Youtube />
-							<div className={styles.iconDescription}> 60.8% Engagement</div>
+						<Youtube />
+						<div className={styles.iconDescription}> 60.8% Engagement</div>
 					</div>
 				</Grid>
 				<Grid item md={5}>
 					<div className={styles.mainDiv}>
-							<Facebook />
-							<div className={styles.iconDescription}> 60.8% Engagement</div>
+						<Facebook />
+						<div className={styles.iconDescription}> 60.8% Engagement</div>
 					</div>
 				</Grid>
 				<Grid item md={5}>
 					<div className={styles.mainDiv}>
-							<TikTok />
-							<div className={styles.iconDescription}> 60.8% Engagement</div>
+						<TikTok />
+						<div className={styles.iconDescription}> 60.8% Engagement</div>
 					</div>
 				</Grid>
 				<Grid item md={5}>
 					<div className={styles.mainDiv}>
-							<Twitter />
-							<div className={styles.iconDescription}> 60.8% Engagement</div>
+						<Twitter />
+						<div className={styles.iconDescription}> 60.8% Engagement</div>
 					</div>
 				</Grid>
 				<Grid item md={5}>
 					<div className={styles.mainDiv}>
-							<Twitch />
-							<div className={styles.iconDescription}> 60.8% Engagement</div>
+						<Twitch />
+						<div className={styles.iconDescription}> 60.8% Engagement</div>
 					</div>
 				</Grid>
 			</Grid>

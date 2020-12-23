@@ -7,8 +7,7 @@ import {
   Download,
   Mail,
   Link,
-  Copy,
-  Trash
+  Copy
 } from 'react-feather';
 import clsx from 'clsx';
 import Performance from '../Performance';
@@ -23,7 +22,7 @@ import LiveCard from '../LiveCard';
 import { useHistory } from 'react-router-dom';
 import _ from 'lodash';
 
-const LiveInfluencer = ({ handleDelete, handleEdit, data, handleSeeClick, getTotal, name }) => {
+const LiveInfluencer = ({ handleEdit, data, handleSeeClick, getTotal, name }) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -90,13 +89,15 @@ const LiveInfluencer = ({ handleDelete, handleEdit, data, handleSeeClick, getTot
               label={'Live'}
             />
             <div className={styles.borderDiv}></div>
-            <div className={styles.avatarContainer}>
-              <Avatar
-                className={styles.avatar}
-                src='https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80'
-              />
-              <span>Care of</span>
-            </div>
+            {data && data.brand &&
+              <div className={styles.avatarContainer}>
+                <Avatar
+                  className={styles.avatar}
+                  src={data.brand.imageUrl}
+                />
+                <span>{data.brand.name}</span>
+              </div>
+            }
           </div>
           <MoreVertical onClick={handleClick} />
         </div>

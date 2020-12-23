@@ -5,7 +5,10 @@ import { Avatar } from '@material-ui/core';
 import ChipButton from './../../../components/ChipButton';
 
 
-const TeamMembers = ({ onClick, handleEdit, seeAll, brandTeam }) => {
+const TeamMembers = ({ onClick, handleEdit, brandTeam }) => {
+
+  const team = brandTeam && brandTeam.length > 0 ? brandTeam.slice(0, 5) : [];
+
   return (
     <div className={styles.mainContainer}>
       <div className={styles.headerContainer}>
@@ -15,7 +18,7 @@ const TeamMembers = ({ onClick, handleEdit, seeAll, brandTeam }) => {
       <div className={styles.membersContainer}>
         {brandTeam && brandTeam.length > 0 ?
           <>
-            {brandTeam.map((member) => {
+            {team.map((member) => {
               return (
                 <div className={styles.memberItem}>
                   <Avatar src={member.imageUrl} />

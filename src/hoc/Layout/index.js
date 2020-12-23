@@ -66,14 +66,7 @@ function ResponsiveDrawer(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [meData, setMeData] = useState([]);
 
-  const {
-    setBrandIdd,
-    brands,
-    brandName,
-    setBrandName,
-    brandType,
-    setBrandType,
-  } = useContext(RootContext);
+  const { brandType } = useContext(RootContext);
 
   useEffect(() => {
     myData();
@@ -101,6 +94,9 @@ function ResponsiveDrawer(props) {
 										name
 										}
 									}
+									roles {
+										id
+									}
 									imageUrl
 									email
 								}
@@ -115,11 +111,10 @@ function ResponsiveDrawer(props) {
 						}
 				}`,
       });
-      // setBrandId(mydata.data.me.organizations[0].organization.id);
       setMeData(mydata.data.me);
-      // setBrandType(mydata.data.me.organizations[0].organization.__typename)
     } catch (e) {
       console.log(e);
+      // setMeData(e.mydata.data.me);
     }
   };
 

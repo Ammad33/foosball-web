@@ -15,12 +15,12 @@ import LiveInfluencer from '../LiveInfluencer';
 import DeclineInfluencer from '../DeclineInfluencer';
 import DraftBrandCampaignDetail from '../DraftBrandCampaignDetail';
 import _ from 'lodash';
-import { parse } from 'path';
 
-const CampaignDetailInfluencer = ({ status, handleDelete, addCampaign, setAddCampagin, data, addInTeam,
+const CampaignDetailInfluencer = ({ headingValue, status, handleDelete, addCampaign, setAddCampagin, data, addInTeam,
   removeInTeam, search,
   handleSearch, selectedMembers,
-  team, updateCampaign }) => {
+  team, updateCampaign, setAll
+}) => {
 
   const [openDrawer, setOpenDrawer] = useState(false);
   const [step, setStep] = useState(1);
@@ -29,6 +29,37 @@ const CampaignDetailInfluencer = ({ status, handleDelete, addCampaign, setAddCam
   const handleEdit = (step) => {
     setAddCampagin(true);
     setStep(step);
+  };
+
+  const handleActiveStep = () => {
+
+    let negotialble = true;
+    Object.values(data.negotiables).map(item => {
+      if (item === true) {
+        negotialble = false;
+      }
+    });
+
+
+    if ((data.discount && data.discount.percentage && data.discount.percentage === "" || data.discount.amount && data.discount.amount.amount === '') || data.invitationMessage === "") {
+      setStep(1);
+      setAddCampagin(true);
+    } else if ((data.budget.amount === "") || (data.targetGrossSales.amount === "")) {
+      setStep(3);
+      setAddCampagin(true);
+    } else if (data.deliverables && data.deliverables.length === 0) {
+      setStep(5);
+      setAddCampagin(true);
+    } else if (data.compensation && data.compensation.length === 0) {
+      setStep(6);
+      setAddCampagin(true);
+    } else if (negotialble) {
+      setStep(7);
+      setAddCampagin(true);
+    } else if (data.influencer === null) {
+      setStep(8);
+      setAddCampagin(true);
+    }
   };
 
   const handleCloseDrawer = () => {
@@ -50,9 +81,9 @@ const CampaignDetailInfluencer = ({ status, handleDelete, addCampaign, setAddCam
             getTotal={getTotal}
             name={data && data.name}
             handleDelete={handleDelete}
-
-
-
+            handleActiveStep={handleActiveStep}
+            setAll={setAll}
+            headingValue={headingValue}
           />
         );
       case 'CLOSED':
@@ -137,7 +168,7 @@ const CampaignDetailInfluencer = ({ status, handleDelete, addCampaign, setAddCam
       case 'Activity':
         return <ActivityDetail />;
       case 'Deliverable':
-        return <DeliverablesDetail />;
+        return <DeliverablesDetail deliverables={data && data.deliverables} />;
       case 'Compensation':
         return <CompensationDetail compensations={data && data.compensation && data.compensation !== null ? _.compact(data.compensation) : []} budget={data.budget.amount} />;
       case 'TeamMembers':

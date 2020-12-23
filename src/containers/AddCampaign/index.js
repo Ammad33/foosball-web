@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -427,10 +427,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   useEffect(() => {
     getTeam();
   }, [brandId]);
-
-  // useEffect(() => {
-  //   setActiveNext(true);
-  // });
 
   useEffect(() => {
     getInfluencers();
@@ -1114,7 +1110,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   /************* Active for deliverable */
 
   const setActiveForDeliverables = () => {
-    //debugger;
     const deliverables = [...deliveries];
 
     let flag = true;
@@ -1620,7 +1615,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         confirmText={'Keep working'}
         onCancel={handleCancelCDialog}
         onConfirm={handleConfirmCDialog}
-        message={Translation.DIALOG.CAMPAIGN_CDIALOG_MSG}
+        message={campaign ? 'Are you sure you want to exit? You will lose any updates to this campaign since your last save.' : Translation.DIALOG.CAMPAIGN_CDIALOG_MSG}
       />
     </>
   );

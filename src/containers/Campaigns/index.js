@@ -6,7 +6,7 @@ import AddIcon from '@material-ui/icons/Add';
 import styles from './Campaings.module.scss';
 import AddCampaign from '../AddCampaign';
 import { useHistory } from 'react-router-dom';
-import { API } from 'aws-amplify';
+import { API, graphqlOperation } from 'aws-amplify';
 import SVG from 'react-inlinesvg';
 import { RootContext } from '../../context/RootContext';
 
@@ -18,10 +18,20 @@ const Campaigns = () => {
   const history = useHistory();
   const [active, setActive] = useState('ALL');
   const [campaigns, setCampaigns] = useState([]);
+  const [bkupCampaigns, setBkupCampaigns] = useState([]);
   const [addCampaign, setAddCampagin] = useState(false);
   const [meData, setMeData] = useState([]);
-  const [brandName, setBrandName] = useState([]);
-  const { brandId, setBrands } = useContext(RootContext);
+  const {
+    brandId,
+    setBrands,
+    searchValue,
+    brandType,
+    setInfluencers,
+    setBrandIdd,
+    setBrandName,
+    setShowLoader,
+  } = useContext(RootContext);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!brandId || brandId === '') {
@@ -49,6 +59,9 @@ const Campaigns = () => {
 									}
 									imageUrl
 									email
+									roles {
+										id
+									}
 								}
 							}
 							about
@@ -62,17 +75,56 @@ const Campaigns = () => {
 				}`,
       });
 
-      setBrands(mydata.data.me.organizations);
-      // setBrandId(mydata.data.me.organizations[0].organization.id);
-      // setBrandIdd(mydata.data.me.organizations[0].organization.id);
+      let brandsData = [];
+      let influencersData = [];
+      mydata.data.me.organizations !== null &&
+        mydata.data.me.organizations.forEach((item) => {
+          if (item.organization.__typename === 'Influencer') {
+            influencersData.push(item);
+          } else if (item.organization.__typename === 'Brand') {
+            brandsData.push(item);
+          }
+        });
+      setBrands(brandsData);
+      setInfluencers(influencersData);
+      if (brandsData.length > 0) {
+        setBrandName(brandsData[0].organization.name);
+        setBrandIdd(brandsData[0].organization.id);
+      } else if (influencersData.length > 0) {
+        setBrandName(influencersData[0].organization.name);
+        setBrandIdd(influencersData[0].organization.id);
+      }
       setMeData(mydata.data.me.organizations);
-      setBrandName(mydata.data.me.organizations[0].organization.__typename);
     } catch (e) {
-      console.log(e);
+      if (e.data) {
+        let brandsData = [];
+        let influencersData = [];
+        e.data.me.organizations !== null &&
+          e.data.me.organizations.forEach((item) => {
+            if (item.organization.__typename === 'Influencer') {
+              influencersData.push(item);
+            } else if (item.organization.__typename === 'Brand') {
+              brandsData.push(item);
+            }
+          });
+        setBrands(brandsData);
+        setInfluencers(influencersData);
+        if (brandsData.length > 0) {
+          setBrandName(brandsData[0].organization.name);
+          setBrandIdd(brandsData[0].organization.id);
+        } else if (influencersData.length > 0) {
+          setBrandName(influencersData[0].organization.name);
+          setBrandIdd(influencersData[0].organization.id);
+        }
+        setMeData(e.data.me.organizations);
+      }
     }
   };
+
   const getCampaigns = async () => {
     try {
+      setLoading(true);
+      setShowLoader(true);
       const campaigns = await API.graphql({
         query: `{
         campaigns(brandId: "${brandId}") {
@@ -88,7 +140,13 @@ const Campaigns = () => {
       }`,
       });
       setCampaigns(campaigns.data.campaigns.campaigns);
-    } catch (e) {}
+      setBkupCampaigns(campaigns.data.campaigns.campaigns);
+      setLoading(false);
+      setShowLoader(false);
+    } catch (e) {
+      setLoading(false);
+      setShowLoader(false);
+    }
   };
 
   useEffect(() => {
@@ -97,6 +155,41 @@ const Campaigns = () => {
       getCampaigns();
     }
   }, [brandId, addCampaign]);
+
+  useEffect(() => {
+    searchCampaigns();
+  }, [searchValue]);
+
+  const searchCampaigns = () => {
+    let copiedCampaigns = [...bkupCampaigns];
+    if (searchValue.trim()) {
+      copiedCampaigns = copiedCampaigns.filter((campaign) => {
+        return (
+          campaign.name.toLowerCase().indexOf(searchValue.toLowerCase()) > -1
+        );
+      });
+    }
+    setCampaigns(copiedCampaigns);
+  };
+
+  const handleDelete = async (campaignId) => {
+    try {
+      await API.graphql(
+        graphqlOperation(
+          `mutation deleteCampaign($brandId: ID!, $id: ID!) {
+          deleteCampaign(brandId: $brandId, id:$id)
+        }`,
+          {
+            brandId: brandId,
+            id: campaignId,
+          }
+        )
+      );
+      getCampaigns();
+    } catch (e) {
+      console.log('delete campaign error ', e);
+    }
+  };
 
   return (
     <>
@@ -115,9 +208,13 @@ const Campaigns = () => {
               Most recent <ExpandMoreIcon fontSize='small' />
             </p>
           </div>
-          <button onClick={() => setAddCampagin(true)}>
-            <AddIcon /> New Campaign
-          </button>
+          {brandType === 'Brand' ? (
+            <button onClick={() => setAddCampagin(true)}>
+              <AddIcon /> New Campaign
+            </button>
+          ) : (
+              ''
+            )}
         </div>
         <div className={styles.CampaignHeadingButton}>
           <button
@@ -126,12 +223,21 @@ const Campaigns = () => {
           >
             All
           </button>
-          <button
-            className={active === 'DRAFT' ? styles.draftActive : ''}
-            onClick={() => setActive('DRAFT')}
-          >
-            Draft
-          </button>
+          {brandType === 'Brand' ? (
+            <button
+              className={active === 'DRAFT' ? styles.draftActive : ''}
+              onClick={() => setActive('DRAFT')}
+            >
+              Draft
+            </button>
+          ) : (
+              <button
+                className={active === 'INVITE' ? styles.inviteActive : ''}
+                onClick={() => setActive('INVITE')}
+              >
+                Invite
+              </button>
+            )}
           <button
             className={active === 'PENDING' ? styles.pendingActive : ''}
             onClick={() => setActive('PENDING')}
@@ -150,14 +256,23 @@ const Campaigns = () => {
           >
             Closed
           </button>
-          <button
-            className={active === 'LAST' ? styles.lostActive : ''}
-            onClick={() => setActive('LAST')}
-          >
-            Lost
-          </button>
+          {brandType === 'Brand' ? (
+            <button
+              className={active === 'LAST' ? styles.lostActive : ''}
+              onClick={() => setActive('LAST')}
+            >
+              Lost
+            </button>
+          ) : (
+              <button
+                className={active === 'DECLINED' ? styles.declinedActive : ''}
+                onClick={() => setActive('DECLINED')}
+              >
+                Declined
+              </button>
+            )}
         </div>
-        {campaigns.length == 0 ? (
+        {campaigns.length === 0 && !loading ? (
           <Grid
             container
             spacing={0}
@@ -180,8 +295,8 @@ const Campaigns = () => {
             </Grid>
           </Grid>
         ) : (
-          ''
-        )}
+            ''
+          )}
         <Grid container spacing={3}>
           {campaigns.length > 0 &&
             campaigns.map((campaign) => {
@@ -189,13 +304,14 @@ const Campaigns = () => {
                 return null;
               }
               return (
-                <Grid
-                  className={styles.gridItem}
-                  item
-                  key={campaign.id}
-                  onClick={() => history.push(`/campaignDetail/${campaign.id}`)}
-                >
-                  <CampaignsCard campaign={campaign} />
+                <Grid className={styles.gridItem} item key={campaign.id}>
+                  <CampaignsCard
+                    campaign={campaign}
+                    onClick={() =>
+                      history.push(`/campaignDetail/${campaign.id}`)
+                    }
+                    handleDelete={handleDelete}
+                  />
                 </Grid>
               );
             })}

@@ -26,6 +26,9 @@ import Contacts from './containers/Contacts';
 import Profile from './containers/Profile';
 import InfluencerProfile from './containers/Profile/InfluencerProfile';
 import BrandProfile from './containers/Profile/BrandProfile';
+import Team from './containers/Team';
+import Loader from './containers/Loader';
+import AccountHistory from './containers/AccountHistory';
 
 const App = () => {
   return (
@@ -60,6 +63,11 @@ const App = () => {
           <ProtectedRoute exact path='/addCampaign'>
             <AddCampaign />
           </ProtectedRoute>
+          <ProtectedRoute exact path='/team'>
+            <Layout>
+              <Team />
+            </Layout>
+          </ProtectedRoute>
           <ProtectedRoute exact path='/settings'>
             <Layout>
               <Settings />
@@ -88,6 +96,11 @@ const App = () => {
           <ProtectedRoute exact path='/contacts'>
             <Layout>
               <Contacts />
+            </Layout>
+          </ProtectedRoute>
+					<ProtectedRoute exact path='/accountHistory'>
+            <Layout>
+              <AccountHistory />
             </Layout>
           </ProtectedRoute>
           <ProtectedRoute exact path='/posts'>
@@ -139,6 +152,7 @@ const App = () => {
           <Redirect exact from='/' to='/campaigns' />
         </Switch>
       </HashRouter>
+      <Loader />
     </RootContext>
   );
 };

@@ -17,8 +17,6 @@
   padding: 0 !important;
   height: 100%;
   .cardStatus {
-    min-height: 25px;
-    max-height: 25px;
     font-size: 13px !important;
     .alertBadge {
       background-color: $danger;
@@ -35,9 +33,12 @@
       }
     }
   }
+
   .cardDetails {
-    padding: 10px 10px 0px 32px;
+		padding: 0px 10px 0px 32px;
+		height: 100%;
     display: flex;
+    align-items: center;
     gap: 5px;
     flex: auto;
     .campaignInfo {
@@ -55,52 +56,51 @@
 			.wrapChip{
 				display: flex;
 				color: #3481EF;
+				margin-top: 14px;
 			
 				.statusDraft {
 					width: fit-content;
 					height: 28px;
-					margin-top: 20px;
+					
 					background-color: #3481EF;
 					color: #FFFFFF;
 					font-family: Poppins;
 					font-size: 13px;
 					letter-spacing: 0;
 					line-height: 20px;
-					text-transform: lowercase;
+					// text-transform: lowercase;
 				}
 				.statusPending{
 					width: fit-content;
 					height: 28px;
-					margin-top: 20px;
 					background-color: #5D6FD3;
 					color: #FFFFFF;
 					font-family: Poppins;
 					font-size: 13px;
 					letter-spacing: 0;
 					line-height: 20px;
-					text-transform: lowercase;
+					// text-transform: lowercase;
 				}
 				.statusLive{
 					width: fit-content;
 					height: 28px;
-					margin-top: 20px;
 					background-color: #7B5CD9;
 					color: #FFFFFF;
 					font-family: Poppins;
 					font-size: 13px;
 					letter-spacing: 0;
 					line-height: 20px;
-					text-transform: lowercase;
-				}
+					// text-transform: lowercase;
+        }
+        
+
 				
 				.personAvatar {
-					margin-top: 17px;
 					margin-left: 33px;
 					height: 30px;
 					width: 30px;
 				}
 			  .mediaTag {
-					margin-top: 21px;
 					margin-left: 5px;
 					color: #000000;
 					font-family: Poppins;
@@ -110,6 +110,9 @@
 				}
 			}
     }
+    .iconInfo {
+      margin-right: 20px;
+    }
     .personInfo {
       text-align: center;
       min-width: 100px;
@@ -117,6 +120,32 @@
       margin-top: 15px;
     
     }
+  }
+}
+
+.popOver {
+  width: 284px;
+  background-color: #ffffff;
+  box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.16);
+  padding: 35px 28px;
+
+  div {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+    cursor: pointer;
+    margin-bottom: 40px;
+    p {
+      color: $dark1;
+      font-family: Poppins;
+      font-size: 18px;
+      letter-spacing: 0;
+      line-height: 27px;
+    }
+  }
+  :last-child {
+    margin-bottom: 0px;
   }
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../InfluencerCampaignDetail/InfluencerCampaignDetail.module.scss';
 import { Avatar, Chip, Popover } from '@material-ui/core';
-import { ChevronRight, MoreVertical, Download, Mail, X } from 'react-feather';
+import { ChevronRight, MoreVertical, Download, Mail } from 'react-feather';
 import clsx from 'clsx';
 import Activity from '../Activity';
 import CampaignDetail from '../CampaignDetail';
@@ -69,13 +69,15 @@ const InviteInfluencer = ({ handleEdit, data, handleSeeClick, getTotal, name }) 
               label={'Invite'}
             />
             <div className={styles.borderDiv}></div>
-            <div className={styles.avatarContainer}>
-              <Avatar
-                className={styles.avatar}
-                src='https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80'
-              />
-              <span>Care of</span>
-            </div>
+            {data && data.brand &&
+              <div className={styles.avatarContainer}>
+                <Avatar
+                  className={styles.avatar}
+                  src={data.brand.imageUrl}
+                />
+                <span>{data.brand.name}</span>
+              </div>
+            }
           </div>
           <MoreVertical onClick={handleClick} />
         </div>

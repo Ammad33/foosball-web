@@ -15,14 +15,6 @@ for (let i = 3; i <= 20; i += 1) {
   options.push(i);
 }
 
-const PlusSVG = () => {
-  return <SVG src={require('../../../../assets/plus1.svg')} />;
-};
-
-const MinusSVG = () => {
-  return <SVG src={require('../../../../assets/minus1.svg')} />;
-};
-
 const Chevron = () => {
   return (
     <span className={styles.dropDownCustomizeSvg}>
@@ -47,10 +39,10 @@ const CreateCompensation = ({
   giftCode,
   handleGiftCode
 }) => {
+
   useEffect(() => {
     handleActiveForCompensationProduct();
   }, [compensations]);
-  console.log(item);
 
   return (
     <Grid container spacing={3}>

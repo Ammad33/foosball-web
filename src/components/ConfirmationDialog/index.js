@@ -4,6 +4,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Dialog from '@material-ui/core/Dialog';
 import styles from './ConfirmationDialog.module.scss';
 import globalStyles from '../../index.module.scss';
+
 const CDialog = ({
   onCancel,
   onConfirm,

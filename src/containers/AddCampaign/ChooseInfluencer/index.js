@@ -18,7 +18,7 @@ const ChooseInfluencer = ({
         {influencers.map((influencer) => {
           const index =
             selectedInfluncer !== null &&
-            selectedInfluncer.name === influencer.name
+              selectedInfluncer.name === influencer.name
               ? true
               : false;
           return (
@@ -29,7 +29,6 @@ const ChooseInfluencer = ({
               className={styles.gridItem}
               style={{ marginTop: 20 }}
               key={influencer.socialTag}
-              item
             >
               <InfluencerCard
                 influencer={influencer}

@@ -14,7 +14,6 @@ const ProtectedRoute = ({ children, ...routeProps }) => {
           currentUser !== null &&
           currentUser.signInUserSession.idToken.jwtToken
         ) {
-          // if (true) {
           return children;
         } else {
           return <Redirect to={'/login'} />;

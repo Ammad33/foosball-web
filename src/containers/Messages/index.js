@@ -11,6 +11,12 @@ import { Popover } from '@material-ui/core';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import { Avatar } from '@material-ui/core';
 import Chat from './Chat';
+import SharedFile from './SharedFile';
+import SVG from 'react-inlinesvg';
+
+const ChevronSVG = () => {
+  return <SVG src={require('../../assets/chevron-down.svg')} />;
+};
 
 const allConversations = [
   {
@@ -231,6 +237,7 @@ const Messages = () => {
   const [displayedConversations, setDisplayedConversations] = useState(
     allConversations
   );
+  const [sharedFilesSelected, setSharedFilesSelected] = useState(false);
   const [anchorEl2, setAnchorEl2] = useState(null);
   const open2 = Boolean(anchorEl2);
   const id2 = open2 ? 'simple-popover2' : undefined;
@@ -239,6 +246,17 @@ const Messages = () => {
   };
   const handleClick2 = (event) => {
     setAnchorEl2(event.currentTarget);
+  };
+  const handleSharedFiles = () => {
+    setAnchorEl(null);
+    setSharedFilesSelected(true);
+  };
+  const handleBack = () => {
+    setSharedFilesSelected(false);
+  };
+
+  const handleSelectedConversation = (conversation, index) => {
+    setSelectedConversation(conversation);
   };
 
   const [anchorEl, setAnchorEl] = useState(null);

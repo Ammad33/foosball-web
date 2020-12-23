@@ -20,10 +20,10 @@ const BrandConnectAccounts = () => {
 
   return (
     <div className={styles.mainContainer}>
-      <h5>
+      <p>
         Connecting your shopify account allows us to populate your products so
         you can create successful campaigns
-      </h5>
+      </p>
       <div className={styles.contentContainer}>
         <img
           className={styles.shopifyLogo}

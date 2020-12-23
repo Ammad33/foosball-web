@@ -4,7 +4,9 @@ import { Edit } from 'react-feather';
 import { useHistory } from 'react-router-dom';
 
 const Collections = ({ handleEdit, removeSeeAll }) => {
+
   const history = useHistory();
+
   return (<div className={styles.collectionContainer}>
     <div className={styles.headerContainer}>
       <h1>Collection</h1>
@@ -62,7 +64,7 @@ const Collections = ({ handleEdit, removeSeeAll }) => {
         </div>
       </div>
     </div>
-    {removeSeeAll == true ? null : <button onClick={() => history.push('/collections')} >See all</button>}
+    {removeSeeAll === true ? null : <button onClick={() => history.push('/collections')} >See all</button>}
   </div>);
 }
 

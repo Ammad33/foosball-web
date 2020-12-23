@@ -12,6 +12,8 @@ const DeliverablesDetail = ({ deliverables }) => {
         return 'in Week';
       case 'MONTH':
         return 'in Month';
+      default:
+        return '';
     }
   };
 
@@ -58,8 +60,8 @@ const DeliverablesDetail = ({ deliverables }) => {
               <p>
                 {deliverable
                   ? `${deliverable.posts} posts ${getPostFrequency(
-                      deliverable.frequency
-                    )}`
+                    deliverable.frequency
+                  )}`
                   : ''}
               </p>
             </div>

@@ -1,15 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import styles from './Reports.module.scss';
-import { useHistory } from 'react-router-dom';
-import { API } from 'aws-amplify';
-import SVG from 'react-inlinesvg';
-import { RootContext } from '../../context/RootContext';
 
 
 const Reports = () => {
-	const history = useHistory();
+
 	const [active, setActive] = useState('ALL')
 
 	useEffect(() => {
