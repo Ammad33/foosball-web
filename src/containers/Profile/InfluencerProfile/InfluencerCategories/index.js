@@ -5,7 +5,7 @@ import Chip from '@material-ui/core/Chip';
 import { Popover } from '@material-ui/core';
 import EditInfluencerCategories from './EditInfluencerCategories';
 
-const InfluencerCategories = ({ viewInfluencerProfile }) => {
+const InfluencerCategories = ({ isOwner }) => {
 	const [editOpen, setEditOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -16,16 +16,24 @@ const InfluencerCategories = ({ viewInfluencerProfile }) => {
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
 	return (
-		<div
-			className={styles.influencerInfoContainer}
-		>
+		<div className={styles.influencerInfoContainer}>
 			<div className={styles.headerContainer}>
 				<h1>Influencing Categories</h1>
-				{viewInfluencerProfile ? (
-					''
-				) : (<Edit onClick={() => { setEditOpen(true); setAnchorEl(null) }} />)}
+				{isOwner ? (
+					<Edit
+						onClick={() => {
+							setEditOpen(true);
+							setAnchorEl(null);
+						}}
+					/>
+				) : (
+						''
+					)}
 			</div>
-			<EditInfluencerCategories open={editOpen} closeAdd={() => setEditOpen(false)} />
+			<EditInfluencerCategories
+				open={editOpen}
+				closeAdd={() => setEditOpen(false)}
+			/>
 			<Popover
 				id={id}
 				open={open}
@@ -39,35 +47,40 @@ const InfluencerCategories = ({ viewInfluencerProfile }) => {
 					vertical: 'top',
 					horizontal: 'right',
 				}}
-			>
-			</Popover>
+			></Popover>
 
 			<div className={styles.detailSubContent}>
 				<Chip
-					size="medium"
-					label="Active Lifestyle"
+					size='medium'
+					label='Active Lifestyle'
 					className={styles.Lifestyle}
+				// onClick={}
 				/>
 				<Chip
-					size="medium"
-					label="Beauty"
+					size='medium'
+					label='Beauty'
 					className={styles.Beauty}
+
+				// onClick={}
 				/>
 				<Chip
-					size="medium"
-					label="Clean Editing"
+					size='medium'
+					label='Clean Editing'
 					className={styles.Editing}
 
+				// onClick={}
 				/>
 				<Chip
-					size="medium"
-					label="Fitness"
+					size='medium'
+					label='Fitness'
 					className={styles.Fitness}
+				// onClick={}
 				/>
 				<Chip
-					size="medium"
-					label="Healthy Living"
+					size='medium'
+					label='Healthy Living'
 					className={styles.Living}
+				// onClick={}
 				/>
 			</div>
 		</div>
