@@ -36,6 +36,11 @@ const Header = (meData) => {
 		setActiveRoute('Settings');
 		setAnchorEl(null);
 	};
+	const openAccountHistory = () => {
+		history.push('/accountHistory');
+		setActiveRoute('AccountHistory');
+		setAnchorEl(null);
+	};
 	const openProfile = () => {
 		history.push('/profile');
 		setActiveRoute('Profile');
@@ -65,11 +70,11 @@ const Header = (meData) => {
 					horizontal: 'center',
 				}}
 				PaperProps={{
-					style: { width: '331px', height: '380px' },
+					style: { width: '331px', height: '454px', marginTop: '20px' },
 				}}
 				transformOrigin={{
 					vertical: 'top',
-					horizontal: 'center',
+					horizontal: 'right',
 				}}
 			>
 				<Grid className={styles.menuBarGrid}>
@@ -115,6 +120,14 @@ const Header = (meData) => {
 							}}
 						>
 							Settings
+            </MenuItem>
+						<MenuItem
+							className={styles.itemsFont}
+							onClick={() => {
+								openAccountHistory();
+							}}
+						>
+							Account History
             </MenuItem>
 						<Logout />
 					</div>

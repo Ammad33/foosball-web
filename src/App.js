@@ -28,6 +28,7 @@ import InfluencerProfile from './containers/Profile/InfluencerProfile';
 import BrandProfile from './containers/Profile/BrandProfile';
 import Team from './containers/Team';
 import Loader from './containers/Loader';
+import AccountHistory from './containers/AccountHistory';
 
 const App = () => {
   return (
@@ -95,6 +96,11 @@ const App = () => {
           <ProtectedRoute exact path='/contacts'>
             <Layout>
               <Contacts />
+            </Layout>
+          </ProtectedRoute>
+					<ProtectedRoute exact path='/accountHistory'>
+            <Layout>
+              <AccountHistory />
             </Layout>
           </ProtectedRoute>
           <ProtectedRoute exact path='/posts'>
