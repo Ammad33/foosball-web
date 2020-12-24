@@ -67,7 +67,7 @@ const BrandInvoice = ({ data, handleExpandClick, expanded }) => {
 				}}
 			>
 				<div className={styles.popOverContainer}>
-					{selectAll ? (
+					{/* {selectAll ? (
 						<CheckCircleIcon
 							onClick={handleSelectAll}
 						/>
@@ -77,7 +77,7 @@ const BrandInvoice = ({ data, handleExpandClick, expanded }) => {
 							/>
 						)}
 					<p> Select all </p>
-					<p> Clear all</p>
+					<p> Clear all</p> */}
 				</div>
 			</Popover>
 			<div className={styles.mainContainer}>
