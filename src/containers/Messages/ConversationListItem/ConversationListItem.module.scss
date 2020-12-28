@@ -16,6 +16,13 @@
       font-size: 14px;
       letter-spacing: 0;
       line-height: 21px;
+		}
+		.selectedTitle {
+			color: #FFFFFF;
+      font-family: Poppins;
+      font-size: 14px;
+      letter-spacing: 0;
+      line-height: 21px;
     }
     .time {
       color: #939393;
@@ -24,9 +31,26 @@
       letter-spacing: 0;
       line-height: 18px;
       margin: 0px 7px;
+		}
+		.selectedTime {
+      color: #DBD4FF;
+      font-family: Poppins;
+      font-size: 12px;
+      letter-spacing: 0;
+      line-height: 18px;
+      margin: 0px 7px;
     }
     .message {
       color: #939393;
+      font-family: Poppins;
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 0;
+			line-height: 16px;
+			margin-top: 5px;
+		}
+		.selectedMessage {
+      color: #DBD4FF;
       font-family: Poppins;
       font-size: 13px;
       font-weight: 300;
@@ -48,7 +72,7 @@
   background: $white;
 }
 .selectedBackground {
-	background-color: purple;
+	background-color: #7b5cd9;
 }
 
 .popOver {

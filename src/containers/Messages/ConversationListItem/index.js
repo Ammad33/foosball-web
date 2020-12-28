@@ -64,9 +64,12 @@ const ConversationListItem = ({ handleItemClick, conversation, index }) => {
 			<div
 				className={clsx(
 					styles.conversationListItem,
-					conversation.unreadMessages > 0
-						? styles.unreadBackground
-						: styles.readBackground
+					conversation.selected == true 
+						? styles.selectedBackground
+						:
+						conversation.unreadMessages > 0
+							? styles.unreadBackground
+							: styles.readBackground
 				)}
 			>
 				<div className={styles.avatarContainer} onClick={() => handleItemClick(conversation, index)}>
@@ -85,9 +88,9 @@ const ConversationListItem = ({ handleItemClick, conversation, index }) => {
 						)}
 				</div>
 				<div className={styles.titleAndMessageContainer} onClick={() => handleItemClick(conversation, index)}>
-					<span className={styles.title}>{getTitle(conversation.members)}</span>
-					<span className={styles.time}>{conversation.time}</span>
-					<p className={styles.message}>{conversation.message}</p>
+					<span className={clsx(conversation.selected == true ? styles.selectedTitle : styles.title)}>{getTitle(conversation.members)}</span>
+					<span className={clsx(conversation.selected == true ? styles.selectedTime :styles.time)}>{conversation.time}</span>
+					<p className={clsx(conversation.selected == true ? styles.selectedMessage : styles.message)}>{conversation.message}</p>
 				</div>
 				<div className={styles.badgeAndMenu}>
 					{conversation.unreadMessages ? (
