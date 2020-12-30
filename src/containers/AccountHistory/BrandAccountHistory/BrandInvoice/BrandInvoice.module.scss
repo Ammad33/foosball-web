@@ -1,35 +1,5 @@
 @import './../../../../variable.module.scss';
 
-.popOverContainer {
-	margin-top: 15px;
-	display: flex;
-
-	svg {
-		color: $primary1;
-		cursor: pointer;
-	}
-
-	.displayNone {
-		display: none;
-	}
-
-	.cursorPointer {
-		cursor: pointer;
-	}
-
-	.svgDisabled {
-		color: #717171;
-		cursor: pointer;
-		margin-top: 4px;
-		height: 31px;
-		width: 31px;
-	}
-	p {
-		float: left;
-	}
-}
-
-
 .mainContainer {
 	span {
 		color: #000000;
@@ -62,6 +32,20 @@
 	.brandDropDown {
 		margin-right: 5px !important;
 		display: flex;
+
+		span {
+			display: flex;
+			margin-left: 10px;
+			font-size: small;
+			border: 1px solid #7b5cd9;
+			background: #7b5cd9;
+			border-radius: 9999999999999px;
+			color: white;
+			width: 20px;
+			height: 20px;
+			justify-content: center;
+			align-items: center;
+		}
 	}
 
 	.brandDropDownSVG {
