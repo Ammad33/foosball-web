@@ -2,8 +2,8 @@
 .drawelistItem {
   display: flex;
   align-items: center;
-	width: 100%;
-	height: 60px;
+  width: 100%;
+  height: 60px;
   padding: 12px;
   gap: 15px;
   font-size: 15px;
@@ -15,28 +15,21 @@
     font-family: 'poppins', sans-serif;
   }
   &:not(.drawelistItemActive):hover {
-    // background-color: red;
-		background: #EFEFEF;
+    background: #efefef;
   }
   svg {
     color: #000000;
   }
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      > * {
+        &:not(:last-child) {
+          margin-right: 15px !important;
+        }
+      }
+    }
+  }
 }
-
-// .drawelistItem:hover {
-//     // background-color: #3481EF;
-
-//     p {
-//         color: black;
-//     }
-//     svg {
-//         color: black;
-// 		}
-	
-// 			background-color: #EFEFEF;
-		
-// }
-
 .drawelistItemActive {
   background-color: $primary1;
   color: $white;
