@@ -178,8 +178,8 @@
   }
 }
 
-.dropDownCustomizeSvg{
-  svg{
+.dropDownCustomizeSvg {
+  svg {
     margin-left: -36px;
     margin-right: 20px;
   }
@@ -190,7 +190,7 @@
   flex-direction: row;
   gap: 21.5px;
   align-items: center;
-  margin-bottom: 51px;
+  margin-bottom: 51px !important;
   margin-top: 43px;
   span {
     color: $dark1;
@@ -235,22 +235,22 @@
     padding-left: 0px !important;
     padding-right: 0px !important;
     padding-top: 29px !important;
-    .marginbottomSelect{
+    .marginbottomSelect {
       margin-bottom: 19px !important;
     }
 
     .addMore {
       display: flex;
       flex-direction: row;
-      gap:8px;
+      gap: 8px;
       align-items: center;
       cursor: pointer;
       margin-top: 19px;
       svg {
-width: 26px;
-height: 28px;
+        width: 26px;
+        height: 28px;
       }
-      p{
+      p {
         color: #000000;
         font-family: Poppins;
         font-size: 16px;
@@ -258,7 +258,7 @@ height: 28px;
         line-height: 25px;
       }
     }
-    
+
     .selectFormControl {
       width: 100%;
     }
@@ -272,13 +272,13 @@ height: 28px;
       font-weight: 500;
       letter-spacing: 0;
       line-height: 27px;
-      border:none;
+      border: none;
     }
     .sendButton {
       height: 52px;
       width: 241px;
       border-radius: 100px;
-      border:none;
+      border: none;
       &.disabled {
         color: #959595;
         background-color: #cccccc;
@@ -334,13 +334,13 @@ height: 28px;
       letter-spacing: 0;
       line-height: 27px;
       margin-right: 12px;
-      border:none;
+      border: none;
     }
     .sendButton {
       height: 52px;
       width: 241px;
       border-radius: 100px;
-      border:none;
+      border: none;
       &.disabled {
         color: #959595;
         background-color: #cccccc;
@@ -348,6 +348,67 @@ height: 28px;
       &.active {
         background-color: $dark1;
         color: $white;
+      }
+    }
+  }
+}
+
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .mainContainer {
+      > * {
+        &:not(:last-child) {
+          margin-bottom: 30px !important;
+        }
+      }
+    }
+    .campaignStatus {
+      > * {
+        &:not(:last-child) {
+          margin-right: 20px !important;
+        }
+      }
+    }
+    .influencerSocial {
+      > * {
+        &:not(:last-child) {
+          margin-right: 10px !important;
+        }
+      }
+    }
+    .popOver div {
+      > * {
+        &:not(:last-child) {
+          margin-right: 10px !important;
+        }
+      }
+    }
+    .campaignPendingContainer h1 {
+      > * {
+        &:not(:last-child) {
+          margin-right: 10px !important;
+        }
+      }
+    }
+    .offerButtons {
+      > * {
+        &:not(:last-child) {
+          margin-right: 15px !important;
+        }
+      }
+    }
+    .CampaignHeading {
+      > * {
+        &:not(:last-child) {
+          margin-right: 21.5px !important;
+        }
+      }
+    }
+    .addMore {
+      > * {
+        &:not(:last-child) {
+          margin-right: 8px !important;
+        }
       }
     }
   }

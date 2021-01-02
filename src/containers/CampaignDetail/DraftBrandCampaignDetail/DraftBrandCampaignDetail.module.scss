@@ -127,7 +127,7 @@
   flex-direction: row;
   gap: 21.5px;
   align-items: center;
-  margin-bottom: 51px;
+  margin-bottom: 51px !important;
   margin-top: 43px;
   span {
     color: $dark1;
@@ -147,5 +147,41 @@
     float: right;
     height: 27px;
     width: 27px;
+  }
+}
+
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .mainContainer {
+      > * {
+        &:not(:last-child) {
+          margin-bottom: 30px !important;
+        }
+      }
+      .CampaignHeading {
+        margin-bottom: 51px !important;
+      }
+    }
+    .campaignStatus {
+      > * {
+        &:not(:last-child) {
+          margin-right: 20px !important;
+        }
+      }
+    }
+    .popOver div {
+      > * {
+        &:not(:last-child) {
+          margin-right: 10px !important;
+        }
+      }
+    }
+    .CampaignHeading {
+      > * {
+        &:not(:last-child) {
+          margin-right: 21.5px !important;
+        }
+      }
+    }
   }
 }

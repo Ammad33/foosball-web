@@ -11,7 +11,6 @@ import { API, graphqlOperation } from 'aws-amplify';
 import _ from 'lodash';
 
 const CampaignDetail = () => {
-
   const history = useHistory();
   const [status, setStatus] = useState('');
   const [addCampaign, setAddCampagin] = useState(false);
@@ -36,55 +35,62 @@ const CampaignDetail = () => {
     setSearch(e.target.value);
 
     const members = [...team];
-    setTeam(members.filter(item => item.email.includes(e.target.value)));
+    setTeam(members.filter((item) => item.email.includes(e.target.value)));
     if (e.target.value === '') {
-
       let teamData = await getTeam();
 
-      teamData = teamData.map(item => item.user);
+      teamData = teamData.map((item) => item.user);
 
-      if (selectedMembers && selectedMembers !== null && selectedMembers.length !== 0) {
-        let data = teamData && teamData !== null && teamData.map(item => {
-          const index = selectedMembers.findIndex(sec => sec.email === item.email);
-          if (index !== -1) {
-            return
-          } else {
-            return item;
-          }
-        });
+      if (
+        selectedMembers &&
+        selectedMembers !== null &&
+        selectedMembers.length !== 0
+      ) {
+        let data =
+          teamData &&
+          teamData !== null &&
+          teamData.map((item) => {
+            const index = selectedMembers.findIndex(
+              (sec) => sec.email === item.email
+            );
+            if (index !== -1) {
+              return;
+            } else {
+              return item;
+            }
+          });
         setTeam(_.compact(data));
       } else {
         setTeam(teamData);
       }
-
     }
-  }
+  };
 
   const handleDelete = async () => {
-
     try {
       await API.graphql(
-        graphqlOperation(`mutation deleteCampaign($brandId: ID!, $id: ID!) {
+        graphqlOperation(
+          `mutation deleteCampaign($brandId: ID!, $id: ID!) {
           deleteCampaign(brandId: $brandId, id:$id)
-        }`, {
-          brandId: brandId,
-          id: campaignId
-        })
+        }`,
+          {
+            brandId: brandId,
+            id: campaignId,
+          }
+        )
       );
-      history.push('/')
+      history.push('/');
     } catch (e) {
       console.log('delete campaign error ', e);
     }
   };
 
   const updateCampaign = async () => {
-
     try {
-
       const data = {
         brandId,
         id: campaignId,
-        team: selectedMembers.map(item => item.id),
+        team: selectedMembers.map((item) => item.id),
       };
 
       await API.graphql(
@@ -104,7 +110,6 @@ const CampaignDetail = () => {
       console.log('update campaign error ', e);
     }
   };
-
 
   const getCampaign = async () => {
     try {
@@ -236,28 +241,40 @@ const CampaignDetail = () => {
             : 'CLOSED'
         );
 
-        setSelectedMemebers(campaign.data.campaign.brandTeam
-          ? campaign.data.campaign.brandTeam : []);
+        setSelectedMemebers(
+          campaign.data.campaign.brandTeam
+            ? campaign.data.campaign.brandTeam
+            : []
+        );
 
         let teamData = await getTeam();
-        teamData = teamData.map(item => item.user);
+        teamData = teamData.map((item) => item.user);
 
-        if (campaign.data.campaign.brandTeam && campaign.data.campaign.brandTeam !== null && campaign.data.campaign.brandTeam.length !== 0) {
-          let data = teamData && teamData !== null && teamData.map(item => {
-            const index = campaign.data.campaign.brandTeam.findIndex(sec => sec.email === item.email);
-            console.log(index);
-            if (index !== -1) {
-              return
-            } else {
-              return item;
-            }
-          });
+        if (
+          campaign.data.campaign.brandTeam &&
+          campaign.data.campaign.brandTeam !== null &&
+          campaign.data.campaign.brandTeam.length !== 0
+        ) {
+          let data =
+            teamData &&
+            teamData !== null &&
+            teamData.map((item) => {
+              const index = campaign.data.campaign.brandTeam.findIndex(
+                (sec) => sec.email === item.email
+              );
+              console.log(index);
+              if (index !== -1) {
+                return;
+              } else {
+                return item;
+              }
+            });
           setTeam(_.compact(data));
         } else {
           setTeam(teamData);
         }
       }
-    } catch (e) { }
+    } catch (e) {}
   };
 
   const getTeam = async () => {
@@ -289,21 +306,20 @@ const CampaignDetail = () => {
     members.push(memeber);
     setSelectedMemebers(members);
     const total = [...team];
-    const index = total.findIndex(item => item.email === memeber.email);
+    const index = total.findIndex((item) => item.email === memeber.email);
     total.splice(index, 1);
     setTeam(total);
-  }
+  };
 
   const removeInTeam = (memeber) => {
     const total = [...selectedMembers];
-    const index = total.findIndex(item => item.email === memeber.email);
+    const index = total.findIndex((item) => item.email === memeber.email);
     total.splice(index, 1);
     setSelectedMemebers(total);
     const members = [...team];
     members.push(memeber);
     setTeam(members);
-  }
-
+  };
 
   useEffect(() => {
     getCampaign();
@@ -315,41 +331,51 @@ const CampaignDetail = () => {
     setSetAll(false);
     if (data && data !== null) {
       let negotialble = true;
-      Object.values(data.negotiables).map(item => {
+      Object.values(data.negotiables).map((item) => {
         if (item === true) {
           negotialble = false;
         }
       });
 
-      if ((data.discount && data.discount.percentage && data.discount.percentage !== "" || data.discount.amount && data.discount.amount.amount !== '')
-        && data.invitationMessage !== ""
-        && (data.budget.amount !== "")
-        && (data.targetGrossSales.amount !== "")
-        && (data.deliverables && data.deliverables.length !== 0)
-        && (data.compensation && data.compensation.length !== 0)
-        && negotialble === false
-        && data.influencer !== null) {
+      if (
+        ((data.discount &&
+          data.discount.percentage &&
+          data.discount.percentage !== '') ||
+          (data.discount.amount && data.discount.amount.amount !== '')) &&
+        data.invitationMessage !== '' &&
+        data.budget.amount !== '' &&
+        data.targetGrossSales.amount !== '' &&
+        data.deliverables &&
+        data.deliverables.length !== 0 &&
+        data.compensation &&
+        data.compensation.length !== 0 &&
+        negotialble === false &&
+        data.influencer !== null
+      ) {
         setSetAll(true);
       }
     }
-
   }, [data]);
 
-
   const handleHeading = () => {
-
     let negotialble = true;
-    Object.values(data.negotiables).forEach(item => {
+    Object.values(data.negotiables).forEach((item) => {
       if (item === true) {
         negotialble = false;
       }
     });
 
-    if ((data.discount && data.discount.percentage && data.discount.percentage === "" || data.discount.amount && data.discount.amount.amount === '') || data.invitationMessage === "") {
+    if (
+      (data.discount &&
+        data.discount.percentage &&
+        data.discount.percentage === '') ||
+      (data.discount.amount && data.discount.amount.amount === '') ||
+      data.invitationMessage === ''
+    ) {
       setHeadingValue('Campaign Detail');
-    } else if ((data.budget.amount === "")) {
+    } else if (data.budget.amount === '') {
       setHeadingValue('Budget');
-    } else if (data.targetGrossSales.amount === "") {
+    } else if (data.targetGrossSales.amount === '') {
       setHeadingValue('Target Gross Sale');
     } else if (data.deliverables && data.deliverables.length === 0) {
       setHeadingValue('Deliverable');
@@ -374,11 +400,11 @@ const CampaignDetail = () => {
     if (data !== null) {
       handleHeading();
     }
-  }, [data])
+  }, [data]);
 
   return (
     <div className={styles.detailContainer}>
-      <div style={{ display: 'flex', gap: '30px' }}>
+      <div className={styles.toggleStatusContainer}>
         <Link onClick={handleBrandState}>
           {' '}
           Toggle Campiagn Detail influencer
@@ -423,23 +449,23 @@ const CampaignDetail = () => {
           headingValue={headingValue}
         />
       ) : (
-          <InfluencerCampaignDetail
-            status={status}
-            data={data}
-            addCampaign={addCampaign}
-            setAddCampagin={setAddCampagin}
-            handleDelete={handleDelete}
-            selectedMembers={selectedMembers}
-            team={team}
-            addInTeam={addInTeam}
-            removeInTeam={removeInTeam}
-            search={search}
-            handleSearch={handleSearch}
-            updateCampaign={updateCampaign}
-            setAll={setAll}
-            headingValue={headingValue}
-          />
-        )}
+        <InfluencerCampaignDetail
+          status={status}
+          data={data}
+          addCampaign={addCampaign}
+          setAddCampagin={setAddCampagin}
+          handleDelete={handleDelete}
+          selectedMembers={selectedMembers}
+          team={team}
+          addInTeam={addInTeam}
+          removeInTeam={removeInTeam}
+          search={search}
+          handleSearch={handleSearch}
+          updateCampaign={updateCampaign}
+          setAll={setAll}
+          headingValue={headingValue}
+        />
+      )}
     </div>
   );
 };

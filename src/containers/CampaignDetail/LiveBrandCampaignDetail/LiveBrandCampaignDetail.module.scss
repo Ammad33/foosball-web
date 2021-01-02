@@ -110,46 +110,6 @@
     margin-bottom: 0px;
   }
 }
-
-.campaignPendingContainer {
-  height: 316px;
-  width: 813px;
-  border-radius: 10px;
-  background-color: #7b5dd9;
-  color: $white;
-  box-shadow: 0 6px 50px 0 rgba(0, 0, 0, 0.1);
-  padding: 32px 41px 20px 35px;
-  h1 {
-    font-size: 35px;
-    font-family: Poppins;
-    font-weight: bold;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    svg {
-      height: 32px;
-      width: 32px;
-    }
-  }
-  p {
-    font-size: 20px;
-  }
-  button {
-    margin-top: 80px;
-    height: 44px;
-    width: 117px;
-    border-radius: 100px;
-    background-color: $white;
-    color: $dark1;
-    font-family: Poppins;
-    font-size: 17px;
-    font-weight: 500;
-    letter-spacing: 0;
-    line-height: 26px;
-  }
-}
-
 .CampaignHeading {
   display: flex;
   flex-direction: row;
@@ -175,5 +135,55 @@
     float: right;
     height: 27px;
     width: 27px;
+  }
+}
+
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .mainContainer {
+      > * {
+        &:not(:last-child) {
+          margin-bottom: 30px !important;
+        }
+      }
+      .CampaignHeading {
+        margin-bottom: 51px !important;
+      }
+    }
+    .campaignStatus {
+      > * {
+        &:not(:last-child) {
+          margin-right: 20px !important;
+        }
+      }
+    }
+    .linkIconAndName {
+      > * {
+        &:not(:last-child) {
+          margin-right: 10px !important;
+        }
+      }
+    }
+    .influencerSocial {
+      > * {
+        &:not(:last-child) {
+          margin-right: 10px !important;
+        }
+      }
+    }
+    .popOver div {
+      > * {
+        &:not(:last-child) {
+          margin-right: 10px !important;
+        }
+      }
+    }
+    .CampaignHeading {
+      > * {
+        &:not(:last-child) {
+          margin-right: 21.5px !important;
+        }
+      }
+    }
   }
 }
