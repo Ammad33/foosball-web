@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../InfluencerCampaignDetail/InfluencerCampaignDetail.module.scss';
+import styles from './LiveInfluencer.module.scss';
 import { Avatar, Chip, Popover } from '@material-ui/core';
 import {
   ChevronRight,
@@ -7,7 +7,7 @@ import {
   Download,
   Mail,
   Link,
-  Copy
+  Copy,
 } from 'react-feather';
 import clsx from 'clsx';
 import Performance from '../Performance';
@@ -22,7 +22,13 @@ import LiveCard from '../LiveCard';
 import { useHistory } from 'react-router-dom';
 import _ from 'lodash';
 
-const LiveInfluencer = ({ handleEdit, data, handleSeeClick, getTotal, name }) => {
+const LiveInfluencer = ({
+  handleEdit,
+  data,
+  handleSeeClick,
+  getTotal,
+  name,
+}) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -82,22 +88,21 @@ const LiveInfluencer = ({ handleEdit, data, handleSeeClick, getTotal, name }) =>
               </div>
               <Copy />
             </div>
-            <p>Estimated Compensation: ${getTotal(data && data.compensation)}</p>
+            <p>
+              Estimated Compensation: ${getTotal(data && data.compensation)}
+            </p>
             <div className={styles.borderDiv}></div>
             <Chip
               className={clsx(styles.campaignStatus, styles.live)}
               label={'Live'}
             />
             <div className={styles.borderDiv}></div>
-            {data && data.brand &&
+            {data && data.brand && (
               <div className={styles.avatarContainer}>
-                <Avatar
-                  className={styles.avatar}
-                  src={data.brand.imageUrl}
-                />
+                <Avatar className={styles.avatar} src={data.brand.imageUrl} />
                 <span>{data.brand.name}</span>
               </div>
-            }
+            )}
           </div>
           <MoreVertical onClick={handleClick} />
         </div>
@@ -115,7 +120,15 @@ const LiveInfluencer = ({ handleEdit, data, handleSeeClick, getTotal, name }) =>
           <div>
             <div className={styles.first}>
               <CampaignDetail campaign={data} handleEdit={handleEdit} />
-              <Compensation compensation={data && data.compensation && data.compensation !== null ? _.compact(data.compensation) : []} onClick={handleSeeClick} handleEdit={handleEdit} />
+              <Compensation
+                compensation={
+                  data && data.compensation && data.compensation !== null
+                    ? _.compact(data.compensation)
+                    : []
+                }
+                onClick={handleSeeClick}
+                handleEdit={handleEdit}
+              />
             </div>
             <div style={{ marginTop: '30px' }}>
               <Collections handleEdit={handleEdit} />

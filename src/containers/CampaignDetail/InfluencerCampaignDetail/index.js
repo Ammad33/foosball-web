@@ -9,19 +9,29 @@ import AddCampaign from '../../AddCampaign';
 import ClosedInfluencer from '../ClosedInfluencer';
 import LostInfluencer from '../LostInfluencer';
 import TeamMembersDetail from '../TeamMembersDetail';
-import InviteInfluencer from '../InviteInflunecr';
+import InviteInfluencer from '../InviteInfluencer';
 import PendingInfluencer from '../PendingInfluencer';
 import LiveInfluencer from '../LiveInfluencer';
 import DeclineInfluencer from '../DeclineInfluencer';
 import DraftBrandCampaignDetail from '../DraftBrandCampaignDetail';
 import _ from 'lodash';
 
-const CampaignDetailInfluencer = ({ headingValue, status, handleDelete, addCampaign, setAddCampagin, data, addInTeam,
-  removeInTeam, search,
-  handleSearch, selectedMembers,
-  team, updateCampaign, setAll
+const CampaignDetailInfluencer = ({
+  headingValue,
+  status,
+  handleDelete,
+  addCampaign,
+  setAddCampagin,
+  data,
+  addInTeam,
+  removeInTeam,
+  search,
+  handleSearch,
+  selectedMembers,
+  team,
+  updateCampaign,
+  setAll,
 }) => {
-
   const [openDrawer, setOpenDrawer] = useState(false);
   const [step, setStep] = useState(1);
   const [element, setElement] = useState('');
@@ -32,19 +42,26 @@ const CampaignDetailInfluencer = ({ headingValue, status, handleDelete, addCampa
   };
 
   const handleActiveStep = () => {
-
     let negotialble = true;
-    Object.values(data.negotiables).map(item => {
+    Object.values(data.negotiables).map((item) => {
       if (item === true) {
         negotialble = false;
       }
     });
 
-
-    if ((data.discount && data.discount.percentage && data.discount.percentage === "" || data.discount.amount && data.discount.amount.amount === '') || data.invitationMessage === "") {
+    if (
+      (data.discount &&
+        data.discount.percentage &&
+        data.discount.percentage === '') ||
+      (data.discount.amount && data.discount.amount.amount === '') ||
+      data.invitationMessage === ''
+    ) {
       setStep(1);
       setAddCampagin(true);
-    } else if ((data.budget.amount === "") || (data.targetGrossSales.amount === "")) {
+    } else if (
+      data.budget.amount === '' ||
+      data.targetGrossSales.amount === ''
+    ) {
       setStep(3);
       setAddCampagin(true);
     } else if (data.deliverables && data.deliverables.length === 0) {
@@ -95,7 +112,6 @@ const CampaignDetailInfluencer = ({ headingValue, status, handleDelete, addCampa
             getTotal={getTotal}
             name={data && data.name}
             handleDelete={handleDelete}
-
           />
         );
       case 'LIVE':
@@ -107,7 +123,6 @@ const CampaignDetailInfluencer = ({ headingValue, status, handleDelete, addCampa
             getTotal={getTotal}
             name={data && data.name}
             handleDelete={handleDelete}
-
           />
         );
       case 'INVITE':
@@ -119,7 +134,6 @@ const CampaignDetailInfluencer = ({ headingValue, status, handleDelete, addCampa
             getTotal={getTotal}
             name={data && data.name}
             handleDelete={handleDelete}
-
           />
         );
       case 'LOST':
@@ -131,7 +145,6 @@ const CampaignDetailInfluencer = ({ headingValue, status, handleDelete, addCampa
             getTotal={getTotal}
             name={data && data.name}
             handleDelete={handleDelete}
-
           />
         );
       case 'PENDING':
@@ -143,7 +156,6 @@ const CampaignDetailInfluencer = ({ headingValue, status, handleDelete, addCampa
             getTotal={getTotal}
             name={data && data.name}
             handleDelete={handleDelete}
-
           />
         );
       case 'DECLINED':
@@ -155,7 +167,6 @@ const CampaignDetailInfluencer = ({ headingValue, status, handleDelete, addCampa
             getTotal={getTotal}
             name={data && data.name}
             handleDelete={handleDelete}
-
           />
         );
       default:
@@ -170,14 +181,27 @@ const CampaignDetailInfluencer = ({ headingValue, status, handleDelete, addCampa
       case 'Deliverable':
         return <DeliverablesDetail deliverables={data && data.deliverables} />;
       case 'Compensation':
-        return <CompensationDetail compensations={data && data.compensation && data.compensation !== null ? _.compact(data.compensation) : []} budget={data.budget.amount} />;
+        return (
+          <CompensationDetail
+            compensations={
+              data && data.compensation && data.compensation !== null
+                ? _.compact(data.compensation)
+                : []
+            }
+            budget={data.budget.amount}
+          />
+        );
       case 'TeamMembers':
-        return <TeamMembersDetail addInTeam={addInTeam}
-          removeInTeam={removeInTeam}
-          search={search}
-          handleSearch={handleSearch}
-          selectedMembers={selectedMembers}
-          team={team} />;
+        return (
+          <TeamMembersDetail
+            addInTeam={addInTeam}
+            removeInTeam={removeInTeam}
+            search={search}
+            handleSearch={handleSearch}
+            selectedMembers={selectedMembers}
+            team={team}
+          />
+        );
       default:
         return;
     }
@@ -189,15 +213,19 @@ const CampaignDetailInfluencer = ({ headingValue, status, handleDelete, addCampa
   };
   const getTotal = (compensations) => {
     let total = 0;
-    compensations && compensations !== null && compensations.length > 0 && compensations.forEach(item => {
-      if (item.__typename === 'CompRevenueShare' && data && data.budget) {
-        total = total + parseFloat(item.percentage) * parseInt(data.budget.amount);
-      } else {
-        total = total + parseFloat(item.amount.amount);
-      }
-    })
+    compensations &&
+      compensations !== null &&
+      compensations.length > 0 &&
+      compensations.forEach((item) => {
+        if (item.__typename === 'CompRevenueShare' && data && data.budget) {
+          total =
+            total + parseFloat(item.percentage) * parseInt(data.budget.amount);
+        } else {
+          total = total + parseFloat(item.amount.amount);
+        }
+      });
     return parseFloat(total).toFixed(2);
-  }
+  };
 
   return (
     <>

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../InfluencerCampaignDetail/InfluencerCampaignDetail.module.scss';
+import styles from './ClosedInfluencer.module.scss';
 import { Avatar, Chip, Popover } from '@material-ui/core';
 import { ChevronRight, MoreVertical, Download, Mail } from 'react-feather';
 import clsx from 'clsx';
@@ -14,8 +14,13 @@ import Contract from '../Contract';
 import { useHistory } from 'react-router-dom';
 import _ from 'lodash';
 
-const ClosedInfluencer = ({ handleEdit, data, handleSeeClick, getTotal, name }) => {
-
+const ClosedInfluencer = ({
+  handleEdit,
+  data,
+  handleSeeClick,
+  getTotal,
+  name,
+}) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -65,19 +70,18 @@ const ClosedInfluencer = ({ handleEdit, data, handleSeeClick, getTotal, name }) 
         </div>
         <div className={styles.subHeadingSection}>
           <div className={styles.subCampaignSubHeading}>
-            <p>Estimated Compensation: ${getTotal(data && data.compensation)}</p>
+            <p>
+              Estimated Compensation: ${getTotal(data && data.compensation)}
+            </p>
             <div className={styles.borderDiv}></div>
             <Chip className={clsx(styles.campaignStatus)} label={'Closed'} />
             <div className={styles.borderDiv}></div>
-            {data && data.brand &&
+            {data && data.brand && (
               <div className={styles.avatarContainer}>
-                <Avatar
-                  className={styles.avatar}
-                  src={data.brand.imageUrl}
-                />
+                <Avatar className={styles.avatar} src={data.brand.imageUrl} />
                 <span>{data.brand.name}</span>
               </div>
-            }
+            )}
           </div>
           <MoreVertical onClick={handleClick} />
         </div>
@@ -91,7 +95,15 @@ const ClosedInfluencer = ({ handleEdit, data, handleSeeClick, getTotal, name }) 
           <div>
             <div className={styles.first}>
               <CampaignDetail campaign={data} handleEdit={handleEdit} />
-              <Compensation compensation={data && data.compensation && data.compensation !== null ? _.compact(data.compensation) : []} onClick={handleSeeClick} handleEdit={handleEdit} />
+              <Compensation
+                compensation={
+                  data && data.compensation && data.compensation !== null
+                    ? _.compact(data.compensation)
+                    : []
+                }
+                onClick={handleSeeClick}
+                handleEdit={handleEdit}
+              />
             </div>
             <div style={{ marginTop: '30px' }}>
               <Collections handleEdit={handleEdit} />

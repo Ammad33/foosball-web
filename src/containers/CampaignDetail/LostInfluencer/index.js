@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../InfluencerCampaignDetail/InfluencerCampaignDetail.module.scss';
+import styles from './LostInfluencer.module.scss';
 import { Avatar, Chip, Popover } from '@material-ui/core';
 import { ChevronRight, MoreVertical, Download, Mail } from 'react-feather';
 import clsx from 'clsx';
@@ -65,22 +65,31 @@ const LostInfluencer = ({ handleEdit, data, handleSeeClick, name }) => {
         </div>
         <div className={styles.subHeadingSection}>
           <div className={styles.subCampaignSubHeading}>
-            <p>Promotion: {data && data.discount && data.discount.amount ? data.discount.amount.amount : data && data.discount && data.discount.percentage ? data.discount.percentage : ''} {data && data.discount && data.discount.percentage ? '%' : data.discount.amount ? '$' : ''}</p>
+            <p>
+              Promotion:{' '}
+              {data && data.discount && data.discount.amount
+                ? data.discount.amount.amount
+                : data && data.discount && data.discount.percentage
+                ? data.discount.percentage
+                : ''}{' '}
+              {data && data.discount && data.discount.percentage
+                ? '%'
+                : data.discount.amount
+                ? '$'
+                : ''}
+            </p>
             <div className={styles.borderDiv}></div>
             <Chip
               className={clsx(styles.campaignStatus, styles.lost)}
               label={'Lost'}
             />
             <div className={styles.borderDiv}></div>
-            {data && data.brand &&
+            {data && data.brand && (
               <div className={styles.avatarContainer}>
-                <Avatar
-                  className={styles.avatar}
-                  src={data.brand.imageUrl}
-                />
+                <Avatar className={styles.avatar} src={data.brand.imageUrl} />
                 <span>{data.brand.name}</span>
               </div>
-            }
+            )}
           </div>
           <MoreVertical onClick={handleClick} />
         </div>
@@ -119,7 +128,15 @@ const LostInfluencer = ({ handleEdit, data, handleSeeClick, name }) => {
           </div>
         </div>
         <div className={styles.first}>
-          <Compensation onClick={handleSeeClick} handleEdit={handleEdit} compensation={data && data.compensation && data.compensation !== null ? _.compact(data.compensation) : []} />
+          <Compensation
+            onClick={handleSeeClick}
+            handleEdit={handleEdit}
+            compensation={
+              data && data.compensation && data.compensation !== null
+                ? _.compact(data.compensation)
+                : []
+            }
+          />
           <Negotiables data={data} />
         </div>
       </div>

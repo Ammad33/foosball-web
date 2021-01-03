@@ -26,7 +26,12 @@ import _ from 'lodash';
 
 import styles from './LiveBrandCampaignDetail.module.scss';
 
-const LiveBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) => {
+const LiveBrandCampaignDetail = ({
+  handleEdit,
+  data,
+  handleSeeClick,
+  name,
+}) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -86,7 +91,19 @@ const LiveBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) => 
               <Copy />
             </div>
             <div>
-              <h4 className={styles.promotion}>Promotion: {data && data.discount && data.discount.amount ? data.discount.amount.amount : data && data.discount && data.discount.percentage ? data.discount.percentage : ''} {data && data.discount && data.discount.percentage ? '%' : data.discount.amount ? '$' : ''}</h4>
+              <h4 className={styles.promotion}>
+                Promotion:{' '}
+                {data && data.discount && data.discount.amount
+                  ? data.discount.amount.amount
+                  : data && data.discount && data.discount.percentage
+                  ? data.discount.percentage
+                  : ''}{' '}
+                {data && data.discount && data.discount.percentage
+                  ? '%'
+                  : data.discount.amount
+                  ? '$'
+                  : ''}
+              </h4>
             </div>
             <div>
               <Chip
@@ -95,12 +112,12 @@ const LiveBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) => 
                 label='Live'
               />
             </div>
-            {data.influencer &&
+            {data.influencer && (
               <div className={styles.influencerSocial}>
                 <Avatar src={data.influencer.imageUrl} />
-                {data.influencer.name}
+                <span>{data.influencer.name}</span>
               </div>
-            }
+            )}
           </div>
           <div>
             <MoreVertical onClick={handleClick} />
@@ -138,7 +155,15 @@ const LiveBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) => 
             />
           </div>
           <div className={styles.flexContainer}>
-            <Compensation compensation={data && data.compensation && data.compensation !== null ? _.compact(data.compensation) : []} handleEdit={handleEdit} onClick={handleSeeClick} />
+            <Compensation
+              compensation={
+                data && data.compensation && data.compensation !== null
+                  ? _.compact(data.compensation)
+                  : []
+              }
+              handleEdit={handleEdit}
+              onClick={handleSeeClick}
+            />
             <Negotiables data={data} />
             <Contract />
           </div>

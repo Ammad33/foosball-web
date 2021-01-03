@@ -22,7 +22,12 @@ import _ from 'lodash';
 
 import styles from './LostBrandCampaignDetail.module.scss';
 
-const LostBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) => {
+const LostBrandCampaignDetail = ({
+  handleEdit,
+  data,
+  handleSeeClick,
+  name,
+}) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -72,7 +77,19 @@ const LostBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) => 
         <div className={styles.campaignBasicInfo}>
           <div className={styles.campaignStatus}>
             <div>
-              <h4 className={styles.promotion}>Promotion: {data && data.discount && data.discount.amount ? data.discount.amount.amount : data && data.discount && data.discount.percentage ? data.discount.percentage : ''} {data && data.discount && data.discount.percentage ? '%' : data.discount.amount ? '$' : ''}</h4>
+              <h4 className={styles.promotion}>
+                Promotion:{' '}
+                {data && data.discount && data.discount.amount
+                  ? data.discount.amount.amount
+                  : data && data.discount && data.discount.percentage
+                  ? data.discount.percentage
+                  : ''}{' '}
+                {data && data.discount && data.discount.percentage
+                  ? '%'
+                  : data.discount.amount
+                  ? '$'
+                  : ''}
+              </h4>
             </div>
             <div>
               <Chip
@@ -81,12 +98,12 @@ const LostBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) => 
                 label='Lost'
               />
             </div>
-            {data.influencer &&
+            {data.influencer && (
               <div className={styles.influencerSocial}>
                 <Avatar src={data.influencer.imageUrl} />
-                {data.influencer.name}
+                <span>{data.influencer.name}</span>
               </div>
-            }
+            )}
           </div>
           <div>
             <MoreVertical onClick={handleClick} />
@@ -131,7 +148,15 @@ const LostBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) => 
             />
           </div>
           <div className={styles.flexContainer}>
-            <Compensation handleEdit={handleEdit} onClick={handleSeeClick} compensation={data && data.compensation && data.compensation !== null ? _.compact(data.compensation) : []} />
+            <Compensation
+              handleEdit={handleEdit}
+              onClick={handleSeeClick}
+              compensation={
+                data && data.compensation && data.compensation !== null
+                  ? _.compact(data.compensation)
+                  : []
+              }
+            />
             <Negotiables data={data} />
             <div style={{ width: '391px' }}></div>
           </div>
