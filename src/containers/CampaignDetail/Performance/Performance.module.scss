@@ -32,10 +32,10 @@
       line-height: 307px;
       text-align: center;
     }
-  } 
+  }
   button {
     outline: none;
-    border:none;
+    border: none;
     height: 31px;
     width: 82px;
     border-radius: 100px;
@@ -47,8 +47,9 @@
     letter-spacing: 0;
     line-height: 0px;
     text-align: center;
+    padding: 0px;
     :focus {
-        outline: none;
+      outline: none;
     }
-} 
+  }
 }

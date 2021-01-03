@@ -8,7 +8,7 @@ import {
   DialogContent,
   DialogActions,
   FormControl,
-  MenuItem
+  MenuItem,
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import Chip from '@material-ui/core/Chip';
@@ -53,7 +53,12 @@ for (let i = 3; i <= 20; i += 1) {
   options.push(i);
 }
 
-const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) => {
+const PendingBrandCampaignDetail = ({
+  handleEdit,
+  data,
+  handleSeeClick,
+  name,
+}) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
   const [pendingOffer, setPendingOffer] = useState(false);
@@ -90,63 +95,63 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) 
             </p>
           </>
         ) : (
-            <>
-              <h1>
-                {pendingOffer ? (
-                  'Sam sent a counter offer'
-                ) : (
-                    <>
-                      <AlertCircle /> Microsite ready for approval
-                </>
-                  )}
-              </h1>
+          <>
+            <h1>
               {pendingOffer ? (
+                'Sam sent a counter offer'
+              ) : (
                 <>
-                  <p>
-                    <i>Sam is proposing a Revenue share of 3% instead of 2%</i>
-                  </p>
-                  <p>
-                    <i>Sam is proposing $40 cash per post instead of $30</i>
-                  </p>
+                  <AlertCircle /> <span>Microsite ready for approval</span>
                 </>
-              ) : (
-                  <p>
-                    The influencer has sent you the microsite to review and approve.
-                  </p>
-                )}
-              {pendingOffer ? (
-                <div className={styles.offerButtons}>
-                  <button
-                    className={styles.acceptButton}
-                    onClick={() => setAllSet(true)}
-                  >
-                    Accept
+              )}
+            </h1>
+            {pendingOffer ? (
+              <>
+                <p>
+                  <i>Sam is proposing a Revenue share of 3% instead of 2%</i>
+                </p>
+                <p>
+                  <i>Sam is proposing $40 cash per post instead of $30</i>
+                </p>
+              </>
+            ) : (
+              <p>
+                The influencer has sent you the microsite to review and approve.
+              </p>
+            )}
+            {pendingOffer ? (
+              <div className={styles.offerButtons}>
+                <button
+                  className={styles.acceptButton}
+                  onClick={() => setAllSet(true)}
+                >
+                  Accept
                 </button>
-                  <button
-                    className={styles.negotiateButton}
-                    onClick={() => setOpenNegotiateDialog(true)}
-                  >
-                    Negotiate
+                <button
+                  className={styles.negotiateButton}
+                  onClick={() => setOpenNegotiateDialog(true)}
+                >
+                  Negotiate
                 </button>
-                  <button
-                    className={styles.declineButton}
-                    onClick={() => setOpenDeclineDialog(true)}
-                  >
-                    Decline
+                <button
+                  className={styles.declineButton}
+                  onClick={() => setOpenDeclineDialog(true)}
+                >
+                  Decline
                 </button>
-                </div>
-              ) : (
-                  <button
-                    onClick={() => {
-                      history.push('/review-brand-microsite');
-                    }}
-                    style={{ border: 'none' }}
-                  >
-                    View
-                  </button>
-                )}
-            </>
-          )}
+              </div>
+            ) : (
+              <button
+                onClick={() => {
+                  history.push('/review-brand-microsite');
+                }}
+                style={{ border: 'none' }}
+              >
+                View
+              </button>
+            )}
+          </>
+        )}
       </div>
     );
   };
@@ -191,7 +196,19 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) 
         <div className={styles.campaignBasicInfo}>
           <div className={styles.campaignStatus}>
             <div>
-              <h4 className={styles.promotion}>Promotion: {data && data.discount && data.discount.amount ? data.discount.amount.amount : data && data.discount && data.discount.percentage ? data.discount.percentage : ''} {data && data.discount && data.discount.percentage ? '%' : data.discount.amount ? '$' : ''}</h4>
+              <h4 className={styles.promotion}>
+                Promotion:{' '}
+                {data && data.discount && data.discount.amount
+                  ? data.discount.amount.amount
+                  : data && data.discount && data.discount.percentage
+                  ? data.discount.percentage
+                  : ''}{' '}
+                {data && data.discount && data.discount.percentage
+                  ? '%'
+                  : data.discount.amount
+                  ? '$'
+                  : ''}
+              </h4>
             </div>
             <div>
               <Chip
@@ -200,12 +217,12 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) 
                 label='Pending'
               />
             </div>
-            {data.influencer &&
+            {data.influencer && (
               <div className={styles.influencerSocial}>
                 <Avatar src={data.influencer.imageUrl} />
                 {data.influencer.name}
               </div>
-            }
+            )}
             <Checkbox
               checked={pendingOffer}
               onChange={(e) => setPendingOffer(e.target.checked)}
@@ -249,7 +266,15 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) 
             />
           </div>
           <div className={styles.flexContainer}>
-            <Compensation handleEdit={handleEdit} onClick={handleSeeClick} compensation={data && data.compensation && data.compensation !== null ? _.compact(data.compensation) : []} />
+            <Compensation
+              handleEdit={handleEdit}
+              onClick={handleSeeClick}
+              compensation={
+                data && data.compensation && data.compensation !== null
+                  ? _.compact(data.compensation)
+                  : []
+              }
+            />
             <Negotiables data={data} handleEdit={handleEdit} />
             <div style={{ width: '391px' }}></div>
           </div>
@@ -275,25 +300,20 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) 
               label='Negotiated Item'
               variant='outlined'
               value={negotitaedItem}
-              onChange={(e) =>
-                setNegotiatedItem(e.target.value)
-              }
+              onChange={(e) => setNegotiatedItem(e.target.value)}
               MenuProps={{ variant: 'menu' }}
               select
               SelectProps={{ IconComponent: () => <Chevron /> }}
             >
               <MenuItem value='' disabled>
                 Negotiated Item
-            </MenuItem>
+              </MenuItem>
 
               <MenuItem value={'10'}>10</MenuItem>
               <MenuItem value={'20'}>20</MenuItem>
-
             </TextField>
           </FormControl>
-          {
-            negotitaedItem !== '' &&
-
+          {negotitaedItem !== '' && (
             <>
               <Grid xs={12} className={styles.marginbottomSelect}>
                 <FormControl fullWidth variant='outlined'>
@@ -303,9 +323,7 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) 
                     label='Enter Revenue Share'
                     variant='outlined'
                     value={percentage}
-                    onChange={(e) =>
-                      setPercentage(e.target.value)
-                    }
+                    onChange={(e) => setPercentage(e.target.value)}
                     displayEmpty
                     IconComponent={() => <Chevron />}
                     MenuProps={{ variant: 'menu' }}
@@ -334,12 +352,21 @@ const PendingBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) 
                   variant='outlined'
                 />
               </Grid>
-              <div className={styles.addMore}><Plus /><p>Negotiate another item</p></div>
-            </>}
+              <div className={styles.addMore}>
+                <Plus />
+                <p>Negotiate another item</p>
+              </div>
+            </>
+          )}
         </DialogContent>
         <DialogActions className={styles.dialogActions}>
           <button onClick={() => setOpenNegotiateDialog(false)}>Cancel</button>
-          <button className={clsx(styles.sendButton, negotitaedItem !== '' ? styles.active : styles.disabled)}>
+          <button
+            className={clsx(
+              styles.sendButton,
+              negotitaedItem !== '' ? styles.active : styles.disabled
+            )}
+          >
             Send to Influencer
           </button>
         </DialogActions>
