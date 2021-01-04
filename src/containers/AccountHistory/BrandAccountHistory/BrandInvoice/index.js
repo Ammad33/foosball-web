@@ -117,7 +117,7 @@ const BrandInvoice = ({ data, handleExpandClick, expanded }) => {
 					<p>
 						November 2020
 						<div className={styles.dateDropDown}>
-							{filterDropdown ? <ChevronDown /> : <ChevronDown />}
+							{filterDropdown ? <ChevronUp /> : <ChevronUp />}
 						</div>
 					</p>
 					<p>
@@ -129,7 +129,7 @@ const BrandInvoice = ({ data, handleExpandClick, expanded }) => {
 
 							</div>
 							<div className={styles.brandDropDownSVG} onClick={handleClick} >
-								{filterDropdown ? <ChevronUp /> : <ChevronDown />}
+								{filterDropdown ? <ChevronDown /> : <ChevronUp />}
 							</div>
 						</div>
 					</p>
