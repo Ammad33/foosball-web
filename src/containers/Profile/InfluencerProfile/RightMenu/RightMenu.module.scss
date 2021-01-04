@@ -17,3 +17,15 @@
   }
   padding-bottom: 30px;
 }
+
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .cardsContainer {
+      > * {
+        &:not(:last-child) {
+          margin-bottom: 20px !important;
+        }
+      }
+    }
+  }
+}

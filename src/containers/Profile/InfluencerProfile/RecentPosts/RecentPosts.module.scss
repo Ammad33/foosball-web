@@ -67,3 +67,15 @@
     }
   }
 }
+
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .mainDiv {
+      > * {
+        &:not(:last-child) {
+          margin-right: 18px !important;
+        }
+      }
+    }
+  }
+}

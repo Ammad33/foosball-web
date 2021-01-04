@@ -53,6 +53,19 @@
     flex-direction: row;
   }
 }
+
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .dateContainer {
+      > * {
+        &:not(:last-child) {
+          margin-right: 15px !important;
+        }
+      }
+    }
+  }
+}
+
 .Lifestyle {
   background-color: #4ea9da !important;
   margin: 5px 0px 0px 5px;

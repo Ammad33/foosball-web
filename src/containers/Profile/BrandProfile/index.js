@@ -12,7 +12,7 @@ const BrandProfile = () => {
   const [isOwner, setIsOwner] = useState(false);
   useEffect(() => {
     const isOwner = localStorage.getItem('isOwner');
-    setIsOwner(isOwner);
+    setIsOwner(true);
   });
   return (
     <div className={styles.mainContainer}>

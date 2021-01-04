@@ -54,3 +54,15 @@
 .svgContainer {
   display: flex;
 }
+
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .dateContainer {
+      > * {
+        &:not(:last-child) {
+          margin-right: 15px !important;
+        }
+      }
+    }
+  }
+}

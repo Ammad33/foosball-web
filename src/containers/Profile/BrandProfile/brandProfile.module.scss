@@ -74,3 +74,22 @@
     min-width: 418px !important;
   }
 }
+
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .brandInfo {
+      > * {
+        &:not(:last-child) {
+          margin-right: 27px !important;
+        }
+      }
+    }
+    .nameAndMessage {
+      > * {
+        &:not(:last-child) {
+          margin-right: 21px !important;
+        }
+      }
+    }
+  }
+}

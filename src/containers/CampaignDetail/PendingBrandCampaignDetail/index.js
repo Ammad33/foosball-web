@@ -220,7 +220,7 @@ const PendingBrandCampaignDetail = ({
             {data.influencer && (
               <div className={styles.influencerSocial}>
                 <Avatar src={data.influencer.imageUrl} />
-                {data.influencer.name}
+                <span>{data.influencer.name}</span>
               </div>
             )}
             <Checkbox

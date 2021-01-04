@@ -47,24 +47,24 @@ const InfluencerProfile = () => {
                     <User /> 25-30 <MapPin /> Fort Lauderdale, FL
                   </div>
                 ) : (
-                    ''
-                  )}
+                  ''
+                )}
               </div>
               {isOwner ? (
                 <Link to='#'>Upload Profile Photo</Link>
               ) : (
-                  <button className={styles.messageButton}>Message</button>
-                )}
+                <button className={styles.messageButton}>Message</button>
+              )}
             </div>
           </div>
           {isOwner ? (
             ''
           ) : (
-              <div className={styles.buttonContainer}>
-                <button className={styles.prospects}>Add to Prospects</button>
-                <button className={styles.start}>Start Campaign</button>
-              </div>
-            )}
+            <div className={styles.buttonContainer}>
+              <button className={styles.prospects}>Add to Prospects</button>
+              <button className={styles.start}>Start Campaign</button>
+            </div>
+          )}
         </div>
         <div className={styles.profileDetails}>
           <Grid container spacing={4}>

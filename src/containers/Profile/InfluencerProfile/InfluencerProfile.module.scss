@@ -63,6 +63,7 @@
           font-weight: 500;
           letter-spacing: 0;
           line-height: 26px;
+          padding: 0px;
         }
         .start {
           height: 52px;
@@ -74,6 +75,7 @@
           letter-spacing: 0;
           line-height: 26px;
           color: $white;
+          border: none;
         }
       }
     }
@@ -82,5 +84,31 @@
     width: 418px !important;
     max-width: 418px !important;
     min-width: 418px !important;
+  }
+}
+
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .influencerInfo {
+      > * {
+        &:not(:last-child) {
+          margin-right: 27px !important;
+        }
+      }
+    }
+    .nameAndMessage {
+      > * {
+        &:not(:last-child) {
+          margin-right: 21px !important;
+        }
+      }
+    }
+    .buttonContainer {
+      > * {
+        &:not(:last-child) {
+          margin-right: 15px !important;
+        }
+      }
+    }
   }
 }

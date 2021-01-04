@@ -22,3 +22,15 @@
     }
   }
 }
+
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .mainContainer {
+      > * {
+        &:not(:last-child) {
+          margin-right: 32px !important;
+        }
+      }
+    }
+  }
+}
