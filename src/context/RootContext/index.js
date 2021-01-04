@@ -11,7 +11,8 @@ export default ({ children }) => {
   const bId = localStorage.getItem('bId') || null;
   const bName = localStorage.getItem('bName') || null;
   const bType = localStorage.getItem('bType') || null;
-  const rId = localStorage.getItem('rId') || null;
+	const rId = localStorage.getItem('rId') || null;
+	const org = localStorage.getItem('org') || null;
   const [currentUser, setCurrentUser] = useState(prevUser);
   const [logoutMessage, setLogoutMessage] = useState('');
   const [activeRoute, setActiveRoute] = useState(preActiveRoute);
@@ -20,10 +21,12 @@ export default ({ children }) => {
   const [brands, setBrands] = useState(brandsStored);
   const [brandName, setBrandName] = useState(bName);
   const [brandType, setBrandType] = useState(bType);
-  const [roleId, setRoleId] = useState(rId);
+	const [roleId, setRoleId] = useState(rId);
+	const [organization , setOrganization] = useState(org);
   const [searchValue, setSearchValue] = useState('');
   const [influencers, setInfluencers] = useState(influencerStored);
-  const [showLoader, setShowLoader] = useState(false);
+	const [showLoader, setShowLoader] = useState(false);
+	
 
   useEffect(() => {
     if (!currentUser) window.localStorage.clear();
@@ -40,9 +43,11 @@ export default ({ children }) => {
     if (!brandName) localStorage.removeItem('bName');
     else localStorage.setItem('bName', brandName);
     if (!brandType) localStorage.removeItem('bType');
-    else localStorage.setItem('bType', brandType);
+		else localStorage.setItem('bType', brandType);
     if (!roleId) localStorage.removeItem('rId');
-    else localStorage.setItem('rId', roleId);
+		else localStorage.setItem('rId', roleId);
+		if (!organization) localStorage.removeItem('org');
+		else localStorage.setItem('org', organization);
   }, [
     currentUser,
     activeRoute,
@@ -51,7 +56,8 @@ export default ({ children }) => {
     brandName,
     brandType,
     roleId,
-    influencers,
+		influencers,
+		organization,
   ]);
 
   const defaultContext = {
@@ -78,7 +84,9 @@ export default ({ children }) => {
     influencers,
     setInfluencers,
     showLoader,
-    setShowLoader,
+		setShowLoader,
+		organization,
+		setOrganization,
   };
 
   return (

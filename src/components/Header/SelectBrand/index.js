@@ -14,8 +14,11 @@ const SelectBrand = () => {
     setBrandName,
     setRoleId,
     setBrandType,
-    influencers,
+		influencers,
+		organization,
+		setOrganization,
   } = useContext(RootContext);
+
 
   const [brandDropDown, setBrandDropDown] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -72,7 +75,10 @@ const SelectBrand = () => {
                         );
                         setRoleId(
                           item.organization && item.organization.roles[0].id
-                        );
+												);
+												setOrganization(
+													item.organization && item.organization.roles[0].administration
+												)
                         handleClose();
                       }}
                       className={styles.brandContainter}
@@ -114,7 +120,10 @@ const SelectBrand = () => {
                         );
                         setRoleId(
                           item.organization && item.organization.roles[0].id
-                        );
+												);
+												setOrganization(
+													item.organization && item.organization.roles[0].administration
+												)
                         handleClose();
                       }}
                       className={styles.brandContainter}
