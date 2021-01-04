@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './FomoPromoInvoice.module.scss';
 import { ChevronUp, ChevronDown, Download, Share2 } from 'react-feather';
 import SVG from 'react-inlinesvg';
@@ -8,6 +8,7 @@ import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import { Link } from 'react-router-dom';
+import clsx from 'clsx';
 
 
 const PlusSVG = () => {
@@ -20,10 +21,24 @@ const MinusSVG = () => {
 
 
 const FomoPromoInvoice = ({ data, handleExpandClick, expanded }) => {
-
+	var nf = new Intl.NumberFormat();
 	const [filterDropdown, setFilterDropdown] = useState(false);
 	const [selectedFilter, setSelectedFilter] = useState('Brand')
 	const [anchorEl, setAnchorEl] = React.useState(null);
+	const [activeUserFee , setActiveUserFee] = useState(0);
+	const [activeCampaign , setActiveCampaign] = useState(0);
+	const [gmvFee , setGmvFee] = useState(0);
+
+	// useEffect(()=> {
+	// 	calculateFee();
+	// });
+
+	const calculateFee = (num1 , num2 , num3 , num4 , num5 , num6) => {
+		setActiveUserFee(num1*num4);
+		setActiveCampaign(num2*num5);
+		setGmvFee(num3*num6);
+	}
+
 	const handleClick = (event) => {
 		setFilterDropdown(true);
 		setAnchorEl(event.currentTarget);
@@ -79,7 +94,13 @@ const FomoPromoInvoice = ({ data, handleExpandClick, expanded }) => {
 												<div className={styles.contentAutoPayment}> Auto Payment:  <p>{item.autoPayment}  </p> </div>
 												<div className={styles.contentBilled}> Billed:  <p>{item.billed}</p> </div>
 												<IconButton
-													onClick={(e) => { handleExpandClick(e, index) }}
+													onClick={(e) => { handleExpandClick(e, index); 
+													calculateFee(item.activeUsers, 
+														item.activeCampaigns ,
+														item.gmv,
+														item.activeUserFee,
+														item.activeCampaignFee,
+														item.gmvFee ); } }
 													aria-expanded={expanded}
 													aria-label="show more"
 													data-target={item.id}
@@ -93,17 +114,17 @@ const FomoPromoInvoice = ({ data, handleExpandClick, expanded }) => {
 														<div className={styles.collapseContent}>
 															<div>Active User: <p>{item.activeUsers} </p> </div>
 															<div>Active Campaigns: <p> {item.activeCampaigns} </p>	</div>
-															<div>GMV: <p> {item.gmv} </p>	</div>
+															<div>GMV: <p> {nf.format(item.gmv)} </p>	</div>
 														</div>
 														<div className={styles.collapseContent}>
-															<div>Active User Fee: <p>{item.activeUserFee} </p> </div>
-															<div>Active Campaigns: <p> {item.activeCampaignFee} </p>	</div>
-															<div>GMV Fee: <p> {item.gmvFee} </p>	</div>
+															<div>Active User Fee: <p>${item.activeUserFee} x {item.activeUsers} = ${nf.format(activeUserFee)}  </p> </div>
+															<div>Active Campaigns: <p> ${item.activeCampaignFee} x {nf.format(item.activeCampaigns)} = ${nf.format(activeCampaign)}  </p>	</div>
+															<div>GMV Fee: <p> {item.gmvFee}% x ${nf.format(item.gmv)} = ${nf.format(gmvFee)} </p>	</div>
 														</div>
 													</div>
 												</CardContent>
 											</Collapse>
-											<Divider className={styles.divider} />
+											<Divider className={styles.divider} /> 
 										</div>
 									);
 								})}

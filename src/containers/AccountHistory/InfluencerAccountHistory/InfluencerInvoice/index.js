@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './InfluencerInvoice.module.scss';
-import { ChevronUp, ChevronDown, Download, Share2 } from 'react-feather';
+import {  Download, Share2 } from 'react-feather';
 import Avatar from '@material-ui/core/Avatar';
 import SVG from 'react-inlinesvg';
 import Popover from '@material-ui/core/Popover';
@@ -11,6 +11,20 @@ import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import FilterPopover from '../../FilterPopover';
 
+const ChevronDown = () => {
+	return (
+		<span >
+			<SVG src={require('../../../../assets/chevron-downn.svg')} />
+		</span>
+	);
+};
+const ChevronUp = () => {
+	return (
+		<span >
+			<SVG src={require('../../../../assets/chevron-up.svg')} />
+		</span>
+	);
+};
 
 const PlusSVG = () => {
 	return <SVG src={require('../../../../assets/plus1.svg')} />;
@@ -104,7 +118,7 @@ const InfluencerInvoice = ({ data, handleExpandClick, expanded }) => {
 					<p>
 						November 2020
 						<div className={styles.dateDropDown}>
-							{filterDropdown ? <ChevronDown /> : <ChevronDown />}
+							{filterDropdown ? <ChevronUp /> : <ChevronUp />}
 						</div>
 					</p>
 					<p>
@@ -116,7 +130,7 @@ const InfluencerInvoice = ({ data, handleExpandClick, expanded }) => {
 
 							</div>
 							<div className={styles.brandDropDownSVG} onClick={handleClick} >
-								{filterDropdown ? <ChevronUp /> : <ChevronDown />}
+								{filterDropdown ? <ChevronDown /> : <ChevronUp />}
 							</div>
 						</div>
 					</p>
