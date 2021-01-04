@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import styles from './FomoPromoInvoice.module.scss';
 import { ChevronUp, ChevronDown, Download, Share2 } from 'react-feather';
-import Avatar from '@material-ui/core/Avatar';
 import SVG from 'react-inlinesvg';
 import Divider from '@material-ui/core/Divider';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
+import { Link } from 'react-router-dom';
+
 
 const PlusSVG = () => {
 	return <SVG src={require('../../../../assets/plus1.svg')} />;
@@ -43,7 +44,14 @@ const FomoPromoInvoice = ({ data, handleExpandClick, expanded }) => {
 	return (
 		<>
 			<div className={styles.mainContainer}>
-				<span> Update your billing preferences in settings </span>
+				<span> Update your billing preferences in{' '}
+				<Link
+						to='#'
+						style={{ color: '#000000', textDecorationLine: 'underline' }}
+					>
+						settings.
+					</Link>
+				</span>
 				<div className={styles.dateFilter}>
 					<p>
 						<div>
@@ -66,7 +74,7 @@ const FomoPromoInvoice = ({ data, handleExpandClick, expanded }) => {
 										<div>
 											<CardActions disableSpacing>
 												<div className={styles.contentDownload}> <Download /></div>
-												<div className={styles.contentInvoice}> View Invoice</div>
+												<div className={styles.contentInvoice}> November 2020 Invoice</div>
 												<div className={styles.contentInvoiceIssue}> Invoice Issued:   <p>{item.invoiceIssued}</p> </div>
 												<div className={styles.contentAutoPayment}> Auto Payment:  <p>{item.autoPayment}  </p> </div>
 												<div className={styles.contentBilled}> Billed:  <p>{item.billed}</p> </div>
@@ -95,7 +103,7 @@ const FomoPromoInvoice = ({ data, handleExpandClick, expanded }) => {
 													</div>
 												</CardContent>
 											</Collapse>
-											<Divider />
+											<Divider className={styles.divider} />
 										</div>
 									);
 								})}

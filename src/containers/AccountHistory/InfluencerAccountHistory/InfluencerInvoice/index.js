@@ -99,20 +99,24 @@ const InfluencerInvoice = ({ data, handleExpandClick, expanded }) => {
 				/>
 			</Popover>
 			<div className={styles.mainContainer}>
-				<span> Below are invoices you owe to your influencers </span>
+				<span> Below are invoices you owe to your influencers. </span>
 				<div className={styles.dateFilter}>
 					<p>
 						November 2020
+						<div className={styles.dateDropDown}>
+							{filterDropdown ? <ChevronDown /> : <ChevronDown />}
+						</div>
 					</p>
 					<p>
-						<div>
-							<div onClick={handleClick} className={styles.brandDropDown}>
-								{"Filter by Influencer"}
+						<div style={{ display: 'flex	' }}>
+							<div className={styles.brandDropDown}>
+								{"Filter by Brand"}
 								{selectedMember.filter(i => i.selected === true).length > 0 ?
 									(<span> {selectedMember.filter(i => i.selected === true).length} </span>) : ("")}
-								<div className={styles.brandDropDownSVG}>
-									{filterDropdown ? <ChevronUp /> : <ChevronDown />}
-								</div>
+
+							</div>
+							<div className={styles.brandDropDownSVG} onClick={handleClick} >
+								{filterDropdown ? <ChevronUp /> : <ChevronDown />}
 							</div>
 						</div>
 					</p>
@@ -159,7 +163,7 @@ const InfluencerInvoice = ({ data, handleExpandClick, expanded }) => {
 													</div>
 												</CardContent>
 											</Collapse>
-											<Divider />
+											<Divider className={styles.divider} />
 										</div>
 									);
 								})}
