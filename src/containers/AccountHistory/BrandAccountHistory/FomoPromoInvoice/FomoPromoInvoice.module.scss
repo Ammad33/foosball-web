@@ -69,6 +69,7 @@
 				color: #000000;
 				font-family: Poppins;
 				font-size: 16px;
+				font-weight: 500	;
 				letter-spacing: 0;
 				line-height: 25px;
 
@@ -82,18 +83,19 @@
 				}
 
 				.contentInvoice {
-					width: 200px;
+					width: 250px;
 					text-decoration: underline;
 				}
 
 				.contentInvoiceIssue {
 					display: flex;
-					width: 375px;
+					width: 300px;
 					font-weight: 500;
 
 					p {
 						text-decoration: underline;
 						font-weight: 400;
+						margin-left: .2rem;
 					}
 				}
 
@@ -103,6 +105,7 @@
 					font-weight: 500;
 					p {
 						font-weight: 400;
+						margin-left: .2rem;
 					}
 				}
 
@@ -113,7 +116,12 @@
 
 					p {
 						font-weight: 400;
+						margin-left: .2rem;
 					}
+				}
+				.divider{
+					margin-top: 10px;
+					margin-bottom: 10px;
 				}
 			}
 		}
@@ -135,6 +143,7 @@
 
 				p {
 					font-weight: 400;
+					margin-left: .2rem;
 				}
 			}
 

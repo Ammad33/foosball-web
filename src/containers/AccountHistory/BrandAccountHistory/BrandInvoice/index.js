@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './BrandInvoice.module.scss';
-import { ChevronUp, ChevronDown, Download, Share2 } from 'react-feather';
+import { Download, Share2 } from 'react-feather';
 import Avatar from '@material-ui/core/Avatar';
 import SVG from 'react-inlinesvg';
 import Divider from '@material-ui/core/Divider';
@@ -11,6 +11,20 @@ import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import FilterPopover from '../../FilterPopover';
 
+const ChevronDown = () => {
+	return (
+		<span >
+			<SVG src={require('../../../../assets/chevron-downn.svg')} />
+		</span>
+	);
+};
+const ChevronUp = () => {
+	return (
+		<span >
+			<SVG src={require('../../../../assets/chevron-up.svg')} />
+		</span>
+	);
+};
 
 const PlusSVG = () => {
 	return <SVG src={require('../../../../assets/plus1.svg')} />;
@@ -98,20 +112,24 @@ const BrandInvoice = ({ data, handleExpandClick, expanded }) => {
 				/>
 			</Popover>
 			<div className={styles.mainContainer}>
-				<span> Below are invoices you owe to your influencers </span>
+				<span> Below are invoices generated and sent to the brand on your behalf.</span>
 				<div className={styles.dateFilter}>
 					<p>
 						November 2020
+						<div className={styles.dateDropDown}>
+							{filterDropdown ? <ChevronDown /> : <ChevronDown />}
+						</div>
 					</p>
 					<p>
-						<div>
-							<div onClick={handleClick} className={styles.brandDropDown}>
+						<div style={{ display: 'flex	' }}>
+							<div className={styles.brandDropDown}>
 								{"Filter by Brand"}
-									{selectedMember.filter(i => i.selected === true).length > 0 ? 
-									(<span> {selectedMember.filter(i => i.selected === true).length} </span>) : ("")}			
-								<div className={styles.brandDropDownSVG}>
-									{filterDropdown ? <ChevronUp /> : <ChevronDown />}
-								</div>
+								{selectedMember.filter(i => i.selected === true).length > 0 ?
+									(<span> {selectedMember.filter(i => i.selected === true).length} </span>) : ("")}
+
+							</div>
+							<div className={styles.brandDropDownSVG} onClick={handleClick} >
+								{filterDropdown ? <ChevronUp /> : <ChevronDown />}
 							</div>
 						</div>
 					</p>
@@ -128,14 +146,14 @@ const BrandInvoice = ({ data, handleExpandClick, expanded }) => {
 												<div className={styles.contentShare}> <Share2 /></div>
 												<div className={styles.contentDownload}> <Download /></div>
 												<div className={styles.contentInvoice}> View Invoice</div>
-												<div className={styles.contentName}> Campaign:   <p>{item.campaign}</p> </div>
+												<div className={styles.contentName}> Campaign:<p>{item.campaign}</p> </div>
 												<div className={styles.contentDate}> Date:  <p>{item.date}  </p> </div>
 												<Avatar
 													className={styles.avatar}
 													src={item.img}
 													alt={'avatar'} />
 												<div className={styles.contentInfluencer}> {item.member} </div>
-												<div className={styles.contentSales}> Sales:  <p>{item.sales}</p> </div>
+												<div className={styles.contentSales}> Billed:  <p>{item.billed}</p> </div>
 												<IconButton
 													onClick={(e) => { handleExpandClick(e, index) }}
 													aria-expanded={expanded}
@@ -158,7 +176,7 @@ const BrandInvoice = ({ data, handleExpandClick, expanded }) => {
 													</div>
 												</CardContent>
 											</Collapse>
-											<Divider />
+											<Divider className={styles.divider} />
 										</div>
 									);
 								})}

@@ -15,14 +15,19 @@
 
 		p {
 			display: flex;
-			width: 300px;
-			height: 100px;
+			margin-top: 20px;
+			width: 225px;
+			height: 80px;
 			align-items: center;
 			color: #000000;
 			font-family: Poppins;
 			font-size: 17px;
 			letter-spacing: 0;
 			line-height: 26px;
+
+			.dateDropDown {
+				margin-left: 10px;
+			}
 		}
 	}
 
@@ -34,6 +39,7 @@
 	.brandDropDown {
 		margin-right: 5px !important;
 		display: flex;
+
 		span {
 			display: flex;
 			margin-left: 10px;
@@ -51,6 +57,11 @@
 
 	.brandDropDownSVG {
 		margin-left: 5px;
+
+		span {
+			display: flex;
+			margin-top: 7px;
+		}
 	}
 
 	.brandInvoiceInfoContainer {
@@ -84,6 +95,7 @@
 				font-size: 16px;
 				letter-spacing: 0;
 				line-height: 25px;
+				font-weight: 500;
 
 				.contentShare {
 					width: 40px;
@@ -107,6 +119,7 @@
 					p {
 						text-decoration: underline;
 						font-weight: 400;
+						margin-left: .2rem;
 					}
 				}
 
@@ -117,6 +130,7 @@
 
 					p {
 						font-weight: 400;
+						margin-left: .2rem;
 					}
 				}
 
@@ -127,6 +141,7 @@
 
 					p {
 						font-weight: 400;
+						margin-left: .2rem;
 					}
 
 				}
@@ -138,12 +153,18 @@
 
 					p {
 						font-weight: 400;
+						margin-left: .2rem;
 					}
 				}
 
 				.avatar {
 					height: 46px;
 					width: 46px;
+				}
+
+				.divider {
+					margin-top: 10px;
+					margin-bottom: 10px;
 				}
 			}
 		}
@@ -165,6 +186,7 @@
 
 				p {
 					font-weight: 400;
+					margin-left: .2rem;
 				}
 			}
 
