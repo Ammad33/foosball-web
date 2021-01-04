@@ -9,6 +9,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
+import FilterPopover from '../../FilterPopover';
+
 
 const PlusSVG = () => {
 	return <SVG src={require('../../../../assets/plus1.svg')} />;
@@ -19,8 +21,9 @@ const MinusSVG = () => {
 };
 
 const InfluencerInvoice = ({ data, handleExpandClick, expanded }) => {
+	const [selectAll, setSelectAll] = useState(false);
+	const [selectedMember, setSelecetedMember] = useState([]);
 	const [filterDropdown, setFilterDropdown] = useState(false);
-	const [selectedFilter, setSelectedFilter] = useState('Brand')
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const handleClick = (event) => {
 		setFilterDropdown(true);
@@ -31,11 +34,38 @@ const InfluencerInvoice = ({ data, handleExpandClick, expanded }) => {
 		setFilterDropdown(false);
 	};
 
-	const handleFilter = (event) => {
-		setSelectedFilter(event.currentTarget.dataset["value"]);
-		handleClose();
-		console.log(selectedFilter);
+	const handleSelectAll = () => {
+		setSelectAll(selectAll ? false : true);
 	}
+	const handleSelection = (index) => {
+		const opts = [...selectedMember]
+		const firstIndex = opts.findIndex((item => item.indx == index))
+		if (firstIndex != -1) {
+			if (opts[index].selected == false) {
+				opts[index].selected = true;
+			}
+			else {
+				opts[index].selected = false;
+			}
+		}
+		else {
+			opts.push({
+				selected: true,
+				indx: index
+			})
+			setSelecetedMember(opts);
+		}
+		setSelecetedMember(opts);
+	}
+	const handleClearAll = () => {
+		const opts = [...selectedMember]
+		opts.map((item) => {
+			item.selected = false;
+		})
+		setSelecetedMember(opts);
+	}
+
+
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
 
@@ -51,26 +81,22 @@ const InfluencerInvoice = ({ data, handleExpandClick, expanded }) => {
 					horizontal: 'center',
 				}}
 				PaperProps={{
-					style: { width: '244px', height: '310px' },
+					style: { width: '250px', maxHeight: '490px', },
 				}}
 				transformOrigin={{
 					vertical: 'top',
 					horizontal: 'center',
 				}}
 			>
-				<div className={styles.popOverContainer}>
-					{/* {selectAll ? (
-						<CheckCircleIcon
-							onClick={handleSelectAll}
-						/>
-					) : (
-							<RadioButtonUncheckedIcon
-								onClick={handleSelectAll}
-							/>
-						)}
-					<p> Select all </p>
-					<p> Clear all</p> */}
-				</div>
+				<FilterPopover
+					selectAll={selectAll}
+					handleSelectAll={handleSelectAll}
+					handleClearAll={handleClearAll}
+					data={data}
+					selectedMember={selectedMember}
+					handleSelection={handleSelection}
+
+				/>
 			</Popover>
 			<div className={styles.mainContainer}>
 				<span> Below are invoices you owe to your influencers </span>
@@ -82,6 +108,8 @@ const InfluencerInvoice = ({ data, handleExpandClick, expanded }) => {
 						<div>
 							<div onClick={handleClick} className={styles.brandDropDown}>
 								{"Filter by Influencer"}
+								{selectedMember.filter(i => i.selected === true).length > 0 ?
+									(<span> {selectedMember.filter(i => i.selected === true).length} </span>) : ("")}
 								<div className={styles.brandDropDownSVG}>
 									{filterDropdown ? <ChevronUp /> : <ChevronDown />}
 								</div>
@@ -125,8 +153,8 @@ const InfluencerInvoice = ({ data, handleExpandClick, expanded }) => {
 															<div>Compensation: <p> {item.compensation} </p> </div>
 														</div>
 														<div className={styles.collapseContent}>
-														<div>Campaign Duration: <p> {item.campaignDuration} </p>	</div>
-														<div>Total Influencer Payout: <p> {item.totalInfluencerPayout} </p>	</div>
+															<div>Campaign Duration: <p> {item.campaignDuration} </p>	</div>
+															<div>Total Influencer Payout: <p> {item.totalInfluencerPayout} </p>	</div>
 														</div>
 													</div>
 												</CardContent>

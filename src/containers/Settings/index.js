@@ -20,11 +20,12 @@ const Setting = () => {
 	const [imgUrl, setImgUrl] = useState([]);
 	const [fullName, setFullName] = useState('');
 	const [email, setEmail] = useState('');
+	const [emailVerified , setEmailVerified] = useState('');
 	const [brandNamee, setBrandNamee] = useState([]);
 	const [typeName, setTypeName] = useState([]);
 	const { brandType, brandName } = useContext(RootContext);
 
-
+	
 	useEffect(() => {
 		myData();
 	}, []);
@@ -198,6 +199,10 @@ const Setting = () => {
 						email
 						fullName
 						id
+						verification {
+							verified
+							sent
+						}
 						organizations {
 							organization {
 								id
@@ -222,6 +227,7 @@ const Setting = () => {
 					}
 			}`,
 			});
+			setEmailVerified (mydata.data.me.verification.verified)
 			setEmail(mydata.data.me.email);
 			setFullName(mydata.data.me.fullName);
 			setImgUrl(mydata.data.me.imageUrl);
@@ -270,6 +276,8 @@ const Setting = () => {
 						newPassword={newPassword}
 						setOldPassword={(e) => setOldPassword(e.target.value)}
 						setNewPassword={(e) => setNewPassword(e.target.value)}
+						handleChangePassword={handleChangePassword}
+						emailVerfied = {emailVerified}
 					/>
 				);
 			case 'notification':

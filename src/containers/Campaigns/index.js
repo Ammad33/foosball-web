@@ -61,6 +61,7 @@ const Campaigns = () => {
 									email
 									roles {
 										id
+										administration
 									}
 								}
 							}
@@ -73,8 +74,8 @@ const Campaigns = () => {
 							phoneNumber
 						}
 				}`,
-      });
-
+			});
+			
       let brandsData = [];
       let influencersData = [];
       mydata.data.me.organizations !== null &&

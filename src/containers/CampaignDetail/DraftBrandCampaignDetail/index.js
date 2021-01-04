@@ -89,8 +89,7 @@ const DraftBrandCampaignDetail = ({ headingValue, setAll, handleActiveStep, hand
               <div className={styles.campaignDraftContainer}>
                 <h1>{headingValue} not yet defined</h1>
                 <p>
-                  Pickup where you left off and define how you will compensate the
-                  influencer
+                  Pickup where you left off
               </p>
                 <button onClick={handleActiveStep}>Finalize Campaign</button>
               </div>

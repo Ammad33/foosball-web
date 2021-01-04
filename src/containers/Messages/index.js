@@ -283,7 +283,6 @@ const Messages = () => {
 	};
 
 	const handleSelectedConversation = (conversation, index) => {
-		debugger;
 		setIndexStored(index);
 		if (index != indexStored) {
 			const conv = [...conversations]
@@ -294,7 +293,6 @@ const Messages = () => {
 			}
 			setSelectedConversation(conversation);
 		}
-
 	};
 
 	const [anchorEl, setAnchorEl] = useState(null);
