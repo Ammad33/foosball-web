@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import styles from './Contacts.module.scss';
+import styles from './BrandContacts.module.scss';
 import { MoreVertical, Edit, Trash } from 'react-feather';
 import { Grid, Avatar, Popover } from '@material-ui/core';
 import AddContact from './AddContact';
