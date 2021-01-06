@@ -1,4 +1,4 @@
-import React, { useState, useContext} from 'react';
+import React, { useState, useContext } from 'react';
 import styles from './Account.module.scss';
 import mainStyles from '../../../index.module.scss';
 import { Grid, InputAdornment } from '@material-ui/core';
@@ -10,7 +10,7 @@ import CDialog from '../../../components/ConfirmationDialog';
 import Translation from '../../../assets/translation.json';
 import SVG from 'react-inlinesvg';
 import { Avatar } from '@material-ui/core';
-import {RootContext} from '../../../context/RootContext';
+import { RootContext } from '../../../context/RootContext';
 
 const Eye_offSVG = () => {
 	return <SVG src={require('../../../assets/eye-off.svg')} />;
@@ -32,6 +32,7 @@ const Account = ({
 	setNewPassword,
 	handleChangePassword,
 	emailVerfied,
+	teamData,
 
 }) => {
 
@@ -42,7 +43,7 @@ const Account = ({
 	const [passwordChange, setPasswordChange] = useState(false);
 	const [actionType, setActionType] = useState('');
 	const [editPassword, setEditPassword] = useState(false);
-	
+
 	const togglePasswordVisiblity = () => {
 		setPasswordShown(passwordShown ? false : true);
 	};
@@ -145,9 +146,9 @@ const Account = ({
 							}}
 						/>
 					</Grid>
-						<Grid item xs={6}  className={styles.verifiedEmail}>
-							{emailVerfied && emailVerfied != null ? (<p>Email Verified<CheckCircleIcon fontSize="small"/> </p>) : ('')}
-						</Grid>
+					<Grid item xs={6} className={styles.verifiedEmail}>
+						{emailVerfied && emailVerfied != null ? (<p>Email Verified<CheckCircleIcon fontSize="small" /> </p>) : (<p> Verify email address </p>)}
+					</Grid>
 					{editPassword ? (
 						<>
 							<Grid item xs={6}>
@@ -231,18 +232,33 @@ const Account = ({
 					<p className={styles.deleteTitle}>Delete Account</p>
 					<div className={styles.deleteAccountTextAndButton}>
 						<p>By deleting your account you will lose all your data.</p>
-						<Button
-							onClick={() => {
-								setActionType('Delete');
-								setOpenCDialog(true);
-							}}
-							className={clsx(
-								mainStyles.textDangerButton,
-								styles.DeactivateButton
+						{teamData ? (
+							<Button
+								onClick={() => {
+									setActionType('Warning');
+									setOpenCDialog(true);
+								}}
+								className={clsx(
+									mainStyles.textDangerButton,
+									styles.DeactivateButton
+								)}
+							>
+								Delete Account
+							</Button>
+						) : (
+								<Button
+									onClick={() => {
+										setActionType('Delete');
+										setOpenCDialog(true);
+									}} 
+									className={clsx(
+										mainStyles.textDangerButton,
+										styles.DeactivateButton
+									)}
+								>
+									Delete Account
+								</Button>
 							)}
-						>
-							Delete Account
-            </Button>
 					</div>
 				</div>
 				<div className={styles.saveContainer}>
@@ -258,6 +274,8 @@ const Account = ({
 				message={
 					actionType === 'Delete'
 						? Translation.DIALOG.ACCOUNT_DELETE_CDIALOG_MSG
+						: actionType === 'Warning' 
+						? Translation.DIALOG.ACCOUNT_WARNING_CDIALOG_MSG
 						: Translation.DIALOG.ACCOUNT_DEACTIVATE_CDIALOG_MSG
 				}
 			/>

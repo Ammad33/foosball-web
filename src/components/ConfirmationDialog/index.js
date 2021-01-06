@@ -6,45 +6,54 @@ import styles from './ConfirmationDialog.module.scss';
 import globalStyles from '../../index.module.scss';
 
 const CDialog = ({
-  onCancel,
-  onConfirm,
-  cancelText,
-  confirmText,
-  message,
-  open,
-  ...other
+	onCancel,
+	onConfirm,
+	cancelText,
+	confirmText,
+	message,
+	open,
+	...other
 }) => {
-  const handleCancel = () => {
-    onCancel();
-  };
+	const handleCancel = () => {
+		onCancel();
+	};
 
-  const handleOk = () => {
-    onConfirm();
-  };
+	const handleOk = () => {
+		onConfirm();
+	};
 
-  return (
-    <Dialog
-      classes={{ paper: styles.cDialog }}
-      disableBackdropClick
-      disableEscapeKeyDown
-      open={open}
-      {...other}
-    >
-      <DialogContent className={styles.cDialogContent}>
-        <p className={styles.cDialogDescription}>{message}</p>
-      </DialogContent>
-      <div className={styles.cDialogActions}>
-        <Button className={styles.confirm} onClick={handleOk}>{confirmText ? confirmText : 'Ok'}</Button>
-        <Button
-          variant='contained'
-          className={globalStyles.dangerButton}
-          onClick={handleCancel}
-        >
-          {cancelText ? cancelText : 'Cancel'}
-        </Button>
-      </div>
-    </Dialog>
-  );
+	debugger;
+	return (
+		<Dialog
+			classes={{ paper: styles.cDialog }}
+			disableBackdropClick
+			disableEscapeKeyDown
+			open={open}
+			{...other}
+		>
+			<DialogContent className={styles.cDialogContent}>
+				{cancelText == 'Warning' ? (<h1> Oops! </h1>) : ('')}
+				<p className={styles.cDialogDescription}>{message}</p>
+			</DialogContent>
+			<div className={styles.cDialogActions}>
+				{cancelText == 'Warning' ? (
+					<Button className={styles.confirm} onClick={handleOk}> Got it </Button>
+				) : (
+						<>
+							<Button className={styles.confirm} onClick={handleOk}>{confirmText ? confirmText : 'Ok'}</Button>
+							<Button
+								variant='contained'
+								className={globalStyles.dangerButton}
+								onClick={handleCancel}
+							>
+								{cancelText ? cancelText : 'Cancel'}
+							</Button>
+						</>
+					)}
+
+			</div>
+		</Dialog>
+	);
 };
 
 export default CDialog;
