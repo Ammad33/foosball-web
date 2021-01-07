@@ -14,8 +14,18 @@
       font-size: 18px;
       font-weight: 500;
       letter-spacing: 0;
-      line-height: 31px;
-    }
+			line-height: 31px;
+			margin-top: 20px !important;
+
+		}
+		span {
+			color: #000000;
+			font-family: Poppins;
+			font-size: 22px;
+			font-weight: 600;
+			letter-spacing: 0;
+			// line-height: 33px;
+		}
   }
   .cDialogActions {
     display: flex;

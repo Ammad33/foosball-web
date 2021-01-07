@@ -20,14 +20,15 @@ const Setting = () => {
 	const [imgUrl, setImgUrl] = useState([]);
 	const [fullName, setFullName] = useState('');
 	const [email, setEmail] = useState('');
-	const [emailVerified , setEmailVerified] = useState('');
+	const [emailVerified, setEmailVerified] = useState('');
 	const [brandNamee, setBrandNamee] = useState([]);
 	const [typeName, setTypeName] = useState([]);
-	const { brandType, brandName } = useContext(RootContext);
+	const [teamData , setTeamData] = useState (true);
+	const { brandType, brandName, brandId, currentUser} = useContext(RootContext);
 
-	
 	useEffect(() => {
 		myData();
+		team();
 	}, []);
 
 	useEffect(() => {
@@ -227,7 +228,7 @@ const Setting = () => {
 					}
 			}`,
 			});
-			setEmailVerified (mydata.data.me.verification.verified)
+			setEmailVerified(mydata.data.me.verification.verified)
 			setEmail(mydata.data.me.email);
 			setFullName(mydata.data.me.fullName);
 			setImgUrl(mydata.data.me.imageUrl);
@@ -242,6 +243,33 @@ const Setting = () => {
 			}
 		}
 	};
+	const team = async () => {
+		try {
+			const team = await API.graphql({
+				query: `{
+          brand(id:"${brandId}") {
+            users {
+              user {
+                id
+							}
+							role {
+								administration
+							}
+            }
+          }
+        }`,
+			})
+			const teamAdmin = team.data.brand.users;
+			teamAdmin.map((item)=> {
+				if (item.role.administration == true && currentUser.username != item.user.id) {
+					setTeamData(false);
+				} 
+			})
+		}
+		catch (e) {
+			console.log(e);
+		}
+	}
 
 	const handleChangePassword = async () => {
 		const currentUser = await Auth.currentAuthenticatedUser();
@@ -277,7 +305,8 @@ const Setting = () => {
 						setOldPassword={(e) => setOldPassword(e.target.value)}
 						setNewPassword={(e) => setNewPassword(e.target.value)}
 						handleChangePassword={handleChangePassword}
-						emailVerfied = {emailVerified}
+						emailVerfied={emailVerified}
+						teamData = {teamData}
 					/>
 				);
 			case 'notification':
