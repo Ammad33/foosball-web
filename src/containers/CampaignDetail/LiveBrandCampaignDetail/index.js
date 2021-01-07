@@ -56,10 +56,23 @@ const LiveBrandCampaignDetail = ({
 	const handleStopReason = (val) => {
 		setStopReason(val);
 	}
+	const handleStopDialogOpen = () => {
+		setStop(true);
+		handleClose();
+	}
 
 
 	return (
 		<>
+			<StopDialog
+				open={stop}
+				handleClose={() => setStop(false)}
+				reason={stopReason}
+				reasons={reasons}
+				handleReason={handleStopReason}
+				message={Translation.DIALOG.CAMPAIGN_STOP_DIALOG_MSG}
+				buttonText="Stop"
+			/>
 			<Popover
 				id={id}
 				open={open}
@@ -74,15 +87,6 @@ const LiveBrandCampaignDetail = ({
 					horizontal: 'right',
 				}}
 			>
-				<StopDialog
-					open={stop}
-					handleClose={() => setStop(false)}
-					Reason={stopReason}
-					Reasons={reasons}
-					handleReason={handleStopReason}
-					message={Translation.DIALOG.CAMPAIGN_STOP_DIALOG_MSG}
-					DialogType = "stopping"
-				/>
 				<div className={styles.popOver}>
 					<div>
 						<Mail /> <p>Message Influencer</p>
@@ -93,7 +97,7 @@ const LiveBrandCampaignDetail = ({
 					<div>
 						<Download /> <p>Download Campaign</p>
 					</div>
-					<div onClick={() => setStop(true)}>
+					<div onClick={() => handleStopDialogOpen()}>
 						<XCircle /> <p>Stop Campaign</p>
 					</div>
 				</div>

@@ -12,7 +12,7 @@ export default ({ children }) => {
   const bName = localStorage.getItem('bName') || null;
   const bType = localStorage.getItem('bType') || null;
 	const rId = localStorage.getItem('rId') || null;
-	const org = localStorage.getItem('org') || null;
+	// const org = localStorage.getItem('org') || null;
   const [currentUser, setCurrentUser] = useState(prevUser);
   const [logoutMessage, setLogoutMessage] = useState('');
   const [activeRoute, setActiveRoute] = useState(preActiveRoute);
@@ -22,7 +22,7 @@ export default ({ children }) => {
   const [brandName, setBrandName] = useState(bName);
   const [brandType, setBrandType] = useState(bType);
 	const [roleId, setRoleId] = useState(rId);
-	const [organization , setOrganization] = useState(org);
+	// const [organization , setOrganization] = useState(org);
   const [searchValue, setSearchValue] = useState('');
   const [influencers, setInfluencers] = useState(influencerStored);
 	const [showLoader, setShowLoader] = useState(false);
@@ -46,8 +46,8 @@ export default ({ children }) => {
 		else localStorage.setItem('bType', brandType);
     if (!roleId) localStorage.removeItem('rId');
 		else localStorage.setItem('rId', roleId);
-		if (!organization) localStorage.removeItem('org');
-		else localStorage.setItem('org', organization);
+		// if (!organization) localStorage.removeItem('org');
+		// else localStorage.setItem('org', organization);
   }, [
     currentUser,
     activeRoute,
@@ -57,7 +57,7 @@ export default ({ children }) => {
     brandType,
     roleId,
 		influencers,
-		organization,
+		// organization,
   ]);
 
   const defaultContext = {
@@ -85,8 +85,8 @@ export default ({ children }) => {
     setInfluencers,
     showLoader,
 		setShowLoader,
-		organization,
-		setOrganization,
+		// organization,
+		// setOrganization,
   };
 
   return (

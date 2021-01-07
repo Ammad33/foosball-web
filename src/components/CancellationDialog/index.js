@@ -18,7 +18,7 @@ const Chevron = () => {
 	);
 };
 
-const DeclineModal = ({ open, handleClose, Reason,Reasons, handleReason , message , DialogType }) => {
+const CancellationDialog = ({ open, handleClose, reason,reasons, handleReason , message , buttonText }) => {
 
 	return (
 		<Dialog
@@ -27,25 +27,31 @@ const DeclineModal = ({ open, handleClose, Reason,Reasons, handleReason , messag
 			open={open}
 			onClose={handleClose}
 		>
-			<h6 className= {DialogType == 'stopping'? (styles.StopHeading):('')}>{message}</h6>
-			<p>{DialogType == "stopping" ? ("This action will deactivate the microsite"):('')} </p>
+			<h6 className= {buttonText == 'Stop'? (styles.StopHeading):('')}>{message}</h6>
+			<p>{buttonText == "Stop" ? ("This action will deactivate the microsite"):('')} </p>
 			<div>
 				<FormControl fullWidth variant='outlined'>
 					<TextField
 						labelId='demo-simple-select-outlined-label'
 						id='Reason for decline'
 						fullWidth
-						label='Reason for decline*'
+						label={buttonText == 'Decline' ? 'Reason for decline*' : buttonText == 'Cancel' ? 'Reason for Cancellation': 'Reason for stopping'}
 						variant='outlined'
 						displayEmpty
 						// className={mainStyles.placeholderColor}
 						// helperText={declineReason == "" ? <span> "Required" </span> : ' '}
-						value={Reason }
+						value={reason }
 						onChange={(e) => handleReason(e.target.value)}
 						MenuProps={{ variant: 'menu' }}
 						select
-						SelectProps={{ IconComponent: () => <Chevron /> }}
-					>	 {Reasons.map((item) => (
+						SelectProps={{ IconComponent: () => <Chevron /> } , {MenuProps: {
+							anchorOrigin: {
+								vertical: "bottom",
+								horizontal: "left"
+							},
+							getContentAnchorEl: null
+						} }}
+					>	 {reasons.map((item) => (
 						<MenuItem value={item}>{item}</MenuItem>
 					))}
 					</TextField>
@@ -67,12 +73,12 @@ const DeclineModal = ({ open, handleClose, Reason,Reasons, handleReason , messag
 			</div>
 			<div className={styles.footer} >
 				<span onClick={handleClose}>Cancel</span>
-				<button >Decline</button>
+			<button >{buttonText}</button>
 			</div>
 		</Dialog>
 	);
 
 };
 
-export default DeclineModal;
+export default CancellationDialog;
 

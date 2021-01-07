@@ -24,8 +24,7 @@ const Setting = () => {
 	const [brandNamee, setBrandNamee] = useState([]);
 	const [typeName, setTypeName] = useState([]);
 	const [teamData , setTeamData] = useState (true);
-	const { brandType, brandName, brandId } = useContext(RootContext);
-
+	const { brandType, brandName, brandId, currentUser} = useContext(RootContext);
 
 	useEffect(() => {
 		myData();
@@ -244,7 +243,6 @@ const Setting = () => {
 			}
 		}
 	};
-
 	const team = async () => {
 		try {
 			const team = await API.graphql({
@@ -263,7 +261,7 @@ const Setting = () => {
 			})
 			const teamAdmin = team.data.brand.users;
 			teamAdmin.map((item)=> {
-				if (item.role.administration == true) {
+				if (item.role.administration == true && currentUser.username != item.user.id) {
 					setTeamData(false);
 				} 
 			})

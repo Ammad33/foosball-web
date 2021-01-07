@@ -91,6 +91,10 @@ const PendingBrandCampaignDetail = ({
 	const handleCancelReason = (val) => {
 		setCancelReason(val);
 	}
+	const handleCancelDialogOpen = () => {
+		setCancel(true);
+		handleClose();
+	}
 
 
 
@@ -101,11 +105,11 @@ const PendingBrandCampaignDetail = ({
 			<CancelDialog
 				open={cancel}
 				handleClose={() => setCancel(false)}
-				Reason={cancelReason}
-				Reasons={reasons}
+				reason={cancelReason}
+				reasons={reasons}
 				handleReason={handleCancelReason}
 				message={Translation.DIALOG.CAMPAIGN_CANCEL_DIALOG_MSG}
-				DialogType = "cancellation"
+				buttonText = "Cancel"
 
 			/>
 			<div
@@ -210,7 +214,7 @@ const PendingBrandCampaignDetail = ({
 					<div>
 						<Download /> <p>Download Campaign</p>
 					</div>
-					<div onClick={() => setCancel(true)}>
+					<div onClick={()=> handleCancelDialogOpen()}>
 						<XCircle /> <p >Cancel Campaign</p>
 					</div>
 				</div>

@@ -22,7 +22,6 @@ const CDialog = ({
 		onConfirm();
 	};
 
-	debugger;
 	return (
 		<Dialog
 			classes={{ paper: styles.cDialog }}
@@ -32,7 +31,7 @@ const CDialog = ({
 			{...other}
 		>
 			<DialogContent className={styles.cDialogContent}>
-				{cancelText == 'Warning' ? (<h1> Oops! </h1>) : ('')}
+				{cancelText == 'Warning' ? (<span> Oops! </span>) : ('')}
 				<p className={styles.cDialogDescription}>{message}</p>
 			</DialogContent>
 			<div className={styles.cDialogActions}>

@@ -208,7 +208,7 @@ const Account = ({
 			<hr className={mainStyles.hr} />
 			<div className={styles.actionsContainer}>
 				<div className={styles.accountDeactivationContainer}>
-					<p className={styles.deleteTitle}>Deactivate Account</p>
+					<p className={styles.deleteTitle}>Deactivate User Account</p>
 					<div className={styles.deleteAccountTextAndButton}>
 						<p>
 							If you know longer need your account, or want to temporarily
@@ -229,13 +229,13 @@ const Account = ({
 					</div>
 				</div>
 				<div className={styles.accountDeletionContainer}>
-					<p className={styles.deleteTitle}>Delete Account</p>
+					<p className={styles.deleteTitle}>Delete User Account</p>
 					<div className={styles.deleteAccountTextAndButton}>
 						<p>By deleting your account you will lose all your data.</p>
 						{teamData ? (
 							<Button
 								onClick={() => {
-									setActionType('Warning');
+									setActionType('Delete');
 									setOpenCDialog(true);
 								}}
 								className={clsx(
@@ -248,7 +248,7 @@ const Account = ({
 						) : (
 								<Button
 									onClick={() => {
-										setActionType('Delete');
+										setActionType('Warning');
 										setOpenCDialog(true);
 									}} 
 									className={clsx(

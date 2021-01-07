@@ -24,11 +24,11 @@ const InviteCard = () => {
 			<DeclineDialog 
 			open={decline} 
 			handleClose={() => setDecline(false)} 
-			Reason={declineReason} 
-			Reasons = {reasons}
+			reason={declineReason} 
+			reasons = {reasons}
 			handleReason = {handleDeclineReason} 
 			message={Translation.DIALOG.CAMPAIGN_DECLINE_DIALOG_MSG}
-			DialogType = "decline"
+			buttonText = "Decline"
 
 			/>
         <div className={styles.declineContainer}>
