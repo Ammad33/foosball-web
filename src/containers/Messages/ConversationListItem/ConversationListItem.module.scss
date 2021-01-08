@@ -9,16 +9,16 @@
   align-items: center;
   gap: 5px;
   .titleAndMessageContainer {
-		flex: auto;
-		cursor: pointer;
+    flex: auto;
+    cursor: pointer;
     .title {
       font-family: Poppins;
       font-size: 14px;
       letter-spacing: 0;
       line-height: 21px;
-		}
-		.selectedTitle {
-			color: #FFFFFF;
+    }
+    .selectedTitle {
+      color: #ffffff;
       font-family: Poppins;
       font-size: 14px;
       letter-spacing: 0;
@@ -31,9 +31,9 @@
       letter-spacing: 0;
       line-height: 18px;
       margin: 0px 7px;
-		}
-		.selectedTime {
-      color: #DBD4FF;
+    }
+    .selectedTime {
+      color: #dbd4ff;
       font-family: Poppins;
       font-size: 12px;
       letter-spacing: 0;
@@ -46,17 +46,17 @@
       font-size: 13px;
       font-weight: 300;
       letter-spacing: 0;
-			line-height: 16px;
-			margin-top: 5px;
-		}
-		.selectedMessage {
-      color: #DBD4FF;
+      line-height: 16px;
+      margin-top: 5px;
+    }
+    .selectedMessage {
+      color: #dbd4ff;
       font-family: Poppins;
       font-size: 13px;
       font-weight: 300;
       letter-spacing: 0;
-			line-height: 16px;
-			margin-top: 5px;
+      line-height: 16px;
+      margin-top: 5px;
     }
   }
   .badgeAndMenu {
@@ -72,7 +72,7 @@
   background: $white;
 }
 .selectedBackground {
-	background-color: #7b5cd9;
+  background-color: #7b5cd9;
 }
 
 .popOver {
@@ -98,5 +98,31 @@
   }
   :last-child {
     margin-bottom: 0px;
+  }
+}
+
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .conversationListItem {
+      > * {
+        &:not(:last-child) {
+          margin-right: 5px !important;
+        }
+      }
+    }
+    .badgeAndMenu {
+      > * {
+        &:not(:last-child) {
+          margin-right: 20px !important;
+        }
+      }
+    }
+    .popOver div {
+      > * {
+        &:not(:last-child) {
+          margin-right: 20px !important;
+        }
+      }
+    }
   }
 }
