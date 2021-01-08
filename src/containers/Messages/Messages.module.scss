@@ -241,3 +241,50 @@
     margin-left: 15px;
   }
 }
+
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .messageFiltersContainer {
+      > * {
+        &:not(:last-child) {
+          margin-right: 50px !important;
+        }
+      }
+    }
+    .headingAndDropdown {
+      > * {
+        &:not(:last-child) {
+          margin-right: 25px !important;
+        }
+      }
+    }
+    .inputContainer {
+      > * {
+        &:not(:last-child) {
+          margin-right: 37.5px !important;
+        }
+      }
+    }
+    .popOver div {
+      > * {
+        &:not(:last-child) {
+          margin-right: 10px !important;
+        }
+      }
+    }
+    .avatarContainer {
+      > * {
+        &:not(:last-child) {
+          margin-right: 8px !important;
+        }
+      }
+    }
+    .popOver2 div {
+      > * {
+        &:not(:last-child) {
+          margin-right: 10px !important;
+        }
+      }
+    }
+  }
+}
