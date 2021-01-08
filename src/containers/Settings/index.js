@@ -23,7 +23,7 @@ const Setting = () => {
 	const [emailVerified, setEmailVerified] = useState('');
 	const [brandNamee, setBrandNamee] = useState([]);
 	const [typeName, setTypeName] = useState([]);
-	const [teamData , setTeamData] = useState (true);
+	const [teamData , setTeamData] = useState (false);
 	const { brandType, brandName, brandId, currentUser} = useContext(RootContext);
 
 	useEffect(() => {
@@ -261,8 +261,8 @@ const Setting = () => {
 			})
 			const teamAdmin = team.data.brand.users;
 			teamAdmin.map((item)=> {
-				if (item.role.administration == true && currentUser.username != item.user.id) {
-					setTeamData(false);
+				if (item.role.administration == true) {
+					setTeamData(true);
 				} 
 			})
 		}

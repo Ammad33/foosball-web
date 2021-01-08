@@ -80,6 +80,7 @@ const PendingBrandCampaignDetail = ({
 	const [customeMessage, setCustomeMessage] = useState('');
 	const [cancel, setCancel] = useState(false);
 	const [cancelReason , setCancelReason] = useState('');
+	const [reasonDetail , setReasonDetail] = useState('');
 
 
 	const handleClose = () => {
@@ -94,6 +95,9 @@ const PendingBrandCampaignDetail = ({
 	const handleCancelDialogOpen = () => {
 		setCancel(true);
 		handleClose();
+	}
+	const handleReasonDetail = (val) => {
+		setReasonDetail(val);
 	}
 
 
@@ -110,6 +114,8 @@ const PendingBrandCampaignDetail = ({
 				handleReason={handleCancelReason}
 				message={Translation.DIALOG.CAMPAIGN_CANCEL_DIALOG_MSG}
 				buttonText = "Cancel"
+				handleReasonDetail = {handleReasonDetail}
+				reasonDetail = {reasonDetail}
 
 			/>
 			<div

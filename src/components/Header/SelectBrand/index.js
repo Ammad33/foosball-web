@@ -15,8 +15,6 @@ const SelectBrand = () => {
     setRoleId,
     setBrandType,
 		influencers,
-		organization,
-		setOrganization,
   } = useContext(RootContext);
 
 
@@ -76,9 +74,6 @@ const SelectBrand = () => {
                         setRoleId(
                           item.organization && item.organization.roles[0].id
 												);
-												setOrganization(
-													item.organization && item.organization.roles[0].administration
-												)
                         handleClose();
                       }}
                       className={styles.brandContainter}
@@ -121,9 +116,6 @@ const SelectBrand = () => {
                         setRoleId(
                           item.organization && item.organization.roles[0].id
 												);
-												setOrganization(
-													item.organization && item.organization.roles[0].administration
-												)
                         handleClose();
                       }}
                       className={styles.brandContainter}

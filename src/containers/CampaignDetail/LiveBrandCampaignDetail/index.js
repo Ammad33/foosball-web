@@ -46,6 +46,8 @@ const LiveBrandCampaignDetail = ({
 	const id = open ? 'simple-popover' : undefined;
 	const [stop, setStop] = useState(false);
 	const [stopReason, setStopReason] = useState('');
+	const [reasonDetail , setReasonDetail] = useState('');
+
 
 	const handleClose = () => {
 		setAnchorEl(null);
@@ -60,6 +62,9 @@ const LiveBrandCampaignDetail = ({
 		setStop(true);
 		handleClose();
 	}
+	const handleReasonDetail = (val) => {
+		setReasonDetail(val);
+	}
 
 
 	return (
@@ -72,6 +77,8 @@ const LiveBrandCampaignDetail = ({
 				handleReason={handleStopReason}
 				message={Translation.DIALOG.CAMPAIGN_STOP_DIALOG_MSG}
 				buttonText="Stop"
+				handleReasonDetail = {handleReasonDetail}
+				reasonDetail = {reasonDetail}
 			/>
 			<Popover
 				id={id}
