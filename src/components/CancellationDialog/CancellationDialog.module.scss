@@ -32,7 +32,7 @@
 		padding: 0px !important;
 		margin-bottom: 0px !important;
 	}
-	p {
+	.note {
 		margin-bottom: 46px;
 		color: #000000;
 		font-family: Poppins;
@@ -42,8 +42,8 @@
 	}
 
 	.customMessage {
-		gap: 71px;
-		margin-top: 21px;
+		gap: 71px;	
+		margin-bottom: 0px !important;
 		div input {
 			padding-bottom: 185px;
 		}

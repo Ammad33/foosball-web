@@ -7,6 +7,8 @@ import Translation from '../../../assets/translation.json';
 const InviteCard = () => {
 	const [decline, setDecline] = useState(false);
 	const [declineReason , setDeclineReason] = useState('');
+	const [reasonDetail , setReasonDetail] = useState('');
+
 
 	const reasons = [
 		"Schedule is fully booked at this time",
@@ -18,6 +20,10 @@ const InviteCard = () => {
 	const handleDeclineReason = (val) => {
 		setDeclineReason(val);
 	}
+	const handleReasonDetail = (val) => {
+		setReasonDetail(val);
+	}
+
 
     return (
 			<>
@@ -29,6 +35,8 @@ const InviteCard = () => {
 			handleReason = {handleDeclineReason} 
 			message={Translation.DIALOG.CAMPAIGN_DECLINE_DIALOG_MSG}
 			buttonText = "Decline"
+			handleReasonDetail = {handleReasonDetail}
+			reasonDetail = {reasonDetail}
 
 			/>
         <div className={styles.declineContainer}>

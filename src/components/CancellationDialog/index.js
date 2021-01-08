@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Dialog, Select } from '@material-ui/core';
 import styles from './CancellationDialog.module.scss';
 import TextField from '../TextField';
@@ -18,7 +18,20 @@ const Chevron = () => {
 	);
 };
 
-const CancellationDialog = ({ open, handleClose, reason,reasons, handleReason , message , buttonText }) => {
+const CancellationDialog = ({ open, handleClose, reason,reasons, handleReason , message , buttonText,handleReasonDetail, reasonDetail }) => {
+	const [error , setError ] = useState(false);
+	const [required , setRequired] = useState(false);
+
+	const handleButton = () => {
+		if (reasonDetail.length < 1){
+			setError(true);
+		}	
+	}
+	const handleRequrired = () => {
+		if (reason.length < 1) {
+			setRequired(true);
+		}
+ 	}
 
 	return (
 		<Dialog
@@ -28,18 +41,18 @@ const CancellationDialog = ({ open, handleClose, reason,reasons, handleReason , 
 			onClose={handleClose}
 		>
 			<h6 className= {buttonText == 'Stop'? (styles.StopHeading):('')}>{message}</h6>
-			<p>{buttonText == "Stop" ? ("This action will deactivate the microsite"):('')} </p>
+			<p className={styles.note}>{buttonText == "Stop" ? ("This action will deactivate the microsite"):('')} </p>
 			<div>
 				<FormControl fullWidth variant='outlined'>
 					<TextField
 						labelId='demo-simple-select-outlined-label'
 						id='Reason for decline'
 						fullWidth
-						label={buttonText == 'Decline' ? 'Reason for decline*' : buttonText == 'Cancel' ? 'Reason for Cancellation': 'Reason for stopping'}
+						label={buttonText == 'Decline' ? 'Reason for decline*' : buttonText == 'Cancel' ? 'Reason for Cancellation*': 'Reason for stopping*'}
 						variant='outlined'
 						displayEmpty
 						// className={mainStyles.placeholderColor}
-						// helperText={declineReason == "" ? <span> "Required" </span> : ' '}
+						helperText={required ? <span> "Required" </span> : ' '}
 						value={reason }
 						onChange={(e) => handleReason(e.target.value)}
 						MenuProps={{ variant: 'menu' }}
@@ -64,6 +77,9 @@ const CancellationDialog = ({ open, handleClose, reason,reasons, handleReason , 
 					label='Give any further details'
 					fullWidth
 					variant='outlined'
+					value = {reasonDetail}
+					helperText={error ? <span> "Required" </span> : ' '}
+					onChange ={(e) => handleReasonDetail(e.target.value)}
 				/>
 			</div>
 			<div className={styles.uploadSection}>
@@ -73,7 +89,7 @@ const CancellationDialog = ({ open, handleClose, reason,reasons, handleReason , 
 			</div>
 			<div className={styles.footer} >
 				<span onClick={handleClose}>Cancel</span>
-			<button >{buttonText}</button>
+			<button onClick={()=> {handleButton(); handleRequrired();}}>{buttonText}</button>
 			</div>
 		</Dialog>
 	);

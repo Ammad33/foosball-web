@@ -36,6 +36,7 @@ const Account = ({
 
 }) => {
 
+	debugger;
 	const [openCDialog, setOpenCDialog] = useState(false);
 	const [passwordShown, setPasswordShown] = useState(false);
 	const [newPasswordShown, setNewPasswordShown] = useState(false);
