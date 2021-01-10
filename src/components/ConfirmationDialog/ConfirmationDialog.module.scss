@@ -3,8 +3,8 @@
   max-width: 546px !important;
   width: 546px !important;
   border-radius: 20px !important;
-  background-color: #FFFFFF !important;
-  box-shadow: 0 6px 50px 0 rgba(0,0,0,0.1) !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 6px 50px 0 rgba(0, 0, 0, 0.1) !important;
 
   .cDialogContent {
     padding: 74px 49px !important;
@@ -14,18 +14,17 @@
       font-size: 18px;
       font-weight: 500;
       letter-spacing: 0;
-			line-height: 31px;
-			margin-top: 20px !important;
-
-		}
-		span {
-			color: #000000;
-			font-family: Poppins;
-			font-size: 22px;
-			font-weight: 600;
-			letter-spacing: 0;
-			// line-height: 33px;
-		}
+      line-height: 31px;
+      margin-top: 20px !important;
+    }
+    span {
+      color: #000000;
+      font-family: Poppins;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0;
+      // line-height: 33px;
+    }
   }
   .cDialogActions {
     display: flex;
@@ -54,6 +53,18 @@
       padding-right: 40px;
       padding-top: 10px;
       padding-bottom: 10px;
+    }
+  }
+}
+
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .cDialogActions {
+      > * {
+        &:not(:last-child) {
+          margin-right: 20px !important;
+        }
+      }
     }
   }
 }

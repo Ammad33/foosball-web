@@ -1,47 +1,44 @@
 @import './../../variable.module.scss';
-.menuBarGrid{
-	margin-bottom: 8px;
-	.popupContainer {
-		margin: 24px 0px 0px 30px;
-		display: flex;
-		align-items: center;
-		.name {
-			color: #000000;
-			font-family: Poppins;
-			font-size: 18px;
-			font-weight: 500;
-			letter-spacing: 0;
-			line-height: 27px;
-			margin-left: 13px;
-			text-transform: capitalize;
-		}	
-		.email {
-			color: #000000;
-			font-family: Poppins;
-			font-size: 13px;
-			letter-spacing: 0;
-			line-height: 20px;
-			text-transform: lowercase;
-
-		}
-	}
-	.divider {
-		margin-top: 18px !important;
-	}
-	.menuBarItems{
-		margin-left: 30px;	
-		.itemsFont {
-			color: #000000;
-			font-family: Poppins;
-			font-size: 18px;
-			letter-spacing: 0;
-			line-height: 27px;
-			margin-top: 30px;
-		}
-	
-	}
+.menuBarGrid {
+  margin-bottom: 8px;
+  .popupContainer {
+    margin: 24px 0px 0px 30px;
+    display: flex;
+    align-items: center;
+    .name {
+      color: #000000;
+      font-family: Poppins;
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: 0;
+      line-height: 27px;
+      margin-left: 13px;
+      text-transform: capitalize;
+    }
+    .email {
+      color: #000000;
+      font-family: Poppins;
+      font-size: 13px;
+      letter-spacing: 0;
+      line-height: 20px;
+      text-transform: lowercase;
+    }
+  }
+  .divider {
+    margin-top: 18px !important;
+  }
+  .menuBarItems {
+    margin-left: 30px;
+    .itemsFont {
+      color: #000000;
+      font-family: Poppins;
+      font-size: 18px;
+      letter-spacing: 0;
+      line-height: 27px;
+      margin-top: 30px;
+    }
+  }
 }
-
 
 .mainContainer {
   display: flex;
@@ -52,10 +49,10 @@
   gap: 50px;
   .searchContainer {
     // flex: 1;
-		// position: relative;
-		margin-top: 10px;
+    // position: relative;
+    margin-top: 10px;
 
-		width: 70%;
+    width: 70%;
     .headerSearchIcon {
       position: absolute;
       // top: calc(50% - 14px);
@@ -72,13 +69,25 @@
         outline: none;
       }
     }
-	}
-	.selectBrandContainer {
-		margin-top: 5px;
-		width: 250px;
-	}
-	.memberAvatar {
-		height: 49px; 
-		width: 49px;
-	}
+  }
+  .selectBrandContainer {
+    margin-top: 5px;
+    width: 250px;
+  }
+  .memberAvatar {
+    height: 49px;
+    width: 49px;
+  }
+}
+
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .actionsContainer {
+      > * {
+        &:not(:last-child) {
+          margin-right: 50px !important;
+        }
+      }
+    }
+  }
 }

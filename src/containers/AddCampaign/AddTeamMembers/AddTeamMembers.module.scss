@@ -3,7 +3,7 @@
 .mainContainer {
   padding: 20px 75px;
   .memberRow {
-		margin-left: 24px;
+    margin-left: 24px;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -11,11 +11,11 @@
     .memberName {
       flex: auto;
       font-size: 19px;
-		}
-		.memberAvatar {
-			height: 49px; 
-			width: 49px;
-		}
+    }
+    .memberAvatar {
+      height: 49px;
+      width: 49px;
+    }
     .svg {
       color: $primary1;
       margin-right: 24px;
@@ -30,8 +30,8 @@
       padding: 7px 25px;
       display: flex;
       align-items: center;
-			cursor: pointer;
-			justify-content: end;
+      cursor: pointer;
+      justify-content: end;
     }
     button:focus {
       font-size: 15px;
@@ -48,5 +48,17 @@
 }
 
 .errorText {
-	color: red;
+  color: red;
+}
+
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .memberRow {
+      > * {
+        &:not(:last-child) {
+          margin-right: 10px !important;
+        }
+      }
+    }
+  }
 }

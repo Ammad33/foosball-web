@@ -19,7 +19,7 @@
   display: flex;
   align-items: center;
   flex-direction: row;
-  gap:12px;
+  gap: 12px;
   margin-bottom: 19px;
   margin-top: 8px;
   .avatar {
@@ -29,10 +29,10 @@
   p {
     color: #000000;
     font-family: Poppins;
-font-size: 18px;
-font-weight: 500;
-letter-spacing: 0;
-line-height: 27px;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 27px;
   }
 }
 .titleAndAction {
@@ -44,11 +44,11 @@ line-height: 27px;
     word-break: break-all;
   }
 }
-.compensationInfluencer{
-	p {
-		font-size: 18px;
-		font-weight: 500;
-	}
+.compensationInfluencer {
+  p {
+    font-size: 18px;
+    font-weight: 500;
+  }
 }
 .campaigndDetails {
   .campaignItemInfo {
@@ -80,23 +80,21 @@ line-height: 27px;
   font-size: 14px;
   letter-spacing: 0;
   line-height: 21px;
-
 }
 
 .compensationBadge {
   height: 27px;
   width: 180px;
   border-radius: 6px;
-  background-color: #DB7474; 
+  background-color: #db7474;
   p {
     margin-top: 10px;
-    padding:5px 10px;
-    color: #FFFFFF;
+    padding: 5px 10px;
+    color: #ffffff;
     font-family: Poppins;
     font-size: 12px;
     font-weight: 500;
     letter-spacing: 0;
-  
   }
 }
 
@@ -131,7 +129,7 @@ line-height: 27px;
   justify-content: space-between;
   margin-top: 40px;
   h4 {
-    color: #7B5CD9;
+    color: #7b5cd9;
     font-family: Poppins;
     font-size: 20px;
     font-weight: 600;
@@ -139,7 +137,7 @@ line-height: 27px;
     line-height: 30px;
   }
   h5 {
-    color: #7B5CD9;
+    color: #7b5cd9;
     font-family: Poppins;
     font-size: 20px;
     font-weight: 500;
@@ -150,7 +148,7 @@ line-height: 27px;
 
 .deliverablesContainer {
   h4 {
-    color: #7B5CD9;
+    color: #7b5cd9;
     font-family: Poppins;
     font-size: 20px;
     font-weight: 600;
@@ -206,19 +204,52 @@ line-height: 27px;
   margin-top: 40px;
   margin-bottom: 10px;
   h4 {
-    color: #7B5CD9;
-  font-family: Poppins;
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: 0;
-  line-height: 30px;
+    color: #7b5cd9;
+    font-family: Poppins;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 30px;
   }
   h5 {
-    color: #7B5CD9;
+    color: #7b5cd9;
     font-family: Poppins;
     font-size: 20px;
     font-weight: 500;
     letter-spacing: 0;
     line-height: 30px;
+  }
+}
+
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .influencerContainer {
+      > * {
+        &:not(:last-child) {
+          margin-right: 12px !important;
+        }
+      }
+    }
+    .teamMemberItem {
+      > * {
+        &:not(:last-child) {
+          margin-right: 20px !important;
+        }
+      }
+    }
+    .collectionItems {
+      > * {
+        &:not(:last-child) {
+          margin-right: 15px !important;
+        }
+      }
+    }
+    .influencerItem {
+      > * {
+        &:not(:last-child) {
+          margin-right: 10px !important;
+        }
+      }
+    }
   }
 }

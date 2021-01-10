@@ -19,16 +19,16 @@
 }
 .mainContainer {
   display: flex;
-	height: 100%;
-	.logoDiv {
-		width: 185px;
-		height: 81px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin-bottom: 100px;
-		margin-top: 25px;
-	}
+  height: 100%;
+  .logoDiv {
+    width: 185px;
+    height: 81px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 100px;
+    margin-top: 25px;
+  }
   .campaignSideabr {
     flex: 0 0 535px;
     overflow-y: hidden;
@@ -36,8 +36,8 @@
     color: $white;
     padding-left: 55px;
     .heading {
-			margin: 50px 0;
-			margin-left: 15px;
+      margin: 50px 0;
+      margin-left: 15px;
     }
     .setpsContainer {
       .stepItem {
@@ -59,25 +59,25 @@
           // border: 2px solid #FFFFFF;
           // background-color: #FFFFFF;
         }
-        .activeBar{
+        .activeBar {
           border-left: 3px solid #ffffff;
           height: 33px;
-          margin-left: 12.5px; 
+          margin-left: 12.5px;
         }
-        .inActiveBar{
+        .inActiveBar {
           border-left: 3px solid transparent;
           height: 33px;
         }
-        .inActiveLabel{
-          color: #FFFFFF;
+        .inActiveLabel {
+          color: #ffffff;
           font-family: Poppins;
           font-size: 20px;
           font-weight: 300;
           letter-spacing: 0;
           line-height: 30px;
         }
-        .activeLabel{
-          color: #FFFFFF;
+        .activeLabel {
+          color: #ffffff;
           font-family: Poppins;
           font-size: 20px;
           font-weight: 500;
@@ -136,15 +136,15 @@
     font-family: Poppins;
     font-size: 15px;
     font-weight: 400;
-	}
-	h2 {
-		color: #000000;
-		font-family: Poppins;
-		font-size: 26px;
-		font-weight: 500;
-		letter-spacing: 0;
-		line-height: 39px;
-	}
+  }
+  h2 {
+    color: #000000;
+    font-family: Poppins;
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 39px;
+  }
 }
 
 .actions {
@@ -185,5 +185,24 @@
   .activeButton {
     background: #000;
     color: #fff;
+  }
+}
+
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .stepItem {
+      > * {
+        &:not(:last-child) {
+          margin-right: 10px !important;
+        }
+      }
+    }
+    .stepperAndComponent {
+      > * {
+        &:not(:last-child) {
+          margin-right: 24px !important;
+        }
+      }
+    }
   }
 }

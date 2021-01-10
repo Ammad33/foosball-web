@@ -6,53 +6,57 @@ import styles from './ConfirmationDialog.module.scss';
 import globalStyles from '../../index.module.scss';
 
 const CDialog = ({
-	onCancel,
-	onConfirm,
-	cancelText,
-	confirmText,
-	message,
-	open,
-	...other
+  onCancel,
+  onConfirm,
+  cancelText,
+  confirmText,
+  message,
+  open,
+  ...other
 }) => {
-	const handleCancel = () => {
-		onCancel();
-	};
+  const handleCancel = () => {
+    onCancel();
+  };
 
-	const handleOk = () => {
-		onConfirm();
-	};
+  const handleOk = () => {
+    onConfirm();
+  };
 
-	return (
-		<Dialog
-			classes={{ paper: styles.cDialog }}
-			disableBackdropClick
-			disableEscapeKeyDown
-			open={open}
-			{...other}
-		>
-			<DialogContent className={styles.cDialogContent}>
-				{cancelText == 'Warning' ? (<span> Oops! </span>) : ('')}
-				<p className={styles.cDialogDescription}>{message}</p>
-			</DialogContent>
-			<div className={styles.cDialogActions}>
-				{cancelText == 'Warning' ? (
-					<Button className={styles.confirm} onClick={handleOk}> Got it </Button>
-				) : (
-						<>
-							<Button className={styles.confirm} onClick={handleOk}>{confirmText ? confirmText : 'Ok'}</Button>
-							<Button
-								variant='contained'
-								className={globalStyles.dangerButton}
-								onClick={handleCancel}
-							>
-								{cancelText ? cancelText : 'Cancel'}
-							</Button>
-						</>
-					)}
-
-			</div>
-		</Dialog>
-	);
+  return (
+    <Dialog
+      classes={{ paper: styles.cDialog }}
+      disableBackdropClick
+      disableEscapeKeyDown
+      open={open}
+      {...other}
+    >
+      <DialogContent className={styles.cDialogContent}>
+        {cancelText == 'Warning' ? <span> Oops! </span> : ''}
+        <p className={styles.cDialogDescription}>{message}</p>
+      </DialogContent>
+      <div className={styles.cDialogActions}>
+        {cancelText == 'Warning' ? (
+          <Button className={styles.confirm} onClick={handleOk}>
+            {' '}
+            Got it{' '}
+          </Button>
+        ) : (
+          <>
+            <Button className={styles.confirm} onClick={handleOk}>
+              {confirmText ? confirmText : 'Ok'}
+            </Button>
+            <Button
+              variant='contained'
+              className={globalStyles.dangerButton}
+              onClick={handleCancel}
+            >
+              {cancelText ? cancelText : 'Cancel'}
+            </Button>
+          </>
+        )}
+      </div>
+    </Dialog>
+  );
 };
 
 export default CDialog;

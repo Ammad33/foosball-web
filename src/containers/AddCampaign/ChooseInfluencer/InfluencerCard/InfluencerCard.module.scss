@@ -81,3 +81,29 @@
     }
   }
 }
+
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .cardDetails {
+      > * {
+        &:not(:last-child) {
+          margin-right: 5px !important;
+        }
+      }
+    }
+    .socialContainer {
+      > * {
+        &:not(:last-child) {
+          margin-right: 10px !important;
+        }
+      }
+    }
+    .socialItem {
+      > * {
+        &:not(:last-child) {
+          margin-right: 5px !important;
+        }
+      }
+    }
+  }
+}
