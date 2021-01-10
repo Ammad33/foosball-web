@@ -96,3 +96,22 @@
     }
   }
 }
+
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .collectionHeading {
+      > * {
+        &:not(:last-child) {
+          margin-right: 21.5px !important;
+        }
+      }
+    }
+    .containerRow {
+      > * {
+        &:not(:last-child) {
+          margin-right: 30px !important;
+        }
+      }
+    }
+  }
+}

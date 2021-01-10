@@ -84,3 +84,22 @@
     }
   }
 }
+
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .alertBadge {
+      > * {
+        &:not(:last-child) {
+          margin-right: 3px !important;
+        }
+      }
+    }
+    .cardDetails {
+      > * {
+        &:not(:last-child) {
+          margin-right: 0px !important;
+        }
+      }
+    }
+  }
+}

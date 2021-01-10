@@ -193,3 +193,22 @@
     color: #fff;
   }
 }
+
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .stepItem {
+      > * {
+        &:not(:last-child) {
+          margin-right: 10px !important;
+        }
+      }
+    }
+    .stepperAndComponent {
+      > * {
+        &:not(:last-child) {
+          margin-bottom: 24px !important;
+        }
+      }
+    }
+  }
+}

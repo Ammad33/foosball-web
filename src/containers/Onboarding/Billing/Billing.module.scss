@@ -97,3 +97,29 @@
     }
   }
 }
+
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .primary {
+      > * {
+        &:not(:last-child) {
+          margin-right: 15px !important;
+        }
+      }
+    }
+    .iconItem button {
+      > * {
+        &:not(:last-child) {
+          margin-right: 15px !important;
+        }
+      }
+    }
+    .imageItem button {
+      > * {
+        &:not(:last-child) {
+          margin-right: 8px !important;
+        }
+      }
+    }
+  }
+}

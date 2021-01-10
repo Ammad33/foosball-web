@@ -15,7 +15,7 @@
   margin-bottom: 51px;
   margin-top: 43px;
   span {
-    color:$dark1;
+    color: $dark1;
     font-family: Poppins;
     font-size: 33px;
     font-weight: 500;
@@ -24,7 +24,6 @@
     cursor: pointer;
   }
 }
-
 
 .performanceContainer {
   max-height: 460px;
@@ -57,6 +56,18 @@
       letter-spacing: 0;
       line-height: 307px;
       text-align: center;
+    }
+  }
+}
+
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .performanceHeading {
+      > * {
+        &:not(:last-child) {
+          margin-right: 21.5px !important;
+        }
+      }
     }
   }
 }

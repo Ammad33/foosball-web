@@ -64,3 +64,22 @@
     }
   }
 }
+
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .crumsContainer {
+      > * {
+        &:not(:last-child) {
+          margin-right: 21.5px !important;
+        }
+      }
+    }
+    .actionsContainer {
+      > * {
+        &:not(:last-child) {
+          margin-right: 10px !important;
+        }
+      }
+    }
+  }
+}
