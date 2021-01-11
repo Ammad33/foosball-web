@@ -33,8 +33,8 @@ const BrandProfile = () => {
             ''
           ) : (
             <div className={styles.buttonContainer}>
-							{/*  Hidden for Phase 1 */}
-							{/* <button className={styles.addButton}>Add to Prospects</button>  */}
+              {/*  Hidden for Phase 1 */}
+              {/* <button className={styles.addButton}>Add to Prospects</button>  */}
             </div>
           )}
         </div>

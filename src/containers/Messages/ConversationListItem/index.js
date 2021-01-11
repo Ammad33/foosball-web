@@ -19,6 +19,8 @@ const ConversationListItem = ({ handleItemClick, conversation, index }) => {
     setAnchorEl(event.currentTarget);
   };
 
+  console.log(conversation);
+
   const getTitle = (members) => {
     switch (members.length) {
       case 1:
@@ -53,7 +55,7 @@ const ConversationListItem = ({ handleItemClick, conversation, index }) => {
         }}
       >
         <div className={styles.popOver}>
-					{/*  Hidden for Phase 1 */}
+          {/*  Hidden for Phase 1 */}
           {/* <div>
             <Archive /> <p>Archive Conversation</p>
           </div> */}
@@ -81,7 +83,7 @@ const ConversationListItem = ({ handleItemClick, conversation, index }) => {
               {conversation.members.map((member, index) => (
                 <Avatar key={index} src={member.imgUrl} />
               ))}
-						</AvatarGroup>
+            </AvatarGroup>
           ) : (
             <Avatar
               src={
@@ -129,7 +131,10 @@ const ConversationListItem = ({ handleItemClick, conversation, index }) => {
             ''
           )}
         </div>
-        <MoreVertical onClick={handleClick} />
+        <MoreVertical
+          className={conversation.selected ? mainStyles.colorWhite : ''}
+          onClick={handleClick}
+        />
       </div>
     </>
   );

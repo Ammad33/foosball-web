@@ -5,6 +5,7 @@
 
 html {
   height: 100%;
+  scroll-behavior: smooth;
 }
 body {
   font-family: 'Poppins', 'poppins', sans-serif !important;
@@ -163,4 +164,8 @@ p {
     color: #7e7e7e !important;
     line-height: 20px !important;
   }
+}
+
+.colorWhite {
+  color: $white !important;
 }

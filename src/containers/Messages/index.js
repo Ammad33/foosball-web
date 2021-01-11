@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Messages.module.scss';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddIcon from '@material-ui/icons/Add';
@@ -18,320 +18,632 @@ const ChevronSVG = () => {
   return <SVG src={require('../../assets/chevron-down.svg')} />;
 };
 
-const allConversations = [
-  {
-    selected: false,
-    archived: false,
-    unreadMessages: 3,
-    time: '12:49pm',
-    members: [
-      {
-        imgUrl:
-          'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-        memberName: 'Sam Ozkural',
-      },
-    ],
-    messages: [
-      {
-        id: false,
-        message: `Nope I didn't receive anything yet.`,
-      },
-      {
-        id: false,
-        message: `Perfect, got it.`,
-      },
-      {
-        id: true,
-        message: `Everything is all set to go for the campaign.`,
-      },
-      {
-        id: true,
-        message: `We are excited to work with you and we will keep you updated.`,
-      },
-      {
-        id: false,
-        message: `Okay Thanks.`,
-      },
-      {
-        id: true,
-        message: `Could you upload the first post so that my team and I can take alook? thanks..`,
-      },
-      {
-        id: false,
-        message: `I uploaded the first post on the 9th and I also added the URL. Let me know if you got it.`,
-      },
-      {
-        id: true,
-        message: `Okay Yes I did get that.`,
-      },
-      ,
-      {
-        id: false,
-        message: `Okay Thanks.`,
-      },
-      {
-        id: true,
-        message: `Could you upload the first post so that my team and I can take alook? thanks..`,
-      },
-      {
-        id: false,
-        message: `I uploaded the first post on the 9th and I also added the URL. Let me know if you got it.`,
-      },
-      {
-        id: true,
-        message: `Okay Yes I did get that.`,
-      },
-    ],
-    message:
-      'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
-  },
-  {
-    selected: false,
-    archived: false,
-    unreadMessages: 0,
-    time: '12:49pm',
-    members: [
-      {
-        imgUrl:
-          'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-        memberName: 'Sam Ozkural',
-      },
-    ],
-    message:
-      'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
-  },
-  {
-    selected: false,
-    archived: false,
-    unreadMessages: 2,
-    time: '12:49pm',
-    members: [
-      {
-        imgUrl:
-          'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-        memberName: 'Sam Ozkural',
-      },
-    ],
-    message:
-      'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
-  },
-  {
-    selected: false,
-    archived: false,
-    unreadMessages: 0,
-    time: '12:49pm',
-    members: [
-      {
-        imgUrl:
-          'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-        memberName: 'Sam Ozkural',
-      },
-    ],
-    message:
-      'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
-  },
-  {
-    selected: false,
-    archived: false,
-    unreadMessages: 1,
-    time: '12:49pm',
-    members: [
-      {
-        imgUrl:
-          'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-        memberName: 'Sam Ozkural',
-      },
-    ],
-    message:
-      'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
-  },
-  {
-    selected: false,
-    archived: false,
-    unreadMessages: 0,
-    time: '12:49pm',
-    members: [
-      {
-        imgUrl:
-          'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-        memberName: 'Sam Ozkural',
-      },
-      // {
-      //   imgUrl:
-      //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-      //   memberName: 'Spread Fashion',
-      // },
-      // {
-      //   imgUrl:
-      //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-      //   memberName: 'Alex Graza',
-      // },
-    ],
-    message:
-      'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
-  },
-  {
-    selected: false,
-    archived: false,
-    unreadMessages: 0,
-    time: '12:49pm',
-    members: [
-      {
-        imgUrl:
-          'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-        memberName: 'Donna McAlister',
-      },
-      // {
-      //   imgUrl:
-      //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-      //   memberName: 'TJ Tam',
-      // },
-      // {
-      //   imgUrl:
-      //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-      //   memberName: 'Greg Harshaw',
-      // },
-      // {
-      //   imgUrl:
-      //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-      //   memberName: 'Steve Mansouri',
-      // },
-      // {
-      //   imgUrl:
-      //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-      //   memberName: 'Maan Hamadeh',
-      // },
-      // {
-      //   imgUrl:
-      //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-      //   memberName: 'Tonny Ann',
-      // },
-    ],
-    message:
-      'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
-  },
-  {
-    selected: false,
-    archived: true,
-    unreadMessages: 0,
-    time: '12:49pm',
-    members: [
-      {
-        imgUrl:
-          'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-        memberName: 'Sam Ozkural',
-      },
-    ],
-    message:
-      'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
-  },
-  {
-    archived: true,
-    unreadMessages: 0,
-    time: '12:49pm',
-    members: [
-      {
-        imgUrl:
-          'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-        memberName: 'Sam Ozkural',
-      },
-    ],
-    message:
-      'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
-  },
-  {
-    selected: false,
-    archived: true,
-    unreadMessages: 2,
-    time: '12:49pm',
-    members: [
-      {
-        imgUrl:
-          'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-        memberName: 'Sam Ozkural',
-      },
-    ],
-    message:
-      'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
-  },
-  {
-    selected: false,
-    archived: true,
-    unreadMessages: 2,
-    time: '12:49pm',
-    members: [
-      {
-        imgUrl:
-          'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-        memberName: 'Sam Ozkural',
-      },
-    ],
-    message:
-      'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
-  },
-  {
-    selected: false,
-    archived: true,
-    unreadMessages: 2,
-    time: '12:49pm',
-    members: [
-      {
-        imgUrl:
-          'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-        memberName: 'Sam Ozkural',
-      },
-    ],
-    message:
-      'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
-  },
-  {
-    selected: false,
-    archived: true,
-    unreadMessages: 2,
-    time: '12:49pm',
-    members: [
-      {
-        imgUrl:
-          'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-        memberName: 'Sam Ozkural',
-      },
-    ],
-    message:
-      'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
-  },
-  {
-    selected: false,
-    archived: true,
-    unreadMessages: 2,
-    time: '12:49pm',
-    members: [
-      {
-        imgUrl:
-          'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-        memberName: 'Sam Ozkural',
-      },
-    ],
-    message:
-      'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
-  },
-  {
-    selected: false,
-    archived: true,
-    unreadMessages: 2,
-    time: '12:49pm',
-    members: [
-      {
-        imgUrl:
-          'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-        memberName: 'Last Ozkural',
-      },
-    ],
-    message:
-      'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
-  },
-];
+// const allConversations = [
+//   {
+//     selected: false,
+//     archived: false,
+//     unreadMessages: 3,
+//     time: '12:49pm',
+//     members: [
+//       {
+//         imgUrl:
+//           'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+//         memberName: 'Sam Ozkural',
+//       },
+//     ],
+//     messages: [
+//       {
+//         id: false,
+//         message: `Nope I didn't receive anything yet.`,
+//       },
+//       {
+//         id: false,
+//         message: `Perfect, got it.`,
+//       },
+//       {
+//         id: true,
+//         message: `Everything is all set to go for the campaign.`,
+//       },
+//       {
+//         id: true,
+//         message: `We are excited to work with you and we will keep you updated.`,
+//       },
+//       {
+//         id: false,
+//         message: `Okay Thanks.`,
+//       },
+//       {
+//         id: true,
+//         message: `Could you upload the first post so that my team and I can take alook? thanks..`,
+//       },
+//       {
+//         id: false,
+//         message: `I uploaded the first post on the 9th and I also added the URL. Let me know if you got it.`,
+//       },
+//       {
+//         id: true,
+//         message: `Okay Yes I did get that.`,
+//       },
+//       ,
+//       {
+//         id: false,
+//         message: `Okay Thanks.`,
+//       },
+//       {
+//         id: true,
+//         message: `Could you upload the first post so that my team and I can take alook? thanks..`,
+//       },
+//       {
+//         id: false,
+//         message: `I uploaded the first post on the 9th and I also added the URL. Let me know if you got it.`,
+//       },
+//       {
+//         id: true,
+//         message: `Okay Yes I did get that.`,
+//       },
+//     ],
+//     message:
+//       'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+//   },
+//   {
+//     selected: false,
+//     archived: false,
+//     unreadMessages: 0,
+//     time: '12:49pm',
+//     members: [
+//       {
+//         imgUrl:
+//           'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+//         memberName: 'Sam Ozkural',
+//       },
+//     ],
+//     message:
+//       'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+//   },
+//   {
+//     selected: false,
+//     archived: false,
+//     unreadMessages: 2,
+//     time: '12:49pm',
+//     members: [
+//       {
+//         imgUrl:
+//           'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+//         memberName: 'Sam Ozkural',
+//       },
+//     ],
+//     message:
+//       'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+//   },
+//   {
+//     selected: false,
+//     archived: false,
+//     unreadMessages: 0,
+//     time: '12:49pm',
+//     members: [
+//       {
+//         imgUrl:
+//           'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+//         memberName: 'Sam Ozkural',
+//       },
+//     ],
+//     message:
+//       'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+//   },
+//   {
+//     selected: false,
+//     archived: false,
+//     unreadMessages: 1,
+//     time: '12:49pm',
+//     members: [
+//       {
+//         imgUrl:
+//           'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+//         memberName: 'Sam Ozkural',
+//       },
+//     ],
+//     message:
+//       'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+//   },
+//   {
+//     selected: false,
+//     archived: false,
+//     unreadMessages: 0,
+//     time: '12:49pm',
+//     members: [
+//       {
+//         imgUrl:
+//           'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+//         memberName: 'Sam Ozkural',
+//       },
+//       // {
+//       //   imgUrl:
+//       //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+//       //   memberName: 'Spread Fashion',
+//       // },
+//       // {
+//       //   imgUrl:
+//       //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+//       //   memberName: 'Alex Graza',
+//       // },
+//     ],
+//     message:
+//       'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+//   },
+//   {
+//     selected: false,
+//     archived: false,
+//     unreadMessages: 0,
+//     time: '12:49pm',
+//     members: [
+//       {
+//         imgUrl:
+//           'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+//         memberName: 'Donna McAlister',
+//       },
+//       // {
+//       //   imgUrl:
+//       //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+//       //   memberName: 'TJ Tam',
+//       // },
+//       // {
+//       //   imgUrl:
+//       //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+//       //   memberName: 'Greg Harshaw',
+//       // },
+//       // {
+//       //   imgUrl:
+//       //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+//       //   memberName: 'Steve Mansouri',
+//       // },
+//       // {
+//       //   imgUrl:
+//       //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+//       //   memberName: 'Maan Hamadeh',
+//       // },
+//       // {
+//       //   imgUrl:
+//       //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+//       //   memberName: 'Tonny Ann',
+//       // },
+//     ],
+//     message:
+//       'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+//   },
+//   {
+//     selected: false,
+//     archived: true,
+//     unreadMessages: 0,
+//     time: '12:49pm',
+//     members: [
+//       {
+//         imgUrl:
+//           'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+//         memberName: 'Sam Ozkural',
+//       },
+//     ],
+//     message:
+//       'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+//   },
+//   {
+//     archived: true,
+//     unreadMessages: 0,
+//     time: '12:49pm',
+//     members: [
+//       {
+//         imgUrl:
+//           'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+//         memberName: 'Sam Ozkural',
+//       },
+//     ],
+//     message:
+//       'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+//   },
+//   {
+//     selected: false,
+//     archived: true,
+//     unreadMessages: 2,
+//     time: '12:49pm',
+//     members: [
+//       {
+//         imgUrl:
+//           'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+//         memberName: 'Sam Ozkural',
+//       },
+//     ],
+//     message:
+//       'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+//   },
+//   {
+//     selected: false,
+//     archived: true,
+//     unreadMessages: 2,
+//     time: '12:49pm',
+//     members: [
+//       {
+//         imgUrl:
+//           'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+//         memberName: 'Sam Ozkural',
+//       },
+//     ],
+//     message:
+//       'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+//   },
+//   {
+//     selected: false,
+//     archived: true,
+//     unreadMessages: 2,
+//     time: '12:49pm',
+//     members: [
+//       {
+//         imgUrl:
+//           'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+//         memberName: 'Sam Ozkural',
+//       },
+//     ],
+//     message:
+//       'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+//   },
+//   {
+//     selected: false,
+//     archived: true,
+//     unreadMessages: 2,
+//     time: '12:49pm',
+//     members: [
+//       {
+//         imgUrl:
+//           'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+//         memberName: 'Sam Ozkural',
+//       },
+//     ],
+//     message:
+//       'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+//   },
+//   {
+//     selected: false,
+//     archived: true,
+//     unreadMessages: 2,
+//     time: '12:49pm',
+//     members: [
+//       {
+//         imgUrl:
+//           'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+//         memberName: 'Sam Ozkural',
+//       },
+//     ],
+//     message:
+//       'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+//   },
+//   {
+//     selected: false,
+//     archived: true,
+//     unreadMessages: 2,
+//     time: '12:49pm',
+//     members: [
+//       {
+//         imgUrl:
+//           'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+//         memberName: 'Last Ozkural',
+//       },
+//     ],
+//     message:
+//       'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+//   },
+// ];
 
 const Messages = () => {
+  const allConversations = [
+    {
+      selected: false,
+      archived: false,
+      unreadMessages: 3,
+      time: '12:49pm',
+      members: [
+        {
+          imgUrl:
+            'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+          memberName: 'Sam Ozkural',
+        },
+      ],
+      messages: [
+        {
+          id: false,
+          message: `Nope I didn't receive anything yet.`,
+        },
+        {
+          id: false,
+          message: `Perfect, got it.`,
+        },
+        {
+          id: true,
+          message: `Everything is all set to go for the campaign.`,
+        },
+        {
+          id: true,
+          message: `We are excited to work with you and we will keep you updated.`,
+        },
+        {
+          id: false,
+          message: `Okay Thanks.`,
+        },
+        {
+          id: true,
+          message: `Could you upload the first post so that my team and I can take alook? thanks..`,
+        },
+        {
+          id: false,
+          message: `I uploaded the first post on the 9th and I also added the URL. Let me know if you got it.`,
+        },
+        {
+          id: true,
+          message: `Okay Yes I did get that.`,
+        },
+        ,
+        {
+          id: false,
+          message: `Okay Thanks.`,
+        },
+        {
+          id: true,
+          message: `Could you upload the first post so that my team and I can take alook? thanks..`,
+        },
+        {
+          id: false,
+          message: `I uploaded the first post on the 9th and I also added the URL. Let me know if you got it.`,
+        },
+        {
+          id: true,
+          message: `Okay Yes I did get that.`,
+        },
+      ],
+      message:
+        'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+    },
+    {
+      selected: false,
+      archived: false,
+      unreadMessages: 0,
+      time: '12:49pm',
+      members: [
+        {
+          imgUrl:
+            'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+          memberName: 'Sam Ozkural',
+        },
+      ],
+      message:
+        'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+    },
+    {
+      selected: false,
+      archived: false,
+      unreadMessages: 2,
+      time: '12:49pm',
+      members: [
+        {
+          imgUrl:
+            'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+          memberName: 'Sam Ozkural',
+        },
+      ],
+      message:
+        'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+    },
+    {
+      selected: false,
+      archived: false,
+      unreadMessages: 0,
+      time: '12:49pm',
+      members: [
+        {
+          imgUrl:
+            'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+          memberName: 'Sam Ozkural',
+        },
+      ],
+      message:
+        'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+    },
+    {
+      selected: false,
+      archived: false,
+      unreadMessages: 1,
+      time: '12:49pm',
+      members: [
+        {
+          imgUrl:
+            'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+          memberName: 'Sam Ozkural',
+        },
+      ],
+      message:
+        'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+    },
+    {
+      selected: false,
+      archived: false,
+      unreadMessages: 0,
+      time: '12:49pm',
+      members: [
+        {
+          imgUrl:
+            'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+          memberName: 'Sam Ozkural',
+        },
+        // {
+        //   imgUrl:
+        //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+        //   memberName: 'Spread Fashion',
+        // },
+        // {
+        //   imgUrl:
+        //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+        //   memberName: 'Alex Graza',
+        // },
+      ],
+      message:
+        'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+    },
+    {
+      selected: false,
+      archived: false,
+      unreadMessages: 0,
+      time: '12:49pm',
+      members: [
+        {
+          imgUrl:
+            'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+          memberName: 'Donna McAlister',
+        },
+        // {
+        //   imgUrl:
+        //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+        //   memberName: 'TJ Tam',
+        // },
+        // {
+        //   imgUrl:
+        //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+        //   memberName: 'Greg Harshaw',
+        // },
+        // {
+        //   imgUrl:
+        //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+        //   memberName: 'Steve Mansouri',
+        // },
+        // {
+        //   imgUrl:
+        //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+        //   memberName: 'Maan Hamadeh',
+        // },
+        // {
+        //   imgUrl:
+        //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+        //   memberName: 'Tonny Ann',
+        // },
+      ],
+      message:
+        'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+    },
+    {
+      selected: false,
+      archived: true,
+      unreadMessages: 0,
+      time: '12:49pm',
+      members: [
+        {
+          imgUrl:
+            'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+          memberName: 'Sam Ozkural',
+        },
+      ],
+      message:
+        'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+    },
+    {
+      archived: true,
+      unreadMessages: 0,
+      time: '12:49pm',
+      members: [
+        {
+          imgUrl:
+            'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+          memberName: 'Sam Ozkural',
+        },
+      ],
+      message:
+        'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+    },
+    {
+      selected: false,
+      archived: true,
+      unreadMessages: 2,
+      time: '12:49pm',
+      members: [
+        {
+          imgUrl:
+            'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+          memberName: 'Sam Ozkural',
+        },
+      ],
+      message:
+        'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+    },
+    {
+      selected: false,
+      archived: true,
+      unreadMessages: 2,
+      time: '12:49pm',
+      members: [
+        {
+          imgUrl:
+            'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+          memberName: 'Sam Ozkural',
+        },
+      ],
+      message:
+        'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+    },
+    {
+      selected: false,
+      archived: true,
+      unreadMessages: 2,
+      time: '12:49pm',
+      members: [
+        {
+          imgUrl:
+            'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+          memberName: 'Sam Ozkural',
+        },
+      ],
+      message:
+        'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+    },
+    {
+      selected: false,
+      archived: true,
+      unreadMessages: 2,
+      time: '12:49pm',
+      members: [
+        {
+          imgUrl:
+            'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+          memberName: 'Sam Ozkural',
+        },
+      ],
+      message:
+        'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+    },
+    {
+      selected: false,
+      archived: true,
+      unreadMessages: 2,
+      time: '12:49pm',
+      members: [
+        {
+          imgUrl:
+            'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+          memberName: 'Sam Ozkural',
+        },
+      ],
+      message:
+        'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+    },
+    {
+      selected: false,
+      archived: true,
+      unreadMessages: 2,
+      time: '12:49pm',
+      members: [
+        {
+          imgUrl:
+            'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+          memberName: 'Last Ozkural',
+        },
+      ],
+      message:
+        'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
+    },
+  ];
   const [active, setActive] = useState('All');
   const [conversations, setConversations] = useState(allConversations);
   const [selectedConversation, setSelectedConversation] = useState(null);
@@ -422,6 +734,11 @@ const Messages = () => {
         break;
     }
   };
+
+  useEffect(() => {
+    console.log('use effect ran');
+    setSelectedConversation(null);
+  }, [conversations]);
 
   return (
     <>
