@@ -7,11 +7,12 @@ import SVG from 'react-inlinesvg';
 import CreateCompensation from './CreateCompensation';
 import AddIcon from '@material-ui/icons/Add';
 import styles from './Compensations.module.scss';
+import { ChevronDown } from 'react-feather';
 
 const Chevron = () => {
   return (
     <span className={styles.dropDownCustomizeSvg}>
-      <SVG src={require('../../../assets/chevron-up.svg')} />
+      <ChevronDown />
     </span>
   );
 };

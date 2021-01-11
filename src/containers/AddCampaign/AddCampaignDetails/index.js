@@ -10,13 +10,14 @@ import SelectMenu from '../../../components/SelectMenu';
 import styles from './AddCampaignDetail.module.scss';
 import { TimePicker } from '@material-ui/pickers';
 import mainStyles from '../../../index.module.scss';
+import { ChevronDown } from 'react-feather';
 
 import TextField from '../../../components/TextField';
 
 const Chevron = () => {
   return (
     <span className={styles.dropDownCustomizeSvg}>
-      <SVG src={require('../../../assets/chevron-downn.svg')} />
+      <SVG src={require('../../../assets/chevron-down.svg')} />
     </span>
   );
 };
@@ -262,22 +263,10 @@ const AddCampaignDetails = ({
         </MuiPickersUtilsProvider>
       </Grid>
       <Grid item xs={12} sm={12} md={6}>
-        <TextField
-          id='outlined-basic'
-          fullWidth
-          label='Promotion Discount'
-          className={mainStyles.placeholderColor}
-          value={discount}
-          onChange={handleDiscount}
-          variant='outlined'
-          helperText={' '}
-        />
-      </Grid>
-      <Grid item xs={12} sm={12} md={6}>
         <FormControl fullWidth variant='outlined'>
           <Select
             id='outlined-basic'
-            IconComponent={() => <Chevron />}
+            IconComponent={() => <span className={styles.dropDownCustomizeSvg} ><ChevronDown /></span>}
             fullWidth
             defaultValue={'Percentage'}
             value={discountType}
@@ -291,6 +280,31 @@ const AddCampaignDetails = ({
             <MenuItem value={'Amount'}>Amount</MenuItem>
           </Select>
         </FormControl>
+      </Grid>
+      <Grid item xs={12} sm={12} md={6}>
+        <TextField
+          id='outlined-basic'
+          fullWidth
+          label='Promotion Discount'
+          className={mainStyles.placeholderColor}
+          value={discount}
+          onChange={handleDiscount}
+          variant='outlined'
+          helperText={' '}
+        />
+      </Grid>
+
+      <Grid item xs={12} sm={12} md={12}>
+        <TextField
+          id='outlined-basic'
+          fullWidth
+          label='Minimum Cart Value'
+          className={mainStyles.placeholderColor}
+          // value={discount}
+          // onChange={handleDiscount}
+          variant='outlined'
+          helperText={' '}
+        />
       </Grid>
       <Grid item xs={12} sm={12} md={12}>
         <TextField
