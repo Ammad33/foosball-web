@@ -61,7 +61,7 @@ const FomoPromoInvoice = ({ data, handleExpandClick, expanded }) => {
 			<div className={styles.mainContainer}>
 				<span> Update your billing preferences in{' '}
 				<Link
-						to='#'
+						to= '/settings'
 						style={{ color: '#000000', textDecorationLine: 'underline' }}
 					>
 						settings.
@@ -124,7 +124,7 @@ const FomoPromoInvoice = ({ data, handleExpandClick, expanded }) => {
 													</div>
 												</CardContent>
 											</Collapse>
-											<Divider className={styles.divider} /> 
+											{data[data.length-1] == item ? ('') : (<Divider className={styles.divider} />)}	
 										</div>
 									);
 								})}

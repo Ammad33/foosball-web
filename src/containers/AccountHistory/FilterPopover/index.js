@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, } from 'react';
 import styles from './FilterPopover.module.scss';
 import Avatar from '@material-ui/core/Avatar';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
@@ -14,13 +14,26 @@ const useStyles = makeStyles((theme) => ({
 
 	},
 }));
-const FilterPopover = ({ data, selectAll,handleSelectAll, handleClearAll ,selectedMember ,handleSelection}) => {
+const FilterPopover = ({ data, selectAll, handleSelectAll, handleClearAll, selectedMember, handleSelection }) => {
 	const [anchorEl, setAnchorEl] = React.useState(null);
+	const [clearAll, setClearAll] = useState(false);
 	const classes = useStyles();
-
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
 
+	const handleClear = () => {
+		const result = selectedMember.find(({ selected }) => selected == true);
+		if (result){
+			setClearAll(true);
+		}
+		else {
+			setClearAll(false);
+		}
+	}
+
+	useEffect(() => {
+		handleClear()
+	}, [selectedMember])
 	return (
 		<>
 			<div className={styles.container}>
@@ -33,12 +46,16 @@ const FilterPopover = ({ data, selectAll,handleSelectAll, handleClearAll ,select
 							/>
 						) : (
 								<RadioButtonUncheckedIcon
+									className={styles.svgDisabled}
 									fontSize="small"
 									onClick={handleSelectAll}
 								/>
 							)}
 					 Select all </div>
-					<span onClick={() => { handleClearAll() }}> Clear all</span>
+					<span
+						onClick={() => { handleClearAll() }}
+						className={!clearAll ? (styles.clickAllDisabled) : (styles.clickAllEnabled)}>
+						Clear all</span>
 				</div>
 				<div >
 					<TextField
@@ -59,11 +76,16 @@ const FilterPopover = ({ data, selectAll,handleSelectAll, handleClearAll ,select
 						return (
 							<div className={styles.content}>
 								{selectedMember[index] && selectedMember[index].selected == true ? (
-									<CheckCircleIcon fontSize="small" onClick={() => { handleSelection(index) }}
+									<CheckCircleIcon
+										fontSize="small"
+										onClick={() => { handleSelection(index) }}
 									/>
 								)
 									: (
-										<RadioButtonUncheckedIcon fontSize="small" onClick={() => { handleSelection(index) }} />
+										<RadioButtonUncheckedIcon
+											className={styles.svgDisabled}
+											fontSize="small"
+											onClick={() => { handleSelection(index) }} />
 									)
 								}
 								<Avatar

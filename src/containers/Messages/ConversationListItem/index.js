@@ -53,9 +53,10 @@ const ConversationListItem = ({ handleItemClick, conversation, index }) => {
         }}
       >
         <div className={styles.popOver}>
-          <div>
+					{/*  Hidden for Phase 1 */}
+          {/* <div>
             <Archive /> <p>Archive Conversation</p>
-          </div>
+          </div> */}
           <div>
             <Trash /> <p>Delete Conversation</p>
           </div>
@@ -80,7 +81,7 @@ const ConversationListItem = ({ handleItemClick, conversation, index }) => {
               {conversation.members.map((member, index) => (
                 <Avatar key={index} src={member.imgUrl} />
               ))}
-            </AvatarGroup>
+						</AvatarGroup>
           ) : (
             <Avatar
               src={

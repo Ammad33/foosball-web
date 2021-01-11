@@ -10,6 +10,9 @@ import Translation from '../../../assets/translation.json';
 import { Link } from 'react-router-dom';
 import Select from '@material-ui/core/Select';
 import AddMember from '../AddMember';
+import { makeStyles } from '@material-ui/core/styles';
+
+
 
 const Xcircle = () => {
   return <SVG src={require('../../../assets/x-circle.svg')} />;
@@ -19,11 +22,23 @@ const Msg = () => {
   return <SVG src={require('../../../assets/Msg.svg')} />;
 };
 
-const TeamData = ({ TeamMembers, index, handleRemoveMember }) => {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+  },
+  orange: {
+		width: '46px',
+		height: '46px',
+    color: 'black',
+  },
+}));
+
+const TeamData = ({ TeamMembers, index, handleRemoveMember, length }) => {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [addOpen, setAddOpen] = useState(false);
-  const [openCDialog, setOpenCDialog] = useState(false);
+	const [openCDialog, setOpenCDialog] = useState(false);
+  const classes = useStyles();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -56,7 +71,7 @@ const TeamData = ({ TeamMembers, index, handleRemoveMember }) => {
   useEffect(() => { }, []);
 
   useEffect(() => { }, []);
-
+	debugger;
   return (
     <>
       <AddMember open={addOpen} closeAdd={closeHandle} />
@@ -86,8 +101,8 @@ const TeamData = ({ TeamMembers, index, handleRemoveMember }) => {
           {TeamMembers.user.imageUrl !== null ? (
             <Avatar className={styles.avatar} src={TeamMembers.user.imageUrl} />
           ) : (
-              <div className={styles.msgSVG}>
-                <Msg className={styles.avatar} />
+              <div className={classes.root}>
+                <Avatar className={classes.orange}>{TeamMembers.user.fullName.split(" ").map((n,i,a)=> i === 0 || i+1 === a.length ? n[0] : null).join("").toUpperCase()}</Avatar>
               </div>
             )}
           <span>{TeamMembers.user.fullName}</span>
@@ -116,9 +131,6 @@ const TeamData = ({ TeamMembers, index, handleRemoveMember }) => {
             variant='outlined'
             placeholder='Team'
           >
-            <MenuItem value=''>
-              <em>Team</em>
-            </MenuItem>
             <MenuItem value='Member'>Member</MenuItem>
             <MenuItem value='Creator'>Creator</MenuItem>
           </Select>
@@ -127,7 +139,7 @@ const TeamData = ({ TeamMembers, index, handleRemoveMember }) => {
             onClick={handleClick}
           />
         </div>
-        <Divider className={styles.divider} />
+        {index < length-1 ? (<Divider className={styles.divider}  />):('')} 
       </div>
       <CDialog
         open={openCDialog}

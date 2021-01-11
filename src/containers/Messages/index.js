@@ -156,16 +156,16 @@ const allConversations = [
           'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
         memberName: 'Sam Ozkural',
       },
-      {
-        imgUrl:
-          'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-        memberName: 'Spread Fashion',
-      },
-      {
-        imgUrl:
-          'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-        memberName: 'Alex Graza',
-      },
+      // {
+      //   imgUrl:
+      //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+      //   memberName: 'Spread Fashion',
+      // },
+      // {
+      //   imgUrl:
+      //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+      //   memberName: 'Alex Graza',
+      // },
     ],
     message:
       'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
@@ -181,31 +181,31 @@ const allConversations = [
           'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
         memberName: 'Donna McAlister',
       },
-      {
-        imgUrl:
-          'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-        memberName: 'TJ Tam',
-      },
-      {
-        imgUrl:
-          'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-        memberName: 'Greg Harshaw',
-      },
-      {
-        imgUrl:
-          'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-        memberName: 'Steve Mansouri',
-      },
-      {
-        imgUrl:
-          'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-        memberName: 'Maan Hamadeh',
-      },
-      {
-        imgUrl:
-          'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-        memberName: 'Tonny Ann',
-      },
+      // {
+      //   imgUrl:
+      //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+      //   memberName: 'TJ Tam',
+      // },
+      // {
+      //   imgUrl:
+      //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+      //   memberName: 'Greg Harshaw',
+      // },
+      // {
+      //   imgUrl:
+      //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+      //   memberName: 'Steve Mansouri',
+      // },
+      // {
+      //   imgUrl:
+      //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+      //   memberName: 'Maan Hamadeh',
+      // },
+      // {
+      //   imgUrl:
+      //     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+      //   memberName: 'Tonny Ann',
+      // },
     ],
     message:
       'Hey I sent through the microsite for approval, let me know if you got it otherwise I can resubmit.',
@@ -440,12 +440,12 @@ const Messages = () => {
         }}
       >
         <div className={styles.popOver}>
-          <div>
+          {/* <div>
             <Archive /> <p>Archive Conversation</p>
-          </div>
-          <div>
+          </div> */}
+          {/* <div>
             <Paperclip /> <p onClick={handleSharedFiles}>View Shared Files</p>
-          </div>
+          </div> */}
           <div>
             <Trash /> <p>Delete Conversation</p>
           </div>
@@ -528,7 +528,7 @@ const Messages = () => {
               >
                 Read
               </button>
-              <button
+              {/* <button
                 className={active === 'Archived' ? styles.active : ''}
                 onClick={() => {
                   setActive('Archived');
@@ -537,7 +537,7 @@ const Messages = () => {
                 }}
               >
                 Archived
-              </button>
+              </button> */}
             </div>
             <div
               className={clsx(
@@ -644,7 +644,7 @@ const Messages = () => {
                 </>
               )}
               <div className={styles.inputContainer}>
-                <Paperclip />
+                {/* <Paperclip /> */}
                 <TextField
                   id='outlined-basic'
                   fullWidth

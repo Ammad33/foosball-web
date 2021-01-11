@@ -23,7 +23,7 @@ const Setting = () => {
 	const [emailVerified, setEmailVerified] = useState('');
 	const [brandNamee, setBrandNamee] = useState([]);
 	const [typeName, setTypeName] = useState([]);
-	const [teamData , setTeamData] = useState (false);
+	const [teamAdmin , setTeamAdmin] = useState (false);
 	const { brandType, brandName, brandId, currentUser} = useContext(RootContext);
 
 	useEffect(() => {
@@ -262,7 +262,7 @@ const Setting = () => {
 			const teamAdmin = team.data.brand.users;
 			teamAdmin.map((item)=> {
 				if (item.role.administration == true) {
-					setTeamData(true);
+					setTeamAdmin(true);
 				} 
 			})
 		}
@@ -306,7 +306,7 @@ const Setting = () => {
 						setNewPassword={(e) => setNewPassword(e.target.value)}
 						handleChangePassword={handleChangePassword}
 						emailVerfied={emailVerified}
-						teamData = {teamData}
+						teamAdmin = {teamAdmin}
 					/>
 				);
 			case 'notification':

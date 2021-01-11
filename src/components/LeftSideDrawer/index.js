@@ -36,13 +36,13 @@ const LeftSideDrawer = () => {
           history.push('/campaigns');
         }}
       />
-
+{/* 
       <ListItem
         icon={<IconProspects />}
         active={activeRoute === 'Prospects' ? true : false}
         title={'Prospects'}
         onClick={() => setActiveRoute('Prospects')}
-      />
+      /> */}
 
       <ListItem
         icon={<IconReports />}

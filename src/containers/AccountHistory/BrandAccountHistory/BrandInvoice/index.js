@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './BrandInvoice.module.scss';
 import { Download, Share2 } from 'react-feather';
 import Avatar from '@material-ui/core/Avatar';
@@ -36,7 +36,8 @@ const MinusSVG = () => {
 
 const BrandInvoice = ({ data, handleExpandClick, expanded }) => {
 	const [selectAll, setSelectAll] = useState(false);
-	const [selectedMember, setSelecetedMember] = useState([]);
+	const [selectedMember, setSelecetedMember] = useState(data);
+	const [members, setMembers] = useState([]);
 	const [filterDropdown, setFilterDropdown] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -48,29 +49,29 @@ const BrandInvoice = ({ data, handleExpandClick, expanded }) => {
 		setAnchorEl(null);
 		setFilterDropdown(false);
 	};
+	const intilizeData = () => {
+		if (members.length < 1) {
+			selectedMember.map((item) => {
+				members.push({ label: item, selected: false })
+			})
+			setSelecetedMember(members);
+			setMembers(members);
+		}
+	}
 
 	const handleSelectAll = () => {
 		setSelectAll(selectAll ? false : true);
 	}
 	const handleSelection = (index) => {
-		const opts = [...selectedMember]
-		const firstIndex = opts.findIndex((item => item.indx == index))
-		if (firstIndex != -1) {
-			if (opts[index].selected == false) {
-				opts[index].selected = true;
-			}
-			else {
-				opts[index].selected = false;
-			}
-		}
-		else {
-			opts.push({
-				selected: true,
-				indx: index
-			})
+		const opts = [...members]
+		if (opts[index].selected != true) {
+			opts[index].selected = true;
 			setSelecetedMember(opts);
 		}
-		setSelecetedMember(opts);
+		else {
+			opts[index].selected = false;
+			setSelecetedMember(opts);
+		}
 	}
 	const handleClearAll = () => {
 		const opts = [...selectedMember]
@@ -81,6 +82,10 @@ const BrandInvoice = ({ data, handleExpandClick, expanded }) => {
 	}
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
+
+	useEffect(() => {
+		intilizeData()
+	}, [])
 
 	return (
 		<>
@@ -176,7 +181,7 @@ const BrandInvoice = ({ data, handleExpandClick, expanded }) => {
 													</div>
 												</CardContent>
 											</Collapse>
-											<Divider className={styles.divider} />
+											{data[data.length - 1] == item ? ('') : (<Divider className={styles.divider} />)}
 										</div>
 									);
 								})}
