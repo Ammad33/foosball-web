@@ -9,7 +9,7 @@ import styles from './CreateDeliverable.module.scss';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import DateFnsUtils from '@date-io/date-fns';
-import { Calendar } from 'react-feather';
+import { Calendar, ChevronDown } from 'react-feather';
 import { Trash } from 'react-feather';
 import clsx from 'clsx';
 import SVG from 'react-inlinesvg';
@@ -18,7 +18,7 @@ import mainStyles from '../../../../index.module.scss';
 const Chevron = () => {
   return (
     <span className={styles.dropDownCustomizeSvg}>
-      <SVG src={require('../../../../assets/chevron-downn.svg')} />
+      <ChevronDown />
     </span>
   );
 };
