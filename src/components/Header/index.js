@@ -13,6 +13,8 @@ import Notification from '../../containers/Notification';
 import Help from '../../components/Header/Help';
 import { DebounceInput } from 'react-debounce-input';
 
+; 
+
 const SearchIcon = () => {
 	return <SVG src={require('../../assets/Search.svg')} />;
 };
@@ -21,6 +23,7 @@ const SearchIcon = () => {
 const Header = (meData) => {
 	const history = useHistory();
 	const {
+		activeRoute,
 		setActiveRoute,
 		searchValue,
 		setSearchValue,
@@ -135,9 +138,10 @@ const Header = (meData) => {
 			</Popover>
 			<div className={styles.mainContainer}>
 				<div className={styles.searchContainer}>
+					{activeRoute == "AccountHistory" ? (''): (	
 					<span className={styles.headerSearchIcon}>
 						<SearchIcon />
-					</span>
+					</span>)}
 					<DebounceInput
 						debounceTimeout={500}
 						value={searchValue}

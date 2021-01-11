@@ -11,7 +11,7 @@ import styles from './Compensations.module.scss';
 const Chevron = () => {
   return (
     <span className={styles.dropDownCustomizeSvg}>
-      <SVG src={require('../../../assets/chevron-downn.svg')} />
+      <SVG src={require('../../../assets/chevron-up.svg')} />
     </span>
   );
 };

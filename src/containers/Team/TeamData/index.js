@@ -71,7 +71,6 @@ const TeamData = ({ TeamMembers, index, handleRemoveMember, length }) => {
   useEffect(() => { }, []);
 
   useEffect(() => { }, []);
-	debugger;
   return (
     <>
       <AddMember open={addOpen} closeAdd={closeHandle} />

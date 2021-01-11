@@ -18,7 +18,7 @@ for (let i = 3; i <= 20; i += 1) {
 const Chevron = () => {
   return (
     <span className={styles.dropDownCustomizeSvg}>
-      <SVG src={require('../../../../assets/chevron-downn.svg')} />
+      <SVG src={require('../../../../assets/chevron-up.svg')} />
     </span>
   );
 };
@@ -136,7 +136,7 @@ const CreateCompensation = ({
               </MenuItem>
               {options.map((option) => (
                 <MenuItem key={option} value={option}>
-                  {option}
+                  {option} %
                 </MenuItem>
               ))}
             </Select>
