@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, Popover } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CampaignsCard from './CampaignsCard';
 import AddIcon from '@material-ui/icons/Add';
@@ -9,6 +9,8 @@ import { useHistory } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
 import SVG from 'react-inlinesvg';
 import { RootContext } from '../../context/RootContext';
+import { ChevronUp, ChevronDown } from 'react-feather';
+import _ from 'lodash';
 
 const IconCampaign = () => {
   return <SVG src={require('../../assets/Campaigns_large.svg')} />;
@@ -32,6 +34,21 @@ const Campaigns = () => {
     setShowLoader,
   } = useContext(RootContext);
   const [loading, setLoading] = useState(false);
+  const [selectedState, setSelectedState] = useState('Most Recent');
+
+  const [brandDropDown, setBrandDropDown] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleClick = (event) => {
+    setBrandDropDown(true);
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+    setBrandDropDown(false);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
 
   useEffect(() => {
     if (!brandId || brandId === '') {
@@ -74,8 +91,8 @@ const Campaigns = () => {
 							phoneNumber
 						}
 				}`,
-			});
-			
+      });
+
       let brandsData = [];
       let influencersData = [];
       mydata.data.me.organizations !== null &&
@@ -136,11 +153,18 @@ const Campaigns = () => {
             status
             startDate
             endDate
+            created
           }
         }
       }`,
       });
-      setCampaigns(campaigns.data.campaigns.campaigns);
+
+      if (campaigns.data && campaigns.data !== null && campaigns.data.campaigns.campaigns) {
+        let myArray = _.sortBy(campaigns.data.campaigns.campaigns, function (dateObj) {
+          return new Date(dateObj.created);
+        }).reverse();
+        setCampaigns(myArray);
+      }
       setBkupCampaigns(campaigns.data.campaigns.campaigns);
       setLoading(false);
       setShowLoader(false);
@@ -191,23 +215,89 @@ const Campaigns = () => {
       console.log('delete campaign error ', e);
     }
   };
+  const onSort = (value) => {
+    setSelectedState(value);
+    if (value === 'Most Recent') {
+      let data = [...campaigns];
+      let myArray = _.sortBy(data, function (dateObj) {
+        return new Date(dateObj.created);
+      }).reverse();
+      setCampaigns(myArray);
+      setAnchorEl(null);
+      setBrandDropDown(false);
+    }
+    if (value === 'Alphabetical A-Z') {
+      let data = [...campaigns];
+      let myArray = _.sortBy(data, o => o.name.toLowerCase())
+      setCampaigns(myArray);
+      setAnchorEl(null);
+      setBrandDropDown(false);
+    }
+
+    if (value === 'Alphabetical Z-A') {
+      let data = [...campaigns];
+      let myArray = _.sortBy(data, o => o.name.toLowerCase()).reverse();
+      setCampaigns(myArray);
+      setAnchorEl(null);
+      setBrandDropDown(false);
+    }
+  }
 
   return (
     <>
-      {addCampaign && (
-        <AddCampaign
-          open={addCampaign}
-          handleCancel={() => setAddCampagin(false)}
-          brandId={brandId}
-        />
-      )}
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        PaperProps={{
+          style: {
+            width: '206px',
+          },
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+        <div className={styles.popOver}>
+          <div onClick={() => onSort('Most Recent')}>
+            <p>Most Recent</p>
+          </div>
+          <div onClick={() => onSort('Alphabetical A-Z')}>
+            <p>Alphabetical A-Z</p>
+          </div>
+          <div onClick={() => onSort('Alphabetical Z-A')}>
+            <p>Alphabetical Z-A</p>
+          </div>
+        </div>
+      </Popover>
+
+      {
+        addCampaign && (
+          <AddCampaign
+            open={addCampaign}
+            handleCancel={() => setAddCampagin(false)}
+            brandId={brandId}
+          />
+        )
+      }
       <div className={styles.campaignsContainer}>
         <div className={styles.CampaignHeadingContainer}>
           <div className={styles.CampaignHeading}>
             <span>Campaigns</span>
-            <p>
-              Most recent <ExpandMoreIcon fontSize='small' />
-            </p>
+            <div onClick={handleClick}>
+              <p>
+                {selectedState}
+              </p>
+              <div className={styles.brandDropDownSVG}>
+                {brandDropDown ? <ChevronUp /> : <ChevronDown />}
+              </div>
+            </div>
           </div>
           {brandType === 'Brand' ? (
             <button onClick={() => setAddCampagin(true)}>
