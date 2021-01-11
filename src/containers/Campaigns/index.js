@@ -290,7 +290,7 @@ const Campaigns = () => {
             </Grid>
             <Grid item xs={12}>
               <div className={styles.noCampaignYetHelper}>
-                Click on the button New Campaign button to get started creating
+                Click on the New Campaign button to start creating
                 a campaign.
               </div>
             </Grid>

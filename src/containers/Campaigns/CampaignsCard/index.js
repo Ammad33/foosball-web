@@ -37,9 +37,9 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 
 
 	const convertedStartDate = moment(campaign.startDate * 1000).format(
-		'MM-DD-YYYY'
+		'MM/DD/YYYY'
 	);
-	const convertedEndDate = moment(campaign.endDate * 1000).format('MM-DD-YYYY');
+	const convertedEndDate = moment(campaign.endDate * 1000).format('MM/DD/YYYY');
 	return (
 		<>
 			<Popover
@@ -105,7 +105,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 							</Tooltip>
 							<span className={styles.campaignNumber}>
 								<small>
-									{convertedStartDate} / {convertedEndDate}{' '}
+									{convertedStartDate} - {convertedEndDate}{' '}
 								</small>
 							</span>
 							<div className={styles.wrapChip}>
@@ -135,7 +135,15 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 												)}
 												label={campaign.status && campaign.status.toProperCase()}
 											/>
-										) : (
+										) : campaign.status === 'CLOSED' ? (
+											<Chip
+												className={clsx(
+													styles.statusClosed,
+													styles[`chip${campaign.status}`]
+												)}
+												label={campaign.status && campaign.status.toProperCase()}
+											/>
+										)	: (
 														<Chip
 															className={clsx(
 																styles.statusPending,

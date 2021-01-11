@@ -3,11 +3,13 @@ import styles from './Brand.module.scss';
 import logo from '../../assets/logo.png';
 
 const Brand = () => {
-  return (
-    <div className={styles.brandContainter}>
-      <img alt='Profile' src={logo} />
-    </div>
-  );
+	return (
+		<div className={styles.brandContainter}>
+			<a href="/">
+				<img alt='Profile' src={logo} />
+			</a>
+		</div>
+	);
 };
 
 export default Brand;

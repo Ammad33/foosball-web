@@ -32,7 +32,7 @@ const Account = ({
 	setNewPassword,
 	handleChangePassword,
 	emailVerfied,
-	teamData,
+	teamAdmin,
 
 }) => {
 
@@ -233,7 +233,7 @@ const Account = ({
 					<p className={styles.deleteTitle}>Delete User Account</p>
 					<div className={styles.deleteAccountTextAndButton}>
 						<p>By deleting your account you will lose all your data.</p>
-						{teamData ? (
+						{teamAdmin ? (
 							<Button
 								onClick={() => {
 									setActionType('Delete');

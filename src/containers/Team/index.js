@@ -27,7 +27,7 @@ const Team = () => {
                 imageUrl
                 id
                 fullName
-				email			
+								email			
               }
             }
           }
@@ -83,7 +83,8 @@ const Team = () => {
             {teams && teams !== null
               ? teams.map((team, index) => (
                 <TeamData
-                  TeamMembers={team}
+									TeamMembers={team}
+									length = {teams.length}
                   index={index}
                   handleRemoveMember={handleRemoveMember}
                 />

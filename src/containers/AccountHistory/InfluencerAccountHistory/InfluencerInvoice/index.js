@@ -177,7 +177,7 @@ const InfluencerInvoice = ({ data, handleExpandClick, expanded }) => {
 													</div>
 												</CardContent>
 											</Collapse>
-											<Divider className={styles.divider} />
+											{data[data.length-1] == item ? ('') : (<Divider className={styles.divider} />)}	
 										</div>
 									);
 								})}
