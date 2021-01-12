@@ -29,7 +29,8 @@ const Campaigns = () => {
     setInfluencers,
     setBrandIdd,
     setBrandName,
-    setShowLoader,
+		setShowLoader,
+		setActiveRoute,
   } = useContext(RootContext);
   const [loading, setLoading] = useState(false);
 
@@ -190,7 +191,13 @@ const Campaigns = () => {
     } catch (e) {
       console.log('delete campaign error ', e);
     }
-  };
+	};
+
+	const handleCampaginDetail = (id) => {
+		history.push(`/campaignDetail/${id}`)
+		setActiveRoute('campaignDetail');
+	}
+	
 
   return (
     <>
@@ -308,9 +315,9 @@ const Campaigns = () => {
                 <Grid className={styles.gridItem} item key={campaign.id}>
                   <CampaignsCard
                     campaign={campaign}
-                    onClick={() =>
-                      history.push(`/campaignDetail/${campaign.id}`)
-                    }
+										onClick={() => {
+											handleCampaginDetail(campaign.id)
+                    }}
                     handleDelete={handleDelete}
                   />
                 </Grid>

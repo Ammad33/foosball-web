@@ -12,7 +12,8 @@ const AddTeamMembers = ({ search, handleSearch, selectedMembers, handleAdd, memb
 
   return (
     <>
-      <TextField
+		{/* hidden for phase 1*/ }
+      {/* <TextField
         id='outlined-basic'
         fullWidth
         type='text'
@@ -20,7 +21,7 @@ const AddTeamMembers = ({ search, handleSearch, selectedMembers, handleAdd, memb
         variant='outlined'
         value={search}
         onChange={handleSearch}
-      />
+      /> */}
       <div className={styles.mainContainer}>
         {members.map((member) => {
           const index = selectedMembers.findIndex(item => item === member.user.id);

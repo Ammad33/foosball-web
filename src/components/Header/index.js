@@ -61,6 +61,7 @@ const Header = (meData) => {
 
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
+	debugger;
 	return (
 		<>
 			<Popover
@@ -138,7 +139,7 @@ const Header = (meData) => {
 			</Popover>
 			<div className={styles.mainContainer}>
 				<div className={styles.searchContainer}>
-					{activeRoute == "AccountHistory" ? (''): (	
+					{activeRoute == "AccountHistory" || activeRoute == "campaignDetail" ?  (''): (	
 					<span className={styles.headerSearchIcon}>
 						<SearchIcon />
 					</span>)}
