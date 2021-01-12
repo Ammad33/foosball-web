@@ -129,47 +129,42 @@ const Header = (meData) => {
             >
               Account History
             </MenuItem>
-            <Logout />
-          </div>
-        </Grid>
-      </Popover>
-      <div className={styles.mainContainer}>
-        <div className={styles.searchContainer}>
-          {activeRoute == 'AccountHistory' ? (
-            ''
-          ) : (
-            <>
-              <span className={styles.headerSearchIcon}>
-                <SearchIcon />
-              </span>
-              <DebounceInput
-                debounceTimeout={500}
-                value={searchValue}
-                onChange={(e) => {
-                  setSearchValue(e.target.value);
-                }}
-                className={styles.searchInput}
-              />
-            </>
-          )}
-        </div>
-        <div className={styles.selectBrandContainer}>
-          <SelectBrand />
-        </div>
-        <div className={styles.helpContainer}>
-          <Help />
-        </div>
-        <div className={styles.notificationContainer}>
-          <Badge className={'cursor-pointer'} color='secondary' variant='dot'>
-            <Notification />
-          </Badge>
-        </div>
-        <div>
-          <Avatar onClick={handleClick} src={meData.meData.imageUrl} />
-        </div>
-      </div>
-    </>
-  );
+						<Logout />
+					</div>
+				</Grid>
+			</Popover>
+			<div className={styles.mainContainer}>
+				<div className={styles.searchContainer}>
+					{activeRoute == "AccountHistory" || activeRoute == "campaignDetail" ?  (''): (	
+					<span className={styles.headerSearchIcon}>
+						<SearchIcon />
+					</span>)}
+					<DebounceInput
+						debounceTimeout={500}
+						value={searchValue}
+						onChange={(e) => {
+							setSearchValue(e.target.value);
+						}}
+						className={styles.searchInput}
+					/>
+				</div>
+				<div className={styles.selectBrandContainer}>
+					<SelectBrand />
+				</div>
+				<div className={styles.helpContainer}>
+					<Help />
+				</div>
+				<div className={styles.notificationContainer}>
+					<Badge className={'cursor-pointer'} color='secondary' variant='dot'>
+						<Notification />
+					</Badge>
+				</div>
+				<div>
+					<Avatar onClick={handleClick} src={meData.meData.imageUrl} />
+				</div>
+			</div>
+		</>
+	);
 };
 
 export default Header;
