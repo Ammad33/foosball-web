@@ -17,7 +17,7 @@ const Deliverables = ({ deliveries, handleDeliveries, handleDilverableContent,
 
 	useEffect(() => {
 		handleActiveForDeliverable();
-	}, [deliveries])
+	}, [deliveries]);
 
 	return (
 		<div>

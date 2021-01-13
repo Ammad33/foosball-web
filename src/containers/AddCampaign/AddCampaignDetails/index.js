@@ -268,14 +268,15 @@ const AddCampaignDetails = ({
             id='outlined-basic'
             IconComponent={() => <span className={styles.dropDownCustomizeSvg} ><ChevronDown /></span>}
             fullWidth
-            defaultValue={'Percentage'}
+            // defaultValue={'Percentage'}
             value={discountType}
             onChange={(e) => handleDiscountType(e.target.value)}
             variant='outlined'
+            displayEmpty
             MenuProps={{ variant: 'menu' }}
             input={<SelectMenu />}
           >
-            {/* <MenuItem value='' ></MenuItem> */}
+            <MenuItem value='' disabled>Discount Type</MenuItem>
             <MenuItem value={'Percentage'}>Percentage</MenuItem>
             <MenuItem value={'Amount'}>Amount</MenuItem>
           </Select>

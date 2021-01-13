@@ -8,11 +8,11 @@ import { Facebook, Youtube, Instagram } from 'react-feather';
 
 const InfluencerCard = ({ influencer, selected, toggleInfluncer }) => {
   const calculateFollowersCount = (count) => {
-    console.log('count ', count);
+
     let millions = (count / 1000000).toString().split('.');
     let thousands = (count / 1000).toString().split('.');
     if (millions[0] !== '0') {
-      console.log('send million', millions);
+
       return `${
         millions[1] ? [millions[0], millions[1][0]].join('.') : millions[0]
         }m`;

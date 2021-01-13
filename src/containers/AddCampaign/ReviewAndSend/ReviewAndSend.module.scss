@@ -84,12 +84,14 @@
 
 .compensationBadge {
   height: 27px;
-  width: 180px;
+  // width: 180px;
   border-radius: 6px;
+  margin-top: 10px;
   background-color: #db7474;
+  display: inline-block;
   p {
-    margin-top: 10px;
-    padding: 5px 10px;
+    
+    padding: 6px 10px;
     color: #ffffff;
     font-family: Poppins;
     font-size: 12px;

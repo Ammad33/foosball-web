@@ -48,7 +48,8 @@ const CreateDeliverable = ({
     postType: ['Does not apply'],
     frameContentType: ['Does not apply'],
   });
-  console.log('platform ', platform);
+
+
   useEffect(() => {
     handleSetValue();
   }, [deliverableItem.platform]);
@@ -78,7 +79,7 @@ const CreateDeliverable = ({
   };
 
   const handleSetValue = () => {
-    console.log('platform selected', deliverableItem.platform);
+
     switch (deliverableItem.platform) {
       case 'Youtube':
         setPlatform(youtube);
@@ -121,6 +122,7 @@ const CreateDeliverable = ({
           value={deliverableItem && deliverableItem.deadlineDate}
           onChange={(e) => handleDeliverDeadlineDate(e.target.value, index)}
           InputProps={{
+            pattern: "\d{1,2}/\d{1,2}/\d{4}",
             endAdornment: (
               <InputAdornment
                 className={styles.cursorPointer}
@@ -167,7 +169,7 @@ const CreateDeliverable = ({
             select
             SelectProps={{ IconComponent: () => <Chevron /> }}
           >
-            <MenuItem value='Social Platform' disabled>
+            <MenuItem value='' disabled>
               Social Platform
             </MenuItem>
             <MenuItem value={'Instagram'}>Instagram </MenuItem>
@@ -195,7 +197,7 @@ const CreateDeliverable = ({
             select
             SelectProps={{ IconComponent: () => <Chevron /> }}
           >
-            <MenuItem value='Post Type' disabled>
+            <MenuItem value='' disabled>
               Post Type
             </MenuItem>
             {platform.postType.map((item) => (
@@ -224,7 +226,7 @@ const CreateDeliverable = ({
             select
             SelectProps={{ IconComponent: () => <Chevron /> }}
           >
-            <MenuItem value='Content Type' disabled>
+            <MenuItem value='' disabled>
               Content Type
             </MenuItem>
             {platform.frameContentType.map((item) => (
@@ -252,7 +254,7 @@ const CreateDeliverable = ({
             select
             SelectProps={{ IconComponent: () => <Chevron /> }}
           >
-            <MenuItem value='Frame Required' disabled>
+            <MenuItem value='' disabled>
               Frame Required
             </MenuItem>
             {frames.map((frame) => (

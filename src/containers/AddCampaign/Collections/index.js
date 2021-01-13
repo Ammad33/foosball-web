@@ -130,10 +130,9 @@ const Collection = ({
                 ) && (
                     <div className={styles.quantity}>
                       <span className={styles.collectionNumber}>
-                        {open === true &&
-                          collections.find(
-                            (item) => item.collectionName === 'Drop Cuts'
-                          ).collectionItems.length}
+                        {collections.find(
+                          (item) => item.collectionName === 'Drop Cuts'
+                        ).collectionItems.length}
                       </span>
                     </div>
                   )}
@@ -183,10 +182,9 @@ const Collection = ({
                 ) && (
                     <div className={styles.quantity}>
                       <span className={styles.collectionNumber}>
-                        {open === true &&
-                          collections.find(
-                            (item) => item.collectionName === 'V-Necks'
-                          ).collectionItems.length}
+                        {collections.find(
+                          (item) => item.collectionName === 'V-Necks'
+                        ).collectionItems.length}
                       </span>
                     </div>
                   )}
@@ -233,7 +231,7 @@ const Collection = ({
                 ) && (
                     <div className={styles.quantity}>
                       <span className={styles.collectionNumber}>
-                        {open === true &&
+                        {
                           collections.find(
                             (item) => item.collectionName === 'Henleys'
                           ).collectionItems.length}

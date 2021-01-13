@@ -262,6 +262,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const [endDateOpen, setEndDateOpen] = useState(false);
   const [startTimeOpen, setStartTimeOpen] = useState(false);
   const [endTimeOpen, setEndTimeOpen] = useState(false);
+  const [lastStep, setLastStep] = useState(0);
 
   const [giftCode, setGiftCode] = useState('');
 
@@ -1000,10 +1001,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     try {
       if (discountType === 'Amount') {
         typ = 'FLAT';
-        val = '{"amount":{"amount": "' + discount + '","currency":"USD"}}';
+        val = '{"amount":{"amount": "' + discount !== '' ? discount : 0 + '","currency":"USD"}}';
       } else {
         typ = 'PERCENTAGE';
-        val = '{"percentage":"' + discount + '"}';
+        val = '{"percentage":"' + discount !== '' ? discount : 0 + '"}';
       }
       const data = {
         brandId,
@@ -1012,8 +1013,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         endDate: Date.parse(`${endDate} ${endTime} `) / 1000,
         discount: { value: val, type: typ },
         invitationMessage: customeMessage,
-        budget: { amount: budget, currency: 'USD' },
-        targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
+        budget: { amount: parseFloat(budget).toFixed(2), currency: 'USD' },
+        targetGrossSales: { amount: parseFloat(targetGrossSale).toFixed(2), currency: 'USD' },
         team: selectedMembers,
         negotiables: getNegotiablesObjectForAPI(),
         invitationMessage: customeMessage,
@@ -1026,6 +1027,16 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       ) {
         delete data.deliverables;
       }
+      if (budget === '') {
+        delete data.budget;
+      }
+      if (targetGrossSale === '') {
+        delete data.targetGrossSales;
+      }
+      // if (discount === '') {
+      //   delete data.discount
+      // }
+
       if (influencer && influencer.id) {
         data.influencerId = influencer.id;
       }
@@ -1115,7 +1126,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     let flag = true;
 
     deliverables.forEach((delive) => {
-      if (delive.platform === 'Facebook') {
+      if (delive.platform === 'Facebook' || delive.platform === 'Instagram') {
         if (delive.deliverableType === 'Post') {
           delive.framesRequired = null;
         }
@@ -1200,14 +1211,13 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   const leftSideDawerClick = (index) => {
     if (activeStep >= index) {
+      setLastStep(activeStep);
       setActiveStep(index);
+
     } else return;
   };
 
   const handleCampaignName = (e) => {
-
-    // setCampaignError('');
-    console.log(campaigns);
 
     setCampaignName(e.target.value);
     if (e.target.value !== '') {
@@ -1221,7 +1231,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       }
     }
   }
-  console.log(campaignError);
 
   const getStepContent = (activeStep) => {
     switch (activeStep) {
@@ -1443,10 +1452,20 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         setStartTimeError(true);
       } else {
         setStartTimeError(false);
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        if (lastStep !== 0) {
+          setActiveStep(lastStep);
+          setLastStep(0)
+        } else {
+          setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        }
       }
     } else if (activeSetp !== 9) {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      if (lastStep !== 0) {
+        setActiveStep(lastStep);
+        setLastStep(0)
+      } else {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      }
     }
   };
 

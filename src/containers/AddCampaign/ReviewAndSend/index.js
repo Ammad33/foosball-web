@@ -54,13 +54,13 @@ const ReviewAndSend = ({ team, campaignName, startDate, endDate, startTime, endT
 		switch (compensation.compensationType) {
 			case 'REVENUE_SHARE':
 				return (
-					<span>{compensation.amount && compensation.amount}% ({budget} $)</span>);
+					<span>{compensation.amount && compensation.amount}% ($ { compensation.amount * targetGrossSale / 100})</span>);
 			case 'CASH_PER_POST':
-				return (<span>{compensation.amount && compensation.amount}$</span>);
+				return (<span>$ {compensation.amount && compensation.amount}</span>);
 			case 'CASH_PER_MONTHLY_DELIVERABLE':
-				return (<span>{compensation.amount && compensation.amount}$</span>);
+				return (<span>$ {compensation.amount && compensation.amount}</span>);
 			case 'GIFT_CARD':
-				return (<span>{compensation.amount && compensation.amount}$</span>);
+				return (<span>$ {compensation.amount && compensation.amount}</span>);
 			default:
 				return <span></span>
 		}
@@ -70,7 +70,7 @@ const ReviewAndSend = ({ team, campaignName, startDate, endDate, startTime, endT
 		switch (compensation.compensationType) {
 			case 'REVENUE_SHARE':
 				return (
-					<h5>${parseFloat(compensation.amount && (compensation.amount / 1000 * parseFloat(budget)).toFixed(2))}</h5>);
+					<h5>${parseFloat(compensation.amount && (compensation.amount * parseFloat(targetGrossSale) / 100).toFixed(2))}</h5>);
 			case 'CASH_PER_POST':
 				return (<h5>${compensation.amount && compensation.amount}</h5>);
 			case 'CASH_PER_MONTHLY_DELIVERABLE':
@@ -87,12 +87,23 @@ const ReviewAndSend = ({ team, campaignName, startDate, endDate, startTime, endT
 		let total = 0;
 		compensations.forEach(item => {
 			if (item.compensationType === 'REVENUE_SHARE') {
-				total = total + parseFloat(item.amount / 1000 * parseFloat(budget));
+				total = total + parseFloat(item.amount * parseFloat(targetGrossSale) / 100);
 			} else {
 				total = total + parseFloat(item.amount);
 			}
 		})
 		return parseFloat(total).toFixed(2);
+	}
+
+	const overAmount = () => {
+		let over = 0;
+		compensations.forEach(item => {
+			if (item.compensationType === 'REVENUE_SHARE') {
+				over = parseFloat(item.amount * parseFloat(targetGrossSale) / 100) - parseFloat(budget);
+			}
+		});
+		console.log(over);
+		return over;
 	}
 
 	return (
@@ -190,9 +201,11 @@ const ReviewAndSend = ({ team, campaignName, startDate, endDate, startTime, endT
 						</Grid>
 					</Grid>
 				</div>
-				<div className={styles.compensationBadge}>
-					<p>You are $600 over budget</p>
-				</div>
+				{overAmount() > 0 &&
+					<div className={styles.compensationBadge}>
+						<p>You are ${overAmount()} over budget</p>
+					</div>
+				}
 			</div>
 			<div class={styles.section}>
 				<div className={styles.titleAndAction}>
@@ -328,9 +341,10 @@ const ReviewAndSend = ({ team, campaignName, startDate, endDate, startTime, endT
 					})
 				}
 				<div className={styles.compensationHeading}><h4>Total Compensation Estimate:</h4><h5>${getTotal()}</h5></div>
-				<div style={{ margin: '20px 0px 10px 0px' }} className={styles.compensationBadge}>
-					<p>You are $600 over budget</p>
-				</div>
+
+				{overAmount() > 0 && <div style={{ margin: '20px 0px 10px 0px' }} className={styles.compensationBadge}>
+					<p>You are ${overAmount()} over budget</p>
+				</div>}
 				<p className={styles.estimateText}>* estimated amount based on target sales</p>
 			</div>
 			<div class={styles.section}>
