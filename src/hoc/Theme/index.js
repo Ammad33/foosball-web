@@ -3,6 +3,15 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 
 const theme = createMuiTheme({
+	overrides:{
+		MuiSelect: {
+			select: {
+				"&:focus": {
+					backgroundColor: "white"
+				}
+			}
+		}
+	},
   palette: {
     primary: {
       main: '#7B5CD9',
