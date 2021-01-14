@@ -1006,21 +1006,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         typ = 'PERCENTAGE';
         val = '{"percentage":"' + discount !== '' ? discount : 0 + '"}';
       }
-      // const data = {
-      //   brandId,
-      //   name: campaignName,
-      //   startDate: Date.parse(`${startDate} ${startTime} `) / 1000,
-      //   endDate: Date.parse(`${endDate} ${endTime} `) / 1000,
-      //   discount: { value: val, type: typ },
-      //   invitationMessage: customeMessage,
-      //   budget: { amount: budget, currency: 'USD' },
-      //   targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
-      //   team: selectedMembers,
-      //   negotiables: getNegotiablesObjectForAPI(),
-      //   invitationMessage: customeMessage,
-      //   deliverables: getDeliverablesForAPI(),
-      //   compensation: getCompensations(),
-			// };
 			  const data = {
         brandId,
         name: campaignName,
@@ -1028,13 +1013,13 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         endDate: Date.parse(`${endDate} ${endTime} `) / 1000,
         discount: { value: val, type: typ },
         invitationMessage: customeMessage,
-        budget: { amount: parseFloat(budget).toFixed(2), currency: 'USD' },
-        targetGrossSales: { amount: parseFloat(targetGrossSale).toFixed(2), currency: 'USD' },
-        team: selectedMembers,
-        negotiables: getNegotiablesObjectForAPI(),
-        invitationMessage: customeMessage,
-        deliverables: getDeliverablesForAPI(),
-        compensation: getCompensations(),
+        // budget: { amount: parseFloat(budget).toFixed(2), currency: 'USD' },
+        // targetGrossSales: { amount: parseFloat(targetGrossSale).toFixed(2), currency: 'USD' },
+        // team: selectedMembers,
+        // negotiables: getNegotiablesObjectForAPI(),
+        // invitationMessage: customeMessage,
+        // deliverables: getDeliverablesForAPI(),
+        // compensation: getCompensations(),
       };
       if (
         data.deliverables.length === 1 &&
