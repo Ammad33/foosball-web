@@ -17,18 +17,18 @@ const IconCampaign = () => {
 
 
 const ChevronDown = () => {
-	return (
-		<span className={styles.dropDownCustomizeSvg} >
-			<SVG src={require('../../assets/chevron-down.svg')} />
-		</span>
-	);
+  return (
+    <span className={styles.dropDownCustomizeSvg} >
+      <SVG src={require('../../assets/chevron-down.svg')} />
+    </span>
+  );
 };
 const ChevronUp = () => {
-	return (
-		<span className={styles.dropDownCustomizeSvg}>
-			<SVG src={require('../../assets/chevron-up.svg')} />
-		</span>
-	);
+  return (
+    <span className={styles.dropDownCustomizeSvg}>
+      <SVG src={require('../../assets/chevron-up.svg')} />
+    </span>
+  );
 };
 
 
@@ -47,8 +47,8 @@ const Campaigns = () => {
     setInfluencers,
     setBrandIdd,
     setBrandName,
-		setShowLoader,
-		setActiveRoute,
+    setShowLoader,
+    setActiveRoute,
   } = useContext(RootContext);
   const [loading, setLoading] = useState(false);
   const [selectedState, setSelectedState] = useState('Most Recent');
@@ -259,13 +259,14 @@ const Campaigns = () => {
       setBrandDropDown(false);
     }
   }
-	
 
-	const handleCampaginDetail = (id) => {
-		history.push(`/campaignDetail/${id}`)
-		setActiveRoute('campaignDetail');
-	}
-	
+
+  const handleCampaginDetail = (id) => {
+    console.log(id);
+    history.push(`/campaignDetail/${id}`, { campaignId: id })
+    setActiveRoute('campaignDetail');
+  }
+
 
   return (
     <>
@@ -422,8 +423,8 @@ const Campaigns = () => {
                 <Grid className={styles.gridItem} item key={campaign.id}>
                   <CampaignsCard
                     campaign={campaign}
-										onClick={() => {
-											handleCampaginDetail(campaign.id)
+                    onClick={() => {
+                      handleCampaginDetail(campaign.id)
                     }}
                     handleDelete={handleDelete}
                   />

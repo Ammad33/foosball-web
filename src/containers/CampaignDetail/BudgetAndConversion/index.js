@@ -11,11 +11,11 @@ const BudgetAndConversion = ({ handleEdit, data }) => {
       </div>
       <div className={styles.section}>
         <h5>Budget</h5>
-        <p>${data?.budget.amount}</p>
+        <p>${data && data.budget && data.budget !== null ? data.budget.amount : ''}</p>
       </div>
       <div className={styles.section}>
         <h5>Target Gross Sales Goal</h5>
-        <p>${data?.targetGrossSales.amount}</p>
+        <p>${data && data.targetGrossSales && data.targetGrossSales !== null ? data.targetGrossSales.amount : ''}</p>
       </div>
     </div>
   );

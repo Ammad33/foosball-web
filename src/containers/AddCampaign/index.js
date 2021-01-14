@@ -561,6 +561,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   const [collections, setCollections] = useState([]);
 
+  const [stepSeven, setStepSeven] = useState(false);
+
   /**** Add New deliverable */
 
   const getTeam = async () => {
@@ -611,10 +613,28 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   const handleDeliverDeadlineDate = (date, index) => {
     const opts = [...deliveries];
-    opts[index].deadlineDate =
-      date !== '' && moment(date, 'MM/DD/YYYY', true).isValid()
-        ? moment(date).format('L')
-        : date;
+
+    if (date !== '' && moment(date, 'MM/DD/YYYY', true).isValid()) {
+      opts[index].deadlineDate = moment(date).format('L');
+    } else {
+      if (opts[index].deadlineDate.length > date.length) {
+        opts[index].deadlineDate = date;
+      } else if (date.length < 11) {
+        if (date !== "") {
+          var targetValue = date;
+          console.log(date);
+          if (targetValue.length === 5) {
+            opts[index].deadlineDate = targetValue + "/";
+          } else if (targetValue.length === 2) {
+            opts[index].deadlineDate = targetValue + "/";
+          } else {
+            opts[index].deadlineDate = targetValue;
+          }
+        } else {
+          opts[index].deadlineDate = "";
+        }
+      }
+    }
     setDeliveries(opts);
     setDeliverableDate(false);
   };
@@ -909,10 +929,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       delete deliverable.id;
       deliverable.deadlineDate =
         Date.parse(`${deliverable.deadlineDate}`) / 1000;
-      console.log('deadline date ', deliverable.deadlineDate);
       deliverable.platform = deliverable.platform.toUpperCase();
-      deliverable.deliverableType = deliverable.deliverableType.toUpperCase();
+      deliverable.postType = deliverable.deliverableType.toUpperCase();
       deliverable.frameContentType = deliverable.frameContentType.toUpperCase();
+      delete deliverable.deliverableType;
       return deliverable;
 
       // switch (deliverable.frequency) {
@@ -1006,13 +1026,13 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         typ = 'PERCENTAGE';
         val = '{"percentage":"' + discount !== '' ? discount : 0 + '"}';
       }
-			  const data = {
+      let data = {
         brandId,
         name: campaignName,
         startDate: Date.parse(`${startDate} ${startTime} `) / 1000,
         endDate: Date.parse(`${endDate} ${endTime} `) / 1000,
-        discount: { value: val, type: typ },
-        invitationMessage: customeMessage,
+        // discount: { value: val, type: typ },
+        // invitationMessage: customeMessage,
         // budget: { amount: parseFloat(budget).toFixed(2), currency: 'USD' },
         // targetGrossSales: { amount: parseFloat(targetGrossSale).toFixed(2), currency: 'USD' },
         // team: selectedMembers,
@@ -1021,23 +1041,56 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         // deliverables: getDeliverablesForAPI(),
         // compensation: getCompensations(),
       };
-      if (
-        data.deliverables.length === 1 &&
-        data.deliverables[0].platform === ''
-      ) {
-        delete data.deliverables;
+
+      if (discountType !== '' && discount !== '') {
+        data = {
+          ...data, discount: { value: val, type: typ }
+        }
       }
-      if (budget === '') {
-        delete data.budget;
+
+      if (customeMessage !== '') {
+        data = {
+          ...data, invitationMessage: customeMessage,
+        }
       }
-      if (targetGrossSale === '') {
-        delete data.targetGrossSales;
+
+      if (budget !== '') {
+        data = {
+          ...data, budget: { amount: budget, currency: 'USD' }
+        }
       }
-      // if (discount === '') {
-      //   delete data.discount
+
+      if (targetGrossSale !== '') {
+        data = {
+          ...data, targetGrossSales: { amount: targetGrossSale, currency: 'USD' }
+        }
+      }
+
+      if (selectedMembers && selectedMembers.length > 0) {
+        data = {
+          ...data, team: selectedMembers
+        }
+      }
+
+      // if (deliveries && deliveries.length > 0) {
+      //   data = {
+      //     ...data, deliverables: getDeliverablesForAPI()
+      //   }
       // }
 
-      if (influencer && influencer.id) {
+      if (compensations && compensations.length > 0 && compensations[0].compensationType !== '') {
+        data = {
+          ...data, compensation: getCompensations()
+        }
+      }
+
+      if (stepSeven) {
+        data = {
+          ...data, negotiables: getNegotiablesObjectForAPI()
+        }
+      }
+
+      if (influencer && influencer.id && influencer.id !== '') {
         data.influencerId = influencer.id;
       }
       await API.graphql(
@@ -1189,6 +1242,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         flag = true;
       }
     });
+    setStepSeven(true);
     setActiveNext(flag);
   };
 
