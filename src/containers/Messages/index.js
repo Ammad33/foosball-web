@@ -653,6 +653,7 @@ const Messages = () => {
   const [indexStored, setIndexStored] = useState(-1);
   const [sharedFilesSelected, setSharedFilesSelected] = useState(false);
   const [anchorEl2, setAnchorEl2] = useState(null);
+  const [showShadowClass, setShowShadowClass] = useState(false);
   const open2 = Boolean(anchorEl2);
   const id2 = open2 ? 'simple-popover2' : undefined;
   const handleClose2 = () => {
@@ -667,6 +668,9 @@ const Messages = () => {
   };
   const handleBack = () => {
     setSharedFilesSelected(false);
+  };
+  const setShadowClass = (show) => {
+    setShowShadowClass(show);
   };
 
   const handleSelectedConversation = (conversation, index) => {
@@ -736,7 +740,6 @@ const Messages = () => {
   };
 
   useEffect(() => {
-    console.log('use effect ran');
     setSelectedConversation(null);
   }, [conversations]);
 
@@ -957,10 +960,18 @@ const Messages = () => {
                     </div>
                     <MoreVertical onClick={handleClick} />
                   </div>
-                  <Chat messages={selectedConversation.messages} />
+                  <Chat
+                    setShadowClass={setShadowClass}
+                    messages={selectedConversation.messages}
+                  />
                 </>
               )}
-              <div className={styles.inputContainer}>
+              <div
+                className={clsx(
+                  showShadowClass ? styles.boxShadow : '',
+                  styles.inputContainer
+                )}
+              >
                 {/* <Paperclip /> */}
                 <TextField
                   id='outlined-basic'

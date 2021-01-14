@@ -2,15 +2,35 @@ import React, { useEffect, useRef } from 'react';
 import styles from './Chat.module.scss';
 import { Avatar } from '@material-ui/core';
 
-const Chat = ({ messages }) => {
+const Chat = ({ messages, setShadowClass }) => {
   const containerRef = useRef(null);
   useEffect(() => {
     if (containerRef) {
       containerRef.current.scrollTop = containerRef.current.scrollHeight;
     }
   }, [messages]);
+
+  const listenScrollEvent = (event) => {
+    if (
+      containerRef.current.scrollTop > 20 &&
+      !(
+        containerRef.current.clientHeight +
+          containerRef.current.scrollTop +
+          20 >
+        containerRef.current.scrollHeight
+      )
+    ) {
+      setShadowClass(true);
+    } else {
+      setShadowClass(false);
+    }
+  };
   return (
-    <div className={styles.chatContainer} ref={containerRef}>
+    <div
+      className={styles.chatContainer}
+      ref={containerRef}
+      onScroll={listenScrollEvent}
+    >
       {messages &&
         messages.length > 0 &&
         messages.map((item, index) => {

@@ -18,7 +18,7 @@
   max-width: 1232px;
   margin: auto;
   display: flex;
-  overflow: hidden;
+  // overflow: hidden;
   .conversationsSection {
     flex: auto;
   }
@@ -128,7 +128,6 @@
   height: 92px;
   width: 100%;
   background-color: #ffffff;
-  box-shadow: 0 -3px 8px 0 rgba(0, 0, 0, 0.06);
   display: flex;
   flex-direction: row;
   gap: 37.5px;
@@ -136,6 +135,10 @@
   bottom: 0;
   align-items: center;
   position: absolute;
+}
+
+.boxShadow {
+  box-shadow: 0 -3px 8px 0 rgba(0, 0, 0, 0.06);
 }
 
 .topInputConatiner {

@@ -19,8 +19,6 @@ const ConversationListItem = ({ handleItemClick, conversation, index }) => {
     setAnchorEl(event.currentTarget);
   };
 
-  console.log(conversation);
-
   const getTitle = (members) => {
     switch (members.length) {
       case 1:
