@@ -35,7 +35,7 @@ const XSVG = () => {
 };
 
 const ChevronSVG = () => {
-  return <SVG src={require('../../assets/chevron-down.svg')} />;
+  return <SVG src={require('../../assets/chevron-left.svg')} />;
 };
 
 const CheckCircleIconSvg = (prop) => {
@@ -1005,27 +1005,37 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         typ = 'PERCENTAGE';
         val = '{"percentage":"' + discount + '"}';
       }
-      const data = {
+      // const data = {
+      //   brandId,
+      //   name: campaignName,
+      //   startDate: Date.parse(`${startDate} ${startTime} `) / 1000,
+      //   endDate: Date.parse(`${endDate} ${endTime} `) / 1000,
+      //   discount: { value: val, type: typ },
+      //   invitationMessage: customeMessage,
+      //   budget: { amount: budget, currency: 'USD' },
+      //   targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
+      //   team: selectedMembers,
+      //   negotiables: getNegotiablesObjectForAPI(),
+      //   invitationMessage: customeMessage,
+      //   deliverables: getDeliverablesForAPI(),
+      //   compensation: getCompensations(),
+			// };
+			  const data = {
         brandId,
         name: campaignName,
         startDate: Date.parse(`${startDate} ${startTime} `) / 1000,
         endDate: Date.parse(`${endDate} ${endTime} `) / 1000,
         discount: { value: val, type: typ },
         invitationMessage: customeMessage,
-        budget: { amount: budget, currency: 'USD' },
-        targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
-        team: selectedMembers,
-        negotiables: getNegotiablesObjectForAPI(),
-        invitationMessage: customeMessage,
-        deliverables: getDeliverablesForAPI(),
-        compensation: getCompensations(),
+        // budget: { amount: budget, currency: 'USD' },
+        // targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
       };
-      if (
-        data.deliverables.length === 1 &&
-        data.deliverables[0].platform === ''
-      ) {
-        delete data.deliverables;
-      }
+      // if (
+      //   data.deliverables.length === 1 &&
+      //   data.deliverables[0].platform === ''
+      // ) {
+      //   delete data.deliverables;
+      // }
       if (influencer && influencer.id) {
         data.influencerId = influencer.id;
       }

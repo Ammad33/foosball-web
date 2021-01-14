@@ -11,7 +11,7 @@ import mainStyles from '../../../../../index.module.scss';
 const Chevron = () => {
 	return (
 		<span className={styles.dropDownCustomizeSvg}>
-			<SVG src={require('../../../../../assets/chevron-downn.svg')} />
+			<SVG src={require('../../../../../assets/chevron-down.svg')} />
 		</span>
 	);
 };

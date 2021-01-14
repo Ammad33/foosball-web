@@ -93,12 +93,12 @@ const App = () => {
               <Reports />
             </Layout>
           </ProtectedRoute>
-          <ProtectedRoute exact path='/contacts'>
+          <ProtectedRoute exact path='/relationships'>
             <Layout>
               <Contacts />
             </Layout>
           </ProtectedRoute>
-					<ProtectedRoute exact path='/accountHistory'>
+					<ProtectedRoute exact path='/billing'>
             <Layout>
               <AccountHistory />
             </Layout>

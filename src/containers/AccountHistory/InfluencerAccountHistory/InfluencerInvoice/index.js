@@ -14,7 +14,7 @@ import FilterPopover from '../../FilterPopover';
 const ChevronDown = () => {
 	return (
 		<span >
-			<SVG src={require('../../../../assets/chevron-downn.svg')} />
+			<SVG src={require('../../../../assets/chevron-down.svg')} />
 		</span>
 	);
 };
@@ -118,7 +118,7 @@ const InfluencerInvoice = ({ data, handleExpandClick, expanded }) => {
 					<p>
 						November 2020
 						<div className={styles.dateDropDown}>
-							{filterDropdown ? <ChevronUp /> : <ChevronUp />}
+							{filterDropdown ? <ChevronDown /> : <ChevronDown />}
 						</div>
 					</p>
 					<p>
@@ -130,7 +130,7 @@ const InfluencerInvoice = ({ data, handleExpandClick, expanded }) => {
 
 							</div>
 							<div className={styles.brandDropDownSVG} onClick={handleClick} >
-								{filterDropdown ? <ChevronDown /> : <ChevronUp />}
+								{filterDropdown ? <ChevronUp /> : <ChevronDown />}
 							</div>
 						</div>
 					</p>

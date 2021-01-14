@@ -9,12 +9,28 @@ import { useHistory } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
 import SVG from 'react-inlinesvg';
 import { RootContext } from '../../context/RootContext';
-import { ChevronUp, ChevronDown } from 'react-feather';
 import _ from 'lodash';
 
 const IconCampaign = () => {
   return <SVG src={require('../../assets/Campaigns_large.svg')} />;
 };
+
+
+const ChevronDown = () => {
+	return (
+		<span className={styles.dropDownCustomizeSvg} >
+			<SVG src={require('../../assets/chevron-down.svg')} />
+		</span>
+	);
+};
+const ChevronUp = () => {
+	return (
+		<span className={styles.dropDownCustomizeSvg}>
+			<SVG src={require('../../assets/chevron-up.svg')} />
+		</span>
+	);
+};
+
 
 const Campaigns = () => {
   const history = useHistory();
