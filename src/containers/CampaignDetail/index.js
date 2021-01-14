@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import styles from './CampaignsDetails.module.scss';
 import BrandCampaignDetail from './BrandCampaignDetail';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, withRouter, useLocation } from 'react-router-dom';
 import InfluencerCampaignDetail from './InfluencerCampaignDetail';
 import { Select, MenuItem } from '@material-ui/core';
 import Link from '@material-ui/core/Link';
@@ -10,12 +10,13 @@ import SelectMenu from '../../components/SelectMenu';
 import { API, graphqlOperation } from 'aws-amplify';
 import _ from 'lodash';
 
-const CampaignDetail = () => {
+const CampaignDetail = ({ location }) => {
+
+  let campaignId = 'campaign' + location.hash;
   const history = useHistory();
   const [status, setStatus] = useState('');
   const [addCampaign, setAddCampagin] = useState(false);
 
-  const { campaignId } = useParams();
   const [brandState, setBrandState] = useState(true);
   const { setActiveCampaign, brandId } = useContext(RootContext);
   const [selectedMembers, setSelectedMemebers] = useState([]);
@@ -30,6 +31,7 @@ const CampaignDetail = () => {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
   };
+  console.log(campaignId);
 
   const handleSearch = async (e) => {
     setSearch(e.target.value);
@@ -150,19 +152,7 @@ const CampaignDetail = () => {
                 code
               }
             }
-            discount {
-              ... on PercentageDiscount {
-                __typename
-                percentage
-              }
-              ... on FlatDiscount {
-                __typename
-                amount {
-                  amount
-                  currency
-                }
-              }
-            }
+            
             budget {
               amount
               currency
@@ -193,7 +183,7 @@ const CampaignDetail = () => {
             deliverables {
               brandTag
               deadlineDate
-              deliverableType
+              postType
               description
               frameContentType
               framesRequired
@@ -203,16 +193,16 @@ const CampaignDetail = () => {
               platform
               posts
             }
+            
             influencer {
               imageUrl
               name
               id
             }
           }
+         
       }`,
       });
-
-      console.log(campaign.data.campaign);
 
       campaign.data.campaign.deliverables.map((deliverable) => {
         deliverable.deliverableType =
@@ -274,7 +264,7 @@ const CampaignDetail = () => {
           setTeam(teamData);
         }
       }
-    } catch (e) {}
+    } catch (e) { }
   };
 
   const getTeam = async () => {
@@ -329,7 +319,7 @@ const CampaignDetail = () => {
 
   useEffect(() => {
     setSetAll(false);
-    if (data && data !== null) {
+    if (data && data !== null && data.negotiables !== null) {
       let negotialble = true;
       Object.values(data.negotiables).map((item) => {
         if (item === true) {
@@ -337,55 +327,57 @@ const CampaignDetail = () => {
         }
       });
 
-      if (
-        ((data.discount &&
-          data.discount.percentage &&
-          data.discount.percentage !== '') ||
-          (data.discount.amount && data.discount.amount.amount !== '')) &&
-        data.invitationMessage !== '' &&
-        data.budget.amount !== '' &&
-        data.targetGrossSales.amount !== '' &&
-        data.deliverables &&
-        data.deliverables.length !== 0 &&
-        data.compensation &&
-        data.compensation.length !== 0 &&
-        negotialble === false &&
-        data.influencer !== null
-      ) {
-        setSetAll(true);
-      }
+      // if (
+      //   ((data.discount && data.discount !== null &&
+      //     data.discount.percentage &&
+      //     data.discount.percentage !== '') ||
+      //     (data.discount !== null && data.discount.amount && data.discount.amount.amount !== '')) &&
+      //   data.invitationMessage !== '' && data.budget !== null &&
+      //   data.budget.amount !== '' && data.targetGrossSales !== null &&
+      //   data.targetGrossSales.amount !== '' &&
+      //   data.deliverables &&
+      //   data.deliverables.length !== 0 &&
+      //   data.compensation &&
+      //   data.compensation.length !== 0 &&
+      //   negotialble === false &&
+      //   data.influencer !== null
+      // ) {
+      //   setSetAll(true);
+      // }
     }
   }, [data]);
 
   const handleHeading = () => {
     let negotialble = true;
-    Object.values(data.negotiables).forEach((item) => {
-      if (item === true) {
-        negotialble = false;
-      }
-    });
-
-    if (
-      (data.discount &&
-        data.discount.percentage &&
-        data.discount.percentage === '') ||
-      (data.discount.amount && data.discount.amount.amount === '') ||
-      data.invitationMessage === ''
-    ) {
-      setHeadingValue('Campaign Detail');
-    } else if (data.budget.amount === '') {
-      setHeadingValue('Budget');
-    } else if (data.targetGrossSales.amount === '') {
-      setHeadingValue('Target Gross Sale');
-    } else if (data.deliverables && data.deliverables.length === 0) {
-      setHeadingValue('Deliverable');
-    } else if (data.compensation && data.compensation.length === 0) {
-      setHeadingValue('Compensation');
-    } else if (negotialble) {
-      setHeadingValue('Negotiable');
-    } else if (data.influencer === null) {
-      setHeadingValue('Influencer');
+    if (data && data !== null && data.negotiables !== null) {
+      Object.values(data.negotiables).forEach((item) => {
+        if (item === true) {
+          negotialble = false;
+        }
+      });
     }
+
+    // if (
+    //   (data.discount && data.discount !== null &&
+    //     data.discount.percentage &&
+    //     data.discount.percentage === '') ||
+    //   (data.discount.amount && data.discount !== null && data.discount.amount.amount === '') ||
+    //   data.invitationMessage === ''
+    // ) {
+    //   setHeadingValue('Campaign Detail');
+    // } else if (data.budget.amount === '') {
+    //   setHeadingValue('Budget');
+    // } else if (data.targetGrossSales.amount === '') {
+    //   setHeadingValue('Target Gross Sale');
+    // } else if (data.deliverables && data.deliverables.length === 0) {
+    //   setHeadingValue('Deliverable');
+    // } else if (data.compensation && data.compensation.length === 0) {
+    //   setHeadingValue('Compensation');
+    // } else if (negotialble) {
+    //   setHeadingValue('Negotiable');
+    // } else if (data.influencer === null) {
+    //   setHeadingValue('Influencer');
+    // }
   };
 
   const handleBrandState = () => {
@@ -449,25 +441,25 @@ const CampaignDetail = () => {
           headingValue={headingValue}
         />
       ) : (
-        <InfluencerCampaignDetail
-          status={status}
-          data={data}
-          addCampaign={addCampaign}
-          setAddCampagin={setAddCampagin}
-          handleDelete={handleDelete}
-          selectedMembers={selectedMembers}
-          team={team}
-          addInTeam={addInTeam}
-          removeInTeam={removeInTeam}
-          search={search}
-          handleSearch={handleSearch}
-          updateCampaign={updateCampaign}
-          setAll={setAll}
-          headingValue={headingValue}
-        />
-      )}
+          <InfluencerCampaignDetail
+            status={status}
+            data={data}
+            addCampaign={addCampaign}
+            setAddCampagin={setAddCampagin}
+            handleDelete={handleDelete}
+            selectedMembers={selectedMembers}
+            team={team}
+            addInTeam={addInTeam}
+            removeInTeam={removeInTeam}
+            search={search}
+            handleSearch={handleSearch}
+            updateCampaign={updateCampaign}
+            setAll={setAll}
+            headingValue={headingValue}
+          />
+        )}
     </div>
   );
 };
 
-export default CampaignDetail;
+export default withRouter(CampaignDetail);

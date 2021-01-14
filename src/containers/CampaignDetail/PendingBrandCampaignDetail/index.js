@@ -79,8 +79,8 @@ const PendingBrandCampaignDetail = ({
 	const [percentage, setPercentage] = useState('');
 	const [customeMessage, setCustomeMessage] = useState('');
 	const [cancel, setCancel] = useState(false);
-	const [cancelReason , setCancelReason] = useState('');
-	const [reasonDetail , setReasonDetail] = useState('');
+	const [cancelReason, setCancelReason] = useState('');
+	const [reasonDetail, setReasonDetail] = useState('');
 
 
 	const handleClose = () => {
@@ -102,7 +102,7 @@ const PendingBrandCampaignDetail = ({
 
 
 
-	
+
 
 	const getStatusContainerContent = () => {
 		return (<>
@@ -113,9 +113,9 @@ const PendingBrandCampaignDetail = ({
 				reasons={reasons}
 				handleReason={handleCancelReason}
 				message={Translation.DIALOG.CAMPAIGN_CANCEL_DIALOG_MSG}
-				buttonText = "Cancel"
-				handleReasonDetail = {handleReasonDetail}
-				reasonDetail = {reasonDetail}
+				buttonText="Cancel"
+				handleReasonDetail={handleReasonDetail}
+				reasonDetail={reasonDetail}
 
 			/>
 			<div
@@ -191,89 +191,89 @@ const PendingBrandCampaignDetail = ({
 						</>
 					)}
 			</div>
-    </>);
+		</>);
 	};
 
-  return (
-    <>
-      <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-      >
-        <div className={styles.popOver}>
-          <div>
-            <Mail /> <p>Message Influencer</p>
-          </div>
-          <div>
-            <Copy /> <p>Duplicate Campaign</p>
-          </div>
-          <div>
-            <Download /> <p>Download Campaign</p>
-          </div>
-          <div>
-            <XCircle onClick={()=> handleCancelDialogOpen()} /> <p>Cancel Campaign</p>
-          </div>
-        </div>
-      </Popover>
-      <div className={styles.mainContainer}>
-        <div className={styles.CampaignHeading}>
-          <span onClick={() => history.push('/campaigns')}>Campaigns</span>
-          <ChevronRight />
-          <span>{name}</span>
-        </div>
-        <div className={styles.campaignBasicInfo}>
-          <div className={styles.campaignStatus}>
-            <div>
-              <h4 className={styles.promotion}>
-                Promotion:{' '}
-                {data && data.discount && data.discount.amount
-                  ? data.discount.amount.amount
-                  : data && data.discount && data.discount.percentage
-                  ? data.discount.percentage
-                  : ''}{' '}
-                {data && data.discount && data.discount.percentage
-                  ? '%'
-                  : data.discount.amount
-                  ? '$'
-                  : ''}
-              </h4>
-            </div>
-            <div>
-              <Chip
-                className={clsx(styles[`pendingCampaign`])}
-                size='small'
-                label='Pending'
-              />
-            </div>
-            {data.influencer && (
-              <div className={styles.influencerSocial}>
-                <Avatar src={data.influencer.imageUrl} />
-                <span>{data.influencer.name}</span>
-              </div>
-            )}
-            <Checkbox
-              checked={pendingOffer}
-              onChange={(e) => setPendingOffer(e.target.checked)}
-            />
-            <span>Show offer from influencer view</span>
-          </div>
-          <div>
-            <MoreVertical onClick={handleClick} />
-          </div>
-        </div>
-        <div className={styles.contentContainer}>
-          <div className={styles.flexContainer}>
-            {getStatusContainerContent()}
+	return (
+		<>
+			<Popover
+				id={id}
+				open={open}
+				anchorEl={anchorEl}
+				onClose={handleClose}
+				anchorOrigin={{
+					vertical: 'bottom',
+					horizontal: 'left',
+				}}
+				transformOrigin={{
+					vertical: 'top',
+					horizontal: 'right',
+				}}
+			>
+				<div className={styles.popOver}>
+					<div>
+						<Mail /> <p>Message Influencer</p>
+					</div>
+					<div>
+						<Copy /> <p>Duplicate Campaign</p>
+					</div>
+					<div>
+						<Download /> <p>Download Campaign</p>
+					</div>
+					<div>
+						<XCircle onClick={() => handleCancelDialogOpen()} /> <p>Cancel Campaign</p>
+					</div>
+				</div>
+			</Popover>
+			<div className={styles.mainContainer}>
+				<div className={styles.CampaignHeading}>
+					<span onClick={() => history.push('/campaigns')}>Campaigns</span>
+					<ChevronRight />
+					<span>{name}</span>
+				</div>
+				<div className={styles.campaignBasicInfo}>
+					<div className={styles.campaignStatus}>
+						<div>
+							{/* <h4 className={styles.promotion}>
+								Promotion:{' '}
+								{data && data !== null && data.discount && data.discount !== null && data.discount.amount
+									? data.discount.amount.amount
+									: data && data.discount && data.discount !== null && data.discount.percentage
+										? data.discount.percentage
+										: ''}{' '}
+								{data && data !== null && data.discount && data.discount !== null && data.discount.percentage
+									? '%'
+									: data.discount.amount
+										? '$'
+										: ''}
+							</h4> */}
+						</div>
+						<div>
+							<Chip
+								className={clsx(styles[`pendingCampaign`])}
+								size='small'
+								label='Pending'
+							/>
+						</div>
+						{data.influencer && (
+							<div className={styles.influencerSocial}>
+								<Avatar src={data.influencer.imageUrl} />
+								<span>{data.influencer.name}</span>
+							</div>
+						)}
+						<Checkbox
+							checked={pendingOffer}
+							onChange={(e) => setPendingOffer(e.target.checked)}
+						/>
+						<span>Show offer from influencer view</span>
+					</div>
+					<div>
+						<MoreVertical onClick={handleClick} />
+					</div>
+				</div>
+				<div className={styles.contentContainer}>
+					<div className={styles.flexContainer}>
+						{getStatusContainerContent()}
 
 						<Activity onClick={handleSeeClick} />
 					</div>

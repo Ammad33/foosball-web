@@ -44,7 +44,7 @@ const CampaignDetail = ({ children, handleEdit, campaign }) => {
       </div>
       <div className={styles.detailSubContent}>
         <h6>Promotion Discount</h6>
-        <p>{campaign && campaign.discount && campaign.discount.amount ? campaign.discount.amount.amount : campaign && campaign.discount && campaign.discount.percentage ? campaign.discount.percentage : ''} {campaign && campaign.discount && campaign.discount.percentage ? '%' : ''}</p>
+        <p>{campaign && campaign.discount && campaign.discount !== null && campaign.discount.amount ? campaign.discount.amount.amount : campaign && campaign.discount && campaign.discount !== null && campaign.discount.percentage ? campaign.discount.percentage : ''} {campaign && campaign.discount && campaign.discount !== null && campaign.discount.percentage ? '%' : ''}</p>
       </div>
       {children ? (
         <div className={styles.detailSubContent}>
