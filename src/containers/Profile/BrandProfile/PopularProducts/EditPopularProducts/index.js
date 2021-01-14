@@ -14,7 +14,7 @@ import SVG from 'react-inlinesvg';
 const Chevron = () => {
   return (
 		<span className={styles.dropDownCustomizeSvg}>
-      <SVG src={require('../../../../../assets/chevron-downn.svg')} />
+      <SVG src={require('../../../../../assets/chevron-down.svg')} />
 		</span>
   );
 };

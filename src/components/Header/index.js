@@ -70,7 +70,7 @@ const Header = (meData) => {
           horizontal: 'center',
         }}
         PaperProps={{
-          style: { width: '331px', height: '454px', marginTop: '20px' },
+          style: { width: '331px', height: '254px', marginTop: '20px' },
         }}
         transformOrigin={{
           vertical: 'top',
@@ -105,15 +105,15 @@ const Header = (meData) => {
               {' '}
               {meData.brandType} Profile
             </MenuItem>
-            <MenuItem
+            {/* <MenuItem
               className={styles.itemsFont}
               onClick={() => {
                 openTeam();
               }}
             >
               Team
-            </MenuItem>
-            <MenuItem
+            </MenuItem> */}
+            {/* <MenuItem
               className={styles.itemsFont}
               onClick={() => {
                 openSettings();
@@ -128,7 +128,7 @@ const Header = (meData) => {
               }}
             >
               Account History
-            </MenuItem>
+            </MenuItem> */}
 						<Logout />
 					</div>
 				</Grid>

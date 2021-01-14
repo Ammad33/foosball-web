@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './FomoPromoInvoice.module.scss';
-import { ChevronUp, ChevronDown, Download, Share2 } from 'react-feather';
+import { Download, Share2 } from 'react-feather';
 import SVG from 'react-inlinesvg';
 import Divider from '@material-ui/core/Divider';
 import CardContent from '@material-ui/core/CardContent';
@@ -10,6 +10,21 @@ import IconButton from '@material-ui/core/IconButton';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 
+
+const ChevronDown = () => {
+	return (
+		<span className={styles.dropDownCustomizeSvg}>
+			<SVG src={require('../../../../assets/chevron-down.svg')} />
+		</span>
+	);
+};
+const ChevronUp = () => {
+	return (
+		<span className={styles.dropDownCustomizeSvg}>
+			<SVG src={require('../../../../assets/chevron-up.svg')} />
+		</span>
+	);
+};
 
 const PlusSVG = () => {
 	return <SVG src={require('../../../../assets/plus1.svg')} />;

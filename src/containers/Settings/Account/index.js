@@ -146,9 +146,14 @@ const Account = ({
 							}}
 						/>
 					</Grid>
+				</Grid>
+				<Grid container spacing={2}>
 					<Grid item xs={6} className={styles.verifiedEmail}>
-						{emailVerfied && emailVerfied != null ? (<p>Email Verified<CheckCircleIcon fontSize="small" /> </p>) : (<p> Verify email address </p>)}
+						{emailVerfied && emailVerfied != null ? (<p>Email Verified<CheckCircleIcon fontSize="small" /> </p>) : (<p> Verify your email address </p>)}
 					</Grid>
+				</Grid>
+				<Grid container spacing={3}>
+					<Grid item xs={6}></Grid>
 					{editPassword ? (
 						<>
 							<Grid item xs={6}>
@@ -250,7 +255,7 @@ const Account = ({
 									onClick={() => {
 										setActionType('Warning');
 										setOpenCDialog(true);
-									}} 
+									}}
 									className={clsx(
 										mainStyles.textDangerButton,
 										styles.DeactivateButton
@@ -262,7 +267,7 @@ const Account = ({
 					</div>
 				</div>
 				<div className={styles.saveContainer}>
-					<button className={clsx(styles.nextButton)}>Save</button>
+					<button className={styles.nextButton}>Save</button>
 				</div>
 			</div>
 			<CDialog
@@ -274,9 +279,9 @@ const Account = ({
 				message={
 					actionType === 'Delete'
 						? Translation.DIALOG.ACCOUNT_DELETE_CDIALOG_MSG
-						: actionType === 'Warning' 
-						? Translation.DIALOG.ACCOUNT_WARNING_CDIALOG_MSG
-						: Translation.DIALOG.ACCOUNT_DEACTIVATE_CDIALOG_MSG
+						: actionType === 'Warning'
+							? Translation.DIALOG.ACCOUNT_WARNING_CDIALOG_MSG
+							: Translation.DIALOG.ACCOUNT_DEACTIVATE_CDIALOG_MSG
 				}
 			/>
 		</div>

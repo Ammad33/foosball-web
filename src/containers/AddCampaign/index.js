@@ -35,7 +35,7 @@ const XSVG = () => {
 };
 
 const ChevronSVG = () => {
-  return <SVG src={require('../../assets/chevron-down.svg')} />;
+  return <SVG src={require('../../assets/chevron-left.svg')} />;
 };
 
 const CheckCircleIconSvg = (prop) => {
@@ -1006,7 +1006,22 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         typ = 'PERCENTAGE';
         val = '{"percentage":"' + discount !== '' ? discount : 0 + '"}';
       }
-      const data = {
+      // const data = {
+      //   brandId,
+      //   name: campaignName,
+      //   startDate: Date.parse(`${startDate} ${startTime} `) / 1000,
+      //   endDate: Date.parse(`${endDate} ${endTime} `) / 1000,
+      //   discount: { value: val, type: typ },
+      //   invitationMessage: customeMessage,
+      //   budget: { amount: budget, currency: 'USD' },
+      //   targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
+      //   team: selectedMembers,
+      //   negotiables: getNegotiablesObjectForAPI(),
+      //   invitationMessage: customeMessage,
+      //   deliverables: getDeliverablesForAPI(),
+      //   compensation: getCompensations(),
+			// };
+			  const data = {
         brandId,
         name: campaignName,
         startDate: Date.parse(`${startDate} ${startTime} `) / 1000,

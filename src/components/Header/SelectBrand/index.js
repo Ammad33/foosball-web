@@ -3,8 +3,26 @@ import { Avatar, Tooltip } from '@material-ui/core';
 import styles from './SelectBrand.module.scss';
 import Popover from '@material-ui/core/Popover';
 import Divider from '@material-ui/core/Divider';
-import { ChevronUp, ChevronDown } from 'react-feather';
 import { RootContext } from '../../../context/RootContext';
+import SVG from 'react-inlinesvg';
+
+
+const ChevronDown = () => {
+	return (
+		<span className={styles.dropDownCustomizeSvg} >
+			<SVG src={require('../../../assets/chevron-down.svg')} />
+		</span>
+	);
+};
+
+const ChevronUp = () => {
+	return (
+		<span className={styles.dropDownCustomizeSvg}>
+			<SVG src={require('../../../assets/chevron-up.svg')} />
+		</span>
+	);
+};
+
 
 const SelectBrand = () => {
   const {
