@@ -21,6 +21,8 @@
   // overflow: hidden;
   .conversationsSection {
     flex: auto;
+    padding: 0px 40px 40px;
+    overflow: auto;
   }
   .messageFiltersContainer {
     display: flex;
@@ -106,8 +108,8 @@
   .conversationsContainer {
     box-shadow: 0px 6px 50px #0000001a !important;
     border-radius: 10px;
-    height: calc(100% - 200px);
-    overflow: scroll;
+    // height: calc(100% - 200px);
+    overflow: hidden;
   }
 }
 
