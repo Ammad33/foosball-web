@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './CompensationDetail.module.scss';
 
-const CompensationDetail = ({ compensations, budget }) => {
+const CompensationDetail = ({ compensations, targetGrossSales }) => {
 
     const getCompensationType = (compensation) => {
         switch (compensation.__typename) {
@@ -23,7 +23,7 @@ const CompensationDetail = ({ compensations, budget }) => {
         switch (compensation.__typename) {
             case 'CompRevenueShare':
                 return (
-                    <h6>${parseFloat(compensation.percentage && compensation.percentage * parseFloat(budget)).toFixed(2)}</h6>);
+                    <h6>${parseFloat(compensation.percentage && (compensation.percentage * 1000) * parseFloat(targetGrossSales / 100))}</h6>);
             case 'CompCashPerPost':
                 return (<h6>${compensation.amount && compensation.amount.amount}</h6>);
             case 'CompCashPerMonthlyDeliverable':
@@ -71,7 +71,7 @@ const CompensationDetail = ({ compensations, budget }) => {
         let total = 0;
         compensations.forEach(item => {
             if (item.__typename === 'CompRevenueShare') {
-                total = total + parseFloat(item.percentage * parseFloat(budget));
+                total = total + parseFloat((item.percentage * 1000) * parseFloat(targetGrossSales / 100));
             } else {
                 total = total + parseFloat(item.amount.amount);
             }

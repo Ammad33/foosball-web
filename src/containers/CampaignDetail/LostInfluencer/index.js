@@ -67,16 +67,16 @@ const LostInfluencer = ({ handleEdit, data, handleSeeClick, name }) => {
           <div className={styles.subCampaignSubHeading}>
             <p>
               Promotion:{' '}
-              {data && data.discount && data.discount.amount
+              {data && data.discount && data.discount !== null && data.discount.amount
                 ? data.discount.amount.amount
-                : data && data.discount && data.discount.percentage
-                ? data.discount.percentage
-                : ''}{' '}
-              {data && data.discount && data.discount.percentage
+                : data && data.discount && data.discount !== null && data.discount.percentage
+                  ? data.discount.percentage
+                  : ''}{' '}
+              {data && data.discount && data.discount !== null && data.discount.percentage
                 ? '%'
-                : data.discount.amount
-                ? '$'
-                : ''}
+                : data.discount !== null && data.discount.amount
+                  ? '$'
+                  : ''}
             </p>
             <div className={styles.borderDiv}></div>
             <Chip

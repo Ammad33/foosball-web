@@ -47,7 +47,7 @@ const BrandCampaignDetail = ({ headingValue, handleDelete, status, addCampaign, 
       case 'Deliverable':
         return <DeliverablesDetail deliverables={data && data.deliverables} />;
       case 'Compensation':
-        return <CompensationDetail compensations={data && data.compensation && data.compensation !== null ? _.compact(data.compensation) : []} budget={data.budget.amount} />;
+        return <CompensationDetail compensations={data && data.compensation && data.compensation !== null ? _.compact(data.compensation) : []} targetGrossSales={data.targetGrossSales.amount} />;
       case 'TeamMembers':
         return <TeamMembersDetail addInTeam={addInTeam}
           removeInTeam={removeInTeam}

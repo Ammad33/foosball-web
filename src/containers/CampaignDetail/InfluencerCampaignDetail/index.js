@@ -50,24 +50,24 @@ const CampaignDetailInfluencer = ({
     });
 
     if (
-      (data.discount &&
+      (data.discount && data.discount !== null &&
         data.discount.percentage &&
-        data.discount.percentage === '') ||
-      (data.discount.amount && data.discount.amount.amount === '') ||
-      data.invitationMessage === ''
+        data.discount.percentage === '') || data.discount === null ||
+      (data.discount !== null && data.discount.amount && data.discount.amount.amount === '') ||
+      data.invitationMessage === null || data.invitationMessage === ''
     ) {
       setStep(1);
       setAddCampagin(true);
     } else if (
-      data.budget.amount === '' ||
-      data.targetGrossSales.amount === ''
+      data.budget === null || data.budget.amount === '' ||
+      data.targetGrossSales === null || data.targetGrossSales.amount === ''
     ) {
       setStep(3);
       setAddCampagin(true);
-    } else if (data.deliverables && data.deliverables.length === 0) {
+    } else if (data.deliverables === null || data.deliverables && data.deliverables.length === 0) {
       setStep(5);
       setAddCampagin(true);
-    } else if (data.compensation && data.compensation.length === 0) {
+    } else if (data.compensation === null || data.compensation && data.compensation.length === 0) {
       setStep(6);
       setAddCampagin(true);
     } else if (negotialble) {
@@ -188,7 +188,7 @@ const CampaignDetailInfluencer = ({
                 ? _.compact(data.compensation)
                 : []
             }
-            budget={data.budget.amount}
+            targetGrossSales={data.targetGrossSales.amount}
           />
         );
       case 'TeamMembers':
@@ -217,9 +217,12 @@ const CampaignDetailInfluencer = ({
       compensations !== null &&
       compensations.length > 0 &&
       compensations.forEach((item) => {
-        if (item.__typename === 'CompRevenueShare' && data && data.budget) {
+
+        if (item.__typename === 'CompRevenueShare' && data && data.targetGrossSales && data.targetGrossSales !== null) {
+          console.log(item.percentage * 1000);
+          console.log(data.targetGrossSales.amount)
           total =
-            total + parseFloat(item.percentage) * parseInt(data.budget.amount);
+            total + parseFloat(item.percentage * 1000) * parseFloat(data.targetGrossSales.amount / 100);
         } else {
           total = total + parseFloat(item.amount.amount);
         }

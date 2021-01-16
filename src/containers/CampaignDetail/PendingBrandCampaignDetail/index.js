@@ -234,7 +234,7 @@ const PendingBrandCampaignDetail = ({
 				<div className={styles.campaignBasicInfo}>
 					<div className={styles.campaignStatus}>
 						<div>
-							{/* <h4 className={styles.promotion}>
+							<h4 className={styles.promotion}>
 								Promotion:{' '}
 								{data && data !== null && data.discount && data.discount !== null && data.discount.amount
 									? data.discount.amount.amount
@@ -243,10 +243,10 @@ const PendingBrandCampaignDetail = ({
 										: ''}{' '}
 								{data && data !== null && data.discount && data.discount !== null && data.discount.percentage
 									? '%'
-									: data.discount.amount
+									: data.discount !== null && data.discount.amount
 										? '$'
 										: ''}
-							</h4> */}
+							</h4>
 						</div>
 						<div>
 							<Chip

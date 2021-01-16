@@ -24,67 +24,70 @@ const Deliverables = ({ onClick, handleEdit, deliverables }) => {
         <h1>Deliverables</h1>
         <Edit onClick={() => handleEdit(5)} />
       </div>
-      <div className={styles.detailSubContent}>
-        <h6>Deliverable Deadline</h6>
-        <p>
-          {deliverables && deliverables.length
-            ? deliverables[0].deadlineDate
-            : ''}
-        </p>
-      </div>
-      <div className={styles.detailSubContent}>
-        <h6>Social Platform</h6>
-        <p>
-          {deliverables && deliverables.length ? deliverables[0].platform : ''}
-        </p>
-      </div>
-      <div className={styles.detailSubContent}>
-        <h6>Post Type</h6>
-        <p>
-          {deliverables && deliverables.length
-            ? deliverables[0].deliverableType
-            : ''}
-        </p>
-      </div>
-      <div className={styles.detailSubContent}>
-        <h6>Content Type</h6>
-        <p>
-          {deliverables && deliverables.length
-            ? deliverables[0].frameContentType
-            : ''}
-        </p>
-      </div>
-      <div className={styles.detailSubContent}>
-        <h6>Frames Required</h6>
-        <p>
-          {deliverables && deliverables.length
-            ? deliverables[0].framesRequired
-            : ''}
-        </p>
-      </div>
-      <div className={styles.detailSubContent}>
-        <h6>Brand tag</h6>
-        <p>
-          @{deliverables && deliverables.length ? deliverables[0].brandTag : ''}
-        </p>
-      </div>
-      <div className={styles.detailSubContent}>
-        <h6>Hashtag</h6>
-        <p>
-          #{deliverables && deliverables.length ? deliverables[0].hashTag : ''}
-        </p>
-      </div>
-      <div className={styles.detailSubContent} style={{ marginBottom: '20px' }}>
-        <h6>Post Frequency</h6>
-        <p>
-          {deliverables && deliverables.length
-            ? `${deliverables[0].posts} posts ${getPostFrequency(
-              deliverables[0].frequency
-            )}`
-            : ''}
-        </p>
-      </div>
-      {deliverables && deliverables.length > 1 ? (
+      {deliverables && deliverables !== null &&
+        <>
+          <div className={styles.detailSubContent}>
+            <h6>Deliverable Deadline</h6>
+            <p>
+              {deliverables && deliverables.length
+                ? deliverables[0].deadlineDate
+                : ''}
+            </p>
+          </div>
+          <div className={styles.detailSubContent}>
+            <h6>Social Platform</h6>
+            <p>
+              {deliverables && deliverables.length ? deliverables[0].platform : ''}
+            </p>
+          </div>
+          <div className={styles.detailSubContent}>
+            <h6>Post Type</h6>
+            <p>
+              {deliverables && deliverables.length
+                ? deliverables[0].deliverableType
+                : ''}
+            </p>
+          </div>
+          <div className={styles.detailSubContent}>
+            <h6>Content Type</h6>
+            <p>
+              {deliverables && deliverables.length
+                ? deliverables[0].frameContentType
+                : ''}
+            </p>
+          </div>
+          <div className={styles.detailSubContent}>
+            <h6>Frames Required</h6>
+            <p>
+              {deliverables && deliverables.length
+                ? deliverables[0].framesRequired
+                : ''}
+            </p>
+          </div>
+          <div className={styles.detailSubContent}>
+            <h6>Brand tag</h6>
+            <p>
+              @{deliverables && deliverables.length ? deliverables[0].brandTag : ''}
+            </p>
+          </div>
+          <div className={styles.detailSubContent}>
+            <h6>Hashtag</h6>
+            <p>
+              #{deliverables && deliverables.length ? deliverables[0].hashTag : ''}
+            </p>
+          </div>
+          <div className={styles.detailSubContent} style={{ marginBottom: '20px' }}>
+            <h6>Post Frequency</h6>
+            <p>
+              {deliverables && deliverables.length
+                ? `${deliverables[0].posts} posts ${getPostFrequency(
+                  deliverables[0].frequency
+                )}`
+                : ''}
+            </p>
+          </div>
+        </>}
+      {deliverables && deliverables !== null && deliverables.length > 1 ? (
         <button onClick={() => onClick('Deliverable')}>See all</button>
       ) : (
           ''

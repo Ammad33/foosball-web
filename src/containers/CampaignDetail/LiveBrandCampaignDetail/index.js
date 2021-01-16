@@ -46,7 +46,7 @@ const LiveBrandCampaignDetail = ({
 	const id = open ? 'simple-popover' : undefined;
 	const [stop, setStop] = useState(false);
 	const [stopReason, setStopReason] = useState('');
-	const [reasonDetail , setReasonDetail] = useState('');
+	const [reasonDetail, setReasonDetail] = useState('');
 
 
 	const handleClose = () => {
@@ -77,8 +77,8 @@ const LiveBrandCampaignDetail = ({
 				handleReason={handleStopReason}
 				message={Translation.DIALOG.CAMPAIGN_STOP_DIALOG_MSG}
 				buttonText="Stop"
-				handleReasonDetail = {handleReasonDetail}
-				reasonDetail = {reasonDetail}
+				handleReasonDetail={handleReasonDetail}
+				reasonDetail={reasonDetail}
 			/>
 			<Popover
 				id={id}
@@ -127,14 +127,14 @@ const LiveBrandCampaignDetail = ({
 						<div>
 							<h4 className={styles.promotion}>
 								Promotion:{' '}
-								{data && data.discount && data.discount.amount
+								{data && data.discount && data.discount !== null && data.discount.amount
 									? data.discount.amount.amount
-									: data && data.discount && data.discount.percentage
+									: data && data.discount && data.discount !== null && data.discount.percentage
 										? data.discount.percentage
 										: ''}{' '}
-								{data && data.discount && data.discount.percentage
+								{data && data.discount && data.discount !== null && data.discount.percentage
 									? '%'
-									: data.discount.amount
+									: data.discount !== null && data.discount.amount
 										? '$'
 										: ''}
 							</h4>

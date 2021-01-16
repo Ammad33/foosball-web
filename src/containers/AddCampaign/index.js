@@ -1072,12 +1072,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         }
       }
 
-      // if (deliveries && deliveries.length > 0) {
-      //   data = {
-      //     ...data, deliverables: getDeliverablesForAPI()
-      //   }
-      // }
-
       if (compensations && compensations.length > 0 && compensations[0].compensationType !== '') {
         data = {
           ...data, compensation: getCompensations()
@@ -1117,6 +1111,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   };
 
   const updateCampaign = async () => {
+
     if (discountType === 'Amount') {
       typ = 'FLAT';
       val = '{"amount":{"amount": "' + discount + '","currency":"USD"}}';
@@ -1127,32 +1122,69 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     try {
       const end = Date.parse(`${endDate} ${endTime}`) / 1000;
       const start = Date.parse(`${startDate} ${startTime}`) / 1000;
-      const data = {
+      let data = {
         brandId,
         id: campaign.id,
         name: campaignName,
         endDate: end,
         startDate: start,
-        discount: { value: val, type: typ },
-        invitationMessage: customeMessage,
-        budget: { amount: budget, currency: 'USD' },
-        targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
-        team: selectedMembers,
-        negotiables: getNegotiablesObjectForAPI(),
-        invitationMessage: customeMessage,
-        compensation: getCompensations(),
-        deliverables: getDeliverablesForAPI(),
+        // discount: { value: val, type: typ },
+        // invitationMessage: customeMessage,
+        // budget: { amount: budget, currency: 'USD' },
+        // targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
+        // team: selectedMembers,
+        // negotiables: getNegotiablesObjectForAPI(),
+        // invitationMessage: customeMessage,
+        // compensation: getCompensations(),
+        // deliverables: getDeliverablesForAPI(),
       };
-      if (
-        data.deliverables.length === 1 &&
-        data.deliverables[0].platform === ''
-      ) {
-        delete data.deliverables;
+
+      if (discountType !== '' && discount !== '') {
+        data = {
+          ...data, discount: { value: val, type: typ }
+        }
       }
 
-      if (influencer && influencer.id) {
+      if (customeMessage !== '') {
+        data = {
+          ...data, invitationMessage: customeMessage,
+        }
+      }
+
+      if (selectedMembers && selectedMembers.length > 0) {
+        data = {
+          ...data, team: selectedMembers
+        }
+      }
+
+      if (budget !== '') {
+        data = {
+          ...data, budget: { amount: budget, currency: 'USD' }
+        }
+      }
+
+      if (targetGrossSale !== '') {
+        data = {
+          ...data, targetGrossSales: { amount: targetGrossSale, currency: 'USD' }
+        }
+      }
+
+      if (compensations && compensations.length > 0 && compensations[0].compensationType !== '') {
+        data = {
+          ...data, compensation: getCompensations()
+        }
+      }
+
+      if (campaign.negotiables !== null || stepSeven) {
+        data = {
+          ...data, negotiables: getNegotiablesObjectForAPI()
+        }
+      }
+
+      if (influencer && influencer.id && influencer.id !== null && influencer.id !== '') {
         data.influencerId = influencer.id;
       }
+
       await API.graphql(
         graphqlOperation(
           `mutation updateCampaign($input : UpdateCampaignInput!) {
