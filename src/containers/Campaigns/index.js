@@ -86,11 +86,6 @@ const Campaigns = () => {
 									id
 									name
 									__typename
-									... on Influencer {
-										invites {
-										name
-										}
-									}
 									imageUrl
 									email
 									roles {
@@ -120,6 +115,7 @@ const Campaigns = () => {
             brandsData.push(item);
           }
         });
+      debugger;
       setBrands(brandsData);
       setInfluencers(influencersData);
       if (brandsData.length > 0) {

@@ -89,11 +89,6 @@ function ResponsiveDrawer(props) {
 									id
 									name
 									__typename
-									... on Influencer {
-										invites {
-										name
-										}
-									}
 									roles {
 										id
 									}
