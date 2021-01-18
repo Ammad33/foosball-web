@@ -180,7 +180,8 @@ const Onboarding = () => {
       const data = {
         input: {
           currencyType: 'USD',
-          timezone: 10,
+					timezone: 10,
+					handle: '',
         },
       };
       switch (userType) {

@@ -437,7 +437,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     try {
       const influencers = await API.graphql({
         query: `{
-          influencers(input: {}) {
+          influencers(input: {limit:50}) {
             influencers {
               id
               name
@@ -1201,7 +1201,30 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     } catch (e) {
       console.log('update campaign error ', e);
     }
-  };
+	};
+	const sendCampaignInvite = async ()  => {
+		let data = {
+			brandId: brandId,
+			id: "a00280b9-dd02-45e3-a257-62f2fa518d00"
+		};
+		try {
+			await API.graphql(
+				graphqlOperation(
+					`mutation sendCampaignInvite($input : SendCampaignInvite!) {
+						sendCampaignInvite(input: $input) {
+						id
+					}
+			}`,
+					{
+						input: data,
+					}
+				)
+			);
+			handleCancel();
+		} catch (e) {
+			console.log('Campaign Invite error ', e);
+		}
+	}
 
   /************* Active for deliverable */
 
@@ -1695,7 +1718,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                   campaign !== undefined && activeStep === 9
                     ? updateCampaign()
                     : activeStep === 9
-                      ? createCampaign()
+                      ? sendCampaignInvite()
                       : handleNext(activeStep, e)
                 }
                 className={clsx(
