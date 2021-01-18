@@ -18,7 +18,7 @@ const CampaignDetail = ({ location }) => {
   const [addCampaign, setAddCampagin] = useState(false);
 
   const [brandState, setBrandState] = useState(true);
-  const { setActiveCampaign, brandId } = useContext(RootContext);
+  const { setActiveCampaign, brandId, brandType } = useContext(RootContext);
   const [selectedMembers, setSelectedMemebers] = useState([]);
   const [team, setTeam] = useState([]);
   const [search, setSearch] = useState('');
@@ -115,7 +115,94 @@ const CampaignDetail = ({ location }) => {
   const getCampaign = async () => {
     try {
       const campaign = await API.graphql({
-        query: `{
+        query: brandType.toLowerCase() === 'influencer' ? `{
+          influencerCampaign(influencerId: "${brandId}", id: "${campaignId}") {
+            id
+						name
+						status
+            startDate
+            endDate
+            invitationMessage
+            compensation {
+              ... on CompRevenueShare {
+                __typename
+                percentage
+              }
+              ... on CompCashPerPost {
+                __typename
+                amount {
+                  amount
+                  currency
+                }
+              }
+              ... on CompCashPerMonthlyDeliverable {
+                __typename
+                amount {
+                  amount
+                  currency
+                }
+              }
+              ... on CompGiftCard {
+                __typename
+                amount {
+                  amount
+                  currency
+                }
+                code
+              }
+            }
+            
+            budget {
+              amount
+              currency
+            }
+            targetGrossSales {
+              amount
+              currency
+            }
+
+  
+            brandTeam {
+              id
+              imageUrl
+              fullName
+              email
+            }
+            brand {
+              imageUrl
+              id
+              name
+            }
+            negotiables {
+              campaign_duration
+              monthly_retainer_fee
+              post_fee
+              post_frequency
+              revenue_share
+              story_fee
+            }
+            deliverables {
+              brandTag
+              deadlineDate
+              postType
+              description
+              frameContentType
+              framesRequired
+              frequency
+              hashTag
+              id
+              platform
+              posts
+            }
+            
+            influencer {
+              imageUrl
+              name
+              id
+            }
+          }
+         
+      }` : `{
           campaign(brandId: "${brandId}", id: "${campaignId}") {
             id
 						name
@@ -161,24 +248,7 @@ const CampaignDetail = ({ location }) => {
               currency
             }
 
-            discount {
-              ... on PercentageDiscount {
-                __typename
-                percentage
-              }
-              ... on FlatDiscount {
-                __typename
-                amount {
-                  amount
-                  currency
-                }
-                minimum {
-                  amount
-                  currency
-                }
-              }
-            }
-
+            
             brandTeam {
               id
               imageUrl
@@ -222,65 +292,129 @@ const CampaignDetail = ({ location }) => {
       }`,
       });
 
-      campaign.data.campaign && campaign.data.campaign !== null && campaign.data.campaign.deliverables && campaign.data.campaign.deliverables !== null && campaign.data.campaign.deliverables.map((deliverable) => {
-        deliverable.deliverableType =
-          deliverable.deliverableType.charAt(0).toUpperCase() +
-          deliverable.deliverableType.toLowerCase().slice(1);
-        deliverable.frameContentType =
-          deliverable.frameContentType.charAt(0).toUpperCase() +
-          deliverable.frameContentType.toLowerCase().slice(1);
-        deliverable.platform =
-          deliverable.platform.charAt(0).toUpperCase() +
-          deliverable.platform.toLowerCase().slice(1);
-        deliverable.deadlineDate = new Date(
-          deliverable.deadlineDate * 1000
-        ).toDateString();
-      });
+      if (brandType.toLowerCase() == 'influencer') {
+        campaign.data.influencerCampaign && campaign.data.influencerCampaign !== null && campaign.data.influencerCampaign.deliverables && campaign.data.influencerCampaign.deliverables !== null && campaign.data.influencerCampaign.deliverables.map((deliverable) => {
+          deliverable.deliverableType =
+            deliverable.deliverableType.charAt(0).toUpperCase() +
+            deliverable.deliverableType.toLowerCase().slice(1);
+          deliverable.frameContentType =
+            deliverable.frameContentType.charAt(0).toUpperCase() +
+            deliverable.frameContentType.toLowerCase().slice(1);
+          deliverable.platform =
+            deliverable.platform.charAt(0).toUpperCase() +
+            deliverable.platform.toLowerCase().slice(1);
+          deliverable.deadlineDate = new Date(
+            deliverable.deadlineDate * 1000
+          ).toDateString();
+        });
 
-      setData(campaign.data.campaign);
-      if (
-        campaign.data &&
-        campaign.data !== null &&
-        campaign.data.campaign !== null
-      ) {
-        setStatus(
-          campaign.data.campaign.status
-            ? campaign.data.campaign.status
-            : 'CLOSED'
-        );
-
-        setSelectedMemebers(
-          campaign.data.campaign.brandTeam
-            ? campaign.data.campaign.brandTeam
-            : []
-        );
-
-        let teamData = await getTeam();
-        teamData = teamData.map((item) => item.user);
-
+        setData(campaign.data.influencerCampaign);
         if (
-          campaign.data.campaign.brandTeam &&
-          campaign.data.campaign.brandTeam !== null &&
-          campaign.data.campaign.brandTeam.length !== 0
+          campaign.data &&
+          campaign.data !== null &&
+          campaign.data.influencerCampaign !== null
         ) {
-          let data =
-            teamData &&
-            teamData !== null &&
-            teamData.map((item) => {
-              const index = campaign.data.campaign.brandTeam.findIndex(
-                (sec) => sec.email === item.email
-              );
-              if (index !== -1) {
-                return;
-              } else {
-                return item;
-              }
-            });
-          setTeam(_.compact(data));
-        } else {
-          setTeam(teamData);
+          setStatus(
+            campaign.data.influencerCampaign.status
+              ? campaign.data.influencerCampaign.status
+              : 'CLOSED'
+          );
+
+          setSelectedMemebers(
+            campaign.data.influencerCampaign.brandTeam
+              ? campaign.data.influencerCampaign.brandTeam
+              : []
+          );
+
+          let teamData = await getTeam();
+          teamData = teamData.map((item) => item.user);
+
+          if (
+            campaign.data.influencerCampaign.brandTeam &&
+            campaign.data.influencerCampaign.brandTeam !== null &&
+            campaign.data.influencerCampaign.brandTeam.length !== 0
+          ) {
+            let data =
+              teamData &&
+              teamData !== null &&
+              teamData.map((item) => {
+                const index = campaign.data.influencerCampaign.brandTeam.findIndex(
+                  (sec) => sec.email === item.email
+                );
+                if (index !== -1) {
+                  return;
+                } else {
+                  return item;
+                }
+              });
+            setTeam(_.compact(data));
+          } else {
+            setTeam(teamData);
+          }
+        }
+      } else {
+        campaign.data.campaign && campaign.data.campaign !== null && campaign.data.campaign.deliverables && campaign.data.campaign.deliverables !== null && campaign.data.campaign.deliverables.map((deliverable) => {
+          deliverable.deliverableType =
+            deliverable.deliverableType.charAt(0).toUpperCase() +
+            deliverable.deliverableType.toLowerCase().slice(1);
+          deliverable.frameContentType =
+            deliverable.frameContentType.charAt(0).toUpperCase() +
+            deliverable.frameContentType.toLowerCase().slice(1);
+          deliverable.platform =
+            deliverable.platform.charAt(0).toUpperCase() +
+            deliverable.platform.toLowerCase().slice(1);
+          deliverable.deadlineDate = new Date(
+            deliverable.deadlineDate * 1000
+          ).toDateString();
+        });
+
+        setData(campaign.data.campaign);
+        if (
+          campaign.data &&
+          campaign.data !== null &&
+          campaign.data.campaign !== null
+        ) {
+          setStatus(
+            campaign.data.campaign.status
+              ? campaign.data.campaign.status
+              : 'CLOSED'
+          );
+
+          setSelectedMemebers(
+            campaign.data.campaign.brandTeam
+              ? campaign.data.campaign.brandTeam
+              : []
+          );
+
+          let teamData = await getTeam();
+          teamData = teamData.map((item) => item.user);
+
+          if (
+            campaign.data.campaign.brandTeam &&
+            campaign.data.campaign.brandTeam !== null &&
+            campaign.data.campaign.brandTeam.length !== 0
+          ) {
+            let data =
+              teamData &&
+              teamData !== null &&
+              teamData.map((item) => {
+                const index = campaign.data.campaign.brandTeam.findIndex(
+                  (sec) => sec.email === item.email
+                );
+                if (index !== -1) {
+                  return;
+                } else {
+                  return item;
+                }
+              });
+            setTeam(_.compact(data));
+          } else {
+            setTeam(teamData);
+          }
         }
       }
+
+
     } catch (e) { }
   };
 
@@ -348,7 +482,7 @@ const CampaignDetail = ({ location }) => {
         ((data.discount && data.discount !== null &&
           data.discount.percentage &&
           data.discount.percentage !== '') ||
-          (data.discount !== null && data.discount.amount && data.discount.amount.amount !== '')) &&
+          (data.discount && data.discount !== null && data.discount.amount && data.discount.amount.amount !== '')) &&
         data.invitationMessage !== null && data.invitationMessage !== '' && data.budget !== null &&
         data.budget.amount !== '' && data.targetGrossSales !== null &&
         data.targetGrossSales.amount !== '' && data.deliverables !== null &&
@@ -378,7 +512,7 @@ const CampaignDetail = ({ location }) => {
       (data.discount && data.discount !== null &&
         data.discount.percentage &&
         data.discount.percentage === '') ||
-      (data.discount !== null && data.discount.amount && data.discount.amount.amount === '') ||
+      (data.discount && data.discount !== null && data.discount.amount && data.discount.amount.amount === '') ||
       data.invitationMessage === ''
     ) {
       setHeadingValue('Campaign Detail');
@@ -435,7 +569,7 @@ const CampaignDetail = ({ location }) => {
           <MenuItem value={'PENDING'}>Pending</MenuItem>
           <MenuItem value={'CLOSED'}>Closed</MenuItem>
           <MenuItem value={'DECLINED'}>Declined</MenuItem>
-          <MenuItem value={'INVITE'}>Invite</MenuItem>
+          <MenuItem value={'INVITED'}>Invited</MenuItem>
           <MenuItem value={'LIVE'}>Live</MenuItem>
           <MenuItem value={'LOST'}>Lost</MenuItem>
         </Select>

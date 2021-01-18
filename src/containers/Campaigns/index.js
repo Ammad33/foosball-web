@@ -208,7 +208,6 @@ const Campaigns = () => {
         }
       }`,
       });
-      debugger;
       if (influencerCampaigns.data && influencerCampaigns.data !== null && influencerCampaigns.data.influencerCampaigns.campaigns) {
         let myArray = _.sortBy(influencerCampaigns.data.influencerCampaigns.campaigns, function (dateObj) {
           return new Date(dateObj.created);

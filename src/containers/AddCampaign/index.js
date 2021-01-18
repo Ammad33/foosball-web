@@ -1087,7 +1087,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       if (influencer && influencer.id && influencer.id !== '') {
         data.influencerId = influencer.id;
       }
-      await API.graphql(
+      let response = await API.graphql(
         graphqlOperation(
           `mutation createCampaign($input: CreateCampaignInput!) {
         createCampaign(input: $input) {
@@ -1105,8 +1105,16 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         )
       );
       handleCancel();
+
+      if (response && response !== null && response.data !== null) {
+        console.log(response);
+        return response.data.createCampaign.id;
+      } else {
+        return null
+      }
     } catch (e) {
       console.log('Error in mutation for create campaign ', e);
+      return null;
     }
   };
 
@@ -1185,7 +1193,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         data.influencerId = influencer.id;
       }
 
-      await API.graphql(
+      let response = await API.graphql(
         graphqlOperation(
           `mutation updateCampaign($input : UpdateCampaignInput!) {
             updateCampaign(input: $input) {
@@ -1197,34 +1205,49 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           }
         )
       );
+
+
       handleCancel();
+      if (response && response !== null && response.createCampaign.id) {
+        return response.createCampaign.id;
+      } else {
+        return null
+      }
     } catch (e) {
       console.log('update campaign error ', e);
+      return null;
     }
-	};
-	const sendCampaignInvite = async ()  => {
-		let data = {
-			brandId: brandId,
-			id: "a00280b9-dd02-45e3-a257-62f2fa518d00"
-		};
-		try {
-			await API.graphql(
-				graphqlOperation(
-					`mutation sendCampaignInvite($input : SendCampaignInvite!) {
+  };
+  const sendCampaignInvite = async () => {
+    let id = null;
+    if (campaign === undefined || campaign === null) {
+      id = await createCampaign()
+    } else {
+      updateCampaign()
+    }
+
+    let data = {
+      brandId: brandId,
+      id: campaign && campaign.id ? campaign.id : id
+    };
+    try {
+      await API.graphql(
+        graphqlOperation(
+          `mutation sendCampaignInvite($input : SendCampaignInvite!) {
 						sendCampaignInvite(input: $input) {
 						id
 					}
 			}`,
-					{
-						input: data,
-					}
-				)
-			);
-			handleCancel();
-		} catch (e) {
-			console.log('Campaign Invite error ', e);
-		}
-	}
+          {
+            input: data,
+          }
+        )
+      );
+      handleCancel();
+    } catch (e) {
+      console.log('Campaign Invite error ', e);
+    }
+  }
 
   /************* Active for deliverable */
 
@@ -1715,11 +1738,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
               </div>
               <button
                 onClick={(e) =>
-                  campaign !== undefined && activeStep === 9
-                    ? updateCampaign()
-                    : activeStep === 9
-                      ? sendCampaignInvite()
-                      : handleNext(activeStep, e)
+                  activeStep === 9
+                    ? sendCampaignInvite()
+                    : handleNext(activeStep, e)
                 }
                 className={clsx(
                   styles.nextButton,

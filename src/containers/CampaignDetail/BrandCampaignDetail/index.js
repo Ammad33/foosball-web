@@ -96,7 +96,7 @@ const BrandCampaignDetail = ({ headingValue, handleDelete, status, addCampaign, 
             handleDelete={handleDelete}
           />
         );
-      case 'INVITE':
+      case 'INVITED':
         return (
           <PendingBrandCampaignDetail
             handleEdit={handleEdit}

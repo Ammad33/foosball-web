@@ -125,7 +125,7 @@ const CampaignDetailInfluencer = ({
             handleDelete={handleDelete}
           />
         );
-      case 'INVITE':
+      case 'INVITED':
         return (
           <InviteInfluencer
             data={data}
