@@ -1748,11 +1748,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                 )}
                 disabled={!activeNext}
               >
-                {campaign !== undefined && activeStep === 9
-                  ? 'Update Campaign'
-                  : activeStep === 9
-                    ? 'Send Invite'
-                    : 'Next'}
+                {activeStep === 9
+                  ? 'Send Invite'
+                  : 'Next'}
               </button>
             </div>
           </div>
