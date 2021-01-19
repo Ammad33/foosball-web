@@ -36,6 +36,7 @@ const Campaigns = () => {
   const history = useHistory();
   const [active, setActive] = useState('ALL');
   const [campaigns, setCampaigns] = useState([]);
+  const [influencerCampaigns, setInfluencerCampaigns] = useState([]);
   const [bkupCampaigns, setBkupCampaigns] = useState([]);
   const [addCampaign, setAddCampagin] = useState(false);
   const [meData, setMeData] = useState([]);
@@ -87,9 +88,7 @@ const Campaigns = () => {
 									name
 									__typename
 									... on Influencer {
-										invites {
-										name
-										}
+										id
 									}
 									imageUrl
 									email
@@ -109,7 +108,6 @@ const Campaigns = () => {
 						}
 				}`,
       });
-
       let brandsData = [];
       let influencersData = [];
       mydata.data.me.organizations !== null &&
@@ -191,10 +189,44 @@ const Campaigns = () => {
     }
   };
 
+  const getInfluencerCampaigns = async () => {
+    try {
+      setLoading(true);
+      setShowLoader(true);
+      const influencerCampaigns = await API.graphql({
+        query: `{
+					influencerCampaigns(influencerId: "${brandId}") {
+          campaigns {
+            name
+            description
+            id
+            status
+            startDate
+            endDate
+            created
+          }
+        }
+      }`,
+      });
+      if (influencerCampaigns.data && influencerCampaigns.data !== null && influencerCampaigns.data.influencerCampaigns.campaigns) {
+        let myArray = _.sortBy(influencerCampaigns.data.influencerCampaigns.campaigns, function (dateObj) {
+          return new Date(dateObj.created);
+        }).reverse();
+        setCampaigns(myArray);
+      }
+      setLoading(false);
+      setShowLoader(false);
+    } catch (e) {
+      setLoading(false);
+      setShowLoader(false);
+    }
+  }
+
   useEffect(() => {
     if (brandId !== '') {
       setCampaigns([]);
       getCampaigns();
+      getInfluencerCampaigns();
     }
   }, [brandId, addCampaign]);
 

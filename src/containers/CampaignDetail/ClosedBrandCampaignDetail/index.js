@@ -76,7 +76,7 @@ const ClosedBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) =
         <div className={styles.campaignBasicInfo}>
           <div className={styles.campaignStatus}>
             <div>
-              <h4 className={styles.promotion}>Promotion: {data && data.discount && data.discount !== null && data.discount.amount ? data.discount.amount.amount : data && data.discount && data.discount !== null && data.discount.percentage ? data.discount.percentage : ''} {data && data.discount && data.discount !== null && data.discount.percentage ? '%' : data.discount !== null && data.discount.amount ? '$' : ''}</h4>
+              <h4 className={styles.promotion}>Promotion: {data && data.discount && data.discount !== null && data.discount.amount ? data.discount.amount.amount : data && data.discount && data.discount !== null && data.discount.percentage ? data.discount.percentage : ''} {data && data.discount && data.discount !== null && data.discount.percentage ? '%' : data && data.discount && data.discount !== null && data.discount.amount ? '$' : ''}</h4>
             </div>
             <div>
               <Chip

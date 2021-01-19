@@ -86,7 +86,7 @@ const LostBrandCampaignDetail = ({
                     : ''}{' '}
                 {data && data.discount && data.discount !== null && data.discount.percentage
                   ? '%'
-                  : data.discount !== null && data.discount.amount
+                  : data.discount && data.discount !== null && data.discount.amount
                     ? '$'
                     : ''}
               </h4>

@@ -23,8 +23,8 @@ const Setting = () => {
 	const [emailVerified, setEmailVerified] = useState('');
 	const [brandNamee, setBrandNamee] = useState([]);
 	const [typeName, setTypeName] = useState([]);
-	const [teamAdmin , setTeamAdmin] = useState (false);
-	const { brandType, brandName, brandId, currentUser} = useContext(RootContext);
+	const [teamAdmin, setTeamAdmin] = useState(false);
+	const { brandType, brandName, brandId, currentUser } = useContext(RootContext);
 
 	useEffect(() => {
 		myData();
@@ -209,11 +209,6 @@ const Setting = () => {
 								id
 								name
 								__typename
-								... on Influencer {
-									invites {
-									name
-									}
-								}
 								imageUrl
 								email
 							}
@@ -260,10 +255,10 @@ const Setting = () => {
         }`,
 			})
 			const teamAdmin = team.data.brand.users;
-			teamAdmin.map((item)=> {
+			teamAdmin.map((item) => {
 				if (item.role.administration == true) {
 					setTeamAdmin(true);
-				} 
+				}
 			})
 		}
 		catch (e) {
@@ -306,7 +301,7 @@ const Setting = () => {
 						setNewPassword={(e) => setNewPassword(e.target.value)}
 						handleChangePassword={handleChangePassword}
 						emailVerfied={emailVerified}
-						teamAdmin = {teamAdmin}
+						teamAdmin={teamAdmin}
 					/>
 				);
 			case 'notification':

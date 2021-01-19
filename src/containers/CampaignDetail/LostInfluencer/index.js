@@ -74,7 +74,7 @@ const LostInfluencer = ({ handleEdit, data, handleSeeClick, name }) => {
                   : ''}{' '}
               {data && data.discount && data.discount !== null && data.discount.percentage
                 ? '%'
-                : data.discount !== null && data.discount.amount
+                : data && data.discount && data.discount !== null && data.discount.amount
                   ? '$'
                   : ''}
             </p>

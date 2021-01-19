@@ -73,11 +73,6 @@ const Login = () => {
 									id
 									name
 									__typename
-									... on Influencer {
-										invites {
-										name
-										}
-									}
 									imageUrl
 									email
 								}
