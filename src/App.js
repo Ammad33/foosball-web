@@ -28,6 +28,7 @@ import InfluencerProfile from './containers/Profile/InfluencerProfile';
 import BrandProfile from './containers/Profile/BrandProfile';
 import Team from './containers/Team';
 import Loader from './containers/Loader';
+import Toastr from './components/Toastr';
 import AccountHistory from './containers/AccountHistory';
 
 const App = () => {
@@ -98,7 +99,7 @@ const App = () => {
               <Contacts />
             </Layout>
           </ProtectedRoute>
-					<ProtectedRoute exact path='/billing'>
+          <ProtectedRoute exact path='/billing'>
             <Layout>
               <AccountHistory />
             </Layout>
@@ -152,6 +153,7 @@ const App = () => {
           <Redirect exact from='/' to='/campaigns' />
         </Switch>
       </HashRouter>
+      <Toastr />
       <Loader />
     </RootContext>
   );
