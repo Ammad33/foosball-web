@@ -427,6 +427,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   useEffect(() => {
     getTeam();
+    getCollection();
   }, [brandId]);
 
   useEffect(() => {
@@ -1229,25 +1230,64 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     let data = {
       brandId: brandId,
       id: campaign && campaign.id ? campaign.id : id
-		};
-		try {
-			await API.graphql(
-				graphqlOperation(
-					`mutation MyMutation {
-						sendCampaignInvite(brandId: "8ece73cc-3079-4f45-b7bb-4f6007c8344d", id: "campaign#9224f04f-b0a5-4608-a6db-784191da2f67") {
+    };
+    try {
+      await API.graphql(
+        graphqlOperation(
+          `mutation MyMutation {
+						sendCampaignInvite(brandId: "${brandId}", id: "${campaign && campaign.id ? campaign.id : id}") {
 							id
 						}
-						
 					}`
-				)
-			);
-			handleCancel();
-		} catch (e) {
+        )
+      );
+      handleCancel();
+    } catch (e) {
       console.log('Campaign Invite error ', e);
     }
-	}
-	
+  }
 
+
+  const getCollection = async () => {
+    try {
+      const collectionsResponse = await API.graphql({
+        query: `{
+          collections(brandId: "${brandId}") {
+            collections {
+              id
+              name
+              products {
+                products {
+                  id
+                  name
+                  estimatedQty
+                  priceRange {
+                    max {
+                      amount
+                      currency
+                    }
+                    min {
+                      amount
+                      currency
+                    }
+                  }
+                  images {
+                    images {
+                      src
+                      altText
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }`
+      })
+      console.log(collectionsResponse);
+    } catch (err) {
+
+    }
+  }
 
   /************* Active for deliverable */
 

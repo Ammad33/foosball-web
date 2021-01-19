@@ -547,7 +547,7 @@ const CampaignDetail = ({ location }) => {
 
   return (
     <div className={styles.detailContainer}>
-      <div className={styles.toggleStatusContainer}>
+      {/* <div className={styles.toggleStatusContainer}>
         <Link onClick={handleBrandState}>
           {' '}
           Toggle Campiagn Detail influencer
@@ -573,9 +573,9 @@ const CampaignDetail = ({ location }) => {
           <MenuItem value={'LIVE'}>Live</MenuItem>
           <MenuItem value={'LOST'}>Lost</MenuItem>
         </Select>
-      </div>
-      {brandState ? (
-        <BrandCampaignDetail
+      </div> */}
+      {brandType.toLowerCase() === 'influencer' ? (
+        <InfluencerCampaignDetail
           status={status}
           data={data}
           addCampaign={addCampaign}
@@ -592,7 +592,7 @@ const CampaignDetail = ({ location }) => {
           headingValue={headingValue}
         />
       ) : (
-          <InfluencerCampaignDetail
+          <BrandCampaignDetail
             status={status}
             data={data}
             addCampaign={addCampaign}
@@ -608,6 +608,7 @@ const CampaignDetail = ({ location }) => {
             setAll={setAll}
             headingValue={headingValue}
           />
+
         )}
     </div>
   );
