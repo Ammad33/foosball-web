@@ -177,40 +177,46 @@ const Onboarding = () => {
     if (activeSetp === 3) {
       /******************************* Api not completed  */
       console.log(userType);
-      const data = {
-        input: {
-          currencyType: 'USD',
-					timezone: 10,
-					handle: '',
-        },
-      };
+     
       switch (userType) {
         case 'brand':
+					const brandData = {
+						input: {
+							currencyType: 'USD',
+							timezone: 10,
+						},
+					};
           const brandMutationQuery = `mutation createBrand($input: CreateBrandInput!) {
             createBrand(input: $input) {
               imageUploadUrl
             }
           }
           `;
-          data.input.name = brandName;
-          await API.graphql(graphqlOperation(brandMutationQuery, data));
+          brandData.input.name = brandName;
+          await API.graphql(graphqlOperation(brandMutationQuery, brandData));
           break;
 
         case 'influencer':
+					const influencerData = {
+						input: {
+							currencyType: 'USD',
+							timezone: 10,
+							handle: '',
+						},
+					};
           const influencerMutationQuery = `mutation createInfluencer($input: CreateInfluencerInput!) {
             createInfluencer(input: $input) {
               imageUploadUrl
             }
           }
           `;
-          data.input.name = displayName;
-          await API.graphql(graphqlOperation(influencerMutationQuery, data));
+          influencerData.input.name = displayName;
+          await API.graphql(graphqlOperation(influencerMutationQuery, influencerData));
           break;
 
         default:
           break;
       }
-      console.log(data);
       history.push('/campaigns');
     }
   };

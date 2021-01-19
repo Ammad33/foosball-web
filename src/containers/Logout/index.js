@@ -8,6 +8,7 @@ import styles from './Logout.module.scss';
 const Logout = () => {
 
   const {
+		brandType,
     setCurrentUser,
     setLogoutMessage,
     setBrandName,
@@ -27,7 +28,8 @@ const Logout = () => {
       setbrandType();
       setRoute('/');
 
-    } catch (error) {
+		}
+		 catch (error) {
       console.log('error signing out: ', error);
     }
   };

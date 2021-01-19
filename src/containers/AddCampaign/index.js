@@ -1229,25 +1229,25 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     let data = {
       brandId: brandId,
       id: campaign && campaign.id ? campaign.id : id
-    };
-    try {
-      await API.graphql(
-        graphqlOperation(
-          `mutation sendCampaignInvite($input : SendCampaignInvite!) {
-						sendCampaignInvite(input: $input) {
-						id
-					}
-			}`,
-          {
-            input: data,
-          }
-        )
-      );
-      handleCancel();
-    } catch (e) {
+		};
+		try {
+			await API.graphql(
+				graphqlOperation(
+					`mutation MyMutation {
+						sendCampaignInvite(brandId: "8ece73cc-3079-4f45-b7bb-4f6007c8344d", id: "campaign#9224f04f-b0a5-4608-a6db-784191da2f67") {
+							id
+						}
+						
+					}`
+				)
+			);
+			handleCancel();
+		} catch (e) {
       console.log('Campaign Invite error ', e);
     }
-  }
+	}
+	
+
 
   /************* Active for deliverable */
 
