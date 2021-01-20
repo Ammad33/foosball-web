@@ -219,8 +219,7 @@ const CampaignDetailInfluencer = ({
       compensations.forEach((item) => {
 
         if (item.__typename === 'CompRevenueShare' && data && data.targetGrossSales && data.targetGrossSales !== null) {
-          console.log(item.percentage * 1000);
-          console.log(data.targetGrossSales.amount)
+
           total =
             total + parseFloat(item.percentage * 1000) * parseFloat(data.targetGrossSales.amount / 100);
         } else {

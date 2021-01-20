@@ -52,7 +52,6 @@ const Signup = () => {
         });
         const loggedInUser = await Auth.signIn(username, password);
         setCurrentUser(loggedInUser);
-        console.log(user);
         setErrorState(false);
         setLogoutMessage('');
         setErrorMessage('');
@@ -105,11 +104,11 @@ const Signup = () => {
                     <EyeSVG />{' '}
                   </div>
                 ) : (
-                  <div onClick={togglePasswordVisiblity}>
-                    {' '}
-                    <Eye_offSVG />{' '}
-                  </div>
-                )}
+                    <div onClick={togglePasswordVisiblity}>
+                      {' '}
+                      <Eye_offSVG />{' '}
+                    </div>
+                  )}
               </span>
             </InputAdornment>
           ),
@@ -123,13 +122,13 @@ const Signup = () => {
               <CheckCircleIcon onClick={handleTerms} />
             </span>
           ) : (
-            <span>
-              <RadioButtonUncheckedIcon
-                onClick={handleTerms}
-                className={styles.svgDisabled}
-              />
-            </span>
-          )}
+              <span>
+                <RadioButtonUncheckedIcon
+                  onClick={handleTerms}
+                  className={styles.svgDisabled}
+                />
+              </span>
+            )}
         </Grid>
         <Grid item xs={10}>
           <p className={styles.textStyle1}>

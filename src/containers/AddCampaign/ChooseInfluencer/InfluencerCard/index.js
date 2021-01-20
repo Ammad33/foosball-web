@@ -17,7 +17,7 @@ const InfluencerCard = ({ influencer, selected, toggleInfluncer }) => {
         millions[1] ? [millions[0], millions[1][0]].join('.') : millions[0]
         }m`;
     } else {
-      console.log('send thousands', thousands);
+
       return `${
         thousands[1] ? [thousands[0], thousands[1][0]].join('.') : thousands[0]
         }k`;

@@ -10,7 +10,7 @@ const Collections = () => {
     useEffect(() => {
         window.scrollTo(0, 0)
     }, []);
-    console.log(activeCampaign);
+
     return (
         <div className={styles.collectionContainer}>
             <div className={styles.collectionHeading}>

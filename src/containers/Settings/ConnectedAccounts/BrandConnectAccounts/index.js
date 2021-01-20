@@ -18,7 +18,7 @@ const BrandConnectAccounts = () => {
 
   const handleButtonClick = async (storeSaved) => {
     try {
-      console.log(storeSaved);
+
       setStoreSaved(storeSaved);
       if (!storeSaved) {
         setStoreName('');
@@ -41,7 +41,7 @@ const BrandConnectAccounts = () => {
           }
         )
       );
-    } catch (e) {}
+    } catch (e) { }
   };
 
   return (
@@ -81,8 +81,8 @@ const BrandConnectAccounts = () => {
                         className={styles.inputendornmentCheck}
                       />
                     ) : (
-                      ''
-                    )}
+                        ''
+                      )}
                   </InputAdornment>
                 ),
               }}
@@ -152,8 +152,8 @@ const BrandConnectAccounts = () => {
               Sync
             </div>
           ) : (
-            ''
-          )}
+              ''
+            )}
         </Grid>
       </div>
     </div>

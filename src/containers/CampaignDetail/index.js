@@ -122,7 +122,35 @@ const CampaignDetail = ({ location }) => {
 						status
             startDate
             endDate
-						invitationMessage
+            invitationMessage
+            products {
+              collection {
+                id
+                name
+                products {
+                  products {
+                    id
+                    name
+                    priceRange {
+                      max {
+                        amount
+                        currency
+                      }
+                      min {
+                        amount
+                        currency
+                      }
+                    }
+                    images {
+                      images {
+                        src
+                        altText
+                      }
+                    }
+                  }
+                }
+              }
+            }        
 						discount {
 							... on PercentageDiscount {
 								__typename
@@ -221,7 +249,36 @@ const CampaignDetail = ({ location }) => {
 						status
             startDate
             endDate
-						invitationMessage
+            invitationMessage
+            products {
+              collection {
+                id
+                name
+                products {
+                  products {
+                    id
+                    name
+                    estimatedQty
+          priceRange {
+            max {
+              amount
+              currency
+            }
+            min {
+              amount
+              currency
+            }
+          }
+          images {
+            images {
+              src
+              altText
+            }
+          }
+                  }
+                }
+              }
+            }        
 						discount {
 							... on PercentageDiscount {
 								__typename

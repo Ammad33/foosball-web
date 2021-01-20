@@ -117,7 +117,7 @@ const DraftBrandCampaignDetail = ({ headingValue, setAll, handleActiveStep, hand
             <BudgetAndConversion handleEdit={handleEdit} data={data} />
           </div>
           <div className={styles.flexContainer}>
-            <Collections removeSeeAll={true} handleEdit={handleEdit} />
+            <Collections removeSeeAll={true} handleEdit={handleEdit} products={data.products} />
             <Deliverables
               deliverables={data.deliverables}
               handleEdit={handleEdit}

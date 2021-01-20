@@ -40,18 +40,18 @@ const FomoPromoInvoice = ({ data, handleExpandClick, expanded }) => {
 	const [filterDropdown, setFilterDropdown] = useState(false);
 	const [selectedFilter, setSelectedFilter] = useState('Brand')
 	const [anchorEl, setAnchorEl] = React.useState(null);
-	const [activeUserFee , setActiveUserFee] = useState(0);
-	const [activeCampaign , setActiveCampaign] = useState(0);
-	const [gmvFee , setGmvFee] = useState(0);
+	const [activeUserFee, setActiveUserFee] = useState(0);
+	const [activeCampaign, setActiveCampaign] = useState(0);
+	const [gmvFee, setGmvFee] = useState(0);
 
 	// useEffect(()=> {
 	// 	calculateFee();
 	// });
 
-	const calculateFee = (num1 , num2 , num3 , num4 , num5 , num6) => {
-		setActiveUserFee(num1*num4);
-		setActiveCampaign(num2*num5);
-		setGmvFee(num3*num6);
+	const calculateFee = (num1, num2, num3, num4, num5, num6) => {
+		setActiveUserFee(num1 * num4);
+		setActiveCampaign(num2 * num5);
+		setGmvFee(num3 * num6);
 	}
 
 	const handleClick = (event) => {
@@ -66,7 +66,6 @@ const FomoPromoInvoice = ({ data, handleExpandClick, expanded }) => {
 	const handleFilter = (event) => {
 		setSelectedFilter(event.currentTarget.dataset["value"]);
 		handleClose();
-		console.log(selectedFilter);
 	}
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
@@ -75,8 +74,8 @@ const FomoPromoInvoice = ({ data, handleExpandClick, expanded }) => {
 		<>
 			<div className={styles.mainContainer}>
 				<span> Update your billing preferences in{' '}
-				<Link
-						to= '/settings'
+					<Link
+						to='/settings'
 						style={{ color: '#000000', textDecorationLine: 'underline' }}
 					>
 						settings.
@@ -109,13 +108,15 @@ const FomoPromoInvoice = ({ data, handleExpandClick, expanded }) => {
 												<div className={styles.contentAutoPayment}> Auto Payment:  <p>{item.autoPayment}  </p> </div>
 												<div className={styles.contentBilled}> Billed:  <p>{item.billed}</p> </div>
 												<IconButton
-													onClick={(e) => { handleExpandClick(e, index); 
-													calculateFee(item.activeUsers, 
-														item.activeCampaigns ,
-														item.gmv,
-														item.activeUserFee,
-														item.activeCampaignFee,
-														item.gmvFee ); } }
+													onClick={(e) => {
+														handleExpandClick(e, index);
+														calculateFee(item.activeUsers,
+															item.activeCampaigns,
+															item.gmv,
+															item.activeUserFee,
+															item.activeCampaignFee,
+															item.gmvFee);
+													}}
 													aria-expanded={expanded}
 													aria-label="show more"
 													data-target={item.id}
@@ -139,7 +140,7 @@ const FomoPromoInvoice = ({ data, handleExpandClick, expanded }) => {
 													</div>
 												</CardContent>
 											</Collapse>
-											{data[data.length-1] == item ? ('') : (<Divider className={styles.divider} />)}	
+											{data[data.length - 1] == item ? ('') : (<Divider className={styles.divider} />)}
 										</div>
 									);
 								})}

@@ -123,7 +123,7 @@ const ClosedBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) =
             <BudgetAndConversion handleEdit={handleEdit} data={data} />
           </div>
           <div className={styles.flexContainer}>
-            <Collections handleEdit={handleEdit} />
+            <Collections handleEdit={handleEdit} products={data.products} />
             <Deliverables
               deliverables={data.deliverables}
               handleEdit={handleEdit}
