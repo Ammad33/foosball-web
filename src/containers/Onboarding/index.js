@@ -186,7 +186,6 @@ const Onboarding = () => {
 			if (brandType !== null) {
 				setBrandType(null);
 			}
-			console.log(userType);
 
 			switch (userType) {
 				case 'brand':

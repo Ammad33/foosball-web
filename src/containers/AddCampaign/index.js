@@ -82,16 +82,16 @@ const CheckCircleIconSvg = (prop) => {
 };
 
 let negotialbleOptions = [
-	{ id: 1, isChecked: true, key: 'post_fee', text: 'Cash Per Post' },
-	{ id: 2, isChecked: true, key: 'revenue_share', text: 'Revenue Share %' },
-	{ id: 3, isChecked: true, key: 'story_fee', text: 'Cash Per Monthly Deliverable' },
-	{ id: 4, isChecked: true, key: 'post_frequency', text: 'Post Frequency' },
-	{
-		id: 5,
-		isChecked: true,
-		key: 'monthly_retainer_fee',
-		text: 'Gift Card',
-	},
+  { id: 1, isChecked: true, key: 'post_fee', text: 'Cash Per Post' },
+  { id: 2, isChecked: true, key: 'revenue_share', text: 'Revenue Share %' },
+  { id: 3, isChecked: true, key: 'story_fee', text: 'Cash Per Monthly Deliverable' },
+  { id: 4, isChecked: true, key: 'post_frequency', text: 'Post Frequency' },
+  {
+    id: 5,
+    isChecked: true,
+    key: 'monthly_retainer_fee',
+    text: 'Gift Card',
+  },
   {
     id: 6,
     isChecked: true,
@@ -234,6 +234,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const [campaigns, setCampaigns] = useState([]);
   const { brandId } = useContext(RootContext);
   const [campaignError, setCampaignError] = useState('');
+  const [products, setProducts] = useState('');
 
   /****** Campaign Detail States ********/
 
@@ -326,6 +327,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           ? campaign.brandTeam.map((item) => item.id)
           : []
       );
+
+      if (campaign.products && campaign.products !== null && campaign.products.length > 0) {
+        setProducts(getCampaignsProducts());
+      }
       setDiscountType(
         campaign.discount && campaign.discount !== null
           ? campaign.discount.__typename === 'PercentageDiscount'
@@ -384,6 +389,20 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     }
     filledForm();
   }, [step]);
+
+  const getCampaignsProducts = () => {
+    let productSample = [];
+    campaign.products && campaign.products.length > 0 &&
+      campaign.products.forEach(product => {
+        if (product.collection.products && product.collection.products.products.length > 0) {
+          productSample.push({
+            collectionId: product.collection.id,
+            products: product.collection.products.products.map(item => ({ productId: item.id }))
+          })
+        }
+      })
+    return productSample;
+  }
 
   useEffect(() => {
     if (open === false) {
@@ -623,7 +642,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       } else if (date.length < 11) {
         if (date !== "") {
           var targetValue = date;
-          console.log(date);
+
           if (targetValue.length === 5) {
             opts[index].deadlineDate = targetValue + "/";
           } else if (targetValue.length === 2) {
@@ -716,35 +735,40 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     setCollection(value);
   };
 
-  const handleCollectionItem = (name, item) => {
-    const opts = [...collections];
+  const handleCollectionItem = (id, item) => {
+    const opts = [...products];
     if (opts.length > 0) {
-      const index = opts.findIndex((item) => item.collectionName === name);
+
+      const index = opts.findIndex((item) => item.collectionId === id);
 
       if (index !== -1) {
-        const secondIndex = opts[index].collectionItems.findIndex(
-          (secondItem) => secondItem.sku === item.sku
-        );
-        if (secondIndex === -1) {
-          opts[index].collectionItems.push(item);
-          setCollections(opts);
-        } else {
-          opts[index].collectionItems.splice(secondIndex, 1);
-          setCollections(opts);
+        if (opts[index].products) {
+          const secondIndex = opts[index].products.findIndex(
+            (secondItem) => secondItem.productId === item.productId
+          )
+          if (secondIndex === -1) {
+            opts[index].products.push(item);
+            setProducts(opts);
+          } else {
+            opts[index].products.splice(secondIndex, 1);
+            setProducts(opts);
+          }
         }
       } else {
         opts.push({
-          collectionName: name,
-          collectionItems: [item],
-        });
-        setCollections(opts);
+          collectionId: id,
+          products: [item]
+        }
+        );
+        setProducts(opts);
       }
     } else {
       opts.push({
-        collectionName: name,
-        collectionItems: [item],
-      });
-      setCollections(opts);
+        collectionId: id,
+        products: [item]
+      }
+      );
+      setProducts(opts);
     }
   };
 
@@ -898,14 +922,14 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   //*** Active for Collection *********/
 
   const setActiveForCollection = () => {
-    const cols = [...collections];
+    const cols = [...products];
     if (cols.length === 0) {
       setActiveNext(false);
     }
     if (cols.length > 0) {
       let flag = true;
       cols.forEach((item) => {
-        if (item.collectionItems.length === 0) {
+        if (item.products === undefined || item.products.length === 0) {
           flag = false;
         }
         setActiveNext(flag);
@@ -914,6 +938,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       setActiveNext(false);
     }
   };
+
+  console.log(products);
 
   const getNegotiablesObjectForAPI = () => {
     let data = {};
@@ -1023,11 +1049,11 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       if (discountType === 'Amount') {
         typ = 'FLAT';
         val = '{"amount":{"amount": "' + discount !== '' ? discount : 0 + '","currency":"USD"}}';
-      } else if(discountType === 'Percentage')  {
+      } else if (discountType === 'Percentage') {
         typ = 'PERCENTAGE';
         val = '{\"percentage\":\"' + discount + '\"}';
-			}
-			
+      }
+
       let data = {
         brandId,
         name: campaignName,
@@ -1108,8 +1134,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       );
       handleCancel();
 
-      if (response && response !== null && response.data !== null) {
-        console.log(response);
+      if (response && response !== null && response.data !== null && response.data.createCampaign !== null) {
+        updateCampaignProducts(response.data.createCampaign.id)
         return response.data.createCampaign.id;
       } else {
         return null
@@ -1119,6 +1145,55 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       return null;
     }
   };
+
+  const handleCollectionExpand = (value, index) => {
+    const collect = [...collections];
+    if (value === true) {
+      collect[index].expand = false;
+    } else {
+      collect[index].expand = true;
+    }
+
+    setCollections(collect)
+  }
+
+  const updateCampaignProducts = async (id) => {
+    if (products && products.length > 0) {
+
+      try {
+        let data = {
+          brandId,
+          id: id,
+          products: products
+        };
+
+        await API.graphql(
+          graphqlOperation(
+            `mutation updateCampaign($input : UpdateCampaignInput!) {
+            updateCampaign(input: $input) {
+              products {
+                collection {
+                  id
+                  products {
+                    products {
+                      id
+                      name
+                    }
+                  }
+                }
+              }          
+            }
+        }`,
+            {
+              input: data,
+            }
+          )
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
 
   const updateCampaign = async () => {
 
@@ -1147,9 +1222,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         // invitationMessage: customeMessage,
         // compensation: getCompensations(),
         // deliverables: getDeliverablesForAPI(),
-			};
-			
-			
+      };
+
+
 
       if (discountType !== '' && discount !== '') {
         data = {
@@ -1210,7 +1285,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         )
       );
 
-
+      updateCampaignProducts(campaign.id);
       handleCancel();
       if (response && response !== null && response.createCampaign.id) {
         return response.createCampaign.id;
@@ -1286,7 +1361,11 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           }
         }`
       })
-      console.log(collectionsResponse);
+      console.log(collectionsResponse.data.collections.collections);
+      if (collectionsResponse.data && collectionsResponse.data !== null) {
+        setCollections(collectionsResponse.data.collections && collectionsResponse.data.collections.collections && collectionsResponse.data.collections.collections.map(obj => ({ ...obj, expand: false })));
+      }
+
     } catch (err) {
 
     }
@@ -1486,6 +1565,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             collections={collections}
             handleActiveForCollection={setActiveForCollection}
             handleCollectionItem={handleCollectionItem}
+            handleCollectionExpand={handleCollectionExpand}
+            products={products}
           />
         );
       case 5:

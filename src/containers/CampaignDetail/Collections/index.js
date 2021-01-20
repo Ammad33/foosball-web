@@ -3,7 +3,7 @@ import styles from './Collections.module.scss';
 import { Edit } from 'react-feather';
 import { useHistory } from 'react-router-dom';
 
-const Collections = ({ handleEdit, removeSeeAll }) => {
+const Collections = ({ handleEdit, removeSeeAll, products }) => {
 
   const history = useHistory();
 
@@ -12,7 +12,54 @@ const Collections = ({ handleEdit, removeSeeAll }) => {
       <h1>Collection</h1>
       <Edit onClick={() => handleEdit(4)} />
     </div>
-    <div className={styles.collectionSubContent}>
+    {
+      products && products !== null && products.length > 0 &&
+      products.map(item => {
+        return (
+          <div className={styles.collectionSubContent}>
+            <h6>{item.collection && item.collection.name}</h6>
+            <div className={styles.containerRow}>
+              {
+                item.collection && item.collection.products
+                && item.collection.products.products.map(pro => {
+                  return (
+                    <div className={styles.boxContainer} >
+                      <div className={styles.box}></div>
+                      <p className={styles.boxItem}>{pro.name}</p>
+                      <p className={styles.boxPrice}>${pro.priceRange && pro.priceRange.max ? pro.priceRange.max.amount : ''} </p>
+                      {/* <span>(1234367)</span> */}
+                      {pro && pro.estimatedQty && pro.estimatedQty !== null && <p className={styles.boxPrice}> 25 in stock</p>}
+                    </div>
+                  )
+                }
+                )
+              }
+
+              {/* <div className={styles.boxContainer} >
+                <div className={styles.box}></div>
+                <p className={styles.boxItem}>Ben Parker</p>
+                <p className={styles.boxPrice}>$30.99 <span>(1476519)</span></p>
+                <p className={styles.boxPrice}>20 in stock</p>
+              </div>
+              <div className={styles.boxContainer} >
+                <div className={styles.box}></div>
+                <p className={styles.boxItem}>Ben Parker</p>
+                <p className={styles.boxPrice}>$50.99 <span>(1987456)</span></p>
+                <p className={styles.boxPrice}>15 in stock</p>
+              </div>
+              <div className={styles.boxContainer} >
+                <div className={styles.box}></div>
+                <p className={styles.boxItem}>Ben Parker</p>
+                <p className={styles.boxPrice}>$59.99 <span>(1276124)</span></p>
+                <p className={styles.boxPrice}>30 in stock</p>
+              </div> */}
+            </div>
+          </div>
+        )
+      })
+
+    }
+    {/* <div className={styles.collectionSubContent}>
       <h6>Drop Cuts</h6>
       <div className={styles.containerRow}>
         <div className={styles.boxContainer} >
@@ -63,7 +110,7 @@ const Collections = ({ handleEdit, removeSeeAll }) => {
           <p className={styles.boxPrice}>40 in stock</p>
         </div>
       </div>
-    </div>
+    </div> */}
     {removeSeeAll === true ? null : <button onClick={() => history.push('/collections')} >See all</button>}
   </div>);
 }

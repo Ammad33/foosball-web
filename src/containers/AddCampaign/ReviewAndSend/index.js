@@ -102,7 +102,7 @@ const ReviewAndSend = ({ team, campaignName, startDate, endDate, startTime, endT
 				over = parseFloat(item.amount * parseFloat(targetGrossSale) / 100) - parseFloat(budget);
 			}
 		});
-		console.log(over);
+
 		return over;
 	}
 

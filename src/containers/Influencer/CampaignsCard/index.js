@@ -9,7 +9,7 @@ import clsx from 'clsx';
 
 
 const CampaignsCard = ({ campaign }) => {
-  console.log(campaign);
+
   return (
     <Card className={styles.campaignCard}>
       <CardContent className={styles.cardContent}>
@@ -20,8 +20,8 @@ const CampaignsCard = ({ campaign }) => {
               Action Required
             </span>
           ) : (
-            ''
-          )}
+              ''
+            )}
         </div>
         <div className={styles.cardDetails}>
           <div className={styles.campaignInfo}>
@@ -29,27 +29,27 @@ const CampaignsCard = ({ campaign }) => {
             <span className={styles.campaignNumber}>
               <small>{campaign.id}</small>
             </span>
-						<div className={styles.wrapChip}>
+            <div className={styles.wrapChip}>
 
-							<Chip
-								className={clsx(
-									styles.campaignStatus,
-									styles[`chip${campaign.status}`]
-								)}
-								label={campaign.status}
-							/>
-							<Avatar
-								className={styles.personAvatar}
-								src={
-									'https://images.unsplash.com/photo-1528763380143-65b3ac89a3ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=670&q=80'
-								}
-							/>
-							<span className={styles.campaignName}> {campaign.name} </span>
+              <Chip
+                className={clsx(
+                  styles.campaignStatus,
+                  styles[`chip${campaign.status}`]
+                )}
+                label={campaign.status}
+              />
+              <Avatar
+                className={styles.personAvatar}
+                src={
+                  'https://images.unsplash.com/photo-1528763380143-65b3ac89a3ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=670&q=80'
+                }
+              />
+              <span className={styles.campaignName}> {campaign.name} </span>
 
-						</div>
-						
-							
-					
+            </div>
+
+
+
           </div>
           <div className={styles.personInfo}>
             {/* <span className={styles.mediaTag}>@{'tag'}</span> */}

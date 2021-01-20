@@ -41,16 +41,16 @@ const Campaigns = () => {
   const [addCampaign, setAddCampagin] = useState(false);
   const [meData, setMeData] = useState([]);
   const {
-		brandId,
-		brandName,
+    brandId,
+    brandName,
     setBrands,
     searchValue,
     brandType,
     setInfluencers,
     setBrandIdd,
     setBrandName,
-		setShowLoader,
-		setBrandType,
+    setShowLoader,
+    setBrandType,
     setActiveRoute,
   } = useContext(RootContext);
   const [loading, setLoading] = useState(false);
@@ -74,7 +74,7 @@ const Campaigns = () => {
     if (!brandId || brandId === '') {
       getMeData();
     }
-	}, []);
+  }, []);
 
 
   const getMeData = async () => {
@@ -110,7 +110,7 @@ const Campaigns = () => {
 							phoneNumber
 						}
 				}`,
-			});
+      });
       let brandsData = [];
       let influencersData = [];
       mydata.data.me.organizations !== null &&
@@ -125,12 +125,12 @@ const Campaigns = () => {
       setInfluencers(influencersData);
       if (brandsData.length > 0) {
         setBrandName(brandsData[0].organization.name);
-				setBrandIdd(brandsData[0].organization.id);
-				setBrandType(brandsData[0].organization.__typename);
+        setBrandIdd(brandsData[0].organization.id);
+        setBrandType(brandsData[0].organization.__typename);
       } else if (influencersData.length > 0) {
         setBrandName(influencersData[0].organization.name);
-				setBrandIdd(influencersData[0].organization.id);
-				setBrandType(influencersData[0].organization.__typename);
+        setBrandIdd(influencersData[0].organization.id);
+        setBrandType(influencersData[0].organization.__typename);
 
       }
       setMeData(mydata.data.me.organizations);
@@ -150,12 +150,12 @@ const Campaigns = () => {
         setInfluencers(influencersData);
         if (brandsData.length > 0) {
           setBrandName(brandsData[0].organization.name);
-					setBrandIdd(brandsData[0].organization.id);
-					setBrandType(brandsData[0].organization.__typename);
+          setBrandIdd(brandsData[0].organization.id);
+          setBrandType(brandsData[0].organization.__typename);
         } else if (influencersData.length > 0) {
           setBrandName(influencersData[0].organization.name);
-					setBrandIdd(influencersData[0].organization.id);
-					setBrandType(influencersData[0].organization.__typename);
+          setBrandIdd(influencersData[0].organization.id);
+          setBrandType(influencersData[0].organization.__typename);
         }
         setMeData(e.data.me.organizations);
       }
@@ -195,8 +195,8 @@ const Campaigns = () => {
       setLoading(false);
       setShowLoader(false);
     }
-	};
-	
+  };
+
 
   const getInfluencerCampaigns = async () => {
     try {
@@ -303,7 +303,6 @@ const Campaigns = () => {
 
 
   const handleCampaginDetail = (id) => {
-    console.log(id);
     history.push(`/campaignDetail/${id}`, { campaignId: id })
     setActiveRoute('campaignDetail');
   }

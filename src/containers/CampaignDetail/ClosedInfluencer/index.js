@@ -106,7 +106,7 @@ const ClosedInfluencer = ({
               />
             </div>
             <div style={{ marginTop: '30px' }}>
-              <Collections handleEdit={handleEdit} />
+              <Collections handleEdit={handleEdit} products={data.products} />
             </div>
           </div>
           <div className={styles.second}>

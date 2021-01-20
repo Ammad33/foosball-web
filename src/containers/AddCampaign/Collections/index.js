@@ -60,117 +60,87 @@ const MinusSVG = () => {
 };
 
 const Collection = ({
-  collection,
   handleCollection,
-  collectionItems,
   collections,
   handleCollectionItem,
   handleActiveForCollection,
+  handleCollectionExpand,
+  products
 }) => {
   useEffect(() => {
     handleActiveForCollection();
-  }, [collections]);
-
-  const [expanded, setExpanded] = React.useState('');
-  const [svg1, setSvg1] = useState(false);
-  const [svg2, setSvg2] = useState(false);
-  const [svg3, setSvg3] = useState(false);
+  }, [products]);
 
 
-  const handleChange = (panel) => (event, newExpanded) => {
-    setExpanded(newExpanded ? panel : false);
-    closeSvg()
-    if (panel === "panel1") {
-      handleCollection("Drop Cuts")
-      handleSvg1();
-      setOpen(true);
-    }
-    else if (panel === "panel2") {
-      handleCollection("V-Necks")
-      handleSvg2();
-      setOpen(true);
-    }
-    else {
-      handleCollection("Henleys")
-      handleSvg3();
-      setOpen(true);
-    }
-  };
-  const closeSvg = () => {
-    setSvg1(false);
-    setSvg2(false);
-    setSvg3(false);
-  }
-  const handleSvg1 = () => {
-    setSvg1(!svg1);
-
-  }
-  const handleSvg2 = () => {
-    setSvg2(!svg2);
-
-  }
-  const handleSvg3 = () => {
-    setSvg3(!svg3);
-
-  }
-
-  const [open, setOpen] = useState(false);
   return (
     <Grid container>
       <Grid item xs={12} sm={12} md={12}>
-        <Accordion square expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-          <AccordionSummary className={styles.accordianSummary} aria-controls="panel1d-content" id="panel1d-header">
-            <Typography className={styles.collectionName}>
-              Drop Cut
-						<div className={styles.heading}>
-                {collections.find(
-                  (item) =>
-                    item.collectionName === 'Drop Cuts' &&
-                    item.collectionItems.length !== 0
-                ) && (
-                    <div className={styles.quantity}>
-                      <span className={styles.collectionNumber}>
-                        {collections.find(
-                          (item) => item.collectionName === 'Drop Cuts'
-                        ).collectionItems.length}
-                      </span>
-                    </div>
-                  )}
+        {
+          collections && collections.length > 0 && collections.map(
+            (collection, index) => {
+              return (
+                <Accordion square expanded={collection.expand} onChange={() => handleCollectionExpand(collection.expand, index)}>
+                  <AccordionSummary className={styles.accordianSummary} aria-controls="panel1d-content" id="panel1d-header">
+                    <Typography className={styles.collectionName}>
+                      {collection && collection.name}
+                      <div className={styles.heading}>
+                        {products && products.length > 0 && products.find(
+                          (item) =>
+                            item.collectionId === collection.id &&
+                            item.products !== undefined &&
+                            item.products.length !== 0
+                        ) && (
+                            <div className={styles.quantity}>
+                              <span className={styles.collectionNumber}>
+                                {products.find(
+                                  (item) => item.collectionId === collection.id
+                                ).products.length}
+                              </span>
+                            </div>
+                          )}
 
 
 
 
-                <span className={styles.svg} >
-                  {svg1 ? (
-                    <MinusSVG />) : (<PlusSVG />)
-                  }
-                </span>
-              </div>
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            {collection !== '' ? (
-              <Grid item xs={12} className={styles.collections}>
-                <Grid container spacing={3} className={styles.collectionContainer}>
-                  {collectionItems.map((collectionItem, index) => {
-                    return (
-                      <Grid item xs={3}>
-                        <CollectionItem
-                          collectionItem={collectionItem}
-                          key={index}
-                          collection={collection}
-                          collections={collections}
-                          handleCollectionItem={handleCollectionItem}
-                        />
+                        <span className={styles.svg} >
+                          {collection.expand ? (
+                            <MinusSVG />) : (<PlusSVG />)
+                          }
+                        </span>
+                      </div>
+                    </Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    {collection && collection.products && collection.products.products && collection.products.products.length > 0 ? (
+                      <Grid item xs={12} className={styles.collections}>
+                        <Grid container spacing={3} className={styles.collectionContainer}>
+                          {collection.products.products.map((collectionItem, index1) => {
+                            return (
+                              <Grid item xs={3}>
+                                <CollectionItem
+                                  collectionItem={collectionItem}
+                                  key={index1}
+                                  products={products}
+                                  collectionId={collection.id}
+                                  collectionKey={collection}
+                                  collection={collection}
+                                  collections={collections}
+                                  handleCollectionItem={handleCollectionItem}
+                                />
+                              </Grid>
+                            );
+                          })}
+                        </Grid>
                       </Grid>
-                    );
-                  })}
-                </Grid>
-              </Grid>
-            ) : null}
-          </AccordionDetails>
-        </Accordion>
-        <Accordion square expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+                    ) : null}
+                  </AccordionDetails>
+                </Accordion>
+              )
+            }
+          )
+        }
+
+        {/* <Accordion square expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
           <AccordionSummary className={styles.accordianSummary} aria-controls="panel2d-content" id="panel2d-header">
             <Typography className={styles.collectionName}>
               V Necks
@@ -268,7 +238,7 @@ const Collection = ({
               </Grid>
             ) : null}
           </AccordionDetails>
-        </Accordion>
+        </Accordion> */}
       </Grid>
 
       {/* <Grid item xs={12}>
