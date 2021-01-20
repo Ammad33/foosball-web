@@ -53,24 +53,24 @@ const InfluencerCard = ({ influencer, selected, toggleInfluncer }) => {
                         </span>
                       </div>
                     );
-                  case 'FACEBOOK':
-                    return (
-                      <div className={styles.socialItem}>
-                        <Facebook />
-                        <span className={styles.countText}>
-                          {calculateFollowersCount(social.followerCount)}
-                        </span>
-                      </div>
-                    );
-                  case 'YOUTUBE':
-                    return (
-                      <div className={styles.socialItem}>
-                        <Youtube />
-                        <span className={styles.countText}>
-                          {calculateFollowersCount(social.followerCount)}
-                        </span>
-                      </div>
-                    );
+                  // case 'FACEBOOK':
+                  //   return (
+                  //     <div className={styles.socialItem}>
+                  //       <Facebook />
+                  //       <span className={styles.countText}>
+                  //         {calculateFollowersCount(social.followerCount)}
+                  //       </span>
+                  //     </div>
+                  //   );
+                  // case 'YOUTUBE':
+                  //   return (
+                  //     <div className={styles.socialItem}>
+                  //       <Youtube />
+                  //       <span className={styles.countText}>
+                  //         {calculateFollowersCount(social.followerCount)}
+                  //       </span>
+                  //     </div>
+                  //   );
 
                   default:
                     return '';

@@ -82,16 +82,16 @@ const CheckCircleIconSvg = (prop) => {
 };
 
 let negotialbleOptions = [
-  { id: 1, isChecked: true, key: 'post_fee', text: 'Post Fee' },
-  { id: 2, isChecked: true, key: 'revenue_share', text: 'Revenue Share %' },
-  { id: 3, isChecked: true, key: 'story_fee', text: 'Story Fee' },
-  { id: 4, isChecked: true, key: 'post_frequency', text: 'Post Frequency' },
-  {
-    id: 5,
-    isChecked: true,
-    key: 'monthly_retainer_fee',
-    text: 'Monthly Retainer Fee',
-  },
+	{ id: 1, isChecked: true, key: 'post_fee', text: 'Cash Per Post' },
+	{ id: 2, isChecked: true, key: 'revenue_share', text: 'Revenue Share %' },
+	{ id: 3, isChecked: true, key: 'story_fee', text: 'Cash Per Monthly Deliverable' },
+	{ id: 4, isChecked: true, key: 'post_frequency', text: 'Post Frequency' },
+	{
+		id: 5,
+		isChecked: true,
+		key: 'monthly_retainer_fee',
+		text: 'Gift Card',
+	},
   {
     id: 6,
     isChecked: true,
@@ -1023,10 +1023,11 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       if (discountType === 'Amount') {
         typ = 'FLAT';
         val = '{"amount":{"amount": "' + discount !== '' ? discount : 0 + '","currency":"USD"}}';
-      } else {
+      } else if(discountType === 'Percentage')  {
         typ = 'PERCENTAGE';
         val = '{"percentage":"' + discount !== '' ? discount : 0 + '"}';
-      }
+			}
+			
       let data = {
         brandId,
         name: campaignName,
@@ -1146,7 +1147,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         // invitationMessage: customeMessage,
         // compensation: getCompensations(),
         // deliverables: getDeliverablesForAPI(),
-      };
+			};
+			
+			
 
       if (discountType !== '' && discount !== '') {
         data = {
@@ -1571,7 +1574,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   };
 
   const partialFilledForm = () => {
-    if (campaignName !== '' && startDate !== '' && endDate !== '' && campaignError === '') {
+    if (campaignName !== '' && startDate !== '' && endDate !== '' && campaignError === '' && discountType !== '' && discount !== '') {
       setActiveSave(true);
     } else {
       setActiveSave(false);

@@ -45,13 +45,13 @@ const LeftSideDrawer = () => {
 					history.push('/campaigns');
 				}}
 			/>
-			{/* 
-      <ListItem
-        icon={<IconProspects />}
-        active={activeRoute === 'Prospects' ? true : false}
-        title={'Prospects'}
-        onClick={() => setActiveRoute('Prospects')}
-      /> */}
+			{/*
+<ListItem
+icon={<IconProspects />}
+active={activeRoute === 'Prospects' ? true : false}
+title={'Prospects'}
+onClick={() => setActiveRoute('Prospects')}
+/> */}
 
 			<ListItem
 				icon={<IconReports />}
@@ -102,9 +102,9 @@ const LeftSideDrawer = () => {
 			/>
 			<ListItem
 				icon={<IconBilling />}
-				active={activeRoute === 'Billing' ? true : false}
+				active={activeRoute === 'AccountHistory' ? true : false}
 				onClick={() => {
-					setActiveRoute('Billing');
+					setActiveRoute('AccountHistory');
 					history.push('/billing');
 				}}
 				title={'Billing'}

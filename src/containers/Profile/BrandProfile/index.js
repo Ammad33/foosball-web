@@ -52,9 +52,9 @@ const BrandProfile = () => {
           </Grid>
         </div>
       </div>
-      <div className={styles.rightSidebar}>
+      {/* <div className={styles.rightSidebar}>
         <RightMenu isOwner={isOwner} />
-      </div>
+      </div> */}
     </div>
   );
 };

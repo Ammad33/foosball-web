@@ -2,13 +2,14 @@
 .mainContainer {
   display: flex;
   flex-wrap: wrap;
-  gap: 32px;
+	gap: 32px;
+	margin-top: 30px;
 
   .socialContainer {
     height: 208px;
     min-height: 208px;
-    width: 310px;
-    min-width: 310px;
+    width: 596px;
+    min-width: 596px;
     border-radius: 10px;
     background-color: $white;
     box-shadow: 0 6px 50px 0 rgba(0, 0, 0, 0.1);

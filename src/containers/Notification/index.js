@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Avatar, Grid } from '@material-ui/core';
 import styles from './notifications.module.scss';
@@ -7,49 +7,52 @@ import Popover from '@material-ui/core/Popover';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
+import { API, graphqlOperation } from 'aws-amplify';
+import ShowNotification from './ShowNotification';
 
-const notifications = [
-	{
-		avatar:
-			'https://images.unsplash.com/photo-1474176857210-7287d38d27c6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-		name: 'Good To',
-		socialTag: 'miracle',
-		description: 'Trendy Womens Clothing and accessories',
-		selected: false,
-	},
-	{
-		avatar:
-			'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-		name: 'Bee',
-		socialTag: 'miracle',
-		description: 'Trendy Womens Clothing and accessories.Chic outfits for everyday wear!',
-		selected: false,
-	},
-	{
-		avatar:
-			'https://images.unsplash.com/photo-1474176857210-7287d38d27c6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-		name: 'Thrive Mark',
-		socialTag: 'miracle',
-		description: 'Trendy Womens Clothing and accessories.Chic outfits for everyday wear!',
-		selected: false,
-	},
-	{
-		avatar:
-			'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-		name: 'Oil Pop',
-		socialTag: 'miracle',
-		description: 'Trendy Womens Clothing and accessories.Chic outfits for everyday wear!',
-		selected: false,
-	},
-	{
-		avatar:
-			'https://images.unsplash.com/photo-1563237023-b1e970526dcb?ixlib=rb-1.2.1&auto=format&fit=crop&w=802&q=80',
-		name: 'Care ',
-		socialTag: 'miracle',
-		description: 'Trendy Womens Clothing and accessories.Chic outfits for everyday wear!',
-		selected: true,
-	},
-];
+
+// const notifications = [
+// 	{
+// 		avatar:
+// 			'https://images.unsplash.com/photo-1474176857210-7287d38d27c6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+// 		name: 'Good To',
+// 		socialTag: 'miracle',
+// 		description: 'Trendy Womens Clothing and accessories',
+// 		selected: false,
+// 	},
+// 	{
+// 		avatar:
+// 			'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
+// 		name: 'Bee',
+// 		socialTag: 'miracle',
+// 		description: 'Trendy Womens Clothing and accessories.Chic outfits for everyday wear!',
+// 		selected: false,
+// 	},
+// 	{
+// 		avatar:
+// 			'https://images.unsplash.com/photo-1474176857210-7287d38d27c6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+// 		name: 'Thrive Mark',
+// 		socialTag: 'miracle',
+// 		description: 'Trendy Womens Clothing and accessories.Chic outfits for everyday wear!',
+// 		selected: false,
+// 	},
+// 	{
+// 		avatar:
+// 			'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
+// 		name: 'Oil Pop',
+// 		socialTag: 'miracle',
+// 		description: 'Trendy Womens Clothing and accessories.Chic outfits for everyday wear!',
+// 		selected: false,
+// 	},
+// 	{
+// 		avatar:
+// 			'https://images.unsplash.com/photo-1563237023-b1e970526dcb?ixlib=rb-1.2.1&auto=format&fit=crop&w=802&q=80',
+// 		name: 'Care ',
+// 		socialTag: 'miracle',
+// 		description: 'Trendy Womens Clothing and accessories.Chic outfits for everyday wear!',
+// 		selected: true,
+// 	},
+// ];
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -59,16 +62,17 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+const NotificationIcon = () => {
+	return <SVG src={require('../../assets/Notification.svg')} />;
+};
+
 const Notification = () => {
-
-	const NotificationIcon = () => {
-		return <SVG src={require('../../assets/Notification.svg')} />;
-	};
-
+	const [notifications, setNotifications] = useState([]);
 	const [anchorEl, setAnchorEl] = useState(null);
 
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
+		getNotifications();
 	};
 
 	const handleClose = () => {
@@ -81,6 +85,48 @@ const Notification = () => {
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
 
+	// useEffect(() => {
+	//   getNotifications();
+	// }, []);
+
+
+
+	const getNotifications = async () => {
+		try {
+			const notification = await API.graphql({
+				query: `{
+					notifications {
+						notifications {
+							brandId
+							campaignId
+							event
+							message
+							received
+							seen
+							sender {
+								... on User {
+									id
+									fullName
+								}
+								... on Brand {
+									id
+									name
+								}
+								... on Influencer {
+									id
+									name
+								}
+							}
+						}
+					}
+				}`
+			});
+			setNotifications(notification.data.notifications.notifications);
+		}
+		catch (e) {
+			console.log('error in notifcations ', e);
+		}
+	}
 	return (
 		<>
 			<Popover
@@ -100,6 +146,7 @@ const Notification = () => {
 					horizontal: 'right',
 				}}
 			>
+
 				<Grid container item xs={12} spacing={3}>
 					<div className={styles.Heading}>
 						<p> Notifications</p>
@@ -109,91 +156,26 @@ const Notification = () => {
 							<p>Today</p>
 						</div>
 						<div className={styles.NotificationContainer}>
-							<div className={styles.NotifcationInfoContainer}>
-								<List component="nav" className={classes.root} aria-label="mailbox folders">
-									<ListItem button>
-										<div className={styles.personInfo}>
-											<Avatar
-												className={styles.personAvatar}
-												src={notifications[0].avatar}
-											/>
-										</div>
-										<span className={styles.BrandName}>{notifications[0].name}
-											<div className={styles.BrandDescription}>{notifications[0].description}</div></span>
-									</ListItem>
-									<Divider style={{ marginTop: "15px" }} />
-								</List>
-								<List component="nav" className={classes.root} aria-label="mailbox folders">
-									<ListItem button>
-										<div className={styles.personInfo}>
-											<Avatar
-												className={styles.personAvatar}
-												src={notifications[0].avatar}
-											/>
-										</div>
-										<span className={styles.BrandName}>{notifications[0].name}
-											<div className={styles.BrandDescription}>{notifications[0].description}</div></span>
-									</ListItem>
-									<Divider style={{ marginTop: "15px" }} />
-								</List>
-								<List component="nav" className={classes.root} aria-label="mailbox folders">
-									<ListItem button>
-										<div className={styles.personInfo}>
-											<Avatar
-												className={styles.personAvatar}
-												src={notifications[0].avatar}
-											/>
-										</div>
-										<span className={styles.BrandName}>{notifications[0].name}
-											<div className={styles.BrandDescription}>{notifications[0].description}</div></span>
-									</ListItem>
-								</List>
-							</div>
-						</div>
-					</Grid>
-					<Grid item xs={10}>
-						<div className={styles.notificationDay}>
-							<p>Yesterday</p>
-						</div>
-						<div className={styles.NotificationContainer}>
-							<div className={styles.NotifcationInfoContainer}>
-								<List component="nav" className={classes.root} aria-label="mailbox folders">
-									<ListItem button>
-										<div className={styles.personInfo}>
-											<Avatar
-												className={styles.personAvatar}
-												src={notifications[0].avatar}
-											/>
-										</div>
-										<span className={styles.BrandName}>{notifications[0].name}
-											<div className={styles.BrandDescription}>{notifications[0].description}</div></span>
-									</ListItem>
-									<Divider style={{ marginTop: "15px" }} />
-								</List>
-								<List component="nav" className={classes.root} aria-label="mailbox folders">
-									<ListItem button>
-										<div className={styles.personInfo}>
-											<Avatar
-												className={styles.personAvatar}
-												src={notifications[0].avatar}
-											/>
-										</div>
-										<span className={styles.BrandName}>{notifications[0].name}
-											<div className={styles.BrandDescription}>{notifications[0].description}</div></span>
-									</ListItem>
-								</List>
-							</div>
+							{notifications && notifications !== null && notifications.length !== 0 && (
+								notifications.map((item) => {
+									return (
+										<ShowNotification
+											notifications={item} />
+									)
+								})
+							)
+							}
 						</div>
 					</Grid>
 					<div className={styles.loadMore}>
 						<button >Load More</button>
 					</div>
-
 				</Grid>
 			</Popover>
 			<div onClick={handleClick}>
 				<NotificationIcon />
 			</div>
+
 		</>
 	);
 };

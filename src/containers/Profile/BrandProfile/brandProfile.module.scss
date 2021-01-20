@@ -4,13 +4,9 @@
   max-width: 1588px !important;
   min-width: 1588px !important;
   display: flex;
-  .contentContainer {
-    width: 1169px !important;
-    max-width: 1169px !important;
-    min-width: 1169px !important;
-    border-right: 1px solid $dark3;
-    padding-left: 74px;
-    padding-right: 97px;
+  .contentContainer {   
+		padding-left: 202px;
+		padding-right: 202px;
     padding-top: 40px;
     padding-bottom: 30px;
     .profileHeading {
@@ -29,7 +25,7 @@
           display: flex;
           flex-direction: column;
           justify-content: center;
-          gap: 21px;
+          gap: 10px;
           .brandName {
             font-size: 20px;
             font-weight: 600;

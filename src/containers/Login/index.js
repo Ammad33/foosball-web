@@ -53,7 +53,8 @@ const Login = () => {
       const user = await Auth.signIn(email, password);
       setCurrentUser(user);
       setLogoutMessage('');
-      getMeData();
+			getMeData();
+			setActiveRoute('Campaign')
     } catch (e) {
       setErrorMessage(e.message);
       setLogoutMessage('');

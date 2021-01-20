@@ -1,11 +1,12 @@
 @import '../../../../variable.module.scss';
 .postContainer {
   height: 634px;
-  width: 1000px;
+  width: 1231px;
   border-radius: 10px;
   background-color: #ffffff;
   box-shadow: 0 6px 50px 0 rgba(0, 0, 0, 0.1);
-  padding: 32px 41px 20px 35px;
+	padding: 32px 41px 20px 35px;
+	margin-top: 30px;
 
   .headingContainer {
     display: flex;

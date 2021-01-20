@@ -183,11 +183,9 @@ const Onboarding = () => {
 		}
 		if (activeSetp === 3) {
 			/******************************* Api not completed  */
-			debugger;
 			if (brandType !== null) {
 				setBrandType(null);
 			}
-			debugger;
 			console.log(userType);
 
 			switch (userType) {

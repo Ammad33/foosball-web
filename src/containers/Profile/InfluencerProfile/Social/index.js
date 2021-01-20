@@ -23,20 +23,20 @@ const Social = () => {
         <div className={styles.detailSubContent}>94.1K Followers</div>
         <div className={styles.influencerHandler}>@samOzkural</div>
       </div>
-      <div className={styles.socialContainer}>
+      {/* <div className={styles.socialContainer}>
         <div className={styles.socialIcons}>
           <Youtube />
         </div>
         <div className={styles.detailSubContent}>94.1K Followers</div>
         <div className={styles.influencerHandler}>Sam Ozkural</div>
-      </div>
-      <div className={styles.socialContainer}>
+      </div> */}
+      {/* <div className={styles.socialContainer}>
         <div className={styles.socialIcons}>
           <Facebook />
         </div>
         <div className={styles.detailSubContent}>94.1K Followers</div>
         <div className={styles.influencerHandler}>Sam Ozkural</div>
-      </div>
+      </div> */}
     </div>
   );
 };
