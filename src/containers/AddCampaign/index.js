@@ -1025,7 +1025,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         val = '{"amount":{"amount": "' + discount !== '' ? discount : 0 + '","currency":"USD"}}';
       } else if(discountType === 'Percentage')  {
         typ = 'PERCENTAGE';
-        val = '{"percentage":"' + discount !== '' ? discount : 0 + '"}';
+        val = '{\"percentage\":\"' + discount + '\"}';
 			}
 			
       let data = {

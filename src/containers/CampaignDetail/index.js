@@ -122,7 +122,19 @@ const CampaignDetail = ({ location }) => {
 						status
             startDate
             endDate
-            invitationMessage
+						invitationMessage
+						discount {
+							... on PercentageDiscount {
+								__typename
+								percentage
+							}
+							... on FlatDiscount {
+								__typename
+								amount {
+									amount
+								}
+							}
+						}
             compensation {
               ... on CompRevenueShare {
                 __typename
@@ -209,7 +221,19 @@ const CampaignDetail = ({ location }) => {
 						status
             startDate
             endDate
-            invitationMessage
+						invitationMessage
+						discount {
+							... on PercentageDiscount {
+								__typename
+								percentage
+							}
+							... on FlatDiscount {
+								__typename
+								amount {
+									amount
+								}
+							}
+						}
             compensation {
               ... on CompRevenueShare {
                 __typename
@@ -291,7 +315,6 @@ const CampaignDetail = ({ location }) => {
          
       }`,
       });
-
       if (brandType.toLowerCase() == 'influencer') {
         campaign.data.influencerCampaign && campaign.data.influencerCampaign !== null && campaign.data.influencerCampaign.deliverables && campaign.data.influencerCampaign.deliverables !== null && campaign.data.influencerCampaign.deliverables.map((deliverable) => {
           deliverable.deliverableType =
