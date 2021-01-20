@@ -12,12 +12,13 @@
 
   .contentContainer {
     display: flex;
-    align-items: center;
-    gap: 20px;
-		margin: 58px auto;
-		p {
-			margin-bottom: 50px;
-		}
+    flex-direction: column;
+    // align-items: center;
+    gap: 30px;
+    margin: 58px auto;
+    p {
+      margin-bottom: 50px;
+    }
 
     .shopifyLogo {
       height: 50px;
@@ -38,6 +39,17 @@
     .inputendornmentCheck {
       color: $primary1 !important;
     }
+    .fieldsAndAction {
+      width: 362px !important;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      &.savedContainer {
+        flex-direction: row !important;
+        width: 600px !important;
+        align-items: center;
+      }
+    }
   }
 }
 
@@ -46,7 +58,14 @@
     .contentContainer {
       > * {
         &:not(:last-child) {
-          margin-right: 20px !important;
+          margin-bottom: 30px !important;
+        }
+      }
+    }
+    .fieldsAndAction {
+      > * {
+        &:not(:last-child) {
+          margin-bottom: 30px !important;
         }
       }
     }
