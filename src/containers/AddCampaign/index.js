@@ -896,7 +896,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   //*************Handle Discount *****************/
 
   const handleDiscount = (e) => {
-		debugger;
     if (discountType === 'Amount') {
       const value = e.replace(/[^\d]/, '');
       if (parseInt(value) !== 0) {
@@ -1857,7 +1856,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                     onClick={() => {
                       campaign !== undefined
                         ? updateCampaign()
-                        : sendCampaignInvite();
+                        : createCampaign();
                     }}
                   >
                     Save and finish later

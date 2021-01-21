@@ -10,7 +10,6 @@ const EditSVG = ({ onClick }) => {
 };
 const ReviewAndSend = ({ team, campaignName, startDate, endDate, startTime, endTime, discount, discountType,
 	customeMessage, selectedMembers, budget, targetGrossSale, collections, deliverables, compensations, compensationPayment, selectedNegotiable, selectedInfluncer, handleActiveStep }) => {
-
 	let totalPosts = 0;
 	deliverables.forEach(item => {
 		totalPosts = totalPosts + parseInt(item.posts);
@@ -216,10 +215,10 @@ const ReviewAndSend = ({ team, campaignName, startDate, endDate, startTime, endT
 					{collections.map((item, index) => {
 						return (
 							<div className={styles.collectionSection} key={index}>
-								<p className={styles.sectionTitle}>{item.collectionName}</p>
+								<p className={styles.sectionTitle}>{item.name}</p>
 								<div className={styles.collectionItems}>
 									{
-										item.collectionItems.length > 0 && item.collectionItems.map((collection, index) => {
+										item.products.products.length > 0 && item.products.products.map((collection, index) => {
 											return (
 												<div className={styles.collectionItem} key={index}>
 													<div className={styles.itemPlaceholderBox}></div>
