@@ -896,14 +896,15 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   //*************Handle Discount *****************/
 
   const handleDiscount = (e) => {
+		debugger;
     if (discountType === 'Amount') {
-      const value = e.target.value.replace(/[^\d]/, '');
+      const value = e.replace(/[^\d]/, '');
       if (parseInt(value) !== 0) {
         setDiscount(value);
       }
     } else {
       // const re = /^((0|[1-9]\d?)(\.\d{1,2})?|100(\.00?)?)$/;
-      const value = e.currentTarget.value;
+      const value = e
       var x = parseFloat(value);
       if (value !== '' && (isNaN(x) || x < 0 || x > 100)) {
         return false;
@@ -1658,7 +1659,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   };
 
   const partialFilledForm = () => {
-    if (campaignName !== '' && startDate !== '' && endDate !== '' && campaignError === '' && discountType !== '' && discount !== '') {
+    if (campaignName !== '' && startDate !== '' && endDate !== '' && campaignError === '' && discountType !== '' && discount !== '' && customeMessage !== '') {
       setActiveSave(true);
     } else {
       setActiveSave(false);

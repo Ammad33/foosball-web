@@ -13,6 +13,11 @@ import mainStyles from '../../../index.module.scss';
 import TextField from '../../../components/TextField';
 
 
+const options = [];
+for (let i = 1; i <= 100; i += 1) {
+	options.push(i);
+}
+
 const Chevron = () => {
 	return (
 		<span className={styles.dropDownCustomizeSvg}>
@@ -72,7 +77,7 @@ const AddCampaignDetails = ({
 	useEffect(() => {
 		partialFilledForm();
 	});
-
+	debugger;
 
 	return (
 		<Grid container spacing={2}>
@@ -284,19 +289,47 @@ const AddCampaignDetails = ({
 					</TextField>
 				</FormControl>
 			</Grid>
-			<Grid item xs={12} sm={12} md={6}>
-				<TextField
-					id='outlined-basic'
-					fullWidth
-					label='Discount Value'
-					className={mainStyles.placeholderColor}
-					value={discount}
-					onChange={handleDiscount}
-					variant='outlined'
-					helperText={' '}
-				/>
-			</Grid>
-
+			{discountType && discountType == "Percentage" ? (
+				<Grid item xs={12} sm={12} md={6}>
+					<FormControl fullWidth variant='outlined'>
+						<TextField
+							labelId='demo-simple-select-outlined-label'
+							id='outlined-basic'
+							label='Discount Value'
+							fullWidth
+							variant='outlined'
+							className={mainStyles.placeholderColor}
+							value={discount}
+							onChange={(e) => handleDiscount(e.target.value)}
+							MenuProps={{ variant: 'menu' }}
+							select
+							SelectProps={{ IconComponent: () => <Chevron /> }}
+						>
+							<MenuItem value='' disabled>
+								Discount Percentage
+						</MenuItem>
+							{options.map((option) => (
+								<MenuItem key={option} value={option}>
+									{option} 
+								</MenuItem>
+							))}
+						</TextField>
+					</FormControl>
+				</Grid>
+			) : (
+					<Grid item xs={12} sm={12} md={6}>
+						<TextField
+							id='outlined-basic'
+							fullWidth
+							label='Discount Value'
+							className={mainStyles.placeholderColor}
+							value={discount}
+							onChange={handleDiscount}
+							variant='outlined'
+							helperText={' '}
+						/>
+					</Grid>
+				)}
 			{discountType && discountType == "Amount" ? (
 				<Grid item xs={12} sm={12} md={12}>
 					<TextField
