@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './ReviewAndSend.module.scss';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
@@ -8,12 +8,15 @@ import moment from 'moment';
 const EditSVG = ({ onClick }) => {
 	return <SVG src={require('../../../assets/edit.svg')} onClick={onClick} />;
 };
-const ReviewAndSend = ({ team, campaignName, startDate, endDate, startTime, endTime, discount, discountType,
+const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, startTime, endTime, discount, discountType,
 	customeMessage, selectedMembers, budget, targetGrossSale, collections, deliverables, compensations, compensationPayment, selectedNegotiable, selectedInfluncer, handleActiveStep }) => {
+
 	let totalPosts = 0;
 	deliverables.forEach(item => {
 		totalPosts = totalPosts + parseInt(item.posts);
 	});
+
+	console.log(products);
 
 	const getCompensationType = (compensation) => {
 		switch (compensation) {
@@ -104,6 +107,31 @@ const ReviewAndSend = ({ team, campaignName, startDate, endDate, startTime, endT
 
 		return over;
 	}
+
+	const [collectionData, setCollectionData] = useState([]);
+
+	useEffect(() => {
+		let collls = [];
+		if (products && products.length > 0) {
+			// debugger;
+			products.forEach(item => {
+				let index = collections.findIndex(collItem => collItem.id === item.collectionId);
+				if (index !== -1) {
+					collls.push({
+						name: collections[index].name,
+						products: collections[index].products && collections[index].products.products.filter(itm => {
+							let secIndex = item.products.findIndex(sec => sec.productId === itm.id);
+							if (secIndex !== -1) {
+								return itm
+							}
+						})
+					})
+				}
+			})
+		}
+		console.log(collls);
+		setCollectionData(collls);
+	}, [])
 
 	return (
 		<div class={styles.mainContainer}>
@@ -212,13 +240,13 @@ const ReviewAndSend = ({ team, campaignName, startDate, endDate, startTime, endT
 					<EditSVG onClick={() => handleActiveStep(4)} />
 				</div>
 				<div className={styles.collectionContainer}>
-					{collections.map((item, index) => {
+					{collectionData.map((item, index) => {
 						return (
 							<div className={styles.collectionSection} key={index}>
 								<p className={styles.sectionTitle}>{item.name}</p>
 								<div className={styles.collectionItems}>
 									{
-										item.products.products.length > 0 && item.products.products.map((collection, index) => {
+										item.products.length > 0 && item.products.map((collection, index) => {
 											return (
 												<div className={styles.collectionItem} key={index}>
 													<div className={styles.itemPlaceholderBox}></div>

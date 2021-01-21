@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Collections.module.scss';
 import { Edit } from 'react-feather';
 import { useHistory } from 'react-router-dom';
+import { set } from 'lodash';
 
 const Collections = ({ handleEdit, removeSeeAll, products }) => {
 
   const history = useHistory();
+  const [counter, setCounter] = useState(0);
 
   return (<div className={styles.collectionContainer}>
     <div className={styles.headerContainer}>
@@ -15,13 +17,14 @@ const Collections = ({ handleEdit, removeSeeAll, products }) => {
     {
       products && products !== null && products.length > 0 &&
       products.map(item => {
+
         return (
           <div className={styles.collectionSubContent}>
             <h6>{item.collection && item.collection.name}</h6>
             <div className={styles.containerRow}>
               {
                 item.collection && item.collection.products
-                && item.collection.products.products.map(pro => {
+                && item.collection.products.products.map((pro, index) => {
                   return (
                     <div className={styles.boxContainer} >
                       <div className={styles.box}></div>
@@ -34,84 +37,14 @@ const Collections = ({ handleEdit, removeSeeAll, products }) => {
                 }
                 )
               }
-
-              {/* <div className={styles.boxContainer} >
-                <div className={styles.box}></div>
-                <p className={styles.boxItem}>Ben Parker</p>
-                <p className={styles.boxPrice}>$30.99 <span>(1476519)</span></p>
-                <p className={styles.boxPrice}>20 in stock</p>
-              </div>
-              <div className={styles.boxContainer} >
-                <div className={styles.box}></div>
-                <p className={styles.boxItem}>Ben Parker</p>
-                <p className={styles.boxPrice}>$50.99 <span>(1987456)</span></p>
-                <p className={styles.boxPrice}>15 in stock</p>
-              </div>
-              <div className={styles.boxContainer} >
-                <div className={styles.box}></div>
-                <p className={styles.boxItem}>Ben Parker</p>
-                <p className={styles.boxPrice}>$59.99 <span>(1276124)</span></p>
-                <p className={styles.boxPrice}>30 in stock</p>
-              </div> */}
             </div>
           </div>
         )
-      })
 
+      })
     }
-    {/* <div className={styles.collectionSubContent}>
-      <h6>Drop Cuts</h6>
-      <div className={styles.containerRow}>
-        <div className={styles.boxContainer} >
-          <div className={styles.box}></div>
-          <p className={styles.boxItem}>Ben Parker</p>
-          <p className={styles.boxPrice}>$64.22 <span>(1234367)</span></p>
-          <p className={styles.boxPrice}> 25 in stock</p>
-        </div>
-        <div className={styles.boxContainer} >
-          <div className={styles.box}></div>
-          <p className={styles.boxItem}>Ben Parker</p>
-          <p className={styles.boxPrice}>$30.99 <span>(1476519)</span></p>
-          <p className={styles.boxPrice}>20 in stock</p>
-        </div>
-        <div className={styles.boxContainer} >
-          <div className={styles.box}></div>
-          <p className={styles.boxItem}>Ben Parker</p>
-          <p className={styles.boxPrice}>$50.99 <span>(1987456)</span></p>
-          <p className={styles.boxPrice}>15 in stock</p>
-        </div>
-        <div className={styles.boxContainer} >
-          <div className={styles.box}></div>
-          <p className={styles.boxItem}>Ben Parker</p>
-          <p className={styles.boxPrice}>$59.99 <span>(1276124)</span></p>
-          <p className={styles.boxPrice}>30 in stock</p>
-        </div>
-      </div>
-    </div>
-    <div className={styles.collectionSubContent}>
-      <h6>V Necks</h6>
-      <div className={styles.containerRow}>
-        <div className={styles.boxContainer} >
-          <div className={styles.box}></div>
-          <p className={styles.boxItem}>Ben Parker</p>
-          <p className={styles.boxPrice}>$20.99 <span>(15263748)</span></p>
-          <p className={styles.boxPrice}>35 in stock</p>
-        </div>
-        <div className={styles.boxContainer} >
-          <div className={styles.box}></div>
-          <p className={styles.boxItem}>Ben Parker</p>
-          <p className={styles.boxPrice}>$15.99 <span>(15628394)</span></p>
-          <p className={styles.boxPrice}>20 in stock</p>
-        </div>
-        <div className={styles.boxContainer} >
-          <div className={styles.box}></div>
-          <p className={styles.boxItem}>Ben Parker</p>
-          <p className={styles.boxPrice}>$45.99 <span>(12313131)</span></p>
-          <p className={styles.boxPrice}>40 in stock</p>
-        </div>
-      </div>
-    </div> */}
-    {removeSeeAll === true ? null : <button onClick={() => history.push('/collections')} >See all</button>}
+
+    {counter < 9 ? null : <button onClick={() => history.push('/collections')} >See all</button>}
   </div>);
 }
 

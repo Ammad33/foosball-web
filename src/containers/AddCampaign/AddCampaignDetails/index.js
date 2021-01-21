@@ -77,7 +77,6 @@ const AddCampaignDetails = ({
 	useEffect(() => {
 		partialFilledForm();
 	});
-	debugger;
 
 	return (
 		<Grid container spacing={2}>
@@ -310,7 +309,7 @@ const AddCampaignDetails = ({
 						</MenuItem>
 							{options.map((option) => (
 								<MenuItem key={option} value={option}>
-									{option} 
+									{option}
 								</MenuItem>
 							))}
 						</TextField>

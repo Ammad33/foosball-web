@@ -450,7 +450,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   }, [brandId]);
 
   useEffect(() => {
-		getInfluencers();
+    getInfluencers();
   }, []);
 
   const getInfluencers = async () => {
@@ -600,7 +600,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             }
           }
         }`,
-			});
+      });
       if (team.data !== null && team.data.brand !== null) {
         setTeam(team.data.brand.users);
       }
@@ -1052,7 +1052,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       } else if (discountType === 'Percentage') {
         typ = 'PERCENTAGE';
         val = '{\"percentage\":\"' + discount + '\"}';
-			}
+      }
 
       let data = {
         brandId,
@@ -1110,7 +1110,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         data = {
           ...data, negotiables: getNegotiablesObjectForAPI()
         }
-			}
+      }
 
       if (influencer && influencer.id && influencer.id !== '') {
         data.influencerId = influencer.id;
@@ -1270,9 +1270,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
       if (influencer && influencer.id && influencer.id !== null && influencer.id !== '') {
         data.influencerId = influencer.id;
-			}
-			
-			
+      }
+
+
 
       let response = await API.graphql(
         graphqlOperation(
@@ -1362,15 +1362,18 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             }
           }
         }`
-			})
-			
+      })
+
       console.log(collectionsResponse.data.collections.collections);
       if (collectionsResponse.data && collectionsResponse.data !== null) {
         setCollections(collectionsResponse.data.collections && collectionsResponse.data.collections.collections && collectionsResponse.data.collections.collections.map(obj => ({ ...obj, expand: false })));
       }
 
     } catch (err) {
-
+      console.log(err);
+      if (err && err.data && err.data !== null && err.data.collections && err.data.collections !== null) {
+        setCollections(err.data.collections.collections);
+      }
     }
   }
 
@@ -1642,6 +1645,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             budget={budget}
             targetGrossSale={targetGrossSale}
             collections={collections}
+            products={products}
             deliverables={deliveries}
             compensations={compensations}
             compensationPayment={compensationPayment}
