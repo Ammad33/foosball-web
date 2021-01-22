@@ -15,10 +15,9 @@ const IconCampaign = () => {
   return <SVG src={require('../../assets/Campaigns_large.svg')} />;
 };
 
-
 const ChevronDown = () => {
   return (
-    <span className={styles.dropDownCustomizeSvg} >
+    <span className={styles.dropDownCustomizeSvg}>
       <SVG src={require('../../assets/chevron-down.svg')} />
     </span>
   );
@@ -30,7 +29,6 @@ const ChevronUp = () => {
     </span>
   );
 };
-
 
 const Campaigns = () => {
   const history = useHistory();
@@ -54,7 +52,7 @@ const Campaigns = () => {
     setActiveRoute,
   } = useContext(RootContext);
   const [loading, setLoading] = useState(false);
-  const [selectedState, setSelectedState] = useState('Most Recent');
+  const [selectedState, setSelectedState] = useState('Recent Activity');
 
   const [brandDropDown, setBrandDropDown] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -75,7 +73,6 @@ const Campaigns = () => {
       getMeData();
     }
   }, []);
-
 
   const getMeData = async () => {
     try {
@@ -131,7 +128,6 @@ const Campaigns = () => {
         setBrandName(influencersData[0].organization.name);
         setBrandIdd(influencersData[0].organization.id);
         setBrandType(influencersData[0].organization.__typename);
-
       }
       setMeData(mydata.data.me.organizations);
     } catch (e) {
@@ -182,10 +178,17 @@ const Campaigns = () => {
       }`,
       });
 
-      if (campaigns.data && campaigns.data !== null && campaigns.data.campaigns.campaigns) {
-        let myArray = _.sortBy(campaigns.data.campaigns.campaigns, function (dateObj) {
-          return new Date(dateObj.created);
-        }).reverse();
+      if (
+        campaigns.data &&
+        campaigns.data !== null &&
+        campaigns.data.campaigns.campaigns
+      ) {
+        let myArray = _.sortBy(
+          campaigns.data.campaigns.campaigns,
+          function (dateObj) {
+            return new Date(dateObj.created);
+          }
+        ).reverse();
         setCampaigns(myArray);
       }
       setBkupCampaigns(campaigns.data.campaigns.campaigns);
@@ -196,7 +199,6 @@ const Campaigns = () => {
       setShowLoader(false);
     }
   };
-
 
   const getInfluencerCampaigns = async () => {
     try {
@@ -217,10 +219,17 @@ const Campaigns = () => {
         }
       }`,
       });
-      if (influencerCampaigns.data && influencerCampaigns.data !== null && influencerCampaigns.data.influencerCampaigns.campaigns) {
-        let myArray = _.sortBy(influencerCampaigns.data.influencerCampaigns.campaigns, function (dateObj) {
-          return new Date(dateObj.created);
-        }).reverse();
+      if (
+        influencerCampaigns.data &&
+        influencerCampaigns.data !== null &&
+        influencerCampaigns.data.influencerCampaigns.campaigns
+      ) {
+        let myArray = _.sortBy(
+          influencerCampaigns.data.influencerCampaigns.campaigns,
+          function (dateObj) {
+            return new Date(dateObj.created);
+          }
+        ).reverse();
         setCampaigns(myArray);
       }
       setLoading(false);
@@ -229,7 +238,7 @@ const Campaigns = () => {
       setLoading(false);
       setShowLoader(false);
     }
-  }
+  };
 
   useEffect(() => {
     if (brandId !== '') {
@@ -275,7 +284,7 @@ const Campaigns = () => {
   };
   const onSort = (value) => {
     setSelectedState(value);
-    if (value === 'Most Recent') {
+    if (value === 'Recent Activity') {
       let data = [...campaigns];
       let myArray = _.sortBy(data, function (dateObj) {
         return new Date(dateObj.created);
@@ -284,28 +293,27 @@ const Campaigns = () => {
       setAnchorEl(null);
       setBrandDropDown(false);
     }
-    if (value === 'Alphabetical A-Z') {
+    if (value === 'Alphabetical') {
       let data = [...campaigns];
-      let myArray = _.sortBy(data, o => o.name.toLowerCase())
+      let myArray = _.sortBy(data, (o) => o.name.toLowerCase());
       setCampaigns(myArray);
       setAnchorEl(null);
       setBrandDropDown(false);
     }
 
-    if (value === 'Alphabetical Z-A') {
-      let data = [...campaigns];
-      let myArray = _.sortBy(data, o => o.name.toLowerCase()).reverse();
-      setCampaigns(myArray);
-      setAnchorEl(null);
-      setBrandDropDown(false);
-    }
-  }
-
+    // if (value === 'Alphabetical Z-A') {
+    //   let data = [...campaigns];
+    //   let myArray = _.sortBy(data, (o) => o.name.toLowerCase()).reverse();
+    //   setCampaigns(myArray);
+    //   setAnchorEl(null);
+    //   setBrandDropDown(false);
+    // }
+  };
 
   const handleCampaginDetail = (id) => {
-    history.push(`/campaignDetail/${id}`, { campaignId: id })
+    history.push(`/campaignDetail/${id}`, { campaignId: id });
     setActiveRoute('campaignDetail');
-  }
+  };
 
   return (
     <>
@@ -329,35 +337,28 @@ const Campaigns = () => {
         }}
       >
         <div className={styles.popOver}>
-          <div onClick={() => onSort('Most Recent')}>
-            <p>Most Recent</p>
+          <div onClick={() => onSort('Recent Activity')}>
+            <p>Recent Activity</p>
           </div>
-          <div onClick={() => onSort('Alphabetical A-Z')}>
-            <p>Alphabetical A-Z</p>
-          </div>
-          <div onClick={() => onSort('Alphabetical Z-A')}>
-            <p>Alphabetical Z-A</p>
+          <div onClick={() => onSort('Alphabetical')}>
+            <p>Alphabetical</p>
           </div>
         </div>
       </Popover>
 
-      {
-        addCampaign && (
-          <AddCampaign
-            open={addCampaign}
-            handleCancel={() => setAddCampagin(false)}
-            brandId={brandId}
-          />
-        )
-      }
+      {addCampaign && (
+        <AddCampaign
+          open={addCampaign}
+          handleCancel={() => setAddCampagin(false)}
+          brandId={brandId}
+        />
+      )}
       <div className={styles.campaignsContainer}>
         <div className={styles.CampaignHeadingContainer}>
           <div className={styles.CampaignHeading}>
             <span>Campaigns</span>
             <div onClick={handleClick}>
-              <p>
-                {selectedState}
-              </p>
+              <p>{selectedState}</p>
               <div className={styles.brandDropDownSVG}>
                 {brandDropDown ? <ChevronUp /> : <ChevronDown />}
               </div>
@@ -368,8 +369,8 @@ const Campaigns = () => {
               <AddIcon /> New Campaign
             </button>
           ) : (
-              ''
-            )}
+            ''
+          )}
         </div>
         <div className={styles.CampaignHeadingButton}>
           <button
@@ -386,13 +387,13 @@ const Campaigns = () => {
               Draft
             </button>
           ) : (
-              <button
-                className={active === 'INVITED' ? styles.inviteActive : ''}
-                onClick={() => setActive('INVITED')}
-              >
-                Invite
-              </button>
-            )}
+            <button
+              className={active === 'INVITED' ? styles.inviteActive : ''}
+              onClick={() => setActive('INVITED')}
+            >
+              Invite
+            </button>
+          )}
           <button
             className={active === 'PENDING' ? styles.pendingActive : ''}
             onClick={() => setActive('PENDING')}
@@ -419,13 +420,13 @@ const Campaigns = () => {
               Lost
             </button>
           ) : (
-              <button
-                className={active === 'DECLINED' ? styles.declinedActive : ''}
-                onClick={() => setActive('DECLINED')}
-              >
-                Declined
-              </button>
-            )}
+            <button
+              className={active === 'DECLINED' ? styles.declinedActive : ''}
+              onClick={() => setActive('DECLINED')}
+            >
+              Declined
+            </button>
+          )}
         </div>
         {campaigns.length === 0 && !loading ? (
           <Grid
@@ -444,14 +445,13 @@ const Campaigns = () => {
             </Grid>
             <Grid item xs={12}>
               <div className={styles.noCampaignYetHelper}>
-                Click on the New Campaign button to start creating
-                a campaign.
+                Click on the New Campaign button to start creating a campaign.
               </div>
             </Grid>
           </Grid>
         ) : (
-            ''
-          )}
+          ''
+        )}
         <Grid container spacing={3}>
           {campaigns.length > 0 &&
             campaigns.map((campaign) => {
@@ -463,7 +463,7 @@ const Campaigns = () => {
                   <CampaignsCard
                     campaign={campaign}
                     onClick={() => {
-                      handleCampaginDetail(campaign.id)
+                      handleCampaginDetail(campaign.id);
                     }}
                     handleDelete={handleDelete}
                   />
@@ -474,5 +474,5 @@ const Campaigns = () => {
       </div>
     </>
   );
-}
+};
 export default Campaigns;
