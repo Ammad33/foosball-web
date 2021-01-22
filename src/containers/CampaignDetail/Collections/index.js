@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styles from './Collections.module.scss';
 import { Edit } from 'react-feather';
 import { useHistory } from 'react-router-dom';
-import { set } from 'lodash';
+import { Tooltip } from '@material-ui/core';
 
 const Collections = ({ handleEdit, removeSeeAll, products }) => {
 
@@ -27,8 +27,10 @@ const Collections = ({ handleEdit, removeSeeAll, products }) => {
                 && item.collection.products.products.map((pro, index) => {
                   return (
                     <div className={styles.boxContainer} >
-                      <div className={styles.box}></div>
-                      <p className={styles.boxItem}>{pro.name}</p>
+                      <div className={styles.box}><img className={styles.box} src={pro && pro.images && pro.images !== null && pro.images.images.length > 0 && pro.images.images[0].src} /></div>
+                      <Tooltip title={pro.name} placement="bottom">
+                        <p className={styles.boxItem}>{pro.name}</p>
+                      </Tooltip>
                       <p className={styles.boxPrice}>${pro.priceRange && pro.priceRange.max ? pro.priceRange.max.amount : ''} </p>
                       {/* <span>(1234367)</span> */}
                       {pro && pro.estimatedQty && pro.estimatedQty !== null && <p className={styles.boxPrice}> 25 in stock</p>}

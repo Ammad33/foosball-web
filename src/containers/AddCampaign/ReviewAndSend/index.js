@@ -249,8 +249,13 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 										item.products.length > 0 && item.products.map((collection, index) => {
 											return (
 												<div className={styles.collectionItem} key={index}>
-													<div className={styles.itemPlaceholderBox}></div>
-													<p className={styles.itemText}>{collection.name} / #</p>
+													<div className={styles.itemPlaceholderBox}><img className={styles.itemPlaceholderBox} src={collection.images && collection.images.images.length > 0 && collection.images.images[0].src} /></div>
+													<p className={styles.boxItem}>{collection.name}</p>
+													<p className={styles.boxPrice}>${collection.priceRange && collection.priceRange.max ? collection.priceRange.max.amount : ''} </p>
+													{/* <span>(1234367)</span> */}
+													{collection && collection.estimatedQty && collection.estimatedQty !== null && <p className={styles.boxPrice}> 25 in stock</p>}
+
+													{/* <p className={styles.itemText}>{collection.name} / #</p> */}
 												</div>
 											);
 										})

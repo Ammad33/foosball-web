@@ -104,8 +104,9 @@
   .collectionSection {
     .sectionTitle {
       font-size: 18px;
-      margin-bottom: 20px;
+      margin-bottom: 12px;
       font-weight: 500;
+      margin-top: 28px;
     }
     .collectionItems {
       display: flex;
@@ -121,6 +122,28 @@
         .itemText {
           max-width: 140px;
           margin: 10px 0px;
+          white-space: pre;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .boxItem {
+          color: $dark1;
+          font-family: Poppins;
+          font-size: 14px;
+          letter-spacing: 0;
+          line-height: 21px;
+          width: 140px;
+          white-space: pre;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        }
+        .boxPrice {
+          color: $dark1;
+          font-family: Poppins;
+          font-size: 11px;
+          letter-spacing: 0;
+          line-height: 17px;
+         
         }
       }
     }

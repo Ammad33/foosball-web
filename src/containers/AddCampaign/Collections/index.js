@@ -65,11 +65,16 @@ const Collection = ({
   handleCollectionItem,
   handleActiveForCollection,
   handleCollectionExpand,
-  products
+  products,
+  clearCollections
 }) => {
   useEffect(() => {
     handleActiveForCollection();
   }, [products]);
+
+  useEffect(() => {
+    return () => { clearCollections() };
+  }, [])
 
 
   return (
