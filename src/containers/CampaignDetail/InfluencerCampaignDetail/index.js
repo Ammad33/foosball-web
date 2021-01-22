@@ -30,7 +30,9 @@ const CampaignDetailInfluencer = ({
   selectedMembers,
   team,
   updateCampaign,
-  setAll,
+	setAll,
+	campaignId,
+	handleStatus,
 }) => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [step, setStep] = useState(1);
@@ -133,7 +135,9 @@ const CampaignDetailInfluencer = ({
             handleSeeClick={handleSeeClick}
             getTotal={getTotal}
             name={data && data.name}
-            handleDelete={handleDelete}
+						handleDelete={handleDelete}
+						campaignId = {campaignId}
+						handleStatus = {handleStatus}
           />
         );
       case 'LOST':

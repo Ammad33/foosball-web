@@ -1020,8 +1020,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         case 'CASH_PER_POST':
           return {
             type: 'CASH_PER_POST',
-            value:
-              '{"amount":{"amount": "' + item.amount + '","currency":"USD"}}',
+						value:
+						'{\"amount\":{\"amount\":\"' + item.amount + '\",\"currency\":\"USD\"}}',
           };
         case 'CASH_PER_MONTHLY_DELIVERABLE':
           return {
@@ -1103,7 +1103,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       if (compensations && compensations.length > 0 && compensations[0].compensationType !== '') {
         data = {
           ...data, compensation: getCompensations()
-        }
+				}
       }
 
       if (stepSeven) {
@@ -1114,7 +1114,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
       if (influencer && influencer.id && influencer.id !== '') {
         data.influencerId = influencer.id;
-      }
+			}
+				
       let response = await API.graphql(
         graphqlOperation(
           `mutation createCampaign($input: CreateCampaignInput!) {
@@ -1383,7 +1384,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     const deliverables = [...deliveries];
 
     let flag = true;
-
     deliverables.forEach((delive) => {
       if (delive.platform === 'Facebook' || delive.platform === 'Instagram') {
         if (delive.deliverableType === 'Post') {
@@ -1392,7 +1392,12 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         else if (delive.framesRequired == null) {
           delive.framesRequired = '';
         }
-      }
+			}
+			if (delive.platform === 'Youtube' || delive.platform === 'Tiktok'){
+				delive.frameContentType = null;
+				delive.framesRequired = null;
+				delive.deliverableType = null;
+			}
       if (
         delive.deadlineDate === '' ||
         delive.platform === '' ||

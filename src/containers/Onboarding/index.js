@@ -210,7 +210,7 @@ const Onboarding = () => {
 						input: {
 							currencyType: 'USD',
 							timezone: 10,
-							handle: '',
+							fullName: '',
 						},
 					};
 					const influencerMutationQuery = `mutation createInfluencer($input: CreateInfluencerInput!) {

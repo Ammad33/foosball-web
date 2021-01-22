@@ -307,7 +307,6 @@ const Campaigns = () => {
     setActiveRoute('campaignDetail');
   }
 
-
   return (
     <>
       <Popover
@@ -388,8 +387,8 @@ const Campaigns = () => {
             </button>
           ) : (
               <button
-                className={active === 'INVITE' ? styles.inviteActive : ''}
-                onClick={() => setActive('INVITE')}
+                className={active === 'INVITED' ? styles.inviteActive : ''}
+                onClick={() => setActive('INVITED')}
               >
                 Invite
               </button>

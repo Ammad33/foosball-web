@@ -17,7 +17,9 @@ const InviteInfluencer = ({
   data,
   handleSeeClick,
   getTotal,
-  name,
+	name,
+	campaignId,
+	handleStatus,
 }) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -31,7 +33,6 @@ const InviteInfluencer = ({
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
   return (
     <>
       <Popover
@@ -88,7 +89,10 @@ const InviteInfluencer = ({
         </div>
 
         <div className={styles.firstConatiner}>
-          <InviteCard />
+          <InviteCard 
+					createdById = {data.brand.id}
+					campaignId = {campaignId}
+					handleStatus = {handleStatus} />
           <Activity onClick={handleSeeClick} />
         </div>
         <div className={styles.secondContainer}>

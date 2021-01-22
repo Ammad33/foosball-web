@@ -7,7 +7,7 @@ import {RootContext} from '../../../context/RootContext';
 
 
 
-const InviteCard = () => {
+const InviteCard = ({createdById, campaignId, handleStatus}) => {
 	const [decline, setDecline] = useState(false);
 	const [declineReason , setDeclineReason] = useState('');
 	const [reasonDetail , setReasonDetail] = useState('');
@@ -29,6 +29,9 @@ const InviteCard = () => {
 	const handleReasonDetail = (val) => {
 		setReasonDetail(val);
 	}
+	const handleAcceptInvite = () => {
+		AcceptCampaignInvite()
+	}
 
 	const AcceptCampaignInvite = async () => {
 		try {
@@ -36,16 +39,17 @@ const InviteCard = () => {
 				graphqlOperation(
 					`mutation AcceptInvite {
 						acceptCampaignInvite(input: {
-							brandId: "a2c47aec-589d-4c41-9874-6471e76485bb", 
+							brandId: "${createdById}" , 
 							influencerId: "${brandId}", 
-							id: "campaign#0fc57bbd-bf04-4880-9260-a9282673d6f1"}) 
+							id: "${campaignId}"}) 
 							{
 							id
 						}
 					}`
 				)
 			)
-		}
+			handleStatus();	
+		}	
 		catch(e) {
 			console.log("Error in accepting invite, e")
 		}
@@ -71,7 +75,7 @@ const InviteCard = () => {
             <p className={styles.firstp}>"Hi sam, we are so excited for the chance to work with you, we.</p>
             <p className={styles.secondp}>love your content and hope that you see value in working with</p>
             <div className={styles.buttonContainer}>
-                <button className={styles.accept} onClick={AcceptCampaignInvite()} >Accept</button>
+                <button className={styles.accept} onClick={()=>handleAcceptInvite()} >Accept</button>
                 <button className={styles.nego}>Negotiate</button>
                 <button className={styles.decline} onClick={() => setDecline(true)} >Decline</button>
             </div>

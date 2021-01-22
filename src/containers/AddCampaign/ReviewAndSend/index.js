@@ -17,7 +17,9 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 	});
 
 	console.log(products);
-
+	const numberWithCommas = (x) => {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
 	const getCompensationType = (compensation) => {
 		switch (compensation) {
 			case 'REVENUE_SHARE':
@@ -52,17 +54,16 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 	}
 
 	const getCompensationAmount = (compensation) => {
-
 		switch (compensation.compensationType) {
 			case 'REVENUE_SHARE':
 				return (
-					<span>{compensation.amount && compensation.amount}% ($ { compensation.amount * targetGrossSale / 100})</span>);
+					<span>{compensation.amount && numberWithCommas(Math.trunc(parseFloat(compensation.amount)))}% ($ { compensation.amount * targetGrossSale / 100})</span>);
 			case 'CASH_PER_POST':
-				return (<span>$ {compensation.amount && compensation.amount}</span>);
+				return (<span>$ {compensation.amount && numberWithCommas(Math.trunc(parseFloat(compensation.amount)))}</span>);
 			case 'CASH_PER_MONTHLY_DELIVERABLE':
-				return (<span>$ {compensation.amount && compensation.amount}</span>);
+				return (<span>$ {compensation.amount && numberWithCommas(Math.trunc(parseFloat(compensation.amount)))}</span>);
 			case 'GIFT_CARD':
-				return (<span>$ {compensation.amount && compensation.amount}</span>);
+				return (<span>$ {compensation.amount && numberWithCommas(Math.trunc(parseFloat(compensation.amount)))}</span>);
 			default:
 				return <span></span>
 		}
@@ -74,11 +75,11 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 				return (
 					<h5>${parseFloat(compensation.amount && (compensation.amount * parseFloat(targetGrossSale) / 100).toFixed(2))}</h5>);
 			case 'CASH_PER_POST':
-				return (<h5>${compensation.amount && compensation.amount}</h5>);
+				return (<h5>${compensation.amount && numberWithCommas(Math.trunc(parseFloat(compensation.amount)))}*</h5>);
 			case 'CASH_PER_MONTHLY_DELIVERABLE':
-				return (<h5>${compensation.amount && compensation.amount}</h5>);
+				return (<h5>${compensation.amount && numberWithCommas(Math.trunc(parseFloat(compensation.amount)))}*</h5>);
 			case 'GIFT_CARD':
-				return (<h5>${compensation.amount && compensation.amount}</h5>);
+				return (<h5>${compensation.amount && numberWithCommas(Math.trunc(parseFloat(compensation.amount)))}*</h5>);
 			default:
 				return <h5></h5>
 		}
@@ -105,7 +106,7 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 			}
 		});
 
-		return over;
+		return parseFloat(over).toFixed;
 	}
 
 	const [collectionData, setCollectionData] = useState([]);
@@ -113,7 +114,6 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 	useEffect(() => {
 		let collls = [];
 		if (products && products.length > 0) {
-			// debugger;
 			products.forEach(item => {
 				let index = collections.findIndex(collItem => collItem.id === item.collectionId);
 				if (index !== -1) {
@@ -157,13 +157,13 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 						<Grid item xs={4}>
 							<div className={styles.campaignItemInfo}>
 								<p>Start Date, Time</p>
-								<span>{moment(startDate).format('MM/DD/YYYY')},  {startTime}</span>
+								<span>{moment(startDate).format('MM/DD/YYYY')}, {startTime}</span>
 							</div>
 						</Grid>
 						<Grid item xs={4}>
 							<div className={styles.campaignItemInfo}>
 								<p>End Date, Time</p>
-								<span>{moment(endDate).format('MM/DD/YYYY')},  {endTime}</span>
+								<span>{moment(endDate).format('MM/DD/YYYY')}, {endTime}</span>
 							</div>
 						</Grid>
 						<Grid item xs={4}>
@@ -217,13 +217,13 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 						<Grid item xs={4}>
 							<div className={styles.budgetContainerItem}>
 								<p>Budget</p>
-								<span>${budget}</span>
+								<span>${numberWithCommas(Math.trunc(budget))}</span>
 							</div>
 						</Grid>
 						<Grid item xs={4}>
 							<div className={styles.budgetContainerItem}>
 								<p>Target Gross Sale Goal</p>
-								<span>${targetGrossSale}</span>
+								<span>${numberWithCommas(Math.trunc(targetGrossSale))}</span>
 							</div>
 						</Grid>
 					</Grid>
@@ -348,7 +348,7 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 					compensations.map((item, index) => {
 						return (
 							<div className={styles.compensationContainer} key={index}>
-								<div className={styles.compensationHeading}><h4>Compensation Type {index + 1}</h4>{getCompensationTypeValue(item)}</div>
+								<div className={styles.compensationHeading}><h4>Compensation Type {index + 1}</h4><h5>{(getCompensationTypeValue(item))}</h5></div>
 								<Grid container spacing={3}>
 									<Grid item xs={4}>
 										<div className={styles.compensationItem}>
@@ -367,10 +367,10 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 						)
 					})
 				}
-				<div className={styles.compensationHeading}><h4>Total Compensation Estimate:</h4><h5>${getTotal()}</h5></div>
+				<div className={styles.compensationHeading}><h4>Total Compensation Estimate:</h4><h5>${numberWithCommas(Math.trunc((getTotal())))}</h5></div>
 
 				{overAmount() > 0 && <div style={{ margin: '20px 0px 10px 0px' }} className={styles.compensationBadge}>
-					<p>You are ${overAmount()} over budget</p>
+					<p>You are ${numberWithCommas(Math.trunc(overAmount()))} over budget</p>
 				</div>}
 				<p className={styles.estimateText}>* estimated amount based on target sales</p>
 			</div>

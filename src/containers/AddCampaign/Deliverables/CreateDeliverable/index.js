@@ -174,8 +174,8 @@ const CreateDeliverable = ({
             </MenuItem>
             <MenuItem value={'Instagram'}>Instagram </MenuItem>
             <MenuItem value={'Facebook'}>Facebook </MenuItem>
-            <MenuItem value={'Youtube'}>Youtube</MenuItem>
-            <MenuItem value={'Tiktok'}>Tiktok</MenuItem>
+            <MenuItem value={'Youtube'}>YouTube</MenuItem>
+            <MenuItem value={'Tiktok'}>TikTok</MenuItem>
           </TextField>
         </FormControl>
       </Grid>

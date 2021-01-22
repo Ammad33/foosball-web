@@ -371,7 +371,7 @@ const CampaignDetail = ({ location }) => {
           }
          
       }`,
-      });
+			});
       if (brandType.toLowerCase() == 'influencer') {
         campaign.data.influencerCampaign && campaign.data.influencerCampaign !== null && campaign.data.influencerCampaign.deliverables && campaign.data.influencerCampaign.deliverables !== null && campaign.data.influencerCampaign.deliverables.map((deliverable) => {
           deliverable.deliverableType =
@@ -668,8 +668,10 @@ const CampaignDetail = ({ location }) => {
           search={search}
           handleSearch={handleSearch}
           updateCampaign={updateCampaign}
-          setAll={setAll}
-          headingValue={headingValue}
+					setAll={setAll}
+					headingValue={headingValue}
+					campaignId = {campaignId}
+					handleStatus = {()=> setStatus('PENDING')}
         />
       ) : (
           <BrandCampaignDetail
