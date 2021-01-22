@@ -29,23 +29,54 @@ export default ({ children }) => {
   const [toastrData, setToastrData] = useState({});
 
   useEffect(() => {
-    if (!currentUser) window.localStorage.clear();
-    else window.localStorage.setItem('user', JSON.stringify(currentUser));
-    if (!activeRoute) localStorage.removeItem('route');
-    else localStorage.setItem('route', activeRoute);
-    if (!brandId) localStorage.removeItem('bId');
-    else localStorage.setItem('bId', brandId);
-    if (!brands || brands == null) localStorage.removeItem('brands');
-    else localStorage.setItem('brands', JSON.stringify(brands));
-    if (!influencers || influencers == null)
+    if (!currentUser) {
+      localStorage.clear();
+    } else {
+      localStorage.removeItem('user');
+      localStorage.setItem('user', JSON.stringify(currentUser));
+    }
+    if (!activeRoute) {
+      localStorage.removeItem('route');
+    } else {
+      localStorage.removeItem('route');
+      localStorage.setItem('route', activeRoute);
+    }
+    if (!brandId) {
+      localStorage.removeItem('bId');
+    } else {
+      localStorage.removeItem('bId');
+      localStorage.setItem('bId', brandId);
+    }
+    if (!brands || brands == null) {
+      localStorage.removeItem('brands');
+    } else {
+      localStorage.removeItem('brands');
+      localStorage.setItem('brands', JSON.stringify(brands));
+    }
+    if (!influencers || influencers == null) {
       localStorage.removeItem('influencers');
-    else localStorage.setItem('influencers', JSON.stringify(influencers));
-    if (!brandName) localStorage.removeItem('bName');
-    else localStorage.setItem('bName', brandName);
-    if (!brandType) localStorage.removeItem('bType');
-    else localStorage.setItem('bType', brandType);
-    if (!roleId) localStorage.removeItem('rId');
-    else localStorage.setItem('rId', roleId);
+    } else {
+      localStorage.removeItem('influencers');
+      localStorage.setItem('influencers', JSON.stringify(influencers));
+    }
+    if (!brandName) {
+      localStorage.removeItem('bName');
+    } else {
+      localStorage.removeItem('bName');
+      localStorage.setItem('bName', brandName);
+    }
+    if (!brandType) {
+      localStorage.removeItem('bType');
+    } else {
+      localStorage.removeItem('bType');
+      localStorage.setItem('bType', brandType);
+    }
+    if (!roleId) {
+      localStorage.removeItem('rId');
+    } else {
+      localStorage.removeItem('rId');
+      localStorage.setItem('rId', roleId);
+    }
     // if (!organization) localStorage.removeItem('org');
     // else localStorage.setItem('org', organization);
   }, [
