@@ -19,17 +19,16 @@ const EyeSVG = () => {
 };
 
 const Login = () => {
-
   const history = useHistory();
 
   const [passwordShown, setPasswordShown] = useState(false);
+  const { setShowLoader } = useContext(RootContext);
 
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
 
-
-  const handleKeypress = e => {
+  const handleKeypress = (e) => {
     if (e.keyCode === 13) {
       onSignin();
     }
@@ -49,15 +48,18 @@ const Login = () => {
   const [meData, setMeData] = useState([]);
 
   const onSignin = async () => {
+    setShowLoader(true);
     try {
       const user = await Auth.signIn(email, password);
       setCurrentUser(user);
       setLogoutMessage('');
-			getMeData();
-			setActiveRoute('Campaign')
+      getMeData();
+      setActiveRoute('Campaign');
+      setShowLoader(false);
     } catch (e) {
       setErrorMessage(e.message);
       setLogoutMessage('');
+      setShowLoader(false);
     }
   };
 
@@ -94,8 +96,6 @@ const Login = () => {
     }
   };
 
-
-
   return (
     <div className={styles.signinContainer}>
       <h1 className={styles.heading}>Login</h1>
@@ -124,11 +124,11 @@ const Login = () => {
                     <EyeSVG />{' '}
                   </div>
                 ) : (
-                    <div onClick={togglePasswordVisiblity}>
-                      {' '}
-                      <EyeOffSVG />{' '}
-                    </div>
-                  )}
+                  <div onClick={togglePasswordVisiblity}>
+                    {' '}
+                    <EyeOffSVG />{' '}
+                  </div>
+                )}
               </span>
             </InputAdornment>
           ),

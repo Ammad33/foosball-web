@@ -38,6 +38,8 @@ const Signup = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [errorState, setErrorState] = useState(false);
 
+  const { setShowLoader } = useContext(RootContext);
+
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
@@ -45,6 +47,7 @@ const Signup = () => {
   const onSignup = async () => {
     try {
       if (terms === true) {
+        setShowLoader(true);
         const user = await Auth.signUp({
           username,
           password,
@@ -55,6 +58,7 @@ const Signup = () => {
         setErrorState(false);
         setLogoutMessage('');
         setErrorMessage('');
+        setShowLoader(false);
         history.push('/onboarding');
       } else {
         setErrorMessage('Terms and conditions');
@@ -64,6 +68,7 @@ const Signup = () => {
       setErrorMessage(e.message);
       setErrorState(true);
       setLogoutMessage('');
+      setShowLoader(false);
     }
   };
 
@@ -104,11 +109,11 @@ const Signup = () => {
                     <EyeSVG />{' '}
                   </div>
                 ) : (
-                    <div onClick={togglePasswordVisiblity}>
-                      {' '}
-                      <Eye_offSVG />{' '}
-                    </div>
-                  )}
+                  <div onClick={togglePasswordVisiblity}>
+                    {' '}
+                    <Eye_offSVG />{' '}
+                  </div>
+                )}
               </span>
             </InputAdornment>
           ),
@@ -122,13 +127,13 @@ const Signup = () => {
               <CheckCircleIcon onClick={handleTerms} />
             </span>
           ) : (
-              <span>
-                <RadioButtonUncheckedIcon
-                  onClick={handleTerms}
-                  className={styles.svgDisabled}
-                />
-              </span>
-            )}
+            <span>
+              <RadioButtonUncheckedIcon
+                onClick={handleTerms}
+                className={styles.svgDisabled}
+              />
+            </span>
+          )}
         </Grid>
         <Grid item xs={10}>
           <p className={styles.textStyle1}>
