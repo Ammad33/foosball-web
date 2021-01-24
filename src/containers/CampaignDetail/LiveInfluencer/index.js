@@ -131,7 +131,7 @@ const LiveInfluencer = ({
               />
             </div>
             <div style={{ marginTop: '30px' }}>
-              <Collections handleEdit={handleEdit} />
+              <Collections handleEdit={handleEdit} id={data.id} />
             </div>
           </div>
           <div className={styles.second}>

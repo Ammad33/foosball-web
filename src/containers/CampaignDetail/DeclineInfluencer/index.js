@@ -106,7 +106,7 @@ const DeclineInfluencer = ({
               />
             </div>
             <div style={{ marginTop: '30px' }}>
-              <Collections handleEdit={handleEdit} products={data.products} />
+              <Collections handleEdit={handleEdit} products={data.products} id={data.id} />
             </div>
           </div>
           <div className={styles.second}>

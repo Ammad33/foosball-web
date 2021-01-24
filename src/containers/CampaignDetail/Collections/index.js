@@ -1,13 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Collections.module.scss';
 import { Edit } from 'react-feather';
 import { useHistory } from 'react-router-dom';
 import { Tooltip } from '@material-ui/core';
 
-const Collections = ({ handleEdit, removeSeeAll, products }) => {
+const Collections = ({ handleEdit, removeSeeAll, products, id }) => {
 
   const history = useHistory();
-  const [counter, setCounter] = useState(0);
+
+
+  let counter = 0;
+  let second = 0;
+  const [enable, setEnable] = useState(false);
+
+  useEffect(() => {
+    if (counter >= 8 || second >= 2) {
+      setEnable(true);
+    }
+  }, [counter, second, products]);
 
   return (<div className={styles.collectionContainer}>
     <div className={styles.headerContainer}>
@@ -15,27 +25,30 @@ const Collections = ({ handleEdit, removeSeeAll, products }) => {
       <Edit onClick={() => handleEdit(4)} />
     </div>
     {
-      products && products !== null && products.length > 0 &&
+      products && products !== null && products.length > 0 && counter < 9 &&
       products.map(item => {
-
+        second = second + 1;
         return (
           <div className={styles.collectionSubContent}>
-            <h6>{item.collection && item.collection.name}</h6>
+            {counter < 8 && second < 3 && <h6>{item.collection && item.collection.name}</h6>}
             <div className={styles.containerRow}>
               {
-                item.collection && item.collection.products
-                && item.collection.products.products.map((pro, index) => {
-                  return (
-                    <div className={styles.boxContainer} >
-                      <div className={styles.box}><img className={styles.box} src={pro && pro.images && pro.images !== null && pro.images.images.length > 0 && pro.images.images[0].src} /></div>
-                      <Tooltip title={pro.name} placement="bottom">
-                        <p className={styles.boxItem}>{pro.name}</p>
-                      </Tooltip>
-                      <p className={styles.boxPrice}>${pro.priceRange && pro.priceRange.max ? pro.priceRange.max.amount : ''} </p>
-                      {/* <span>(1234367)</span> */}
-                      {pro && pro.estimatedQty && pro.estimatedQty !== null && <p className={styles.boxPrice}> 25 in stock</p>}
-                    </div>
-                  )
+                item.products && item.products.length > 0 &&
+                item.products.map((pro, index) => {
+                  counter = counter + 1;
+                  if (counter < 9 && second < 3) {
+                    return (
+                      <div className={styles.boxContainer} >
+                        <div className={styles.box}><img className={styles.box} src={pro && pro.product.images && pro.product.images !== null && pro.product.images.images.length > 0 && pro.product.images.images[0].src} /></div>
+                        <Tooltip title={pro.name} placement="bottom">
+                          <p className={styles.boxItem}>{pro.product.name}</p>
+                        </Tooltip>
+                        <p className={styles.boxPrice}>${pro.product.priceRange && pro.product.priceRange.max ? pro.product.priceRange.max.amount : ''} </p>
+                        {/* <span>(1234367)</span> */}
+                        {pro && pro.product.estimatedQty && pro.product.estimatedQty !== null && <p className={styles.boxPrice}> 25 in stock</p>}
+                      </div>
+                    )
+                  }
                 }
                 )
               }
@@ -46,8 +59,8 @@ const Collections = ({ handleEdit, removeSeeAll, products }) => {
       })
     }
 
-    {counter < 9 ? null : <button onClick={() => history.push('/collections')} >See all</button>}
-  </div>);
+    {enable === false ? null : <button onClick={() => history.push(`/collections/${id}`, { campaignId: id })} >See all</button>}
+  </div >);
 }
 
 export default Collections;

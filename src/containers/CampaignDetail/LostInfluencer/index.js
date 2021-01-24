@@ -117,7 +117,7 @@ const LostInfluencer = ({ handleEdit, data, handleSeeClick, name }) => {
         </div>
         <div className={styles.secondContainer} style={{ marginTop: '30px' }}>
           <div>
-            <Collections handleEdit={handleEdit} />
+            <Collections handleEdit={handleEdit} id={data.id} />
           </div>
           <div className={styles.second}>
             <Deliverables

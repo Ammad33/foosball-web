@@ -113,6 +113,7 @@ const CampaignDetail = ({ location }) => {
   };
 
   const getCampaign = async () => {
+
     try {
       const campaign = await API.graphql({
         query: brandType.toLowerCase() === 'influencer' ? `{
@@ -127,30 +128,31 @@ const CampaignDetail = ({ location }) => {
               collection {
                 id
                 name
-                products {
-                  products {
-                    id
-                    name
-                    priceRange {
-                      max {
-                        amount
-                        currency
-                      }
-                      min {
-                        amount
-                        currency
-                      }
+              }
+              products {
+                product {
+                  id
+                  name
+                  priceRange {
+                    max {
+                      amount
+                      currency
                     }
-                    images {
-                      images {
-                        src
-                        altText
-                      }
+                    min {
+                      amount
+                      currency
                     }
                   }
+                  images {
+                    images {
+                      altText
+                      src
+                    }
+                  }
+                  estimatedQty
                 }
               }
-            }        
+            }     
 						discount {
 							... on PercentageDiscount {
 								__typename
@@ -254,31 +256,31 @@ const CampaignDetail = ({ location }) => {
               collection {
                 id
                 name
-                products {
-                  products {
-                    id
-                    name
-                    estimatedQty
-          priceRange {
-            max {
-              amount
-              currency
-            }
-            min {
-              amount
-              currency
-            }
-          }
-          images {
-            images {
-              src
-              altText
-            }
-          }
+              }
+              products {
+                product {
+                  id
+                  name
+                  priceRange {
+                    max {
+                      amount
+                      currency
+                    }
+                    min {
+                      amount
+                      currency
+                    }
                   }
+                  images {
+                    images {
+                      altText
+                      src
+                    }
+                  }
+                  estimatedQty
                 }
               }
-            }        
+            }       
 						discount {
 							... on PercentageDiscount {
 								__typename
@@ -371,7 +373,7 @@ const CampaignDetail = ({ location }) => {
           }
          
       }`,
-			});
+      });
       if (brandType.toLowerCase() == 'influencer') {
         campaign.data.influencerCampaign && campaign.data.influencerCampaign !== null && campaign.data.influencerCampaign.deliverables && campaign.data.influencerCampaign.deliverables !== null && campaign.data.influencerCampaign.deliverables.map((deliverable) => {
           deliverable.deliverableType =
@@ -668,10 +670,10 @@ const CampaignDetail = ({ location }) => {
           search={search}
           handleSearch={handleSearch}
           updateCampaign={updateCampaign}
-					setAll={setAll}
-					headingValue={headingValue}
-					campaignId = {campaignId}
-					handleStatus = {()=> setStatus('PENDING')}
+          setAll={setAll}
+          headingValue={headingValue}
+          campaignId={campaignId}
+          handleStatus={() => setStatus('PENDING')}
         />
       ) : (
           <BrandCampaignDetail

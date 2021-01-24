@@ -394,10 +394,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     let productSample = [];
     campaign.products && campaign.products.length > 0 &&
       campaign.products.forEach(product => {
-        if (product.collection.products && product.collection.products.products.length > 0) {
+        if (product.products && product.products.length > 0) {
           productSample.push({
             collectionId: product.collection.id,
-            products: product.collection.products.products.map(item => ({ productId: item.id }))
+            products: product.products.map(item => ({ productId: item.product.id }))
           })
         }
       })
@@ -751,6 +751,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             setProducts(opts);
           } else {
             opts[index].products.splice(secondIndex, 1);
+            if (opts[index].products && opts[index].products.length === 0) {
+              opts.splice(index, 1)
+            }
             setProducts(opts);
           }
         }
@@ -939,7 +942,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     }
   };
 
-  console.log(products);
+  // console.log(products);
 
   const getNegotiablesObjectForAPI = () => {
     let data = {};
@@ -1019,9 +1022,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           };
         case 'CASH_PER_POST':
           return {
-            type: 'CASH_PER_POST',
+            type: "CASH_PER_POST",
             value:
-              '{\"amount\":{\"amount\":\"' + item.amount + '\",\"currency\":\"USD\"}}',
+              "{\"amount\":{\"amount\":\"" + item.amount + "\",\"currency\":\"USD\"}}",
           };
         case 'CASH_PER_MONTHLY_DELIVERABLE':
           return {
@@ -1133,10 +1136,11 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           }
         )
       );
-      handleCancel();
 
       if (response && response !== null && response.data !== null && response.data.createCampaign !== null) {
-        updateCampaignProducts(response.data.createCampaign.id)
+        updateCampaignProducts(response.data.createCampaign.id);
+        handleCancel();
+
         return response.data.createCampaign.id;
       } else {
         return null
@@ -1190,9 +1194,13 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             }
           )
         );
+        handleCancel();
+
       } catch (err) {
         console.log(err);
       }
+    } else {
+      handleCancel();
     }
   }
 
@@ -1289,7 +1297,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       );
 
       updateCampaignProducts(campaign.id);
-      handleCancel();
+      // handleCancel();
       if (response && response !== null && response.createCampaign.id) {
         return response.createCampaign.id;
       } else {

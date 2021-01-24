@@ -142,23 +142,26 @@ const BrandCampaignDetail = ({ headingValue, handleDelete, status, addCampaign, 
   };
 
   const handleActiveStep = () => {
-    let negotialble = true;
-    Object.values(data.negotiables).forEach(item => {
-      if (item === true) {
-        negotialble = false;
-      }
-    });
 
-    if ((data.discount && data.discount.percentage && data.discount.percentage === "" || data.discount.amount && data.discount.amount.amount === '') || data.invitationMessage === "") {
+    let negotialble = true;
+    if (data && data.negotiables && data.negotiables !== null) {
+      Object.values(data.negotiables).forEach(item => {
+        if (item === true) {
+          negotialble = false;
+        }
+      });
+    }
+
+    if ((data.discount && data.discount !== null && data.discount.percentage && data.discount.percentage === "" || data.discount.amount && data.discount.amount.amount === '') || data.invitationMessage === "") {
       setStep(1);
       setAddCampagin(true);
-    } else if ((data.budget.amount === "") || (data.targetGrossSales.amount === "")) {
+    } else if (data.budget === null || data.budget.amount === "" || data.targetGrossSales === null || data.targetGrossSales.amount === "") {
       setStep(3);
       setAddCampagin(true);
-    } else if (data.deliverables && data.deliverables.length === 0) {
+    } else if (data.deliverables === null || data.deliverables.length === 0) {
       setStep(5);
       setAddCampagin(true);
-    } else if (data.compensation && data.compensation.length === 0) {
+    } else if (data.compensation == null || data.compensation.length === 0) {
       setStep(6);
       setAddCampagin(true);
     } else if (negotialble) {

@@ -296,7 +296,7 @@ const PendingBrandCampaignDetail = ({
 						<BudgetAndConversion handleEdit={handleEdit} data={data} />
 					</div>
 					<div className={styles.flexContainer}>
-						<Collections handleEdit={handleEdit} products={data.products} />
+						<Collections handleEdit={handleEdit} products={data.products} id={data.id} />
 						<Deliverables
 							deliverables={data.deliverables}
 							handleEdit={handleEdit}

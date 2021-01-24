@@ -140,7 +140,7 @@ const LostBrandCampaignDetail = ({
             <BudgetAndConversion handleEdit={handleEdit} data={data} />
           </div>
           <div className={styles.flexContainer}>
-            <Collections handleEdit={handleEdit} />
+            <Collections handleEdit={handleEdit} id={data.id} />
             <Deliverables
               deliverables={data.deliverables}
               handleEdit={handleEdit}

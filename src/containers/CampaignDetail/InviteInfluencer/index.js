@@ -17,9 +17,9 @@ const InviteInfluencer = ({
   data,
   handleSeeClick,
   getTotal,
-	name,
-	campaignId,
-	handleStatus,
+  name,
+  campaignId,
+  handleStatus,
 }) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -89,10 +89,10 @@ const InviteInfluencer = ({
         </div>
 
         <div className={styles.firstConatiner}>
-          <InviteCard 
-					createdById = {data.brand.id}
-					campaignId = {campaignId}
-					handleStatus = {handleStatus} />
+          <InviteCard
+            createdById={data.brand.id}
+            campaignId={campaignId}
+            handleStatus={handleStatus} />
           <Activity onClick={handleSeeClick} />
         </div>
         <div className={styles.secondContainer}>
@@ -110,7 +110,7 @@ const InviteInfluencer = ({
               />
             </div>
             <div style={{ marginTop: '30px' }}>
-              <Collections handleEdit={handleEdit} products={data.products} />
+              <Collections handleEdit={handleEdit} products={data.products} id={data.id} />
             </div>
           </div>
           <div className={styles.second}>

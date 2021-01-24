@@ -51,7 +51,7 @@ const App = () => {
               <CampaignDetail />
             </Layout>
           </ProtectedRoute>
-          <ProtectedRoute exact path='/collections'>
+          <ProtectedRoute exact path='/collections/:id'>
             <Layout>
               <Collections />
             </Layout>

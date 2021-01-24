@@ -30,9 +30,9 @@ const CampaignDetailInfluencer = ({
   selectedMembers,
   team,
   updateCampaign,
-	setAll,
-	campaignId,
-	handleStatus,
+  setAll,
+  campaignId,
+  handleStatus,
 }) => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [step, setStep] = useState(1);
@@ -45,11 +45,13 @@ const CampaignDetailInfluencer = ({
 
   const handleActiveStep = () => {
     let negotialble = true;
-    Object.values(data.negotiables).map((item) => {
-      if (item === true) {
-        negotialble = false;
-      }
-    });
+    if (data && data.negotiables && data.negotiables !== null) {
+      Object.values(data.negotiables).map((item) => {
+        if (item === true) {
+          negotialble = false;
+        }
+      });
+    }
 
     if (
       (data.discount && data.discount !== null &&
@@ -135,9 +137,9 @@ const CampaignDetailInfluencer = ({
             handleSeeClick={handleSeeClick}
             getTotal={getTotal}
             name={data && data.name}
-						handleDelete={handleDelete}
-						campaignId = {campaignId}
-						handleStatus = {handleStatus}
+            handleDelete={handleDelete}
+            campaignId={campaignId}
+            handleStatus={handleStatus}
           />
         );
       case 'LOST':

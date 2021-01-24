@@ -46,6 +46,7 @@
 .containerRow {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 30px;
 }
 
@@ -64,6 +65,11 @@
     font-size: 14px;
     letter-spacing: 0;
     line-height: 21px;
+    width: 140px;
+    white-space: pre;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
   }
   .boxPrice {
     color: $dark1;
