@@ -110,7 +110,7 @@ const LiveInfluencer = ({
         {/* <Performance /> */}
         <div className={styles.firstConatiner}>
           <LiveCard />
-          <Activity onClick={handleSeeClick} />
+          <Activity activities={data?.events} onClick={handleSeeClick} />
         </div>
         <div style={{ margin: '30px 0px' }}>
           <Performance />

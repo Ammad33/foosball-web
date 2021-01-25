@@ -92,8 +92,9 @@ const InviteInfluencer = ({
           <InviteCard
             createdById={data.brand.id}
             campaignId={campaignId}
-            handleStatus={handleStatus} />
-          <Activity onClick={handleSeeClick} />
+            handleStatus={handleStatus}
+          />
+          <Activity activities={data?.events} onClick={handleSeeClick} />
         </div>
         <div className={styles.secondContainer}>
           <div>
@@ -110,7 +111,11 @@ const InviteInfluencer = ({
               />
             </div>
             <div style={{ marginTop: '30px' }}>
-              <Collections handleEdit={handleEdit} products={data.products} id={data.id} />
+              <Collections
+                handleEdit={handleEdit}
+                products={data.products}
+                id={data.id}
+              />
             </div>
           </div>
           <div className={styles.second}>

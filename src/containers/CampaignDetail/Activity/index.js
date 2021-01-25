@@ -9,7 +9,8 @@ const Activity = ({ activities, onClick }) => {
       <h1>Activity</h1>
       <div className={styles.mainDiv}>
         {seeAll
-          ? activities.map((activity, index) => {
+          ? activities &&
+            activities.map((activity, index) => {
               if (index < 3) {
                 return (
                   <div className={styles.activitySubContent}>
@@ -22,7 +23,8 @@ const Activity = ({ activities, onClick }) => {
                 return '';
               }
             })
-          : activities.map((activity) => {
+          : activities &&
+            activities.map((activity) => {
               return (
                 <div className={styles.activitySubContent}>
                   <span>{activity.time}</span>

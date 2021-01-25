@@ -54,24 +54,37 @@ const CampaignDetailInfluencer = ({
     }
 
     if (
-      (data.discount && data.discount !== null &&
+      (data.discount &&
+        data.discount !== null &&
         data.discount.percentage &&
-        data.discount.percentage === '') || data.discount === null ||
-      (data.discount !== null && data.discount.amount && data.discount.amount.amount === '') ||
-      data.invitationMessage === null || data.invitationMessage === ''
+        data.discount.percentage === '') ||
+      data.discount === null ||
+      (data.discount !== null &&
+        data.discount.amount &&
+        data.discount.amount.amount === '') ||
+      data.invitationMessage === null ||
+      data.invitationMessage === ''
     ) {
       setStep(1);
       setAddCampagin(true);
     } else if (
-      data.budget === null || data.budget.amount === '' ||
-      data.targetGrossSales === null || data.targetGrossSales.amount === ''
+      data.budget === null ||
+      data.budget.amount === '' ||
+      data.targetGrossSales === null ||
+      data.targetGrossSales.amount === ''
     ) {
       setStep(3);
       setAddCampagin(true);
-    } else if (data.deliverables === null || data.deliverables && data.deliverables.length === 0) {
+    } else if (
+      data.deliverables === null ||
+      (data.deliverables && data.deliverables.length === 0)
+    ) {
       setStep(5);
       setAddCampagin(true);
-    } else if (data.compensation === null || data.compensation && data.compensation.length === 0) {
+    } else if (
+      data.compensation === null ||
+      (data.compensation && data.compensation.length === 0)
+    ) {
       setStep(6);
       setAddCampagin(true);
     } else if (negotialble) {
@@ -183,7 +196,7 @@ const CampaignDetailInfluencer = ({
   const getDrawerElement = (element) => {
     switch (element) {
       case 'Activity':
-        return <ActivityDetail />;
+        return <ActivityDetail activities={data?.events} />;
       case 'Deliverable':
         return <DeliverablesDetail deliverables={data && data.deliverables} />;
       case 'Compensation':
@@ -223,11 +236,16 @@ const CampaignDetailInfluencer = ({
       compensations !== null &&
       compensations.length > 0 &&
       compensations.forEach((item) => {
-
-        if (item.__typename === 'CompRevenueShare' && data && data.targetGrossSales && data.targetGrossSales !== null) {
-
+        if (
+          item.__typename === 'CompRevenueShare' &&
+          data &&
+          data.targetGrossSales &&
+          data.targetGrossSales !== null
+        ) {
           total =
-            total + parseFloat(item.percentage * 1000) * parseFloat(data.targetGrossSales.amount / 100);
+            total +
+            parseFloat(item.percentage * 1000) *
+              parseFloat(data.targetGrossSales.amount / 100);
         } else {
           total = total + parseFloat(item.amount.amount);
         }
