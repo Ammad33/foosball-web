@@ -44,7 +44,7 @@ const Deliverables = ({ onClick, handleEdit, deliverables }) => {
             <h6>Post Type</h6>
             <p>
               {deliverables && deliverables.length
-                ? deliverables[0].postType
+                ? deliverables[0].postType && deliverables[0].postType !== null && deliverables[0].postType
                 : ''}
             </p>
           </div>
@@ -52,7 +52,7 @@ const Deliverables = ({ onClick, handleEdit, deliverables }) => {
             <h6>Content Type</h6>
             <p>
               {deliverables && deliverables.length
-                ? deliverables[0].frameContentType
+                ? deliverables[0].frameContentType && deliverables[0].frameContentType !== null && deliverables[0].frameContentType
                 : ''}
             </p>
           </div>
@@ -60,20 +60,20 @@ const Deliverables = ({ onClick, handleEdit, deliverables }) => {
             <h6>Frames Required</h6>
             <p>
               {deliverables && deliverables.length
-                ? deliverables[0].framesRequired
+                ? deliverables[0].framesRequired && deliverables[0].framesRequired !== null && deliverables[0].framesRequired
                 : ''}
             </p>
           </div>
           <div className={styles.detailSubContent}>
             <h6>Brand tag</h6>
             <p>
-              @{deliverables && deliverables.length ? deliverables[0].brandTag : ''}
+              @{deliverables && deliverables.length && deliverables[0].brandTag && deliverables[0].brandTag !== null ? deliverables[0].brandTag : ''}
             </p>
           </div>
           <div className={styles.detailSubContent}>
             <h6>Hashtag</h6>
             <p>
-              #{deliverables && deliverables.length ? deliverables[0].hashTag : ''}
+              #{deliverables && deliverables.length ? deliverables[0].hashTag && deliverables[0].hashTag !== null && deliverables[0].hashTag : ''}
             </p>
           </div>
           <div className={styles.detailSubContent} style={{ marginBottom: '20px' }}>

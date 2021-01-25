@@ -107,7 +107,7 @@ const CompensationDetail = ({ compensations, targetGrossSales }) => {
 
 		{compensations && compensations !== null && compensations.length > 0 && <div className={styles.header}>
 			<h6>Total Comp Estimate:</h6>
-			<h6>${numberWithCommas(Math.tranc(getTotal()))}</h6>
+			<h6>${numberWithCommas((getTotal()))}</h6>
 		</div>
 		}
 	</div >);
