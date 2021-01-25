@@ -89,7 +89,7 @@ const PendingInfluencer = ({
 
         <div className={styles.firstConatiner}>
           <PendingCard />
-          <Activity onClick={handleSeeClick} />
+          <Activity activities={data?.events} onClick={handleSeeClick} />
         </div>
         <div className={styles.secondContainer}>
           <div>

@@ -67,16 +67,28 @@ const LostInfluencer = ({ handleEdit, data, handleSeeClick, name }) => {
           <div className={styles.subCampaignSubHeading}>
             <p>
               Promotion:{' '}
-              {data && data.discount && data.discount !== null && data.discount.amount
+              {data &&
+              data.discount &&
+              data.discount !== null &&
+              data.discount.amount
                 ? data.discount.amount.amount
-                : data && data.discount && data.discount !== null && data.discount.percentage
-                  ? data.discount.percentage
-                  : ''}{' '}
-              {data && data.discount && data.discount !== null && data.discount.percentage
+                : data &&
+                  data.discount &&
+                  data.discount !== null &&
+                  data.discount.percentage
+                ? data.discount.percentage
+                : ''}{' '}
+              {data &&
+              data.discount &&
+              data.discount !== null &&
+              data.discount.percentage
                 ? '%'
-                : data && data.discount && data.discount !== null && data.discount.amount
-                  ? '$'
-                  : ''}
+                : data &&
+                  data.discount &&
+                  data.discount !== null &&
+                  data.discount.amount
+                ? '$'
+                : ''}
             </p>
             <div className={styles.borderDiv}></div>
             <Chip
@@ -95,7 +107,7 @@ const LostInfluencer = ({ handleEdit, data, handleSeeClick, name }) => {
         </div>
         <div className={styles.firstConatiner} style={{ marginBottom: '30px' }}>
           <DeclineCard handleEdit={handleEdit} />
-          <Activity onClick={handleSeeClick} />
+          <Activity activities={data?.events} onClick={handleSeeClick} />
         </div>
         <div className={styles.firstConatiner}>
           <CampaignDetail campaign={data} handleEdit={handleEdit}>
