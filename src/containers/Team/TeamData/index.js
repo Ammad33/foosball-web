@@ -123,7 +123,7 @@ const TeamData = ({ TeamMembers, index, handleRemoveMember, length }) => {
             )}
           <Select
             className={styles.dropDown}
-            value='Member'
+            value= {TeamMembers.role.administration == true ? ('Creator') : ('Member')}
             onChange={handleTeam}
             displayEmpty
             inputProps={{ 'aria-label': 'Without label' }}
