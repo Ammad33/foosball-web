@@ -1078,9 +1078,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         // team: selectedMembers,
         // negotiables: getNegotiablesObjectForAPI(),
         // invitationMessage: customeMessage,
-        deliverables: getDeliverablesForAPI(),
+        // deliverables: getDeliverablesForAPI(),
         // compensation: getCompensations(),
-      };
+			};
+			
 
       if (discountType !== '' && discount !== '') {
         data = {
@@ -1104,7 +1105,12 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         data = {
           ...data, targetGrossSales: { amount: targetGrossSale, currency: 'USD' }
         }
-      }
+			}
+			if (deliveries && deliveries.length > 0  && deliveries[0].deadlineDate !== ''){
+				data = {
+					...data , deliverables: getDeliverablesForAPI(),
+				}
+			}
 
       if (selectedMembers && selectedMembers.length > 0) {
         data = {
@@ -1238,7 +1244,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         // negotiables: getNegotiablesObjectForAPI(),
         // invitationMessage: customeMessage,
         // compensation: getCompensations(),
-        deliverables: getDeliverablesForAPI(),
+        // deliverables: getDeliverablesForAPI(),
       };
 
 
@@ -1271,7 +1277,13 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         data = {
           ...data, targetGrossSales: { amount: targetGrossSale, currency: 'USD' }
         }
-      }
+			}
+			
+			if (deliveries && deliveries.length > 0  && deliveries[0].deadlineDate !== ''){
+				data = {
+					...data , deliverables: getDeliverablesForAPI(),
+				}
+			}
 
       if (compensations && compensations.length > 0 && compensations[0].compensationType !== '') {
         data = {
