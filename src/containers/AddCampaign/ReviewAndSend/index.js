@@ -57,7 +57,7 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 		switch (compensation.compensationType) {
 			case 'REVENUE_SHARE':
 				return (
-					<span>{compensation.amount && numberWithCommas(Math.trunc(parseFloat(compensation.amount)))}% ($ { compensation.amount * targetGrossSale / 100})</span>);
+					<span>{compensation.amount && numberWithCommas(Math.trunc(parseFloat(compensation.amount)))}% ($ { numberWithCommas(Math.trunc(compensation.amount * targetGrossSale / 100))})</span>);
 			case 'CASH_PER_POST':
 				return (<span>$ {compensation.amount && numberWithCommas(Math.trunc(parseFloat(compensation.amount)))}</span>);
 			case 'CASH_PER_MONTHLY_DELIVERABLE':
