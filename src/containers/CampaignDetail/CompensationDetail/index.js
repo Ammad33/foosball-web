@@ -2,113 +2,115 @@ import React from 'react';
 import styles from './CompensationDetail.module.scss';
 
 const CompensationDetail = ({ compensations, targetGrossSales }) => {
+	const numberWithCommas = (x) => {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+	const getCompensationType = (compensation) => {
+		switch (compensation.__typename) {
+			case 'CompRevenueShare':
+				return (
+					<p>Revenue Share</p>);
+			case 'CompCashPerPost':
+				return (<p>Cash Per Post</p>);
+			case 'CompCashPerMonthlyDeliverable':
+				return (<p>Cash Per Monthly Deliverable</p>);
+			case 'CompGiftCard':
+				return (<p>Gift Card</p>);
+			default:
+				return '';
+		}
+	}
 
-    const getCompensationType = (compensation) => {
-        switch (compensation.__typename) {
-            case 'CompRevenueShare':
-                return (
-                    <p>Revenue Share</p>);
-            case 'CompCashPerPost':
-                return (<p>Cash Per Post</p>);
-            case 'CompCashPerMonthlyDeliverable':
-                return (<p>Cash Per Monthly Deliverable</p>);
-            case 'CompGiftCard':
-                return (<p>Gift Card</p>);
-            default:
-                return '';
-        }
-    }
+	const getCompensationTypeValue = (compensation) => {
+		switch (compensation.__typename) {
+			case 'CompRevenueShare':
+				return (
+					<h6>${parseFloat(compensation.percentage && (compensation.percentage * 1000) * parseFloat(targetGrossSales / 100))}</h6>);
+			case 'CompCashPerPost':
+				return (<h6>${compensation.amount && compensation.amount.amount}</h6>);
+			case 'CompCashPerMonthlyDeliverable':
+				return (<h6>${compensation.amount && compensation.amount.amount}</h6>);
+			case 'CompGiftCard':
+				return (<h6>${compensation.amount && compensation.amount.amount}</h6>);
+			default:
+				return <h6></h6>;
+		}
+	}
 
-    const getCompensationTypeValue = (compensation) => {
-        switch (compensation.__typename) {
-            case 'CompRevenueShare':
-                return (
-                    <h6>${parseFloat(compensation.percentage && (compensation.percentage * 1000) * parseFloat(targetGrossSales / 100))}</h6>);
-            case 'CompCashPerPost':
-                return (<h6>${compensation.amount && compensation.amount.amount}</h6>);
-            case 'CompCashPerMonthlyDeliverable':
-                return (<h6>${compensation.amount && compensation.amount.amount}</h6>);
-            case 'CompGiftCard':
-                return (<h6>${compensation.amount && compensation.amount.amount}</h6>);
-            default:
-                return <h6></h6>;
-        }
-    }
+	const getCompensationHeading = (compensation) => {
+		switch (compensation.__typename) {
+			case 'CompRevenueShare':
+				return (
+					<h6>Revenue Share Percentage</h6>);
+			case 'CompCashPerPost':
+				return (<h6>Amount per Post</h6>);
+			case 'CompCashPerMonthlyDeliverable':
+				return (<h6>Amount Per Monthly Deliverable</h6>);
+			case 'CompGiftCard':
+				return (<h6>Gift Card Amount</h6>);
+			default:
+				return <h6></h6>
+		}
+	}
 
-    const getCompensationHeading = (compensation) => {
-        switch (compensation.__typename) {
-            case 'CompRevenueShare':
-                return (
-                    <h6>Revenue Share Percentage</h6>);
-            case 'CompCashPerPost':
-                return (<h6>Amount per Post</h6>);
-            case 'CompCashPerMonthlyDeliverable':
-                return (<h6>Amount Per Monthly Deliverable</h6>);
-            case 'CompGiftCard':
-                return (<h6>Gift Card Amount</h6>);
-            default:
-                return <h6></h6>
-        }
-    }
+	const getCompensationAmount = (compensation) => {
+		switch (compensation.__typename) {
+			case 'CompRevenueShare':
+				return (
+					<p>{compensation.percentage && compensation.percentage * 1000}%</p>);
+			case 'CompCashPerPost':
+				return (<p>{compensation.amount && compensation.amount.amount}$</p>);
+			case 'CompCashPerMonthlyDeliverable':
+				return (<p>{compensation.amount && compensation.amount.amount}$</p>);
+			case 'CompGiftCard':
+				return (<p>{compensation.amount && compensation.amount.amount}$</p>);
+			default:
+				return <p></p>;
+		}
+	}
 
-    const getCompensationAmount = (compensation) => {
-        switch (compensation.__typename) {
-            case 'CompRevenueShare':
-                return (
-                    <p>{compensation.percentage && compensation.percentage * 1000}%</p>);
-            case 'CompCashPerPost':
-                return (<p>{compensation.amount && compensation.amount.amount}$</p>);
-            case 'CompCashPerMonthlyDeliverable':
-                return (<p>{compensation.amount && compensation.amount.amount}$</p>);
-            case 'CompGiftCard':
-                return (<p>{compensation.amount && compensation.amount.amount}$</p>);
-            default:
-                return <p></p>;
-        }
-    }
+	const getTotal = () => {
+		let total = 0;
+		compensations.forEach(item => {
+			if (item.__typename === 'CompRevenueShare') {
+				total = total + parseFloat((item.percentage * 1000) * parseFloat(targetGrossSales / 100));
+			} else {
+				total = total + parseFloat(item.amount.amount);
+			}
+		})
+		return parseFloat(total).toFixed(2);
+	}
 
-    const getTotal = () => {
-        let total = 0;
-        compensations.forEach(item => {
-            if (item.__typename === 'CompRevenueShare') {
-                total = total + parseFloat((item.percentage * 1000) * parseFloat(targetGrossSales / 100));
-            } else {
-                total = total + parseFloat(item.amount.amount);
-            }
-        })
-        return parseFloat(total).toFixed(2);
-    }
+	return (<div className={styles.compensationContainer}>
+		<h1>Compensation</h1>
+		<div className={styles.influencerPayment}>
+			<h6>Influencer Schedule Payment </h6>
+			<p className={styles.detailSubContent} >Monthly</p>
+		</div>
+		{compensations && compensations !== null && compensations.length > 0 && compensations.map((item, index) => {
+			return (<>
+				<div className={styles.header}>
+					<h6>Compensation Type {index + 1}</h6>
+					{getCompensationTypeValue(item)}
+				</div>
+				<div className={styles.detailSubContent}>
+					<h6>Compensation Type</h6>
+					{getCompensationType(item)}
+				</div>
+				<div className={styles.detailSubContent}>
+					{getCompensationHeading(item)}
+					{getCompensationAmount(item)}
+				</div>
 
-    return (<div className={styles.compensationContainer}>
-        <h1>Compensation</h1>
-        <div className={styles.influencerPayment}>
-            <h6>Influencer Schedule Payment </h6>
-            <p className={styles.detailSubContent} >Monthly</p>
-        </div>
-        {compensations && compensations !== null && compensations.length > 0 && compensations.map((item, index) => {
-            return (<>
-                <div className={styles.header}>
-                    <h6>Compensation Type {index + 1}</h6>
-                    {getCompensationTypeValue(item)}
-                </div>
-                <div className={styles.detailSubContent}>
-                    <h6>Compensation Type</h6>
-                    {getCompensationType(item)}
-                </div>
-                <div className={styles.detailSubContent}>
-                    {getCompensationHeading(item)}
-                    {getCompensationAmount(item)}
-                </div>
+			</>)
+		})}
 
-            </>)
-        })}
-
-        {compensations && compensations !== null && compensations.length > 0 && <div className={styles.header}>
-            <h6>Total Comp Estimate:</h6>
-            <h6>${getTotal()}</h6>
-        </div>
-        }
-    </div >);
+		{compensations && compensations !== null && compensations.length > 0 && <div className={styles.header}>
+			<h6>Total Comp Estimate:</h6>
+			<h6>${numberWithCommas(Math.tranc(getTotal()))}</h6>
+		</div>
+		}
+	</div >);
 };
 
 export default CompensationDetail;

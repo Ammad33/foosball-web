@@ -4,15 +4,15 @@ import AddIcon from '@material-ui/icons/Add';
 import styles from './Deliverables.module.scss';
 
 const Deliverables = ({ deliveries, handleDeliveries, handleDilverableContent,
-	handleDeliverDeadlineDate, deliverableDate,
+	handleDeliverDeadlineDate, deliverableDeadlineDateError, deliverableDate,
 	handleDeliverableDate, handleActiveForDeliverable, handleRemoveDeliverable, fb, insta, tictock, youtube }) => {
 
 	// const myRef = useRef(null);
 	// const executeScroll = () => myRef.current.scrollIntoView();
 
 	// const buttonClicked = () => {
-	// 	myRef.current.scrollIntoView();
-	// 	handleDeliveries();
+	// myRef.current.scrollIntoView();
+	// handleDeliveries();
 	// }
 
 	useEffect(() => {
@@ -29,6 +29,7 @@ const Deliverables = ({ deliveries, handleDeliveries, handleDilverableContent,
 						deliverableItem={item} index={index}
 						handleDilverableContent={handleDilverableContent}
 						handleDeliverDeadlineDate={handleDeliverDeadlineDate}
+						deliverableDeadlineDateError={deliverableDeadlineDateError}
 						handleDeliverableDate={handleDeliverableDate}
 						deliverableDate={deliverableDate}
 						handleRemoveDeliverable={handleRemoveDeliverable}

@@ -44,7 +44,7 @@ const Deliverables = ({ onClick, handleEdit, deliverables }) => {
             <h6>Post Type</h6>
             <p>
               {deliverables && deliverables.length
-                ? deliverables[0].deliverableType
+                ? deliverables[0].postType
                 : ''}
             </p>
           </div>

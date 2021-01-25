@@ -36,23 +36,24 @@ const CreateDeliverable = ({
 	deliverableDate,
 	handleDeliverableDate,
 	handleRemoveDeliverable,
+	deliverableDeadlineDateError,
 	fb,
 	insta,
 	tictock,
 	youtube,
 }) => {
-  const [error, setError] = useState(false);
-  const [post, setPost] = useState(false);
-  const [options, setOptions] = useState(false);
-  const [platform, setPlatform] = useState({
-    postType: ['Does not apply'],
-    frameContentType: ['Does not apply'],
-  });
+	const [error, setError] = useState(false);
+	const [post, setPost] = useState(false);
+	const [options, setOptions] = useState(false);
+	const [platform, setPlatform] = useState({
+		postType: ['Does not apply'],
+		frameContentType: ['Does not apply'],
+	});
 
 
-  useEffect(() => {
-    handleSetValue();
-  }, [deliverableItem.platform]);
+	useEffect(() => {
+		handleSetValue();
+	}, [deliverableItem.platform]);
 
 	const handlePostType = (value, index, name) => {
 		if (value === 'Post') {
@@ -78,184 +79,190 @@ const CreateDeliverable = ({
 		}
 	};
 
-  const handleSetValue = () => {
+	const handleSetValue = () => {
 
-    switch (deliverableItem.platform) {
-      case 'Youtube':
-        setPlatform(youtube);
-        break;
-      case 'Instagram':
-        setPlatform(insta);
-        break;
-      case 'Tiktok':
-        setPlatform(tictock);
-        break;
-      case 'Facebook':
-        setPlatform(fb);
-        break;
-    }
-  };
+		switch (deliverableItem.platform) {
+			case 'Youtube':
+				setPlatform(youtube);
+				break;
+			case 'Instagram':
+				setPlatform(insta);
+				break;
+			case 'Tiktok':
+				setPlatform(tictock);
+				break;
+			case 'Facebook':
+				setPlatform(fb);
+				break;
+		}
+	};
 
-  return (
-    <Grid container spacing={2}>
-      <Grid
-        item
-        xs={12}
-        className={clsx(
-          styles.headerContainer,
-          index > 0 ? styles.marginTop : ''
-        )}
-      >
-        <p className={styles.headingColor}>Deliverable {index + 1} </p>
-        {deliveries.length > 1 && (
-          <Trash onClick={() => handleRemoveDeliverable(index)} />
-        )}
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          id='outlined-basic'
-          fullWidth
-          label='Deliverable Deadline Date'
-          variant='outlined'
-          className={mainStyles.placeholderColor}
-          helperText={error ? <span> error </span> : ' '}
-          value={deliverableItem && deliverableItem.deadlineDate}
-          onChange={(e) => handleDeliverDeadlineDate(e.target.value, index)}
-          InputProps={{
-            pattern: "\d{1,2}/\d{1,2}/\d{4}",
-            endAdornment: (
-              <InputAdornment
-                className={styles.cursorPointer}
-                position='end'
-                onClick={() => handleDeliverableDate(true)}
-              >
-                <Calendar />
-              </InputAdornment>
-            ),
-          }}
-        />
-        <MuiPickersUtilsProvider
-          utils={DateFnsUtils}
-          className={styles.displayNone}
-        >
-          <DatePicker
-            style={{ display: 'none' }}
-            open={deliverableDate}
-            onChange={(date) => handleDeliverDeadlineDate(date, index)}
-            value={deliverableItem && deliverableItem.deadlineDate}
-            orientation='landscape'
-            openTo='date'
-            format='MM/dd/yyyy'
-            margin='normal'
-            onClose={() => handleDeliverableDate(false)}
-          />
-        </MuiPickersUtilsProvider>
-      </Grid>
-      <Grid item xs={12} sm={12} md={6}>
-        <FormControl fullWidth variant='outlined'>
-          <TextField
-            id='Social Platform'
-            fullWidth
-            label='Social Platform'
-            variant='outlined'
-            value={deliverableItem.platform}
-            className={mainStyles.placeholderColor}
-            helperText={error ? <span> error </span> : ' '}
-            onChange={(e) =>
-              handleSocialPlatform(e.target.value, index, 'platform')
-            }
-            MenuProps={{ variant: 'menu' }}
-            // input={<SelectMenu />}
-            select
-            SelectProps={{ IconComponent: () => <Chevron /> }}
-          >
-            <MenuItem value='' disabled>
-              Social Platform
+	return (
+		<Grid container spacing={2}>
+			<Grid
+				item
+				xs={12}
+				className={clsx(
+					styles.headerContainer,
+					index > 0 ? styles.marginTop : ''
+				)}
+			>
+				<p className={styles.headingColor}>Deliverable {index + 1} </p>
+				{deliveries.length > 1 && (
+					<Trash onClick={() => handleRemoveDeliverable(index)} />
+				)}
+			</Grid>
+			<Grid item xs={12}>
+				<TextField
+					id='outlined-basic'
+					fullWidth
+					label='Deliverable Deadline Date'
+					variant='outlined'
+					className={mainStyles.placeholderColor}
+					helperText={
+						deliverableDeadlineDateError ? (
+							<span className={styles.errorText}>Deleiverable Date Must Between Start and End Date of Campaign</span>
+						) : (
+								' '
+							)
+					} 
+					value={deliverableItem && deliverableItem.deadlineDate}
+					onChange={(e) => handleDeliverDeadlineDate(e.target.value, index)}
+					InputProps={{
+						pattern: "\d{1,2}/\d{1,2}/\d{4}",
+						endAdornment: (
+							<InputAdornment
+								className={styles.cursorPointer}
+								position='end'
+								onClick={() => handleDeliverableDate(true)}
+							>
+								<Calendar />
+							</InputAdornment>
+						),
+					}}
+				/>
+				<MuiPickersUtilsProvider
+					utils={DateFnsUtils}
+					className={styles.displayNone}
+				>
+					<DatePicker
+						style={{ display: 'none' }}
+						open={deliverableDate}
+						onChange={(date) => handleDeliverDeadlineDate(date, index)}
+						value={deliverableItem && deliverableItem.deadlineDate}
+						orientation='landscape'
+						openTo='date'
+						format='MM/dd/yyyy'
+						margin='normal'
+						onClose={() => handleDeliverableDate(false)}
+					/>
+				</MuiPickersUtilsProvider>
+			</Grid>
+			<Grid item xs={12} sm={12} md={6}>
+				<FormControl fullWidth variant='outlined'>
+					<TextField
+						id='Social Platform'
+						fullWidth
+						label='Social Platform'
+						variant='outlined'
+						value={deliverableItem.platform}
+						className={mainStyles.placeholderColor}
+						helperText={error ? <span> error </span> : ' '}
+						onChange={(e) =>
+							handleSocialPlatform(e.target.value, index, 'platform')
+						}
+						MenuProps={{ variant: 'menu' }}
+						// input={<SelectMenu />}
+						select
+						SelectProps={{ IconComponent: () => <Chevron /> }}
+					>
+						<MenuItem value='' disabled>
+							Social Platform
             </MenuItem>
-            <MenuItem value={'Instagram'}>Instagram </MenuItem>
-            <MenuItem value={'Facebook'}>Facebook </MenuItem>
-            <MenuItem value={'Youtube'}>YouTube</MenuItem>
-            <MenuItem value={'Tiktok'}>TikTok</MenuItem>
-          </TextField>
-        </FormControl>
-      </Grid>
-      <Grid item xs={12} sm={12} md={6} className={styles.marginbottomSelect}>
-        <FormControl fullWidth variant='outlined'>
-          <TextField
-            id='Post Type'
-            fullWidth
-            label='Post Type'
-            variant='outlined'
-            disabled={options ? true : false}
-            className={mainStyles.placeholderColor}
-            helperText={error ? <span> error </span> : ' '}
-            value={deliverableItem && deliverableItem.deliverableType}
-            onChange={(e) =>
-              handlePostType(e.target.value, index, 'deliverableType')
-            }
-            MenuProps={{ variant: 'menu' }}
-            select
-            SelectProps={{ IconComponent: () => <Chevron /> }}
-          >
-            <MenuItem value='' disabled>
-              Post Type
+						<MenuItem value={'Instagram'}>Instagram </MenuItem>
+						<MenuItem value={'Facebook'}>Facebook </MenuItem>
+						<MenuItem value={'Youtube'}>YouTube</MenuItem>
+						<MenuItem value={'Tiktok'}>TikTok</MenuItem>
+					</TextField>
+				</FormControl>
+			</Grid>
+			<Grid item xs={12} sm={12} md={6} className={styles.marginbottomSelect}>
+				<FormControl fullWidth variant='outlined'>
+					<TextField
+						id='Post Type'
+						fullWidth
+						label='Post Type'
+						variant='outlined'
+						disabled={options ? true : false}
+						className={mainStyles.placeholderColor}
+						helperText={error ? <span> error </span> : ' '}
+						value={deliverableItem && deliverableItem.postType}
+						onChange={(e) =>
+							handlePostType(e.target.value, index, 'deliverableType')
+						}
+						MenuProps={{ variant: 'menu' }}
+						select
+						SelectProps={{ IconComponent: () => <Chevron /> }}
+					>
+						<MenuItem value='' disabled>
+							Post Type
             </MenuItem>
-            {platform.postType.map((item) => (
-              <MenuItem value={item}>{item} </MenuItem>
-            ))}
-          </TextField>
-        </FormControl>
-      </Grid>
-      <Grid item xs={12} sm={12} md={6}>
-        <FormControl fullWidth variant='outlined'>
-          <TextField
-            disabled={options ? true : false}
-            labelId='demo-simple-select-outlined-label'
-            id='Content Type'
-            fullWidth
-            label='Content Type'
-            variant='outlined'
-            displayEmpty
-            className={mainStyles.placeholderColor}
-            helperText={error ? <span> error </span> : ' '}
-            value={deliverableItem && deliverableItem.frameContentType}
-            onChange={(e) =>
-              handleDilverableContent(e.target.value, index, 'frameContentType')
-            }
-            MenuProps={{ variant: 'menu' }}
-            select
-            SelectProps={{ IconComponent: () => <Chevron /> }}
-          >
-            <MenuItem value='' disabled>
-              Content Type
+						{platform.postType.map((item) => (
+							<MenuItem value={item}>{item} </MenuItem>
+						))}
+					</TextField>
+				</FormControl>
+			</Grid>
+			<Grid item xs={12} sm={12} md={6}>
+				<FormControl fullWidth variant='outlined'>
+					<TextField
+						disabled={options ? true : false}
+						labelId='demo-simple-select-outlined-label'
+						id='Content Type'
+						fullWidth
+						label='Content Type'
+						variant='outlined'
+						displayEmpty
+						className={mainStyles.placeholderColor}
+						helperText={error ? <span> error </span> : ' '}
+						value={deliverableItem && deliverableItem.frameContentType}
+						onChange={(e) =>
+							handleDilverableContent(e.target.value, index, 'frameContentType')
+						}
+						MenuProps={{ variant: 'menu' }}
+						select
+						SelectProps={{ IconComponent: () => <Chevron /> }}
+					>
+						<MenuItem value='' disabled>
+							Content Type
             </MenuItem>
-            {platform.frameContentType.map((item) => (
-              <MenuItem value={item}>{item} </MenuItem>
-            ))}
-          </TextField>
-        </FormControl>
-      </Grid>
-      <Grid item xs={12} sm={12} md={6} className={styles.marginbottom}>
-        <FormControl fullWidth variant='outlined'>
-          <TextField
-            disabled={post ? true : false}
-            labelId='demo-simple-select-disabled-label'
-            id='demo-simple-select-disabled-Frame-Required'
-            fullWidth
-            label='Frames Required'
-            variant='outlined'
-            className={mainStyles.placeholderColor}
-            helperText={error ? <span> error </span> : ' '}
-            value={deliverableItem && deliverableItem.framesRequired}
-            onChange={(e) =>
-              handleDilverableContent(e.target.value, index, 'framesRequired')
-            }
-            MenuProps={{ variant: 'menu' }}
-            select
-            SelectProps={{ IconComponent: () => <Chevron /> }}
-          >
-            <MenuItem value='' disabled>
-              Frame Required
+						{platform.frameContentType.map((item) => (
+							<MenuItem value={item}>{item} </MenuItem>
+						))}
+					</TextField>
+				</FormControl>
+			</Grid>
+			<Grid item xs={12} sm={12} md={6} className={styles.marginbottom}>
+				<FormControl fullWidth variant='outlined'>
+					<TextField
+						disabled={post ? true : false}
+						labelId='demo-simple-select-disabled-label'
+						id='demo-simple-select-disabled-Frame-Required'
+						fullWidth
+						label='Frames Required'
+						variant='outlined'
+						className={mainStyles.placeholderColor}
+						helperText={error ? <span> error </span> : ' '}
+						value={deliverableItem && deliverableItem.framesRequired}
+						onChange={(e) =>
+							handleDilverableContent(e.target.value, index, 'framesRequired')
+						}
+						MenuProps={{ variant: 'menu' }}
+						select
+						SelectProps={{ IconComponent: () => <Chevron /> }}
+					>
+						<MenuItem value='' disabled>
+							Frame Required
             </MenuItem>
 						{frames.map((frame) => (
 							<MenuItem key={frame} value={frame}>
@@ -432,7 +439,7 @@ const CreateDeliverable = ({
 						className={mainStyles.placeholderColor}
 						onChange={(e) =>
 							handleDilverableContent(e.target.value, index, 'frequency')
-						}						
+						}
 						MenuProps={{ variant: 'menu' }}
 						select
 						SelectProps={{ IconComponent: () => <Chevron /> }}

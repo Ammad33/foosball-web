@@ -26,6 +26,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import logo from '../../assets/FomoPromo_logo__white.png';
 import * as _ from 'lodash';
 import { RootContext } from '../../context/RootContext';
+import { useHistory } from 'react-router-dom';
 
 let typ = '';
 let val = '';
@@ -226,13 +227,14 @@ function getSteps() {
 const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   /****** Stepper States ********/
 
-  const steps = getSteps();
+	const steps = getSteps();
+	const history = useHistory();
   const [activeStep, setActiveStep] = useState(step ? step : 1);
   const [activeNext, setActiveNext] = useState(false);
   const [team, setTeam] = useState([]);
   const [search, setSearch] = useState('');
   const [campaigns, setCampaigns] = useState([]);
-  const { brandId } = useContext(RootContext);
+	const { brandId,setActiveRoute } = useContext(RootContext);
   const [campaignError, setCampaignError] = useState('');
   const [products, setProducts] = useState('');
 
@@ -246,7 +248,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     moment().add(1, 'month').format('MM/DD/YYYY')
   );
   const [startDateError, setStartDateError] = useState(false);
-  const [endDateError, setEndDateError] = useState(false);
+	const [endDateError, setEndDateError] = useState(false);
+	const [deliverableDeadlineDateError, setDeliverableDeadlineDateError] = useState(false); //deleverable deadline
   const [startTime, setStartTime] = useState(
     moment().subtract(1, 'days').startOf('day').format('HH:mm')
   );
@@ -632,31 +635,37 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   /** Handle deliverable Deadline *********/
 
   const handleDeliverDeadlineDate = (date, index) => {
-    const opts = [...deliveries];
+		const opts = [...deliveries];
+		const moment_date = moment(date).format('L');
+		if (moment_date>= startDate && moment_date<=endDate){
+			if (date !== '' && moment(date, 'MM/DD/YYYY', true).isValid()) {
+				opts[index].deadlineDate = moment(date).format('L');
+			} else {
+				if (opts[index].deadlineDate.length > date.length) {
+					opts[index].deadlineDate = date;
+				} else if (date.length < 11) {
+					if (date !== "") {
+						var targetValue = date;
 
-    if (date !== '' && moment(date, 'MM/DD/YYYY', true).isValid()) {
-      opts[index].deadlineDate = moment(date).format('L');
-    } else {
-      if (opts[index].deadlineDate.length > date.length) {
-        opts[index].deadlineDate = date;
-      } else if (date.length < 11) {
-        if (date !== "") {
-          var targetValue = date;
-
-          if (targetValue.length === 5) {
-            opts[index].deadlineDate = targetValue + "/";
-          } else if (targetValue.length === 2) {
-            opts[index].deadlineDate = targetValue + "/";
-          } else {
-            opts[index].deadlineDate = targetValue;
-          }
-        } else {
-          opts[index].deadlineDate = "";
-        }
-      }
-    }
-    setDeliveries(opts);
-    setDeliverableDate(false);
+						if (targetValue.length === 5) {
+							opts[index].deadlineDate = targetValue + "/";
+						} else if (targetValue.length === 2) {
+							opts[index].deadlineDate = targetValue + "/";
+						} else {
+							opts[index].deadlineDate = targetValue;
+						}
+					} else {
+						opts[index].deadlineDate = "";
+					}
+				}
+			}
+			setDeliveries(opts);
+			setDeliverableDate(false);
+			setDeliverableDeadlineDateError(false)
+		}
+		else {
+			setDeliverableDeadlineDateError(true)
+		};
   };
 
   /***** Handle Deliverable Content ********/
@@ -1022,9 +1031,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           };
         case 'CASH_PER_POST':
           return {
-            type: "CASH_PER_POST",
+						type: "CASH_PER_POST",
             value:
-              "{\"amount\":{\"amount\":\"" + item.amount + "\",\"currency\":\"USD\"}}",
+							"{\"amount\":{\"amount\":\"" + item.amount + "\",\"currency\":\"USD\"}}"
           };
         case 'CASH_PER_MONTHLY_DELIVERABLE':
           return {
@@ -1069,7 +1078,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         // team: selectedMembers,
         // negotiables: getNegotiablesObjectForAPI(),
         // invitationMessage: customeMessage,
-        //deliverables: getDeliverablesForAPI(),
+        deliverables: getDeliverablesForAPI(),
         // compensation: getCompensations(),
       };
 
@@ -1205,14 +1214,13 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   }
 
   const updateCampaign = async () => {
-
-    if (discountType === 'Amount') {
-      typ = 'FLAT';
-      val = '{"amount":{"amount": "' + discount + '","currency":"USD"}}';
-    } else {
-      typ = 'PERCENTAGE';
-      val = '{"percentage":"' + discount + '"}';
-    }
+		if (discountType === 'Amount') {
+			typ = 'FLAT';
+			val = '{\"amount\":{\"amount\":\"' + discount + '\",\"currency\":\"USD\"},\"minimum\":{\"amount\":\"50.0\",\"currency\":\"USD\"}}';
+		} else if (discountType === 'Percentage') {
+			typ = 'PERCENTAGE';
+			val = '{\"percentage\":\"' + discount + '\"}';
+		}
     try {
       const end = Date.parse(`${endDate} ${endTime}`) / 1000;
       const start = Date.parse(`${startDate} ${startTime}`) / 1000;
@@ -1230,7 +1238,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         // negotiables: getNegotiablesObjectForAPI(),
         // invitationMessage: customeMessage,
         // compensation: getCompensations(),
-        // deliverables: getDeliverablesForAPI(),
+        deliverables: getDeliverablesForAPI(),
       };
 
 
@@ -1329,14 +1337,19 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 						}
 					}`
         )
-      );
+			);
+			gotoCampaginDetail(id);
       handleCancel();
     } catch (e) {
       console.log('Campaign Invite error ', e);
-    }
-  }
+		}
+	}
 
-
+	const gotoCampaginDetail = (id) => {
+		history.push(`/campaignDetail/${id}`, { campaignId: id });
+		setActiveRoute('campaignDetail');
+	};
+	
   const getCollection = async () => {
     try {
       const collectionsResponse = await API.graphql({
@@ -1608,7 +1621,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             deliverableDate={deliverableDate}
             handleDeliverableDate={(value) => setDeliverableDate(value)}
             handleActiveForDeliverable={setActiveForDeliverables}
-            handleRemoveDeliverable={handleRemoveDeliverable}
+						handleRemoveDeliverable={handleRemoveDeliverable}
+						deliverableDeadlineDateError={deliverableDeadlineDateError}
             fb={fb}
             insta={insta}
             tictock={tictock}

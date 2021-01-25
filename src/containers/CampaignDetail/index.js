@@ -373,7 +373,7 @@ const CampaignDetail = ({ location }) => {
           }
          
       }`,
-      });
+			});
       if (brandType.toLowerCase() == 'influencer') {
         campaign.data.influencerCampaign && campaign.data.influencerCampaign !== null && campaign.data.influencerCampaign.deliverables && campaign.data.influencerCampaign.deliverables !== null && campaign.data.influencerCampaign.deliverables.map((deliverable) => {
           deliverable.deliverableType =
@@ -390,7 +390,7 @@ const CampaignDetail = ({ location }) => {
           ).toDateString();
         });
 
-        setData(campaign.data.influencerCampaign);
+				setData(campaign.data.influencerCampaign);
         if (
           campaign.data &&
           campaign.data !== null &&
@@ -435,10 +435,10 @@ const CampaignDetail = ({ location }) => {
           }
         }
       } else {
-        campaign.data.campaign && campaign.data.campaign !== null && campaign.data.campaign.deliverables && campaign.data.campaign.deliverables !== null && campaign.data.campaign.deliverables.map((deliverable) => {
-          deliverable.deliverableType =
-            deliverable.deliverableType.charAt(0).toUpperCase() +
-            deliverable.deliverableType.toLowerCase().slice(1);
+				campaign.data.campaign && campaign.data.campaign !== null && campaign.data.campaign.deliverables && campaign.data.campaign.deliverables !== null && campaign.data.campaign.deliverables.map((deliverable) => {
+          deliverable.postType =
+            deliverable.postType.charAt(0).toUpperCase() +
+            deliverable.postType.toLowerCase().slice(1);
           deliverable.frameContentType =
             deliverable.frameContentType.charAt(0).toUpperCase() +
             deliverable.frameContentType.toLowerCase().slice(1);
@@ -448,9 +448,9 @@ const CampaignDetail = ({ location }) => {
           deliverable.deadlineDate = new Date(
             deliverable.deadlineDate * 1000
           ).toDateString();
-        });
-
-        setData(campaign.data.campaign);
+        })
+				
+				setData(campaign.data.campaign);
         if (
           campaign.data &&
           campaign.data !== null &&
@@ -493,11 +493,10 @@ const CampaignDetail = ({ location }) => {
           } else {
             setTeam(teamData);
           }
-        }
-      }
-
-
-    } catch (e) { }
+				}
+			}
+		}
+		catch (e) { }
   };
 
   const getTeam = async () => {

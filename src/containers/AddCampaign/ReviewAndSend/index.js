@@ -73,13 +73,13 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 		switch (compensation.compensationType) {
 			case 'REVENUE_SHARE':
 				return (
-					<h5>${parseFloat(compensation.amount && (compensation.amount * parseFloat(targetGrossSale) / 100).toFixed(2))}</h5>);
+					<h5>${numberWithCommas(Math.trunc(parseFloat(compensation.amount && (compensation.amount * parseFloat(targetGrossSale) / 100).toFixed(2))))}</h5>);
 			case 'CASH_PER_POST':
-				return (<h5>${compensation.amount && numberWithCommas(Math.trunc(parseFloat(compensation.amount)))}*</h5>);
+				return (<h5>${compensation.amount && numberWithCommas(Math.trunc(parseFloat(compensation.amount)))}</h5>);
 			case 'CASH_PER_MONTHLY_DELIVERABLE':
-				return (<h5>${compensation.amount && numberWithCommas(Math.trunc(parseFloat(compensation.amount)))}*</h5>);
+				return (<h5>${compensation.amount && numberWithCommas(Math.trunc(parseFloat(compensation.amount)))}</h5>);
 			case 'GIFT_CARD':
-				return (<h5>${compensation.amount && numberWithCommas(Math.trunc(parseFloat(compensation.amount)))}*</h5>);
+				return (<h5>${compensation.amount && numberWithCommas(Math.trunc(parseFloat(compensation.amount)))}</h5>);
 			default:
 				return <h5></h5>
 		}
@@ -169,7 +169,7 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 						<Grid item xs={4}>
 							<div className={styles.campaignItemInfo}>
 								<p>Promotional Discount</p>
-								<span>{discount}%</span>
+								<span>{numberWithCommas(discount)}%</span>
 							</div>
 						</Grid>
 						<Grid item xs={8}>
@@ -377,8 +377,7 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 				{overAmount() > 0 && <div style={{ margin: '20px 0px 10px 0px' }} className={styles.compensationBadge}>
 					<p>You are ${numberWithCommas(Math.trunc(overAmount()))} over budget</p>
 				</div>}
-				<p className={styles.estimateText}>* estimated amount based on target sales</p>
-			</div>
+				<p className={styles.estimateText}>* some amounts may be estimates based on target sales</p>			</div>
 			<div class={styles.section}>
 				<div className={styles.titleAndAction}>
 					<h3>Negotiables</h3>

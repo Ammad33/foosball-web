@@ -123,7 +123,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 															styles.statusPending,
 															styles[`chip${campaign.status}`]
 														)}
-														label='Invite'
+														label='Invited'
 													/>
 												) : (
 														< Chip
