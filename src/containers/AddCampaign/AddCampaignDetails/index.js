@@ -323,7 +323,7 @@ const AddCampaignDetails = ({
 							label='Discount Value'
 							className={mainStyles.placeholderColor}
 							value={discount}
-							onChange={handleDiscount}
+							onChange={(e) => handleDiscount(e.target.value)}
 							variant='outlined'
 							helperText={' '}
 						/>
