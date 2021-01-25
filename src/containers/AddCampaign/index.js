@@ -237,6 +237,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const { brandId, setActiveRoute } = useContext(RootContext);
   const [campaignError, setCampaignError] = useState('');
   const [products, setProducts] = useState('');
+  const [minimium, setMinimium] = useState('');
 
   /****** Campaign Detail States ********/
 
@@ -315,6 +316,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       setEndDate(moment(endDate).format('MM/DD/YYYY'));
       setStartTime(moment(startDate).format('HH:mm'));
       setEndTime(moment(endDate).format('HH:mm'));
+
       if (campaign.name !== '' && startDate !== '' && endDate !== '') {
         setActiveSave(true);
       }
@@ -325,6 +327,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             : campaign.discount.percentage
           : ''
       );
+      setMinimium(campaign.discount && campaign.discount !== null
+        && campaign.discount.__typename === 'FlatDiscount'
+        && campaign.discount.minimum ? campaign.discount.minimum.amount : ''
+      )
       setSelectedMemebers(
         campaign.brandTeam && campaign.brandTeam !== null
           ? campaign.brandTeam.map((item) => item.id)
@@ -1065,7 +1071,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     try {
       if (discountType === 'Amount') {
         typ = 'FLAT';
-        val = '{\"amount\":{\"amount\":\"' + discount + '\",\"currency\":\"USD\"},\"minimum\":{\"amount\":\"50.0\",\"currency\":\"USD\"}}';
+        val = '{\"amount\":{\"amount\":\"' + discount + '\",\"currency\":\"USD\"},\"minimum\":{\"amount\":\"' + minimium + '\",\"currency\":\"USD\"}}';
       } else if (discountType === 'Percentage') {
         typ = 'PERCENTAGE';
         val = '{\"percentage\":\"' + discount + '\"}';
@@ -1244,7 +1250,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const updateCampaign = async () => {
     if (discountType === 'Amount') {
       typ = 'FLAT';
-      val = '{\"amount\":{\"amount\":\"' + discount + '\",\"currency\":\"USD\"},\"minimum\":{\"amount\":\"50.0\",\"currency\":\"USD\"}}';
+      val = '{\"amount\":{\"amount\":\"' + discount + '\",\"currency\":\"USD\"},\"minimum\":{\"amount\":\"' + minimium + '\",\"currency\":\"USD\"}}';
     } else if (discountType === 'Percentage') {
       typ = 'PERCENTAGE';
       val = '{\"percentage\":\"' + discount + '\"}';
@@ -1594,6 +1600,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             startTimeOpen={startTimeOpen}
             endTimeOpen={endTimeOpen}
             campaignError={campaignError}
+            minimium={minimium}
+            handleMinimium={(e) => setMinimium(e.target.value)}
             // handleValidation={handleDateTimeValidation}
             handleStartDate={handleStartDate}
             handleStartDateOpen={(value) => setStartDateOpen(value)}

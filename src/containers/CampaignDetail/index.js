@@ -168,7 +168,11 @@ const CampaignDetail = ({ location }) => {
 								__typename
 								amount {
 									amount
-								}
+                }
+                minimum {
+                  amount
+                  currency
+                }
 							}
 						}
             compensation {
@@ -301,7 +305,11 @@ const CampaignDetail = ({ location }) => {
 								__typename
 								amount {
 									amount
-								}
+                }
+                minimum {
+                  amount
+                  currency
+                }
 							}
 						}
             compensation {
@@ -530,7 +538,7 @@ const CampaignDetail = ({ location }) => {
           }
         }
       }
-    } catch (e) {}
+    } catch (e) { }
   };
 
   const getTeam = async () => {
@@ -731,23 +739,23 @@ const CampaignDetail = ({ location }) => {
           handleStatus={() => setStatus('PENDING')}
         />
       ) : (
-        <BrandCampaignDetail
-          status={status}
-          data={data}
-          addCampaign={addCampaign}
-          setAddCampagin={setAddCampagin}
-          handleDelete={handleDelete}
-          selectedMembers={selectedMembers}
-          team={team}
-          addInTeam={addInTeam}
-          removeInTeam={removeInTeam}
-          search={search}
-          handleSearch={handleSearch}
-          updateCampaign={updateCampaign}
-          setAll={setAll}
-          headingValue={headingValue}
-        />
-      )}
+          <BrandCampaignDetail
+            status={status}
+            data={data}
+            addCampaign={addCampaign}
+            setAddCampagin={setAddCampagin}
+            handleDelete={handleDelete}
+            selectedMembers={selectedMembers}
+            team={team}
+            addInTeam={addInTeam}
+            removeInTeam={removeInTeam}
+            search={search}
+            handleSearch={handleSearch}
+            updateCampaign={updateCampaign}
+            setAll={setAll}
+            headingValue={headingValue}
+          />
+        )}
     </div>
   );
 };

@@ -57,7 +57,9 @@ const AddCampaignDetails = ({
 	handleEndTimeOpen,
 	filledForm,
 	partialFilledForm,
-	campaignError
+	campaignError,
+	minimium,
+	handleMinimium
 }) => {
 
 	useEffect(() => {
@@ -336,8 +338,8 @@ const AddCampaignDetails = ({
 						fullWidth
 						label='Minimum Cart Value'
 						className={mainStyles.placeholderColor}
-						// value={discount}
-						// onChange={handleDiscount}
+						value={minimium}
+						onChange={handleMinimium}
 						variant='outlined'
 						helperText={' '}
 					/>
