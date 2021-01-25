@@ -17,17 +17,31 @@ const Team = () => {
   const [teams, setTeam] = useState([]);
   const { brandId } = useContext(RootContext);
 
+  useEffect (()=> {
+    getTeam();
+  },[])
+
   const getTeam = async () => {
     try {
       const team = await API.graphql({
         query: `{
           brand(id:"${brandId}") {
+            roles{
+              id
+              name
+              administration
+            }
             users {
               user {
                 imageUrl
                 id
                 fullName
 								email			
+              }
+              role{
+                id
+                name
+                administration
               }
             }
           }
@@ -47,9 +61,7 @@ const Team = () => {
     setAddOpen(false);
   };
 
-  useEffect(() => {
-    getTeam();
-  }, []);
+ 
 
   return (
     <>
