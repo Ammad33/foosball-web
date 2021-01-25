@@ -1,7 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
 import styles from './CampaignsDetails.module.scss';
 import BrandCampaignDetail from './BrandCampaignDetail';
-import { useParams, useHistory, withRouter, useLocation } from 'react-router-dom';
+import {
+  useParams,
+  useHistory,
+  withRouter,
+  useLocation,
+} from 'react-router-dom';
 import InfluencerCampaignDetail from './InfluencerCampaignDetail';
 import { Select, MenuItem } from '@material-ui/core';
 import Link from '@material-ui/core/Link';
@@ -9,9 +14,9 @@ import { RootContext } from '../../context/RootContext';
 import SelectMenu from '../../components/SelectMenu';
 import { API, graphqlOperation } from 'aws-amplify';
 import _ from 'lodash';
+import moment from 'moment';
 
 const CampaignDetail = ({ location }) => {
-
   let campaignId = 'campaign' + location.hash;
   const history = useHistory();
   const [status, setStatus] = useState('');
@@ -113,10 +118,11 @@ const CampaignDetail = ({ location }) => {
   };
 
   const getCampaign = async () => {
-
     try {
       const campaign = await API.graphql({
-        query: brandType.toLowerCase() === 'influencer' ? `{
+        query:
+          brandType.toLowerCase() === 'influencer'
+            ? `{
           influencerCampaign(influencerId: "${brandId}", id: "${campaignId}") {
             id
 						name
@@ -242,9 +248,14 @@ const CampaignDetail = ({ location }) => {
               name
               id
             }
+            events {
+              description
+              time
+            }
           }
          
-      }` : `{
+      }`
+            : `{
           campaign(brandId: "${brandId}", id: "${campaignId}") {
             id
 						name
@@ -364,33 +375,46 @@ const CampaignDetail = ({ location }) => {
               platform
               posts
             }
-            
             influencer {
               imageUrl
               name
               id
             }
-          }
-         
+            events {
+              description
+              time
+            }
+          } 
       }`,
-			});
+      });
       if (brandType.toLowerCase() == 'influencer') {
-        campaign.data.influencerCampaign && campaign.data.influencerCampaign !== null && campaign.data.influencerCampaign.deliverables && campaign.data.influencerCampaign.deliverables !== null && campaign.data.influencerCampaign.deliverables.map((deliverable) => {
-          deliverable.deliverableType =
-            deliverable.deliverableType.charAt(0).toUpperCase() +
-            deliverable.deliverableType.toLowerCase().slice(1);
-          deliverable.frameContentType =
-            deliverable.frameContentType.charAt(0).toUpperCase() +
-            deliverable.frameContentType.toLowerCase().slice(1);
-          deliverable.platform =
-            deliverable.platform.charAt(0).toUpperCase() +
-            deliverable.platform.toLowerCase().slice(1);
-          deliverable.deadlineDate = new Date(
-            deliverable.deadlineDate * 1000
-          ).toDateString();
-        });
+        campaign.data.influencerCampaign &&
+          campaign.data.influencerCampaign !== null &&
+          campaign.data.influencerCampaign.deliverables &&
+          campaign.data.influencerCampaign.deliverables !== null &&
+          campaign.data.influencerCampaign.deliverables.map((deliverable) => {
+            deliverable.deliverableType =
+              deliverable.deliverableType.charAt(0).toUpperCase() +
+              deliverable.deliverableType.toLowerCase().slice(1);
+            deliverable.frameContentType =
+              deliverable.frameContentType.charAt(0).toUpperCase() +
+              deliverable.frameContentType.toLowerCase().slice(1);
+            deliverable.platform =
+              deliverable.platform.charAt(0).toUpperCase() +
+              deliverable.platform.toLowerCase().slice(1);
+            deliverable.deadlineDate = new Date(
+              deliverable.deadlineDate * 1000
+            ).toDateString();
+          });
 
-				setData(campaign.data.influencerCampaign);
+        campaign.data.influencerCampaign.events = campaign.data.influencerCampaign.events.map(
+          (activity) => {
+            activity.time = moment(activity.time).format('MM/DD');
+            return activity;
+          }
+        );
+
+        setData(campaign.data.influencerCampaign);
         if (
           campaign.data &&
           campaign.data !== null &&
@@ -435,22 +459,33 @@ const CampaignDetail = ({ location }) => {
           }
         }
       } else {
-				campaign.data.campaign && campaign.data.campaign !== null && campaign.data.campaign.deliverables && campaign.data.campaign.deliverables !== null && campaign.data.campaign.deliverables.map((deliverable) => {
-          deliverable.postType =
-            deliverable.postType.charAt(0).toUpperCase() +
-            deliverable.postType.toLowerCase().slice(1);
-          deliverable.frameContentType =
-            deliverable.frameContentType.charAt(0).toUpperCase() +
-            deliverable.frameContentType.toLowerCase().slice(1);
-          deliverable.platform =
-            deliverable.platform.charAt(0).toUpperCase() +
-            deliverable.platform.toLowerCase().slice(1);
-          deliverable.deadlineDate = new Date(
-            deliverable.deadlineDate * 1000
-          ).toDateString();
-        })
-				
-				setData(campaign.data.campaign);
+        campaign.data.campaign &&
+          campaign.data.campaign !== null &&
+          campaign.data.campaign.deliverables &&
+          campaign.data.campaign.deliverables !== null &&
+          campaign.data.campaign.deliverables.map((deliverable) => {
+            deliverable.postType =
+              deliverable.postType.charAt(0).toUpperCase() +
+              deliverable.postType.toLowerCase().slice(1);
+            deliverable.frameContentType =
+              deliverable.frameContentType.charAt(0).toUpperCase() +
+              deliverable.frameContentType.toLowerCase().slice(1);
+            deliverable.platform =
+              deliverable.platform.charAt(0).toUpperCase() +
+              deliverable.platform.toLowerCase().slice(1);
+            deliverable.deadlineDate = new Date(
+              deliverable.deadlineDate * 1000
+            ).toDateString();
+          });
+
+        campaign.data.campaign.events = campaign.data.campaign.events.map(
+          (activity) => {
+            activity.time = moment(activity.time).format('MM/DD');
+            return activity;
+          }
+        );
+
+        setData(campaign.data.campaign);
         if (
           campaign.data &&
           campaign.data !== null &&
@@ -493,10 +528,9 @@ const CampaignDetail = ({ location }) => {
           } else {
             setTeam(teamData);
           }
-				}
-			}
-		}
-		catch (e) { }
+        }
+      }
+    } catch (e) {}
   };
 
   const getTeam = async () => {
@@ -560,15 +594,24 @@ const CampaignDetail = ({ location }) => {
       });
 
       if (
-        ((data.discount && data.discount !== null &&
+        ((data.discount &&
+          data.discount !== null &&
           data.discount.percentage &&
           data.discount.percentage !== '') ||
-          (data.discount && data.discount !== null && data.discount.amount && data.discount.amount.amount !== '')) &&
-        data.invitationMessage !== null && data.invitationMessage !== '' && data.budget !== null &&
-        data.budget.amount !== '' && data.targetGrossSales !== null &&
-        data.targetGrossSales.amount !== '' && data.deliverables !== null &&
+          (data.discount &&
+            data.discount !== null &&
+            data.discount.amount &&
+            data.discount.amount.amount !== '')) &&
+        data.invitationMessage !== null &&
+        data.invitationMessage !== '' &&
+        data.budget !== null &&
+        data.budget.amount !== '' &&
+        data.targetGrossSales !== null &&
+        data.targetGrossSales.amount !== '' &&
+        data.deliverables !== null &&
         data.deliverables &&
-        data.deliverables.length !== 0 && data.compensation !== null &&
+        data.deliverables.length !== 0 &&
+        data.compensation !== null &&
         data.compensation &&
         data.compensation.length !== 0 &&
         negotialble === false &&
@@ -590,20 +633,33 @@ const CampaignDetail = ({ location }) => {
     }
 
     if (
-      (data.discount && data.discount !== null &&
+      (data.discount &&
+        data.discount !== null &&
         data.discount.percentage &&
         data.discount.percentage === '') ||
-      (data.discount && data.discount !== null && data.discount.amount && data.discount.amount.amount === '') ||
+      (data.discount &&
+        data.discount !== null &&
+        data.discount.amount &&
+        data.discount.amount.amount === '') ||
       data.invitationMessage === ''
     ) {
       setHeadingValue('Campaign Detail');
     } else if (data.budget === null || data.budget.amount === '') {
       setHeadingValue('Budget');
-    } else if (data.targetGrossSales === null || data.targetGrossSales.amount === '') {
+    } else if (
+      data.targetGrossSales === null ||
+      data.targetGrossSales.amount === ''
+    ) {
       setHeadingValue('Target Gross Sale');
-    } else if (data.deliverables === null || data.deliverables && data.deliverables.length === 0) {
+    } else if (
+      data.deliverables === null ||
+      (data.deliverables && data.deliverables.length === 0)
+    ) {
       setHeadingValue('Deliverable');
-    } else if (data.compensation === null || data.compensation && data.compensation.length === 0) {
+    } else if (
+      data.compensation === null ||
+      (data.compensation && data.compensation.length === 0)
+    ) {
       setHeadingValue('Compensation');
     } else if (negotialble) {
       setHeadingValue('Negotiable');
@@ -675,24 +731,23 @@ const CampaignDetail = ({ location }) => {
           handleStatus={() => setStatus('PENDING')}
         />
       ) : (
-          <BrandCampaignDetail
-            status={status}
-            data={data}
-            addCampaign={addCampaign}
-            setAddCampagin={setAddCampagin}
-            handleDelete={handleDelete}
-            selectedMembers={selectedMembers}
-            team={team}
-            addInTeam={addInTeam}
-            removeInTeam={removeInTeam}
-            search={search}
-            handleSearch={handleSearch}
-            updateCampaign={updateCampaign}
-            setAll={setAll}
-            headingValue={headingValue}
-          />
-
-        )}
+        <BrandCampaignDetail
+          status={status}
+          data={data}
+          addCampaign={addCampaign}
+          setAddCampagin={setAddCampagin}
+          handleDelete={handleDelete}
+          selectedMembers={selectedMembers}
+          team={team}
+          addInTeam={addInTeam}
+          removeInTeam={removeInTeam}
+          search={search}
+          handleSearch={handleSearch}
+          updateCampaign={updateCampaign}
+          setAll={setAll}
+          headingValue={headingValue}
+        />
+      )}
     </div>
   );
 };

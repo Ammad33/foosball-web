@@ -25,8 +25,12 @@ import _ from 'lodash';
 
 import styles from './ClosedBrandCampaignDetail.module.scss';
 
-const ClosedBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) => {
-
+const ClosedBrandCampaignDetail = ({
+  handleEdit,
+  data,
+  handleSeeClick,
+  name,
+}) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -76,7 +80,31 @@ const ClosedBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) =
         <div className={styles.campaignBasicInfo}>
           <div className={styles.campaignStatus}>
             <div>
-              <h4 className={styles.promotion}>Promotion: {data && data.discount && data.discount !== null && data.discount.amount ? data.discount.amount.amount : data && data.discount && data.discount !== null && data.discount.percentage ? data.discount.percentage : ''} {data && data.discount && data.discount !== null && data.discount.percentage ? '%' : data && data.discount && data.discount !== null && data.discount.amount ? '$' : ''}</h4>
+              <h4 className={styles.promotion}>
+                Promotion:{' '}
+                {data &&
+                data.discount &&
+                data.discount !== null &&
+                data.discount.amount
+                  ? data.discount.amount.amount
+                  : data &&
+                    data.discount &&
+                    data.discount !== null &&
+                    data.discount.percentage
+                  ? data.discount.percentage
+                  : ''}{' '}
+                {data &&
+                data.discount &&
+                data.discount !== null &&
+                data.discount.percentage
+                  ? '%'
+                  : data &&
+                    data.discount &&
+                    data.discount !== null &&
+                    data.discount.amount
+                  ? '$'
+                  : ''}
+              </h4>
             </div>
             <div>
               <Chip
@@ -85,12 +113,12 @@ const ClosedBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) =
                 label='Closed'
               />
             </div>
-            {data.influencer &&
+            {data.influencer && (
               <div className={styles.influencerSocial}>
                 <Avatar src={data.influencer.imageUrl} />
                 {data.influencer.name}
               </div>
-            }
+            )}
           </div>
           <div>
             <MoreVertical onClick={handleClick} />
@@ -102,7 +130,7 @@ const ClosedBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) =
           </div>
           <div className={styles.flexContainer}>
             <Posts />
-            <Activity onClick={handleSeeClick} />
+            <Activity activities={data?.events} onClick={handleSeeClick} />
           </div>
           <div className={styles.flexContainer}>
             <CampaignDetail campaign={data} handleEdit={handleEdit}>
@@ -123,7 +151,11 @@ const ClosedBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) =
             <BudgetAndConversion handleEdit={handleEdit} data={data} />
           </div>
           <div className={styles.flexContainer}>
-            <Collections handleEdit={handleEdit} products={data.products} id={data.id} />
+            <Collections
+              handleEdit={handleEdit}
+              products={data.products}
+              id={data.id}
+            />
             <Deliverables
               deliverables={data.deliverables}
               handleEdit={handleEdit}
@@ -131,7 +163,15 @@ const ClosedBrandCampaignDetail = ({ handleEdit, data, handleSeeClick, name }) =
             />
           </div>
           <div className={styles.flexContainer}>
-            <Compensation compensation={data && data.compensation && data.compensation !== null ? _.compact(data.compensation) : []} handleEdit={handleEdit} onClick={handleSeeClick} />
+            <Compensation
+              compensation={
+                data && data.compensation && data.compensation !== null
+                  ? _.compact(data.compensation)
+                  : []
+              }
+              handleEdit={handleEdit}
+              onClick={handleSeeClick}
+            />
             <Negotiables data={data} />
             <Contract />
           </div>

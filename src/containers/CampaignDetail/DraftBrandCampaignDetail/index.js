@@ -15,11 +15,20 @@ import CampaignDetail from '../CampaignDetail';
 import TeamMembers from '../TeamMembers';
 import BudgetAndConversion from '../BudgetAndConversion';
 import Deliverables from '../Deliverables';
-import PendingCard from '../PendingCard'
+import PendingCard from '../PendingCard';
 import Collections from '../Collections';
 import styles from './DraftBrandCampaignDetail.module.scss';
 
-const DraftBrandCampaignDetail = ({ headingValue, setAll, handleActiveStep, handleDelete, handleEdit, data, handleSeeClick, name }) => {
+const DraftBrandCampaignDetail = ({
+  headingValue,
+  setAll,
+  handleActiveStep,
+  handleDelete,
+  handleEdit,
+  data,
+  handleSeeClick,
+  name,
+}) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -55,7 +64,12 @@ const DraftBrandCampaignDetail = ({ headingValue, setAll, handleActiveStep, hand
           <div>
             <Download /> <p>Download Campaign</p>
           </div>
-          <div onClick={() => { handleDelete(); console.log('Hello') }}>
+          <div
+            onClick={() => {
+              handleDelete();
+              console.log('Hello');
+            }}
+          >
             <Trash /> <p>Delete Campaign</p>
           </div>
         </div>
@@ -69,7 +83,31 @@ const DraftBrandCampaignDetail = ({ headingValue, setAll, handleActiveStep, hand
         <div className={styles.campaignBasicInfo}>
           <div className={styles.campaignStatus}>
             <div>
-              <h4 className={styles.promotion}>Promotion: {data && data.discount && data.discount !== null && data.discount.amount ? data.discount.amount.amount : data && data.discount && data.discount !== null && data.discount.percentage ? data.discount.percentage : ''} {data && data.discount && data.discount !== null && data.discount.percentage ? '%' : data && data.discount && data.discount !== null && data.discount.amount ? '$' : ''}</h4>
+              <h4 className={styles.promotion}>
+                Promotion:{' '}
+                {data &&
+                data.discount &&
+                data.discount !== null &&
+                data.discount.amount
+                  ? data.discount.amount.amount
+                  : data &&
+                    data.discount &&
+                    data.discount !== null &&
+                    data.discount.percentage
+                  ? data.discount.percentage
+                  : ''}{' '}
+                {data &&
+                data.discount &&
+                data.discount !== null &&
+                data.discount.percentage
+                  ? '%'
+                  : data &&
+                    data.discount &&
+                    data.discount !== null &&
+                    data.discount.amount
+                  ? '$'
+                  : ''}
+              </h4>
             </div>
             <div>
               <Chip
@@ -85,16 +123,16 @@ const DraftBrandCampaignDetail = ({ headingValue, setAll, handleActiveStep, hand
         </div>
         <div className={styles.contentContainer}>
           <div className={styles.flexContainer}>
-            {setAll === true ? <PendingCard /> :
+            {setAll === true ? (
+              <PendingCard />
+            ) : (
               <div className={styles.campaignDraftContainer}>
                 <h1>{headingValue} not yet defined</h1>
-                <p>
-                  Pickup where you left off
-              </p>
+                <p>Pickup where you left off</p>
                 <button onClick={handleActiveStep}>Finalize Campaign</button>
               </div>
-            }
-            <Activity seeAll={false} onClick={handleSeeClick} />
+            )}
+            <Activity activities={data?.events} onClick={handleSeeClick} />
           </div>
 
           <div className={styles.flexContainer}>
@@ -117,7 +155,12 @@ const DraftBrandCampaignDetail = ({ headingValue, setAll, handleActiveStep, hand
             <BudgetAndConversion handleEdit={handleEdit} data={data} />
           </div>
           <div className={styles.flexContainer}>
-            <Collections removeSeeAll={true} handleEdit={handleEdit} products={data.products} id={data.id} />
+            <Collections
+              removeSeeAll={true}
+              handleEdit={handleEdit}
+              products={data.products}
+              id={data.id}
+            />
             <Deliverables
               deliverables={data.deliverables}
               handleEdit={handleEdit}

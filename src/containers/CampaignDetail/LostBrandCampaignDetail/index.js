@@ -79,16 +79,27 @@ const LostBrandCampaignDetail = ({
             <div>
               <h4 className={styles.promotion}>
                 Promotion:{' '}
-                {data && data.discount && data.discount !== null && data.discount.amount
+                {data &&
+                data.discount &&
+                data.discount !== null &&
+                data.discount.amount
                   ? data.discount.amount.amount
-                  : data && data.discount && data.discount !== null && data.discount.percentage
-                    ? data.discount.percentage
-                    : ''}{' '}
-                {data && data.discount && data.discount !== null && data.discount.percentage
+                  : data &&
+                    data.discount &&
+                    data.discount !== null &&
+                    data.discount.percentage
+                  ? data.discount.percentage
+                  : ''}{' '}
+                {data &&
+                data.discount &&
+                data.discount !== null &&
+                data.discount.percentage
                   ? '%'
-                  : data.discount && data.discount !== null && data.discount.amount
-                    ? '$'
-                    : ''}
+                  : data.discount &&
+                    data.discount !== null &&
+                    data.discount.amount
+                  ? '$'
+                  : ''}
               </h4>
             </div>
             <div>
@@ -119,7 +130,7 @@ const LostBrandCampaignDetail = ({
               </p>
               <button onClick={() => handleEdit()}>Create new campaign</button>
             </div>
-            <Activity onClick={handleSeeClick} />
+            <Activity activities={data?.events} onClick={handleSeeClick} />
           </div>
           <div className={styles.flexContainer}>
             <CampaignDetail campaign={data} handleEdit={handleEdit}>

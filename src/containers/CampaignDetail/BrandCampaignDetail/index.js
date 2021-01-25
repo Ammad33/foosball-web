@@ -14,11 +14,22 @@ import ClosedBrandCampaignDetail from '../ClosedBrandCampaignDetail';
 import LostBrandCampaignDetail from '../LostBrandCampaignDetail';
 import _ from 'lodash';
 
-const BrandCampaignDetail = ({ headingValue, handleDelete, status, addCampaign, updateCampaign, setAddCampagin, data, addInTeam,
-  removeInTeam, search,
-  handleSearch, selectedMembers,
-  team, setAll }) => {
-
+const BrandCampaignDetail = ({
+  headingValue,
+  handleDelete,
+  status,
+  addCampaign,
+  updateCampaign,
+  setAddCampagin,
+  data,
+  addInTeam,
+  removeInTeam,
+  search,
+  handleSearch,
+  selectedMembers,
+  team,
+  setAll,
+}) => {
   const [step, setStep] = useState(1);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [element, setElement] = useState('');
@@ -43,23 +54,35 @@ const BrandCampaignDetail = ({ headingValue, handleDelete, status, addCampaign, 
   const getDrawerElement = (element) => {
     switch (element) {
       case 'Activity':
-        return <ActivityDetail type={'Brand'} />;
+        return <ActivityDetail activities={data?.events} />;
       case 'Deliverable':
         return <DeliverablesDetail deliverables={data && data.deliverables} />;
       case 'Compensation':
-        return <CompensationDetail compensations={data && data.compensation && data.compensation !== null ? _.compact(data.compensation) : []} targetGrossSales={data.targetGrossSales.amount} />;
+        return (
+          <CompensationDetail
+            compensations={
+              data && data.compensation && data.compensation !== null
+                ? _.compact(data.compensation)
+                : []
+            }
+            targetGrossSales={data.targetGrossSales.amount}
+          />
+        );
       case 'TeamMembers':
-        return <TeamMembersDetail addInTeam={addInTeam}
-          removeInTeam={removeInTeam}
-          search={search}
-          handleSearch={handleSearch}
-          selectedMembers={selectedMembers}
-          team={team} />;
+        return (
+          <TeamMembersDetail
+            addInTeam={addInTeam}
+            removeInTeam={removeInTeam}
+            search={search}
+            handleSearch={handleSearch}
+            selectedMembers={selectedMembers}
+            team={team}
+          />
+        );
       default:
         return;
     }
   };
-
 
   const getPage = (status) => {
     switch (status) {
@@ -142,20 +165,31 @@ const BrandCampaignDetail = ({ headingValue, handleDelete, status, addCampaign, 
   };
 
   const handleActiveStep = () => {
-
     let negotialble = true;
     if (data && data.negotiables && data.negotiables !== null) {
-      Object.values(data.negotiables).forEach(item => {
+      Object.values(data.negotiables).forEach((item) => {
         if (item === true) {
           negotialble = false;
         }
       });
     }
 
-    if ((data.discount && data.discount !== null && data.discount.percentage && data.discount.percentage === "" || data.discount.amount && data.discount.amount.amount === '') || data.invitationMessage === "") {
+    if (
+      (data.discount &&
+        data.discount !== null &&
+        data.discount.percentage &&
+        data.discount.percentage === '') ||
+      (data.discount.amount && data.discount.amount.amount === '') ||
+      data.invitationMessage === ''
+    ) {
       setStep(1);
       setAddCampagin(true);
-    } else if (data.budget === null || data.budget.amount === "" || data.targetGrossSales === null || data.targetGrossSales.amount === "") {
+    } else if (
+      data.budget === null ||
+      data.budget.amount === '' ||
+      data.targetGrossSales === null ||
+      data.targetGrossSales.amount === ''
+    ) {
       setStep(3);
       setAddCampagin(true);
     } else if (data.deliverables === null || data.deliverables.length === 0) {
