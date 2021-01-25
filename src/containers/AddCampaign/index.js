@@ -287,7 +287,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       deadlineDate: '',
       platform: '',
       frameContentType: '',
-      deliverableType: '',
+      postType: '',
       framesRequired: '',
       brandTag: '',
       brandTagRequired: false,
@@ -438,7 +438,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           deadlineDate: '',
           platform: '',
           frameContentType: '',
-          deliverableType: '',
+          postType: '',
           framesRequired: '',
           brandTag: '',
           brandTagRequired: false,
@@ -626,7 +626,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       deadlineDate: '',
       platform: '',
       frameContentType: '',
-      deliverableType: '',
+      postType: '',
       framesRequired: '',
       brandTag: '',
       brandTagRequired: false,
@@ -679,9 +679,14 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   const handleDilverableContent = (value, index, fieldname) => {
     const opts = [...deliveries];
+    if (fieldname === 'postType' && value === 'Post') {
+      opts[index]['framesRequired'] = null;
+    }
     opts[index][fieldname] = value;
     setDeliveries(opts);
   };
+
+  console.log(deliveries);
 
   /***** Handle Delete Deliverable ***********/
 
@@ -1067,6 +1072,44 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   };
 
+  String.prototype.toProperCase = function () {
+    return this.replace(/\w\S*/g, function (txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+  };
+
+  const APIErrorDeliverables = () => {
+    const data = [...deliveries];
+
+    data.map((deliverable) => {
+      // console.log(deliverable);
+
+      const eDate = new Date(deliverable.deadlineDate * 1000);
+
+      deliverable.deadlineDate = moment(eDate).format('L');
+      deliverable.platform = deliverable.platform.toProperCase();
+      console.log(deliverable.platform.toProperCase());
+      deliverable.postType = deliverable.postType && deliverable.postType !== null ? deliverable.postType.toProperCase() : deliverable.deliverableType && deliverable.deliverableType !== null ? deliverable.deliverableType.toProperCase() : null;
+      deliverable.frameContentType = deliverable.frameContentType && deliverable.frameContentType !== null ? deliverable.frameContentType.toProperCase() : null;
+
+      if (deliverable.brandTag && deliverable.brandTag !== '') {
+        deliverable.brandTagRequired = true;
+      } else {
+        deliverable.brandTagRequired = false;
+
+      }
+
+      if (deliverable.hashTag && deliverable.hashTag !== '') {
+        deliverable.hashTagRequired = true;
+      } else {
+        deliverable.hashTagRequired = false;
+      }
+
+      return deliverable;
+    });
+    return data;
+  }
+
   const createCampaign = async () => {
     try {
       if (discountType === 'Amount') {
@@ -1178,9 +1221,12 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
         return response.data.createCampaign.id;
       } else {
+        setDeliveries(APIErrorDeliverables());
         return null
+
       }
     } catch (e) {
+      setDeliveries(APIErrorDeliverables());
       console.log('Error in mutation for create campaign ', e);
       return null;
     }
@@ -1359,9 +1405,11 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       if (response && response !== null && response.data.updateCampaign.id) {
         return response.data.updateCampaign.id;
       } else {
+        setDeliveries(APIErrorDeliverables());
         return null
       }
     } catch (e) {
+      setDeliveries(APIErrorDeliverables());
       console.log('update campaign error ', e);
       return null;
     }
@@ -1457,7 +1505,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     let flag = true;
     deliverables.forEach((delive) => {
       if (delive.platform === 'Facebook' || delive.platform === 'Instagram') {
-        if (delive.deliverableType === 'Post') {
+        if (delive.postType === 'Post') {
           delive.framesRequired = null;
         }
         else if (delive.framesRequired == null) {
@@ -1467,12 +1515,12 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       if (delive.platform === 'Youtube' || delive.platform === 'Tiktok') {
         delive.frameContentType = null;
         delive.framesRequired = null;
-        delive.deliverableType = null;
+        delive.postType = null;
       }
       if (
         delive.deadlineDate === '' ||
         delive.platform === '' ||
-        delive.deliverableType === '' ||
+        delive.postType === '' ||
         delive.frameContentType === '' ||
         delive.framesRequired === '' ||
         delive.posts === '' ||

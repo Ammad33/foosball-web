@@ -125,7 +125,7 @@ const CreateDeliverable = ({
 						) : (
 								' '
 							)
-					} 
+					}
 					value={deliverableItem && deliverableItem.deadlineDate}
 					onChange={(e) => handleDeliverDeadlineDate(e.target.value, index)}
 					InputProps={{
@@ -198,7 +198,7 @@ const CreateDeliverable = ({
 						helperText={error ? <span> error </span> : ' '}
 						value={deliverableItem && deliverableItem.postType}
 						onChange={(e) =>
-							handlePostType(e.target.value, index, 'deliverableType')
+							handlePostType(e.target.value, index, 'postType')
 						}
 						MenuProps={{ variant: 'menu' }}
 						select
