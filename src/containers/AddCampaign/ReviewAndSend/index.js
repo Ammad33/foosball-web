@@ -85,6 +85,20 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 		}
 	}
 
+	const getPostFrequency = (frequency) => {
+	switch (frequency) {
+		case 'BI_MONTHLY':
+			return (' 2 months');
+		case 'WEEK':
+			return (' 1 week');
+		case 'MONTH':
+			return (' 1 month');
+		case 'BI_WEEKLY':
+			return (' 2 weeks');
+		default:
+			return '';
+		}
+	}
 
 	const getTotal = () => {
 		let total = 0;
@@ -171,7 +185,7 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 						<Grid item xs={4}>
 							<div className={styles.campaignItemInfo}>
 								<p>Promotional Discount</p>
-								<span>{numberWithCommas(discount)}%</span>
+								<span>{numberWithCommas(discount)}{discountType ==='Percentage'? "%" : "$"}</span>
 							</div>
 						</Grid>
 						<Grid item xs={8}>
@@ -309,22 +323,26 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 										<span>{item.framesRequired}</span>
 									</div>
 								</Grid>
+								{item.brandTag && 
 								<Grid item xs={4}>
 									<div className={styles.deliverableItem}>
 										<p>Brand tag</p>
-										<span>Required - @{item.brandTag}</span>
+										<span>@{item.brandTag}</span>
 									</div>
 								</Grid>
+								}
+								{item.hashTag &&
 								<Grid item xs={4}>
 									<div className={styles.deliverableItem}>
 										<p>Hashtag</p>
-										<span>Required - #{item.hashTag}</span>
+										<span>#{item.hashTag}</span>
 									</div>
 								</Grid>
+								}
 								<Grid item xs={4}>
 									<div className={styles.deliverableItem}>
 										<p>Post Frequency</p>
-										<span>{item.NoPost} posts every {item.perTimePeriod}</span>
+										<span>{item.posts} posts every {getPostFrequency(item.frequency)}</span>
 									</div>
 								</Grid>
 							</Grid>

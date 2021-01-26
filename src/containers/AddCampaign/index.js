@@ -686,7 +686,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     setDeliveries(opts);
   };
 
-  console.log(deliveries);
+  console.log("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",deliveries);
 
   /***** Handle Delete Deliverable ***********/
 
