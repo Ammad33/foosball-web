@@ -75,7 +75,11 @@ const CampaignDetailInfluencer = ({
     ) {
       setStep(3);
       setAddCampagin(true);
-    } else if (
+    } else if (data.products === null || data.products.length === 0) {
+      setStep(4);
+      setAddCampagin(true);
+    }
+    else if (
       data.deliverables === null ||
       (data.deliverables && data.deliverables.length === 0)
     ) {
@@ -245,7 +249,7 @@ const CampaignDetailInfluencer = ({
           total =
             total +
             parseFloat(item.percentage * 1000) *
-              parseFloat(data.targetGrossSales.amount / 100);
+            parseFloat(data.targetGrossSales.amount / 100);
         } else {
           total = total + parseFloat(item.amount.amount);
         }

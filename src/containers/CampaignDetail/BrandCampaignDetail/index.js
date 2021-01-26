@@ -191,6 +191,10 @@ const BrandCampaignDetail = ({
     ) {
       setStep(3);
       setAddCampagin(true);
+    } else if (data.products === null || data.products.length === 0) {
+      setStep(4);
+      setAddCampagin(true);
+
     } else if (data.deliverables === null || data.deliverables.length === 0) {
       setStep(5);
       setAddCampagin(true);
@@ -203,7 +207,7 @@ const BrandCampaignDetail = ({
     } else if (data.influencer === null) {
       setStep(8);
       setAddCampagin(true);
-    }else if (data.invitedAt === null) {
+    } else if (data.invitedAt === null) {
       setStep(8);
       setAddCampagin(true);
     }

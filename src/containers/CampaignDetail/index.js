@@ -663,6 +663,8 @@ const CampaignDetail = ({ location }) => {
       data.targetGrossSales.amount === ''
     ) {
       setHeadingValue('Target Gross Sale');
+    } else if (data.products === null || data.products.length === 0) {
+      setHeadingValue('Products');
     } else if (
       data.deliverables === null ||
       (data.deliverables && data.deliverables.length === 0)
