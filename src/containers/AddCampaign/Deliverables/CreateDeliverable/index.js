@@ -121,7 +121,7 @@ const CreateDeliverable = ({
 					className={mainStyles.placeholderColor}
 					helperText={
 						deliverableDeadlineDateError ? (
-							<span className={styles.errorText}>Deleiverable Date Must Between Start and End Date of Campaign</span>
+							<span className={styles.errorText}>Deliverable Date Must Between Start and End Date of Campaign</span>
 						) : (
 								' '
 							)

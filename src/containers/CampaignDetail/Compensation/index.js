@@ -3,7 +3,9 @@ import styles from './Compensation.module.scss';
 import { Edit } from 'react-feather';
 
 const Compensation = ({ onClick, handleEdit, compensation }) => {
-
+  const numberWithCommas = (x) => {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
   const getCompensationType = () => {
     switch (compensation[0].__typename) {
       case 'CompRevenueShare':
@@ -39,13 +41,13 @@ const Compensation = ({ onClick, handleEdit, compensation }) => {
     switch (compensation[0].__typename) {
       case 'CompRevenueShare':
         return (
-          <p>{compensation[0].percentage && compensation[0].percentage * 1000}%</p>);
+          <p>{compensation[0].percentage && numberWithCommas(Math.trunc(compensation[0].percentage * 1000))}%</p>);
       case 'CompCashPerPost':
-        return (<p>{compensation[0].amount && compensation[0].amount.amount}$</p>);
+        return (<p>{compensation[0].amount && numberWithCommas(Math.trunc(compensation[0].amount.amount))}$</p>);
       case 'CompCashPerMonthlyDeliverable':
-        return (<p>{compensation[0].amount && compensation[0].amount.amount}$</p>);
+        return (<p>{compensation[0].amount && numberWithCommas(Math.trunc(compensation[0].amount.amount))}$</p>);
       case 'CompGiftCard':
-        return (<p>{compensation[0].amount && compensation[0].amount.amount}$</p>);
+        return (<p>{compensation[0].amount && numberWithCommas(Math.trunc(compensation[0].amount.amount))}$</p>);
       default:
         return <p></p>;
     }
