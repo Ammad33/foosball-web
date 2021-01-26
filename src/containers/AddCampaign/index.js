@@ -82,30 +82,6 @@ const CheckCircleIconSvg = (prop) => {
   );
 };
 
-let negotialbleOptions = [
-  { id: 1, isChecked: true, key: 'post_fee', text: 'Cash Per Post' },
-  { id: 2, isChecked: true, key: 'revenue_share', text: 'Revenue Share %' },
-  {
-    id: 3,
-    isChecked: true,
-    key: 'story_fee',
-    text: 'Cash Per Monthly Deliverable',
-  },
-  { id: 4, isChecked: true, key: 'post_frequency', text: 'Post Frequency' },
-  {
-    id: 5,
-    isChecked: true,
-    key: 'monthly_retainer_fee',
-    text: 'Gift Card',
-  },
-  {
-    id: 6,
-    isChecked: true,
-    key: 'campaign_duration',
-    text: 'Campaign Duration',
-  },
-];
-
 const fb = {
   postType: ['Story', 'Post'],
   frameContentType: ['Video', 'Image'],
@@ -230,6 +206,30 @@ function getSteps() {
 /*********Main Container of Add Campaign ************/
 
 const AddCampaign = ({ open, handleCancel, step, campaign }) => {
+  const negotialbleOptions = [
+    { id: 1, isChecked: true, key: 'post_fee', text: 'Cash Per Post' },
+    { id: 2, isChecked: true, key: 'revenue_share', text: 'Revenue Share %' },
+    {
+      id: 3,
+      isChecked: true,
+      key: 'story_fee',
+      text: 'Cash Per Monthly Deliverable',
+    },
+    { id: 4, isChecked: true, key: 'post_frequency', text: 'Post Frequency' },
+    {
+      id: 5,
+      isChecked: true,
+      key: 'monthly_retainer_fee',
+      text: 'Gift Card',
+    },
+    {
+      id: 6,
+      isChecked: true,
+      key: 'campaign_duration',
+      text: 'Campaign Duration',
+    },
+  ];
+
   /****** Stepper States ********/
 
   const steps = getSteps();
@@ -592,9 +592,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   /** Negotiable Options */
 
-  const [selectedNegotiable, setSelectedNegotiables] = useState(
-    negotialbleOptions
-  );
+  const [selectedNegotiable, setSelectedNegotiables] = useState([
+    ...negotialbleOptions,
+  ]);
 
   //**** Members State **********/
 
