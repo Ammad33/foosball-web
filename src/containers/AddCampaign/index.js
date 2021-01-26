@@ -361,8 +361,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           ? campaign.discount.__typename === 'PercentageDiscount'
             ? 'Percentage'
             : campaign.discount.__typename === 'FlatDiscount'
-            ? 'Amount'
-            : ''
+              ? 'Amount'
+              : ''
           : ''
       );
       if (
@@ -1000,8 +1000,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         deliverable.postType && deliverable.postType !== null
           ? deliverable.postType.toUpperCase()
           : deliverable.deliverableType && deliverable.deliverableType !== null
-          ? deliverable.deliverableType.toUpperCase()
-          : null;
+            ? deliverable.deliverableType.toUpperCase()
+            : null;
       // }
       deliverable.frameContentType =
         deliverable.frameContentType && deliverable.frameContentType !== null
@@ -1113,8 +1113,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         deliverable.postType && deliverable.postType !== null
           ? deliverable.postType.toProperCase()
           : deliverable.deliverableType && deliverable.deliverableType !== null
-          ? deliverable.deliverableType.toProperCase()
-          : null;
+            ? deliverable.deliverableType.toProperCase()
+            : null;
       deliverable.frameContentType =
         deliverable.frameContentType && deliverable.frameContentType !== null
           ? deliverable.frameContentType.toProperCase()
@@ -1493,7 +1493,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     if (campaign === undefined || campaign === null) {
       id = await createCampaign();
     } else {
-      updateCampaign();
+      id = await updateCampaign();
     }
 
     let data = {
@@ -1505,18 +1505,20 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         graphqlOperation(
           `mutation MyMutation {
 						sendCampaignInvite(brandId: "${brandId}", id: "${
-            campaign && campaign.id ? campaign.id : id
+          campaign && campaign.id ? campaign.id : id
           }") {
 							id
 						}
 					}`
         )
       );
+
       handleCancel();
+      gotoCampaginDetail(campaign !== undefined ? campaign.id : id);
     } catch (e) {
       console.log('Campaign Invite error ', e);
     }
-    gotoCampaginDetail(id);
+
   };
 
   const gotoCampaginDetail = (id) => {
@@ -1563,11 +1565,11 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       if (collectionsResponse.data && collectionsResponse.data !== null) {
         setCollections(
           collectionsResponse.data.collections &&
-            collectionsResponse.data.collections.collections &&
-            collectionsResponse.data.collections.collections.map((obj) => ({
-              ...obj,
-              expand: false,
-            }))
+          collectionsResponse.data.collections.collections &&
+          collectionsResponse.data.collections.collections.map((obj) => ({
+            ...obj,
+            expand: false,
+          }))
         );
       }
     } catch (err) {
@@ -1914,7 +1916,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       }`,
       });
       setCampaigns(campaigns.data.campaigns.campaigns);
-    } catch (e) {}
+    } catch (e) { }
   };
 
   const filledForm = () => {
@@ -2008,8 +2010,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                        <CheckCircleIconSvg viewBox='0 0 31 31' />
-                      )}
+                              <CheckCircleIconSvg viewBox='0 0 31 31' />
+                            )}
                       <span
                         className={
                           activeStep === index
@@ -2022,19 +2024,19 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                       </span>
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
                       {activeStep > index ? (
                         <div className={styles.activeBar} />
                       ) : (
-                        <div className={styles.inActiveBar} />
-                      )}
+                          <div className={styles.inActiveBar} />
+                        )}
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                 </>
               ))}
             </div>
@@ -2047,8 +2049,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                  <div></div>
-                )}
+                    <div></div>
+                  )}
                 <span onClick={handleCancelCampaignDialog}>
                   <XSVG />
                 </span>

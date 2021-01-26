@@ -127,10 +127,11 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 
 		return parseFloat(over);
 	}
-
+	console.log(overAmount());
 	const [collectionData, setCollectionData] = useState([]);
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		let collls = [];
 		if (products && products.length > 0) {
 
@@ -252,7 +253,7 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 				</div>
 				{overAmount() > 0 &&
 					<div className={styles.compensationBadge}>
-						<p>You are ${overAmount()} over budget</p>
+						<p>You are ${numberWithCommas(Math.trunc(overAmount()))} over budget</p>
 					</div>
 				}
 			</div>
