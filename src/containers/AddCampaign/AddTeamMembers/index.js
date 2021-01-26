@@ -15,17 +15,21 @@ const AddTeamMembers = ({
   handleActiveNext,
 }) => {
   const { currentUser } = useContext(RootContext);
-  const [teamMembers, setTeamMembers] = useState(members);
+  const [teamMembers, setTeamMembers] = useState([...members]);
 
   useEffect(() => {
     handleActiveNext();
   }, []);
 
   useEffect(() => {
+    console.log('members in add team members component ', teamMembers);
     const filterdMembers = teamMembers.filter(
       (memb) => memb.user.id !== currentUser.username
     );
-    console.log('filtered members ', filterdMembers);
+    console.log(
+      'filtered members in add team members component ',
+      filterdMembers
+    );
     setTeamMembers(filterdMembers);
   }, [members]);
 

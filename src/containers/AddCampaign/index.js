@@ -85,7 +85,12 @@ const CheckCircleIconSvg = (prop) => {
 let negotialbleOptions = [
   { id: 1, isChecked: true, key: 'post_fee', text: 'Cash Per Post' },
   { id: 2, isChecked: true, key: 'revenue_share', text: 'Revenue Share %' },
-  { id: 3, isChecked: true, key: 'story_fee', text: 'Cash Per Monthly Deliverable' },
+  {
+    id: 3,
+    isChecked: true,
+    key: 'story_fee',
+    text: 'Cash Per Monthly Deliverable',
+  },
   { id: 4, isChecked: true, key: 'post_frequency', text: 'Post Frequency' },
   {
     id: 5,
@@ -250,7 +255,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   );
   const [startDateError, setStartDateError] = useState(false);
   const [endDateError, setEndDateError] = useState(false);
-  const [deliverableDeadlineDateError, setDeliverableDeadlineDateError] = useState(false); //deleverable deadline
+  const [
+    deliverableDeadlineDateError,
+    setDeliverableDeadlineDateError,
+  ] = useState(false); //deleverable deadline
   const [startTime, setStartTime] = useState(
     moment().subtract(1, 'days').startOf('day').format('HH:mm')
   );
@@ -327,17 +335,25 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             : campaign.discount.percentage
           : ''
       );
-      setMinimium(campaign.discount && campaign.discount !== null
-        && campaign.discount.__typename === 'FlatDiscount'
-        && campaign.discount.minimum ? campaign.discount.minimum.amount : ''
-      )
+      setMinimium(
+        campaign.discount &&
+          campaign.discount !== null &&
+          campaign.discount.__typename === 'FlatDiscount' &&
+          campaign.discount.minimum
+          ? campaign.discount.minimum.amount
+          : ''
+      );
       setSelectedMemebers(
         campaign.brandTeam && campaign.brandTeam !== null
           ? campaign.brandTeam.map((item) => item.id)
           : []
       );
 
-      if (campaign.products && campaign.products !== null && campaign.products.length > 0) {
+      if (
+        campaign.products &&
+        campaign.products !== null &&
+        campaign.products.length > 0
+      ) {
         setProducts(getCampaignsProducts());
       }
       setDiscountType(
@@ -345,8 +361,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           ? campaign.discount.__typename === 'PercentageDiscount'
             ? 'Percentage'
             : campaign.discount.__typename === 'FlatDiscount'
-              ? 'Amount'
-              : ''
+            ? 'Amount'
+            : ''
           : ''
       );
       if (
@@ -386,9 +402,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         campaign.deliverables.map((deliverable) => {
           console.log(deliverable);
           if (deliverable.deadlineDate) {
-            deliverable.deadlineDate = moment(
-              deliverable.deadlineDate
-            ).format('L');
+            deliverable.deadlineDate = moment(deliverable.deadlineDate).format(
+              'L'
+            );
           }
           deliverable.brandTagRequired = deliverable.brandTag ? true : false;
           deliverable.hashTagRequired = deliverable.hashTag ? true : false;
@@ -402,17 +418,20 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   const getCampaignsProducts = () => {
     let productSample = [];
-    campaign.products && campaign.products.length > 0 &&
-      campaign.products.forEach(product => {
+    campaign.products &&
+      campaign.products.length > 0 &&
+      campaign.products.forEach((product) => {
         if (product.products && product.products.length > 0) {
           productSample.push({
             collectionId: product.collection.id,
-            products: product.products.map(item => ({ productId: item.product.id }))
-          })
+            products: product.products.map((item) => ({
+              productId: item.product.id,
+            })),
+          });
         }
-      })
+      });
     return productSample;
-  }
+  };
 
   useEffect(() => {
     if (open === false) {
@@ -596,6 +615,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   /**** Add New deliverable */
 
   const getTeam = async () => {
+    console.log('running getTeam function in add campaign');
     try {
       const team = await API.graphql({
         query: `{
@@ -651,28 +671,27 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         if (opts[index].deadlineDate.length > date.length) {
           opts[index].deadlineDate = date;
         } else if (date.length < 11) {
-          if (date !== "") {
+          if (date !== '') {
             var targetValue = date;
 
             if (targetValue.length === 5) {
-              opts[index].deadlineDate = targetValue + "/";
+              opts[index].deadlineDate = targetValue + '/';
             } else if (targetValue.length === 2) {
-              opts[index].deadlineDate = targetValue + "/";
+              opts[index].deadlineDate = targetValue + '/';
             } else {
               opts[index].deadlineDate = targetValue;
             }
           } else {
-            opts[index].deadlineDate = "";
+            opts[index].deadlineDate = '';
           }
         }
       }
       setDeliveries(opts);
       setDeliverableDate(false);
-      setDeliverableDeadlineDateError(false)
+      setDeliverableDeadlineDateError(false);
+    } else {
+      setDeliverableDeadlineDateError(true);
     }
-    else {
-      setDeliverableDeadlineDateError(true)
-    };
   };
 
   /***** Handle Deliverable Content ********/
@@ -685,8 +704,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     opts[index][fieldname] = value;
     setDeliveries(opts);
   };
-
-  console.log(deliveries);
 
   /***** Handle Delete Deliverable ***********/
 
@@ -759,21 +776,20 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const handleCollectionItem = (id, item) => {
     const opts = [...products];
     if (opts.length > 0) {
-
       const index = opts.findIndex((item) => item.collectionId === id);
 
       if (index !== -1) {
         if (opts[index].products) {
           const secondIndex = opts[index].products.findIndex(
             (secondItem) => secondItem.productId === item.productId
-          )
+          );
           if (secondIndex === -1) {
             opts[index].products.push(item);
             setProducts(opts);
           } else {
             opts[index].products.splice(secondIndex, 1);
             if (opts[index].products && opts[index].products.length === 0) {
-              opts.splice(index, 1)
+              opts.splice(index, 1);
             }
             setProducts(opts);
           }
@@ -781,17 +797,15 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       } else {
         opts.push({
           collectionId: id,
-          products: [item]
-        }
-        );
+          products: [item],
+        });
         setProducts(opts);
       }
     } else {
       opts.push({
         collectionId: id,
-        products: [item]
-      }
-      );
+        products: [item],
+      });
       setProducts(opts);
     }
   };
@@ -885,7 +899,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   /*************Start Time/Date validation************/
   const handleStartTimeDateValidation = (time, date) => {
-
     const startDateTime = moment(date + ' ' + time);
     if (startDateTime.isBefore(moment())) {
       setStartTimeError(true);
@@ -927,7 +940,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       }
     } else {
       // const re = /^((0|[1-9]\d?)(\.\d{1,2})?|100(\.00?)?)$/;
-      const value = e
+      const value = e;
       var x = parseFloat(value);
       if (value !== '' && (isNaN(x) || x < 0 || x > 100)) {
         return false;
@@ -983,9 +996,17 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         Date.parse(`${deliverable.deadlineDate}`) / 1000;
       deliverable.platform = deliverable.platform.toUpperCase();
       // if (deliverable.postType !== null || deliverable.deliverableType !== null) {
-      deliverable.postType = deliverable.postType && deliverable.postType !== null ? deliverable.postType.toUpperCase() : deliverable.deliverableType && deliverable.deliverableType !== null ? deliverable.deliverableType.toUpperCase() : null;
+      deliverable.postType =
+        deliverable.postType && deliverable.postType !== null
+          ? deliverable.postType.toUpperCase()
+          : deliverable.deliverableType && deliverable.deliverableType !== null
+          ? deliverable.deliverableType.toUpperCase()
+          : null;
       // }
-      deliverable.frameContentType = deliverable.frameContentType && deliverable.frameContentType !== null ? deliverable.frameContentType.toUpperCase() : null;
+      deliverable.frameContentType =
+        deliverable.frameContentType && deliverable.frameContentType !== null
+          ? deliverable.frameContentType.toUpperCase()
+          : null;
       delete deliverable.deliverableType;
       return deliverable;
 
@@ -1046,9 +1067,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           };
         case 'CASH_PER_POST':
           return {
-            type: "CASH_PER_POST",
+            type: 'CASH_PER_POST',
             value:
-              "{\"amount\":{\"amount\":\"" + item.amount + "\",\"currency\":\"USD\"}}"
+              '{"amount":{"amount":"' + item.amount + '","currency":"USD"}}',
           };
         case 'CASH_PER_MONTHLY_DELIVERABLE':
           return {
@@ -1069,10 +1090,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       }
     });
     return _.compact(compensation);
-
   };
-
-  console.log(products);
 
   String.prototype.toProperCase = function () {
     return this.replace(/\w\S*/g, function (txt) {
@@ -1091,14 +1109,21 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       deliverable.deadlineDate = moment(eDate).format('L');
       deliverable.platform = deliverable.platform.toProperCase();
       console.log(deliverable.platform.toProperCase());
-      deliverable.postType = deliverable.postType && deliverable.postType !== null ? deliverable.postType.toProperCase() : deliverable.deliverableType && deliverable.deliverableType !== null ? deliverable.deliverableType.toProperCase() : null;
-      deliverable.frameContentType = deliverable.frameContentType && deliverable.frameContentType !== null ? deliverable.frameContentType.toProperCase() : null;
+      deliverable.postType =
+        deliverable.postType && deliverable.postType !== null
+          ? deliverable.postType.toProperCase()
+          : deliverable.deliverableType && deliverable.deliverableType !== null
+          ? deliverable.deliverableType.toProperCase()
+          : null;
+      deliverable.frameContentType =
+        deliverable.frameContentType && deliverable.frameContentType !== null
+          ? deliverable.frameContentType.toProperCase()
+          : null;
 
       if (deliverable.brandTag && deliverable.brandTag !== '') {
         deliverable.brandTagRequired = true;
       } else {
         deliverable.brandTagRequired = false;
-
       }
 
       if (deliverable.hashTag && deliverable.hashTag !== '') {
@@ -1110,16 +1135,21 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       return deliverable;
     });
     return data;
-  }
+  };
 
   const createCampaign = async () => {
     try {
       if (discountType === 'Amount') {
         typ = 'FLAT';
-        val = '{\"amount\":{\"amount\":\"' + discount + '\",\"currency\":\"USD\"},\"minimum\":{\"amount\":\"' + minimium + '\",\"currency\":\"USD\"}}';
+        val =
+          '{"amount":{"amount":"' +
+          discount +
+          '","currency":"USD"},"minimum":{"amount":"' +
+          minimium +
+          '","currency":"USD"}}';
       } else if (discountType === 'Percentage') {
         typ = 'PERCENTAGE';
-        val = '{\"percentage\":\"' + discount + '\"}';
+        val = '{"percentage":"' + discount + '"}';
       }
 
       let data = {
@@ -1138,52 +1168,67 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         // compensation: getCompensations(),
       };
 
-
       if (discountType !== '' && discount !== '') {
         data = {
-          ...data, discount: { value: val, type: typ }
-        }
+          ...data,
+          discount: { value: val, type: typ },
+        };
       }
 
       if (customeMessage !== '') {
         data = {
-          ...data, invitationMessage: customeMessage,
-        }
+          ...data,
+          invitationMessage: customeMessage,
+        };
       }
 
       if (budget !== '') {
         data = {
-          ...data, budget: { amount: budget, currency: 'USD' }
-        }
+          ...data,
+          budget: { amount: budget, currency: 'USD' },
+        };
       }
 
       if (targetGrossSale !== '') {
         data = {
-          ...data, targetGrossSales: { amount: targetGrossSale, currency: 'USD' }
-        }
+          ...data,
+          targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
+        };
       }
-      if (deliveries && deliveries.length > 0 && deliveries[0].deadlineDate !== '') {
+      if (
+        deliveries &&
+        deliveries.length > 0 &&
+        deliveries[0].deadlineDate !== ''
+      ) {
         data = {
-          ...data, deliverables: getDeliverablesForAPI(),
-        }
+          ...data,
+          deliverables: getDeliverablesForAPI(),
+        };
       }
 
       if (selectedMembers && selectedMembers.length > 0) {
         data = {
-          ...data, team: selectedMembers
-        }
+          ...data,
+          team: selectedMembers,
+        };
       }
 
-      if (compensations && compensations.length > 0 && compensations[0].compensationType !== '') {
+      if (
+        compensations &&
+        compensations.length > 0 &&
+        compensations[0].compensationType !== ''
+      ) {
         data = {
-          ...data, compensation: getCompensations()
-        }
+          ...data,
+          compensation: getCompensations(),
+        };
       }
 
       if (stepSeven) {
         data = {
-          ...data, negotiables: getNegotiablesObjectForAPI()
-        }
+          ...data,
+          negotiables: getNegotiablesObjectForAPI(),
+        };
       }
 
       if (influencer && influencer.id && influencer.id !== '') {
@@ -1217,15 +1262,19 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         )
       );
 
-      if (response && response !== null && response.data !== null && response.data.createCampaign !== null) {
+      if (
+        response &&
+        response !== null &&
+        response.data !== null &&
+        response.data.createCampaign !== null
+      ) {
         updateCampaignProducts(response.data.createCampaign.id);
         handleCancel();
 
         return response.data.createCampaign.id;
       } else {
         setDeliveries(APIErrorDeliverables());
-        return null
-
+        return null;
       }
     } catch (e) {
       setDeliveries(APIErrorDeliverables());
@@ -1242,25 +1291,27 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       collect[index].expand = true;
     }
 
-    setCollections(collect)
-  }
+    setCollections(collect);
+  };
 
   const updateCampaignProducts = async (id) => {
     if (products && products.length > 0) {
-
       try {
-
-
         let data = {
           brandId,
           id: id,
           products: products,
         };
 
-        if (compensations && compensations.length > 0 && compensations[0].compensationType !== '') {
+        if (
+          compensations &&
+          compensations.length > 0 &&
+          compensations[0].compensationType !== ''
+        ) {
           data = {
-            ...data, compensation: getCompensations()
-          }
+            ...data,
+            compensation: getCompensations(),
+          };
         }
 
         await API.graphql(
@@ -1286,22 +1337,26 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           )
         );
         handleCancel();
-
       } catch (err) {
         console.log(err);
       }
     } else {
       handleCancel();
     }
-  }
+  };
 
   const updateCampaign = async () => {
     if (discountType === 'Amount') {
       typ = 'FLAT';
-      val = '{\"amount\":{\"amount\":\"' + discount + '\",\"currency\":\"USD\"},\"minimum\":{\"amount\":\"' + minimium + '\",\"currency\":\"USD\"}}';
+      val =
+        '{"amount":{"amount":"' +
+        discount +
+        '","currency":"USD"},"minimum":{"amount":"' +
+        minimium +
+        '","currency":"USD"}}';
     } else if (discountType === 'Percentage') {
       typ = 'PERCENTAGE';
-      val = '{\"percentage\":\"' + discount + '\"}';
+      val = '{"percentage":"' + discount + '"}';
     }
     try {
       const end = Date.parse(`${endDate} ${endTime}`) / 1000;
@@ -1323,61 +1378,78 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         // deliverables: getDeliverablesForAPI(),
       };
 
-
-
       if (discountType !== '' && discount !== '') {
         data = {
-          ...data, discount: { value: val, type: typ }
-        }
+          ...data,
+          discount: { value: val, type: typ },
+        };
       }
 
       if (customeMessage !== '') {
         data = {
-          ...data, invitationMessage: customeMessage,
-        }
+          ...data,
+          invitationMessage: customeMessage,
+        };
       }
 
       if (selectedMembers && selectedMembers.length > 0) {
         data = {
-          ...data, team: selectedMembers
-        }
+          ...data,
+          team: selectedMembers,
+        };
       }
 
       if (budget !== '') {
         data = {
-          ...data, budget: { amount: budget, currency: 'USD' }
-        }
+          ...data,
+          budget: { amount: budget, currency: 'USD' },
+        };
       }
 
       if (targetGrossSale !== '') {
         data = {
-          ...data, targetGrossSales: { amount: targetGrossSale, currency: 'USD' }
-        }
+          ...data,
+          targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
+        };
       }
 
-      if (deliveries && deliveries.length > 0 && deliveries[0].deadlineDate !== '') {
+      if (
+        deliveries &&
+        deliveries.length > 0 &&
+        deliveries[0].deadlineDate !== ''
+      ) {
         data = {
-          ...data, deliverables: getDeliverablesForAPI(),
-        }
+          ...data,
+          deliverables: getDeliverablesForAPI(),
+        };
       }
 
-      if (compensations && compensations.length > 0 && compensations[0].compensationType !== '') {
+      if (
+        compensations &&
+        compensations.length > 0 &&
+        compensations[0].compensationType !== ''
+      ) {
         data = {
-          ...data, compensation: getCompensations()
-        }
+          ...data,
+          compensation: getCompensations(),
+        };
       }
 
       if (campaign.negotiables !== null || stepSeven) {
         data = {
-          ...data, negotiables: getNegotiablesObjectForAPI()
-        }
+          ...data,
+          negotiables: getNegotiablesObjectForAPI(),
+        };
       }
 
-      if (influencer && influencer.id && influencer.id !== null && influencer.id !== '') {
+      if (
+        influencer &&
+        influencer.id &&
+        influencer.id !== null &&
+        influencer.id !== ''
+      ) {
         data.influencerId = influencer.id;
       }
-
-
 
       let response = await API.graphql(
         graphqlOperation(
@@ -1408,7 +1480,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         return response.data.updateCampaign.id;
       } else {
         setDeliveries(APIErrorDeliverables());
-        return null
+        return null;
       }
     } catch (e) {
       setDeliveries(APIErrorDeliverables());
@@ -1419,20 +1491,22 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const sendCampaignInvite = async () => {
     let id = null;
     if (campaign === undefined || campaign === null) {
-      id = await createCampaign()
+      id = await createCampaign();
     } else {
-      updateCampaign()
+      updateCampaign();
     }
 
     let data = {
       brandId: brandId,
-      id: campaign && campaign.id ? campaign.id : id
+      id: campaign && campaign.id ? campaign.id : id,
     };
     try {
       await API.graphql(
         graphqlOperation(
           `mutation MyMutation {
-						sendCampaignInvite(brandId: "${brandId}", id: "${campaign && campaign.id ? campaign.id : id}") {
+						sendCampaignInvite(brandId: "${brandId}", id: "${
+            campaign && campaign.id ? campaign.id : id
+          }") {
 							id
 						}
 					}`
@@ -1441,9 +1515,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       handleCancel();
     } catch (e) {
       console.log('Campaign Invite error ', e);
-		}
-		gotoCampaginDetail(id);
-  }
+    }
+    gotoCampaginDetail(id);
+  };
 
   const gotoCampaginDetail = (id) => {
     history.push(`/campaignDetail/${id}`, { campaignId: id });
@@ -1483,21 +1557,32 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
               }
             }
           }
-        }`
-      })
+        }`,
+      });
 
-      console.log(collectionsResponse.data.collections.collections);
       if (collectionsResponse.data && collectionsResponse.data !== null) {
-        setCollections(collectionsResponse.data.collections && collectionsResponse.data.collections.collections && collectionsResponse.data.collections.collections.map(obj => ({ ...obj, expand: false })));
+        setCollections(
+          collectionsResponse.data.collections &&
+            collectionsResponse.data.collections.collections &&
+            collectionsResponse.data.collections.collections.map((obj) => ({
+              ...obj,
+              expand: false,
+            }))
+        );
       }
-
     } catch (err) {
       console.log(err);
-      if (err && err.data && err.data !== null && err.data.collections && err.data.collections !== null) {
+      if (
+        err &&
+        err.data &&
+        err.data !== null &&
+        err.data.collections &&
+        err.data.collections !== null
+      ) {
         setCollections(err.data.collections.collections);
       }
     }
-  }
+  };
 
   /************* Active for deliverable */
 
@@ -1509,8 +1594,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       if (delive.platform === 'Facebook' || delive.platform === 'Instagram') {
         if (delive.postType === 'Post') {
           delive.framesRequired = null;
-        }
-        else if (delive.framesRequired == null) {
+        } else if (delive.framesRequired == null) {
           delive.framesRequired = '';
         }
       }
@@ -1587,11 +1671,11 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const handleSearch = (e) => {
     setSearch(e.target.value);
     const members = [...team];
-    setTeam(members.filter(item => item.user.email.includes(e.target.value)));
+    setTeam(members.filter((item) => item.user.email.includes(e.target.value)));
     if (e.target.value === '') {
       getTeam();
     }
-  }
+  };
 
   // /*********************** To disable next button */
 
@@ -1599,16 +1683,13 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     if (activeStep >= index) {
       setLastStep(activeStep);
       setActiveStep(index);
-
     } else return;
   };
 
   const handleCampaignName = (e) => {
-
     setCampaignName(e.target.value);
     if (e.target.value !== '') {
-
-      const index = campaigns.findIndex(item => item.name === e.target.value);
+      const index = campaigns.findIndex((item) => item.name === e.target.value);
 
       if (index !== -1) {
         setCampaignError('This name already exists');
@@ -1620,12 +1701,12 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   const handleCollectionClear = () => {
     let cols = [...collections];
-    cols = cols.map(item => {
+    cols = cols.map((item) => {
       item.expand = false;
       return item;
     });
     setCollections(cols);
-  }
+  };
 
   const getStepContent = (activeStep) => {
     switch (activeStep) {
@@ -1679,6 +1760,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           />
         );
       case 2:
+        console.log('returning team members with members ', team);
         return (
           <AddTeamMembers
             selectedMembers={selectedMembers}
@@ -1801,7 +1883,15 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   };
 
   const partialFilledForm = () => {
-    if (campaignName !== '' && startDate !== '' && endDate !== '' && campaignError === '' && discountType !== '' && discount !== '' && customeMessage !== '') {
+    if (
+      campaignName !== '' &&
+      startDate !== '' &&
+      endDate !== '' &&
+      campaignError === '' &&
+      discountType !== '' &&
+      discount !== '' &&
+      customeMessage !== ''
+    ) {
       setActiveSave(true);
     } else {
       setActiveSave(false);
@@ -1824,7 +1914,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       }`,
       });
       setCampaigns(campaigns.data.campaigns.campaigns);
-    } catch (e) { }
+    } catch (e) {}
   };
 
   const filledForm = () => {
@@ -1856,7 +1946,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         setStartTimeError(false);
         if (lastStep !== 0) {
           setActiveStep(lastStep);
-          setLastStep(0)
+          setLastStep(0);
         } else {
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
         }
@@ -1864,7 +1954,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     } else if (activeSetp !== 9) {
       if (lastStep !== 0) {
         setActiveStep(lastStep);
-        setLastStep(0)
+        setLastStep(0);
       } else {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
       }
@@ -1918,8 +2008,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                              <CheckCircleIconSvg viewBox='0 0 31 31' />
-                            )}
+                        <CheckCircleIconSvg viewBox='0 0 31 31' />
+                      )}
                       <span
                         className={
                           activeStep === index
@@ -1932,19 +2022,19 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                       </span>
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
                       {activeStep > index ? (
                         <div className={styles.activeBar} />
                       ) : (
-                          <div className={styles.inActiveBar} />
-                        )}
+                        <div className={styles.inActiveBar} />
+                      )}
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                 </>
               ))}
             </div>
@@ -1957,8 +2047,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                    <div></div>
-                  )}
+                  <div></div>
+                )}
                 <span onClick={handleCancelCampaignDialog}>
                   <XSVG />
                 </span>
@@ -2018,9 +2108,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                 )}
                 disabled={!activeNext}
               >
-                {activeStep === 9
-                  ? 'Send Invite'
-                  : 'Next'}
+                {activeStep === 9 ? 'Send Invite' : 'Next'}
               </button>
             </div>
           </div>
@@ -2032,7 +2120,11 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         confirmText={'Keep working'}
         onCancel={handleCancelCDialog}
         onConfirm={handleConfirmCDialog}
-        message={campaign ? 'Are you sure you want to exit? You will lose any updates to this campaign since your last save.' : Translation.DIALOG.CAMPAIGN_CDIALOG_MSG}
+        message={
+          campaign
+            ? 'Are you sure you want to exit? You will lose any updates to this campaign since your last save.'
+            : Translation.DIALOG.CAMPAIGN_CDIALOG_MSG
+        }
       />
     </>
   );
