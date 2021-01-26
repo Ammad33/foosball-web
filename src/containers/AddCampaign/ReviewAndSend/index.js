@@ -16,7 +16,6 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 		totalPosts = totalPosts + parseInt(item.posts);
 	});
 
-	console.log(products);
 	const numberWithCommas = (x) => {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
@@ -114,6 +113,7 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 	useEffect(() => {
 		let collls = [];
 		if (products && products.length > 0) {
+
 			products.forEach(item => {
 				let index = collections.findIndex(collItem => collItem.id === item.collectionId);
 				if (index !== -1) {
@@ -129,9 +129,11 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 				}
 			})
 		}
-		console.log(collls);
+
 		setCollectionData(collls);
-	}, [])
+	}, [products])
+
+	console.log(collectionData);
 
 	return (
 		<div class={styles.mainContainer}>

@@ -72,10 +72,9 @@ const Collection = ({
     handleActiveForCollection();
   }, [products]);
 
-  useEffect(() => {
-    return () => { clearCollections() };
-  }, [])
-
+  // useEffect(() => {
+  //   // return () => { clearCollections() };
+  // }, [])
 
   return (
     <Grid container>
