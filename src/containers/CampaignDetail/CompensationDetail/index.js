@@ -25,13 +25,13 @@ const CompensationDetail = ({ compensations, targetGrossSales }) => {
 		switch (compensation.__typename) {
 			case 'CompRevenueShare':
 				return (
-					<h6>${parseFloat(compensation.percentage && (compensation.percentage * 1000) * parseFloat(targetGrossSales / 100))}</h6>);
+					<h6>${numberWithCommas(Math.trunc(parseFloat(compensation.percentage && (compensation.percentage * 1000) * parseFloat(targetGrossSales / 100))))}</h6>);
 			case 'CompCashPerPost':
-				return (<h6>${compensation.amount && compensation.amount.amount}</h6>);
+				return (<h6>${compensation.amount && numberWithCommas(Math.trunc(compensation.amount.amount))}</h6>);
 			case 'CompCashPerMonthlyDeliverable':
-				return (<h6>${compensation.amount && compensation.amount.amount}</h6>);
+				return (<h6>${compensation.amount && numberWithCommas(Math.trunc(compensation.amount.amount))}</h6>);
 			case 'CompGiftCard':
-				return (<h6>${compensation.amount && compensation.amount.amount}</h6>);
+				return (<h6>${compensation.amount && numberWithCommas(Math.trunc(compensation.amount.amount))}</h6>);
 			default:
 				return <h6></h6>;
 		}
@@ -57,13 +57,13 @@ const CompensationDetail = ({ compensations, targetGrossSales }) => {
 		switch (compensation.__typename) {
 			case 'CompRevenueShare':
 				return (
-					<p>{compensation.percentage && compensation.percentage * 1000}%</p>);
+					<p>{compensation.percentage && numberWithCommas(Math.trunc(compensation.percentage * 1000))}%</p>);
 			case 'CompCashPerPost':
-				return (<p>{compensation.amount && compensation.amount.amount}$</p>);
+				return (<p>{compensation.amount && numberWithCommas(Math.trunc(compensation.amount.amount))}$</p>);
 			case 'CompCashPerMonthlyDeliverable':
-				return (<p>{compensation.amount && compensation.amount.amount}$</p>);
+				return (<p>{compensation.amount && numberWithCommas(Math.trunc(compensation.amount.amount))}$</p>);
 			case 'CompGiftCard':
-				return (<p>{compensation.amount && compensation.amount.amount}$</p>);
+				return (<p>{compensation.amount && numberWithCommas(Math.trunc(compensation.amount.amount))}$</p>);
 			default:
 				return <p></p>;
 		}
@@ -107,7 +107,7 @@ const CompensationDetail = ({ compensations, targetGrossSales }) => {
 
 		{compensations && compensations !== null && compensations.length > 0 && <div className={styles.header}>
 			<h6>Total Comp Estimate:</h6>
-			<h6>${numberWithCommas((getTotal()))}</h6>
+			<h6>${numberWithCommas(Math.trunc(((getTotal()))))}</h6>
 		</div>
 		}
 	</div >);

@@ -55,7 +55,6 @@ for (let i = 3; i <= 20; i += 1) {
 }
 
 const PendingBrandCampaignDetail = ({
-	handleEdit,
 	data,
 	handleSeeClick,
 	name,
@@ -65,6 +64,7 @@ const PendingBrandCampaignDetail = ({
 		'Both parties agree to terminate the campaign',
 		'Other (please specify below)',
 	];
+
 
 	const history = useHistory();
 	const [anchorEl, setAnchorEl] = useState(null);
@@ -288,7 +288,7 @@ const PendingBrandCampaignDetail = ({
 						<Activity activities={data?.events} onClick={handleSeeClick} />
 					</div>
 					<div className={styles.flexContainer}>
-						<CampaignDetail campaign={data} handleEdit={handleEdit}>
+						<CampaignDetail campaign={data}>
 							<>
 								<h6>Custom Message to Influencer</h6>
 								<p>
@@ -300,26 +300,26 @@ const PendingBrandCampaignDetail = ({
 						</CampaignDetail>
 						<TeamMembers
 							onClick={handleSeeClick}
-							handleEdit={handleEdit}
+							status = {data.status}
 							brandTeam={data && data.brandTeam !== null ? data.brandTeam : []}
 						/>
-						<BudgetAndConversion handleEdit={handleEdit} data={data} />
+						<BudgetAndConversion  data={data} 	status = {data.status} />
 					</div>
 					<div className={styles.flexContainer}>
 						<Collections
-							handleEdit={handleEdit}
+							status = {data.status}
 							products={data.products}
 							id={data.id}
 						/>
 						<Deliverables
 							deliverables={data.deliverables}
-							handleEdit={handleEdit}
+							status = {data.status}
 							onClick={handleSeeClick}
 						/>
 					</div>
 					<div className={styles.flexContainer}>
 						<Compensation
-							handleEdit={handleEdit}
+							status = {data.status}
 							onClick={handleSeeClick}
 							compensation={
 								data && data.compensation && data.compensation !== null
@@ -327,7 +327,7 @@ const PendingBrandCampaignDetail = ({
 									: []
 							}
 						/>
-						<Negotiables data={data} handleEdit={handleEdit} />
+						<Negotiables data={data} 	status = {data.status} />
 						<div style={{ width: '391px' }}></div>
 					</div>
 				</div>

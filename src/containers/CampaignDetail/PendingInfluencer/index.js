@@ -106,7 +106,11 @@ const PendingInfluencer = ({
               />
             </div>
             <div style={{ marginTop: '30px' }}>
-              <Collections handleEdit={handleEdit} id={data.id} />
+						<Collections
+                handleEdit={handleEdit}
+                products={data.products}
+                id={data.id}
+              />
             </div>
           </div>
           <div className={styles.second}>

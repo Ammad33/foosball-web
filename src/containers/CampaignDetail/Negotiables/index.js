@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Negotiables.module.scss';
 import { Edit } from 'react-feather';
 
-const Negotiables = ({ handleEdit, data }) => {
+const Negotiables = ({ handleEdit, data , status}) => {
 
   const getNegotiablesData = () => {
     if (data.negotiables !== null) {
@@ -34,7 +34,11 @@ const Negotiables = ({ handleEdit, data }) => {
     <div className={styles.mainContainer}>
       <div className={styles.headerContainer}>
         <h1>Negotiables</h1>
-        {handleEdit ? <Edit onClick={() => handleEdit(7)} /> : ''}
+				{(status && status !== 'INVITED')  ? (
+            <Edit onClick={() => handleEdit(7)} />
+          ) : (
+            ''
+          )}   
       </div>
       {data?.negotiables ? <>{data.negotiables !== null && getNegotiablesData()}</> : ''}
     </div>

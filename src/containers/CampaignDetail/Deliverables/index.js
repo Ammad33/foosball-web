@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Deliverables.module.scss';
 import { Edit } from 'react-feather';
 
-const Deliverables = ({ onClick, handleEdit, deliverables }) => {
+const Deliverables = ({ onClick, handleEdit, deliverables, status }) => {
   const getPostFrequency = (frequency) => {
     switch (frequency) {
       case 'BI_WEEKLY':
@@ -22,7 +22,11 @@ const Deliverables = ({ onClick, handleEdit, deliverables }) => {
     <div className={styles.deliverableContainer}>
       <div className={styles.headerContainer}>
         <h1>Deliverables</h1>
-        <Edit onClick={() => handleEdit(5)} />
+				{(status && status !== 'INVITED')  ? (
+            <Edit onClick={() => handleEdit(5)} />
+          ) : (
+            ''
+          )}     
       </div>
       {deliverables && deliverables !== null &&
         <>

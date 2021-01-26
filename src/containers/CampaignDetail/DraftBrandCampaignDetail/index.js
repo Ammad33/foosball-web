@@ -147,21 +147,24 @@ const DraftBrandCampaignDetail = ({
               </>
             </CampaignDetail>
             <TeamMembers
+							status = {data.status}
               seeAll={false}
               onClick={handleSeeClick}
               handleEdit={handleEdit}
               brandTeam={data && data.brandTeam !== null ? data.brandTeam : []}
             />
-            <BudgetAndConversion handleEdit={handleEdit} data={data} />
+            <BudgetAndConversion handleEdit={handleEdit} data={data} status = {data.status} />
           </div>
           <div className={styles.flexContainer}>
             <Collections
+							status = {data.status}
               removeSeeAll={true}
               handleEdit={handleEdit}
               products={data.products}
               id={data.id}
             />
             <Deliverables
+							status = {data.status}
               deliverables={data.deliverables}
               handleEdit={handleEdit}
               onClick={handleSeeClick}

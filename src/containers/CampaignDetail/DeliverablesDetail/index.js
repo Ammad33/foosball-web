@@ -34,7 +34,7 @@ const DeliverablesDetail = ({ deliverables }) => {
             </div>
             <div className={styles.detailSubContent}>
               <h6>Post Type</h6>
-              <p> {deliverable ? deliverable.deliverableType : ''}</p>
+              <p> {deliverable ? deliverable.postType : ''}</p>
             </div>
             <div className={styles.detailSubContent}>
               <h6>Content Type</h6>
