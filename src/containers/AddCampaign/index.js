@@ -1436,11 +1436,11 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 					}`
         )
       );
-      gotoCampaginDetail(id);
       handleCancel();
     } catch (e) {
       console.log('Campaign Invite error ', e);
-    }
+		}
+		gotoCampaginDetail(id);
   }
 
   const gotoCampaginDetail = (id) => {

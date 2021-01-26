@@ -394,16 +394,17 @@ const CampaignDetail = ({ location }) => {
             }
           } 
       }`,
-      });
+			});
+			debugger;
       if (brandType.toLowerCase() == 'influencer') {
         campaign.data.influencerCampaign &&
           campaign.data.influencerCampaign !== null &&
           campaign.data.influencerCampaign.deliverables &&
           campaign.data.influencerCampaign.deliverables !== null &&
           campaign.data.influencerCampaign.deliverables.map((deliverable) => {
-            deliverable.deliverableType =
-              deliverable.deliverableType.charAt(0).toUpperCase() +
-              deliverable.deliverableType.toLowerCase().slice(1);
+            deliverable.postType =
+              deliverable.postType.charAt(0).toUpperCase() +
+              deliverable.postType.toLowerCase().slice(1);
             deliverable.frameContentType =
               deliverable.frameContentType.charAt(0).toUpperCase() +
               deliverable.frameContentType.toLowerCase().slice(1);
