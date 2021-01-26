@@ -16,7 +16,6 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 		totalPosts = totalPosts + parseInt(item.posts);
 	});
 
-	console.log(products);
 	const numberWithCommas = (x) => {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
@@ -132,8 +131,9 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 		}
 
 		setCollectionData(collls);
-	}, [])
+	}, [products])
 
+	console.log(collectionData);
 
 	return (
 		<div class={styles.mainContainer}>
