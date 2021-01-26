@@ -16,6 +16,12 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 		totalPosts = totalPosts + parseInt(item.posts);
 	});
 
+	String.prototype.toProperCase = function () {
+		return this.replace(/\w\S*/g, function (txt) {
+			return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+		});
+	};
+
 	const numberWithCommas = (x) => {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
@@ -85,17 +91,17 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 	}
 
 	const getPostFrequency = (frequency) => {
-	switch (frequency) {
-		case 'BI_MONTHLY':
-			return (' 2 months');
-		case 'WEEK':
-			return (' 1 week');
-		case 'MONTH':
-			return (' 1 month');
-		case 'BI_WEEKLY':
-			return (' 2 weeks');
-		default:
-			return '';
+		switch (frequency) {
+			case 'BI_MONTHLY':
+				return (' 2 months');
+			case 'WEEK':
+				return (' 1 week');
+			case 'MONTH':
+				return (' 1 month');
+			case 'BI_WEEKLY':
+				return (' 2 weeks');
+			default:
+				return '';
 		}
 	}
 
@@ -185,7 +191,7 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 						<Grid item xs={4}>
 							<div className={styles.campaignItemInfo}>
 								<p>Promotional Discount</p>
-								<span>{numberWithCommas(discount)}{discountType ==='Percentage'? "%" : "$"}</span>
+								<span>{numberWithCommas(discount)}{discountType === 'Percentage' ? "%" : "$"}</span>
 							</div>
 						</Grid>
 						<Grid item xs={8}>
@@ -308,36 +314,36 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 								<Grid item xs={4}>
 									<div className={styles.deliverableItem}>
 										<p>Post Type</p>
-										<span>{item.deliverableType}</span>
+										<span>{item.postType && item.postType !== null ? item.postType.toProperCase() : ''}</span>
 									</div>
 								</Grid>
 								<Grid item xs={4}>
 									<div className={styles.deliverableItem}>
 										<p>Content Type</p>
-										<span>{item.frameContentType}</span>
+										<span>{item.frameContentType && item.frameContentType !== null ? item.frameContentType.toProperCase() : ''}</span>
 									</div>
 								</Grid>
 								<Grid item xs={4}>
 									<div className={styles.deliverableItem}>
 										<p>Frames Required</p>
-										<span>{item.framesRequired}</span>
+										<span>{item.framesRequired && item.framesRequired !== null ? item.framesRequired : ''}</span>
 									</div>
 								</Grid>
-								{item.brandTag && 
-								<Grid item xs={4}>
-									<div className={styles.deliverableItem}>
-										<p>Brand tag</p>
-										<span>@{item.brandTag}</span>
-									</div>
-								</Grid>
+								{item.brandTag &&
+									<Grid item xs={4}>
+										<div className={styles.deliverableItem}>
+											<p>Brand tag</p>
+											<span>@{item.brandTag}</span>
+										</div>
+									</Grid>
 								}
 								{item.hashTag &&
-								<Grid item xs={4}>
-									<div className={styles.deliverableItem}>
-										<p>Hashtag</p>
-										<span>#{item.hashTag}</span>
-									</div>
-								</Grid>
+									<Grid item xs={4}>
+										<div className={styles.deliverableItem}>
+											<p>Hashtag</p>
+											<span>#{item.hashTag}</span>
+										</div>
+									</Grid>
 								}
 								<Grid item xs={4}>
 									<div className={styles.deliverableItem}>

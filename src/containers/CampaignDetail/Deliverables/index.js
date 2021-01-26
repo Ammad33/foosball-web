@@ -3,6 +3,7 @@ import styles from './Deliverables.module.scss';
 import { Edit } from 'react-feather';
 
 const Deliverables = ({ onClick, handleEdit, deliverables, status }) => {
+  console.log(deliverables);
   const getPostFrequency = (frequency) => {
     switch (frequency) {
       case 'BI_WEEKLY':
@@ -22,11 +23,11 @@ const Deliverables = ({ onClick, handleEdit, deliverables, status }) => {
     <div className={styles.deliverableContainer}>
       <div className={styles.headerContainer}>
         <h1>Deliverables</h1>
-				{(status && status !== 'INVITED')  ? (
-            <Edit onClick={() => handleEdit(5)} />
-          ) : (
+        {(status && status !== 'INVITED') ? (
+          <Edit onClick={() => handleEdit(5)} />
+        ) : (
             ''
-          )}     
+          )}
       </div>
       {deliverables && deliverables !== null &&
         <>
@@ -41,7 +42,7 @@ const Deliverables = ({ onClick, handleEdit, deliverables, status }) => {
           <div className={styles.detailSubContent}>
             <h6>Social Platform</h6>
             <p>
-              {deliverables && deliverables.length ? deliverables[0].platform : ''}
+              {deliverables && deliverables.length && deliverables[0].platform !== null ? deliverables[0].platform : ''}
             </p>
           </div>
           <div className={styles.detailSubContent}>

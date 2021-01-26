@@ -245,7 +245,7 @@ const CreateDeliverable = ({
 			<Grid item xs={12} sm={12} md={6} className={styles.marginbottom}>
 				<FormControl fullWidth variant='outlined'>
 					<TextField
-						disabled={post ? true : false}
+						disabled={post || deliverableItem.platform.toLowerCase() === 'youtube' || deliverableItem.platform.toLowerCase() === 'tiktok' ? true : false}
 						labelId='demo-simple-select-disabled-label'
 						id='demo-simple-select-disabled-Frame-Required'
 						fullWidth
@@ -263,7 +263,7 @@ const CreateDeliverable = ({
 					>
 						<MenuItem value='' disabled>
 							Frame Required
-            </MenuItem>
+                  </MenuItem>
 						{frames.map((frame) => (
 							<MenuItem key={frame} value={frame}>
 								{frame}

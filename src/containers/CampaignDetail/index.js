@@ -396,22 +396,23 @@ const CampaignDetail = ({ location }) => {
             }
           } 
       }`,
-			});
+      });
+
       if (brandType.toLowerCase() == 'influencer') {
         campaign.data.influencerCampaign &&
           campaign.data.influencerCampaign !== null &&
           campaign.data.influencerCampaign.deliverables &&
           campaign.data.influencerCampaign.deliverables !== null &&
           campaign.data.influencerCampaign.deliverables.map((deliverable) => {
-            deliverable.postType =
+            deliverable.postType = deliverable.postType && deliverable.postType !== null ?
               deliverable.postType.charAt(0).toUpperCase() +
-              deliverable.postType.toLowerCase().slice(1);
-            deliverable.frameContentType =
+              deliverable.postType.toLowerCase().slice(1) : '';
+            deliverable.frameContentType = deliverable.frameContentType && deliverable.frameContentType !== null ?
               deliverable.frameContentType.charAt(0).toUpperCase() +
-              deliverable.frameContentType.toLowerCase().slice(1);
-            deliverable.platform =
+              deliverable.frameContentType.toLowerCase().slice(1) : '';
+            deliverable.platform = deliverable.platform && deliverable.platform !== null ?
               deliverable.platform.charAt(0).toUpperCase() +
-              deliverable.platform.toLowerCase().slice(1);
+              deliverable.platform.toLowerCase().slice(1) : '';
             deliverable.deadlineDate = new Date(
               deliverable.deadlineDate * 1000
             ).toDateString();
@@ -474,15 +475,15 @@ const CampaignDetail = ({ location }) => {
           campaign.data.campaign.deliverables &&
           campaign.data.campaign.deliverables !== null &&
           campaign.data.campaign.deliverables.map((deliverable) => {
-            deliverable.postType =
+            deliverable.postType = deliverable.postType && deliverable.postType !== null ?
               deliverable.postType.charAt(0).toUpperCase() +
-              deliverable.postType.toLowerCase().slice(1);
-            deliverable.frameContentType =
+              deliverable.postType.toLowerCase().slice(1) : '';
+            deliverable.frameContentType = deliverable.frameContentType && deliverable.frameContentType !== null ?
               deliverable.frameContentType.charAt(0).toUpperCase() +
-              deliverable.frameContentType.toLowerCase().slice(1);
-            deliverable.platform =
+              deliverable.frameContentType.toLowerCase().slice(1) : '';
+            deliverable.platform = deliverable.platform && deliverable.platform !== null ?
               deliverable.platform.charAt(0).toUpperCase() +
-              deliverable.platform.toLowerCase().slice(1);
+              deliverable.platform.toLowerCase().slice(1) : '';
             deliverable.deadlineDate = new Date(
               deliverable.deadlineDate * 1000
             ).toDateString();
@@ -625,8 +626,8 @@ const CampaignDetail = ({ location }) => {
         data.compensation &&
         data.compensation.length !== 0 &&
         negotialble === false &&
-				data.influencer !== null &&
-				data.invitedAt !== null
+        data.influencer !== null &&
+        data.invitedAt !== null
       ) {
         setSetAll(true);
       }
@@ -676,10 +677,10 @@ const CampaignDetail = ({ location }) => {
       setHeadingValue('Negotiable');
     } else if (data.influencer === null) {
       setHeadingValue('Influencer');
-		}
-		else if (data.invitedAt === null) {
-			setHeadingValue('Invite');
-		}
+    }
+    else if (data.invitedAt === null) {
+      setHeadingValue('Invite');
+    }
   };
 
   const handleBrandState = () => {
@@ -695,6 +696,8 @@ const CampaignDetail = ({ location }) => {
       handleHeading();
     }
   }, [data]);
+
+  console.log(data);
 
   return (
     <div className={styles.detailContainer}>
