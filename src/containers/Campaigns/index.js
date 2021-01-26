@@ -470,6 +470,20 @@ const Campaigns = () => {
 				<Grid container spacing={3}>
 					{campaigns.length > 0 &&
 						campaigns.map((campaign) => {
+
+							if ((active === 'PENDING' || active === 'INVITED') && (campaign.status === 'PENDING' || campaign.status === 'INVITED')) {
+								return (
+									<Grid className={styles.gridItem} item key={campaign.id}>
+										<CampaignsCard
+											campaign={campaign}
+											onClick={() => {
+												handleCampaginDetail(campaign.id);
+											}}
+											handleDelete={handleDelete}
+										/>
+									</Grid>
+								);
+							}
 							if (campaign.status !== active && active !== 'ALL') {
 								return null;
 							}

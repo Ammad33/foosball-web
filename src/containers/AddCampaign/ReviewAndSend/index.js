@@ -125,7 +125,7 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 			}
 		});
 
-		return parseFloat(over).toFixed;
+		return parseFloat(over);
 	}
 
 	const [collectionData, setCollectionData] = useState([]);
