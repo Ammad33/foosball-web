@@ -127,7 +127,7 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 
 		return parseFloat(over);
 	}
-	console.log(overAmount());
+	// console.log(overAmount());
 	const [collectionData, setCollectionData] = useState([]);
 
 	useEffect(() => {
