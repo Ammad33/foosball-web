@@ -5,7 +5,7 @@ import { Avatar } from '@material-ui/core';
 import ChipButton from './../../../components/ChipButton';
 
 
-const TeamMembers = ({ onClick, handleEdit, brandTeam }) => {
+const TeamMembers = ({ onClick, handleEdit, brandTeam , status }) => {
 
   const team = brandTeam && brandTeam.length > 0 ? brandTeam.slice(0, 5) : [];
 
@@ -13,8 +13,12 @@ const TeamMembers = ({ onClick, handleEdit, brandTeam }) => {
     <div className={styles.mainContainer}>
       <div className={styles.headerContainer}>
         <h3>Team Members</h3>
-        <Edit onClick={() => handleEdit(2)} />
-      </div>
+				{(status && status !== 'INVITED')  ? (
+            <Edit onClick={() => handleEdit(2)} />
+          ) : (
+            ''
+          )}      
+			</div>
       <div className={styles.membersContainer}>
         {brandTeam && brandTeam.length > 0 ?
           <>

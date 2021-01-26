@@ -142,7 +142,6 @@ const BrandCampaignDetail = ({
       case 'PENDING':
         return (
           <PendingBrandCampaignDetail
-            handleEdit={handleEdit}
             handleSeeClick={handleSeeClick}
             data={data}
             name={data && data.name}
@@ -202,6 +201,9 @@ const BrandCampaignDetail = ({
       setStep(7);
       setAddCampagin(true);
     } else if (data.influencer === null) {
+      setStep(8);
+      setAddCampagin(true);
+    }else if (data.invitedAt === null) {
       setStep(8);
       setAddCampagin(true);
     }

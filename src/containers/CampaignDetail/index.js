@@ -129,7 +129,8 @@ const CampaignDetail = ({ location }) => {
 						status
             startDate
             endDate
-            invitationMessage
+						invitationMessage
+						invitedAt
             products {
               collection {
                 id
@@ -266,7 +267,8 @@ const CampaignDetail = ({ location }) => {
 						status
             startDate
             endDate
-            invitationMessage
+						invitationMessage
+						invitedAt
             products {
               collection {
                 id
@@ -395,7 +397,6 @@ const CampaignDetail = ({ location }) => {
           } 
       }`,
 			});
-			debugger;
       if (brandType.toLowerCase() == 'influencer') {
         campaign.data.influencerCampaign &&
           campaign.data.influencerCampaign !== null &&
@@ -624,7 +625,8 @@ const CampaignDetail = ({ location }) => {
         data.compensation &&
         data.compensation.length !== 0 &&
         negotialble === false &&
-        data.influencer !== null
+				data.influencer !== null &&
+				data.invitedAt !== null
       ) {
         setSetAll(true);
       }
@@ -674,7 +676,10 @@ const CampaignDetail = ({ location }) => {
       setHeadingValue('Negotiable');
     } else if (data.influencer === null) {
       setHeadingValue('Influencer');
-    }
+		}
+		else if (data.invitedAt === null) {
+			setHeadingValue('Invite');
+		}
   };
 
   const handleBrandState = () => {

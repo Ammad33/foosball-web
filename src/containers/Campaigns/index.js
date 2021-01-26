@@ -208,7 +208,6 @@ const Campaigns = () => {
 		}
 	};
 
-	debugger;
 
 	const getInfluencerCampaigns = async () => {
 		try {

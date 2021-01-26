@@ -18,7 +18,6 @@ import {
 } from 'react-feather';
 
 const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
-	debugger;
 	const {
 		brandType,
 	} = useContext(RootContext);
