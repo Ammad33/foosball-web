@@ -114,6 +114,7 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 	useEffect(() => {
 		let collls = [];
 		if (products && products.length > 0) {
+
 			products.forEach(item => {
 				let index = collections.findIndex(collItem => collItem.id === item.collectionId);
 				if (index !== -1) {
@@ -129,9 +130,10 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 				}
 			})
 		}
-		console.log(collls);
+
 		setCollectionData(collls);
 	}, [])
+
 
 	return (
 		<div class={styles.mainContainer}>
