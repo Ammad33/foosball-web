@@ -66,6 +66,9 @@ const BrandCampaignDetail = ({
                 : []
             }
             targetGrossSales={data.targetGrossSales.amount}
+            deliverables={data && data.deliverables && data.deliverables !== null ? data.deliverables : []}
+            startDate={data && data.startDate}
+            endDate={data && data.endDate}
           />
         );
       case 'TeamMembers':

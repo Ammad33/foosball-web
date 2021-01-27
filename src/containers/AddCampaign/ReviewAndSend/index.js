@@ -165,9 +165,6 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-
-
-
 		console.log();
 
 		let collls = [];

@@ -7,13 +7,13 @@ const Deliverables = ({ onClick, handleEdit, deliverables, status }) => {
   const getPostFrequency = (frequency) => {
     switch (frequency) {
       case 'BI_WEEKLY':
-        return 'Every 1 Week';
+        return 'Every Other Week';
       case 'BI_MONTHLY':
-        return 'Every 1 Month';
+        return 'Every Other Month';
       case 'WEEK':
-        return 'in Week';
+        return 'Every Week';
       case 'MONTH':
-        return 'in Month';
+        return 'Every Month';
       default:
         return '';
     }

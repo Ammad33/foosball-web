@@ -1,10 +1,17 @@
 import React from 'react';
 import styles from './CompensationDetail.module.scss';
 
-const CompensationDetail = ({ compensations, targetGrossSales }) => {
+const CompensationDetail = ({ compensations, targetGrossSales, deliverables,
+	startDate,
+	endDate }) => {
 	const numberWithCommas = (x) => {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
+
+	function weeksBetween(d1, d2) {
+		return Math.round((d2 - d1) / (7 * 24 * 60 * 60 * 1000));
+	}
+
 	const getCompensationType = (compensation) => {
 		switch (compensation.__typename) {
 			case 'CompRevenueShare':
@@ -22,12 +29,22 @@ const CompensationDetail = ({ compensations, targetGrossSales }) => {
 	}
 
 	const getCompensationTypeValue = (compensation) => {
+		let totalPost = 0;
+		deliverables.forEach(item => {
+			if (item.frequency === 'WEEK') {
+				totalPost = totalPost + (parseInt(item.posts) * weeksBetween(new Date(startDate * 1000), new Date(endDate * 1000)));
+			} else if (item.frequency === 'BI_WEEKLY') {
+				totalPost = totalPost + (parseInt(item.posts) * 2);
+			} else {
+				totalPost = totalPost + parseInt(item.posts);
+			}
+		});
 		switch (compensation.__typename) {
 			case 'CompRevenueShare':
 				return (
 					<h6>${numberWithCommas(Math.trunc(parseFloat(compensation.percentage && (compensation.percentage * 1000) * parseFloat(targetGrossSales / 100))))}</h6>);
 			case 'CompCashPerPost':
-				return (<h6>${compensation.amount && numberWithCommas(Math.trunc(compensation.amount.amount))}</h6>);
+				return (<h6>${compensation.amount && numberWithCommas(Math.trunc((parseFloat(compensation.amount.amount) * totalPost)))}</h6>);
 			case 'CompCashPerMonthlyDeliverable':
 				return (<h6>${compensation.amount && numberWithCommas(Math.trunc(compensation.amount.amount))}</h6>);
 			case 'CompGiftCard':
@@ -54,6 +71,7 @@ const CompensationDetail = ({ compensations, targetGrossSales }) => {
 	}
 
 	const getCompensationAmount = (compensation) => {
+
 		switch (compensation.__typename) {
 			case 'CompRevenueShare':
 				return (
@@ -74,6 +92,18 @@ const CompensationDetail = ({ compensations, targetGrossSales }) => {
 		compensations.forEach(item => {
 			if (item.__typename === 'CompRevenueShare') {
 				total = total + parseFloat((item.percentage * 1000) * parseFloat(targetGrossSales / 100));
+			} else if (item.__typename === 'CompCashPerPost') {
+				let totalPost = 0;
+				deliverables.forEach(item => {
+					if (item.frequency === 'WEEK') {
+						totalPost = totalPost + (parseInt(item.posts) * weeksBetween(new Date(startDate * 1000), new Date(endDate * 1000)));
+					} else if (item.frequency === 'BI_WEEKLY') {
+						totalPost = totalPost + (parseInt(item.posts) * 2);
+					} else {
+						totalPost = totalPost + parseInt(item.posts);
+					}
+				});
+				total = total + (parseFloat(item.amount.amount) * totalPost);
 			} else {
 				total = total + parseFloat(item.amount.amount);
 			}

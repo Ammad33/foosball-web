@@ -233,6 +233,9 @@ const CampaignDetailInfluencer = ({
 								: []
 						}
 						targetGrossSales={data.targetGrossSales.amount}
+						deliverables={data && data.deliverables && data.deliverables !== null ? data.deliverables : []}
+						startDate={data && data.startDate}
+						endDate={data && data.endDate}
 					/>
 				);
 			case 'TeamMembers':
@@ -298,7 +301,7 @@ const CampaignDetailInfluencer = ({
 				{getDrawerElement(element)}
 			</Drawer>
 			{getPage(status)}
-			<div className= {styles.influencerInternalState}> {internalState}
+			<div className={styles.influencerInternalState}> {internalState}
 				<a onClick={() => signContract()}>Simulate Contract</a>
 			</div>
 		</>
