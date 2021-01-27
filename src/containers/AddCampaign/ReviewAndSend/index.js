@@ -8,12 +8,28 @@ import moment from 'moment';
 const EditSVG = ({ onClick }) => {
 	return <SVG src={require('../../../assets/edit.svg')} onClick={onClick} />;
 };
-const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, startTime, endTime, discount, minimum, discountType,
+const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, startTime, endTime, discount, discountType,
 	customeMessage, selectedMembers, budget, targetGrossSale, collections, deliverables, compensations, compensationPayment, selectedNegotiable, selectedInfluncer, handleActiveStep }) => {
-	let totalPosts = 0;
-	deliverables.forEach(item => {
-		totalPosts = totalPosts + parseInt(item.posts);
-	});
+
+	const [totalPosts, setTotalPosts] = useState(0);
+
+
+	useEffect(() => {
+		let totalPost = 0;
+		deliverables.forEach(item => {
+			if (item.frequency === 'WEEK') {
+				totalPost = totalPost + (parseInt(item.posts) * weeksBetween(new Date(startDate), new Date(endDate)));
+			} else if (item.frequency === 'BI_WEEKLY') {
+				totalPost = totalPost + (parseInt(item.posts) * 2);
+			} else {
+				totalPost = totalPost + parseInt(item.posts);
+			}
+		});
+
+		setTotalPosts(totalPost)
+
+	}, []);
+
 
 	String.prototype.toProperCase = function () {
 		return this.replace(/\w\S*/g, function (txt) {
@@ -79,7 +95,7 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 				return (
 					<h5>${numberWithCommas(Math.trunc(parseFloat(compensation.amount && (compensation.amount * parseFloat(targetGrossSale) / 100).toFixed(2))))}</h5>);
 			case 'CASH_PER_POST':
-				return (<h5>${compensation.amount && numberWithCommas(Math.trunc(parseFloat(compensation.amount)))}</h5>);
+				return (<h5>${compensation.amount && numberWithCommas(Math.trunc((parseFloat(compensation.amount) * totalPosts)))}</h5>);
 			case 'CASH_PER_MONTHLY_DELIVERABLE':
 				return (<h5>${compensation.amount && numberWithCommas(Math.trunc(parseFloat(compensation.amount)))}</h5>);
 			case 'GIFT_CARD':
@@ -104,11 +120,25 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 		}
 	}
 
+	console.log(weeksBetween(new Date(startDate), new Date(endDate)));
+
 	const getTotal = () => {
 		let total = 0;
 		compensations.forEach(item => {
 			if (item.compensationType === 'REVENUE_SHARE') {
 				total = total + parseFloat(item.amount * parseFloat(targetGrossSale) / 100);
+			} else if (item.compensationType === 'CASH_PER_POST') {
+				let totalPost = 0;
+				deliverables.forEach(item => {
+					if (item.frequency === 'WEEK') {
+						totalPost = totalPost + (parseInt(item.posts) * weeksBetween(new Date(startDate), new Date(endDate)));
+					} else if (item.frequency === 'BI_WEEKLY') {
+						totalPost = totalPost + (parseInt(item.posts) * 2);
+					} else {
+						totalPost = totalPost + parseInt(item.posts);
+					}
+				});
+				total = total + (parseFloat(item.amount) * totalPost);
 			} else {
 				total = total + parseFloat(item.amount);
 			}
@@ -129,8 +159,17 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 	// console.log(overAmount());
 	const [collectionData, setCollectionData] = useState([]);
 
+	function weeksBetween(d1, d2) {
+		return Math.round((d2 - d1) / (7 * 24 * 60 * 60 * 1000));
+	}
+
 	useEffect(() => {
 		window.scrollTo(0, 0);
+
+
+
+		console.log();
+
 		let collls = [];
 		if (products && products.length > 0) {
 
@@ -194,14 +233,6 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 								<span>{numberWithCommas(discount)}{discountType === 'Percentage' ? "%" : "$"}</span>
 							</div>
 						</Grid>
-						{discountType === "Amount" ? (
-							<Grid item xs={6}>
-								<div className={styles.campaignItemInfo}>
-									<p>Minimum Cart Value</p>
-									<span>{numberWithCommas(minimum)}{"$"}</span>
-								</div>
-							</Grid>
-						) : ("")}
 						<Grid item xs={8}>
 							<div className={styles.campaignItemInfo}>
 								<p>Custom Message to Influencer</p>

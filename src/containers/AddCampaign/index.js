@@ -1198,7 +1198,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       if (
         deliveries &&
         deliveries.length > 0 &&
-				deliveries[0].platform !== '' 
+        deliveries[0].platform !== ''
       ) {
         data = {
           ...data,
@@ -1416,7 +1416,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       if (
         deliveries &&
         deliveries.length > 0 &&
-        deliveries[0].platform !== '' 
+        deliveries[0].platform !== ''
       ) {
         data = {
           ...data,
@@ -1861,8 +1861,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             endDate={endDate}
             startTime={startTime}
             endTime={endTime}
-						discount={discount}
-						minimum={minimium}
+            discount={discount}
+            minimum={minimium}
             discountType={discountType}
             customeMessage={customeMessage}
             selectedMembers={selectedMembers}
