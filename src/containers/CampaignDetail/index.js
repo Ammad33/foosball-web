@@ -421,7 +421,7 @@ const CampaignDetail = ({ location }) => {
 
         campaign.data.influencerCampaign.events = campaign.data.influencerCampaign.events.map(
           (activity) => {
-            activity.time = moment(activity.time).format('MM/DD');
+            activity.time = moment.unix(activity.time).format("MM/DD");
             return activity;
           }
         );
@@ -492,8 +492,8 @@ const CampaignDetail = ({ location }) => {
 
         campaign.data.campaign.events = campaign.data.campaign.events.map(
           (activity) => {
-            activity.time = moment(activity.time).format('MM/DD');
-            return activity;
+						activity.time = moment.unix(activity.time).format("MM/DD");
+						return activity;
           }
         );
 

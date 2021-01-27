@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './ActivityDetail.module.scss';
+import Tooltip from '@material-ui/core/Tooltip';
+
 
 const ActivityDetail = ({ activities }) => {
   return (
@@ -13,9 +15,16 @@ const ActivityDetail = ({ activities }) => {
                 <div className={styles.activitySubContent}>
                   <span>{activity.time}</span>
                   <div></div>
-                  <p>{activity.description}</p>
+                  {activity.description.length >29 ? 
+                    <>
+                    <Tooltip title={`${activity.description}`}>
+                    <p>{activity.description.slice(0,29)}... </p>
+                    </Tooltip>
+                    </>
+                    :
+                    <p>{activity.description}</p>}
                 </div>
-                {index > 0 && index < activities.length - 1 ? (
+                {index >= 0 && index < activities.length - 1 ? (
                   <div className={styles.border} />
                 ) : (
                   ''

@@ -10,7 +10,6 @@ const EditSVG = ({ onClick }) => {
 };
 const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, startTime, endTime, discount, minimum, discountType,
 	customeMessage, selectedMembers, budget, targetGrossSale, collections, deliverables, compensations, compensationPayment, selectedNegotiable, selectedInfluncer, handleActiveStep }) => {
-	debugger;
 	let totalPosts = 0;
 	deliverables.forEach(item => {
 		totalPosts = totalPosts + parseInt(item.posts);

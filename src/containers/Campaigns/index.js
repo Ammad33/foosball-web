@@ -50,6 +50,8 @@ const Campaigns = () => {
 		setShowLoader,
 		setBrandType,
 		setActiveRoute,
+		creatorRoleId,
+		currentUser
 	} = useContext(RootContext);
 	const [loading, setLoading] = useState(false);
 	const [selectedState, setSelectedState] = useState('Recent Activity');
@@ -64,7 +66,6 @@ const Campaigns = () => {
 		setAnchorEl(null);
 		setBrandDropDown(false);
 	};
-
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
 
@@ -259,6 +260,7 @@ const Campaigns = () => {
 			setCampaigns([]);
 			getCampaigns();
 			getInfluencerCampaigns();
+			assignRole();
 		}
 	}, [brandId, addCampaign]);
 
@@ -328,6 +330,24 @@ const Campaigns = () => {
 		history.push(`/campaignDetail/${id}`, { campaignId: id });
 		setActiveRoute('campaignDetail');
 	};
+
+	const assignRole = async () => {
+		try {
+			await API.graphql(
+				graphqlOperation(
+					`mutation AssignRole {
+						assignRole(input: {
+							organizationId: "${brandId}" , 
+							roleId: "${creatorRoleId}", 
+							userId: "${currentUser.username}"}) 
+					}`
+				)
+			)
+		}
+		catch (e) {
+			console.log("Error in assigning role", e)
+		}
+	}
 
 	return (
 		<>

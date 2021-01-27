@@ -30,7 +30,8 @@ const SelectBrand = () => {
     brands,
     brandName,
     setBrandName,
-    setRoleId,
+		setCreatorRoleId,
+		setMemberRoleId,
     setBrandType,
 		influencers,
   } = useContext(RootContext);
@@ -89,8 +90,11 @@ const SelectBrand = () => {
                         setBrandType(
                           item.organization && item.organization.__typename
                         );
-                        setRoleId(
+                        setCreatorRoleId(
                           item.organization && item.organization.roles[0].id
+												);
+												setMemberRoleId(
+													item.organization && item.organization.roles[1].id
 												);
                         handleClose();
                       }}
@@ -131,8 +135,11 @@ const SelectBrand = () => {
                         setBrandType(
                           item.organization && item.organization.__typename
                         );
-                        setRoleId(
+												setCreatorRoleId(
                           item.organization && item.organization.roles[0].id
+												);
+												setMemberRoleId(
+													item.organization && item.organization.roles[1].id
 												);
                         handleClose();
                       }}

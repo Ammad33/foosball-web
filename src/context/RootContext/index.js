@@ -11,7 +11,8 @@ export default ({ children }) => {
   const bId = localStorage.getItem('bId') || null;
   const bName = localStorage.getItem('bName') || null;
   const bType = localStorage.getItem('bType') || null;
-  const rId = localStorage.getItem('rId') || null;
+	const cRollId = localStorage.getItem('cRollId') || null;
+	const mRollId = localStorage.getItem('mRollId') || null;
   // const org = localStorage.getItem('org') || null;
   const [currentUser, setCurrentUser] = useState(prevUser);
   const [logoutMessage, setLogoutMessage] = useState('');
@@ -21,7 +22,8 @@ export default ({ children }) => {
   const [brands, setBrands] = useState(brandsStored);
   const [brandName, setBrandName] = useState(bName);
   const [brandType, setBrandType] = useState(bType);
-  const [roleId, setRoleId] = useState(rId);
+	const [creatorRoleId, setCreatorRoleId] = useState(cRollId);
+	const [memberRoleId, setMemberRoleId] = useState(mRollId);
   // const [organization , setOrganization] = useState(org);
   const [searchValue, setSearchValue] = useState('');
   const [influencers, setInfluencers] = useState(influencerStored);
@@ -71,11 +73,17 @@ export default ({ children }) => {
       localStorage.removeItem('bType');
       localStorage.setItem('bType', brandType);
     }
-    if (!roleId) {
-      localStorage.removeItem('rId');
+    if (!creatorRoleId) {
+      localStorage.removeItem('cRollId');
     } else {
-      localStorage.removeItem('rId');
-      localStorage.setItem('rId', roleId);
+      localStorage.removeItem('cRollId');
+      localStorage.setItem('cRollId', creatorRoleId);
+		}
+		if (!memberRoleId) {
+      localStorage.removeItem('mRollId');
+    } else {
+      localStorage.removeItem('mRollId');
+      localStorage.setItem('mRollId', memberRoleId);
     }
     // if (!organization) localStorage.removeItem('org');
     // else localStorage.setItem('org', organization);
@@ -86,7 +94,8 @@ export default ({ children }) => {
     brands,
     brandName,
     brandType,
-    roleId,
+		creatorRoleId,
+		memberRoleId,
     influencers,
     // organization,
   ]);
@@ -108,8 +117,10 @@ export default ({ children }) => {
     setBrandName,
     brandType,
     setBrandType,
-    roleId,
-    setRoleId,
+    creatorRoleId,
+		setCreatorRoleId,
+		memberRoleId,
+		setMemberRoleId,
     searchValue,
     setSearchValue,
     influencers,
@@ -118,8 +129,6 @@ export default ({ children }) => {
     setShowLoader,
     toastrData,
     setToastrData,
-    // organization,
-    // setOrganization,
   };
 
   return (
