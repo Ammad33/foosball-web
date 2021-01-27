@@ -90,7 +90,8 @@ const InviteInfluencer = ({
 
         <div className={styles.firstConatiner}>
           <InviteCard
-            createdById={data.brand.id}
+					 	invitationMessage = {data.invitationMessage}
+            createdBy={data.brand}
             campaignId={campaignId}
             handleStatus={handleStatus}
           />

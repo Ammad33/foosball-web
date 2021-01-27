@@ -7,7 +7,7 @@ import {RootContext} from '../../../context/RootContext';
 
 
 
-const InviteCard = ({createdById, campaignId, handleStatus}) => {
+const InviteCard = ({createdBy, campaignId, handleStatus, invitationMessage}) => {
 	const [decline, setDecline] = useState(false);
 	const [declineReason , setDeclineReason] = useState('');
 	const [reasonDetail , setReasonDetail] = useState('');
@@ -30,16 +30,16 @@ const InviteCard = ({createdById, campaignId, handleStatus}) => {
 		setReasonDetail(val);
 	}
 	const handleAcceptInvite = () => {
-		AcceptCampaignInvite()
+		acceptCampaignInvite()
 	}
 
-	const AcceptCampaignInvite = async () => {
+	const acceptCampaignInvite = async () => {
 		try {
 			await API.graphql(
 				graphqlOperation(
 					`mutation AcceptInvite {
 						acceptCampaignInvite(input: {
-							brandId: "${createdById}" , 
+							brandId: "${createdBy.id}" , 
 							influencerId: "${brandId}", 
 							id: "${campaignId}"}) 
 							{
@@ -48,10 +48,30 @@ const InviteCard = ({createdById, campaignId, handleStatus}) => {
 					}`
 				)
 			)
-			handleStatus();	
+			handleStatus();
+			acceptCampaignTerms();
 		}	
 		catch(e) {
-			console.log("Error in accepting invite, e")
+			console.log("Error in accepting invite", e)
+		}
+	}
+
+
+	const acceptCampaignTerms = async () => {
+		try {
+			await API.graphql (
+				graphqlOperation (
+					`mutation AcceptCampaignTerms {
+						influencerAcceptCampaignTerms(input: {
+							campaignId: "${campaignId}",
+							influencerId: "${brandId}"
+						})
+					}`
+				)
+			)
+		}
+		catch (e) {
+			console.log("Error in accepting campaign terms " , e)
 		}
 	}
 
@@ -71,9 +91,9 @@ const InviteCard = ({createdById, campaignId, handleStatus}) => {
 
 			/>
         <div className={styles.declineContainer}>
-            <h1>Care of has inivted you to a campaign</h1>
-            <p className={styles.firstp}>"Hi sam, we are so excited for the chance to work with you, we.</p>
-            <p className={styles.secondp}>love your content and hope that you see value in working with</p>
+            <h1>{createdBy.name} has inivted you to a campaign</h1>
+            <p className={styles.firstp}>{invitationMessage}</p>
+            <p className={styles.secondp}></p>
             <div className={styles.buttonContainer}>
                 <button className={styles.accept} onClick={()=>handleAcceptInvite()} >Accept</button>
                 <button className={styles.nego}>Negotiate</button>

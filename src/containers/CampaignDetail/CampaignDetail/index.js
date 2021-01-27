@@ -22,10 +22,10 @@ const CampaignDetail = ({ children, handleEdit, campaign }) => {
           )}
       </div>
 
-      <div className={styles.detailSubContent}>
+      {/* <div className={styles.detailSubContent}>
         <h6>Campaign ID</h6>
         <p>{campaign && campaign.id}</p>
-      </div>
+      </div> */}
       <div className={styles.dateContainer}>
         <div className={styles.detailSubContent}>
           <h6>StartDate, Time</h6>
@@ -44,7 +44,7 @@ const CampaignDetail = ({ children, handleEdit, campaign }) => {
       </div>
       <div className={styles.detailSubContent}>
         <h6>Promotion Discount</h6>
-        <p>{campaign && campaign.discount && campaign.discount !== null && campaign.discount.amount ? campaign.discount.amount.amount : campaign && campaign.discount && campaign.discount !== null && campaign.discount.percentage ? campaign.discount.percentage : ''} {campaign && campaign.discount && campaign.discount !== null && campaign.discount.percentage ? '%' : ''}</p>
+        <p>{campaign && campaign.discount && campaign.discount !== null && campaign.discount.amount ? campaign.discount.amount.amount : campaign && campaign.discount && campaign.discount !== null && campaign.discount.percentage ? campaign.discount.percentage : ''} {campaign && campaign.discount && campaign.discount !== null && campaign.discount.percentage ? '%' : '$'}</p>
       </div>
       {children ? (
         <div className={styles.detailSubContent}>
@@ -52,11 +52,9 @@ const CampaignDetail = ({ children, handleEdit, campaign }) => {
             <>
               <h6>Custom Message to Influencer</h6>
               <p>{campaign.invitationMessage}</p>
-							{campaign.status=="INVITED"? <a href="#">Simulate Contract</a>:""}
             </> :
             <>
               <h6>Custom Message to Influencer</h6>
-							{campaign.status=="INVITED"? <a href="#">Simulate Contract</a>:""}
             </>}
         </div>
       ) : (

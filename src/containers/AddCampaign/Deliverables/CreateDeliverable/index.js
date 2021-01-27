@@ -114,6 +114,7 @@ const CreateDeliverable = ({
 			</Grid>
 			<Grid item xs={12}>
 				<TextField
+					style={{ display: 'none' }}
 					id='outlined-basic'
 					fullWidth
 					label='Deliverable Deadline Date'
@@ -126,7 +127,7 @@ const CreateDeliverable = ({
 								' '
 							)
 					}
-					value={deliverableItem && deliverableItem.deadlineDate}
+					value= '11/12/2021'
 					onChange={(e) => handleDeliverDeadlineDate(e.target.value, index)}
 					InputProps={{
 						pattern: "\d{1,2}/\d{1,2}/\d{4}",
