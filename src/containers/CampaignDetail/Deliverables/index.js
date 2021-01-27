@@ -31,14 +31,14 @@ const Deliverables = ({ onClick, handleEdit, deliverables, status }) => {
       </div>
       {deliverables && deliverables !== null &&
         <>
-          {/* <div className={styles.detailSubContent}>
+          <div className={styles.detailSubContent}>
             <h6>Deliverable Deadline</h6>
             <p>
               {deliverables && deliverables.length
                 ? deliverables[0].deadlineDate
                 : ''}
             </p>
-          </div> */}
+          </div>
           <div className={styles.detailSubContent}>
             <h6>Social Platform</h6>
             <p>

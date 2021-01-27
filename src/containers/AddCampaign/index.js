@@ -292,7 +292,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   const [deliveries, setDeliveries] = useState([
     {
-      deadlineDate: '11/12/2021',
+      deadlineDate: '',
       platform: '',
       frameContentType: '',
       postType: '',
@@ -454,7 +454,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       ]);
       setDeliveries([
         {
-          deadlineDate: '11/12/2021',
+          deadlineDate: '',
           platform: '',
           frameContentType: '',
           postType: '',
@@ -643,7 +643,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     const deliverables = [...deliveries];
 
     deliverables.push({
-      deadlineDate: '11/12/2021',
+      deadlineDate: '',
       platform: '',
       frameContentType: '',
       postType: '',
@@ -664,7 +664,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const handleDeliverDeadlineDate = (date, index) => {
     const opts = [...deliveries];
     const moment_date = moment(date).format('L');
-    // if (moment_date >= startDate && moment_date <= endDate) {
+    if (moment_date >= startDate && moment_date <= endDate) {
       if (date !== '' && moment(date, 'MM/DD/YYYY', true).isValid()) {
         opts[index].deadlineDate = moment(date).format('L');
       } else {
@@ -689,9 +689,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       setDeliveries(opts);
       setDeliverableDate(false);
       setDeliverableDeadlineDateError(false);
-    // } else {
-    //   setDeliverableDeadlineDateError(true);
-    // }
+    } else {
+      setDeliverableDeadlineDateError(true);
+    }
   };
 
   /***** Handle Deliverable Content ********/
@@ -1198,7 +1198,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       if (
         deliveries &&
         deliveries.length > 0 &&
-        deliveries[0].deadlineDate !== ''
+				deliveries[0].platform !== '' 
       ) {
         data = {
           ...data,
@@ -1416,7 +1416,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       if (
         deliveries &&
         deliveries.length > 0 &&
-        deliveries[0].deadlineDate !== ''
+        deliveries[0].platform !== '' 
       ) {
         data = {
           ...data,

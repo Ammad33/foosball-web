@@ -24,10 +24,10 @@ const DeliverablesDetail = ({ deliverables }) => {
         return (
           <React.Fragment key={index}>
             <h6 className={styles.subHeader}>Deliverable {index + 1}</h6>
-            {/* <div className={styles.detailSubContent}>
+            <div className={styles.detailSubContent}>
               <h6>Deliverable Deadline</h6>
               <p>{deliverable ? deliverable.deadlineDate : ''}</p>
-            </div> */}
+            </div>
             <div className={styles.detailSubContent}>
               <h6>Social Platform</h6>
               <p>{deliverable ? deliverable.platform : ''}</p>

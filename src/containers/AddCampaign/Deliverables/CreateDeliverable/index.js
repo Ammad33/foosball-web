@@ -14,6 +14,7 @@ import { Trash } from 'react-feather';
 import clsx from 'clsx';
 import SVG from 'react-inlinesvg';
 import mainStyles from '../../../../index.module.scss';
+import moment from 'moment';
 
 const Chevron = () => {
 	return (
@@ -114,7 +115,6 @@ const CreateDeliverable = ({
 			</Grid>
 			<Grid item xs={12}>
 				<TextField
-					style={{ display: 'none' }}
 					id='outlined-basic'
 					fullWidth
 					label='Deliverable Deadline Date'
@@ -127,7 +127,7 @@ const CreateDeliverable = ({
 								' '
 							)
 					}
-					value= '11/12/2021'
+					value={deliverableItem && deliverableItem.deadlineDate}					
 					onChange={(e) => handleDeliverDeadlineDate(e.target.value, index)}
 					InputProps={{
 						pattern: "\d{1,2}/\d{1,2}/\d{4}",
