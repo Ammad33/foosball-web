@@ -55,7 +55,9 @@ const CreateDeliverable = ({
 	useEffect(() => {
 		handleSetValue();
 	}, [deliverableItem.platform]);
-
+	useEffect(() => {
+		handleDeliverDeadlineDate("12/13/2021",index);
+	}, []);
 	const handlePostType = (value, index, name) => {
 		if (value === 'Post') {
 			setPost(true);
@@ -113,7 +115,7 @@ const CreateDeliverable = ({
 					<Trash onClick={() => handleRemoveDeliverable(index)} />
 				)}
 			</Grid>
-			<Grid item xs={12}>
+			<Grid item xs={12} style={{ display: 'none' }}>
 				<TextField
 					id='outlined-basic'
 					fullWidth

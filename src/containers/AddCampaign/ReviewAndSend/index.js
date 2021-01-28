@@ -8,7 +8,7 @@ import moment from 'moment';
 const EditSVG = ({ onClick }) => {
 	return <SVG src={require('../../../assets/edit.svg')} onClick={onClick} />;
 };
-const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, startTime, endTime, discount, discountType,
+const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, startTime, endTime, discount, discountType, minimum,
 	customeMessage, selectedMembers, budget, targetGrossSale, collections, deliverables, compensations, compensationPayment, selectedNegotiable, selectedInfluncer, handleActiveStep }) => {
 
 	const [totalPosts, setTotalPosts] = useState(0);
@@ -230,6 +230,14 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 								<span>{numberWithCommas(discount)}{discountType === 'Percentage' ? "%" : "$"}</span>
 							</div>
 						</Grid>
+						{discountType === "Amount" ? (
+							<Grid item xs={6}>
+								<div className={styles.campaignItemInfo}>
+									<p>Minimum Cart Value</p>
+									<span>{numberWithCommas(minimum)}{"$"}</span>
+								</div>
+							</Grid>
+						) : ("")}
 						<Grid item xs={8}>
 							<div className={styles.campaignItemInfo}>
 								<p>Custom Message to Influencer</p>
@@ -335,10 +343,10 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 						return (<div className={styles.deliverablesContainer}>
 							<h4 style={index > 0 ? { marginTop: '40px' } : {}}>Deliverable {index + 1}</h4>
 							<Grid container spacing={3} key={index}>
-								<Grid item xs={4}>
-									<div className={styles.deliverableItem}>
+								<Grid item xs={4} style={{ display: 'none' }}>
+									<div className={styles.deliverableItem} >
 										<p>Deliverable Deadline</p>
-										<span>{moment(item.deliverableDeadDate).format('MMMM Do, YYYY')}</span>
+										<span>{moment(item.deadlineDate).format('MMMM Do, YYYY')}</span>
 									</div>
 								</Grid>
 								<Grid item xs={4}>

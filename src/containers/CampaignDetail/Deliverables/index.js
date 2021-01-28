@@ -31,7 +31,7 @@ const Deliverables = ({ onClick, handleEdit, deliverables, status }) => {
       </div>
       {deliverables && deliverables !== null &&
         <>
-          <div className={styles.detailSubContent}>
+          <div className={styles.detailSubContent} style={{display : 'none'}}>
             <h6>Deliverable Deadline</h6>
             <p>
               {deliverables && deliverables.length

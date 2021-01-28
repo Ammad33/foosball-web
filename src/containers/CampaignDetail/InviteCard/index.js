@@ -7,7 +7,7 @@ import {RootContext} from '../../../context/RootContext';
 
 
 
-const InviteCard = ({createdBy, campaignId, handleStatus, invitationMessage}) => {
+const InviteCard = ({createdBy, campaignId, handleStatus, invitationMessage , handleReviewAndSign}) => {
 	const [decline, setDecline] = useState(false);
 	const [declineReason , setDeclineReason] = useState('');
 	const [reasonDetail , setReasonDetail] = useState('');
@@ -30,7 +30,8 @@ const InviteCard = ({createdBy, campaignId, handleStatus, invitationMessage}) =>
 		setReasonDetail(val);
 	}
 	const handleAcceptInvite = () => {
-		acceptCampaignInvite()
+		// acceptCampaignInvite()
+		handleReviewAndSign();
 	}
 
 	const acceptCampaignInvite = async () => {
@@ -48,7 +49,6 @@ const InviteCard = ({createdBy, campaignId, handleStatus, invitationMessage}) =>
 					}`
 				)
 			)
-			handleStatus();
 			acceptCampaignTerms();
 		}	
 		catch(e) {
