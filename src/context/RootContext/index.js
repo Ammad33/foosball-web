@@ -11,8 +11,8 @@ export default ({ children }) => {
   const bId = localStorage.getItem('bId') || null;
   const bName = localStorage.getItem('bName') || null;
   const bType = localStorage.getItem('bType') || null;
-	const cRollId = localStorage.getItem('cRollId') || null;
-	const mRollId = localStorage.getItem('mRollId') || null;
+  const cRollId = localStorage.getItem('cRollId') || null;
+  const mRollId = localStorage.getItem('mRollId') || null;
   // const org = localStorage.getItem('org') || null;
   const [currentUser, setCurrentUser] = useState(prevUser);
   const [logoutMessage, setLogoutMessage] = useState('');
@@ -22,13 +22,14 @@ export default ({ children }) => {
   const [brands, setBrands] = useState(brandsStored);
   const [brandName, setBrandName] = useState(bName);
   const [brandType, setBrandType] = useState(bType);
-	const [creatorRoleId, setCreatorRoleId] = useState(cRollId);
-	const [memberRoleId, setMemberRoleId] = useState(mRollId);
+  const [creatorRoleId, setCreatorRoleId] = useState(cRollId);
+  const [memberRoleId, setMemberRoleId] = useState(mRollId);
   // const [organization , setOrganization] = useState(org);
   const [searchValue, setSearchValue] = useState('');
   const [influencers, setInfluencers] = useState(influencerStored);
   const [showLoader, setShowLoader] = useState(false);
   const [toastrData, setToastrData] = useState({});
+  const [updateMeData, setUpdateMeData] = useState(true);
 
   useEffect(() => {
     if (!currentUser) {
@@ -78,8 +79,8 @@ export default ({ children }) => {
     } else {
       localStorage.removeItem('cRollId');
       localStorage.setItem('cRollId', creatorRoleId);
-		}
-		if (!memberRoleId) {
+    }
+    if (!memberRoleId) {
       localStorage.removeItem('mRollId');
     } else {
       localStorage.removeItem('mRollId');
@@ -94,8 +95,8 @@ export default ({ children }) => {
     brands,
     brandName,
     brandType,
-		creatorRoleId,
-		memberRoleId,
+    creatorRoleId,
+    memberRoleId,
     influencers,
     // organization,
   ]);
@@ -118,9 +119,9 @@ export default ({ children }) => {
     brandType,
     setBrandType,
     creatorRoleId,
-		setCreatorRoleId,
-		memberRoleId,
-		setMemberRoleId,
+    setCreatorRoleId,
+    memberRoleId,
+    setMemberRoleId,
     searchValue,
     setSearchValue,
     influencers,
@@ -129,6 +130,8 @@ export default ({ children }) => {
     setShowLoader,
     toastrData,
     setToastrData,
+    updateMeData,
+    setUpdateMeData,
   };
 
   return (

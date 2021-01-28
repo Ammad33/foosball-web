@@ -31,16 +31,18 @@
 
   .saveContainer {
     margin-bottom: 30px;
-		text-align: right;
-		
-		.inActiveButton {
-			background-color: #cccccc;
-			color: #959595;
-		}
+    text-align: right;
+
+    .inActiveButton {
+      background-color: #cccccc;
+      color: #959595;
+    }
 
     .nextButton {
-			background-color: #cccccc;
-			color: #959595;
+      // background-color: #cccccc;
+      // color: #959595;
+      background-color: $dark1;
+      color: $white;
       border-radius: 100px;
       padding: 8px 40px;
       outline: none;
@@ -142,10 +144,10 @@ button:active,
 .verifiedEmail {
   display: flex;
   align-items: center;
-	justify-content: flex-end;
-	margin-bottom: -12px !important;
+  justify-content: flex-end;
+  margin-bottom: -12px !important;
   p {
-		margin-right: 6px !important;
+    margin-right: 6px !important;
     display: flex;
     align-items: center;
     color: #7b5cd9;

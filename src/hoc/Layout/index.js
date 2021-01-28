@@ -66,11 +66,13 @@ function ResponsiveDrawer(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [meData, setMeData] = useState([]);
 
-  const { brandType } = useContext(RootContext);
+  const { brandType, updateMeData, setUpdateMeData } = useContext(RootContext);
 
   useEffect(() => {
-    myData();
-  }, []);
+    if (updateMeData) {
+      myData();
+    }
+  }, [updateMeData]);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -107,6 +109,7 @@ function ResponsiveDrawer(props) {
 				}`,
       });
       setMeData(mydata.data.me);
+      setUpdateMeData(false);
     } catch (e) {
       console.log(e);
       // setMeData(e.mydata.data.me);
