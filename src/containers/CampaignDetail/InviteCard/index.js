@@ -30,7 +30,7 @@ const InviteCard = ({createdBy, campaignId, handleStatus, invitationMessage , ha
 		setReasonDetail(val);
 	}
 	const handleAcceptInvite = () => {
-		// acceptCampaignInvite()
+		acceptCampaignInvite()
 		handleReviewAndSign();
 	}
 

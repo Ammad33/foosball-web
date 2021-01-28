@@ -37,9 +37,6 @@ const InviteInfluencer = ({
 		setAnchorEl(event.currentTarget);
 	};
 
-	// const handleReviewAndSign = () => {
-	// 	setFlag(true);
-	// }
 	return (
 		<>
 			{reviewAndSendFlag ? (<ReviewAndSign 
