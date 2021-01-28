@@ -17,9 +17,9 @@ const Team = () => {
   const [teams, setTeam] = useState([]);
   const { brandId } = useContext(RootContext);
 
-  useEffect (()=> {
+  useEffect(() => {
     getTeam();
-  },[])
+  }, []);
 
   const getTeam = async () => {
     try {
@@ -55,13 +55,11 @@ const Team = () => {
     }
   };
 
-  const handleRemoveMember = (index) => { };
+  const handleRemoveMember = (index) => {};
 
   const closeHandle = () => {
     setAddOpen(false);
   };
-
- 
 
   return (
     <>
@@ -91,19 +89,19 @@ const Team = () => {
           </div>
         </div>
       ) : (
-          <div className={styles.TeamInfoContainer}>
-            {teams && teams !== null
-              ? teams.map((team, index) => (
+        <div className={styles.TeamInfoContainer}>
+          {teams && teams !== null
+            ? teams.map((team, index) => (
                 <TeamData
-									TeamMembers={team}
-									length = {teams.length}
+                  TeamMembers={team}
+                  length={teams.length}
                   index={index}
                   handleRemoveMember={handleRemoveMember}
                 />
               ))
-              : ''}
-          </div>
-        )}
+            : ''}
+        </div>
+      )}
     </>
   );
 };

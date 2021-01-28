@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Dialog, Grid } from '@material-ui/core';
 import styles from './AddMember.module.scss';
 import TextField from '../../../components/TextField';
@@ -7,6 +7,7 @@ import Autocomplete, {
 } from '@material-ui/lab/Autocomplete';
 import SelectedMembers from './SelectedMembers';
 import { API, graphqlOperation } from 'aws-amplify';
+import { RootContext } from '../../../context/RootContext';
 
 const AddMember = ({ open, closeAdd }) => {
   const [inviteMember, setInviteMember] = useState({ name: '' });
@@ -25,6 +26,10 @@ const AddMember = ({ open, closeAdd }) => {
   };
 
   const [value, setValue] = React.useState(null);
+
+  const [roles, setRoles] = useState([]);
+
+  const { brandType, brandId } = useContext(RootContext);
 
   const getMeData = async () => {
     try {
@@ -52,22 +57,23 @@ const AddMember = ({ open, closeAdd }) => {
 
   const assignRole = async () => {
     try {
-      const data = {
-        organizationId: '8ece73cc-3079-4f45-b7bb-4f6007c8344d',
-        roleId: 'a94b4e45-f72a-4d75-9d31-e4a2cf791775',
-        userId: 'b9a59121-fd68-434f-a52c-93036203ee26',
-      };
-      await API.graphql(
-        graphqlOperation(
-          `mutation assignRole($input: AssignRoleInput!) {
-						assignRole(input: $input) 
-      }
-      `,
-          {
-            input: data,
-          }
-        )
-      );
+      // const data = {
+      //   organizationId: '8ece73cc-3079-4f45-b7bb-4f6007c8344d',
+      //   roleId: 'a94b4e45-f72a-4d75-9d31-e4a2cf791775',
+      //   userId: 'b9a59121-fd68-434f-a52c-93036203ee26',
+      // };
+      // await API.graphql(
+      //   graphqlOperation(
+      //     `mutation assignRole($input: AssignRoleInput!) {
+      // 			assignRole(input: $input)
+      // }
+      // `,
+      //     {
+      //       input: data,
+      //     }
+      //   )
+      // );
+      console.log('email ', inviteMember);
     } catch (e) {
       console.log('Error in mutation for Invite Member ', e);
     }
@@ -76,6 +82,34 @@ const AddMember = ({ open, closeAdd }) => {
   useEffect(() => {
     getMeData();
   }, []);
+
+  useEffect(() => {
+    getRoles();
+  }, [brandId]);
+
+  const getRoles = async () => {
+    try {
+      const query = `{
+        ${brandType.toLowerCase()}(id:"${brandId}") {
+          roles {
+            id
+            deploy
+            author
+            administration
+            name
+            operate
+            plan
+          }
+        }
+      }`;
+      const data = await API.graphql({
+        query,
+      });
+      setRoles(data.data[brandType.toLowerCase()].roles);
+    } catch (e) {
+      console.log('errors are ', e);
+    }
+  };
 
   return (
     <Dialog
@@ -110,7 +144,7 @@ const AddMember = ({ open, closeAdd }) => {
               if (params.inputValue !== '') {
                 filtered.push({
                   inputValue: params.inputValue,
-                  title: `+ "${params.inputValue}"`,
+                  title: `+ ${params.inputValue}`,
                 });
               }
 
