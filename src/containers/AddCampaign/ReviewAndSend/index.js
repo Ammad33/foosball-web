@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styles from './ReviewAndSend.module.scss';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 import SVG from 'react-inlinesvg';
 import moment from 'moment';
+import { RootContext } from '../../../context/RootContext';
 
 const EditSVG = ({ onClick }) => {
 	return <SVG src={require('../../../assets/edit.svg')} onClick={onClick} />;
@@ -12,6 +13,8 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 	customeMessage, selectedMembers, budget, targetGrossSale, collections, deliverables, compensations, compensationPayment, selectedNegotiable, selectedInfluncer, handleActiveStep }) => {
 
 	const [totalPosts, setTotalPosts] = useState(0);
+	const [teamMembers, setTeamMembers] = useState([]);
+	const { currentUser } = useContext(RootContext);
 
 
 
@@ -37,16 +40,24 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 	}
 
 	useEffect(() => {
+		document.getElementsByClassName('AddCampaign_dialogContent__3teJx')[0].scrollTop = 0
+		const filterdMembers = selectedMembers.filter(
+			(memb) => memb !== currentUser.username
+		);
+		setTeamMembers(filterdMembers);
+	}, [selectedMembers]);
+
+	useEffect(() => {
 		let totalPost = 0;
 		deliverables.forEach(item => {
 			if (item.frequency === 'WEEK') {
-				totalPost = totalPost + (parseInt(item.posts) * weeksBetween(new Date(startDate), new Date(endDate)));
+				totalPost = totalPost + (parseInt(item.posts) * weeksBetween(new Date(startDate), new Date(endDate.add(1, 'd'))));
 			} else if (item.frequency === 'BI_WEEKLY') {
-				totalPost = totalPost + (parseInt(item.posts) * biWeekBetween(new Date(startDate), new Date(endDate)));
+				totalPost = totalPost + (parseInt(item.posts) * biWeekBetween(new Date(startDate), new Date(endDate.add(1, 'd'))));
 			} else if (item.frequency === 'MONTH') {
-				totalPost = totalPost + (parseInt(item.posts) * monthBetween(new Date(startDate), new Date(endDate)));
+				totalPost = totalPost + (parseInt(item.posts) * monthBetween(new Date(startDate), new Date(endDate.add(1, 'd'))));
 			} else if (item.frequency === 'BI_MONTHLY') {
-				totalPost = totalPost + (parseInt(item.posts) * biMonthBetween(new Date(startDate), new Date(endDate)));
+				totalPost = totalPost + (parseInt(item.posts) * biMonthBetween(new Date(startDate), new Date(endDate.add(1, 'd'))));
 			}
 		});
 
@@ -279,7 +290,7 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 				</div>
 				<div className={styles.teamMembersContainer}>
 					<Grid container spacing={3}>
-						{selectedMembers.length > 0 && selectedMembers.map((member, index) => {
+						{teamMembers && teamMembers.length > 0 && teamMembers.map((member, index) => {
 							const element = team.findIndex(item => item.user.id === member);
 							if (element !== -1) {
 								return (
