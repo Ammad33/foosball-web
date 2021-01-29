@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './CompensationDetail.module.scss';
+import moment from 'moment';
 
 const CompensationDetail = ({ compensations, targetGrossSales, deliverables,
 	startDate,
@@ -9,8 +10,33 @@ const CompensationDetail = ({ compensations, targetGrossSales, deliverables,
 	}
 
 	function weeksBetween(d1, d2) {
-		return Math.round((d2 - d1) / (7 * 24 * 60 * 60 * 1000));
+
+		const date1 = moment(d1);
+		const date2 = moment(d2);
+		return Math.ceil(date2.diff(date1, 'days') / 7);
 	}
+
+	function monthBetween(d1, d2) {
+		const date1 = moment(d1);
+		const date2 = moment(d2);
+		console.log(date2.diff(date1, 'days'))
+		return Math.ceil(date2.diff(date1, 'days') / 30);
+	}
+
+	function biMonthBetween(d1, d2) {
+		const date1 = moment(d1);
+		const date2 = moment(d2);
+		console.log(date2.diff(date1, 'days'))
+		return Math.ceil(date2.diff(date1, 'days') / 60);
+	}
+
+	function biWeekBetween(d1, d2) {
+		const date1 = moment(d1);
+		const date2 = moment(d2);
+		console.log(date2.diff(date1, 'days'))
+		return Math.ceil(date2.diff(date1, 'days') / 14);
+	}
+
 
 	const getCompensationType = (compensation) => {
 		switch (compensation.__typename) {
@@ -34,9 +60,11 @@ const CompensationDetail = ({ compensations, targetGrossSales, deliverables,
 			if (item.frequency === 'WEEK') {
 				totalPost = totalPost + (parseInt(item.posts) * weeksBetween(new Date(startDate * 1000), new Date(endDate * 1000)));
 			} else if (item.frequency === 'BI_WEEKLY') {
-				totalPost = totalPost + (parseInt(item.posts) * 2);
+				totalPost = totalPost + (parseInt(item.posts) * biWeekBetween(new Date(startDate * 1000), new Date(endDate * 1000)));
+			} else if (item.frequency === 'MONTH') {
+				totalPost = totalPost + (parseInt(item.posts) * monthBetween(new Date(startDate * 1000), new Date(endDate * 1000)));
 			} else {
-				totalPost = totalPost + parseInt(item.posts);
+				totalPost = totalPost + (parseInt(item.posts) * biMonthBetween(new Date(startDate * 1000), new Date(endDate * 1000)));
 			}
 		});
 		switch (compensation.__typename) {
@@ -98,9 +126,11 @@ const CompensationDetail = ({ compensations, targetGrossSales, deliverables,
 					if (item.frequency === 'WEEK') {
 						totalPost = totalPost + (parseInt(item.posts) * weeksBetween(new Date(startDate * 1000), new Date(endDate * 1000)));
 					} else if (item.frequency === 'BI_WEEKLY') {
-						totalPost = totalPost + (parseInt(item.posts) * 2);
-					} else {
-						totalPost = totalPost + parseInt(item.posts);
+						totalPost = totalPost + (parseInt(item.posts) * biWeekBetween(new Date(startDate * 1000), new Date(endDate * 1000)));
+					} else if (item.frequency === 'MONTH') {
+						totalPost = totalPost + (parseInt(item.posts) * monthBetween(new Date(startDate * 1000), new Date(endDate * 1000)));
+					} else if (item.frequency === 'BI_MONTHLY') {
+						totalPost = totalPost + (parseInt(item.posts) * biMonthBetween(new Date(startDate * 1000), new Date(endDate * 1000)));
 					}
 				});
 				total = total + (parseFloat(item.amount.amount) * totalPost);

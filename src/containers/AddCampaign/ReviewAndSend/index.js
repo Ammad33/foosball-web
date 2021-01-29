@@ -14,15 +14,39 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 	const [totalPosts, setTotalPosts] = useState(0);
 
 
+
+	function monthBetween(d1, d2) {
+		const date1 = moment(d1);
+		const date2 = moment(d2);
+		console.log(date2.diff(date1, 'days'))
+		return Math.ceil(date2.diff(date1, 'days') / 30);
+	}
+
+	function biMonthBetween(d1, d2) {
+		const date1 = moment(d1);
+		const date2 = moment(d2);
+		console.log(date2.diff(date1, 'days'))
+		return Math.ceil(date2.diff(date1, 'days') / 60);
+	}
+
+	function biWeekBetween(d1, d2) {
+		const date1 = moment(d1);
+		const date2 = moment(d2);
+		console.log(date2.diff(date1, 'days'))
+		return Math.ceil(date2.diff(date1, 'days') / 14);
+	}
+
 	useEffect(() => {
 		let totalPost = 0;
 		deliverables.forEach(item => {
 			if (item.frequency === 'WEEK') {
 				totalPost = totalPost + (parseInt(item.posts) * weeksBetween(new Date(startDate), new Date(endDate)));
 			} else if (item.frequency === 'BI_WEEKLY') {
-				totalPost = totalPost + (parseInt(item.posts) * 2);
-			} else {
-				totalPost = totalPost + parseInt(item.posts);
+				totalPost = totalPost + (parseInt(item.posts) * biWeekBetween(new Date(startDate), new Date(endDate)));
+			} else if (item.frequency === 'MONTH') {
+				totalPost = totalPost + (parseInt(item.posts) * monthBetween(new Date(startDate), new Date(endDate)));
+			} else if (item.frequency === 'BI_MONTHLY') {
+				totalPost = totalPost + (parseInt(item.posts) * biMonthBetween(new Date(startDate), new Date(endDate)));
 			}
 		});
 
@@ -120,8 +144,6 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 		}
 	}
 
-	console.log(weeksBetween(new Date(startDate), new Date(endDate)));
-
 	const getTotal = () => {
 		let total = 0;
 		compensations.forEach(item => {
@@ -133,9 +155,11 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 					if (item.frequency === 'WEEK') {
 						totalPost = totalPost + (parseInt(item.posts) * weeksBetween(new Date(startDate), new Date(endDate)));
 					} else if (item.frequency === 'BI_WEEKLY') {
-						totalPost = totalPost + (parseInt(item.posts) * 2);
-					} else {
-						totalPost = totalPost + parseInt(item.posts);
+						totalPost = totalPost + (parseInt(item.posts) * biWeekBetween(new Date(startDate), new Date(endDate)));
+					} else if (item.frequency === 'MONTH') {
+						totalPost = totalPost + (parseInt(item.posts) * monthBetween(new Date(startDate), new Date(endDate)));
+					} else if (item.frequency === 'BI_MONTHLY') {
+						totalPost = totalPost + (parseInt(item.posts) * biMonthBetween(new Date(startDate), new Date(endDate)));
 					}
 				});
 				total = total + (parseFloat(item.amount) * totalPost);
@@ -147,12 +171,7 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 	}
 
 	const overAmount = () => {
-		let over = 0;
-		compensations.forEach(item => {
-			if (item.compensationType === 'REVENUE_SHARE') {
-				over = parseFloat(item.amount * parseFloat(targetGrossSale) / 100) - parseFloat(budget);
-			}
-		});
+		let over = getTotal() - parseFloat(budget);
 
 		return parseFloat(over);
 	}
@@ -160,7 +179,11 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 	const [collectionData, setCollectionData] = useState([]);
 
 	function weeksBetween(d1, d2) {
-		return Math.round((d2 - d1) / (7 * 24 * 60 * 60 * 1000));
+
+		const date1 = moment(d1);
+		const date2 = moment(d2);
+		console.log(date2.diff(date1, 'days'))
+		return Math.ceil(date2.diff(date1, 'days') / 7);
 	}
 
 	useEffect(() => {
