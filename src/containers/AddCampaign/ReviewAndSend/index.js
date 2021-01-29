@@ -20,21 +20,21 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 
 	function monthBetween(d1, d2) {
 		const date1 = moment(d1);
-		const date2 = moment(d2);
+		const date2 = moment(d2).add(1, 'd');
 		console.log(date2.diff(date1, 'days'))
 		return Math.ceil(date2.diff(date1, 'days') / 30);
 	}
 
 	function biMonthBetween(d1, d2) {
 		const date1 = moment(d1);
-		const date2 = moment(d2);
+		const date2 = moment(d2).add(1, 'd');
 		console.log(date2.diff(date1, 'days'))
 		return Math.ceil(date2.diff(date1, 'days') / 60);
 	}
 
 	function biWeekBetween(d1, d2) {
 		const date1 = moment(d1);
-		const date2 = moment(d2);
+		const date2 = moment(d2).add(1, 'd');
 		console.log(date2.diff(date1, 'days'))
 		return Math.ceil(date2.diff(date1, 'days') / 14);
 	}
@@ -51,13 +51,13 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 		let totalPost = 0;
 		deliverables.forEach(item => {
 			if (item.frequency === 'WEEK') {
-				totalPost = totalPost + (parseInt(item.posts) * weeksBetween(new Date(startDate), new Date(endDate.add(1, 'd'))));
+				totalPost = totalPost + (parseInt(item.posts) * weeksBetween(new Date(startDate), new Date(endDate)));
 			} else if (item.frequency === 'BI_WEEKLY') {
-				totalPost = totalPost + (parseInt(item.posts) * biWeekBetween(new Date(startDate), new Date(endDate.add(1, 'd'))));
+				totalPost = totalPost + (parseInt(item.posts) * biWeekBetween(new Date(startDate), new Date(endDate)));
 			} else if (item.frequency === 'MONTH') {
-				totalPost = totalPost + (parseInt(item.posts) * monthBetween(new Date(startDate), new Date(endDate.add(1, 'd'))));
+				totalPost = totalPost + (parseInt(item.posts) * monthBetween(new Date(startDate), new Date(endDate)));
 			} else if (item.frequency === 'BI_MONTHLY') {
-				totalPost = totalPost + (parseInt(item.posts) * biMonthBetween(new Date(startDate), new Date(endDate.add(1, 'd'))));
+				totalPost = totalPost + (parseInt(item.posts) * biMonthBetween(new Date(startDate), new Date(endDate)));
 			}
 		});
 
@@ -192,7 +192,7 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 	function weeksBetween(d1, d2) {
 
 		const date1 = moment(d1);
-		const date2 = moment(d2);
+		const date2 = moment(d2).add(1, 'd');
 		console.log(date2.diff(date1, 'days'))
 		return Math.ceil(date2.diff(date1, 'days') / 7);
 	}
