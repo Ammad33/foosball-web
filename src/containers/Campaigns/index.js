@@ -260,7 +260,6 @@ const Campaigns = () => {
 			setCampaigns([]);
 			getCampaigns();
 			getInfluencerCampaigns();
-			assignRole();
 		}
 	}, [brandId, addCampaign]);
 
@@ -330,24 +329,6 @@ const Campaigns = () => {
 		history.push(`/campaignDetail/${id}`, { campaignId: id });
 		setActiveRoute('campaignDetail');
 	};
-
-	const assignRole = async () => {
-		try {
-			await API.graphql(
-				graphqlOperation(
-					`mutation AssignRole {
-						assignRole(input: {
-							organizationId: "${brandId}" , 
-							roleId: "${creatorRoleId}", 
-							userId: "${currentUser.username}"}) 
-					}`
-				)
-			)
-		}
-		catch (e) {
-			console.log("Error in assigning role", e)
-		}
-	}
 
 	return (
 		<>

@@ -411,7 +411,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           return deliverable;
         });
         setDeliveries(campaign.deliverables);
-      }
+			}
+			if (campaign.influencer && campaign.influencer !== null){
+				setInfluencer(campaign.influencer)
+			}
     }
     filledForm();
   }, [step]);
@@ -499,7 +502,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             }
           }
         }`,
-      });
+			});
       if (
         influencers &&
         influencers.data &&
@@ -1921,7 +1924,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       });
       setCampaigns(campaigns.data.campaigns.campaigns);
     } catch (e) {}
-  };
+	};
+
 
   const filledForm = () => {
     if (
@@ -1990,7 +1994,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const handleConfirmCDialog = () => {
     setOpenCDialog(false);
   };
-
   return (
     <>
       <Dialog
