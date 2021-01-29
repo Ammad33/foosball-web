@@ -68,27 +68,27 @@ const LostInfluencer = ({ handleEdit, data, handleSeeClick, name }) => {
             <p>
               Promotion:{' '}
               {data &&
-              data.discount &&
-              data.discount !== null &&
-              data.discount.amount
+                data.discount &&
+                data.discount !== null &&
+                data.discount.amount
                 ? data.discount.amount.amount
                 : data &&
                   data.discount &&
                   data.discount !== null &&
                   data.discount.percentage
-                ? data.discount.percentage
-                : ''}{' '}
+                  ? data.discount.percentage
+                  : ''}{' '}
               {data &&
-              data.discount &&
-              data.discount !== null &&
-              data.discount.percentage
+                data.discount &&
+                data.discount !== null &&
+                data.discount.percentage
                 ? '%'
                 : data &&
                   data.discount &&
                   data.discount !== null &&
                   data.discount.amount
-                ? '$'
-                : ''}
+                  ? '$'
+                  : ''}
             </p>
             <div className={styles.borderDiv}></div>
             <Chip
@@ -148,6 +148,7 @@ const LostInfluencer = ({ handleEdit, data, handleSeeClick, name }) => {
                 ? _.compact(data.compensation)
                 : []
             }
+            targetGrossSales={data.targetGrossSales}
           />
           <Negotiables data={data} />
         </div>

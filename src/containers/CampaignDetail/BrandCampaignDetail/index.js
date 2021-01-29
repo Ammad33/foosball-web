@@ -210,8 +210,8 @@ const BrandCampaignDetail = ({
     } else if (data.influencer === null) {
       setStep(8);
       setAddCampagin(true);
-    } else if (data.invitedAt === null) {
-      setStep(8);
+    } else if (data.invitedAt === undefined || data.invitedAt === null) {
+      setStep(9);
       setAddCampagin(true);
     }
   };

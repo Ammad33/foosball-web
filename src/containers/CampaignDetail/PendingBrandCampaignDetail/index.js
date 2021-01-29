@@ -300,34 +300,35 @@ const PendingBrandCampaignDetail = ({
 						</CampaignDetail>
 						<TeamMembers
 							onClick={handleSeeClick}
-							status = {data.status}
+							status={data.status}
 							brandTeam={data && data.brandTeam !== null ? data.brandTeam : []}
 						/>
-						<BudgetAndConversion  data={data} 	status = {data.status} />
+						<BudgetAndConversion data={data} status={data.status} />
 					</div>
 					<div className={styles.flexContainer}>
 						<Collections
-							status = {data.status}
+							status={data.status}
 							products={data.products}
 							id={data.id}
 						/>
 						<Deliverables
 							deliverables={data.deliverables}
-							status = {data.status}
+							status={data.status}
 							onClick={handleSeeClick}
 						/>
 					</div>
 					<div className={styles.flexContainer}>
 						<Compensation
-							status = {data.status}
+							status={data.status}
 							onClick={handleSeeClick}
 							compensation={
 								data && data.compensation && data.compensation !== null
 									? _.compact(data.compensation)
 									: []
 							}
+							targetGrossSales={data.targetGrossSales}
 						/>
-						<Negotiables data={data} 	status = {data.status} />
+						<Negotiables data={data} status={data.status} />
 						<div style={{ width: '391px' }}></div>
 					</div>
 				</div>

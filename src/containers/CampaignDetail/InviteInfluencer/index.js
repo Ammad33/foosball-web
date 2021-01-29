@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styles from './InviteInfluencer.module.scss';
 import { Avatar, Chip, Popover } from '@material-ui/core';
 import { ChevronRight, MoreVertical, Download, Mail } from 'react-feather';
@@ -27,7 +27,7 @@ const InviteInfluencer = ({
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
 	const [reviewAndSendFlag, setReviewAndSendFlag] = useState(false);
-	const [createMircositeFlag , setCreateMicrositeFlag] = useState(false);
+	const [createMircositeFlag, setCreateMicrositeFlag] = useState(false);
 
 	const handleClose = () => {
 		setAnchorEl(null);
@@ -39,108 +39,110 @@ const InviteInfluencer = ({
 
 	return (
 		<>
-			{reviewAndSendFlag ? (<ReviewAndSign 
-			name = {name}
-			campaignId={campaignId}
-			createMircositeFlag = {createMircositeFlag}
-			handleCreateMicrosite = {()=> setCreateMicrositeFlag(true)}/>) : (
-				<>
-					<Popover
-						id={id}
-						open={open}
-						anchorEl={anchorEl}
-						onClose={handleClose}
-						anchorOrigin={{
-							vertical: 'bottom',
-							horizontal: 'left',
-						}}
-						transformOrigin={{
-							vertical: 'top',
-							horizontal: 'right',
-						}}
-					>
-						<div className={styles.popOver}>
-							<div>
-								{' '}
-								<Mail /> <p> Message Brand</p>
+			{reviewAndSendFlag ? (<ReviewAndSign
+				name={name}
+				campaignId={campaignId}
+				createMircositeFlag={createMircositeFlag}
+				handleCreateMicrosite={() => setCreateMicrositeFlag(true)} />) : (
+					<>
+						<Popover
+							id={id}
+							open={open}
+							anchorEl={anchorEl}
+							onClose={handleClose}
+							anchorOrigin={{
+								vertical: 'bottom',
+								horizontal: 'left',
+							}}
+							transformOrigin={{
+								vertical: 'top',
+								horizontal: 'right',
+							}}
+						>
+							<div className={styles.popOver}>
+								<div>
+									{' '}
+									<Mail /> <p> Message Brand</p>
+								</div>
+								<div className={styles.secondElement}>
+									{' '}
+									<Download /> <p>Download Campaign</p>
+								</div>
 							</div>
-							<div className={styles.secondElement}>
-								{' '}
-								<Download /> <p>Download Campaign</p>
-							</div>
-						</div>
-					</Popover>
+						</Popover>
 
-					<div className={styles.campaignsContainer}>
-						<div className={styles.CampaignHeading}>
-							<span onClick={() => history.push('/campaigns')}>Campaigns</span>
-							<ChevronRight />
-							<span>{name}</span>
-						</div>
-						<div className={styles.subHeadingSection}>
-							<div className={styles.subCampaignSubHeading}>
-								<p>
-									Estimated Compensation: ${getTotal(data && data.compensation)}
-								</p>
-								<div className={styles.borderDiv}></div>
-								<Chip
-									className={clsx(styles.campaignStatus, styles.invite)}
-									label={'Invite'}
+						<div className={styles.campaignsContainer}>
+							<div className={styles.CampaignHeading}>
+								<span onClick={() => history.push('/campaigns')}>Campaigns</span>
+								<ChevronRight />
+								<span>{name}</span>
+							</div>
+							<div className={styles.subHeadingSection}>
+								<div className={styles.subCampaignSubHeading}>
+									<p>
+										Estimated Compensation: ${getTotal(data && data.compensation)}
+									</p>
+									<div className={styles.borderDiv}></div>
+									<Chip
+										className={clsx(styles.campaignStatus, styles.invite)}
+										label={'Invite'}
+									/>
+									<div className={styles.borderDiv}></div>
+									{data && data.brand && (
+										<div className={styles.avatarContainer}>
+											<Avatar className={styles.avatar} src={data.brand.imageUrl} />
+											<span>{data.brand.name}</span>
+										</div>
+									)}
+								</div>
+								<MoreVertical onClick={handleClick} />
+							</div>
+
+							<div className={styles.firstConatiner}>
+								<InviteCard
+									invitationMessage={data.invitationMessage}
+									createdBy={data.brand}
+									campaignId={campaignId}
+									handleReviewAndSign={() => setReviewAndSendFlag(true)}
+
 								/>
-								<div className={styles.borderDiv}></div>
-								{data && data.brand && (
-									<div className={styles.avatarContainer}>
-										<Avatar className={styles.avatar} src={data.brand.imageUrl} />
-										<span>{data.brand.name}</span>
+								<Activity activities={data?.events} onClick={handleSeeClick} />
+							</div>
+							<div className={styles.secondContainer}>
+								<div>
+									<div className={styles.first}>
+										<CampaignDetail campaign={data} handleEdit={handleEdit} />
+										<Compensation
+											compensation={
+												data && data.compensation && data.compensation !== null
+													? _.compact(data.compensation)
+													: []
+											}
+											onClick={handleSeeClick}
+											handleEdit={handleEdit}
+											targetGrossSales={data.targetGrossSales}
+
+										/>
 									</div>
-								)}
-							</div>
-							<MoreVertical onClick={handleClick} />
-						</div>
-
-						<div className={styles.firstConatiner}>
-							<InviteCard
-								invitationMessage={data.invitationMessage}
-								createdBy={data.brand}
-								campaignId={campaignId}
-								handleReviewAndSign = {()=> setReviewAndSendFlag(true)}
-								
-							/>
-							<Activity activities={data?.events} onClick={handleSeeClick} />
-						</div>
-						<div className={styles.secondContainer}>
-							<div>
-								<div className={styles.first}>
-									<CampaignDetail campaign={data} handleEdit={handleEdit} />
-									<Compensation
-										compensation={
-											data && data.compensation && data.compensation !== null
-												? _.compact(data.compensation)
-												: []
-										}
+									<div style={{ marginTop: '30px' }}>
+										<Collections
+											handleEdit={handleEdit}
+											products={data.products}
+											id={data.id}
+										/>
+									</div>
+								</div>
+								<div className={styles.second}>
+									<Deliverables
+										deliverables={data.deliverables}
+										handleEdit={handleEdit}
 										onClick={handleSeeClick}
-										handleEdit={handleEdit}
 									/>
 								</div>
-								<div style={{ marginTop: '30px' }}>
-									<Collections
-										handleEdit={handleEdit}
-										products={data.products}
-										id={data.id}
-									/>
-								</div>
-							</div>
-							<div className={styles.second}>
-								<Deliverables
-									deliverables={data.deliverables}
-									handleEdit={handleEdit}
-									onClick={handleSeeClick}
-								/>
 							</div>
 						</div>
-					</div>
-				</>
-			)}
+					</>
+				)}
 		</>
 	);
 };

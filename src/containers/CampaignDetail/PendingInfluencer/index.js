@@ -103,10 +103,11 @@ const PendingInfluencer = ({
                     ? _.compact(data.compensation)
                     : []
                 }
+                targetGrossSales={data.targetGrossSales}
               />
             </div>
             <div style={{ marginTop: '30px' }}>
-						<Collections
+              <Collections
                 handleEdit={handleEdit}
                 products={data.products}
                 id={data.id}

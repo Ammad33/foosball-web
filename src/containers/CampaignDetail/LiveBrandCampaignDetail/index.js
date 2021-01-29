@@ -125,27 +125,27 @@ const LiveBrandCampaignDetail = ({
               <h4 className={styles.promotion}>
                 Promotion:{' '}
                 {data &&
-                data.discount &&
-                data.discount !== null &&
-                data.discount.amount
+                  data.discount &&
+                  data.discount !== null &&
+                  data.discount.amount
                   ? data.discount.amount.amount
                   : data &&
                     data.discount &&
                     data.discount !== null &&
                     data.discount.percentage
-                  ? data.discount.percentage
-                  : ''}{' '}
+                    ? data.discount.percentage
+                    : ''}{' '}
                 {data &&
-                data.discount &&
-                data.discount !== null &&
-                data.discount.percentage
+                  data.discount &&
+                  data.discount !== null &&
+                  data.discount.percentage
                   ? '%'
                   : data &&
                     data.discount &&
                     data.discount !== null &&
                     data.discount.amount
-                  ? '$'
-                  : ''}
+                    ? '$'
+                    : ''}
               </h4>
             </div>
             <div>
@@ -210,6 +210,7 @@ const LiveBrandCampaignDetail = ({
               }
               handleEdit={handleEdit}
               onClick={handleSeeClick}
+              targetGrossSales={data.targetGrossSales}
             />
             <Negotiables data={data} />
             <Contract />

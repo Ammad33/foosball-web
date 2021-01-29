@@ -2,7 +2,8 @@ import React from 'react';
 import styles from './Compensation.module.scss';
 import { Edit } from 'react-feather';
 
-const Compensation = ({ onClick, handleEdit, compensation, status }) => {
+const Compensation = ({ onClick, handleEdit, compensation, status, targetGrossSales }) => {
+
 	const numberWithCommas = (x) => {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
@@ -37,11 +38,13 @@ const Compensation = ({ onClick, handleEdit, compensation, status }) => {
 		}
 	}
 
+	console.log(targetGrossSales);
+
 	const getCompensationAmount = () => {
 		switch (compensation[0].__typename) {
 			case 'CompRevenueShare':
 				return (
-					<p>{compensation[0].percentage && numberWithCommas(Math.trunc(compensation[0].percentage * 1000))}%</p>);
+					<p>{compensation[0].percentage && numberWithCommas(Math.trunc(compensation[0].percentage * 1000))}% ($ {numberWithCommas(Math.trunc(parseFloat((compensation[0].percentage * 1000) * parseFloat(targetGrossSales.amount / 100))))})</p>);
 			case 'CompCashPerPost':
 				return (<p>{compensation[0].amount && numberWithCommas(Math.trunc(compensation[0].amount.amount))}$</p>);
 			case 'CompCashPerMonthlyDeliverable':

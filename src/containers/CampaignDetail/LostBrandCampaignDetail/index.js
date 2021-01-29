@@ -80,26 +80,26 @@ const LostBrandCampaignDetail = ({
               <h4 className={styles.promotion}>
                 Promotion:{' '}
                 {data &&
-                data.discount &&
-                data.discount !== null &&
-                data.discount.amount
+                  data.discount &&
+                  data.discount !== null &&
+                  data.discount.amount
                   ? data.discount.amount.amount
                   : data &&
                     data.discount &&
                     data.discount !== null &&
                     data.discount.percentage
-                  ? data.discount.percentage
-                  : ''}{' '}
+                    ? data.discount.percentage
+                    : ''}{' '}
                 {data &&
-                data.discount &&
-                data.discount !== null &&
-                data.discount.percentage
+                  data.discount &&
+                  data.discount !== null &&
+                  data.discount.percentage
                   ? '%'
                   : data.discount &&
                     data.discount !== null &&
                     data.discount.amount
-                  ? '$'
-                  : ''}
+                    ? '$'
+                    : ''}
               </h4>
             </div>
             <div>
@@ -167,6 +167,7 @@ const LostBrandCampaignDetail = ({
                   ? _.compact(data.compensation)
                   : []
               }
+              targetGrossSales={data.targetGrossSales}
             />
             <Negotiables data={data} />
             <div style={{ width: '391px' }}></div>

@@ -5,7 +5,6 @@ import {
   useParams,
   useHistory,
   withRouter,
-  useLocation,
 } from 'react-router-dom';
 import InfluencerCampaignDetail from './InfluencerCampaignDetail';
 import { Select, MenuItem } from '@material-ui/core';
@@ -27,7 +26,7 @@ const CampaignDetail = ({ location }) => {
   const [selectedMembers, setSelectedMemebers] = useState([]);
   const [team, setTeam] = useState([]);
   const [search, setSearch] = useState('');
-	const [headingValue, setHeadingValue] = useState('');
+  const [headingValue, setHeadingValue] = useState('');
   const [internalState, setInternalState] = useState('');
   const [data, setData] = useState(null);
 
@@ -425,7 +424,7 @@ const CampaignDetail = ({ location }) => {
             return activity;
           }
         );
-				setInternalState(campaign.data.influencerCampaign.internalState)
+        setInternalState(campaign.data.influencerCampaign.internalState)
         setData(campaign.data.influencerCampaign);
         if (
           campaign.data &&
@@ -492,8 +491,8 @@ const CampaignDetail = ({ location }) => {
 
         campaign.data.campaign.events = campaign.data.campaign.events.map(
           (activity) => {
-						activity.time = moment.unix(activity.time).format("MM/DD");
-						return activity;
+            activity.time = moment.unix(activity.time).format("MM/DD");
+            return activity;
           }
         );
 
@@ -748,8 +747,8 @@ const CampaignDetail = ({ location }) => {
           setAll={setAll}
           headingValue={headingValue}
           campaignId={campaignId}
-					handleStatus={() => setStatus('PENDING')}
-					internalState = {internalState}
+          handleStatus={() => setStatus('PENDING')}
+          internalState={internalState}
         />
       ) : (
           <BrandCampaignDetail

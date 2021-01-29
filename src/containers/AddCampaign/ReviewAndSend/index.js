@@ -17,6 +17,8 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 	const { currentUser } = useContext(RootContext);
 
 
+	console.log(products);
+	console.log(collections);
 
 	function monthBetween(d1, d2) {
 		const date1 = moment(d1);
@@ -48,6 +50,7 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 	}, [selectedMembers]);
 
 	useEffect(() => {
+		window.scrollTo({ top: 0, behavior: 'smooth' });
 		let totalPost = 0;
 		deliverables.forEach(item => {
 			if (item.frequency === 'WEEK') {
@@ -221,9 +224,10 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 		}
 
 		setCollectionData(collls);
-	}, [products])
+	}, [products, collections])
 
 	console.log(collectionData);
+
 
 	return (
 		<div class={styles.mainContainer}>

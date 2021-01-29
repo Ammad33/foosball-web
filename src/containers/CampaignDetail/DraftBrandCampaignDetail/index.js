@@ -128,7 +128,7 @@ const DraftBrandCampaignDetail = ({
 								data.invitedAt === null && data.influencer !== null ? (
 
 									<div className={styles.campaignDraftContainer}>
-										<h2>Your campaign is ready to be sent to {data.influencer.name} with one button saying “send invite”Type a message</h2>
+										<h2>Your campaign is ready to be sent to {data.influencer.name} with one button saying “send invite”</h2>
 										<button onClick={handleActiveStep}>Finalize Campaign</button>
 									</div>
 								) : (<div className={styles.campaignDraftContainer}>
@@ -136,8 +136,6 @@ const DraftBrandCampaignDetail = ({
 									<p>Pickup where you left off</p>
 									<button onClick={handleActiveStep}>Finalize Campaign</button>
 								</div>
-
-
 									)
 
 							)}

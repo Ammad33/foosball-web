@@ -103,6 +103,7 @@ const DeclineInfluencer = ({
                 }
                 onClick={handleSeeClick}
                 handleEdit={handleEdit}
+                targetGrossSales={data.targetGrossSales}
               />
             </div>
             <div style={{ marginTop: '30px' }}>
