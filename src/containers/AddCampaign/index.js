@@ -239,7 +239,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const [team, setTeam] = useState([]);
   const [search, setSearch] = useState('');
   const [campaigns, setCampaigns] = useState([]);
-  const { brandId, setActiveRoute } = useContext(RootContext);
+  const { brandId, setActiveRoute , currentUser } = useContext(RootContext);
   const [campaignError, setCampaignError] = useState('');
   const [products, setProducts] = useState('');
   const [minimium, setMinimium] = useState('');
@@ -1156,7 +1156,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       }
 
       let data = {
-        brandId,
+				brandId,
+				team: currentUser.username,
         name: campaignName,
         startDate: Date.parse(`${startDate} ${startTime} `) / 1000,
         endDate: Date.parse(`${endDate} ${endTime} `) / 1000,
