@@ -189,7 +189,7 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 
 		return parseFloat(over);
 	}
-	// console.log(overAmount());
+
 	const [collectionData, setCollectionData] = useState([]);
 
 	function weeksBetween(d1, d2) {
