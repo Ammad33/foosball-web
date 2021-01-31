@@ -54,7 +54,7 @@ const Compensations = ({
 	useEffect(() => {
 		checkAddAnother();
 		handleActiveForCompensation();
-	}, [compensations]);
+	}, [compensations, compensationPayment]);
 
 	useEffect(() => {
 		clearCollections();
@@ -84,13 +84,13 @@ const Compensations = ({
 								{' '}
                 Influencer payment schedule
               </MenuItem>
-							<MenuItem value={'1st of every month'}>
+							<MenuItem value={'FIRST_OF_MONTH'}>
 								1st of every month
               </MenuItem>
-							<MenuItem value={'15th of every month'}>
+							<MenuItem value={'FIFTEENTH_OF_MONTH'}>
 								15th of every month
               </MenuItem>
-							<MenuItem value={'Last day'}>Last day of every month</MenuItem>
+							<MenuItem value={'LAST_DAY_OF_MONTH'}>Last day of every month</MenuItem>
 						</TextField>
 					</FormControl>
 				</Grid>

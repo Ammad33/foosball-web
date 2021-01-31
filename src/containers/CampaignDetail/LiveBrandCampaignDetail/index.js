@@ -211,6 +211,7 @@ const LiveBrandCampaignDetail = ({
               handleEdit={handleEdit}
               onClick={handleSeeClick}
               targetGrossSales={data.targetGrossSales}
+              paymentSchedule={data.paymentSchedule}
             />
             <Negotiables data={data} />
             <Contract />

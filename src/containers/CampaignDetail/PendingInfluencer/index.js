@@ -104,6 +104,7 @@ const PendingInfluencer = ({
                     : []
                 }
                 targetGrossSales={data.targetGrossSales}
+                paymentSchedule={data.paymentSchedule}
               />
             </div>
             <div style={{ marginTop: '30px' }}>

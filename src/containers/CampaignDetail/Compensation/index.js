@@ -2,11 +2,26 @@ import React from 'react';
 import styles from './Compensation.module.scss';
 import { Edit } from 'react-feather';
 
-const Compensation = ({ onClick, handleEdit, compensation, status, targetGrossSales }) => {
+const Compensation = ({ onClick, handleEdit, compensation, status, targetGrossSales, paymentSchedule }) => {
 
 	const numberWithCommas = (x) => {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
+
+	const getPaymentSchedule = (compensation) => {
+		switch (compensation) {
+			case 'FIRST_OF_MONTH':
+				return (
+					'1st of every month');
+			case 'FIFTEENTH_OF_MONTH':
+				return ('15th of every month');
+			case 'LAST_DAY_OF_MONTH':
+				return ('Last day of every month');
+			default:
+				return '';
+		}
+	}
+
 	const getCompensationType = () => {
 		switch (compensation[0].__typename) {
 			case 'CompRevenueShare':
@@ -68,7 +83,7 @@ const Compensation = ({ onClick, handleEdit, compensation, status, targetGrossSa
 			<div className={styles.conatianer}>
 				<div className={styles.detailSubContent}>
 					<h6>Influencer Schedule Payment </h6>
-					<p>Monthly</p>
+					<p>{paymentSchedule && paymentSchedule !== null ? getPaymentSchedule(paymentSchedule) : ''}</p>
 				</div>
 				{
 

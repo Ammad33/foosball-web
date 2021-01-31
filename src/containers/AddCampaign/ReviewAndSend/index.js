@@ -10,7 +10,7 @@ const EditSVG = ({ onClick }) => {
 	return <SVG src={require('../../../assets/edit.svg')} onClick={onClick} />;
 };
 const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, startTime, endTime, discount, discountType, minimum,
-	customeMessage, selectedMembers, budget, targetGrossSale, collections, deliverables, compensations, compensationPayment, selectedNegotiable, selectedInfluncer, handleActiveStep, handleActiveNext }) => {
+	customeMessage, selectedMembers, budget, targetGrossSale, collections, deliverables, compensations, compensationPayment, selectedNegotiable, selectedInfluncer, handleActiveStep, handleActiveNext, }) => {
 
 	const [totalPosts, setTotalPosts] = useState(0);
 	const [teamMembers, setTeamMembers] = useState([]);
@@ -18,7 +18,32 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 
 	useEffect(() => {
 		handleActiveNext();
-	}, [])
+	}, []);
+
+
+	const getPaymentSchedule = (compensation) => {
+		switch (compensation) {
+			case 'FIRST_OF_MONTH':
+				return (
+					'1st of every month');
+			case 'FIFTEENTH_OF_MONTH':
+				return ('15th of every month');
+			case 'LAST_DAY_OF_MONTH':
+				return ('Last day of every month');
+			default:
+				return '';
+		}
+	}
+
+	const overAmount1 = () => {
+		let over = 0;
+		compensations.forEach(item => {
+			if (item.compensationType === 'REVENUE_SHARE') {
+				over = parseFloat(item.amount * parseFloat(targetGrossSale) / 100) - parseFloat(budget);
+			}
+		});
+		return parseFloat(over);
+	}
 
 	function monthBetween(d1, d2) {
 		const date1 = moment(d1);
@@ -328,9 +353,9 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 						</Grid>
 					</Grid>
 				</div>
-				{overAmount() > 0 &&
+				{overAmount1() > 0 &&
 					<div className={styles.compensationBadge}>
-						<p>You are ${numberWithCommas(Math.trunc(overAmount()))} over budget</p>
+						<p>You are ${numberWithCommas(Math.trunc(overAmount1()))} over budget</p>
 					</div>
 				}
 			</div>
@@ -448,7 +473,7 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 					<Grid item xs={6}>
 						<div className={styles.compensationInfluencer}>
 							<p>Influencer Payment Schedule</p>
-							<span>{compensationPayment}</span>
+							<span>{getPaymentSchedule(compensationPayment)}</span>
 						</div>
 					</Grid>
 				</Grid>

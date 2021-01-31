@@ -149,6 +149,7 @@ const LostInfluencer = ({ handleEdit, data, handleSeeClick, name }) => {
                 : []
             }
             targetGrossSales={data.targetGrossSales}
+            paymentSchedule={data.paymentSchedule}
           />
           <Negotiables data={data} />
         </div>

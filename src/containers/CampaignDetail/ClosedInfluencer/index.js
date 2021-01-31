@@ -104,6 +104,7 @@ const ClosedInfluencer = ({
                 onClick={handleSeeClick}
                 handleEdit={handleEdit}
                 targetGrossSales={data.targetGrossSales}
+                paymentSchedule={data.paymentSchedule}
               />
             </div>
             <div style={{ marginTop: '30px' }}>

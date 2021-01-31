@@ -130,7 +130,8 @@ const CampaignDetail = ({ location }) => {
             endDate
 						invitationMessage
 						invitedAt
-						internalState
+            internalState
+            paymentSchedule
             products {
               collection {
                 id
@@ -268,7 +269,8 @@ const CampaignDetail = ({ location }) => {
             startDate
             endDate
 						invitationMessage
-						invitedAt
+            invitedAt
+            paymentSchedule
             products {
               collection {
                 id

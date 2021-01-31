@@ -168,6 +168,7 @@ const LostBrandCampaignDetail = ({
                   : []
               }
               targetGrossSales={data.targetGrossSales}
+              paymentSchedule={data.paymentSchedule}
             />
             <Negotiables data={data} />
             <div style={{ width: '391px' }}></div>

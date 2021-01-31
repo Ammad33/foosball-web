@@ -121,6 +121,7 @@ const InviteInfluencer = ({
 											onClick={handleSeeClick}
 											handleEdit={handleEdit}
 											targetGrossSales={data.targetGrossSales}
+											paymentSchedule={data.paymentSchedule}
 
 										/>
 									</div>

@@ -320,6 +320,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           ? campaign.invitationMessage
           : ''
       );
+      setCompensationPayment(campaign.paymentSchedule && campaign.paymentSchedule !== null ? campaign.paymentSchedule : '');
       setStartDate(moment(startDate).format('MM/DD/YYYY'));
       setEndDate(moment(endDate).format('MM/DD/YYYY'));
       setStartTime(moment(startDate).format('HH:mm'));
@@ -1249,6 +1250,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         data.influencerId = influencer.id;
       }
 
+      if (compensationPayment !== '') {
+        data.paymentSchedule = compensationPayment;
+      }
+
       let response = await API.graphql(
         graphqlOperation(
           `mutation createCampaign($input: CreateCampaignInput!) {
@@ -1465,6 +1470,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         data.influencerId = influencer.id;
       }
 
+      if (compensationPayment !== '') {
+        data.paymentSchedule = compensationPayment;
+      }
+
       let response = await API.graphql(
         graphqlOperation(
           `mutation updateCampaign($input : UpdateCampaignInput!) {
@@ -1642,6 +1651,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   /************* Active for compensations */
 
   const setActiveForCompensation = () => {
+    if (compensationPayment === '') {
+      setActiveNext(false);
+      return;
+    }
     const compensation = [...compensations];
 
     let flag = true;

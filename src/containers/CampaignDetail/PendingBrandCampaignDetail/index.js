@@ -327,6 +327,7 @@ const PendingBrandCampaignDetail = ({
 									: []
 							}
 							targetGrossSales={data.targetGrossSales}
+							paymentSchedule={data.paymentSchedule}
 						/>
 						<Negotiables data={data} status={data.status} />
 						<div style={{ width: '391px' }}></div>
