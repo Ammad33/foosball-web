@@ -35,15 +35,13 @@ const CreateCompensation = ({
 	handleCompensationProducts,
 	compensationProductItems,
 	compensationProducts,
+	handleCollectionExpand,
 	handleActiveForCompensationProduct,
 	handleCompensationProductItem,
 	giftCode,
-	handleGiftCode
+	handleGiftCode,
+	products
 }) => {
-
-	useEffect(() => {
-		handleActiveForCompensationProduct();
-	}, [compensations]);
 
 	return (
 		<Grid container spacing={3}>
@@ -96,6 +94,7 @@ const CreateCompensation = ({
 			</Grid>
 
 			{item.compensationType !== '' && item.compensationType !== 'REVENUE_SHARE' && item.compensationType !== 'GIFT_CARD' &&
+				item.compensationType !== 'PRODUCT' &&
 				(
 					<Grid item xs={12} sm={12} md={12}>
 						<TextField
@@ -176,7 +175,7 @@ const CreateCompensation = ({
 					/>
 				</Grid>
 			}
-			{item.compensationType === 'Products' && (
+			{item.compensationType === 'PRODUCT' && (
 				<Grid item xs={12} sm={12} md={12}>
 					<Collection
 						collection={compensationProduct}
@@ -184,6 +183,8 @@ const CreateCompensation = ({
 						handleCollectionItem={handleCompensationProductItem}
 						collectionItems={compensationProductItems}
 						collections={compensationProducts}
+						products={products}
+						handleCollectionExpand={handleCollectionExpand}
 						handleActiveForCollection={handleActiveForCompensationProduct}
 					/>
 				</Grid>

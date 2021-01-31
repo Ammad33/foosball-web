@@ -545,14 +545,14 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   };
 
   const setActiveForCompensationProduct = () => {
-    const cols = [...compensationProducts];
+    const cols = [...compensationProducts]
     if (cols.length === 0) {
       setActiveNext(false);
     }
     if (cols.length > 0) {
       let flag = true;
       cols.forEach((item) => {
-        if (item.collectionItems.length === 0) {
+        if (item.products === undefined || item.products.length === 0) {
           flag = false;
         }
         setActiveNext(flag);
@@ -562,33 +562,39 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     }
   };
 
-  const handleCompensationProductItem = (name, item) => {
+  const handleCompensationProductItem = (id, item) => {
+
     const opts = [...compensationProducts];
     if (opts.length > 0) {
-      const index = opts.findIndex((item) => item.collectionName === name);
+      const index = opts.findIndex((item) => item.collectionId === id);
 
       if (index !== -1) {
-        const secondIndex = opts[index].collectionItems.findIndex(
-          (secondItem) => secondItem.sku === item.sku
-        );
-        if (secondIndex === -1) {
-          opts[index].collectionItems.push(item);
-          setCompensationProducts(opts);
-        } else {
-          opts[index].collectionItems.splice(secondIndex, 1);
-          setCompensationProducts(opts);
+        if (opts[index].products) {
+          const secondIndex = opts[index].products.findIndex(
+            (secondItem) => secondItem.productId === item.productId
+          );
+          if (secondIndex === -1) {
+            opts[index].products.push(item);
+            setCompensationProducts(opts);
+          } else {
+            opts[index].products.splice(secondIndex, 1);
+            if (opts[index].products && opts[index].products.length === 0) {
+              opts.splice(index, 1);
+            }
+            setCompensationProducts(opts);
+          }
         }
       } else {
         opts.push({
-          collectionName: name,
-          collectionItems: [item],
+          collectionId: id,
+          products: [item],
         });
         setCompensationProducts(opts);
       }
     } else {
       opts.push({
-        collectionName: name,
-        collectionItems: [item],
+        collectionId: id,
+        products: [item],
       });
       setCompensationProducts(opts);
     }
@@ -745,7 +751,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     const comp = [...compensations];
     if (fieldName === 'compensationType') {
       const found = comp.findIndex((item) => item.compensationType === value);
-      if (found !== -1 || value === 'PRODUCT') {
+      if (found !== -1) {
         return;
       }
     }
@@ -983,6 +989,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     }
   };
 
+
   // console.log(products);
 
   const getNegotiablesObjectForAPI = () => {
@@ -1109,7 +1116,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     const data = [...deliveries];
 
     data.map((deliverable) => {
-      // console.log(deliverable);
 
       const eDate = new Date(deliverable.deadlineDate * 1000);
 
@@ -1650,10 +1656,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         }
       });
     setActiveNext(flag);
-    if (!flag) {
-      setActiveForCompensationProduct();
-      setAddAnother(true);
-    }
   };
 
   /************* Active for Negotiables */
@@ -1833,14 +1835,17 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             addAnother={addAnother}
             compensationPayment={compensationPayment}
             handleCompensationPayment={handleCompensationPayment}
-            compensationProduct={compensationProduct}
+            compensationProduct={collections}
             handleCompensationProducts={handleCompensationProducts}
             compensationProductItems={items}
-            compensationProducts={compensationProducts}
-            handleActiveForCompensationProduct={setActiveForCompensation}
+            compensationProducts={collections}
+            handleCollectionExpand={handleCollectionExpand}
+            handleActiveForCompensationProduct={setActiveForCompensationProduct}
             handleCompensationProductItem={handleCompensationProductItem}
             giftCode={giftCode}
+            products={compensationProducts}
             handleGiftCode={(e) => setGiftCode(e.target.value)}
+            clearCollections={handleCollectionClear}
           />
         );
       case 7:
@@ -1885,6 +1890,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             handleActiveStep={(value) => setActiveStep(value)}
             toggleComponent={toggleComponent}
             team={team}
+            handleActiveNext={() => setActiveNext(true)}
           />
         );
       default:

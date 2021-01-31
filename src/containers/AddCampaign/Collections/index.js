@@ -60,21 +60,15 @@ const MinusSVG = () => {
 };
 
 const Collection = ({
-  handleCollection,
   collections,
   handleCollectionItem,
   handleActiveForCollection,
   handleCollectionExpand,
-  products,
-  clearCollections
+  products
 }) => {
   useEffect(() => {
     handleActiveForCollection();
   }, [products]);
-
-  // useEffect(() => {
-  //   // return () => { clearCollections() };
-  // }, [])
 
   return (
     <Grid container>
@@ -144,195 +138,8 @@ const Collection = ({
           )
         }
 
-        {/* <Accordion square expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-          <AccordionSummary className={styles.accordianSummary} aria-controls="panel2d-content" id="panel2d-header">
-            <Typography className={styles.collectionName}>
-              V Necks
-						 <div className={styles.heading}>
-                {collections.find(
-                  (item) =>
-                    item.collectionName === 'V-Necks' &&
-                    item.collectionItems.length !== 0
-                ) && (
-                    <div className={styles.quantity}>
-                      <span className={styles.collectionNumber}>
-                        {collections.find(
-                          (item) => item.collectionName === 'V-Necks'
-                        ).collectionItems.length}
-                      </span>
-                    </div>
-                  )}
-
-                <span className={styles.svg} >
-                  {svg2 ? (
-                    <MinusSVG />) : (<PlusSVG />)
-                  }
-                </span>
-              </div>
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            {collection !== '' ? (
-              <Grid item xs={12} className={styles.collections}>
-                <Grid container spacing={3} className={styles.collectionContainer}>
-                  {collectionItems.map((collectionItem, index) => {
-                    return (
-                      <Grid item xs={3}>
-                        <CollectionItem
-                          collectionItem={collectionItem}
-                          key={index}
-                          collection={collection}
-                          collections={collections}
-                          handleCollectionItem={handleCollectionItem}
-                        />
-                      </Grid>
-                    );
-                  })}
-                </Grid>
-              </Grid>
-            ) : null}
-          </AccordionDetails>
-        </Accordion>
-        <Accordion square expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-          <AccordionSummary className={styles.accordianSummary} aria-controls="panel3d-content" id="panel3d-header">
-            <Typography className={styles.collectionName}>
-              Henleys
-						 <div className={styles.heading}>
-                {collections.find(
-                  (item) =>
-                    item.collectionName === 'Henleys' &&
-                    item.collectionItems.length !== 0
-                ) && (
-                    <div className={styles.quantity}>
-                      <span className={styles.collectionNumber}>
-                        {
-                          collections.find(
-                            (item) => item.collectionName === 'Henleys'
-                          ).collectionItems.length}
-                      </span>
-                    </div>
-                  )}
-                {' '}
-                <span className={styles.svg} >
-                  {svg3 ? (
-                    <MinusSVG />) : (<PlusSVG />)
-                  }
-                </span>
-              </div>
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            {collection !== '' ? (
-              <Grid item xs={12} className={styles.collections}>
-                <Grid container spacing={3} className={styles.collectionContainer}>
-                  {collectionItems.map((collectionItem, index) => {
-                    return (
-                      <Grid item xs={3}>
-                        <CollectionItem
-                          collectionItem={collectionItem}
-                          key={index}
-                          collection={collection}
-                          collections={collections}
-                          handleCollectionItem={handleCollectionItem}
-                        />
-                      </Grid>
-                    );
-                  })}
-                </Grid>
-              </Grid>
-            ) : null}
-          </AccordionDetails>
-        </Accordion> */}
       </Grid>
 
-      {/* <Grid item xs={12}>
-        <FormControl fullWidth variant='outlined'>
-          <Select
-            className={styles.dropdown}
-            labelId='demo-simple-select-outlined-label'
-            id='demo-simple-select-outlined'
-            label='Choose Collection'
-            value={collection}
-            displayEmpty
-            onChange={handleCollection}
-            MenuProps={{ variant: 'menu' }}
-            onOpen={() => setOpen(true)}
-            onClose={() => setOpen(false)}
-            IconComponent={() => <Chevron />}
-            input={<SelectMenu />}
-          >
-            <MenuItem value=''>Choose Collection</MenuItem>
-            <MenuItem value={'Drop Cuts'} className={styles.menuItem}>
-              Drop Cuts{' '}
-              {collections.find(
-                (item) =>
-                  item.collectionName === 'Drop Cuts' &&
-                  item.collectionItems.length !== 0
-              ) && (
-                <div className='hello'>
-                  <span>
-                    {open === true &&
-                      collections.find(
-                        (item) => item.collectionName === 'Drop Cuts'
-                      ).collectionItems.length}
-                  </span>
-                </div>
-              )}{' '}
-            </MenuItem>
-            <MenuItem value={'Henleys'} className={styles.menuItem}>
-              Henleys{' '}
-              {collections.find(
-                (item) =>
-                  item.collectionName === 'Henleys' &&
-                  item.collectionItems.length !== 0
-              ) && (
-                <div>
-                  <span>
-                    {open === true &&
-                      collections.find(
-                        (item) => item.collectionName === 'Henleys'
-                      ).collectionItems.length}
-                  </span>
-                </div>
-              )}
-            </MenuItem>
-            <MenuItem value={'Tanks'} className={styles.menuItem}>
-              Tanks{' '}
-              {collections.find(
-                (item) =>
-                  item.collectionName === 'Tanks' &&
-                  item.collectionItems.length !== 0
-              ) && (
-                <div>
-                  <span>
-                    {open === true &&
-                      collections.find(
-                        (item) => item.collectionName === 'Tanks'
-                      ).collectionItems.length}
-                  </span>
-                </div>
-              )}
-            </MenuItem>
-            <MenuItem value={'V-Necks'} className={styles.menuItem}>
-              V-Necks{' '}
-              {collections.find(
-                (item) =>
-                  item.collectionName === 'V-Necks' &&
-                  item.collectionItems.length !== 0
-              ) && (
-                <div>
-                  <span>
-                    {open === true &&
-                      collections.find(
-                        (item) => item.collectionName === 'V-Necks'
-                      ).collectionItems.length}
-                  </span>
-                </div>
-              )}
-            </MenuItem>
-          </Select>
-        </FormControl>
-      </Grid> */}
 
     </Grid>
   );

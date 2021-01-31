@@ -10,15 +10,15 @@ const EditSVG = ({ onClick }) => {
 	return <SVG src={require('../../../assets/edit.svg')} onClick={onClick} />;
 };
 const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, startTime, endTime, discount, discountType, minimum,
-	customeMessage, selectedMembers, budget, targetGrossSale, collections, deliverables, compensations, compensationPayment, selectedNegotiable, selectedInfluncer, handleActiveStep }) => {
+	customeMessage, selectedMembers, budget, targetGrossSale, collections, deliverables, compensations, compensationPayment, selectedNegotiable, selectedInfluncer, handleActiveStep, handleActiveNext }) => {
 
 	const [totalPosts, setTotalPosts] = useState(0);
 	const [teamMembers, setTeamMembers] = useState([]);
 	const { currentUser } = useContext(RootContext);
 
-
-	console.log(products);
-	console.log(collections);
+	useEffect(() => {
+		handleActiveNext();
+	}, [])
 
 	function monthBetween(d1, d2) {
 		const date1 = moment(d1);
@@ -202,7 +202,6 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-		console.log();
 
 		let collls = [];
 		if (products && products.length > 0) {
@@ -225,9 +224,6 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 
 		setCollectionData(collls);
 	}, [products, collections])
-
-	console.log(collectionData);
-
 
 	return (
 		<div class={styles.mainContainer}>

@@ -31,11 +31,14 @@ const Compensations = ({
 	compensationProduct,
 	handleCompensationProducts,
 	compensationProductItems,
+	handleCollectionExpand,
 	compensationProducts,
 	handleActiveForCompensationProduct,
 	handleCompensationProductItem,
 	giftCode,
-	handleGiftCode
+	handleGiftCode,
+	clearCollections,
+	products
 }) => {
 	const checkAddAnother = () => {
 		if (addAnother === true) {
@@ -44,11 +47,18 @@ const Compensations = ({
 	};
 
 	const [handleAnother, setAnother] = useState(false);
-	handleActiveForCompensation();
+
+
+
+
 	useEffect(() => {
 		checkAddAnother();
+		handleActiveForCompensation();
 	}, [compensations]);
 
+	useEffect(() => {
+		clearCollections();
+	}, [])
 
 	return (
 		<div>
@@ -103,7 +113,9 @@ const Compensations = ({
 					handleActiveForCompensationProduct={
 						handleActiveForCompensationProduct
 					}
+					handleCollectionExpand={handleCollectionExpand}
 					handleCompensationProductItem={handleCompensationProductItem}
+					products={products}
 				/>
 			))}
 			{compensations.length > 0 && compensations.length !== 4 &&
