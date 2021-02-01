@@ -282,11 +282,11 @@ const PendingBrandCampaignDetail = ({
 								<span>{data.influencer.name}</span>
 							</div>
 						)}
-						<Checkbox
+						{/* <Checkbox
 							checked={pendingOffer}
 							onChange={(e) => setPendingOffer(e.target.checked)}
 						/>
-						<span>Show offer from influencer view</span>
+						<span>Show offer from influencer view</span> */}
 					</div>
 					<div>
 						<MoreVertical onClick={handleClick} />

@@ -53,7 +53,8 @@ const ReviewAndSign = ({
 			{createMircositeFlag ? (
 				<CreateMicrosite
 					name={name}
-					handleCreateMicrosite={handleCreateMicrosite} />
+					handleCreateMicrosite={handleCreateMicrosite}
+					campaignId = {campaignId} />
 			) : (
 					<div className={styles.mainContainer}>
 						<div className={styles.crumsContainer}>

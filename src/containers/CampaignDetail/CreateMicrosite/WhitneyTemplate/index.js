@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import styles from './WhitneyTemplate.module.scss';
 import ColorComponent from '../ColorComponent';
 import { Divider, Tooltip, Popover } from '@material-ui/core';
@@ -6,8 +6,12 @@ import { Divider, Tooltip, Popover } from '@material-ui/core';
 import TextField from '../../../../components/TextField';
 import styles1 from '../ImagePicker/ImagePicker.module.scss';
 import { HelpCircle, X } from 'react-feather'
+import { API, graphqlOperation } from 'aws-amplify';
+import {RootContext} from '../../../../context/RootContext';
 
-const WhitneyTemplate = () => {
+
+
+const WhitneyTemplate = ({campaignId}) => {
     const [headerColor, setHeaderColor] = useState("#984949");
     const [buttonColor, setButtonColor] = useState("#984949");
     const [quotesColor, setQuotesColor] = useState("#984949");
@@ -16,7 +20,11 @@ const WhitneyTemplate = () => {
     const [heroImage, setHeroImage] = useState(null);
     const [image2, setImage2] = useState(null);
     const [quoteMessage, setQuoteMessage] = useState('');
-    const [anchorEl, setAnchorEl] = React.useState(null);
+		const [anchorEl, setAnchorEl] = React.useState(null);
+		const {
+			brandId
+		 } = useContext(RootContext);
+	 
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -30,6 +38,25 @@ const WhitneyTemplate = () => {
 		useEffect(() => {
 			window.scrollTo({ top: 0, behavior: 'smooth' });
 		}, [])
+		
+
+		const requestMicrositeApproval = async () => {
+			try {
+				await API.graphql (
+					graphqlOperation (
+						`mutation requestMicrositeApproval {
+							requestMicrositeApproval( 
+								campaignId: "${campaignId}",
+								influencerId: "${brandId}"
+							)
+						}`
+					)
+				)
+			}
+			catch (e) {
+				console.log("Error in requestin microSite approval " , e)
+			}
+		}
 
     return (
         <>
@@ -133,7 +160,7 @@ const WhitneyTemplate = () => {
                     <div className={styles.secondContainer}></div>
                 </div >
                 <div className={styles.buttonContainer}>
-                    <button className={styles.sendButton}> Send to Brand for Approval</button>
+                    <button className={styles.sendButton} onClick= {()=>requestMicrositeApproval()}> Send to Brand for Approval</button>
 
                 </div>
             </div>

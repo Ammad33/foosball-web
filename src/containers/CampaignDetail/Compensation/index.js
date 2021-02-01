@@ -61,11 +61,11 @@ const Compensation = ({ onClick, handleEdit, compensation, status, targetGrossSa
 				return (
 					<p>{compensation[0].percentage && numberWithCommas(Math.trunc(compensation[0].percentage * 1000))}% ($ {numberWithCommas(Math.trunc(parseFloat((compensation[0].percentage * 1000) * parseFloat(targetGrossSales.amount / 100))))})</p>);
 			case 'CompCashPerPost':
-				return (<p>{compensation[0].amount && numberWithCommas(Math.trunc(compensation[0].amount.amount))}$</p>);
+				return (<p>${compensation[0].amount && numberWithCommas(Math.trunc(compensation[0].amount.amount))}</p>);
 			case 'CompCashPerMonthlyDeliverable':
-				return (<p>{compensation[0].amount && numberWithCommas(Math.trunc(compensation[0].amount.amount))}$</p>);
+				return (<p>${compensation[0].amount && numberWithCommas(Math.trunc(compensation[0].amount.amount))}</p>);
 			case 'CompGiftCard':
-				return (<p>{compensation[0].amount && numberWithCommas(Math.trunc(compensation[0].amount.amount))}$</p>);
+				return (<p>${compensation[0].amount && numberWithCommas(Math.trunc(compensation[0].amount.amount))}</p>);
 			default:
 				return <p></p>;
 		}

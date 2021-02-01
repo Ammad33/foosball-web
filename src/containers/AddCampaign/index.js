@@ -1078,7 +1078,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         case 'REVENUE_SHARE':
           return {
             type: 'REVENUE_SHARE',
-            value: '{ "percentage": "' + item.amount / 1000 + '"}',
+            value: '{ "percentage": "' + item.amount / 10 + '"}',
           };
         case 'CASH_PER_POST':
           return {

@@ -11,6 +11,7 @@ import WhitneyTemplate from './WhitneyTemplate';
 
 const CreateMicrosite = ({
 	name,
+	campaignId,
 	handleCreateMicrosite
 }) => {
 	const history = useHistory();
@@ -42,7 +43,8 @@ const CreateMicrosite = ({
 							<ChevronLeft />
 							<span>Back to templates</span>
 						</div>
-						<WhitneyTemplate />
+						<WhitneyTemplate
+						campaignId = {campaignId} />
 					</> :
 						<div className={styles.contentContainer}>
 							<div className={styles.micrositeContainer}>
