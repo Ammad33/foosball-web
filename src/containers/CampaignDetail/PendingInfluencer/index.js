@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styles from './PendingInfluencer.module.scss';
 import { Avatar, Chip, Popover } from '@material-ui/core';
 import { ChevronRight, MoreVertical, Download, Mail } from 'react-feather';
@@ -27,11 +27,12 @@ const PendingInfluencer = ({
 	const id = open ? 'simple-popover' : undefined;
 	const [createMircositeFlag, setCreateMicrositeFlag] = useState(false);
 
-
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
-
+	const numberWithCommas = (x) => {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
 	};
@@ -62,7 +63,7 @@ const PendingInfluencer = ({
 									{' '}
 									<Mail /> <p> Message Brand</p>
 								</div>
-								<div className={styles.secondElement}>
+								<div className={styles.secondElement} style={{ display: "none" }}>
 									{' '}
 									<Download /> <p>Download Campaign</p>
 								</div>
@@ -78,7 +79,7 @@ const PendingInfluencer = ({
 							<div className={styles.subHeadingSection}>
 								<div className={styles.subCampaignSubHeading}>
 									<p>
-										Estimated Compensation: ${getTotal(data && data.compensation)}
+										Estimated Compensation: ${numberWithCommas(Math.trunc(getTotal(data && data.compensation)))}
 									</p>
 									<div className={styles.borderDiv}></div>
 									<Chip
@@ -96,41 +97,69 @@ const PendingInfluencer = ({
 								<MoreVertical onClick={handleClick} />
 							</div>
 
-							<div className={styles.firstConatiner}>
-								<PendingCard
-									handlecreateMircositeFlag={() => setCreateMicrositeFlag(true)} />
-								<Activity activities={data?.events} onClick={handleSeeClick} />
-							</div>
-							<div className={styles.secondContainer}>
-								<div>
-									<div className={styles.first}>
-										<CampaignDetail campaign={data} handleEdit={handleEdit} />
-										<Compensation
-											onClick={handleSeeClick}
-											handleEdit={handleEdit}
-											compensation={
-												data && data.compensation && data.compensation !== null
-													? _.compact(data.compensation)
-													: []
-											}
-											targetGrossSales={data.targetGrossSales}
-											paymentSchedule={data.paymentSchedule}
-										/>
-									</div>
-									<div style={{ marginTop: '30px' }}>
-										<Collections
-											handleEdit={handleEdit}
-											products={data.products}
-											id={data.id}
-										/>
-									</div>
+							<div className={styles.campaignsContainer}>
+								<div className={styles.CampaignHeading}>
+									<span onClick={() => history.push('/campaigns')}>Campaigns</span>
+									<ChevronRight />
+									<span>{name}</span>
 								</div>
-								<div className={styles.second}>
-									<Deliverables
-										deliverables={data.deliverables}
-										handleEdit={handleEdit}
-										onClick={handleSeeClick}
-									/>
+								<div className={styles.subHeadingSection}>
+									<div className={styles.subCampaignSubHeading}>
+										<p>
+											Estimated Compensation: ${getTotal(data && data.compensation)}
+										</p>
+										<div className={styles.borderDiv}></div>
+										<Chip
+											className={clsx(styles.campaignStatus, styles.pending)}
+											label={'Pending'}
+										/>
+										<div className={styles.borderDiv}></div>
+										{data && data.brand && (
+											<div className={styles.avatarContainer}>
+												<Avatar className={styles.avatar} src={data.brand.imageUrl} />
+												<span>{data.brand.name}</span>
+											</div>
+										)}
+									</div>
+									<MoreVertical onClick={handleClick} />
+								</div>
+
+								<div className={styles.firstConatiner}>
+									<PendingCard
+										handlecreateMircositeFlag={() => setCreateMicrositeFlag(true)} />
+									<Activity activities={data?.events} onClick={handleSeeClick} />
+								</div>
+								<div className={styles.secondContainer}>
+									<div>
+										<div className={styles.first}>
+											<CampaignDetail campaign={data} handleEdit={handleEdit} />
+											<Compensation
+												onClick={handleSeeClick}
+												handleEdit={handleEdit}
+												compensation={
+													data && data.compensation && data.compensation !== null
+														? _.compact(data.compensation)
+														: []
+												}
+												targetGrossSales={data.targetGrossSales}
+												paymentSchedule={data.paymentSchedule}
+											/>
+										</div>
+										<div style={{ marginTop: '30px' }}>
+											<Collections
+												handleEdit={handleEdit}
+												products={data.products}
+												id={data.id}
+											/>
+										</div>
+									</div>
+									<div className={styles.second}>
+										<Deliverables
+											deliverables={data.deliverables}
+											handleEdit={handleEdit}
+											onClick={handleSeeClick}
+										/>
+									</div>
 								</div>
 							</div>
 						</div>

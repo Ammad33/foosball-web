@@ -2121,7 +2121,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                         : createCampaign();
                     }}
                   >
-                    Save and finish later
+                    {campaign !== undefined ? "Save and exit" : "Save and finish later" }
                   </span>
                 ) : null}
               </div>

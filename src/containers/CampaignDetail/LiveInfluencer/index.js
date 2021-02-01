@@ -41,6 +41,9 @@ const LiveInfluencer = ({
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  const numberWithCommas = (x) => {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
 
   return (
     <>
@@ -63,7 +66,7 @@ const LiveInfluencer = ({
             {' '}
             <Mail /> <p> Message Brand</p>
           </div>
-          <div className={styles.secondElement}>
+          <div className={styles.secondElement} style={{display:"none"}}>
             {' '}
             <Download /> <p>Download Campaign</p>
           </div>
@@ -89,7 +92,7 @@ const LiveInfluencer = ({
               <Copy />
             </div>
             <p>
-              Estimated Compensation: ${getTotal(data && data.compensation)}
+              Estimated Compensation: ${numberWithCommas(Math.trunc(getTotal(data && data.compensation)))}
             </p>
             <div className={styles.borderDiv}></div>
             <Chip

@@ -286,14 +286,14 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 						<Grid item xs={4}>
 							<div className={styles.campaignItemInfo}>
 								<p>Promotional Discount</p>
-								<span>{numberWithCommas(discount)}{discountType === 'Percentage' ? "%" : "$"}</span>
+								<span>{discountType === 'Percentage' ? "" : "$"}{numberWithCommas(discount)}{discountType === 'Percentage' ? "%" : ""}</span>
 							</div>
 						</Grid>
 						{discountType === "Amount" ? (
 							<Grid item xs={6}>
 								<div className={styles.campaignItemInfo}>
 									<p>Minimum Cart Value</p>
-									<span>{numberWithCommas(minimum)}{"$"}</span>
+									<span>{"$"}{numberWithCommas(minimum)}</span>
 								</div>
 							</Grid>
 						) : ("")}
@@ -461,7 +461,7 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 				}
 				<div className={styles.postTotalContainer}>
 					<h4>Post Total:</h4>
-					<h5>{totalPosts} Posts</h5>
+					<h5>{numberWithCommas(totalPosts)} Posts</h5>
 				</div>
 			</div>
 			<div class={styles.section}>

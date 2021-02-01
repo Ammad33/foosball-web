@@ -213,7 +213,7 @@ const PendingBrandCampaignDetail = ({
 					<div>
 						<Copy /> <p>Duplicate Campaign</p>
 					</div>
-					<div>
+					<div style={{display:"none"}}>
 						<Download /> <p>Download Campaign</p>
 					</div>
 					<div>
@@ -232,7 +232,18 @@ const PendingBrandCampaignDetail = ({
 					<div className={styles.campaignStatus}>
 						<div>
 							<h4 className={styles.promotion}>
-								Promotion:{' '}
+								Promotion:{" "}
+								{data &&
+									data !== null &&
+									data.discount &&
+									data.discount !== null &&
+									data.discount.percentage
+									? ''
+									: data.discount &&
+										data.discount !== null &&
+										data.discount.amount
+										? '$'
+										: ''}
 								{data &&
 									data !== null &&
 									data.discount &&
@@ -254,7 +265,7 @@ const PendingBrandCampaignDetail = ({
 									: data.discount &&
 										data.discount !== null &&
 										data.discount.amount
-										? '$'
+										? ''
 										: ''}
 							</h4>
 						</div>

@@ -29,7 +29,9 @@ const ClosedInfluencer = ({
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const numberWithCommas = (x) => {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -55,7 +57,7 @@ const ClosedInfluencer = ({
             {' '}
             <Mail /> <p> Message Brand</p>
           </div>
-          <div className={styles.secondElement}>
+          <div className={styles.secondElement} style={{display:"none"}}>
             {' '}
             <Download /> <p>Download Campaign</p>
           </div>
@@ -71,7 +73,7 @@ const ClosedInfluencer = ({
         <div className={styles.subHeadingSection}>
           <div className={styles.subCampaignSubHeading}>
             <p>
-              Estimated Compensation: ${getTotal(data && data.compensation)}
+              Estimated Compensation: ${numberWithCommas(Math.trunc(getTotal(data && data.compensation)))}
             </p>
             <div className={styles.borderDiv}></div>
             <Chip className={clsx(styles.campaignStatus)} label={'Closed'} />

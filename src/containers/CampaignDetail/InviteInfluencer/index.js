@@ -32,7 +32,9 @@ const InviteInfluencer = ({
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
-
+	const numberWithCommas = (x) => {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
 	};
@@ -80,7 +82,7 @@ const InviteInfluencer = ({
 							<div className={styles.subHeadingSection}>
 								<div className={styles.subCampaignSubHeading}>
 									<p>
-										Estimated Compensation: ${getTotal(data && data.compensation)}
+										Estimated Compensation: ${numberWithCommas(Math.trunc(getTotal(data && data.compensation)))}
 									</p>
 									<div className={styles.borderDiv}></div>
 									<Chip

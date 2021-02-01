@@ -67,7 +67,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 					<div>
 						<Copy /> <p>Duplicate Campaign</p>
 					</div>
-					<div>
+					<div style={{display:"none"}}>
 						<Download /> <p>Download Campaign</p>
 					</div>
 
@@ -94,17 +94,19 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 								<ErrorOutlineOutlinedIcon className={styles.alertIcon} />
               Action Required
 							</span>
-						) : (
-								campaign.status === 'DRAFT' ?
-									(
-										<span className={styles.alertBadge}>
-											<ErrorOutlineOutlinedIcon className={styles.alertIcon} />
-								Action Required
-										</span>
-									) : (
-										''
-									)
-							)}
+						) : 
+						(""
+								// campaign.status === 'DRAFT' ?
+								// 	(
+								// 		<span className={styles.alertBadge}>
+								// 			<ErrorOutlineOutlinedIcon className={styles.alertIcon} />
+								// Action Required
+								// 		</span>
+								// 	) : (
+								// 		''
+								// 	)
+							)
+							}
 					</div>
 					<div className={styles.cardDetails}>
 						<div className={styles.campaignInfo} onClick={onClick}>

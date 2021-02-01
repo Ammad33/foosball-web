@@ -63,7 +63,7 @@ const LostBrandCampaignDetail = ({
           <div>
             <Copy /> <p>Duplicate Campaign</p>
           </div>
-          <div>
+          <div style={{display:"none"}}>
             <Download /> <p>Download Campaign</p>
           </div>
         </div>

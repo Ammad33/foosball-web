@@ -39,7 +39,8 @@ const DraftBrandCampaignDetail = ({
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
 	};
-
+	const numberWithCommas = (x) => {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");}
 	return (
 		<>
 			<Popover
@@ -87,13 +88,24 @@ const DraftBrandCampaignDetail = ({
 								{data &&
 									data.discount &&
 									data.discount !== null &&
+									data.discount.percentage
+									? ''
+									: data &&
+										data.discount &&
+										data.discount !== null &&
+										data.discount.amount
+										? '$'
+										: ''}
+								{data &&
+									data.discount &&
+									data.discount !== null &&
 									data.discount.amount
 									? data.discount.amount.amount
 									: data &&
 										data.discount &&
 										data.discount !== null &&
 										data.discount.percentage
-										? data.discount.percentage
+										? (numberWithCommas(data.discount.percentage))
 										: ''}{' '}
 								{data &&
 									data.discount &&
@@ -104,7 +116,7 @@ const DraftBrandCampaignDetail = ({
 										data.discount &&
 										data.discount !== null &&
 										data.discount.amount
-										? '$'
+										? ''
 										: ''}
 							</h4>
 						</div>

@@ -328,6 +328,9 @@ const AddCampaignDetails = ({
 							onChange={(e) => handleDiscount(e.target.value)}
 							variant='outlined'
 							helperText={' '}
+							InputProps={{
+								startAdornment: <InputAdornment position="start">$</InputAdornment>,
+							  }}
 						/>
 					</Grid>
 				)}
@@ -342,6 +345,10 @@ const AddCampaignDetails = ({
 						onChange={handleMinimium}
 						variant='outlined'
 						helperText={' '}
+						InputProps={{
+							startAdornment: <InputAdornment position="start">$</InputAdornment>,
+						  }}
+						  
 					/>
 				</Grid>
 			) : (
