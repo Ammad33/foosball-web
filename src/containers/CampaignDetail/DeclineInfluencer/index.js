@@ -53,7 +53,7 @@ const DeclineInfluencer = ({
             {' '}
             <Mail /> <p> Message Brand</p>
           </div>
-          <div className={styles.secondElement}>
+          <div className={styles.secondElement} style={{display:"none"}}>
             {' '}
             <Download /> <p>Download Campaign</p>
           </div>

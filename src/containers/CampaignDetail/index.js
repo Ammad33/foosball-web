@@ -492,7 +492,7 @@ const CampaignDetail = ({ location }) => {
 
         campaign.data.campaign.events = campaign.data.campaign.events.map(
           (activity) => {
-						activity.time = moment.unix(activity.time).format("MM/DD");
+						activity.time = moment.unix(activity.time).format("MMM DD");
 						return activity;
           }
         );

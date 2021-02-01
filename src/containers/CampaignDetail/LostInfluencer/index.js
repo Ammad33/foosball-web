@@ -50,7 +50,7 @@ const LostInfluencer = ({ handleEdit, data, handleSeeClick, name }) => {
             {' '}
             <Mail /> <p> Message Brand</p>
           </div>
-          <div className={styles.secondElement}>
+          <div className={styles.secondElement} style={{display:"none"}}>
             {' '}
             <Download /> <p>Download Campaign</p>
           </div>
