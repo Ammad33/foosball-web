@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './WhitneyTemplate.module.scss';
 import ColorComponent from '../ColorComponent';
 import { Divider, Tooltip, Popover } from '@material-ui/core';
@@ -27,7 +27,9 @@ const WhitneyTemplate = () => {
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
 
-
+		useEffect(() => {
+			window.scrollTo({ top: 0, behavior: 'smooth' });
+		}, [])
 
     return (
         <>
@@ -131,7 +133,6 @@ const WhitneyTemplate = () => {
                     <div className={styles.secondContainer}></div>
                 </div >
                 <div className={styles.buttonContainer}>
-                    <button className={styles.liveButton}>Live Preview</button>
                     <button className={styles.sendButton}> Send to Brand for Approval</button>
 
                 </div>

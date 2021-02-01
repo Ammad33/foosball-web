@@ -87,7 +87,15 @@
           outline: none;
           border: none;
         }
-      }
+			}
+			.templateContainer {
+				display: flex;
+				
+
+				.template {
+					width: 310px;
+				}
+			}
     img {
         height: 527px;
         width: 281px;

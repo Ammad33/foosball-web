@@ -204,6 +204,8 @@ const CampaignDetailInfluencer = ({
 						getTotal={getTotal}
 						name={data && data.name}
 						handleDelete={handleDelete}
+						campaignId={campaignId}
+
 					/>
 				);
 			case 'DECLINED':

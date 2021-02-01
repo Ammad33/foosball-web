@@ -8,13 +8,14 @@
     border-radius: 10px;
     background-color: #3481EF;
     box-shadow: 0 6px 50px 0 rgba(0,0,0,0.1);
-    padding: 50px 53px 50px 88px;
+    padding: 50px 0px 35px 88px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    // justify-content: center;
     align-content: center;
 
     h1{
+				height: 320px;
         font-family: Poppins;
         color: #FFFFFF;
         font-family: Poppins;
@@ -41,8 +42,8 @@
         letter-spacing: 0;
         line-height: 30px;
         margin-bottom: 8px;
-    }
-    
+		}
+		    
    
     button {
         outline: none;

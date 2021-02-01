@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './PendingInfluencer.module.scss';
 import { Avatar, Chip, Popover } from '@material-ui/core';
 import { ChevronRight, MoreVertical, Download, Mail } from 'react-feather';
@@ -10,122 +10,135 @@ import Deliverables from '../Deliverables';
 import Collections from '../Collections';
 import { useHistory } from 'react-router-dom';
 import PendingCard from '../PendingCard';
+import CreateMicroSite from '../CreateMicrosite';
 import _ from 'lodash';
 
 const PendingInfluencer = ({
-  handleEdit,
-  data,
-  handleSeeClick,
-  getTotal,
-  name,
+	handleEdit,
+	data,
+	handleSeeClick,
+	getTotal,
+	name,
+	campaignId,
 }) => {
-  const history = useHistory();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
+	const history = useHistory();
+	const [anchorEl, setAnchorEl] = React.useState(null);
+	const open = Boolean(anchorEl);
+	const id = open ? 'simple-popover' : undefined;
+	const [createMircositeFlag, setCreateMicrositeFlag] = useState(false);
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
 
-  return (
-    <>
-      <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-      >
-        <div className={styles.popOver}>
-          <div>
-            {' '}
-            <Mail /> <p> Message Brand</p>
-          </div>
-          <div className={styles.secondElement}>
-            {' '}
-            <Download /> <p>Download Campaign</p>
-          </div>
-        </div>
-      </Popover>
+	const handleClick = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
 
-      <div className={styles.campaignsContainer}>
-        <div className={styles.CampaignHeading}>
-          <span onClick={() => history.push('/campaigns')}>Campaigns</span>
-          <ChevronRight />
-          <span>{name}</span>
-        </div>
-        <div className={styles.subHeadingSection}>
-          <div className={styles.subCampaignSubHeading}>
-            <p>
-              Estimated Compensation: ${getTotal(data && data.compensation)}
-            </p>
-            <div className={styles.borderDiv}></div>
-            <Chip
-              className={clsx(styles.campaignStatus, styles.pending)}
-              label={'Pending'}
-            />
-            <div className={styles.borderDiv}></div>
-            {data && data.brand && (
-              <div className={styles.avatarContainer}>
-                <Avatar className={styles.avatar} src={data.brand.imageUrl} />
-                <span>{data.brand.name}</span>
-              </div>
-            )}
-          </div>
-          <MoreVertical onClick={handleClick} />
-        </div>
+	return (
+		<>
+			{createMircositeFlag ? (<CreateMicroSite
+				name={name}
+				campaignId={campaignId}
+			/>) : (
+					<>
+						<Popover
+							id={id}
+							open={open}
+							anchorEl={anchorEl}
+							onClose={handleClose}
+							anchorOrigin={{
+								vertical: 'bottom',
+								horizontal: 'left',
+							}}
+							transformOrigin={{
+								vertical: 'top',
+								horizontal: 'right',
+							}}
+						>
+							<div className={styles.popOver}>
+								<div>
+									{' '}
+									<Mail /> <p> Message Brand</p>
+								</div>
+								<div className={styles.secondElement}>
+									{' '}
+									<Download /> <p>Download Campaign</p>
+								</div>
+							</div>
+						</Popover>
 
-        <div className={styles.firstConatiner}>
-          <PendingCard />
-          <Activity activities={data?.events} onClick={handleSeeClick} />
-        </div>
-        <div className={styles.secondContainer}>
-          <div>
-            <div className={styles.first}>
-              <CampaignDetail campaign={data} handleEdit={handleEdit} />
-              <Compensation
-                onClick={handleSeeClick}
-                handleEdit={handleEdit}
-                compensation={
-                  data && data.compensation && data.compensation !== null
-                    ? _.compact(data.compensation)
-                    : []
-                }
-                targetGrossSales={data.targetGrossSales}
-                paymentSchedule={data.paymentSchedule}
-              />
-            </div>
-            <div style={{ marginTop: '30px' }}>
-              <Collections
-                handleEdit={handleEdit}
-                products={data.products}
-                id={data.id}
-              />
-            </div>
-          </div>
-          <div className={styles.second}>
-            <Deliverables
-              deliverables={data.deliverables}
-              handleEdit={handleEdit}
-              onClick={handleSeeClick}
-            />
-          </div>
-        </div>
-      </div>
-    </>
-  );
+						<div className={styles.campaignsContainer}>
+							<div className={styles.CampaignHeading}>
+								<span onClick={() => history.push('/campaigns')}>Campaigns</span>
+								<ChevronRight />
+								<span>{name}</span>
+							</div>
+							<div className={styles.subHeadingSection}>
+								<div className={styles.subCampaignSubHeading}>
+									<p>
+										Estimated Compensation: ${getTotal(data && data.compensation)}
+									</p>
+									<div className={styles.borderDiv}></div>
+									<Chip
+										className={clsx(styles.campaignStatus, styles.pending)}
+										label={'Pending'}
+									/>
+									<div className={styles.borderDiv}></div>
+									{data && data.brand && (
+										<div className={styles.avatarContainer}>
+											<Avatar className={styles.avatar} src={data.brand.imageUrl} />
+											<span>{data.brand.name}</span>
+										</div>
+									)}
+								</div>
+								<MoreVertical onClick={handleClick} />
+							</div>
+
+							<div className={styles.firstConatiner}>
+								<PendingCard
+									handlecreateMircositeFlag={() => setCreateMicrositeFlag(true)} />
+								<Activity activities={data?.events} onClick={handleSeeClick} />
+							</div>
+							<div className={styles.secondContainer}>
+								<div>
+									<div className={styles.first}>
+										<CampaignDetail campaign={data} handleEdit={handleEdit} />
+										<Compensation
+											onClick={handleSeeClick}
+											handleEdit={handleEdit}
+											compensation={
+												data && data.compensation && data.compensation !== null
+													? _.compact(data.compensation)
+													: []
+											}
+											targetGrossSales={data.targetGrossSales}
+											paymentSchedule={data.paymentSchedule}
+										/>
+									</div>
+									<div style={{ marginTop: '30px' }}>
+										<Collections
+											handleEdit={handleEdit}
+											products={data.products}
+											id={data.id}
+										/>
+									</div>
+								</div>
+								<div className={styles.second}>
+									<Deliverables
+										deliverables={data.deliverables}
+										handleEdit={handleEdit}
+										onClick={handleSeeClick}
+									/>
+								</div>
+							</div>
+						</div>
+					</>
+				)
+			}
+		</>
+	);
 };
 
 export default PendingInfluencer;
