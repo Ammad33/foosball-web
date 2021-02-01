@@ -1,13 +1,25 @@
-import React from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import styles from './TeamMembers.module.scss';
 import { Edit } from 'react-feather';
 import { Avatar } from '@material-ui/core';
 import ChipButton from './../../../components/ChipButton';
+import { RootContext } from '../../../context/RootContext';
+
 
 
 const TeamMembers = ({ onClick, handleEdit, brandTeam , status }) => {
 
-  const team = brandTeam && brandTeam.length > 0 ? brandTeam.slice(0, 5) : [];
+	const [teamMembers, setTeamMembers] = useState([]);
+	const { currentUser } = useContext(RootContext);
+	const team = teamMembers && teamMembers.length > 0 ? teamMembers.slice(0, 5) : [];
+
+
+	useEffect(() => {
+    const filterdMembers = brandTeam.filter(
+      (memb) => memb.id !== currentUser.username
+    );
+    setTeamMembers(filterdMembers);
+  }, [brandTeam]);
 
   return (
     <div className={styles.mainContainer}>
@@ -20,7 +32,7 @@ const TeamMembers = ({ onClick, handleEdit, brandTeam , status }) => {
           )}      
 			</div>
       <div className={styles.membersContainer}>
-        {brandTeam && brandTeam.length > 0 ?
+        {teamMembers && teamMembers.length > 0 ?
           <>
             {team.map((member) => {
               return (
@@ -36,7 +48,7 @@ const TeamMembers = ({ onClick, handleEdit, brandTeam , status }) => {
         }
 
       </div>
-      {brandTeam && brandTeam !== null && brandTeam.length > 5 &&
+      {teamMembers && teamMembers !== null && teamMembers.length > 5 &&
         <div style={{ position: 'absolute', bottom: '20px' }}>
           <ChipButton
 

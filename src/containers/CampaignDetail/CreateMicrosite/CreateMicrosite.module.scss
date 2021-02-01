@@ -3,6 +3,25 @@
 .mainContainer {
   padding-bottom: 15px;
   margin: auto;
+  
+  .backTemplate{
+    display: flex;
+    flex-direction: row;
+    gap:10px;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 61px;
+    margin-bottom: 49px;
+    span{
+      height: 32px;
+      width: 209px;
+      color: #000000;
+      font-family: Poppins;
+      font-size: 23px;
+      letter-spacing: 0;
+      line-height: 34px;
+    }
+  }
 
   .crumsContainer {
 		width: max-content;
@@ -25,6 +44,55 @@
   .contentContainer {
     .micrositeContainer {
       height: 1079px;
+      p{
+        height: 32px;
+        // width: 671px;
+        color: #000000;
+        font-family: Poppins;
+        font-size: 23px;
+        letter-spacing: 0;
+        line-height: 34px;
+        margin:0;
+        padding: 0;
+        margin-top:61px;
+        margin-bottom: 61px;
+      }
+      h6{
+        height: 31px;
+       color: #000000;
+       font-family: Poppins;
+       font-size: 22px;
+       font-weight: 500;
+       letter-spacing: 0;
+       line-height: 33px;
+       margin: 0px;
+       margin-top: 27px;
+       margin-bottom: 12px;
+      }
+      button {
+        height: 31px;
+        width: 95px;
+        border-radius: 100px;
+        background-color: #000000;
+        color: #FFFFFF;
+        border:none;
+        text-align: center;
+        font-family: Poppins;
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: 0;
+        padding: 4px 18px;
+        line-height: 23px;
+         :active {
+          outline: none;
+          border: none;
+        }
+      }
+    img {
+        height: 527px;
+        width: 281px;
+        cursor: pointer;
+      }
     }
     .actionsContainer {
       display: flex;
@@ -59,6 +127,8 @@
     }
   }
 }
+
+
 
 @media not all and (min-resolution: 0.001dpcm) {
   @supports (-webkit-appearance: none) {

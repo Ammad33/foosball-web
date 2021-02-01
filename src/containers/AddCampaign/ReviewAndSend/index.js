@@ -1,42 +1,81 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styles from './ReviewAndSend.module.scss';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 import SVG from 'react-inlinesvg';
 import moment from 'moment';
+import { RootContext } from '../../../context/RootContext';
 
 const EditSVG = ({ onClick }) => {
 	return <SVG src={require('../../../assets/edit.svg')} onClick={onClick} />;
 };
 const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, startTime, endTime, discount, discountType, minimum,
-	customeMessage, selectedMembers, budget, targetGrossSale, collections, deliverables, compensations, compensationPayment, selectedNegotiable, selectedInfluncer, handleActiveStep }) => {
+	customeMessage, selectedMembers, budget, targetGrossSale, collections, deliverables, compensations, compensationPayment, selectedNegotiable, selectedInfluncer, handleActiveStep, handleActiveNext, }) => {
 
 	const [totalPosts, setTotalPosts] = useState(0);
+	const [teamMembers, setTeamMembers] = useState([]);
+	const { currentUser } = useContext(RootContext);
+
+	useEffect(() => {
+		handleActiveNext();
+	}, []);
 
 
+	const getPaymentSchedule = (compensation) => {
+		switch (compensation) {
+			case 'FIRST_OF_MONTH':
+				return (
+					'1st of every month');
+			case 'FIFTEENTH_OF_MONTH':
+				return ('15th of every month');
+			case 'LAST_DAY_OF_MONTH':
+				return ('Last day of every month');
+			default:
+				return '';
+		}
+	}
+
+	const overAmount1 = () => {
+		let over = 0;
+		compensations.forEach(item => {
+			if (item.compensationType === 'REVENUE_SHARE') {
+				over = parseFloat(item.amount * parseFloat(targetGrossSale) / 100) - parseFloat(budget);
+			}
+		});
+		return parseFloat(over);
+	}
 
 	function monthBetween(d1, d2) {
 		const date1 = moment(d1);
-		const date2 = moment(d2);
+		const date2 = moment(d2).add(1, 'd');
 		console.log(date2.diff(date1, 'days'))
 		return Math.ceil(date2.diff(date1, 'days') / 30);
 	}
 
 	function biMonthBetween(d1, d2) {
 		const date1 = moment(d1);
-		const date2 = moment(d2);
+		const date2 = moment(d2).add(1, 'd');
 		console.log(date2.diff(date1, 'days'))
 		return Math.ceil(date2.diff(date1, 'days') / 60);
 	}
 
 	function biWeekBetween(d1, d2) {
 		const date1 = moment(d1);
-		const date2 = moment(d2);
+		const date2 = moment(d2).add(1, 'd');
 		console.log(date2.diff(date1, 'days'))
 		return Math.ceil(date2.diff(date1, 'days') / 14);
 	}
 
 	useEffect(() => {
+		document.getElementsByClassName('AddCampaign_dialogContent__3teJx')[0].scrollTop = 0
+		const filterdMembers = selectedMembers.filter(
+			(memb) => memb !== currentUser.username
+		);
+		setTeamMembers(filterdMembers);
+	}, [selectedMembers]);
+
+	useEffect(() => {
+		window.scrollTo({ top: 0, behavior: 'smooth' });
 		let totalPost = 0;
 		deliverables.forEach(item => {
 			if (item.frequency === 'WEEK') {
@@ -175,20 +214,19 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 
 		return parseFloat(over);
 	}
-	// console.log(overAmount());
+
 	const [collectionData, setCollectionData] = useState([]);
 
 	function weeksBetween(d1, d2) {
 
 		const date1 = moment(d1);
-		const date2 = moment(d2);
+		const date2 = moment(d2).add(1, 'd');
 		console.log(date2.diff(date1, 'days'))
 		return Math.ceil(date2.diff(date1, 'days') / 7);
 	}
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-		console.log();
 
 		let collls = [];
 		if (products && products.length > 0) {
@@ -210,9 +248,7 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 		}
 
 		setCollectionData(collls);
-	}, [products])
-
-	console.log(collectionData);
+	}, [products, collections])
 
 	return (
 		<div class={styles.mainContainer}>
@@ -250,14 +286,14 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 						<Grid item xs={4}>
 							<div className={styles.campaignItemInfo}>
 								<p>Promotional Discount</p>
-								<span>{numberWithCommas(discount)}{discountType === 'Percentage' ? "%" : "$"}</span>
+								<span>{discountType === 'Percentage' ? "" : "$"}{numberWithCommas(discount)}{discountType === 'Percentage' ? "%" : ""}</span>
 							</div>
 						</Grid>
 						{discountType === "Amount" ? (
 							<Grid item xs={6}>
 								<div className={styles.campaignItemInfo}>
 									<p>Minimum Cart Value</p>
-									<span>{numberWithCommas(minimum)}{"$"}</span>
+									<span>{"$"}{numberWithCommas(minimum)}</span>
 								</div>
 							</Grid>
 						) : ("")}
@@ -279,7 +315,7 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 				</div>
 				<div className={styles.teamMembersContainer}>
 					<Grid container spacing={3}>
-						{selectedMembers.length > 0 && selectedMembers.map((member, index) => {
+						{teamMembers && teamMembers.length > 0 && teamMembers.map((member, index) => {
 							const element = team.findIndex(item => item.user.id === member);
 							if (element !== -1) {
 								return (
@@ -317,9 +353,9 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 						</Grid>
 					</Grid>
 				</div>
-				{overAmount() > 0 &&
+				{overAmount1() > 0 &&
 					<div className={styles.compensationBadge}>
-						<p>You are ${numberWithCommas(Math.trunc(overAmount()))} over budget</p>
+						<p>You are ${numberWithCommas(Math.trunc(overAmount1()))} over budget</p>
 					</div>
 				}
 			</div>
@@ -425,7 +461,7 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 				}
 				<div className={styles.postTotalContainer}>
 					<h4>Post Total:</h4>
-					<h5>{totalPosts} Posts</h5>
+					<h5>{numberWithCommas(totalPosts)} Posts</h5>
 				</div>
 			</div>
 			<div class={styles.section}>
@@ -437,7 +473,7 @@ const ReviewAndSend = ({ products, team, campaignName, startDate, endDate, start
 					<Grid item xs={6}>
 						<div className={styles.compensationInfluencer}>
 							<p>Influencer Payment Schedule</p>
-							<span>{compensationPayment}</span>
+							<span>{getPaymentSchedule(compensationPayment)}</span>
 						</div>
 					</Grid>
 				</Grid>

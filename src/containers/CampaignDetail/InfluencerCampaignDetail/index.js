@@ -48,6 +48,7 @@ const CampaignDetailInfluencer = ({
 	};
 
 	const handleActiveStep = () => {
+
 		let negotialble = true;
 		if (data && data.negotiables && data.negotiables !== null) {
 			Object.values(data.negotiables).map((item) => {
@@ -100,6 +101,9 @@ const CampaignDetailInfluencer = ({
 			setAddCampagin(true);
 		} else if (data.influencer === null) {
 			setStep(8);
+			setAddCampagin(true);
+		} else if (data.invitedAt === undefined || data.invitedAt === null) {
+			setStep(9);
 			setAddCampagin(true);
 		}
 	};

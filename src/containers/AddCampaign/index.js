@@ -239,7 +239,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const [team, setTeam] = useState([]);
   const [search, setSearch] = useState('');
   const [campaigns, setCampaigns] = useState([]);
-  const { brandId, setActiveRoute } = useContext(RootContext);
+  const { brandId, setActiveRoute, currentUser } = useContext(RootContext);
   const [campaignError, setCampaignError] = useState('');
   const [products, setProducts] = useState('');
   const [minimium, setMinimium] = useState('');
@@ -320,6 +320,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           ? campaign.invitationMessage
           : ''
       );
+      setCompensationPayment(campaign.paymentSchedule && campaign.paymentSchedule !== null ? campaign.paymentSchedule : '');
       setStartDate(moment(startDate).format('MM/DD/YYYY'));
       setEndDate(moment(endDate).format('MM/DD/YYYY'));
       setStartTime(moment(startDate).format('HH:mm'));
@@ -361,8 +362,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           ? campaign.discount.__typename === 'PercentageDiscount'
             ? 'Percentage'
             : campaign.discount.__typename === 'FlatDiscount'
-            ? 'Amount'
-            : ''
+              ? 'Amount'
+              : ''
           : ''
       );
       if (
@@ -412,11 +413,15 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         });
         setDeliveries(campaign.deliverables);
       }
+      if (campaign.influencer && campaign.influencer !== null) {
+        setInfluencer(campaign.influencer)
+      }
     }
     filledForm();
   }, [step]);
 
   const getCampaignsProducts = () => {
+
     let productSample = [];
     campaign.products &&
       campaign.products.length > 0 &&
@@ -541,14 +546,14 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   };
 
   const setActiveForCompensationProduct = () => {
-    const cols = [...compensationProducts];
+    const cols = [...compensationProducts]
     if (cols.length === 0) {
       setActiveNext(false);
     }
     if (cols.length > 0) {
       let flag = true;
       cols.forEach((item) => {
-        if (item.collectionItems.length === 0) {
+        if (item.products === undefined || item.products.length === 0) {
           flag = false;
         }
         setActiveNext(flag);
@@ -558,33 +563,39 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     }
   };
 
-  const handleCompensationProductItem = (name, item) => {
+  const handleCompensationProductItem = (id, item) => {
+
     const opts = [...compensationProducts];
     if (opts.length > 0) {
-      const index = opts.findIndex((item) => item.collectionName === name);
+      const index = opts.findIndex((item) => item.collectionId === id);
 
       if (index !== -1) {
-        const secondIndex = opts[index].collectionItems.findIndex(
-          (secondItem) => secondItem.sku === item.sku
-        );
-        if (secondIndex === -1) {
-          opts[index].collectionItems.push(item);
-          setCompensationProducts(opts);
-        } else {
-          opts[index].collectionItems.splice(secondIndex, 1);
-          setCompensationProducts(opts);
+        if (opts[index].products) {
+          const secondIndex = opts[index].products.findIndex(
+            (secondItem) => secondItem.productId === item.productId
+          );
+          if (secondIndex === -1) {
+            opts[index].products.push(item);
+            setCompensationProducts(opts);
+          } else {
+            opts[index].products.splice(secondIndex, 1);
+            if (opts[index].products && opts[index].products.length === 0) {
+              opts.splice(index, 1);
+            }
+            setCompensationProducts(opts);
+          }
         }
       } else {
         opts.push({
-          collectionName: name,
-          collectionItems: [item],
+          collectionId: id,
+          products: [item],
         });
         setCompensationProducts(opts);
       }
     } else {
       opts.push({
-        collectionName: name,
-        collectionItems: [item],
+        collectionId: id,
+        products: [item],
       });
       setCompensationProducts(opts);
     }
@@ -741,7 +752,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     const comp = [...compensations];
     if (fieldName === 'compensationType') {
       const found = comp.findIndex((item) => item.compensationType === value);
-      if (found !== -1 || value === 'PRODUCT') {
+      if (found !== -1) {
         return;
       }
     }
@@ -979,6 +990,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     }
   };
 
+
   // console.log(products);
 
   const getNegotiablesObjectForAPI = () => {
@@ -1003,8 +1015,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         deliverable.postType && deliverable.postType !== null
           ? deliverable.postType.toUpperCase()
           : deliverable.deliverableType && deliverable.deliverableType !== null
-          ? deliverable.deliverableType.toUpperCase()
-          : null;
+            ? deliverable.deliverableType.toUpperCase()
+            : null;
       // }
       deliverable.frameContentType =
         deliverable.frameContentType && deliverable.frameContentType !== null
@@ -1105,7 +1117,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     const data = [...deliveries];
 
     data.map((deliverable) => {
-      // console.log(deliverable);
 
       const eDate = new Date(deliverable.deadlineDate * 1000);
 
@@ -1116,8 +1127,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         deliverable.postType && deliverable.postType !== null
           ? deliverable.postType.toProperCase()
           : deliverable.deliverableType && deliverable.deliverableType !== null
-          ? deliverable.deliverableType.toProperCase()
-          : null;
+            ? deliverable.deliverableType.toProperCase()
+            : null;
       deliverable.frameContentType =
         deliverable.frameContentType && deliverable.frameContentType !== null
           ? deliverable.frameContentType.toProperCase()
@@ -1157,6 +1168,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
       let data = {
         brandId,
+        team: currentUser.username,
         name: campaignName,
         startDate: Date.parse(`${startDate} ${startTime} `) / 1000,
         endDate: Date.parse(`${endDate} ${endTime} `) / 1000,
@@ -1236,6 +1248,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
       if (influencer && influencer.id && influencer.id !== '') {
         data.influencerId = influencer.id;
+      }
+
+      if (compensationPayment !== '') {
+        data.paymentSchedule = compensationPayment;
       }
 
       let response = await API.graphql(
@@ -1454,6 +1470,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         data.influencerId = influencer.id;
       }
 
+      if (compensationPayment !== '') {
+        data.paymentSchedule = compensationPayment;
+      }
+
       let response = await API.graphql(
         graphqlOperation(
           `mutation updateCampaign($input : UpdateCampaignInput!) {
@@ -1508,7 +1528,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         graphqlOperation(
           `mutation MyMutation {
 						sendCampaignInvite(brandId: "${brandId}", id: "${
-            campaign && campaign.id ? campaign.id : id
+          campaign && campaign.id ? campaign.id : id
           }") {
 							id
 						}
@@ -1567,11 +1587,11 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       if (collectionsResponse.data && collectionsResponse.data !== null) {
         setCollections(
           collectionsResponse.data.collections &&
-            collectionsResponse.data.collections.collections &&
-            collectionsResponse.data.collections.collections.map((obj) => ({
-              ...obj,
-              expand: false,
-            }))
+          collectionsResponse.data.collections.collections &&
+          collectionsResponse.data.collections.collections.map((obj) => ({
+            ...obj,
+            expand: false,
+          }))
         );
       }
     } catch (err) {
@@ -1631,6 +1651,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   /************* Active for compensations */
 
   const setActiveForCompensation = () => {
+    if (compensationPayment === '') {
+      setActiveNext(false);
+      return;
+    }
     const compensation = [...compensations];
 
     let flag = true;
@@ -1645,10 +1669,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         }
       });
     setActiveNext(flag);
-    if (!flag) {
-      setActiveForCompensationProduct();
-      setAddAnother(true);
-    }
   };
 
   /************* Active for Negotiables */
@@ -1828,14 +1848,17 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             addAnother={addAnother}
             compensationPayment={compensationPayment}
             handleCompensationPayment={handleCompensationPayment}
-            compensationProduct={compensationProduct}
+            compensationProduct={collections}
             handleCompensationProducts={handleCompensationProducts}
             compensationProductItems={items}
-            compensationProducts={compensationProducts}
-            handleActiveForCompensationProduct={setActiveForCompensation}
+            compensationProducts={collections}
+            handleCollectionExpand={handleCollectionExpand}
+            handleActiveForCompensationProduct={setActiveForCompensationProduct}
             handleCompensationProductItem={handleCompensationProductItem}
             giftCode={giftCode}
+            products={compensationProducts}
             handleGiftCode={(e) => setGiftCode(e.target.value)}
+            clearCollections={handleCollectionClear}
           />
         );
       case 7:
@@ -1880,6 +1903,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             handleActiveStep={(value) => setActiveStep(value)}
             toggleComponent={toggleComponent}
             team={team}
+            handleActiveNext={() => setActiveNext(true)}
           />
         );
       default:
@@ -1919,8 +1943,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       }`,
       });
       setCampaigns(campaigns.data.campaigns.campaigns);
-    } catch (e) {}
+    } catch (e) { }
   };
+
 
   const filledForm = () => {
     if (
@@ -1989,7 +2014,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const handleConfirmCDialog = () => {
     setOpenCDialog(false);
   };
-
   return (
     <>
       <Dialog
@@ -2013,8 +2037,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                        <CheckCircleIconSvg viewBox='0 0 31 31' />
-                      )}
+                              <CheckCircleIconSvg viewBox='0 0 31 31' />
+                            )}
                       <span
                         className={
                           activeStep === index
@@ -2027,19 +2051,19 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                       </span>
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
                       {activeStep > index ? (
                         <div className={styles.activeBar} />
                       ) : (
-                        <div className={styles.inActiveBar} />
-                      )}
+                          <div className={styles.inActiveBar} />
+                        )}
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                 </>
               ))}
             </div>
@@ -2052,8 +2076,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                  <div></div>
-                )}
+                    <div></div>
+                  )}
                 <span onClick={handleCancelCampaignDialog}>
                   <XSVG />
                 </span>

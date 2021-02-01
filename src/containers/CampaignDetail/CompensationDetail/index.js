@@ -105,11 +105,11 @@ const CompensationDetail = ({ compensations, targetGrossSales, deliverables,
 				return (
 					<p>{compensation.percentage && numberWithCommas(Math.trunc(compensation.percentage * 1000))}%</p>);
 			case 'CompCashPerPost':
-				return (<p>{compensation.amount && numberWithCommas(Math.trunc(compensation.amount.amount))}$</p>);
+				return (<p>${compensation.amount && numberWithCommas(Math.trunc(compensation.amount.amount))}</p>);
 			case 'CompCashPerMonthlyDeliverable':
-				return (<p>{compensation.amount && numberWithCommas(Math.trunc(compensation.amount.amount))}$</p>);
+				return (<p>${compensation.amount && numberWithCommas(Math.trunc(compensation.amount.amount))}</p>);
 			case 'CompGiftCard':
-				return (<p>{compensation.amount && numberWithCommas(Math.trunc(compensation.amount.amount))}$</p>);
+				return (<p>${compensation.amount && numberWithCommas(Math.trunc(compensation.amount.amount))}</p>);
 			default:
 				return <p></p>;
 		}

@@ -41,6 +41,9 @@ const LiveInfluencer = ({
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  const numberWithCommas = (x) => {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
 
   return (
     <>
@@ -89,7 +92,7 @@ const LiveInfluencer = ({
               <Copy />
             </div>
             <p>
-              Estimated Compensation: ${getTotal(data && data.compensation)}
+              Estimated Compensation: ${numberWithCommas(Math.trunc(getTotal(data && data.compensation)))}
             </p>
             <div className={styles.borderDiv}></div>
             <Chip
@@ -128,6 +131,8 @@ const LiveInfluencer = ({
                 }
                 onClick={handleSeeClick}
                 handleEdit={handleEdit}
+                targetGrossSales={data.targetGrossSales}
+                paymentSchedule={data.paymentSchedule}
               />
             </div>
             <div style={{ marginTop: '30px' }}>

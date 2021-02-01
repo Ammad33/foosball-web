@@ -27,7 +27,9 @@ const DeclineInfluencer = ({
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const numberWithCommas = (x) => {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -69,7 +71,7 @@ const DeclineInfluencer = ({
         <div className={styles.subHeadingSection}>
           <div className={styles.subCampaignSubHeading}>
             <p>
-              Estimated Compensation: ${getTotal(data && data.compensation)}
+              Estimated Compensation: ${numberWithCommas(Math.trunc(getTotal(data && data.compensation)))}
             </p>
             <div className={styles.borderDiv}></div>
             <Chip
@@ -103,6 +105,8 @@ const DeclineInfluencer = ({
                 }
                 onClick={handleSeeClick}
                 handleEdit={handleEdit}
+                targetGrossSales={data.targetGrossSales}
+                paymentSchedule={data.paymentSchedule}
               />
             </div>
             <div style={{ marginTop: '30px' }}>

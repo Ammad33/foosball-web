@@ -31,11 +31,14 @@ const Compensations = ({
 	compensationProduct,
 	handleCompensationProducts,
 	compensationProductItems,
+	handleCollectionExpand,
 	compensationProducts,
 	handleActiveForCompensationProduct,
 	handleCompensationProductItem,
 	giftCode,
-	handleGiftCode
+	handleGiftCode,
+	clearCollections,
+	products
 }) => {
 	const checkAddAnother = () => {
 		if (addAnother === true) {
@@ -44,11 +47,18 @@ const Compensations = ({
 	};
 
 	const [handleAnother, setAnother] = useState(false);
-	handleActiveForCompensation();
+
+
+
+
 	useEffect(() => {
 		checkAddAnother();
-	}, [compensations]);
+		handleActiveForCompensation();
+	}, [compensations, compensationPayment]);
 
+	useEffect(() => {
+		clearCollections();
+	}, [])
 
 	return (
 		<div>
@@ -74,13 +84,13 @@ const Compensations = ({
 								{' '}
                 Influencer payment schedule
               </MenuItem>
-							<MenuItem value={'1st of every month'}>
+							<MenuItem value={'FIRST_OF_MONTH'}>
 								1st of every month
               </MenuItem>
-							<MenuItem value={'15th of every month'}>
+							<MenuItem value={'FIFTEENTH_OF_MONTH'}>
 								15th of every month
               </MenuItem>
-							<MenuItem value={'Last day'}>Last day of every month</MenuItem>
+							<MenuItem value={'LAST_DAY_OF_MONTH'}>Last day of every month</MenuItem>
 						</TextField>
 					</FormControl>
 				</Grid>
@@ -103,7 +113,9 @@ const Compensations = ({
 					handleActiveForCompensationProduct={
 						handleActiveForCompensationProduct
 					}
+					handleCollectionExpand={handleCollectionExpand}
 					handleCompensationProductItem={handleCompensationProductItem}
+					products={products}
 				/>
 			))}
 			{compensations.length > 0 && compensations.length !== 4 &&
