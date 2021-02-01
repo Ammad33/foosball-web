@@ -158,6 +158,7 @@ const CampaignDetailInfluencer = ({
 						getTotal={getTotal}
 						name={data && data.name}
 						handleDelete={handleDelete}
+						internalState={internalState}
 					/>
 				);
 			case 'LIVE':
@@ -169,6 +170,7 @@ const CampaignDetailInfluencer = ({
 						getTotal={getTotal}
 						name={data && data.name}
 						handleDelete={handleDelete}
+						internalState={internalState}
 					/>
 				);
 			case 'INVITED':
@@ -182,6 +184,7 @@ const CampaignDetailInfluencer = ({
 						handleDelete={handleDelete}
 						campaignId={campaignId}
 						handleStatus={handleStatus}
+						internalState={internalState}
 					/>
 				);
 			case 'LOST':
@@ -193,6 +196,7 @@ const CampaignDetailInfluencer = ({
 						getTotal={getTotal}
 						name={data && data.name}
 						handleDelete={handleDelete}
+						internalState={internalState}
 					/>
 				);
 			case 'PENDING':
@@ -205,6 +209,7 @@ const CampaignDetailInfluencer = ({
 						name={data && data.name}
 						handleDelete={handleDelete}
 						campaignId={campaignId}
+						internalState={internalState}
 
 					/>
 				);
@@ -217,6 +222,7 @@ const CampaignDetailInfluencer = ({
 						getTotal={getTotal}
 						name={data && data.name}
 						handleDelete={handleDelete}
+						internalState={internalState}
 					/>
 				);
 			default:

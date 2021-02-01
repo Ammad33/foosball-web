@@ -53,8 +53,6 @@ const Compensation = ({ onClick, handleEdit, compensation, status, targetGrossSa
 		}
 	}
 
-	console.log(targetGrossSales);
-
 	const getCompensationAmount = () => {
 		switch (compensation[0].__typename) {
 			case 'CompRevenueShare':

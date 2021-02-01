@@ -40,6 +40,7 @@ const Login = () => {
     logoutMessage,
     setLogoutMessage,
     setActiveRoute,
+    setUpdateMeData
   } = useContext(RootContext);
 
   const [email, setEmail] = useState('');
@@ -56,6 +57,7 @@ const Login = () => {
       getMeData();
       setActiveRoute('Campaign');
       setShowLoader(false);
+      setUpdateMeData(true);
     } catch (e) {
       setErrorMessage(e.message);
       setLogoutMessage('');
@@ -124,11 +126,11 @@ const Login = () => {
                     <EyeSVG />{' '}
                   </div>
                 ) : (
-                  <div onClick={togglePasswordVisiblity}>
-                    {' '}
-                    <EyeOffSVG />{' '}
-                  </div>
-                )}
+                    <div onClick={togglePasswordVisiblity}>
+                      {' '}
+                      <EyeOffSVG />{' '}
+                    </div>
+                  )}
               </span>
             </InputAdornment>
           ),

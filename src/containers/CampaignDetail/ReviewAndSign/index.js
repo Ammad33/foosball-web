@@ -19,7 +19,8 @@ const ReviewAndSign = ({
 	name,
 	campaignId,
 	createMircositeFlag,
-	handleCreateMicrosite
+	handleCreateMicrosite,
+	internalState
 
 }) => {
 	const history = useHistory();
@@ -54,7 +55,8 @@ const ReviewAndSign = ({
 				<CreateMicrosite
 					name={name}
 					handleCreateMicrosite={handleCreateMicrosite}
-					campaignId = {campaignId} />
+					internalState={internalState}
+					campaignId={campaignId} />
 			) : (
 					<div className={styles.mainContainer}>
 						<div className={styles.crumsContainer}>
@@ -101,7 +103,7 @@ const ReviewAndSign = ({
 									collected and distributed to both parties in the fomopromo application. Any additional revisions and/or
 									amendments will be requested in a new campaign. </p>
 
-									<p> <span > 4.Cancellation. </span>
+								<p> <span > 4.Cancellation. </span>
 									​ Either party may terminate this agreement upon ten (10) days prior written notice
 									if the other party breaches this agreement and does not cure such breach within such time period. In
 									addition to any right or remedy that may be available to the Advertiser under this agreement or
@@ -130,7 +132,7 @@ const ReviewAndSign = ({
 
 								<p> <span > 7.Approval and Content Origination: </span>
 								The Influencer understands that all promotions and
-								products they promote as part of this agreement are controlled by the Advertiser. The Influencerassumes all 
+								products they promote as part of this agreement are controlled by the Advertiser. The Influencerassumes all
 								responsibility for verifying that the campaign materials used meet the Advertiser’s approval. </p>
 
 
@@ -204,12 +206,12 @@ const ReviewAndSign = ({
 
 								<p> Signature Section Here. </p>
 
-								<h2>Campaign Summary​</h2> 
+								<h2>Campaign Summary​</h2>
 
-								<div> 
+								<div>
 									<p> Campaign_ID</p>
 									<p> Campaign Name</p>
-									<p> Start DateTime </p>	
+									<p> Start DateTime </p>
 									<p> End DateTime</p>
 									<p> Campaign Duration</p>
 									<p>Promotional Discount </p>

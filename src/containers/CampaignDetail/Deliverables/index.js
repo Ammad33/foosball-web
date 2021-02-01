@@ -3,7 +3,8 @@ import styles from './Deliverables.module.scss';
 import { Edit } from 'react-feather';
 
 const Deliverables = ({ onClick, handleEdit, deliverables, status }) => {
-  console.log(deliverables);
+
+
   const getPostFrequency = (frequency) => {
     switch (frequency) {
       case 'BI_WEEKLY':
@@ -31,7 +32,7 @@ const Deliverables = ({ onClick, handleEdit, deliverables, status }) => {
       </div>
       {deliverables && deliverables !== null &&
         <>
-          <div className={styles.detailSubContent} style={{display : 'none'}}>
+          <div className={styles.detailSubContent} style={{ display: 'none' }}>
             <h6>Deliverable Deadline</h6>
             <p>
               {deliverables && deliverables.length

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import styles from './WhitneyTemplate.module.scss';
+import styles from './EverettTemplate.module.scss';
 import ColorComponent from '../ColorComponent';
 import { Divider, Tooltip, Popover } from '@material-ui/core';
 // import mainStyles from '../../../../index.module.scss';
@@ -11,12 +11,12 @@ import { RootContext } from '../../../../context/RootContext';
 
 
 
-const WhitneyTemplate = ({ campaignId, internalState }) => {
-    const [headerColor, setHeaderColor] = useState("#984949");
-    const [buttonColor, setButtonColor] = useState("#984949");
-    const [quotesColor, setQuotesColor] = useState("#984949");
-    const [shopColor, setShopColor] = useState("#D38989");
-    const [footerColor, setFooterColor] = useState("#984949");
+const EverettTemplate = ({ campaignId }) => {
+    const [headerColor, setHeaderColor] = useState("#FEF5CB");
+    const [buttonColor, setButtonColor] = useState("#DCB7D1");
+    const [quotesColor, setQuotesColor] = useState("#F1E2EC");
+    const [shopColor, setShopColor] = useState("#FEF5CB");
+    const [footerColor, setFooterColor] = useState("#DCB7D1");
     const [heroImage, setHeroImage] = useState(null);
     const [image2, setImage2] = useState(null);
     const [quoteMessage, setQuoteMessage] = useState('');
@@ -39,98 +39,17 @@ const WhitneyTemplate = ({ campaignId, internalState }) => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, [])
 
-    useEffect(() => {
-        if (internalState === 'CONTRACT_SIGNED') {
-            createOrUpdateMicroSite();
-        }
-
-
-    }, [headerColor, footerColor, shopColor, quoteMessage, quotesColor]);
-
-
-    const createOrUpdateMicroSite = async () => {
-
-        let data = {
-            appHeader: {
-                shopCtaColor: "#D38989",
-                titleBgColor: headerColor
-            },
-            campaignId: `${campaignId}`,
-            footer: {
-                bgColor: footerColor
-            },
-            influencerDisplayName: "felice",
-            influencerId: `${brandId}`,
-            influencerQuote: {
-                quoteAuthor: "Anthony Author",
-                quoteContent: quoteMessage,
-                quoteIconColor: quotesColor
-            },
-            mainHeader: {
-                dark: false
-            },
-            productBuyBgColor: "#984949",
-            productBuyTextColor: "#FFFFFF",
-            products: {
-                direction: 'ROW',
-                total: 10
-            },
-            shopBelow: {
-                bgColor: shopColor
-            },
-            template: 'ONE'
-        };
-
-        try {
-            await API.graphql(
-                graphqlOperation(
-
-                    `mutation  createOrUpdateMicrosite($input: MicrositeInput !) {
-                        createOrUpdateMicrosite(input: $input) {
-                appHeader {
-                    imageLargeUploadUrl
-                    imageMediumUploadUrl
-                    imageUploadUrl
-                }
-                footer {
-                    logoUploadUrl
-                }
-                hero {
-                    imageLargeUploadUrl
-                    imageMediumUploadUrl
-                    imageUploadUrl
-                }
-                influencerQuote {
-                    imageUploadUrl
-                }
-                mainHeader {
-                    brandImageUploadUrl
-                    influencerImageUploadUrl
-                }
-                microsite {
-                    template
-                }
-            }
-        }`,
-                    {
-                        input: data,
-                    }))
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
 
     const requestMicrositeApproval = async () => {
         try {
             await API.graphql(
                 graphqlOperation(
                     `mutation requestMicrositeApproval {
-                    requestMicrositeApproval(
-                        campaignId: "${campaignId}",
-                        influencerId: "${brandId}"
-                    )
-                }`
+							requestMicrositeApproval( 
+								campaignId: "${campaignId}",
+								influencerId: "${brandId}"
+							)
+						}`
                 )
             )
         }
@@ -179,7 +98,7 @@ const WhitneyTemplate = ({ campaignId, internalState }) => {
                 <div className={styles.mainContainer}>
                     <div className={styles.firstContainer}>
                         <h4>
-                            Customize Whitney
+                            Customize Everett
                 </h4>
                         <ColorComponent heading="Header highlight color" value={headerColor} handlValue={(e) => setHeaderColor(e.target.value)} />
                         <ColorComponent heading="Button color" value={buttonColor} handlValue={(e) => setButtonColor(e.target.value)} />
@@ -250,4 +169,4 @@ const WhitneyTemplate = ({ campaignId, internalState }) => {
 
 };
 
-export default WhitneyTemplate;
+export default EverettTemplate;

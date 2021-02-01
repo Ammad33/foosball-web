@@ -20,6 +20,7 @@ const InviteInfluencer = ({
 	getTotal,
 	name,
 	campaignId,
+	internalState,
 	handleStatus,
 }) => {
 	const history = useHistory();
@@ -45,6 +46,7 @@ const InviteInfluencer = ({
 				name={name}
 				campaignId={campaignId}
 				createMircositeFlag={createMircositeFlag}
+				internalState={internalState}
 				handleCreateMicrosite={() => setCreateMicrositeFlag(true)} />) : (
 					<>
 						<Popover

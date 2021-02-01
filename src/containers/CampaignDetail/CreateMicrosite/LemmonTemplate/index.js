@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import styles from './WhitneyTemplate.module.scss';
+import styles from './LemmonTemplate.module.scss';
 import ColorComponent from '../ColorComponent';
 import { Divider, Tooltip, Popover } from '@material-ui/core';
 // import mainStyles from '../../../../index.module.scss';
@@ -11,13 +11,13 @@ import { RootContext } from '../../../../context/RootContext';
 
 
 
-const WhitneyTemplate = ({ campaignId, internalState }) => {
-    const [headerColor, setHeaderColor] = useState("#984949");
-    const [buttonColor, setButtonColor] = useState("#984949");
-    const [quotesColor, setQuotesColor] = useState("#984949");
-    const [shopColor, setShopColor] = useState("#D38989");
-    const [footerColor, setFooterColor] = useState("#984949");
-    const [heroImage, setHeroImage] = useState(null);
+const LemmonTemplate = ({ campaignId }) => {
+    const [buttonColor, setButtonColor] = useState("#B4C389");
+    const [quotesColor, setQuotesColor] = useState("#B4C389");
+    const [footerColor, setFooterColor] = useState("#B4C389");
+    const [heroImage1, setHeroImage1] = useState(null);
+    const [heroImage2, setHeroImage2] = useState(null);
+    const [heroImage3, setHeroImage3] = useState(null);
     const [image2, setImage2] = useState(null);
     const [quoteMessage, setQuoteMessage] = useState('');
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -39,98 +39,17 @@ const WhitneyTemplate = ({ campaignId, internalState }) => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, [])
 
-    useEffect(() => {
-        if (internalState === 'CONTRACT_SIGNED') {
-            createOrUpdateMicroSite();
-        }
-
-
-    }, [headerColor, footerColor, shopColor, quoteMessage, quotesColor]);
-
-
-    const createOrUpdateMicroSite = async () => {
-
-        let data = {
-            appHeader: {
-                shopCtaColor: "#D38989",
-                titleBgColor: headerColor
-            },
-            campaignId: `${campaignId}`,
-            footer: {
-                bgColor: footerColor
-            },
-            influencerDisplayName: "felice",
-            influencerId: `${brandId}`,
-            influencerQuote: {
-                quoteAuthor: "Anthony Author",
-                quoteContent: quoteMessage,
-                quoteIconColor: quotesColor
-            },
-            mainHeader: {
-                dark: false
-            },
-            productBuyBgColor: "#984949",
-            productBuyTextColor: "#FFFFFF",
-            products: {
-                direction: 'ROW',
-                total: 10
-            },
-            shopBelow: {
-                bgColor: shopColor
-            },
-            template: 'ONE'
-        };
-
-        try {
-            await API.graphql(
-                graphqlOperation(
-
-                    `mutation  createOrUpdateMicrosite($input: MicrositeInput !) {
-                        createOrUpdateMicrosite(input: $input) {
-                appHeader {
-                    imageLargeUploadUrl
-                    imageMediumUploadUrl
-                    imageUploadUrl
-                }
-                footer {
-                    logoUploadUrl
-                }
-                hero {
-                    imageLargeUploadUrl
-                    imageMediumUploadUrl
-                    imageUploadUrl
-                }
-                influencerQuote {
-                    imageUploadUrl
-                }
-                mainHeader {
-                    brandImageUploadUrl
-                    influencerImageUploadUrl
-                }
-                microsite {
-                    template
-                }
-            }
-        }`,
-                    {
-                        input: data,
-                    }))
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
 
     const requestMicrositeApproval = async () => {
         try {
             await API.graphql(
                 graphqlOperation(
                     `mutation requestMicrositeApproval {
-                    requestMicrositeApproval(
-                        campaignId: "${campaignId}",
-                        influencerId: "${brandId}"
-                    )
-                }`
+							requestMicrositeApproval( 
+								campaignId: "${campaignId}",
+								influencerId: "${brandId}"
+							)
+						}`
                 )
             )
         }
@@ -179,27 +98,61 @@ const WhitneyTemplate = ({ campaignId, internalState }) => {
                 <div className={styles.mainContainer}>
                     <div className={styles.firstContainer}>
                         <h4>
-                            Customize Whitney
+                            Customize Lemmon
                 </h4>
-                        <ColorComponent heading="Header highlight color" value={headerColor} handlValue={(e) => setHeaderColor(e.target.value)} />
                         <ColorComponent heading="Button color" value={buttonColor} handlValue={(e) => setButtonColor(e.target.value)} />
                         <div className={styles1.mainContainer}>
                             <div className={styles1.firstContainer}>
                                 <div >
-                                    <h6>Hero Image</h6>
+                                    <h6>Hero Image 1</h6>
 
                                     <HelpCircle onClick={handleClick} />
 
                                 </div>
                                 <label htmlFor='hero'>Upload</label>
-                                <input id='hero' style={{ visibility: 'hidden', display: 'none' }} type={'file'} onChange={(e) => setHeroImage(URL.createObjectURL(e.target.files[0]))} />
+                                <input id='hero' style={{ visibility: 'hidden', display: 'none' }} type={'file'} onChange={(e) => setHeroImage1(URL.createObjectURL(e.target.files[0]))} />
 
                             </div>
                             <div className={styles1.secondConatiner}>
-                                {heroImage !== null && <img src={heroImage} />}
+                                {heroImage1 !== null && <img src={heroImage1} />}
                             </div>
 
                         </div >
+                        <div className={styles1.mainContainer}>
+                            <div className={styles1.firstContainer}>
+                                <div >
+                                    <h6>Hero Image 2</h6>
+
+                                    <HelpCircle onClick={handleClick} />
+
+                                </div>
+                                <label htmlFor='hero'>Upload</label>
+                                <input id='hero' style={{ visibility: 'hidden', display: 'none' }} type={'file'} onChange={(e) => setHeroImage2(URL.createObjectURL(e.target.files[0]))} />
+
+                            </div>
+                            <div className={styles1.secondConatiner}>
+                                {heroImage2 !== null && <img src={heroImage2} />}
+                            </div>
+
+                        </div >
+                        <div className={styles1.mainContainer}>
+                            <div className={styles1.firstContainer}>
+                                <div >
+                                    <h6>Hero Image 3</h6>
+
+                                    <HelpCircle onClick={handleClick} />
+
+                                </div>
+                                <label htmlFor='hero'>Upload</label>
+                                <input id='hero' style={{ visibility: 'hidden', display: 'none' }} type={'file'} onChange={(e) => setHeroImage3(URL.createObjectURL(e.target.files[0]))} />
+
+                            </div>
+                            <div className={styles1.secondConatiner}>
+                                {heroImage3 !== null && <img src={heroImage3} />}
+                            </div>
+
+                        </div >
+
                         <Divider style={{ marginBottom: '33px' }} />
                         <ColorComponent heading="Quotes color" value={quotesColor} handlValue={(e) => setQuotesColor(e.target.value)} />
                         <TextField
@@ -232,7 +185,6 @@ const WhitneyTemplate = ({ campaignId, internalState }) => {
                             </div>
 
                         </div >
-                        <ColorComponent heading="Shop below background color" value={shopColor} handlValue={(e) => setShopColor(e.target.value)} />
 
                         <Divider style={{ marginBottom: '33px' }} />
                         <ColorComponent heading="Footer Color" value={footerColor} handlValue={(e) => setFooterColor(e.target.value)} />
@@ -250,4 +202,4 @@ const WhitneyTemplate = ({ campaignId, internalState }) => {
 
 };
 
-export default WhitneyTemplate;
+export default LemmonTemplate;

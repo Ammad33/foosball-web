@@ -1049,7 +1049,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         case 'CompRevenueShare':
           return {
             compensationType: 'REVENUE_SHARE',
-            amount: item.percentage * 1000,
+            amount: item.percentage * 10,
           };
         case 'CompCashPerPost':
           return {
@@ -1122,7 +1122,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
       deliverable.deadlineDate = moment(eDate).format('L');
       deliverable.platform = deliverable.platform.toProperCase();
-      console.log(deliverable.platform.toProperCase());
+
       deliverable.postType =
         deliverable.postType && deliverable.postType !== null
           ? deliverable.postType.toProperCase()
@@ -1784,7 +1784,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           />
         );
       case 2:
-        console.log('returning team members with members ', team);
         return (
           <AddTeamMembers
             selectedMembers={selectedMembers}
@@ -1930,6 +1929,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   useEffect(() => {
     getCampaigns();
   }, []);
+
 
   const getCampaigns = async () => {
     try {
@@ -2121,7 +2121,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                         : createCampaign();
                     }}
                   >
-                    {campaign !== undefined ? "Save and exit" : "Save and finish later" }
+                    {campaign !== undefined ? "Save and exit" : "Save and finish later"}
                   </span>
                 ) : null}
               </div>

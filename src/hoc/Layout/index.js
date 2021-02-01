@@ -66,8 +66,11 @@ function ResponsiveDrawer(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [meData, setMeData] = useState([]);
 
+
+
   const { brandType, updateMeData, setUpdateMeData } = useContext(RootContext);
 
+  console.log(updateMeData);
   useEffect(() => {
     if (updateMeData) {
       myData();
@@ -79,6 +82,7 @@ function ResponsiveDrawer(props) {
   };
 
   const myData = async () => {
+
     try {
       const mydata = await API.graphql({
         query: `{
