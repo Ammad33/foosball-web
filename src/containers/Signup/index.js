@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { RootContext } from '../../context/RootContext';
-import { Auth, button } from 'aws-amplify';
+import { Auth } from 'aws-amplify';
 import { Button, Grid, InputAdornment } from '@material-ui/core';
 import TextField from '../../components/TextField';
 import styles from './Signup.module.scss';
