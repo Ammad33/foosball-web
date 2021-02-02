@@ -143,8 +143,8 @@ const Onboarding = () => {
 		setActiveStep((prevActiveStep) => prevActiveStep - 1);
 	};
 
-	/**handleNext {function} handle next 
-	 * button and  decide sidebar & heading name */
+	/**handleNext {function} handle next button
+	 and  decide sidebar title & heading title */
 	const handleNext = async (activeSetp, e) => {
 
 		if (activeSetp !== 3) {
@@ -235,17 +235,20 @@ const Onboarding = () => {
 			history.push('/campaigns');
 		}
 	};
-	/**leftSideDawerClick {function} to handle the left sidebar  */
+	
+	/**leftSideDawerClick {function} to handle the left sidebar step clicked*/
 	const leftSideDawerClick = (index) => {
 		if (activeStep >= index) {
 			setActiveStep(index);
 		} else return;
 	};
+
 	/**handleUserType {function} to set the user type */
 	const handleUserType = (value) => {
 		setUserType(value);
 	};
 
+	/**********{functions} to handle the next button disabled true or false ********/
 	const setActiveNextForUserType = () => {
 		if (userType !== '') {
 			setActiveNext(true);
@@ -269,7 +272,9 @@ const Onboarding = () => {
 			setActiveNext(true);
 		} else setActiveNext(false);
 	};
-		/*getting content(data) to display in steps */
+	/**********************************************************************/
+
+	/*getting content(data) to display in steps */
 	const getStepContent = (activeStep) => {
 		switch (activeStep) {
 			case 1:
