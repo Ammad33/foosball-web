@@ -7,22 +7,26 @@ import TextField from '../../../../components/TextField';
 import styles1 from '../ImagePicker/ImagePicker.module.scss';
 import { HelpCircle, X } from 'react-feather'
 import { API, graphqlOperation } from 'aws-amplify';
-import  {RootContext}  from '../../../../context/RootContext';
-import { set } from 'lodash';
+import { RootContext } from '../../../../context/RootContext';
+import Iframe from 'react-iframe';
+import FormData from 'form-data';
+import axios from 'axios';
 
 
-
-const WhitneyTemplate = ({ campaignId , internalState }) => {
+const WhitneyTemplate = ({ campaignId, internalState }) => {
 	const [headerColor, setHeaderColor] = useState("#984949");
 	const [buttonColor, setButtonColor] = useState("#984949");
 	const [quotesColor, setQuotesColor] = useState("#984949");
 	const [shopColor, setShopColor] = useState("#D38989");
 	const [footerColor, setFooterColor] = useState("#984949");
 	const [heroImage, setHeroImage] = useState(null);
+	const [heroFile, setHeroFile] = useState(null);
 	const [image2, setImage2] = useState(null);
 	const [quoteMessage, setQuoteMessage] = useState('');
 	const [anchorEl, setAnchorEl] = React.useState(null);
-	const {	brandId } = useContext(RootContext);
+	const [heroUrl, setHeroUrl] = useState('');
+	const [image2Url, setImage2Url] = useState('');
+	const { brandId, currentUser } = useContext(RootContext);
 
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -33,13 +37,70 @@ const WhitneyTemplate = ({ campaignId , internalState }) => {
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
 
+	const [campaign, setCampaign] = useState('');
+
 	useEffect(() => {
 		window.scrollTo({ top: 0, behavior: 'smooth' });
+		let id = campaignId.split('#');
+		setCampaign(id[1]);
 	}, [])
+
+	function uploadFile(file) {
+		// var file = inputElement.files[0];
+		var reader = new FileReader();
+		reader.onloadend = function () {
+			console.log('Encoded Base 64 File String:', reader.result);
+
+			/******************* for Binary ***********************/
+			var data = (reader.result).split(',')[1];
+			// var binaryBlob = atob(data);
+			// console.log('Encoded Binary File String:', binaryBlob);
+		}
+		reader.readAsDataURL(file);
+
+
+	}
+
+	// function getBase64Image(img) {
+	// 	// Create an empty canvas element
+	// 	var canvas = document.createElement("canvas");
+	// 	canvas.width = img.width;
+	// 	canvas.height = img.height;
+
+	// 	// Copy the image contents to the canvas
+	// 	var ctx = canvas.getContext("2d");
+	// 	ctx.drawImage(img, 0, 0);
+
+	// 	// Get the data-URL formatted image
+	// 	// Firefox supports PNG and JPEG. You could check img.src to guess the
+	// 	// original format, but be aware the using "image/jpg" will re-encode the image.
+	// 	var dataURL = canvas.toDataURL("image/png");
+
+	// 	return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+	// }
+	console.log(heroFile);
+
+	const PostHeroImage = (URL) => {
+		// let data = new FormData();
+		// data.append('file', heroFile, heroFile.fileName);
+		axios.put(URL, uploadFile(heroImage), {
+			headers: {
+				'accept': 'application/json',
+				'Accept-Language': 'en-US,en;q=0.8',
+				'Content-Type': `multipart/form-data;`,
+			}
+		})
+			.then((response) => {
+				console.log(response)
+			})
+			.catch(error => {
+				console.log(error);
+			})
+	}
 
 
 	useEffect(() => {
-		if (internalState && internalState != null && internalState === 'INFLUENCER_ACCEPTED_TERMS') {
+		if (internalState && internalState != null && internalState === 'CONTRACT_SIGNED') {
 			createOrUpdateMicroSite();
 		}
 	}, [headerColor, footerColor, shopColor, quoteMessage, quotesColor]);
@@ -79,7 +140,7 @@ const WhitneyTemplate = ({ campaignId , internalState }) => {
 		};
 
 		try {
-			await API.graphql(
+			let response = await API.graphql(
 				graphqlOperation(
 
 					`mutation  createOrUpdateMicrosite($input: MicrositeInput !) {
@@ -112,11 +173,31 @@ const WhitneyTemplate = ({ campaignId , internalState }) => {
 					{
 						input: data,
 					}))
+
+			if (response.data && response.data.createOrUpdateMicrosite) {
+				if (response.data.createOrUpdateMicrosite.hero && response.data.createOrUpdateMicrosite.hero !== null) {
+					if (response.data.createOrUpdateMicrosite.mainHeader.influencerImageUploadUrl) {
+						setHeroUrl(response.data.createOrUpdateMicrosite.mainHeader.influencerImageUploadUrl);
+					}
+
+
+				}
+
+				// if (response.data.createOrUpdateMicrosite.hero && response.data.createOrUpdateMicrosite.hero !== null) {
+
+				// }
+
+			}
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
+	useEffect(() => {
+		if (heroFile !== null && heroUrl && heroUrl !== '') {
+			// PostHeroImage(heroUrl);
+		}
+	}, [heroFile]);
 
 	const requestMicrositeApproval = async () => {
 		try {
@@ -190,7 +271,7 @@ const WhitneyTemplate = ({ campaignId , internalState }) => {
 
 								</div>
 								<label htmlFor='hero'>Upload</label>
-								<input id='hero' style={{ visibility: 'hidden', display: 'none' }} type={'file'} onChange={(e) => setHeroImage(URL.createObjectURL(e.target.files[0]))} />
+								<input id='hero' style={{ visibility: 'hidden', display: 'none' }} type={'file'} onChange={(e) => { setHeroFile(e.target.files[0]); setHeroImage(URL.createObjectURL(e.target.files[0])) }} />
 
 							</div>
 							<div className={styles1.secondConatiner}>
@@ -236,7 +317,17 @@ const WhitneyTemplate = ({ campaignId , internalState }) => {
 						<ColorComponent heading="Footer Color" value={footerColor} handlValue={(e) => setFooterColor(e.target.value)} />
 
 					</div>
-					<div className={styles.secondContainer}></div>
+					<div className={styles.secondContainer}>
+						<Iframe
+							url={`https://preview.influence-sciences.com/?influencerId=${brandId}&campaignId=campaign%23${campaign}&accessToken=${currentUser.signInUserSession.accessToken.jwtToken}`}
+							width="100%"
+							height="100%"
+							id="myId"
+							// className="myClassname"
+							className={styles.secondContainer}
+							display="initial"
+							position="relative" />
+					</div>
 				</div >
 				<div className={styles.buttonContainer}>
 					<button className={styles.sendButton} onClick={() => requestMicrositeApproval()}> Send to Brand for Approval</button>

@@ -12,7 +12,7 @@ import ChangeTemplate from '../ChangeTemplate';
 import LemmonTemplate from './LemmonTemplate';
 import AvronTemplate from './ArvonTemplate';
 import { API, graphqlOperation } from 'aws-amplify';
-import {RootContext} from '../../../context/RootContext';
+import { RootContext } from '../../../context/RootContext';
 
 const CreateMicrosite = ({
 	name,
@@ -24,7 +24,7 @@ const CreateMicrosite = ({
 	const [saveBack, setSaveBack] = useState('');
 	const [confirmTemplate, setConfirmTemplate] = useState(false);
 	const [internalState, setInternalState] = useState('');
-  const { brandId } = useContext(RootContext);
+	const { brandId } = useContext(RootContext);
 
 	const handleCancel = () => {
 		setTemplate(saveBack);

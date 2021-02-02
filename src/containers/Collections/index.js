@@ -8,24 +8,24 @@ import { API } from 'aws-amplify';
 
 const Collections = ({ location }) => {
 
-    let campaignId = 'campaign' + location.hash;
+  let campaignId = 'campaign' + location.hash;
 
-    const history = useHistory();
-    const [addCampaign, setAddCampaign] = useState(false);
-    const [data, setData] = useState(null);
+  const history = useHistory();
+  const [addCampaign, setAddCampaign] = useState(false);
+  const [data, setData] = useState(null);
 
-    const { activeCampaign, brandId, brandType } = useContext(RootContext);
+  const { activeCampaign, brandId, brandType } = useContext(RootContext);
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-        getCampaign();
-    }, [activeCampaign]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    getCampaign();
+  }, [activeCampaign]);
 
-    const getCampaign = async () => {
+  const getCampaign = async () => {
 
-        try {
-            const campaign = await API.graphql({
-                query: brandType.toLowerCase() === 'influencer' ? `{
+    try {
+      const campaign = await API.graphql({
+        query: brandType.toLowerCase() === 'influencer' ? `{
               influencerCampaign(influencerId: "${brandId}", id: "${campaignId}") {
                 id
                             name
@@ -280,68 +280,68 @@ const Collections = ({ location }) => {
               }
              
           }`,
-            });
-            if (brandType.toLowerCase() == 'influencer') {
-                setData(campaign.data.influencerCampaign);
-            } else {
-                setData(campaign.data.campaign);
-            }
-        } catch (e) { }
-    };
+      });
+      if (brandType.toLowerCase() == 'influencer') {
+        setData(campaign.data.influencerCampaign);
+      } else {
+        setData(campaign.data.campaign);
+      }
+    } catch (e) { }
+  };
 
 
-    const handleCampaginDetail = (id) => {
-        history.push(`/campaignDetail/${id}`, { campaignId: id });
-    };
+  const handleCampaginDetail = (id) => {
+    history.push(`/campaignDetail/${id}`, { campaignId: id });
+  };
 
-    return (
-        <>
-            {addCampaign && (
-                <AddCampaign
-                    open={addCampaign}
-                    step={4}
-                    campaign={data}
-                    brandId={data.brand.id}
-                    handleCancel={() => {
-                        setAddCampaign(false);
-                        getCampaign();
-                    }}
-                />
-            )}
-            <div className={styles.collectionContainer}>
-                <div className={styles.collectionHeading}>
-                    <span onClick={() => history.push('/campaigns')}>Campaigns</span>
-                    <ChevronRight />
-                    <span onClick={() => handleCampaginDetail(data.id)}>{data && data !== null && data.name}</span>
-                    <ChevronRight />
-                    <span>Collections</span>
-                    <Edit onClick={() => setAddCampaign(true)} />
-                </div>
-                {
-                    data && data !== null && data.products && data.products.length > 0 &&
-                    data.products.map(item => {
-                        return (<div className={styles.collectionSubContent}>
-                            <h6>{item.collection.name}</h6>
-                            <div className={styles.containerRow}>
-                                {item.products && item.products.length !== 0 && item.products.map(pro => {
-                                    return (<div className={styles.boxContainer} >
-                                        <div className={styles.box}><img className={styles.box} src={pro.product.images && pro.product.images && pro.product.images.images[0].src} /></div>
-                                        <p className={styles.boxItem}>{pro.product.name}</p>
-                                        <p className={styles.boxPrice}>${pro.product.priceRange && pro.product.priceRange.max && pro.product.priceRange.max.amount} </p>
-                                        {/* <span>(1276124)</span> */}
-                                        {pro.product && pro.product.estimatedQty && pro.product.estimatedQty !== null && < p className={styles.boxPrice}>{pro.product.estimatedQty} in stock</p>}
-                                    </div>)
-                                })
+  return (
+    <>
+      {addCampaign && (
+        <AddCampaign
+          open={addCampaign}
+          step={4}
+          campaign={data}
+          brandId={data.brand.id}
+          handleCancel={() => {
+            setAddCampaign(false);
+            getCampaign();
+          }}
+        />
+      )}
+      <div className={styles.collectionContainer}>
+        <div className={styles.collectionHeading}>
+          <span onClick={() => history.push('/campaigns')}>Campaigns</span>
+          <ChevronRight />
+          <span onClick={() => handleCampaginDetail(data.id)}>{data && data !== null && data.name}</span>
+          <ChevronRight />
+          <span>Collections</span>
+          <Edit onClick={() => setAddCampaign(true)} />
+        </div>
+        {
+          data && data !== null && data.products && data.products.length > 0 &&
+          data.products.map(item => {
+            return (<div className={styles.collectionSubContent}>
+              <h6>{item.collection.name}</h6>
+              <div className={styles.containerRow}>
+                {item.products && item.products.length !== 0 && item.products.map(pro => {
+                  return (<div className={styles.boxContainer} >
+                    <div className={styles.box}><img className={styles.box} src={pro.product.images && pro.product.images && pro.product.images.images[0].src} /></div>
+                    <p className={styles.boxItem}>{pro.product.name}</p>
+                    <p className={styles.boxPrice}>${pro.product.priceRange && pro.product.priceRange.max && pro.product.priceRange.max.amount} </p>
+                    {/* <span>(1276124)</span> */}
+                    {pro.product && pro.product.estimatedQty && pro.product.estimatedQty !== null && < p className={styles.boxPrice}>{pro.product.estimatedQty} in stock</p>}
+                  </div>)
+                })
 
-                                }
-                            </div>
-                        </div>
-                        );
-                    })
                 }
-            </div >
-        </>
-    );
+              </div>
+            </div>
+            );
+          })
+        }
+      </div >
+    </>
+  );
 }
 
 export default withRouter(Collections);
