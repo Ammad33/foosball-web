@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { RootContext } from '../../context/RootContext';
-import { Auth } from 'aws-amplify';
+import { Auth, button } from 'aws-amplify';
 import { Button, Grid, InputAdornment } from '@material-ui/core';
 import TextField from '../../components/TextField';
 import styles from './Signup.module.scss';
@@ -23,26 +23,32 @@ const EyeSVG = () => {
 };
 
 const Signup = () => {
-  const history = useHistory();
+/*accessing root context variables*/
   const {
-    currentUser,
-    setCurrentUser,
-    logoutMessage,
-    setLogoutMessage,
+    currentUser,                    /*currentUser {object} contains the information about current user*/ 
+    setCurrentUser,                /*setCurrentUser {function} to set the value of currentUser object*/ 
+    logoutMessage,                /*logoutMessage {string} contain the logout message*/ 
+    setLogoutMessage,            /*setLogoutMessage {function} to set the vlaue of logoutMassage*/ 
+    setShowLoader,              /*{bool} used to show the loader on the screen*/                          
+
   } = useContext(RootContext);
+/*Variables used in this component*/
+  const [passwordShown, setPasswordShown] = useState(false);          /*{bool} used to hide and show the password*/
+  const [name, setFullname] = useState('');                          /*{string} to store the name of the user*/
+  const [username, setEmail] = useState('');                        /*{string} to store the username(email) of the user*/
+  const [password, setPassword] = useState('');                    /*{string} to store the password of the user*/
+  const [errorMessage, setErrorMessage] = useState('');           /*{string} to store the error massage*/
+  const [errorState, setErrorState] = useState(false);           /*{bool} to check if error state is occured*/
+  
+  const history = useHistory();
 
-  const [passwordShown, setPasswordShown] = useState(false);
-  const [name, setFullname] = useState('');
-  const [username, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [errorState, setErrorState] = useState(false);
-
-  const { setShowLoader } = useContext(RootContext);
-
-  const togglePasswordVisiblity = () => {
+/*togglePasswordVisiblity {function} get called when
+  eye icon is clicked on signup page used to show,hide password*/ 
+  const togglePasswordVisiblity = () => {      
     setPasswordShown(passwordShown ? false : true);
   };
+console.log("",)
+/*onSignup {function} get called when clicking on sign up button*/
 
   const onSignup = async () => {
     try {
@@ -59,7 +65,7 @@ const Signup = () => {
         setLogoutMessage('');
         setErrorMessage('');
         setShowLoader(false);
-        history.push('/onboarding');
+        history.push('/onboarding');                                 /* pushing url to the address bar*/
       } else {
         setErrorMessage('Terms and conditions');
         setErrorState(true);
@@ -71,7 +77,7 @@ const Signup = () => {
       setShowLoader(false);
     }
   };
-
+/*handling terms and condtion of the sgin up page*/
   const [terms, setTerms] = useState(false);
   const handleTerms = () => {
     setTerms(terms ? false : true);
@@ -82,24 +88,24 @@ const Signup = () => {
       <TextField
         id='outlined-basic'
         label='Full Name'
-        onChange={(e) => setFullname(e.target.value)}
+        onChange={(e) => setFullname(e.target.value)}               /*setting name of the user*/
         variant='outlined'
         type='text'
       />
       <TextField
         id='outlined-basic'
         label='Email'
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) => setEmail(e.target.value)}                /*setting username of the user*/
         variant='outlined'
         type='text'
       />
       <TextField
         id='outlined-basic'
         label='Create Password'
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={(e) => setPassword(e.target.value)}             /*setting password of the user*/
         variant='outlined'
         type={passwordShown ? 'text' : 'password'}
-        InputProps={{
+        InputProps={{                                            /*adding eye icon inside the text field using input props*/
           endAdornment: (
             <InputAdornment className={styles.inputendornment} position='end'>
               <span>
@@ -124,7 +130,7 @@ const Signup = () => {
         <Grid item xs={1} className={styles.optionsItem}>
           {terms ? (
             <span>
-              <CheckCircleIcon onClick={handleTerms} />
+              <CheckCircleIcon onClick={handleTerms} />     
             </span>
           ) : (
             <span>
@@ -148,11 +154,11 @@ const Signup = () => {
           className={mainStyles.defaultButton}
           variant='contained'
         >
-          Signup
+          Sign up
         </Button>
         <Button
           onClick={() => {
-            history.push('/login');
+            history.push('/login');             /* pushing url to the address bar*/
           }}
           className={mainStyles.defaultOutlinedButton}
           variant='outlined'
