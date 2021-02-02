@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 export const RootContext = React.createContext();
 
 export default ({ children }) => {
+  /*****getting values from local storage if any***************************/
   const prevUser = JSON.parse(window.localStorage.getItem('user')) || null;
   const preActiveRoute = localStorage.getItem('route') || 'Campaign';
   const brandsStored = JSON.parse(localStorage.getItem('brands')) || null;
@@ -13,6 +14,9 @@ export default ({ children }) => {
   const bType = localStorage.getItem('bType') || null;
   const cRollId = localStorage.getItem('cRollId') || null;
   const mRollId = localStorage.getItem('mRollId') || null;
+  /**********************************************************************/
+
+  /*****setting values from local storage to constants*******************/
   // const org = localStorage.getItem('org') || null;
   const [currentUser, setCurrentUser] = useState(prevUser);
   const [logoutMessage, setLogoutMessage] = useState('');
@@ -30,7 +34,9 @@ export default ({ children }) => {
   const [showLoader, setShowLoader] = useState(false);
   const [toastrData, setToastrData] = useState({});
   const [updateMeData, setUpdateMeData] = useState(true);
+  /*****************************************************************/
 
+  /*****setting values to local storage*****************************/
   useEffect(() => {
     if (!currentUser) {
       localStorage.clear();
@@ -100,7 +106,9 @@ export default ({ children }) => {
     influencers,
     // organization,
   ]);
+  /*******************************************************************/
 
+  /*****all root context variables and function ********************/
   const defaultContext = {
     currentUser,
     setCurrentUser,
@@ -133,6 +141,7 @@ export default ({ children }) => {
     updateMeData,
     setUpdateMeData,
   };
+/*******************************************************************/
 
   return (
     <RootContext.Provider value={defaultContext}>

@@ -10,7 +10,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import SVG from 'react-inlinesvg';
 import { RootContext } from '../../context/RootContext';
 import _ from 'lodash';
-
+/*******************SVG functions ***********************************/
 const IconCampaign = () => {
 	return <SVG src={require('../../assets/Campaigns_large.svg')} />;
 };
@@ -29,8 +29,12 @@ const ChevronUp = () => {
 		</span>
 	);
 };
+/*******************************************************************/
 
+/**main component */
 const Campaigns = () => {
+
+	/**state variables */
 	const history = useHistory();
 	const [active, setActive] = useState('ALL');
 	const [campaigns, setCampaigns] = useState([]);
@@ -38,6 +42,9 @@ const Campaigns = () => {
 	const [bkupCampaigns, setBkupCampaigns] = useState([]);
 	const [addCampaign, setAddCampagin] = useState(false);
 	const [meData, setMeData] = useState([]);
+	/**************** */
+
+	/**rootContext */
 	const {
 		brandId,
 		brandName,
@@ -53,15 +60,21 @@ const Campaigns = () => {
 		creatorRoleId,
 		currentUser
 	} = useContext(RootContext);
+	/**************** */
+
+	/**state variables */
 	const [loading, setLoading] = useState(false);
 	const [selectedState, setSelectedState] = useState('Recent Activity');
-
 	const [brandDropDown, setBrandDropDown] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
+	/*************************/
+
+	/**decide the position of the popover(dropdown) */
 	const handleClick = (event) => {
 		setBrandDropDown(true);
 		setAnchorEl(event.currentTarget);
 	};
+	/**close the popover */
 	const handleClose = () => {
 		setAnchorEl(null);
 		setBrandDropDown(false);
@@ -75,6 +88,7 @@ const Campaigns = () => {
 		}
 	}, []);
 
+	/**API call to get influencers and brands data*/
 	const getMeData = async () => {
 		try {
 			const mydata = await API.graphql({
@@ -109,6 +123,8 @@ const Campaigns = () => {
 						}
 				}`,
 			});
+
+			/**seprating brands and influencers data */
 			let brandsData = [];
 			let influencersData = [];
 			mydata.data.me.organizations !== null &&
@@ -133,6 +149,8 @@ const Campaigns = () => {
 			setMeData(mydata.data.me.organizations);
 		} catch (e) {
 			if (e.data) {
+
+				/**seprating brands and influencers data */
 				let brandsData = [];
 				let influencersData = [];
 				e.data.me.organizations !== null &&
@@ -159,6 +177,7 @@ const Campaigns = () => {
 		}
 	};
 
+	/**API call to get the campaigns information */
 	const getCampaigns = async () => {
 		try {
 			setLoading(true);
@@ -209,7 +228,7 @@ const Campaigns = () => {
 		}
 	};
 
-
+	/**API call to get the campaigns information of the influencer */
 	const getInfluencerCampaigns = async () => {
 		try {
 			setLoading(true);
@@ -263,6 +282,7 @@ const Campaigns = () => {
 		}
 	}, [brandId, addCampaign]);
 
+	/**handling search bar changes */
 	useEffect(() => {
 		searchCampaigns();
 	}, [searchValue]);
@@ -279,6 +299,7 @@ const Campaigns = () => {
 		setCampaigns(copiedCampaigns);
 	};
 
+	/**{function} to delete the campaign*/
 	const handleDelete = async (campaignId) => {
 		try {
 			await API.graphql(
@@ -297,6 +318,8 @@ const Campaigns = () => {
 			console.log('delete campaign error ', e);
 		}
 	};
+
+	/**sorting the campaigns */
 	const onSort = (value) => {
 		setSelectedState(value);
 		if (value === 'Recent Activity') {
@@ -325,6 +348,9 @@ const Campaigns = () => {
 		// }
 	};
 
+	/**{function} to handle the selected campaign card 
+	 * push the campaign detail page in browser
+	 */
 	const handleCampaginDetail = (id) => {
 		history.push(`/campaignDetail/${id}`, { campaignId: id });
 		setActiveRoute('campaignDetail');

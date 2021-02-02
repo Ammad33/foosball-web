@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { RootContext } from '../../context/RootContext';
 import { Route, Redirect } from 'react-router-dom';
 
+/**unprotected routes redirects to root(/) if  logged in */
 const UnProtectedRoute = ({ children, ...routeProps }) => {
 
     const { currentUser } = useContext(RootContext);

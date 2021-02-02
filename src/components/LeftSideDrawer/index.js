@@ -6,6 +6,7 @@ import { RootContext } from './../../context/RootContext';
 import styles from './LeftSide.module.scss';
 import { Users, Mail, Briefcase, Settings } from 'react-feather';
 
+/**SVG Functions */
 const IconProspects = () => {
 	return <SVG src={require('../../assets/Prospects.svg')} />;
 };
@@ -29,7 +30,10 @@ const IconSettings = () => {
 const IconBilling = () => {
 	return <SVG src={require('../../assets/credit-card.svg')} />;
 }
+
+/**main component start from here */
 const LeftSideDrawer = () => {
+	/**rootContext variables*/
 	const history = useHistory();
 	const { activeRoute, setActiveRoute } = useContext(RootContext);
 

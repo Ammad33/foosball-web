@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { RootContext } from '../../context/RootContext';
 import { Route, Redirect } from 'react-router-dom';
 
+/**protected routes redirects to login page if not logged in */
 const ProtectedRoute = ({ children, ...routeProps }) => {
   const { currentUser } = useContext(RootContext);
 

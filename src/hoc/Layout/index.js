@@ -15,7 +15,7 @@ import Brand from '../../components/Brand';
 import { API } from 'aws-amplify';
 
 const drawerWidth = 284;
-
+/**useStyles hook from material-ui */
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -59,6 +59,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
 }));
+
+/**ResponsiveDrawer from material-ui */
 function ResponsiveDrawer(props) {
   const { window } = props;
   const classes = useStyles();
@@ -67,10 +69,11 @@ function ResponsiveDrawer(props) {
   const [meData, setMeData] = useState([]);
 
 
-
+/**accessing RootContext */
   const { brandType, updateMeData, setUpdateMeData } = useContext(RootContext);
 
   console.log(updateMeData);
+  /**react hook initiate the api call whenever updateMeData changes */
   useEffect(() => {
     if (updateMeData) {
       myData();
@@ -80,7 +83,7 @@ function ResponsiveDrawer(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
+/**API call */
   const myData = async () => {
 
     try {
@@ -158,7 +161,7 @@ function ResponsiveDrawer(props) {
             <div className={classes.toolbar}>
               <Brand />
             </div>
-            <LeftSideDrawer />
+            <LeftSideDrawer />        {/**sidebar */}
           </Drawer>
         </Hidden>
         <Hidden xsDown implementation='css'>
