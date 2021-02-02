@@ -19,7 +19,7 @@ import { useHistory } from 'react-router-dom';
 import logo from '../../assets/FomoPromo_logo__white.png';
 import { API, graphqlOperation } from 'aws-amplify';
 import { RootContext } from '../../context/RootContext';
-
+/*Svg*/
 const ChevronSVG = () => {
 	return <SVG src={require('../../assets/chevron-left.svg')} />;
 };
@@ -95,9 +95,11 @@ function QontoStepIcon(props) {
 	return '';
 }
 
-/********* Steppper Labels ****************/
 
+
+/*Main start of OnBoarding component*/
 const Onboarding = () => {
+	/*State variables*/
 	const history = useHistory();
 	const [activeStep, setActiveStep] = useState(1);
 	const [activeNext, setActiveNext] = useState(false);
@@ -109,11 +111,6 @@ const Onboarding = () => {
 	const [brandName, setBrandName] = useState('');
 	const [displayName, setDisplayName] = useState('');
 	const [stepsName, setStepsNames] = useState(['Initial Step', 'User Type']);
-	const {
-		brandType,
-		setBrandType,
-	} = useContext(RootContext);
-
 	const [headingName, setHeadingName] = useState([
 		'Initial Step',
 		'What type of user are you?',
@@ -128,17 +125,26 @@ const Onboarding = () => {
 	const codeEl2 = useRef(null);
 	const codeEl3 = useRef(null);
 	const codeEl4 = useRef(null);
-
 	const subHeading = [
 		'',
 		'Tell us what type of user you are so we can personalize your experience',
 		`This is the name that will appear on your brand's public profile`,
 		'Setup your primary and secondary billing methods',
 	];
+	/*Root context variables*/ 
+	const {
+		brandType,
+		setBrandType,
+	} = useContext(RootContext);
 
+
+	/**handleBack {function} get invoked when going to previous step */
 	const handleBack = () => {
 		setActiveStep((prevActiveStep) => prevActiveStep - 1);
 	};
+
+	/**handleNext {function} handle next 
+	 * button and  decide sidebar & heading name */
 	const handleNext = async (activeSetp, e) => {
 
 		if (activeSetp !== 3) {
@@ -229,13 +235,13 @@ const Onboarding = () => {
 			history.push('/campaigns');
 		}
 	};
-
+	/**leftSideDawerClick {function} to handle the left sidebar  */
 	const leftSideDawerClick = (index) => {
 		if (activeStep >= index) {
 			setActiveStep(index);
 		} else return;
 	};
-
+	/**handleUserType {function} to set the user type */
 	const handleUserType = (value) => {
 		setUserType(value);
 	};
@@ -263,7 +269,7 @@ const Onboarding = () => {
 			setActiveNext(true);
 		} else setActiveNext(false);
 	};
-
+		/*getting content(data) to display in steps */
 	const getStepContent = (activeStep) => {
 		switch (activeStep) {
 			case 1:
