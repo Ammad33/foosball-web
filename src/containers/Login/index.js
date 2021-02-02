@@ -1,3 +1,4 @@
+
 import React, { useState, useContext } from 'react';
 import { API } from 'aws-amplify';
 import { TextField, Button, InputAdornment } from '@material-ui/core';
@@ -10,7 +11,7 @@ import { useHistory } from 'react-router-dom';
 import FacebookSVG from '../../assets/facebook-logo-2019-thumb.png';
 import GoogleSVG from '../../assets/google-logo-icon-png-transparent-background-osteopathy-16.png';
 import AppleSVG from '../../assets/apple-logo-png-index-content-uploads-10.png';
-
+/*SVG*/
 const EyeOffSVG = () => {
   return <SVG src={require('../../assets/eye-off.svg')} />;
 };
@@ -19,45 +20,49 @@ const EyeSVG = () => {
 };
 
 const Login = () => {
+  /*variables of this component*/
   const history = useHistory();
-
   const [passwordShown, setPasswordShown] = useState(false);
-  const { setShowLoader } = useContext(RootContext);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [meData, setMeData] = useState([]);
 
+  /*accessing Root context variables*/
+    const {
+      setShowLoader,
+      currentUser,
+      setCurrentUser,
+      logoutMessage,
+      setLogoutMessage,
+      setActiveRoute,
+    } = useContext(RootContext);
+
+  /*togglePasswordVisiblity {function} get called when
+  eye icon is clicked on signup page used to show,hide password*/
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
 
+
+/*checking if enter is pressed */
   const handleKeypress = (e) => {
     if (e.keyCode === 13) {
       onSignin();
     }
   };
 
-  const {
-    currentUser,
-    setCurrentUser,
-    logoutMessage,
-    setLogoutMessage,
-    setActiveRoute,
-    setUpdateMeData
-  } = useContext(RootContext);
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [meData, setMeData] = useState([]);
-
+/*onSignin {function} get called when sign in button is pressed*/
   const onSignin = async () => {
     setShowLoader(true);
     try {
-      const user = await Auth.signIn(email, password);
+      const user = await Auth.signIn(email, password);//authentication
       setCurrentUser(user);
       setLogoutMessage('');
-      getMeData();
+      getMeData();                //calling API       
       setActiveRoute('Campaign');
       setShowLoader(false);
-      setUpdateMeData(true);
     } catch (e) {
       setErrorMessage(e.message);
       setLogoutMessage('');
@@ -65,8 +70,10 @@ const Login = () => {
     }
   };
 
-  const getMeData = async () => {
-    try {
+
+   /*getMeData{function} to get the user data by calling API and storing the response  to meData variable*/
+  const getMeData = async () => { 
+    try {                         
       const mydata = await API.graphql({
         query: `{
 						me {
@@ -126,11 +133,11 @@ const Login = () => {
                     <EyeSVG />{' '}
                   </div>
                 ) : (
-                    <div onClick={togglePasswordVisiblity}>
-                      {' '}
-                      <EyeOffSVG />{' '}
-                    </div>
-                  )}
+                  <div onClick={togglePasswordVisiblity}>
+                    {' '}
+                    <EyeOffSVG />{' '}
+                  </div>
+                )}
               </span>
             </InputAdornment>
           ),
