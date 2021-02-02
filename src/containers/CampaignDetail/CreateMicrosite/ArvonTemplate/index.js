@@ -49,8 +49,9 @@ const AvronTemplate = ({ campaignId }) => {
 							)
 						}`
                 )
-            )
-        }
+						)
+						window.location.reload();
+					}
         catch (e) {
             console.log("Error in requestin microSite approval ", e)
         }

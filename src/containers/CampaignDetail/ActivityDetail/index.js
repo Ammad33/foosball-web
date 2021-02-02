@@ -18,7 +18,7 @@ const ActivityDetail = ({ activities }) => {
                   {activity.description.length >29 ? 
                     <>
                     <Tooltip title={`${activity.description}`}>
-                    <p>{activity.description.slice(0,29)}... </p>
+                    <p>{activity.description.slice(0,24)}... </p>
                     </Tooltip>
                     </>
                     :

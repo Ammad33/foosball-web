@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './PendingCard.module.scss';
 
-const PendingCard = ({ handlecreateMircositeFlag,handleSignContractFlag, data }) => {
+const PendingCard = ({ handlecreateMircositeFlag, handleSignContractFlag, data }) => {
 	const handleCreateMicroSite = () => {
 		handlecreateMircositeFlag();
 	}
@@ -9,7 +9,6 @@ const PendingCard = ({ handlecreateMircositeFlag,handleSignContractFlag, data })
 		handleSignContractFlag();
 	}
 	return (
-
 
 
 		<div className={styles.pendingContainer}>
@@ -25,10 +24,12 @@ const PendingCard = ({ handlecreateMircositeFlag,handleSignContractFlag, data })
 				</>
 			) : (
 					<>
-						<h1>Create Your Microsite.</h1>
-						<p className={styles.firstp}></p>
-						<p className={styles.secondp}></p>
-						<button onClick={() => handleCreateMicroSite()}>Create new Microsite</button>
+							<h1>Create the Microsite.</h1>
+							<p className={styles.firstp}>Customize the site your followers will shop on throughout this</p>
+							<p className={styles.secondp}>campaign.</p>
+							<div className={styles.buttonContainer}>
+							<button onClick={() => handleCreateMicroSite()}>Create Microsite</button>
+							</div>
 					</>
 				)
 			}

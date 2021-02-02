@@ -270,7 +270,8 @@ const CampaignDetail = ({ location }) => {
             endDate
 						invitationMessage
             invitedAt
-            paymentSchedule
+						paymentSchedule
+						internalState
             products {
               collection {
                 id
@@ -395,7 +396,10 @@ const CampaignDetail = ({ location }) => {
             events {
               description
               time
-            }
+						}
+						microsite {
+							template
+						}
           } 
       }`,
       });
@@ -497,7 +501,6 @@ const CampaignDetail = ({ location }) => {
             return activity;
           }
         );
-
         setData(campaign.data.campaign);
         if (
           campaign.data &&
@@ -765,7 +768,7 @@ const CampaignDetail = ({ location }) => {
             handleSearch={handleSearch}
             updateCampaign={updateCampaign}
             setAll={setAll}
-            headingValue={headingValue}
+						headingValue={headingValue}
           />
         )}
     </div>

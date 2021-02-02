@@ -51,7 +51,7 @@ const CancellationDialog = ({
         {message}
       </h6>
       <p className={styles.note}>
-        {buttonText == 'Stop'
+        {buttonText == 'Stop Campaign'
           ? 'This action will deactivate the microsite'
           : ''}{' '}
       </p>
@@ -64,7 +64,7 @@ const CancellationDialog = ({
             label={
               buttonText == 'Decline'
                 ? 'Reason for decline*'
-                : buttonText == 'Cancel'
+                : buttonText == 'Cancel Campaign'
                 ? 'Reason for Cancellation*'
                 : 'Reason for stopping*'
             }

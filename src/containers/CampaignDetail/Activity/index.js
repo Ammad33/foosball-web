@@ -28,7 +28,7 @@ const Activity = ({ activities, onClick }) => {
                     <p>{activity.description}</p>}
                     
                   </div>
-                  {index >= 0 && index < activities.length - 1 ? 
+                  {index >= 0 && index < 2 ? 
                  <div className={styles.border} /> : ""}
                  </>
                 );

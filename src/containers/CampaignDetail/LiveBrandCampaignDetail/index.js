@@ -73,7 +73,7 @@ const LiveBrandCampaignDetail = ({
         reasons={reasons}
         handleReason={handleStopReason}
         message={Translation.DIALOG.CAMPAIGN_STOP_DIALOG_MSG}
-        buttonText='Stop'
+        buttonText='Stop Campaign'
         handleReasonDetail={handleReasonDetail}
         reasonDetail={reasonDetail}
       />
