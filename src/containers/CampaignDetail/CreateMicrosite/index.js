@@ -17,13 +17,13 @@ import { RootContext } from '../../../context/RootContext';
 const CreateMicrosite = ({
 	name,
 	campaignId,
+	internalState
 }) => {
 	const history = useHistory();
 
 	const [template, setTemplate] = useState('');
 	const [saveBack, setSaveBack] = useState('');
 	const [confirmTemplate, setConfirmTemplate] = useState(false);
-	const [internalState, setInternalState] = useState('');
 	const { brandId } = useContext(RootContext);
 
 	const handleCancel = () => {
@@ -36,26 +36,25 @@ const CreateMicrosite = ({
 		setConfirmTemplate(false)
 	}
 
-	const getInternalState = async () => {
-		try {
-			const state = await API.graphql({
-				query: `{
-						influencerCampaign(influencerId: "${brandId}", id: "${campaignId}") {
-							id
-							internalState
-						}
-					}`
-			});
-			setInternalState(state.data.influencerCampaign.internalState);
-		}
-		catch (e) {
-			console.log("error", e)
-		}
-	}
+	// const getInternalState = async () => {
+	// 	try {
+	// 		const state = await API.graphql({
+	// 			query: `{
+	// 					influencerCampaign(influencerId: "${brandId}", id: "${campaignId}") {
+	// 						id
+	// 						internalState
+	// 					}
+	// 				}`
+	// 		});
+	// 		setInternalState(state.data.influencerCampaign.internalState);
+	// 	}
+	// 	catch (e) {
+	// 		console.log("error", e)
+	// 	}
+	// }
 
 	useEffect(() => {
 		window.scrollTo({ top: 0, behavior: 'smooth' });
-		getInternalState();
 	}, []);
 
 

@@ -20,11 +20,12 @@ const ReviewAndSign = ({
 	campaignId,
 	createMircositeFlag,
 	handleCreateMicrosite,
-	internalState
 
 }) => {
 	const history = useHistory();
 	const { brandId } = useContext(RootContext);
+	const [internalState, setInternalState] = useState('');
+
 
 	const handleReviewAndSign = () => {
 		signContract();
@@ -43,15 +44,33 @@ const ReviewAndSign = ({
 					}`
 				)
 			)
+			getInternalState();
 		}
 		catch (e) {
 			console.log("Error in signing contract ", e)
 		}
 	}
 
+	const getInternalState = async () => {
+		try {
+			const state = await API.graphql({
+				query: `{
+						influencerCampaign(influencerId: "${brandId}", id: "${campaignId}") {
+							id
+							internalState
+						}
+					}`
+			});
+			setInternalState(state.data.influencerCampaign.internalState);
+		}
+		catch (e) {
+			console.log("error", e)
+		}
+	}
+
 	return (
 		<>
-			{createMircositeFlag ? (
+			{createMircositeFlag && internalState && internalState != '' ? (
 				<CreateMicrosite
 					name={name}
 					handleCreateMicrosite={handleCreateMicrosite}
