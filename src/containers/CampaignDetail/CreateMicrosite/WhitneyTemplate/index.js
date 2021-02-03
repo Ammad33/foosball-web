@@ -22,6 +22,7 @@ const WhitneyTemplate = ({ campaignId, internalState }) => {
 	const [heroImage, setHeroImage] = useState(null);
 	const [heroFile, setHeroFile] = useState(null);
 	const [image2, setImage2] = useState(null);
+	const [image2File , setImage2File] = useState(null);
 	const [quoteMessage, setQuoteMessage] = useState('');
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [heroUrl, setHeroUrl] = useState('');
@@ -40,27 +41,48 @@ const WhitneyTemplate = ({ campaignId, internalState }) => {
 	const [campaign, setCampaign] = useState('');
 
 	useEffect(() => {
-		debugger;
 		window.scrollTo({ top: 0, behavior: 'smooth' });
 		let id = campaignId.split('#');
 		setCampaign(id[1]);
 	}, [])
 
-	function uploadFile(file) {
+	const uploadFile = (file) => {
 		// var file = inputElement.files[0];
-		var reader = new FileReader();
-		reader.onloadend = function () {
-			console.log('Encoded Base 64 File String:', reader.result);
+		// var reader = new FileReader();
+		// reader.onloadend = function () {
+		// 	console.log('Encoded Base 64 File String:', reader.result);
 
-			/******************* for Binary ***********************/
-			var data = (reader.result).split(',')[1];
-			// var binaryBlob = atob(data);
-			// console.log('Encoded Binary File String:', binaryBlob);
-		}
-		reader.readAsDataURL(file);
+		// 	/******************* for Binary ***********************/
+		// 	var data = (reader.result).split(',')[1];
+		// 	// var binaryBlob = atob(data);
+		// 	// console.log('Encoded Binary File String:', binaryBlob);
+		// }
+ 
+		// if (event.target.files && event.target.files[0]) {
+		// 	const reader = new FileReader();
+		// 	reader.onload = event => file.innerHTML = event.target.result;
+		// 	reader.readAsText(event.target.files[0]);
+		// }
+
+
+		// reader.readAsDataURL(file);
 
 
 	}
+
+
+
+	// const onChange = event => {
+	// 	if (event.target.files && event.target.files[0]) {
+	// 		const reader = new FileReader();
+	// 		reader.onload = event => fileOut.innerHTML = event.target.result;
+	// 		reader.readAsText(event.target.files[0]);
+	// 	}
+	// }
+
+	// fileIn.onchange = function () {
+	// 	onChange(event);
+	// };
 
 	// function getBase64Image(img) {
 	// 	// Create an empty canvas element
@@ -82,21 +104,39 @@ const WhitneyTemplate = ({ campaignId, internalState }) => {
 	console.log(heroFile);
 
 	const PostHeroImage = (URL) => {
-		// let data = new FormData();
-		// data.append('file', heroFile, heroFile.fileName);
-		axios.put(URL, uploadFile(heroImage), {
+		debugger;
+		var requestOptions = {
+			method: 'PUT',
+			body: heroFile,
 			headers: {
-				'accept': 'application/json',
-				'Accept-Language': 'en-US,en;q=0.8',
-				'Content-Type': `multipart/form-data;`,
-			}
-		})
-			.then((response) => {
-				console.log(response)
-			})
-			.catch(error => {
-				console.log(error);
-			})
+				'Content-Type': ''
+
+			},
+			redirect: 'follow'
+		};
+
+		fetch(URL, requestOptions)
+			.then(response => response.text())
+			.then(result => console.log(result))
+			.catch(error => console.log('error', error));
+	}
+
+		const PostImage2 = (URL) => {
+		debugger;
+		var requestOptions = {
+			method: 'PUT',
+			body: image2File,
+			headers: {
+				'Content-Type': ''
+
+			},
+			redirect: 'follow'
+		};
+
+		fetch(URL, requestOptions)
+			.then(response => response.text())
+			.then(result => console.log(result))
+			.catch(error => console.log('error', error));
 	}
 
 
@@ -175,19 +215,19 @@ const WhitneyTemplate = ({ campaignId, internalState }) => {
 					{
 						input: data,
 					}))
-
+			debugger;
 			if (response.data && response.data.createOrUpdateMicrosite) {
 				if (response.data.createOrUpdateMicrosite.hero && response.data.createOrUpdateMicrosite.hero !== null) {
-					if (response.data.createOrUpdateMicrosite.mainHeader.influencerImageUploadUrl) {
-						setHeroUrl(response.data.createOrUpdateMicrosite.mainHeader.influencerImageUploadUrl);
+					if (response.data.createOrUpdateMicrosite.hero.imageLargeUploadUrl) {
+						setHeroUrl(response.data.createOrUpdateMicrosite.hero.imageLargeUploadUrl);
 					}
-
-
 				}
 
-				// if (response.data.createOrUpdateMicrosite.hero && response.data.createOrUpdateMicrosite.hero !== null) {
-
-				// }
+				if (response.data.createOrUpdateMicrosite.appHeader && response.data.createOrUpdateMicrosite.appHeader !== null) {
+					if (response.data.createOrUpdateMicrosite.appHeader.imageLargeUploadUrl) {
+						setImage2Url(response.data.createOrUpdateMicrosite.appHeader.imageLargeUploadUrl);
+					}
+				}
 
 			}
 		} catch (error) {
@@ -196,10 +236,14 @@ const WhitneyTemplate = ({ campaignId, internalState }) => {
 	};
 
 	useEffect(() => {
+		debugger;
 		if (heroFile !== null && heroUrl && heroUrl !== '') {
-			// PostHeroImage(heroUrl);
+			PostHeroImage(heroUrl);
 		}
-	}, [heroFile]);
+		if (image2File !== null && image2Url && image2Url !== '') {
+			PostImage2(image2Url);
+		}
+	}, [heroFile, image2File]);
 
 	const requestMicrositeApproval = async () => {
 		try {
@@ -305,7 +349,7 @@ const WhitneyTemplate = ({ campaignId, internalState }) => {
 									</Tooltip>
 								</div>
 								<label htmlFor={'image2'}>Upload</label>
-								<input id={'image2'} style={{ visibility: 'hidden', display: 'none' }} type={'file'} onChange={(e) => setImage2(URL.createObjectURL(e.target.files[0]))} />
+								<input id={'image2'} style={{ visibility: 'hidden', display: 'none' }} type={'file'} onChange={(e) => {setImage2File(e.target.files[0]); setImage2(URL.createObjectURL(e.target.files[0]))}} />
 
 							</div>
 							<div className={styles1.secondConatiner}>

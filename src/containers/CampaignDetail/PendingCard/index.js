@@ -8,6 +8,7 @@ const PendingCard = ({ handlecreateMircositeFlag, handleSignContractFlag, data }
 	const handleSignContract = () => {
 		handleSignContractFlag();
 	}
+	debugger;
 	return (
 
 
@@ -22,19 +23,26 @@ const PendingCard = ({ handlecreateMircositeFlag, handleSignContractFlag, data }
 					<p className={styles.secondp}></p>
 					<button onClick={() => handleSignContract()}>Sign Contract</button>
 				</>
-			) : (
+			) :
+				data.microsite && data.microsite != null ? (
 					<>
+						<h1>Finalize the Microsite.</h1>
+						<p className={styles.firstp}>Finalize the microsite and send it to brand for approval.</p>
+						<p className={styles.secondp}></p>
+						<div className={styles.buttonContainer}>
+							<button onClick={() => handleCreateMicroSite()} style={{marginTop: '30px'}}>Edit Microsite</button>
+						</div>
+					</>
+				) : (
+						<>
 							<h1>Create the Microsite.</h1>
 							<p className={styles.firstp}>Customize the site your followers will shop on throughout this</p>
 							<p className={styles.secondp}>campaign.</p>
 							<div className={styles.buttonContainer}>
-							<button onClick={() => handleCreateMicroSite()}>Create Microsite</button>
+								<button onClick={() => handleCreateMicroSite()}>Create Microsite</button>
 							</div>
-					</>
-				)
-			}
-
-
+						</>
+					)}
 		</div >)
 };
 

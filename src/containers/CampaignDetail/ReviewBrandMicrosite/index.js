@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { ChevronRight } from 'react-feather';
 import { useHistory } from 'react-router-dom';
 import styles from './ReviewBrandMicrosite.module.scss';
@@ -8,23 +8,32 @@ import EverettTemplate from '../../../assets/Everett_Template.png';
 import LemmonTemplate from '../../../assets/Lemmon_Template.png';
 import ArvonTemplate from '../../../assets/Arvon_Template.png';
 import { API, graphqlOperation } from 'aws-amplify';
-import {RootContext} from '../../../context/RootContext';
+import { RootContext } from '../../../context/RootContext';
+import Iframe from 'react-iframe';
 
 
-const ReviewBrandMicrosite = ({ name, data , campaignId}) => {
+
+const ReviewBrandMicrosite = ({ name, data, campaignId }) => {
 	const history = useHistory();
+	const [campaign, setCampaign] = useState('');
 	const {
-		brandId
-	 } = useContext(RootContext);
-
+		brandId,currentUser
+	} = useContext(RootContext);
+	debugger;
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, []);
 
+	useEffect(() => {
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+		let id = campaignId.split('#');
+		setCampaign(id[1]);
+	}, [])
+
 	const approveMicrosite = async () => {
 		try {
-			await API.graphql (
-				graphqlOperation (
+			await API.graphql(
+				graphqlOperation(
 					`mutation myMutation {
 						approveMicrosite(brandId: "${brandId}", campaignId: "${campaignId}")
 					}`
@@ -32,10 +41,10 @@ const ReviewBrandMicrosite = ({ name, data , campaignId}) => {
 			)
 			window.location.reload();
 		}
-		catch(e){
-			console.log("Error In approving microsite" , e)
+		catch (e) {
+			console.log("Error In approving microsite", e)
 		}
-		
+
 	}
 
 	const getTemplate = (template) => {
@@ -43,7 +52,7 @@ const ReviewBrandMicrosite = ({ name, data , campaignId}) => {
 			case 'ONE':
 				return (
 					<img src={WhitneyTemplate} />
-			)
+				)
 			case 'TWO':
 				return (
 					<img src={EverettTemplate} />
@@ -58,9 +67,9 @@ const ReviewBrandMicrosite = ({ name, data , campaignId}) => {
 				return (
 					<img src={ArvonTemplate} />
 
-			)
-			default: 
-			return '';
+				)
+			default:
+				return '';
 		}
 	}
 
@@ -77,11 +86,21 @@ const ReviewBrandMicrosite = ({ name, data , campaignId}) => {
 			</div>
 			<div className={styles.contentContainer}>
 				<div className={styles.micrositeContainer}>
-					{getTemplate(data.microsite.template)}
+					<div className={styles.secondContainer}>
+						<Iframe
+							url={`https://preview.influence-sciences.com/?brandId=${brandId}&campaignId=campaign%23${campaign}&accessToken=${currentUser.signInUserSession.accessToken.jwtToken}`}
+							width="100%"
+							height="100%"
+							id="myId"
+							// className="myClassname"
+							className={styles.secondContainer}
+							display="initial"
+							position="relative" />
+					</div>
 				</div>
 				<div className={styles.actionsContainer}>
 					<Button className={styles.declineBtn}>Default</Button>
-					<button className={styles.approveBtn} onClick= {()=> approveMicrosite() }>Approvee</button>
+					<button className={styles.approveBtn} onClick={() => approveMicrosite()}>Approvee</button>
 				</div>
 			</div>
 		</div>
