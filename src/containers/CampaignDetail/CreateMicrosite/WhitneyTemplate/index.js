@@ -40,6 +40,7 @@ const WhitneyTemplate = ({ campaignId, internalState }) => {
 	const [campaign, setCampaign] = useState('');
 
 	useEffect(() => {
+		debugger;
 		window.scrollTo({ top: 0, behavior: 'smooth' });
 		let id = campaignId.split('#');
 		setCampaign(id[1]);
@@ -100,6 +101,7 @@ const WhitneyTemplate = ({ campaignId, internalState }) => {
 
 
 	useEffect(() => {
+		debugger;
 		if (internalState && internalState != null && internalState === 'CONTRACT_SIGNED') {
 			createOrUpdateMicroSite();
 		}
@@ -107,7 +109,7 @@ const WhitneyTemplate = ({ campaignId, internalState }) => {
 
 
 	const createOrUpdateMicroSite = async () => {
-
+		debugger;
 		let data = {
 			appHeader: {
 				shopCtaColor: "#D38989",
