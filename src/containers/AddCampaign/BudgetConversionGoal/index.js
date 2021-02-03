@@ -3,7 +3,7 @@ import { Grid, InputAdornment } from '@material-ui/core';
 import mainStyles from '../../../index.module.scss';
 
 import TextField from '../../../components/TextField';
-
+import NumberFormat from 'react-number-format';
 const BudgetAndConversionGoals = ({
   budget,
   handleBudget,
@@ -19,7 +19,20 @@ const BudgetAndConversionGoals = ({
   return (
     <Grid container spacing={2}>
       <Grid item md={12}>
-        <TextField
+        <NumberFormat
+          customInput={TextField}
+          thousandSeparator={true}
+          prefix={'$'}
+          variant='outlined'
+          label='Budget'
+          id='outlined-basic'
+          value={budget}
+          onValueChange={handleBudget}
+          helperText={error ? <span> error </span> : ' '}
+          fullWidth
+          className={mainStyles.placeholderColor}
+        />
+        {/* <TextField
           id='outlined-basic'
           fullWidth
           value={budget}
@@ -28,18 +41,27 @@ const BudgetAndConversionGoals = ({
           label='Budget'
           helperText={error ? <span> error </span> : ' '}
           variant='outlined'
-					type='number'
-					InputProps={{
-            startAdornment: (
-              <InputAdornment  position="start">
-                $
-              </InputAdornment>
-            ),
+          type='number'
+          InputProps={{
+            startAdornment: <InputAdornment position='start'>$</InputAdornment>,
           }}
-        />
+        /> */}
       </Grid>
       <Grid item xs={12} sm={12} md={12}>
-        <TextField
+        <NumberFormat
+          customInput={TextField}
+          thousandSeparator={true}
+          prefix={'$'}
+          variant='outlined'
+          label='Target Gross Sales'
+          id='outlined-basic'
+          value={targetGrossSale}
+          onValueChange={handleGrossSale}
+          helperText={error ? <span> error </span> : ' '}
+          fullWidth
+          className={mainStyles.placeholderColor}
+        />
+        {/* <TextField
           id='outlined-basic'
           fullWidth
           type='number'
@@ -47,15 +69,11 @@ const BudgetAndConversionGoals = ({
           className={mainStyles.placeholderColor}
           onChange={handleGrossSale}
           label='Target Gross Sales'
-					variant='outlined'
-					InputProps={{
-            startAdornment: (
-              <InputAdornment  position="start">
-                $
-              </InputAdornment>
-            ),
+          variant='outlined'
+          InputProps={{
+            startAdornment: <InputAdornment position='start'>$</InputAdornment>,
           }}
-        />
+        /> */}
       </Grid>
     </Grid>
   );

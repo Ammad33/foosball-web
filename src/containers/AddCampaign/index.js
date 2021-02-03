@@ -208,7 +208,7 @@ function getSteps() {
 /******************************************/
 
 /* open {bool} used to open the add campaign dialog
- * handleCancle {function} invoked when campaignis cancled 
+ * handleCancle {function} invoked when campaignis cancled
  * step contains the information about the steps
  * campaign contains the campaign data*/
 const AddCampaign = ({ open, handleCancel, step, campaign }) => {
@@ -263,7 +263,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const [
     deliverableDeadlineDateError,
     setDeliverableDeadlineDateError,
-  ] = useState(false);                              //deleverable deadline
+  ] = useState(false); //deleverable deadline
   const [startTime, setStartTime] = useState(
     moment().subtract(1, 'days').startOf('day').format('HH:mm')
   );
@@ -309,7 +309,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   const [influencers, setInfluencers] = useState([]);
 
-  /**React useState hook get called when the stepper move to next or 
+  /**React useState hook get called when the stepper move to next or
    * previous state sets the values of all the variables used in AddCampaign
    */
   useEffect(() => {
@@ -324,7 +324,11 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           ? campaign.invitationMessage
           : ''
       );
-      setCompensationPayment(campaign.paymentSchedule && campaign.paymentSchedule !== null ? campaign.paymentSchedule : '');
+      setCompensationPayment(
+        campaign.paymentSchedule && campaign.paymentSchedule !== null
+          ? campaign.paymentSchedule
+          : ''
+      );
       setStartDate(moment(startDate).format('MM/DD/YYYY'));
       setEndDate(moment(endDate).format('MM/DD/YYYY'));
       setStartTime(moment(startDate).format('HH:mm'));
@@ -366,8 +370,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           ? campaign.discount.__typename === 'PercentageDiscount'
             ? 'Percentage'
             : campaign.discount.__typename === 'FlatDiscount'
-              ? 'Amount'
-              : ''
+            ? 'Amount'
+            : ''
           : ''
       );
       if (
@@ -418,7 +422,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         setDeliveries(campaign.deliverables);
       }
       if (campaign.influencer && campaign.influencer !== null) {
-        setInfluencer(campaign.influencer)
+        setInfluencer(campaign.influencer);
       }
     }
     filledForm();
@@ -427,7 +431,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   /**{function} returns the array of objects containg the products information  */
   const getCampaignsProducts = () => {
-
     let productSample = [];
     campaign.products &&
       campaign.products.length > 0 &&
@@ -444,7 +447,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     return productSample;
   };
 
-  /**{react hook} get invoked when AddCampaign dialog open 
+  /**{react hook} get invoked when AddCampaign dialog open
    * and closes used to set all the variable values to default
    */
   useEffect(() => {
@@ -557,7 +560,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   };
 
   const setActiveForCompensationProduct = () => {
-    const cols = [...compensationProducts]
+    const cols = [...compensationProducts];
     if (cols.length === 0) {
       setActiveNext(false);
     }
@@ -575,7 +578,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   };
 
   const handleCompensationProductItem = (id, item) => {
-
     const opts = [...compensationProducts];
     if (opts.length > 0) {
       const index = opts.findIndex((item) => item.collectionId === id);
@@ -851,13 +853,13 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   /******************* Handle Budget *******************/
 
   const handleBudget = (e) => {
-    setBudget(e.target.value);
+    setBudget(e.value);
   };
 
   /************* Handle Target Gross Sale ***********/
 
   const handleGrossSale = (e) => {
-    setTargetGrossSale(e.target.value);
+    setTargetGrossSale(e.value);
   };
 
   /***************** Handle Discount Type *********/
@@ -988,7 +990,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     }
   };
 
-
   // console.log(products);
 
   /**getting negotiable option Object*/
@@ -1000,7 +1001,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     return data;
   };
 
-  
   const getDeliverablesForAPI = () => {
     const data = [...deliveries];
     data.map((deliverable) => {
@@ -1016,8 +1016,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         deliverable.postType && deliverable.postType !== null
           ? deliverable.postType.toUpperCase()
           : deliverable.deliverableType && deliverable.deliverableType !== null
-            ? deliverable.deliverableType.toUpperCase()
-            : null;
+          ? deliverable.deliverableType.toUpperCase()
+          : null;
       // }
       deliverable.frameContentType =
         deliverable.frameContentType && deliverable.frameContentType !== null
@@ -1119,7 +1119,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     const data = [...deliveries];
 
     data.map((deliverable) => {
-
       const eDate = new Date(deliverable.deadlineDate * 1000);
 
       deliverable.deadlineDate = moment(eDate).format('L');
@@ -1129,8 +1128,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         deliverable.postType && deliverable.postType !== null
           ? deliverable.postType.toProperCase()
           : deliverable.deliverableType && deliverable.deliverableType !== null
-            ? deliverable.deliverableType.toProperCase()
-            : null;
+          ? deliverable.deliverableType.toProperCase()
+          : null;
       deliverable.frameContentType =
         deliverable.frameContentType && deliverable.frameContentType !== null
           ? deliverable.frameContentType.toProperCase()
@@ -1304,7 +1303,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       return null;
     }
   };
-  
+
   /**handle dropdown of collections */
   const handleCollectionExpand = (value, index) => {
     const collect = [...collections];
@@ -1520,7 +1519,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   /**{function} invoked on send invite button
    * Contain a mutation API
-  */
+   */
   const sendCampaignInvite = async () => {
     let id = null;
     if (campaign === undefined || campaign === null) {
@@ -1538,7 +1537,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         graphqlOperation(
           `mutation MyMutation {
 						sendCampaignInvite(brandId: "${brandId}", id: "${
-          campaign && campaign.id ? campaign.id : id
+            campaign && campaign.id ? campaign.id : id
           }") {
 							id
 						}
@@ -1598,11 +1597,11 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       if (collectionsResponse.data && collectionsResponse.data !== null) {
         setCollections(
           collectionsResponse.data.collections &&
-          collectionsResponse.data.collections.collections &&
-          collectionsResponse.data.collections.collections.map((obj) => ({
-            ...obj,
-            expand: false,
-          }))
+            collectionsResponse.data.collections.collections &&
+            collectionsResponse.data.collections.collections.map((obj) => ({
+              ...obj,
+              expand: false,
+            }))
         );
       }
     } catch (err) {
@@ -1921,7 +1920,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         return 'Unknown step';
     }
   };
-/** {function} checks for activeSave */
+  /** {function} checks for activeSave */
   const partialFilledForm = () => {
     if (
       campaignName !== '' &&
@@ -1942,7 +1941,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     getCampaigns();
   }, []);
 
-
   const getCampaigns = async () => {
     try {
       const campaigns = await API.graphql({
@@ -1955,10 +1953,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       }`,
       });
       setCampaigns(campaigns.data.campaigns.campaigns);
-    } catch (e) { }
+    } catch (e) {}
   };
 
-/**checks to active the Next button*/
+  /**checks to active the Next button*/
   const filledForm = () => {
     if (
       campaignError === '' &&
@@ -2050,8 +2048,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                              <CheckCircleIconSvg viewBox='0 0 31 31' />
-                            )}
+                        <CheckCircleIconSvg viewBox='0 0 31 31' />
+                      )}
                       <span
                         className={
                           activeStep === index
@@ -2064,19 +2062,19 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                       </span>
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
                       {activeStep > index ? (
                         <div className={styles.activeBar} />
                       ) : (
-                          <div className={styles.inActiveBar} />
-                        )}
+                        <div className={styles.inActiveBar} />
+                      )}
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                 </>
               ))}
             </div>
@@ -2089,8 +2087,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                    <div></div>
-                  )}
+                  <div></div>
+                )}
                 <span onClick={handleCancelCampaignDialog}>
                   <XSVG />
                 </span>
@@ -2134,7 +2132,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                         : createCampaign();
                     }}
                   >
-                    {campaign !== undefined ? "Save and exit" : "Save and finish later"}
+                    {campaign !== undefined
+                      ? 'Save and exit'
+                      : 'Save and finish later'}
                   </span>
                 ) : null}
               </div>
