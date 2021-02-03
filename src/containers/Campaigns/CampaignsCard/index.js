@@ -16,19 +16,28 @@ import {
 	Mail,
 	Trash
 } from 'react-feather';
-
+/**
+ * campaign {object} contain information of the campaign
+ * onClick {function} to display the campaign details
+ * handleDelete {function} to delete the campaign card
+ **/
 const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
+	/**RootContext**/
 	const {
 		brandType,
 	} = useContext(RootContext);
 
+	/**popover states**/
 	const [anchorEl, setAnchorEl] = useState(null);
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
 
+	/**{function} used to close the popover**/
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
+
+	/**{function} used to specify the location of the popover**/
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
 	};
