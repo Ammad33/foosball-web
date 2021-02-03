@@ -47,6 +47,7 @@ const InviteInfluencer = ({
 				campaignId={campaignId}
 				createMircositeFlag={createMircositeFlag}
 				internalState={internalState}
+				template={data.microsite.template}
 				handleCreateMicrosite={() => setCreateMicrositeFlag(true)} />) : (
 					<>
 						<Popover

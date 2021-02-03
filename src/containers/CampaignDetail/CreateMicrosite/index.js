@@ -6,22 +6,20 @@ import MicrositeTemplate from '../../../assets/Microstie Template 1.png';
 import EverettTemplateImage from '../../../assets/Microstie_Template_2.png'
 import LemmonTemplateImage from '../../../assets/Microstie_Template_3.png'
 import ArvonTemplateImage from '../../../assets/Microstie_Template_4.png'
-import WhitneyTemplate from './WhitneyTemplate';
-import EverettTemplate from './EverettTemplate';
+import Template from './WhitneyTemplate';
 import ChangeTemplate from '../ChangeTemplate';
-import LemmonTemplate from './LemmonTemplate';
-import AvronTemplate from './ArvonTemplate';
 import { API, graphqlOperation } from 'aws-amplify';
 import { RootContext } from '../../../context/RootContext';
 
 const CreateMicrosite = ({
 	name,
 	campaignId,
-	internalState
+	internalState,
+	template
 }) => {
 	const history = useHistory();
 
-	const [template, setTemplate] = useState('');
+	const [templated, setTemplate] = useState('');
 	const [saveBack, setSaveBack] = useState('');
 	const [confirmTemplate, setConfirmTemplate] = useState(false);
 	const { brandId } = useContext(RootContext);
@@ -55,21 +53,9 @@ const CreateMicrosite = ({
 
 	useEffect(() => {
 		window.scrollTo({ top: 0, behavior: 'smooth' });
+		setTemplate(template);
 	}, []);
 
-
-	const getTemplate = (template) => {
-		switch (template) {
-			case 'Whitney':
-				return <WhitneyTemplate campaignId={campaignId} internalState={internalState} />;
-			case 'Everett':
-				return <EverettTemplate campaignId={campaignId} internalState={internalState} />;
-			case 'Lemmon':
-				return <LemmonTemplate campaignId={campaignId} internalState={internalState} />;
-			case 'Avron':
-				return <AvronTemplate campaignId={campaignId} internalState={internalState} />
-		}
-	}
 
 	return (
 		<>
@@ -92,9 +78,9 @@ const CreateMicrosite = ({
 					<span>Create Microsite</span>
 				</div>
 				{
-					template !== '' ? <>
+					templated !== '' ? <>
 						<div onClick={() => {
-							const newValue = template;
+							const newValue = templated;
 							setSaveBack(newValue);
 							setTemplate('');
 							setConfirmTemplate(true);
@@ -103,32 +89,33 @@ const CreateMicrosite = ({
 							<ChevronLeft />
 							<span>Back to templates</span>
 						</div>
-						{getTemplate(template)}
+
+						<Template campaignId={campaignId} internalState={internalState} template={templated} />
 					</> :
 						<div className={styles.contentContainer}>
 							<div className={styles.micrositeContainer}>
 								<p> Choose a microsite template below and then customize it.</p>
 								<div className={styles.templateContainer}>
 									<div className={styles.template}>
-										<div onClick={() => setTemplate('Whitney')}>
+										<div onClick={() => setTemplate('ONE')}>
 											<img src={MicrositeTemplate} />
 										</div>
 										<h6>Whitney</h6>
 									</div>
 									<div className={styles.template}>
-										<div onClick={() => setTemplate('Everett')}>
+										<div onClick={() => setTemplate('TWO')}>
 											<img src={EverettTemplateImage} />
 										</div>
 										<h6>Everett</h6>
 									</div>
 									<div className={styles.template}>
-										<div onClick={() => setTemplate('Lemmon')}>
+										<div onClick={() => setTemplate('FOUR')}>
 											<img src={LemmonTemplateImage} />
 										</div>
 										<h6>Lemmon</h6>
 									</div>
 									<div className={styles.template}>
-										<div onClick={() => setTemplate('Avron')}>
+										<div onClick={() => setTemplate('THREE')}>
 											<img src={ArvonTemplateImage} />
 										</div>
 										<h6>Arvon</h6>

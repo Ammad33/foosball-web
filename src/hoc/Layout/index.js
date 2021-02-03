@@ -69,10 +69,9 @@ function ResponsiveDrawer(props) {
   const [meData, setMeData] = useState([]);
 
 
-/**accessing RootContext */
+  /**accessing RootContext */
   const { brandType, updateMeData, setUpdateMeData } = useContext(RootContext);
 
-  console.log(updateMeData);
   /**react hook initiate the api call whenever updateMeData changes */
   useEffect(() => {
     if (updateMeData) {
@@ -83,7 +82,7 @@ function ResponsiveDrawer(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-/**API call */
+  /**API call */
   const myData = async () => {
 
     try {

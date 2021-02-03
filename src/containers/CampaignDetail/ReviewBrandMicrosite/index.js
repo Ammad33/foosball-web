@@ -17,9 +17,9 @@ const ReviewBrandMicrosite = ({ name, data, campaignId }) => {
 	const history = useHistory();
 	const [campaign, setCampaign] = useState('');
 	const {
-		brandId,currentUser
+		brandId, currentUser
 	} = useContext(RootContext);
-	debugger;
+
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, []);

@@ -8,7 +8,7 @@ const PendingCard = ({ handlecreateMircositeFlag, handleSignContractFlag, data }
 	const handleSignContract = () => {
 		handleSignContractFlag();
 	}
-	debugger;
+
 	return (
 
 
@@ -30,7 +30,7 @@ const PendingCard = ({ handlecreateMircositeFlag, handleSignContractFlag, data }
 						<p className={styles.firstp}>Finalize the microsite and send it to brand for approval.</p>
 						<p className={styles.secondp}></p>
 						<div className={styles.buttonContainer}>
-							<button onClick={() => handleCreateMicroSite()} style={{marginTop: '30px'}}>Edit Microsite</button>
+							<button onClick={() => handleCreateMicroSite()} style={{ marginTop: '30px' }}>Edit Microsite</button>
 						</div>
 					</>
 				) : (
