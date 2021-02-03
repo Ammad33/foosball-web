@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 import React, { useState, useEffect, useContext } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
@@ -30,7 +31,7 @@ import { useHistory } from 'react-router-dom';
 
 let typ = '';
 let val = '';
-
+/******************************SVG ************************/
 const XSVG = () => {
   return <SVG src={require('../../assets/x.svg')} />;
 };
@@ -81,7 +82,9 @@ const CheckCircleIconSvg = (prop) => {
     </SvgIcon>
   );
 };
+/***********************************************************/
 
+/***************state variables ****************************/
 const fb = {
   postType: ['Story', 'Post'],
   frameContentType: ['Video', 'Image'],
@@ -157,9 +160,9 @@ const items = [
     sku: '17234567',
   },
 ];
+/************************************************************/
 
-//******Stepper Element Design *************/
-
+//******Stepper Element Design *************//
 const QontoConnector = withStyles({
   alternativeLabel: {
     top: 10,
@@ -185,9 +188,9 @@ const QontoConnector = withStyles({
 function QontoStepIcon(props) {
   return '';
 }
+/********************************************************/
 
 /********* Steppper Labels ****************/
-
 function getSteps() {
   return [
     'Initial Step',
@@ -202,9 +205,12 @@ function getSteps() {
     'Review and Send',
   ];
 }
+/******************************************/
 
-/*********Main Container of Add Campaign ************/
-
+/* open {bool} used to open the add campaign dialog
+ * handleCancle {function} invoked when campaignis cancled 
+ * step contains the information about the steps
+ * campaign contains the campaign data*/
 const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const negotialbleOptions = [
     { id: 1, isChecked: true, key: 'post_fee', text: 'Cash Per Post' },
@@ -239,13 +245,12 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const [team, setTeam] = useState([]);
   const [search, setSearch] = useState('');
   const [campaigns, setCampaigns] = useState([]);
-  const { brandId, setActiveRoute, currentUser } = useContext(RootContext);
+  const { brandId, setActiveRoute, currentUser } = useContext(RootContext); //Rootcontext
   const [campaignError, setCampaignError] = useState('');
   const [products, setProducts] = useState('');
   const [minimium, setMinimium] = useState('');
 
   /****** Campaign Detail States ********/
-
   const [campaignName, setCampaignName] = useState('');
   const [startDate, setStartDate] = useState(
     moment().add(1, 'days').format('MM/DD/YYYY')
@@ -258,7 +263,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const [
     deliverableDeadlineDateError,
     setDeliverableDeadlineDateError,
-  ] = useState(false); //deleverable deadline
+  ] = useState(false);                              //deleverable deadline
   const [startTime, setStartTime] = useState(
     moment().subtract(1, 'days').startOf('day').format('HH:mm')
   );
@@ -280,14 +285,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const [giftCode, setGiftCode] = useState('');
 
   /***** Budget and Target Sales ********/
-
   const [budget, setBudget] = useState('');
   const [targetGrossSale, setTargetGrossSale] = useState('');
-
   const [collection, setCollection] = useState('');
-
   /****** Deliverable States **********/
-
   const [deliverableDate, setDeliverableDate] = useState(false);
 
   const [deliveries, setDeliveries] = useState([
@@ -308,6 +309,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   const [influencers, setInfluencers] = useState([]);
 
+  /**React useState hook get called when the stepper move to next or 
+   * previous state sets the values of all the variables used in AddCampaign
+   */
   useEffect(() => {
     setActiveStep(step !== undefined ? step : 1);
     if (campaign && campaign !== null && step !== undefined) {
@@ -419,7 +423,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     }
     filledForm();
   }, [step]);
+  /*************************************************************************************/
 
+  /**{function} returns the array of objects containg the products information  */
   const getCampaignsProducts = () => {
 
     let productSample = [];
@@ -438,6 +444,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     return productSample;
   };
 
+  /**{react hook} get invoked when AddCampaign dialog open 
+   * and closes used to set all the variable values to default
+   */
   useEffect(() => {
     if (open === false) {
       setCampaignName('');
@@ -478,15 +487,18 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     }
   }, [open]);
 
+  /**{react hook} get invoked whenever brandId is changed*/
   useEffect(() => {
     getTeam();
     getCollection();
   }, [brandId]);
 
+  /**{react hook} get the influencers after initial render */
   useEffect(() => {
     getInfluencers();
   }, []);
 
+  /**API call for influencers data */
   const getInfluencers = async () => {
     try {
       const influencers = await API.graphql({
@@ -525,7 +537,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       console.error(e);
     }
   };
-  /******* Compensations States */
+  /******* Compensations States *********/
   const [compensationPayment, setCompensationPayment] = useState('');
   const [addAnother, setAddAnother] = useState('false');
 
@@ -537,7 +549,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   ]);
 
   /***************Compensation Product ********************/
-
   const [compensationProduct, setCompensationProduct] = useState('');
   const [compensationProducts, setCompensationProducts] = useState('');
 
@@ -608,23 +619,17 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   ]);
 
   //**** Members State **********/
-
   const [selectedMembers, setSelectedMemebers] = useState([]);
 
   // const [selectedComponent, setSelectedComponent] = useState(componentOptions);
-
   const [selectedInfluncer, setSelectedInfluncer] = useState([]);
   const [influencer, setInfluencer] = useState(null);
-
   const [openCDialog, setOpenCDialog] = useState(false);
   const [activeSave, setActiveSave] = useState(false);
-
   const [collections, setCollections] = useState([]);
-
   const [stepSeven, setStepSeven] = useState(false);
 
-  /**** Add New deliverable */
-
+  /**** API call to get team information */
   const getTeam = async () => {
     console.log('running getTeam function in add campaign');
     try {
@@ -650,6 +655,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     }
   };
 
+  /**{function} get invoked when adding new deliverable */
   const handleDeliverable = () => {
     const deliverables = [...deliveries];
 
@@ -670,8 +676,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     setDeliveries(deliverables);
   };
 
-  /** Handle deliverable Deadline *********/
-
+  /******** Handle deliverable Deadline *********/
   const handleDeliverDeadlineDate = (date, index) => {
     const opts = [...deliveries];
     const moment_date = moment(startDate).add(1, 'days').format('MM/DD/YYYY');
@@ -709,7 +714,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   };
 
   /***** Handle Deliverable Content ********/
-
   const handleDilverableContent = (value, index, fieldname) => {
     const opts = [...deliveries];
     if (fieldname === 'postType' && value === 'Post') {
@@ -720,7 +724,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   };
 
   /***** Handle Delete Deliverable ***********/
-
   const handleRemoveDeliverable = (index) => {
     const opts = [...deliveries];
     opts.splice(index, 1);
@@ -728,7 +731,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   };
 
   /***** Add New Compesation */
-
   const handleCompensations = () => {
     //const pro = [...compensationProducts]
     const comp = [...compensations];
@@ -741,11 +743,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   };
 
   /************ Compensation Influencer payment schedule *******/
-
   const handleCompensationPayment = (value) => {
     setCompensationPayment(value);
   };
-
   /***** Handle Compesation Value ********/
 
   const handleCompensationValue = (value, index, fieldName) => {
@@ -762,7 +762,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   };
 
   /***** Remove Compesation *******/
-
   const handleRemoveCompensation = (index) => {
     const comp = [...compensations];
     comp.splice(index, 1);
@@ -770,7 +769,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   };
 
   /**** Toggle Negotiable *********/
-
   const toggleNegotiable = (option) => {
     const opts = [...selectedNegotiable];
     opts.map((opt) => {
@@ -782,11 +780,11 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   };
 
   /********* Add Collection ***********/
-
   const handleCollection = (value) => {
     setCollection(value);
   };
 
+  /*********handle collection items*****/
   const handleCollectionItem = (id, item) => {
     const opts = [...products];
     if (opts.length > 0) {
@@ -883,7 +881,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     handleStartDateValidation(moment_date);
   };
 
-  /**********************Handle End Date ********/
+  /**********************Handle End Date *********/
   const handleEndDate = (date) => {
     const moment_date = moment(date).format('L');
     setEndDate(
@@ -895,7 +893,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     handleEndDateValidation(moment_date);
   };
 
-  /*************End Date Validation *************/
+  /*************End Date Validation **************/
   const handleEndDateValidation = (date) => {
     if (date < startDate) {
       setEndDateError(true);
@@ -903,7 +901,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     handleEndTimeDateValidation(endTime, date);
   };
 
-  /*************Start date validation************/
+  /*************Start date validation*************/
   const handleStartDateValidation = (date) => {
     if (date < moment().format('MM/DD/YYYY')) {
       setStartDateError(true);
@@ -911,7 +909,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     handleStartTimeDateValidation(startTime, date);
   };
 
-  /*************Start Time/Date validation************/
+  /*************Start Time/Date validation***********/
   const handleStartTimeDateValidation = (time, date) => {
     const startDateTime = moment(date + ' ' + time);
     if (startDateTime.isBefore(moment())) {
@@ -919,7 +917,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     } else setStartTimeError(false);
   };
 
-  /*************END Time/Date validation************/
+  /*************END Time/Date validation***********/
   const handleEndTimeDateValidation = (time, date) => {
     const endDateTime = moment(date + ' ' + time);
     const startDateTime = moment(startDate + ' ' + startTime);
@@ -928,7 +926,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     } else setEndTimeError(false);
   };
 
-  /*************Start Time validation************/
+  /*************Start Time validation*************/
   const handleStartTimeValidation = (time) => {
     const startDateTime = moment(startDate + ' ' + time);
     if (startDateTime.isBefore(moment())) {
@@ -936,7 +934,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     } else setStartTimeError(false);
   };
 
-  /*************End Time validation************/
+  /*************End Time validation*************/
   const handleEndTimeValidation = (time) => {
     const startDateTime = moment(startDate + ' ' + startTime);
     const endDateTime = moment(endDate + ' ' + time);
@@ -993,6 +991,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   // console.log(products);
 
+  /**getting negotiable option Object*/
   const getNegotiablesObjectForAPI = () => {
     let data = {};
     selectedNegotiable.forEach((negotiable) => {
@@ -1000,6 +999,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     });
     return data;
   };
+
+  
   const getDeliverablesForAPI = () => {
     const data = [...deliveries];
     data.map((deliverable) => {
@@ -1043,6 +1044,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     return data;
   };
 
+  /**handle compensation */
   const setCompensation = (compensation) => {
     let compensationsForm = compensation.map((item) => {
       switch (item.__typename) {
@@ -1151,6 +1153,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     return data;
   };
 
+  /*{function}invoked on campaign creation or save and finish later is clicked */
   const createCampaign = async () => {
     try {
       if (discountType === 'Amount') {
@@ -1301,7 +1304,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       return null;
     }
   };
-
+  
+  /**handle dropdown of collections */
   const handleCollectionExpand = (value, index) => {
     const collect = [...collections];
     if (value === true) {
@@ -1313,6 +1317,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     setCollections(collect);
   };
 
+  /**API call for update the campaign products */
   const updateCampaignProducts = async (id) => {
     if (products && products.length > 0) {
       try {
@@ -1364,6 +1369,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     }
   };
 
+  /**{function} to update the campaign */
   const updateCampaign = async () => {
     if (discountType === 'Amount') {
       typ = 'FLAT';
@@ -1511,6 +1517,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       return null;
     }
   };
+
+  /**{function} invoked on send invite button
+   * Contain a mutation API
+  */
   const sendCampaignInvite = async () => {
     let id = null;
     if (campaign === undefined || campaign === null) {
@@ -1548,6 +1558,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     setActiveRoute('campaignDetail');
   };
 
+  /**API call for geting collection data*/
   const getCollection = async () => {
     try {
       const collectionsResponse = await API.graphql({
@@ -1710,6 +1721,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     } else return;
   };
 
+  /**setting campaign name and name validation*/
   const handleCampaignName = (e) => {
     setCampaignName(e.target.value);
     if (e.target.value !== '') {
@@ -1731,7 +1743,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     });
     setCollections(cols);
   };
-
+  /**{function} provide the content of the current step */
   const getStepContent = (activeStep) => {
     switch (activeStep) {
       case 1:
@@ -1909,7 +1921,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         return 'Unknown step';
     }
   };
-
+/** {function} checks for activeSave */
   const partialFilledForm = () => {
     if (
       campaignName !== '' &&
@@ -1946,7 +1958,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     } catch (e) { }
   };
 
-
+/**checks to active the Next button*/
   const filledForm = () => {
     if (
       campaignError === '' &&
@@ -1991,6 +2003,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     }
   };
 
+  /**goto previous step */
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };

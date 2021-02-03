@@ -25,6 +25,41 @@ const Chevron = () => {
 		</span>
 	);
 };
+/*
+handleCampaignName,
+	handleStartDate {function} used to set the start date
+	handleEndDate {function} used to set the end date
+	campaignName {function} for setting campaign name and name validation
+	startDate {date variable} to store start date
+	startDateError {bool} act as flag for the start date error
+	endDate {date variable} to store end date
+	endDateError {bool} act as flag for the end date error
+	startTime {time variable} used to set start time
+	startTimeError {bool} act as flag for the start time error
+	endTime {time variable} used to set start time
+	endTimeError {bool} act as flag for the end time error
+	discount {variable} used to store discount
+	discountType {variable} used to store discount type
+	customeMessage {variable}
+	handleStartTime {function} to handle satrt time
+	handleEndTime {function} to handle end time
+	handleDiscountType {function} to handle DiscountType
+	handleDiscount {function} to handle Discount
+	handleCustomMessage {function} to handle DiscountType
+	startDateOpen {bool} to open/close datepicker
+	endDateOpen {bool} to open/close datepicker
+	handleStartDateOpen {function} start date handle
+	handleEndDateOpen {function} end date handle
+	handleStartTimeOpen {function} start time handle
+	startTimeOpen {bool} to open/close time
+	endTimeOpen {bool} to open/close time
+	handleEndTimeOpen {function} end time handle
+	filledForm {function} checks to active the Next button
+	partialFilledForm  {function} checks for active Save
+	campaignError {string} to store campaign errors
+	minimium {string} to store minimum cart value
+	handleMinimium {function} to handle minimum cart value 
+	*/
 
 const AddCampaignDetails = ({
 	handleCampaignName,
