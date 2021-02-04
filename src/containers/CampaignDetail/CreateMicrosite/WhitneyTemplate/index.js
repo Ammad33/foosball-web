@@ -62,7 +62,8 @@ const Templates = ({ campaignId, internalState, template, microsite }) => {
 	//*** Set Colors For Each Template When Component loads first time */
 
 	useEffect(() => {
-		if (template === 'ONE' && microsite === undefined) {
+
+		if (template === 'ONE' && (microsite === '' || microsite === undefined)) {
 			setHeaderColor('#984949');
 			setButtonColor('#984949');
 			setQuotesColor('#984949');

@@ -12,7 +12,7 @@ const ColorComponent = ({ heading, value, handlValue, onClick, open, onChangeCom
             <h6>{heading}</h6>
             <div className={styles.colorPicker}>
                 <div className={styles.colorValue} onClick={onClick} style={{ backgroundColor: value }}></div>
-                <input value={value} onChange={handlValue} maxlength={7} />
+                <input value={value} onChange={handlValue} maxLength={7} />
             </div>
             {open && <div style={style}> <ChromePicker color={value} onChangeComplete={onChangeComplete} /></div>}
         </div>
