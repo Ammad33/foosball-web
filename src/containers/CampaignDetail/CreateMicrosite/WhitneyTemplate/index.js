@@ -119,11 +119,10 @@ const Templates = ({ campaignId, internalState, template }) => {
 	//** Call Life cycle hook for first time and when any of these state is changed */
 
 	useEffect(() => {
-
-		if (internalState && internalState != null && internalState === 'CONTRACT_SIGNED') {
+		if ((internalState && internalState != null && internalState === 'CONTRACT_SIGNED')  ) {
 			createOrUpdateMicroSite();
 		}
-	}, [headerColor, footerColor, shopColor, quoteMessage, quotesColor, quotesBGColor, template, update]);
+	}, [headerColor,buttonColor, footerColor, shopColor, quoteMessage, quotesColor, quotesBGColor, template, update]);
 
 
 	//** API Call for create and update microsite */
@@ -131,7 +130,7 @@ const Templates = ({ campaignId, internalState, template }) => {
 	const createOrUpdateMicroSite = async () => {
 		let data = {
 			appHeader: {
-				shopCtaColor: "#D38989",
+				shopCtaColor: buttonColor,
 				titleBgColor: headerColor
 			},
 			campaignId: `${campaignId}`,
@@ -212,7 +211,6 @@ const Templates = ({ campaignId, internalState, template }) => {
 						}
 					}
 				}
-
 			}
 		} catch (error) {
 			console.log(error);

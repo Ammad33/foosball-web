@@ -204,7 +204,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 											className={styles.personAvatar}
 											src={campaign.influencer.imageUrl}
 										/>
-										<span className={styles.mediaTag}>{campaign.influencer.socialIdentities != null ? (campaign.influencer.socialIdentities[0].handle) : ('')}</span> </>
+										<span className={styles.mediaTag}>{campaign.influencer.name != null ? (campaign.influencer.name) : ('')}</span> </>
 								) : (
 										campaign && campaign.brand != null ? (
 											<>
