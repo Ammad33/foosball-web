@@ -16,11 +16,17 @@ const Templates = ({ campaignId, internalState, template, microsite }) => {
 	///*****States for colors and images for all templates */
 
 	const [headerColor, setHeaderColor] = useState("");
+	const [headerColorOpen, setHeaderColorOpen] = useState(false);
 	const [buttonColor, setButtonColor] = useState("");
+	const [buttonColorOpen, setButtonColorOpen] = useState(false);
 	const [quotesColor, setQuotesColor] = useState("");
+	const [quotesColorOpen, setQuotesColorOpen] = useState(false);
 	const [quotesBGColor, setQuotesBGColor] = useState("");
+	const [quotesBGColorOpen, setQuotesBGColorOpen] = useState(false);
 	const [shopColor, setShopColor] = useState("");
+	const [shopColorOpen, setShopColorOpen] = useState(false);
 	const [footerColor, setFooterColor] = useState("");
+	const [footerColorOpen, setFooterColorOpen] = useState(false);
 	const [heroImage1, setHeroImage1] = useState(null);
 	const [heroImage2, setHeroImage2] = useState(null);
 	const [heroImage3, setHeroImage3] = useState(null);
@@ -56,18 +62,20 @@ const Templates = ({ campaignId, internalState, template, microsite }) => {
 	//*** Set Colors For Each Template When Component loads first time */
 
 	useEffect(() => {
-		if (template === 'ONE' && microsite === undefined  ) {
+		if (template === 'ONE' && microsite === undefined) {
 			setHeaderColor('#984949');
 			setButtonColor('#984949');
 			setQuotesColor('#984949');
 			setShopColor('#D38989');
 			setFooterColor('#984949');
-		}else if (template === 'ONE' && microsite != '' ) {
+		} else if (template === 'ONE' && microsite !== null && microsite != '') {
 			setHeaderColor(microsite.appHeader.titleBgColor);
 			setButtonColor(microsite.appHeader.shopCtaColor);
 			setQuotesColor(microsite.influencerQuote.quoteIconColor);
 			setShopColor(microsite.shopBelow.bgColor);
 			setFooterColor(microsite.footer.bgColor);
+			console.log(microsite);
+			setQuoteMessage(microsite.influencerQuote.quoteContent)
 		} else if (template === 'TWO') {
 			setHeaderColor('#FEF5CB');
 			setButtonColor('#DCB7D1');
@@ -92,7 +100,7 @@ const Templates = ({ campaignId, internalState, template, microsite }) => {
 			setQuotesBGColor("#2B426F");
 		}
 
-	}, [template])
+	}, [template, microsite])
 
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
@@ -103,7 +111,7 @@ const Templates = ({ campaignId, internalState, template, microsite }) => {
 		window.scrollTo({ top: 0, behavior: 'smooth' });
 		let id = campaignId.split('#');
 		setCampaign(id[1]);
-	}, [])
+	}, []);
 
 
 	//*** API Call for Hero Image */
@@ -125,7 +133,7 @@ const Templates = ({ campaignId, internalState, template, microsite }) => {
 	//** Call Life cycle hook for first time and when any of these state is changed */
 
 	useEffect(() => {
-		if ((internalState && internalState != null && internalState === 'CONTRACT_SIGNED')) {
+		if ((internalState && internalState != null && internalState === 'CONTRACT_SIGNED' && headerColor !== '')) {
 			createOrUpdateMicroSite();
 		}
 	}, [headerColor, buttonColor, footerColor, shopColor, quoteMessage, quotesColor, quotesBGColor, template, update]);
@@ -282,6 +290,37 @@ const Templates = ({ campaignId, internalState, template, microsite }) => {
 		}
 	}
 
+	const handleHeaderColorComplete = (color, event) => {
+		setHeaderColor(color.hex);
+		setHeaderColorOpen(false);
+	}
+
+	const handleButtonColorComplete = (color, event) => {
+		setButtonColor(color.hex);
+		setButtonColorOpen(false);
+	}
+
+	const handleShopColorComplete = (color, event) => {
+		setShopColor(color.hex);
+		setShopColorOpen(false);
+	}
+
+	const handleQuotesColorComplete = (color, event) => {
+		setQuotesColor(color.hex);
+		setQuotesColorOpen(false);
+	}
+
+	const handleQuotesBGColorComplete = (color, event) => {
+		setQuotesBGColor(color.hex);
+		setQuotesBGColorOpen(false);
+	}
+
+
+	const handleFooterColorComplete = (color, event) => {
+		setFooterColor(color.hex);
+		setFooterColorOpen(false);
+	}
+
 	return (
 		<>
 			<Popover
@@ -324,8 +363,21 @@ const Templates = ({ campaignId, internalState, template, microsite }) => {
 						<h4>
 							Customize {getHeading(template)}
 						</h4>
-						{template !== 'FOUR' && <ColorComponent heading="Header highlight color" value={headerColor} handlValue={(e) => setHeaderColor(e.target.value)} />}
-						<ColorComponent heading="Button color" value={buttonColor} handlValue={(e) => setButtonColor(e.target.value)} />
+						{template !== 'FOUR' && <ColorComponent
+							heading="Header highlight color"
+							value={headerColor}
+							open={headerColorOpen}
+							handlValue={(e) => setHeaderColor(e.target.value)}
+							onClick={() => setHeaderColorOpen(!headerColorOpen)}
+							onChangeComplete={handleHeaderColorComplete} />}
+						<ColorComponent
+							heading="Button color"
+							open={buttonColorOpen}
+							onClick={() => setButtonColorOpen(!buttonColorOpen)}
+							value={buttonColor}
+							handlValue={(e) => setButtonColor(e.target.value)}
+							onChangeComplete={handleButtonColorComplete}
+						/>
 
 						{template !== 'FOUR' &&
 							<div className={styles1.mainContainer}>
@@ -404,8 +456,24 @@ const Templates = ({ campaignId, internalState, template, microsite }) => {
 						}
 
 						<Divider style={{ marginBottom: '33px' }} />
-						{template === 'ONE' && <ColorComponent heading="Quotes color" value={quotesColor} handlValue={(e) => setQuotesColor(e.target.value)} />}
-						{template !== 'ONE' && <ColorComponent heading="Quotes background color" value={quotesBGColor} handlValue={(e) => setQuotesBGColor(e.target.value)} />}
+						{template === 'ONE' && <ColorComponent
+							heading="Quotes color"
+							open={quotesColorOpen}
+							onClick={() => setQuotesColorOpen(!quotesColorOpen)}
+							value={quotesColor}
+							handlValue={(e) => setQuotesColor(e.target.value)}
+							onChangeComplete={handleQuotesColorComplete}
+							bottom={true}
+						/>}
+						{template !== 'ONE' && <ColorComponent
+							heading="Quotes background color"
+							value={quotesBGColor}
+							open={quotesBGColorOpen}
+							onClick={() => setQuotesBGColorOpen(!quotesBGColorOpen)}
+							handlValue={(e) => setQuotesBGColor(e.target.value)}
+							onChangeComplete={handleQuotesBGColorComplete}
+							bottom={true}
+						/>}
 						<TextField
 							id='outlined-basic'
 							fullWidth
@@ -436,10 +504,23 @@ const Templates = ({ campaignId, internalState, template, microsite }) => {
 							</div>
 
 						</div >
-						{(template === 'ONE' || template === 'TWO') && <ColorComponent heading="Shop below background color" value={shopColor} handlValue={(e) => setShopColor(e.target.value)} />}
+						{(template === 'ONE' || template === 'TWO') && <ColorComponent
+							heading="Shop below background color"
+							value={shopColor}
+							open={shopColorOpen}
+							onClick={() => setShopColorOpen(!shopColorOpen)}
+							handlValue={(e) => setShopColor(e.target.value)}
+							onChangeComplete={handleShopColorComplete}
+
+						/>}
 
 						<Divider style={{ marginBottom: '33px' }} />
-						<ColorComponent heading="Footer Color" value={footerColor} handlValue={(e) => setFooterColor(e.target.value)} />
+						<ColorComponent heading="Footer Color"
+							value={footerColor}
+							open={footerColorOpen}
+							onClick={() => setFooterColorOpen(!footerColorOpen)}
+							onChangeComplete={handleFooterColorComplete}
+							handlValue={(e) => setFooterColor(e.target.value)} />
 
 					</div>
 					<div className={styles.secondContainer}>

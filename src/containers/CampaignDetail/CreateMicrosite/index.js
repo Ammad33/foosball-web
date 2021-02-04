@@ -8,15 +8,17 @@ import LemmonTemplateImage from '../../../assets/Microstie_Template_3.png'
 import ArvonTemplateImage from '../../../assets/Microstie_Template_4.png'
 import Template from './WhitneyTemplate';
 import ChangeTemplate from '../ChangeTemplate';
-import { API, graphqlOperation } from 'aws-amplify';
+import { API } from 'aws-amplify';
 import { RootContext } from '../../../context/RootContext';
 
 const CreateMicrosite = ({
 	name,
 	campaignId,
 	internalState,
-	microsite
+	microsite,
+	getCampaign
 }) => {
+
 
 	const history = useHistory();
 
@@ -24,20 +26,71 @@ const CreateMicrosite = ({
 	const [saveBack, setSaveBack] = useState('');
 	const [confirmTemplate, setConfirmTemplate] = useState(false);
 	const { brandId } = useContext(RootContext);
+	// const [microsite1, setMiscroSite1] = useState(microsite);
 
 	const handleCancel = () => {
 		setTemplate(saveBack);
+		getCampaign();
 		setConfirmTemplate(false);
 	}
 	const handleOk = () => {
 		setTemplate('');
 		setSaveBack('');
+		getCampaign();
 		setConfirmTemplate(false)
 	}
 
+	console.log(microsite)
+	// useEffect(() => {
+	// 	// if (templated !== '') {
+
+	// 	// }
+	// }, []);
+
+	// const getCampaign = async () => {
+	// 	try {
+	// 		const campaign = await API.graphql({
+	// 			query:
+	// 				`{ influencerCampaign(influencerId: "${brandId}", id: "${campaignId}") {
+	//                        id
+	// 					name
+	// 					status
+	//      				microsite {
+	// 						appHeader {
+	// 							shopCtaColor
+	// 							titleBgColor
+	// 						}
+	// 						footer {
+	// 							bgColor
+	// 						}
+	// 						influencerQuote {
+	// 							bgColor
+	// 							textColor
+	// 							quoteIconColor
+	// 						}
+	// 						productBuyBgColor
+	// 						productBuyTextColor
+	// 						shopBelow {
+	// 							bgColor
+	// 						}
+	// 						template
+	// 					}
+	//       }
+
+	//   }`});
+
+	// 		if (campaign.data && campaign.data !== null && campaign.data.influencerCampaign) {
+	// 			// setMiscroSite1(campaign.data.influencerCampaign.microsite);
+	// 			// setTemplate(campaign.data.influencerCampaign.microsite.template);
+	// 		}
+	// 	} catch (err) {
+	// 		console.log(err);
+	// 	}
+	// }
+
 	useEffect(() => {
 		window.scrollTo({ top: 0, behavior: 'smooth' });
-		setTemplate(microsite && microsite != '' ? (microsite.template): (""));
+		setTemplate(microsite && microsite != '' ? (microsite.template) : (""));
 	}, []);
 
 	return (
@@ -73,7 +126,7 @@ const CreateMicrosite = ({
 							<span>Back to templates</span>
 						</div>
 
-						<Template campaignId={campaignId} internalState={internalState} template={templated} microsite = {microsite} />
+						<Template campaignId={campaignId} internalState={internalState} template={templated} microsite={microsite} />
 					</> :
 						<div className={styles.contentContainer}>
 							<div className={styles.micrositeContainer}>

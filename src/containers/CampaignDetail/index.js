@@ -117,6 +117,7 @@ const CampaignDetail = ({ location }) => {
 	};
 
 	const getCampaign = async () => {
+
 		try {
 			const campaign = await API.graphql({
 				query:
@@ -270,6 +271,7 @@ const CampaignDetail = ({ location }) => {
 								bgColor
 								textColor
 								quoteIconColor
+								quoteContent
 							}
 							productBuyBgColor
 							productBuyTextColor
@@ -789,6 +791,7 @@ const CampaignDetail = ({ location }) => {
 					campaignId={campaignId}
 					handleStatus={() => setStatus('PENDING')}
 					internalState={internalState}
+					getCampaign={getCampaign}
 				/>
 			) : (
 					<BrandCampaignDetail

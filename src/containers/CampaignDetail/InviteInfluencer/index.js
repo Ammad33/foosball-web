@@ -22,6 +22,7 @@ const InviteInfluencer = ({
 	campaignId,
 	internalState,
 	handleStatus,
+	getCampaign
 }) => {
 	const history = useHistory();
 	const [anchorEl, setAnchorEl] = React.useState(null);
@@ -48,7 +49,8 @@ const InviteInfluencer = ({
 				createMircositeFlag={createMircositeFlag}
 				internalState={internalState}
 				template={data.microsite && data.microsite !== null ? data.microsite.template : ''}
-				handleCreateMicrosite={() => setCreateMicrositeFlag(true)} />) : (
+				handleCreateMicrosite={() => setCreateMicrositeFlag(true)}
+				getCampaign={getCampaign} />) : (
 					<>
 						<Popover
 							id={id}

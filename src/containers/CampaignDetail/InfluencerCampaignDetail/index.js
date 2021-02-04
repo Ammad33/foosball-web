@@ -35,7 +35,8 @@ const CampaignDetailInfluencer = ({
 	setAll,
 	campaignId,
 	handleStatus,
-	internalState
+	internalState,
+	getCampaign
 }) => {
 	const [openDrawer, setOpenDrawer] = useState(false);
 	const [step, setStep] = useState(1);
@@ -171,6 +172,7 @@ const CampaignDetailInfluencer = ({
 						name={data && data.name}
 						handleDelete={handleDelete}
 						internalState={internalState}
+
 					/>
 				);
 			case 'INVITED':
@@ -185,6 +187,7 @@ const CampaignDetailInfluencer = ({
 						campaignId={campaignId}
 						handleStatus={handleStatus}
 						internalState={internalState}
+						getCampaign={getCampaign}
 					/>
 				);
 			case 'LOST':
@@ -210,6 +213,7 @@ const CampaignDetailInfluencer = ({
 						handleDelete={handleDelete}
 						campaignId={campaignId}
 						internalState={internalState}
+						getCampaign={getCampaign}
 
 					/>
 				);
