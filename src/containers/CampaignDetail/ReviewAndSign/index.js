@@ -20,7 +20,8 @@ const ReviewAndSign = ({
 	campaignId,
 	createMircositeFlag,
 	handleCreateMicrosite,
-	template
+	template,
+	getCampaign
 }) => {
 	const history = useHistory();
 	const { brandId } = useContext(RootContext);
@@ -76,6 +77,7 @@ const ReviewAndSign = ({
 					handleCreateMicrosite={handleCreateMicrosite}
 					internalState={internalState}
 					template={template}
+					getCampaign={getCampaign}
 					campaignId={campaignId} />
 			) : (
 					<div className={styles.mainContainer}>

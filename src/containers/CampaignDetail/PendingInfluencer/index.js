@@ -21,7 +21,8 @@ const PendingInfluencer = ({
 	getTotal,
 	name,
 	campaignId,
-	internalState
+	internalState,
+	getCampaign
 
 }) => {
 	const history = useHistory();
@@ -48,10 +49,12 @@ const PendingInfluencer = ({
 				internalState={internalState}
 				campaignId={campaignId}
 				internalState={internalState}
+				getCampaign={getCampaign}
 				microsite={data.microsite && data.microsite !== null ? data.microsite : ''}
 			/>) : signContractFlag ? (<ReviewAndSign
 				name={name}
 				campaignId={campaignId}
+				getCampaign={getCampaign}
 				createMircositeFlag={createMircositeFlag}
 				internalState={internalState}
 				template={data.microsite && data.microsite !== null ? data.microsite.template : ''}
