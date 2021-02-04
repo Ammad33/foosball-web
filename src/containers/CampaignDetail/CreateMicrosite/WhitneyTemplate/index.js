@@ -76,7 +76,9 @@ const Templates = ({ campaignId, internalState, template, microsite }) => {
 			setShopColor(microsite.shopBelow.bgColor);
 			setFooterColor(microsite.footer.bgColor);
 			console.log(microsite);
-			setQuoteMessage(microsite.influencerQuote.quoteContent)
+			setQuoteMessage(microsite.influencerQuote.quoteContent);
+			setHeroImage(microsite.hero.imageLarge && microsite.hero.imageLarge !== null ? microsite.hero.imageLarge : null)
+			setImage2(microsite.appHeader.imageLarge && microsite.appHeader.imageLarge !== null ? microsite.appHeader.imageLarge : null)
 		} else if (template === 'TWO') {
 			setHeaderColor('#FEF5CB');
 			setButtonColor('#DCB7D1');

@@ -263,9 +263,13 @@ const CampaignDetail = ({ location }) => {
 							appHeader {
 								shopCtaColor
 								titleBgColor
+								imageLarge
 							}
 							footer {
 								bgColor
+							}
+							hero {
+								imageLarge
 							}
 							influencerQuote {
 								bgColor
