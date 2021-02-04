@@ -11,7 +11,7 @@ import Iframe from 'react-iframe';
 import uploadImages from '../../../../actions/uploadImges';
 
 
-const Templates = ({ campaignId, internalState, template }) => {
+const Templates = ({ campaignId, internalState, template, microsite }) => {
 
 	///*****States for colors and images for all templates */
 
@@ -56,12 +56,18 @@ const Templates = ({ campaignId, internalState, template }) => {
 	//*** Set Colors For Each Template When Component loads first time */
 
 	useEffect(() => {
-		if (template === 'ONE') {
+		if (template === 'ONE' && microsite === undefined  ) {
 			setHeaderColor('#984949');
 			setButtonColor('#984949');
 			setQuotesColor('#984949');
 			setShopColor('#D38989');
 			setFooterColor('#984949');
+		}else if (template === 'ONE' && microsite != '' ) {
+			setHeaderColor(microsite.appHeader.titleBgColor);
+			setButtonColor(microsite.appHeader.shopCtaColor);
+			setQuotesColor(microsite.influencerQuote.quoteIconColor);
+			setShopColor(microsite.shopBelow.bgColor);
+			setFooterColor(microsite.footer.bgColor);
 		} else if (template === 'TWO') {
 			setHeaderColor('#FEF5CB');
 			setButtonColor('#DCB7D1');
@@ -119,10 +125,15 @@ const Templates = ({ campaignId, internalState, template }) => {
 	//** Call Life cycle hook for first time and when any of these state is changed */
 
 	useEffect(() => {
-		if ((internalState && internalState != null && internalState === 'CONTRACT_SIGNED')  ) {
+		if ((internalState && internalState != null && internalState === 'CONTRACT_SIGNED')) {
 			createOrUpdateMicroSite();
 		}
-	}, [headerColor,buttonColor, footerColor, shopColor, quoteMessage, quotesColor, quotesBGColor, template, update]);
+	}, [headerColor, buttonColor, footerColor, shopColor, quoteMessage, quotesColor, quotesBGColor, template, update]);
+
+	//* API Call to get microsite data */
+
+
+
 
 
 	//** API Call for create and update microsite */

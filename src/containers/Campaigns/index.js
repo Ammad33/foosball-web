@@ -193,6 +193,7 @@ const Campaigns = () => {
             startDate
             endDate
 						created
+						internalState
 					  influencer {
 							imageUrl
 							id
@@ -244,6 +245,7 @@ const Campaigns = () => {
             startDate
             endDate
 						created
+						internalState
 						brand {
 							id
 							imageUrl

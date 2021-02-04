@@ -48,7 +48,7 @@ const PendingInfluencer = ({
 				internalState={internalState}
 				campaignId={campaignId}
 				internalState={internalState}
-				template={data.microsite && data.microsite !== null ? data.microsite.template : ''}
+				microsite={data.microsite && data.microsite !== null ? data.microsite : ''}
 			/>) : signContractFlag ? (<ReviewAndSign
 				name={name}
 				campaignId={campaignId}

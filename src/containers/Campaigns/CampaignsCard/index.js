@@ -53,6 +53,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 		'MM/DD/YYYY'
 	);
 	const convertedEndDate = moment(campaign.endDate * 1000).format('MM/DD/YYYY');
+
 	return (
 		<>
 			<Popover
@@ -76,7 +77,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 					<div>
 						<Copy /> <p>Duplicate Campaign</p>
 					</div>
-					<div style={{display:"none"}}>
+					<div style={{ display: "none" }}>
 						<Download /> <p>Download Campaign</p>
 					</div>
 
@@ -94,28 +95,26 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 					}
 				</div>
 			</Popover>
-
 			<Card className={styles.campaignCard}>
 				<CardContent className={styles.cardContent}>
 					<div className={styles.cardStatus}>
-						{brandType == 'Influencer' && campaign.status === 'INVITED' ? (
+						{brandType == 'Influencer' && campaign.internalState != 'MICROSITE_APPROVAL_REQUESTED' ? (
 							<span className={styles.alertBadge}>
 								<ErrorOutlineOutlinedIcon className={styles.alertIcon} />
               Action Required
 							</span>
-						) : 
-						(""
-								// campaign.status === 'DRAFT' ?
-								// 	(
-								// 		<span className={styles.alertBadge}>
-								// 			<ErrorOutlineOutlinedIcon className={styles.alertIcon} />
-								// Action Required
-								// 		</span>
-								// 	) : (
-								// 		''
-								// 	)
+						) :
+							(
+								brandType == 'Brand' && campaign.internalState === 'MICROSITE_APPROVAL_REQUESTED' ? (
+									<span className={styles.alertBadge}>
+										<ErrorOutlineOutlinedIcon className={styles.alertIcon} />
+								Action Required
+									</span>
+								) : (
+										''
+									)
 							)
-							}
+						}
 					</div>
 					<div className={styles.cardDetails}>
 						<div className={styles.campaignInfo} onClick={onClick}>
