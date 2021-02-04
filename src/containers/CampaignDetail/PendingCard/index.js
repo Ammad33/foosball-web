@@ -24,25 +24,32 @@ const PendingCard = ({ handlecreateMircositeFlag, handleSignContractFlag, data }
 					<button onClick={() => handleSignContract()}>Sign Contract</button>
 				</>
 			) :
-				data.microsite && data.microsite != null ? (
+				data.internalState === 'MICROSITE_APPROVAL_REQUESTED' ? (
 					<>
-						<h1>Finalize the Microsite.</h1>
-						<p className={styles.firstp}>Finalize the microsite and send it to brand for approval.</p>
-						<p className={styles.secondp}></p>
-						<div className={styles.buttonContainer}>
-							<button onClick={() => handleCreateMicroSite()} style={{ marginTop: '30px' }}>Edit Microsite</button>
-						</div>
+						<h1>You're all set!</h1>
+						<p className={styles.firstp}>No action items as of right now. We will let you know when there</p>
+						<p className={styles.secondp}>is something you need to do.</p>
 					</>
-				) : (
+				) :
+					data.microsite && data.microsite != null ? (
 						<>
-							<h1>Create the Microsite.</h1>
-							<p className={styles.firstp}>Customize the site your followers will shop on throughout this</p>
-							<p className={styles.secondp}>campaign.</p>
+							<h1>Finalize the Microsite.</h1>
+							<p className={styles.firstp}>Finalize the microsite and send it to brand for approval.</p>
+							<p className={styles.secondp}></p>
 							<div className={styles.buttonContainer}>
-								<button onClick={() => handleCreateMicroSite()}>Create Microsite</button>
+								<button onClick={() => handleCreateMicroSite()} style={{ marginTop: '30px' }}>Edit Microsite</button>
 							</div>
 						</>
-					)}
+					) : (
+							<>
+								<h1>Create the Microsite.</h1>
+								<p className={styles.firstp}>Customize the site your followers will shop on throughout this</p>
+								<p className={styles.secondp}>campaign.</p>
+								<div className={styles.buttonContainer}>
+									<button onClick={() => handleCreateMicroSite()}>Create Microsite</button>
+								</div>
+							</>
+						)}
 		</div >)
 };
 

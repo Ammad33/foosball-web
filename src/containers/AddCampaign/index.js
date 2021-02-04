@@ -1526,30 +1526,27 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       id = await createCampaign();
     } else {
       id = await updateCampaign();
-    }
-
-    let data = {
-      brandId: brandId,
-      id: campaign && campaign.id ? campaign.id : id,
-    };
-    try {
-      await API.graphql(
-        graphqlOperation(
-          `mutation MyMutation {
-						sendCampaignInvite(brandId: "${brandId}", id: "${
-            campaign && campaign.id ? campaign.id : id
-          }") {
-							id
-						}
-					}`
-        )
-      );
-
-      handleCancel();
-      gotoCampaginDetail(campaign !== undefined ? campaign.id : id);
-    } catch (e) {
-      console.log('Campaign Invite error ', e);
-    }
+		}
+		setTimeout(() => {
+			try {
+				await API.graphql(
+					graphqlOperation(
+						`mutation MyMutation {
+							sendCampaignInvite(brandId: "${brandId}", id: "${
+							campaign && campaign.id ? campaign.id : id
+						}") {
+								id
+							}
+						}`
+					)
+				);
+	
+				handleCancel();
+				gotoCampaginDetail(campaign !== undefined ? campaign.id : id);
+			} catch (e) {
+				console.log('Campaign Invite error ', e);
+			}
+		}, 1000);        
   };
 
   const gotoCampaginDetail = (id) => {

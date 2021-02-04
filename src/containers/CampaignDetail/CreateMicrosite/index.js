@@ -15,8 +15,9 @@ const CreateMicrosite = ({
 	name,
 	campaignId,
 	internalState,
-	template
+	microsite
 }) => {
+
 	const history = useHistory();
 
 	const [templated, setTemplate] = useState('');
@@ -34,28 +35,10 @@ const CreateMicrosite = ({
 		setConfirmTemplate(false)
 	}
 
-	// const getInternalState = async () => {
-	// 	try {
-	// 		const state = await API.graphql({
-	// 			query: `{
-	// 					influencerCampaign(influencerId: "${brandId}", id: "${campaignId}") {
-	// 						id
-	// 						internalState
-	// 					}
-	// 				}`
-	// 		});
-	// 		setInternalState(state.data.influencerCampaign.internalState);
-	// 	}
-	// 	catch (e) {
-	// 		console.log("error", e)
-	// 	}
-	// }
-
 	useEffect(() => {
 		window.scrollTo({ top: 0, behavior: 'smooth' });
-		setTemplate(template);
+		setTemplate(microsite && microsite != '' ? (microsite.template): (""));
 	}, []);
-
 
 	return (
 		<>
@@ -90,7 +73,7 @@ const CreateMicrosite = ({
 							<span>Back to templates</span>
 						</div>
 
-						<Template campaignId={campaignId} internalState={internalState} template={templated} />
+						<Template campaignId={campaignId} internalState={internalState} template={templated} microsite = {microsite} />
 					</> :
 						<div className={styles.contentContainer}>
 							<div className={styles.micrositeContainer}>

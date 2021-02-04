@@ -259,11 +259,24 @@ const CampaignDetail = ({ location }) => {
               time
 						}
 						microsite {
-							template
-							productBuyTextColor
+							appHeader {
+								shopCtaColor
+								titleBgColor
+							}
+							footer {
+								bgColor
+							}
+							influencerQuote {
+								bgColor
+								textColor
+								quoteIconColor
+							}
 							productBuyBgColor
-							influencerTitleName
-							influencerDisplayName
+							productBuyTextColor
+							shopBelow {
+								bgColor
+							}
+							template
 						}
           }
          
@@ -405,6 +418,23 @@ const CampaignDetail = ({ location }) => {
               time
 						}
 						microsite {
+							appHeader {
+								shopCtaColor
+								titleBgColor
+							}
+							footer {
+								bgColor
+							}
+							influencerQuote {
+								bgColor
+								textColor
+								quoteIconColor
+							}
+							productBuyBgColor
+							productBuyTextColor
+							shopBelow {
+								bgColor
+							}
 							template
 						}
           } 
