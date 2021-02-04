@@ -1527,7 +1527,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     } else {
       id = await updateCampaign();
 		}
-		setTimeout(() => {
 			try {
 				await API.graphql(
 					graphqlOperation(
@@ -1546,7 +1545,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 			} catch (e) {
 				console.log('Campaign Invite error ', e);
 			}
-		}, 1000);        
   };
 
   const gotoCampaginDetail = (id) => {
