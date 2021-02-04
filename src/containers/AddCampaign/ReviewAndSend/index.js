@@ -6,9 +6,11 @@ import SVG from 'react-inlinesvg';
 import moment from 'moment';
 import { RootContext } from '../../../context/RootContext';
 
+/**SVG */
 const EditSVG = ({ onClick }) => {
   return <SVG src={require('../../../assets/edit.svg')} onClick={onClick} />;
 };
+
 const ReviewAndSend = ({
   products,
   team,
@@ -33,14 +35,17 @@ const ReviewAndSend = ({
   handleActiveStep,
   handleActiveNext,
 }) => {
+  /**variables */
   const [totalPosts, setTotalPosts] = useState(0);
   const [teamMembers, setTeamMembers] = useState([]);
   const { currentUser } = useContext(RootContext);
 
+  /**activates the send invite button */
   useEffect(() => {
     handleActiveNext();
   }, []);
 
+  /**{function} get the heading for payment schedule */
   const getPaymentSchedule = (compensation) => {
     switch (compensation) {
       case 'FIRST_OF_MONTH':
@@ -53,7 +58,7 @@ const ReviewAndSend = ({
         return '';
     }
   };
-
+  /**{function} to get over budget */
   const overAmount1 = () => {
     let over = 0;
     compensations.forEach((item) => {
@@ -66,6 +71,7 @@ const ReviewAndSend = ({
     return parseFloat(over);
   };
 
+  /**{function} to get months between 2 dates  */
   function monthBetween(d1, d2) {
     const date1 = moment(d1);
     const date2 = moment(d2).add(1, 'd');
@@ -73,6 +79,7 @@ const ReviewAndSend = ({
     return Math.ceil(date2.diff(date1, 'days') / 30);
   }
 
+  /**{function} to calculate days between dates */
   function biMonthBetween(d1, d2) {
     const date1 = moment(d1);
     const date2 = moment(d2).add(1, 'd');
@@ -80,6 +87,7 @@ const ReviewAndSend = ({
     return Math.ceil(date2.diff(date1, 'days') / 60);
   }
 
+  /**{function} to calculate days between dates */
   function biWeekBetween(d1, d2) {
     const date1 = moment(d1);
     const date2 = moment(d2).add(1, 'd');
@@ -87,7 +95,9 @@ const ReviewAndSend = ({
     return Math.ceil(date2.diff(date1, 'days') / 14);
   }
 
+  /**{hook} filter members */
   useEffect(() => {
+    //set scroll to top
     document.getElementsByClassName(
       'AddCampaign_dialogContent__3teJx'
     )[0].scrollTop = 0;
@@ -97,6 +107,7 @@ const ReviewAndSend = ({
     setTeamMembers(filterdMembers);
   }, [selectedMembers]);
 
+  /**{hook} calculate the total posts**/
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     let totalPost = 0;
@@ -127,15 +138,19 @@ const ReviewAndSend = ({
     setTotalPosts(totalPost);
   }, []);
 
+  /**{function} capitalizes the first character of each word. */
   String.prototype.toProperCase = function () {
     return this.replace(/\w\S*/g, function (txt) {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
   };
 
+  /**{function} add commas in numbers */
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
+
+  /**{function} to get compensation type */
   const getCompensationType = (compensation) => {
     switch (compensation) {
       case 'REVENUE_SHARE':
@@ -151,6 +166,7 @@ const ReviewAndSend = ({
     }
   };
 
+  /**{function} to get compensation heading */
   const getCompensationHeading = (compensation) => {
     switch (compensation) {
       case 'REVENUE_SHARE':
@@ -166,6 +182,7 @@ const ReviewAndSend = ({
     }
   };
 
+/**{function} to get compensation amount */
   const getCompensationAmount = (compensation) => {
     switch (compensation.compensationType) {
       case 'REVENUE_SHARE':
@@ -209,6 +226,7 @@ const ReviewAndSend = ({
     }
   };
 
+  /**{function} to get compensation type value */
   const getCompensationTypeValue = (compensation) => {
     switch (compensation.compensationType) {
       case 'REVENUE_SHARE':
@@ -259,6 +277,7 @@ const ReviewAndSend = ({
     }
   };
 
+  /**{function} to get post frequency value */
   const getPostFrequency = (frequency) => {
     switch (frequency) {
       case 'BI_MONTHLY':
@@ -273,7 +292,7 @@ const ReviewAndSend = ({
         return '';
     }
   };
-
+/**{function} to get Total Compensation Estimate */
   const getTotal = () => {
     let total = 0;
     compensations.forEach((item) => {
@@ -313,6 +332,7 @@ const ReviewAndSend = ({
     return parseFloat(total).toFixed(2);
   };
 
+  /**{function} to get ammount of over budget  */
   const overAmount = () => {
     let over = getTotal() - parseFloat(budget);
 
@@ -321,13 +341,14 @@ const ReviewAndSend = ({
 
   const [collectionData, setCollectionData] = useState([]);
 
+  /**{function} to get weeks between 2 dates */
   function weeksBetween(d1, d2) {
     const date1 = moment(d1);
     const date2 = moment(d2).add(1, 'd');
     console.log(date2.diff(date1, 'days'));
     return Math.ceil(date2.diff(date1, 'days') / 7);
   }
-
+/**{hook} used to set collection data  */
   useEffect(() => {
     window.scrollTo(0, 0);
 

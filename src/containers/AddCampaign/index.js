@@ -1696,7 +1696,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     setActiveNext(flag);
   };
 
-  /************* Active for Negotiables */
+  /************* Active for influncer */
 
   const setActiveForInfluncer = () => {
     setActiveNext(influencer !== null ? true : false);

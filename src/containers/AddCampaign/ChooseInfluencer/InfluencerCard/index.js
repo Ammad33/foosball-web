@@ -7,6 +7,8 @@ import clsx from 'clsx';
 import { Facebook, Youtube, Instagram } from 'react-feather';
 
 const InfluencerCard = ({ influencer, selected, toggleInfluncer }) => {
+  
+  /**converts follower count to "m"(million)and "k"(thousand) formate */
   const calculateFollowersCount = (count) => {
 
     let millions = (count / 1000000).toString().split('.');

@@ -51,13 +51,17 @@ const CreateDeliverable = ({
 		frameContentType: ['Does not apply'],
 	});
 
-
+	/**to set the platform**/
 	useEffect(() => {
 		handleSetValue();
 	}, [deliverableItem.platform]);
+
+	/**handleDeliverDeadlineDate **/
 	useEffect(() => {
 		handleDeliverDeadlineDate("12/13/2021",index);
 	}, []);
+
+	/**{function} to handle post type */
 	const handlePostType = (value, index, name) => {
 		if (value === 'Post') {
 			setPost(true);
@@ -67,6 +71,8 @@ const CreateDeliverable = ({
 			handleDilverableContent(value, index, name);
 		}
 	};
+
+		/**{function} to handle social platform */
 	const handleSocialPlatform = (value, index, name) => {
 		if (value === 'Youtube') {
 			setOptions(true);
@@ -81,7 +87,7 @@ const CreateDeliverable = ({
 			handleDilverableContent(value, index, name);
 		}
 	};
-
+	/**{function} to handle platform */
 	const handleSetValue = () => {
 
 		switch (deliverableItem.platform) {

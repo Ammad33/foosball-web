@@ -9,7 +9,7 @@ import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 
-
+/**styles */
 const Accordion = withStyles({
   root: {
     marginTop: '10px',
@@ -27,6 +27,7 @@ const Accordion = withStyles({
   expanded: {},
 })(MuiAccordion);
 
+/**styles */
 const AccordionSummary = withStyles({
   root: {
     // marginBottom: -1,
@@ -43,6 +44,7 @@ const AccordionSummary = withStyles({
   expanded: {},
 })(MuiAccordionSummary);
 
+/**styles */
 const AccordionDetails = withStyles((theme) => ({
   root: {
     padding: theme.spacing(2),
@@ -50,7 +52,7 @@ const AccordionDetails = withStyles((theme) => ({
   },
 }))(MuiAccordionDetails);
 
-
+/**SVG */
 const PlusSVG = () => {
   return <SVG src={require('../../../assets/plus1.svg')} />;
 };
@@ -66,6 +68,8 @@ const Collection = ({
   handleCollectionExpand,
   products
 }) => {
+
+  /**check for conditions and activate the next button for collection */  
   useEffect(() => {
     handleActiveForCollection();
   }, [products]);

@@ -6,10 +6,9 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 const Negotiables = ({ selectedNegotiable, toggleNegotiable, handleActiveForNegotiable }) => {
 
+  /**check for conditions and activate the next button for negotiable */  
   useEffect(() => {
-
     handleActiveForNegotiable();
-
   }, [selectedNegotiable])
   return (
     <div className={styles.mainContainer}>

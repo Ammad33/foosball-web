@@ -17,6 +17,7 @@ const AddTeamMembers = ({
   const { currentUser } = useContext(RootContext);
   const [teamMembers, setTeamMembers] = useState([]);
 
+  /**activate the next button**/
   useEffect(() => {
     handleActiveNext();
   }, []);

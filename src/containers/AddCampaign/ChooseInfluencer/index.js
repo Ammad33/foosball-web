@@ -9,7 +9,9 @@ const ChooseInfluencer = ({
   influencers,
   handleActiveForInfluncer,
 }) => {
-  useEffect(() => {
+
+/**check for conditions and activate the next button for influencer */  
+useEffect(() => {
     handleActiveForInfluncer();
   }, [selectedInfluncer]);
   return (

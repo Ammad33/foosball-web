@@ -8,6 +8,8 @@ import AddIcon from '@material-ui/icons/Add';
 import styles from './Compensations.module.scss';
 import TextField from '../../../components/TextField';
 import mainStyles from '../../../index.module.scss';
+
+/**SVG */
 const Chevron = () => {
 	return (
 		<span className={styles.dropDownCustomizeSvg}>

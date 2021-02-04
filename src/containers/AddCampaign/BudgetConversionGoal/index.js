@@ -13,6 +13,7 @@ const BudgetAndConversionGoals = ({
 }) => {
   const [error, setError] = useState(false);
 
+  /**checks for condition and activate the next button for budget */
   useEffect(() => {
     setActiveForBudget();
   }, [budget, targetGrossSale]);

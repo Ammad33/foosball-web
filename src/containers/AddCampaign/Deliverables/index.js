@@ -15,6 +15,7 @@ const Deliverables = ({ deliveries, handleDeliveries, handleDilverableContent,
 	// handleDeliveries();
 	// }
 
+/**check for conditions and activate the next button for deliverable */  
 	useEffect(() => {
 		handleActiveForDeliverable();
 	}, [deliveries]);
