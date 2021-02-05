@@ -6,7 +6,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import StepConnector from '@material-ui/core/StepConnector';
 import Dialog from '@material-ui/core/Dialog';
-import { DialogTitle, DialogContent, SvgIcon } from '@material-ui/core';
+import { DialogTitle, DialogContent, SvgIcon, makeStyles } from '@material-ui/core';
 import styles from './AddCampaign.module.scss';
 import AddCampaignDetails from './AddCampaignDetails';
 import AddTeamMembers from './AddTeamMembers';
@@ -28,6 +28,7 @@ import logo from '../../assets/FomoPromo_logo__white.png';
 import * as _ from 'lodash';
 import { RootContext } from '../../context/RootContext';
 import { useHistory } from 'react-router-dom';
+import { CircularProgress } from '@material-ui/core';
 
 let typ = '';
 let val = '';
@@ -82,6 +83,16 @@ const CheckCircleIconSvg = (prop) => {
     </SvgIcon>
   );
 };
+
+
+const useStyles = makeStyles((theme) => ({
+
+  fabProgress: {
+    color: '#7B5CD9',
+  },
+
+}));
+
 /***********************************************************/
 
 /***************state variables ****************************/
@@ -212,6 +223,8 @@ function getSteps() {
  * step contains the information about the steps
  * campaign contains the campaign data*/
 const AddCampaign = ({ open, handleCancel, step, campaign }) => {
+
+  const fabClass = useStyles();
   const negotialbleOptions = [
     { id: 1, isChecked: true, key: 'post_fee', text: 'Cash Per Post' },
     { id: 2, isChecked: true, key: 'revenue_share', text: 'Revenue Share %' },
@@ -249,6 +262,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const [campaignError, setCampaignError] = useState('');
   const [products, setProducts] = useState('');
   const [minimium, setMinimium] = useState('');
+  const [inviteLoading, setInviteLoading] = useState(false);
 
   /****** Campaign Detail States ********/
   const [campaignName, setCampaignName] = useState('');
@@ -370,8 +384,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           ? campaign.discount.__typename === 'PercentageDiscount'
             ? 'Percentage'
             : campaign.discount.__typename === 'FlatDiscount'
-            ? 'Amount'
-            : ''
+              ? 'Amount'
+              : ''
           : ''
       );
       if (
@@ -1016,8 +1030,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         deliverable.postType && deliverable.postType !== null
           ? deliverable.postType.toUpperCase()
           : deliverable.deliverableType && deliverable.deliverableType !== null
-          ? deliverable.deliverableType.toUpperCase()
-          : null;
+            ? deliverable.deliverableType.toUpperCase()
+            : null;
       // }
       deliverable.frameContentType =
         deliverable.frameContentType && deliverable.frameContentType !== null
@@ -1128,8 +1142,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         deliverable.postType && deliverable.postType !== null
           ? deliverable.postType.toProperCase()
           : deliverable.deliverableType && deliverable.deliverableType !== null
-          ? deliverable.deliverableType.toProperCase()
-          : null;
+            ? deliverable.deliverableType.toProperCase()
+            : null;
       deliverable.frameContentType =
         deliverable.frameContentType && deliverable.frameContentType !== null
           ? deliverable.frameContentType.toProperCase()
@@ -1153,7 +1167,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   };
 
   /*{function}invoked on campaign creation or save and finish later is clicked */
-  const createCampaign = async () => {
+  const createCampaign = async (invite) => {
     try {
       if (discountType === 'Amount') {
         typ = 'FLAT';
@@ -1290,7 +1304,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         response.data.createCampaign !== null
       ) {
         updateCampaignProducts(response.data.createCampaign.id);
-        handleCancel();
+        if (invite === undefined) {
+          handleCancel();
+        }
+
 
         return response.data.createCampaign.id;
       } else {
@@ -1317,7 +1334,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   };
 
   /**API call for update the campaign products */
-  const updateCampaignProducts = async (id) => {
+  const updateCampaignProducts = async (id, invite) => {
     if (products && products.length > 0) {
       try {
         let data = {
@@ -1359,17 +1376,22 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             }
           )
         );
-        handleCancel();
+        if (invite === undefined) {
+          handleCancel();
+        }
+
       } catch (err) {
         console.log(err);
       }
     } else {
-      handleCancel();
+      if (invite === undefined) {
+        handleCancel();
+      }
     }
   };
 
   /**{function} to update the campaign */
-  const updateCampaign = async () => {
+  const updateCampaign = async (invite) => {
     if (discountType === 'Amount') {
       typ = 'FLAT';
       val =
@@ -1502,7 +1524,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         )
       );
 
-      updateCampaignProducts(campaign.id);
+      updateCampaignProducts(campaign.id, invite);
       // handleCancel();
       if (response && response !== null && response.data.updateCampaign.id) {
         return response.data.updateCampaign.id;
@@ -1523,29 +1545,39 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const sendCampaignInvite = async () => {
     let id = null;
     if (campaign === undefined || campaign === null) {
-      id = await createCampaign();
+      id = await createCampaign(true);
     } else {
-      id = await updateCampaign();
-		}
-			try {
-				await API.graphql(
-					graphqlOperation(
-						`mutation MyMutation {
+      id = await updateCampaign(true);
+    }
+
+    setInviteLoading(true);
+    setTimeout(() => invited(campaign && campaign.id ? campaign.id : id), 1000)
+
+  };
+
+  const invited = async (id) => {
+    try {
+      await API.graphql(
+        graphqlOperation(
+          `mutation MyMutation {
 							sendCampaignInvite(brandId: "${brandId}", id: "${
-							campaign && campaign.id ? campaign.id : id
-						}") {
+          id
+          }") {
 								id
 							}
 						}`
-					)
-				);
-	
-				handleCancel();
-				gotoCampaginDetail(campaign !== undefined ? campaign.id : id);
-			} catch (e) {
-				console.log('Campaign Invite error ', e);
-			}
-  };
+        )
+      );
+      setInviteLoading(false);
+
+      handleCancel();
+      gotoCampaginDetail(campaign !== undefined ? campaign.id : id);
+
+    } catch (e) {
+      setInviteLoading(false);
+      console.log('Campaign Invite error ', e);
+    }
+  }
 
   const gotoCampaginDetail = (id) => {
     history.push(`/campaignDetail/${id}`, { campaignId: id });
@@ -1592,11 +1624,11 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       if (collectionsResponse.data && collectionsResponse.data !== null) {
         setCollections(
           collectionsResponse.data.collections &&
-            collectionsResponse.data.collections.collections &&
-            collectionsResponse.data.collections.collections.map((obj) => ({
-              ...obj,
-              expand: false,
-            }))
+          collectionsResponse.data.collections.collections &&
+          collectionsResponse.data.collections.collections.map((obj) => ({
+            ...obj,
+            expand: false,
+          }))
         );
       }
     } catch (err) {
@@ -1948,7 +1980,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       }`,
       });
       setCampaigns(campaigns.data.campaigns.campaigns);
-    } catch (e) {}
+    } catch (e) { }
   };
 
   /**checks to active the Next button*/
@@ -2043,8 +2075,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                        <CheckCircleIconSvg viewBox='0 0 31 31' />
-                      )}
+                              <CheckCircleIconSvg viewBox='0 0 31 31' />
+                            )}
                       <span
                         className={
                           activeStep === index
@@ -2057,19 +2089,19 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                       </span>
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
                       {activeStep > index ? (
                         <div className={styles.activeBar} />
                       ) : (
-                        <div className={styles.inActiveBar} />
-                      )}
+                          <div className={styles.inActiveBar} />
+                        )}
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                 </>
               ))}
             </div>
@@ -2082,8 +2114,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                  <div></div>
-                )}
+                    <div></div>
+                  )}
                 <span onClick={handleCancelCampaignDialog}>
                   <XSVG />
                 </span>
@@ -2133,20 +2165,26 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                   </span>
                 ) : null}
               </div>
-              <button
-                onClick={(e) =>
-                  activeStep === 9
-                    ? sendCampaignInvite()
-                    : handleNext(activeStep, e)
+              <div>
+                {
+                  inviteLoading &&
+                  <CircularProgress className={fabClass.fabProgress} />
                 }
-                className={clsx(
-                  styles.nextButton,
-                  activeNext ? styles.activeButton : styles.inActiveButton
-                )}
-                disabled={!activeNext}
-              >
-                {activeStep === 9 ? 'Send Invite' : 'Next'}
-              </button>
+                <button
+                  onClick={(e) =>
+                    activeStep === 9
+                      ? sendCampaignInvite()
+                      : handleNext(activeStep, e)
+                  }
+                  className={clsx(
+                    styles.nextButton,
+                    activeNext ? styles.activeButton : styles.inActiveButton
+                  )}
+                  disabled={!activeNext}
+                >
+                  {activeStep === 9 ? 'Send Invite' : 'Next'}
+                </button>
+              </div>
             </div>
           </div>
         </div>
