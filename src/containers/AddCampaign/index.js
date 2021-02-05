@@ -409,7 +409,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       }
       if (campaign.deliverables && campaign.deliverables.length) {
         campaign.deliverables.map((deliverable) => {
-          console.log(deliverable);
           if (deliverable.deadlineDate) {
             deliverable.deadlineDate = moment(deliverable.deadlineDate).format(
               'L'
@@ -445,6 +444,43 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         }
       });
     return productSample;
+  };
+
+  const handleCollectionAllCheck = async (collec) => {
+    let clonnedCollections = [...collections];
+    const index = _.findIndex(collections, { id: collec.id });
+    clonnedCollections[index].selectedAll = true;
+
+    let clonnedProducts = [...products];
+    const collectionIndex = _.findIndex(clonnedProducts, {
+      collectionId: collec.id,
+    });
+    const mappedProducts = _.map(collec.products.products, (prod) => {
+      return { productId: prod.id };
+    });
+    if (collectionIndex > -1) {
+      clonnedProducts[collectionIndex].products = mappedProducts;
+    } else {
+      clonnedProducts[clonnedProducts.length] = {
+        collectionId: collec.id,
+        products: mappedProducts,
+      };
+    }
+    setProducts(clonnedProducts);
+    setCollections(clonnedCollections);
+  };
+  const handleCollectionAllUncheck = async (collec) => {
+    let clonnedCollections = [...collections];
+    const index = _.findIndex(collections, { id: collec.id });
+    clonnedCollections[index].selectedAll = false;
+
+    let clonnedProducts = [...products];
+    const collectionIndex = _.findIndex(clonnedProducts, {
+      collectionId: collec.id,
+    });
+    clonnedProducts[collectionIndex].products = [];
+    setProducts(clonnedProducts);
+    setCollections(clonnedCollections);
   };
 
   /**{react hook} get invoked when AddCampaign dialog open
@@ -633,7 +669,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   /**** API call to get team information */
   const getTeam = async () => {
-    console.log('running getTeam function in add campaign');
     try {
       const team = await API.graphql({
         query: `{
@@ -822,6 +857,35 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       });
       setProducts(opts);
     }
+    setTimeout(() => {
+      setCollectionsSelectAll();
+    });
+  };
+
+  const setCollectionsSelectAll = () => {
+    let clonnedCollections = [...collections];
+    clonnedCollections = _.map(clonnedCollections, (collection) => {
+      const index = _.findIndex(products, { collectionId: collection.id });
+      if (index > -1) {
+        if (
+          collection.products &&
+          collection.products.products &&
+          collection.products.products.length ===
+            products[index].products.length
+        ) {
+          collection.selectedAll = true;
+        } else {
+          collection.selectedAll = false;
+        }
+      } else {
+        collection.selectedAll = false;
+      }
+      return collection;
+    });
+    setCollections(clonnedCollections);
+    // setCollections((prev) =>
+    //   _.isEqual(prev, clonnedCollections) ? prev : clonnedCollections
+    // );
   };
 
   const toggleComponent = (option) => {
@@ -990,8 +1054,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     }
   };
 
-  // console.log(products);
-
   /**getting negotiable option Object*/
   const getNegotiablesObjectForAPI = () => {
     let data = {};
@@ -1004,7 +1066,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const getDeliverablesForAPI = () => {
     const data = [...deliveries];
     data.map((deliverable) => {
-      console.log(deliverable);
       delete deliverable.brandTagRequired;
       delete deliverable.hashTagRequired;
       delete deliverable.id;
@@ -1299,7 +1360,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       }
     } catch (e) {
       setDeliveries(APIErrorDeliverables());
-      console.log('Error in mutation for create campaign ', e);
       return null;
     }
   };
@@ -1323,7 +1383,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         let data = {
           brandId,
           id: id,
-          products: products,
+          products: _.filter(products, (prod) => prod.products.length > 0),
         };
 
         if (
@@ -1526,25 +1586,25 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       id = await createCampaign();
     } else {
       id = await updateCampaign();
-		}
-			try {
-				await API.graphql(
-					graphqlOperation(
-						`mutation MyMutation {
+    }
+    try {
+      await API.graphql(
+        graphqlOperation(
+          `mutation MyMutation {
 							sendCampaignInvite(brandId: "${brandId}", id: "${
-							campaign && campaign.id ? campaign.id : id
-						}") {
+            campaign && campaign.id ? campaign.id : id
+          }") {
 								id
 							}
 						}`
-					)
-				);
-	
-				handleCancel();
-				gotoCampaginDetail(campaign !== undefined ? campaign.id : id);
-			} catch (e) {
-				console.log('Campaign Invite error ', e);
-			}
+        )
+      );
+
+      handleCancel();
+      gotoCampaginDetail(campaign !== undefined ? campaign.id : id);
+    } catch (e) {
+      console.log('Campaign Invite error ', e);
+    }
   };
 
   const gotoCampaginDetail = (id) => {
@@ -1595,9 +1655,14 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             collectionsResponse.data.collections.collections &&
             collectionsResponse.data.collections.collections.map((obj) => ({
               ...obj,
+              selectedAll: false,
               expand: false,
             }))
         );
+        setTimeout(() => {
+          console.log('collections ', collections);
+          console.log('products ', products);
+        }, 3000);
       }
     } catch (err) {
       console.log(err);
@@ -1813,16 +1878,26 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       case 4:
         return (
           <Collection
-            collection={collection}
-            handleCollection={handleCollection}
-            collectionItems={items}
             collections={collections}
-            handleActiveForCollection={setActiveForCollection}
+            setCollections={setCollections}
             handleCollectionItem={handleCollectionItem}
+            handleActiveForCollection={setActiveForCollection}
             handleCollectionExpand={handleCollectionExpand}
+            handleCollectionAllCheck={handleCollectionAllCheck}
+            handleCollectionAllUncheck={handleCollectionAllUncheck}
             products={products}
-            clearCollections={handleCollectionClear}
           />
+          // <Collection
+          //   collection={collection}
+          //   handleCollection={handleCollection}
+          //   collectionItems={items}
+          //   collections={collections}
+          //   handleActiveForCollection={setActiveForCollection}
+          //   handleCollectionItem={handleCollectionItem}
+          //   handleCollectionExpand={handleCollectionExpand}
+          //   products={products}
+          //   clearCollections={handleCollectionClear}
+          // />
         );
       case 5:
         return (
