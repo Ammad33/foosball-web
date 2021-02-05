@@ -21,7 +21,9 @@ const ReviewAndSign = ({
 	createMircositeFlag,
 	handleCreateMicrosite,
 	template,
-	getCampaign
+	getCampaign,
+	brand,
+	influencer
 }) => {
 	const history = useHistory();
 	const { brandId } = useContext(RootContext);
@@ -69,6 +71,8 @@ const ReviewAndSign = ({
 		}
 	}
 
+
+
 	return (
 		<>
 			{createMircositeFlag && internalState && internalState != '' ? (
@@ -78,7 +82,10 @@ const ReviewAndSign = ({
 					internalState={internalState}
 					template={template}
 					getCampaign={getCampaign}
-					campaignId={campaignId} />
+					campaignId={campaignId}
+					influencer={influencer}
+					brand={brand}
+				/>
 			) : (
 					<div className={styles.mainContainer}>
 						<div className={styles.crumsContainer}>

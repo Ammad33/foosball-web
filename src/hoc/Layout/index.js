@@ -66,18 +66,16 @@ function ResponsiveDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [meData, setMeData] = useState([]);
-
 
   /**accessing RootContext */
-  const { brandType, updateMeData, setUpdateMeData } = useContext(RootContext);
+  const { brandType, updateMeData, setUpdateMeData, meData, setMeData } = useContext(RootContext);
 
   /**react hook initiate the api call whenever updateMeData changes */
   useEffect(() => {
-    if (updateMeData) {
+    if (meData === null) {
       myData();
     }
-  }, [updateMeData]);
+  }, [meData]);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
