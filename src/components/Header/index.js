@@ -58,6 +58,9 @@ const Header = (meData) => {
 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
+
+  console.log(meData && meData !== null && meData.meData !== null && meData.meData.imageUrl);
+
   return (
     <>
       <Popover

@@ -73,13 +73,13 @@ const Deliverables = ({ onClick, handleEdit, deliverables, status }) => {
           <div className={styles.detailSubContent}>
             <h6>Brand tag</h6>
             <p>
-              @{deliverables && deliverables.length && deliverables[0].brandTag && deliverables[0].brandTag !== null ? deliverables[0].brandTag : ''}
+              {deliverables && deliverables.length && deliverables[0].brandTag && deliverables[0].brandTag !== null ? deliverables[0].brandTag : ''}
             </p>
           </div>
           <div className={styles.detailSubContent}>
             <h6>Hashtag</h6>
             <p>
-              #{deliverables && deliverables.length ? deliverables[0].hashTag && deliverables[0].hashTag !== null && deliverables[0].hashTag : ''}
+              {deliverables && deliverables.length ? deliverables[0].hashTag && deliverables[0].hashTag !== null && deliverables[0].hashTag : ''}
             </p>
           </div>
           <div className={styles.detailSubContent} style={{ marginBottom: '20px' }}>

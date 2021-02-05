@@ -687,13 +687,13 @@ const ReviewAndSend = ({
           <h4>Total Compensation Estimate*:</h4>
           <h5>${numberWithCommas(Math.trunc(getTotal()))}</h5>
         </div>
-        {overAmount() > 0 && (
+        {overAmount1() > 0 && (
           <div
             style={{ margin: '20px 0px 10px 0px' }}
             className={styles.compensationBadge}
           >
             <p>
-              You are ${numberWithCommas(Math.trunc(overAmount()))} over budget
+              You are ${numberWithCommas(Math.trunc(overAmount1()))} over budget
             </p>
           </div>
         )}

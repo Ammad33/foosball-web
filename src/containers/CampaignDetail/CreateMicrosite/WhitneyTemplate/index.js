@@ -9,6 +9,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { RootContext } from '../../../../context/RootContext';
 import Iframe from 'react-iframe';
 import uploadImages from '../../../../actions/uploadImges';
+import config from '../../../../config';
 
 
 
@@ -607,7 +608,7 @@ const Templates = ({ campaignId, internalState, template, microsite,
 					</div>
 					<div className={styles.secondContainer}>
 						<Iframe
-							url={`https://preview.influence-sciences.com/?influencerId=${brandId}&campaignId=campaign%23${campaign}&accessToken=${currentUser.signInUserSession.accessToken.jwtToken}`}
+							url={`${config.fomo_Url}/?influencerId=${brandId}&campaignId=campaign%23${campaign}&accessToken=${currentUser.signInUserSession.accessToken.jwtToken}`}
 							width="100%"
 							height="100%"
 							id="myId"

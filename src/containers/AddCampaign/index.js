@@ -305,6 +305,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   /****** Deliverable States **********/
   const [deliverableDate, setDeliverableDate] = useState(false);
 
+  console.log(currentUser);
+
   const [deliveries, setDeliveries] = useState([
     {
       deadlineDate: '',
@@ -320,6 +322,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       frequency: '',
     },
   ]);
+
 
   const [influencers, setInfluencers] = useState([]);
 
@@ -424,16 +427,16 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       if (campaign.deliverables && campaign.deliverables.length) {
         campaign.deliverables.map((deliverable) => {
           console.log(deliverable);
-          if (deliverable.deadlineDate) {
-            deliverable.deadlineDate = moment(deliverable.deadlineDate).format(
-              'L'
-            );
-          }
+          // if (deliverable.deadlineDate) {
+          //   deliverable.deadlineDate = moment(deliverable.deadlineDate).format(
+          //     'L'
+          //   );
+          // }
           deliverable.brandTagRequired = deliverable.brandTag ? true : false;
           deliverable.hashTagRequired = deliverable.hashTag ? true : false;
           return deliverable;
         });
-        setDeliveries(campaign.deliverables);
+        setDeliveries(getDeliveries(campaign.deliverables));
       }
       if (campaign.influencer && campaign.influencer !== null) {
         setInfluencer(campaign.influencer);
@@ -485,7 +488,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       ]);
       setDeliveries([
         {
-          deadlineDate: '',
+          // deadlineDate: '',
           platform: '',
           frameContentType: '',
           postType: '',
@@ -635,7 +638,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   ]);
 
   //**** Members State **********/
-  const [selectedMembers, setSelectedMemebers] = useState([]);
+  const [selectedMembers, setSelectedMemebers] = useState([currentUser.username]);
+  console.log(selectedMembers);
 
   // const [selectedComponent, setSelectedComponent] = useState(componentOptions);
   const [selectedInfluncer, setSelectedInfluncer] = useState([]);
@@ -671,12 +675,26 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     }
   };
 
+  const getDeliveries = (delivreis) => {
+    let data = [...delivreis];
+    data.forEach(item => {
+      if (item.hashTag && item.hashTag !== null && item.hashTag !== '') {
+        item.hashTag = item.hashTag.replace(/#/g, '');
+
+      }
+      if (item.brandTag && item.brandTag !== null && item.brandTag !== '') {
+        item.brandTag = item.brandTag.replace(/@/g, '');
+      }
+    });
+    return data;
+  }
+
   /**{function} get invoked when adding new deliverable */
   const handleDeliverable = () => {
     const deliverables = [...deliveries];
 
     deliverables.push({
-      deadlineDate: '',
+      // deadlineDate: '',
       platform: '',
       frameContentType: '',
       postType: '',
@@ -1022,8 +1040,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       delete deliverable.brandTagRequired;
       delete deliverable.hashTagRequired;
       delete deliverable.id;
-      deliverable.deadlineDate =
-        Date.parse(`${deliverable.deadlineDate}`) / 1000;
+      delete deliverable.deadlineDate;
+      // deliverable.deadlineDate =
+      //   Date.parse(`${deliverable.deadlineDate}`) / 1000;
       deliverable.platform = deliverable.platform.toUpperCase();
       // if (deliverable.postType !== null || deliverable.deliverableType !== null) {
       deliverable.postType =
@@ -1038,22 +1057,15 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           ? deliverable.frameContentType.toUpperCase()
           : null;
       delete deliverable.deliverableType;
+      if (deliverable.hashTag && deliverable.hashTag !== null && deliverable.hashTag !== '') {
+        deliverable.hashTag = '#' + deliverable.hashTag;
+      }
+
+      if (deliverable.brandTag && deliverable.brandTag !== null && deliverable.brandTag !== null) {
+        deliverable.brandTag = '@' + deliverable.brandTag;
+      }
       return deliverable;
 
-      // switch (deliverable.frequency) {
-      //   case 'Every Month':
-      //     deliverable.frequency = 'MONTH';
-      //     break;
-      //   case 'Every other month':
-      //     deliverable.frequency = 'BI_MONTHLY';
-      //     break;
-      //   case 'Every Week':
-      //     deliverable.frequency = 'WEEK';
-      //     break;
-      //   case 'Every other week':
-      //     deliverable.frequency = 'BI_WEEKLY';
-      //     break;
-      // }
     });
     return data;
   };
@@ -1151,12 +1163,14 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
       if (deliverable.brandTag && deliverable.brandTag !== '') {
         deliverable.brandTagRequired = true;
+        deliverable.brandTag = deliverable.brandTag.replace(/@/g, '');
       } else {
         deliverable.brandTagRequired = false;
       }
 
       if (deliverable.hashTag && deliverable.hashTag !== '') {
         deliverable.hashTagRequired = true;
+        deliverable.hashTag = deliverable.hashTag.replace(/#/g, '');
       } else {
         deliverable.hashTagRequired = false;
       }
@@ -1184,7 +1198,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
       let data = {
         brandId,
-        team: currentUser.username,
+        // team: ,
         name: campaignName,
         startDate: Date.parse(`${startDate} ${startTime} `) / 1000,
         endDate: Date.parse(`${endDate} ${endTime} `) / 1000,

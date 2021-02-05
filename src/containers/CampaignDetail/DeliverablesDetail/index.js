@@ -24,7 +24,7 @@ const DeliverablesDetail = ({ deliverables }) => {
         return (
           <React.Fragment key={index}>
             <h6 className={styles.subHeader}>Deliverable {index + 1}</h6>
-            <div className={styles.detailSubContent} style={{display: 'none'}}>
+            <div className={styles.detailSubContent} style={{ display: 'none' }}>
               <h6>Deliverable Deadline</h6>
               <p>{deliverable ? deliverable.deadlineDate : ''}</p>
             </div>
@@ -46,11 +46,11 @@ const DeliverablesDetail = ({ deliverables }) => {
             </div>
             <div className={styles.detailSubContent}>
               <h6>Brand tag</h6>
-              <p>@{deliverable ? deliverable.brandTag : ''}</p>
+              <p>{deliverable ? deliverable.brandTag : ''}</p>
             </div>
             <div className={styles.detailSubContent}>
               <h6>Hashtag</h6>
-              <p>#{deliverable ? deliverable.hashTag : ''}</p>
+              <p>{deliverable ? deliverable.hashTag : ''}</p>
             </div>
             <div
               className={styles.detailSubContent}
