@@ -358,20 +358,14 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           : []
       );
 
-      if (
-        campaign.products &&
-        campaign.products !== null &&
-        campaign.products.length > 0
-      ) {
-        setProducts(getCampaignsProducts());
-      }
+
       setDiscountType(
         campaign.discount && campaign.discount !== null
           ? campaign.discount.__typename === 'PercentageDiscount'
             ? 'Percentage'
             : campaign.discount.__typename === 'FlatDiscount'
-            ? 'Amount'
-            : ''
+              ? 'Amount'
+              : ''
           : ''
       );
       if (
@@ -429,7 +423,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   /*************************************************************************************/
 
   /**{function} returns the array of objects containg the products information  */
-  const getCampaignsProducts = () => {
+  const getCampaignsProducts = (CollectionData) => {
+
     let productSample = [];
     campaign.products &&
       campaign.products.length > 0 &&
@@ -443,6 +438,19 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           });
         }
       });
+
+
+    productSample.forEach(item => {
+
+      CollectionData.forEach(second => {
+        if (second.id === item.collectionId && (second.products.products.length === item.products.length)) {
+          second.selectedAll = true;
+        }
+      })
+
+    });
+
+    setCollections(CollectionData);
     return productSample;
   };
 
@@ -469,6 +477,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     setProducts(clonnedProducts);
     setCollections(clonnedCollections);
   };
+
+
   const handleCollectionAllUncheck = async (collec) => {
     let clonnedCollections = [...collections];
     const index = _.findIndex(collections, { id: collec.id });
@@ -871,7 +881,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           collection.products &&
           collection.products.products &&
           collection.products.products.length ===
-            products[index].products.length
+          products[index].products.length
         ) {
           collection.selectedAll = true;
         } else {
@@ -1077,8 +1087,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         deliverable.postType && deliverable.postType !== null
           ? deliverable.postType.toUpperCase()
           : deliverable.deliverableType && deliverable.deliverableType !== null
-          ? deliverable.deliverableType.toUpperCase()
-          : null;
+            ? deliverable.deliverableType.toUpperCase()
+            : null;
       // }
       deliverable.frameContentType =
         deliverable.frameContentType && deliverable.frameContentType !== null
@@ -1182,15 +1192,16 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     data.map((deliverable) => {
       const eDate = new Date(deliverable.deadlineDate * 1000);
 
-      deliverable.deadlineDate = moment(eDate).format('L');
+      // deliverable.deadlineDate = moment(eDate).format('L');
+      delete deliverable.deadlineDate;
       deliverable.platform = deliverable.platform.toProperCase();
 
       deliverable.postType =
         deliverable.postType && deliverable.postType !== null
           ? deliverable.postType.toProperCase()
           : deliverable.deliverableType && deliverable.deliverableType !== null
-          ? deliverable.deliverableType.toProperCase()
-          : null;
+            ? deliverable.deliverableType.toProperCase()
+            : null;
       deliverable.frameContentType =
         deliverable.frameContentType && deliverable.frameContentType !== null
           ? deliverable.frameContentType.toProperCase()
@@ -1592,7 +1603,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         graphqlOperation(
           `mutation MyMutation {
 							sendCampaignInvite(brandId: "${brandId}", id: "${
-            campaign && campaign.id ? campaign.id : id
+          campaign && campaign.id ? campaign.id : id
           }") {
 								id
 							}
@@ -1652,17 +1663,27 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       if (collectionsResponse.data && collectionsResponse.data !== null) {
         setCollections(
           collectionsResponse.data.collections &&
+          collectionsResponse.data.collections.collections &&
+          collectionsResponse.data.collections.collections.map((obj) => ({
+            ...obj,
+            selectedAll: false,
+            expand: false,
+          }))
+        );
+
+        if (
+          campaign.products &&
+          campaign.products !== null &&
+          campaign.products.length > 0
+        ) {
+          setProducts(getCampaignsProducts(collectionsResponse.data.collections &&
             collectionsResponse.data.collections.collections &&
             collectionsResponse.data.collections.collections.map((obj) => ({
               ...obj,
               selectedAll: false,
               expand: false,
-            }))
-        );
-        setTimeout(() => {
-          console.log('collections ', collections);
-          console.log('products ', products);
-        }, 3000);
+            }))));
+        }
       }
     } catch (err) {
       console.log(err);
@@ -2023,7 +2044,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       }`,
       });
       setCampaigns(campaigns.data.campaigns.campaigns);
-    } catch (e) {}
+    } catch (e) { }
   };
 
   /**checks to active the Next button*/
@@ -2118,8 +2139,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                        <CheckCircleIconSvg viewBox='0 0 31 31' />
-                      )}
+                              <CheckCircleIconSvg viewBox='0 0 31 31' />
+                            )}
                       <span
                         className={
                           activeStep === index
@@ -2132,19 +2153,19 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                       </span>
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
                       {activeStep > index ? (
                         <div className={styles.activeBar} />
                       ) : (
-                        <div className={styles.inActiveBar} />
-                      )}
+                          <div className={styles.inActiveBar} />
+                        )}
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                 </>
               ))}
             </div>
@@ -2157,8 +2178,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                  <div></div>
-                )}
+                    <div></div>
+                  )}
                 <span onClick={handleCancelCampaignDialog}>
                   <XSVG />
                 </span>
