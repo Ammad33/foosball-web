@@ -16,7 +16,9 @@ const CreateMicrosite = ({
 	campaignId,
 	internalState,
 	microsite,
-	getCampaign
+	getCampaign,
+	brand,
+	influencer
 }) => {
 
 
@@ -39,54 +41,6 @@ const CreateMicrosite = ({
 		getCampaign();
 		setConfirmTemplate(false)
 	}
-
-	console.log(microsite)
-	// useEffect(() => {
-	// 	// if (templated !== '') {
-
-	// 	// }
-	// }, []);
-
-	// const getCampaign = async () => {
-	// 	try {
-	// 		const campaign = await API.graphql({
-	// 			query:
-	// 				`{ influencerCampaign(influencerId: "${brandId}", id: "${campaignId}") {
-	//                        id
-	// 					name
-	// 					status
-	//      				microsite {
-	// 						appHeader {
-	// 							shopCtaColor
-	// 							titleBgColor
-	// 						}
-	// 						footer {
-	// 							bgColor
-	// 						}
-	// 						influencerQuote {
-	// 							bgColor
-	// 							textColor
-	// 							quoteIconColor
-	// 						}
-	// 						productBuyBgColor
-	// 						productBuyTextColor
-	// 						shopBelow {
-	// 							bgColor
-	// 						}
-	// 						template
-	// 					}
-	//       }
-
-	//   }`});
-
-	// 		if (campaign.data && campaign.data !== null && campaign.data.influencerCampaign) {
-	// 			// setMiscroSite1(campaign.data.influencerCampaign.microsite);
-	// 			// setTemplate(campaign.data.influencerCampaign.microsite.template);
-	// 		}
-	// 	} catch (err) {
-	// 		console.log(err);
-	// 	}
-	// }
 
 	useEffect(() => {
 		window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -126,7 +80,14 @@ const CreateMicrosite = ({
 							<span>Back to templates</span>
 						</div>
 
-						<Template campaignId={campaignId} internalState={internalState} template={templated} microsite={microsite} />
+						<Template
+							campaignId={campaignId}
+							internalState={internalState}
+							template={templated}
+							microsite={microsite}
+							influencer={influencer}
+							brand={brand}
+						/>
 					</> :
 						<div className={styles.contentContainer}>
 							<div className={styles.micrositeContainer}>

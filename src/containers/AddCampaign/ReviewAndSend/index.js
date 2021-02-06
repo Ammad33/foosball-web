@@ -6,6 +6,7 @@ import SVG from 'react-inlinesvg';
 import moment from 'moment';
 import { RootContext } from '../../../context/RootContext';
 
+
 /**SVG */
 const EditSVG = ({ onClick }) => {
   return <SVG src={require('../../../assets/edit.svg')} onClick={onClick} />;
@@ -116,22 +117,22 @@ const ReviewAndSend = ({
         totalPost =
           totalPost +
           parseInt(item.posts) *
-            weeksBetween(new Date(startDate), new Date(endDate));
+          weeksBetween(new Date(startDate), new Date(endDate));
       } else if (item.frequency === 'BI_WEEKLY') {
         totalPost =
           totalPost +
           parseInt(item.posts) *
-            biWeekBetween(new Date(startDate), new Date(endDate));
+          biWeekBetween(new Date(startDate), new Date(endDate));
       } else if (item.frequency === 'MONTH') {
         totalPost =
           totalPost +
           parseInt(item.posts) *
-            monthBetween(new Date(startDate), new Date(endDate));
+          monthBetween(new Date(startDate), new Date(endDate));
       } else if (item.frequency === 'BI_MONTHLY') {
         totalPost =
           totalPost +
           parseInt(item.posts) *
-            biMonthBetween(new Date(startDate), new Date(endDate));
+          biMonthBetween(new Date(startDate), new Date(endDate));
       }
     });
 
@@ -182,7 +183,7 @@ const ReviewAndSend = ({
     }
   };
 
-/**{function} to get compensation amount */
+  /**{function} to get compensation amount */
   const getCompensationAmount = (compensation) => {
     switch (compensation.compensationType) {
       case 'REVENUE_SHARE':
@@ -237,10 +238,10 @@ const ReviewAndSend = ({
               Math.trunc(
                 parseFloat(
                   compensation.amount &&
-                    (
-                      (compensation.amount * parseFloat(targetGrossSale)) /
-                      100
-                    ).toFixed(2)
+                  (
+                    (compensation.amount * parseFloat(targetGrossSale)) /
+                    100
+                  ).toFixed(2)
                 )
               )
             )}
@@ -292,7 +293,7 @@ const ReviewAndSend = ({
         return '';
     }
   };
-/**{function} to get Total Compensation Estimate */
+  /**{function} to get Total Compensation Estimate */
   const getTotal = () => {
     let total = 0;
     compensations.forEach((item) => {
@@ -306,22 +307,22 @@ const ReviewAndSend = ({
             totalPost =
               totalPost +
               parseInt(item.posts) *
-                weeksBetween(new Date(startDate), new Date(endDate));
+              weeksBetween(new Date(startDate), new Date(endDate));
           } else if (item.frequency === 'BI_WEEKLY') {
             totalPost =
               totalPost +
               parseInt(item.posts) *
-                biWeekBetween(new Date(startDate), new Date(endDate));
+              biWeekBetween(new Date(startDate), new Date(endDate));
           } else if (item.frequency === 'MONTH') {
             totalPost =
               totalPost +
               parseInt(item.posts) *
-                monthBetween(new Date(startDate), new Date(endDate));
+              monthBetween(new Date(startDate), new Date(endDate));
           } else if (item.frequency === 'BI_MONTHLY') {
             totalPost =
               totalPost +
               parseInt(item.posts) *
-                biMonthBetween(new Date(startDate), new Date(endDate));
+              biMonthBetween(new Date(startDate), new Date(endDate));
           }
         });
         total = total + parseFloat(item.amount) * totalPost;
@@ -348,7 +349,7 @@ const ReviewAndSend = ({
     console.log(date2.diff(date1, 'days'));
     return Math.ceil(date2.diff(date1, 'days') / 7);
   }
-/**{hook} used to set collection data  */
+  /**{hook} used to set collection data  */
   useEffect(() => {
     window.scrollTo(0, 0);
 
@@ -439,8 +440,8 @@ const ReviewAndSend = ({
                 </div>
               </Grid>
             ) : (
-              ''
-            )}
+                ''
+              )}
             <Grid item xs={8}>
               <div className={styles.campaignItemInfo}>
                 <p>Custom Message to Influencer</p>
@@ -686,13 +687,13 @@ const ReviewAndSend = ({
           <h4>Total Compensation Estimate*:</h4>
           <h5>${numberWithCommas(Math.trunc(getTotal()))}</h5>
         </div>
-        {overAmount() > 0 && (
+        {overAmount1() > 0 && (
           <div
             style={{ margin: '20px 0px 10px 0px' }}
             className={styles.compensationBadge}
           >
             <p>
-              You are ${numberWithCommas(Math.trunc(overAmount()))} over budget
+              You are ${numberWithCommas(Math.trunc(overAmount1()))} over budget
             </p>
           </div>
         )}

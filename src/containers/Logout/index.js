@@ -8,12 +8,13 @@ import styles from './Logout.module.scss';
 const Logout = () => {
 
   const {
-		brandType,
+    brandType,
     setCurrentUser,
     setLogoutMessage,
     setBrandName,
     setBrandIdd, setRoute, setBrands, setbrandType,
-    setInfluencers
+    setInfluencers,
+    setMeData
   } = useContext(RootContext);
 
   const signOut = async () => {
@@ -27,9 +28,10 @@ const Logout = () => {
       setBrandIdd();
       setbrandType();
       setRoute('/');
+      setMeData(null);
 
-		}
-		 catch (error) {
+    }
+    catch (error) {
       console.log('error signing out: ', error);
     }
   };

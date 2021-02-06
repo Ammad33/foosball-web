@@ -9,9 +9,13 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { RootContext } from '../../../../context/RootContext';
 import Iframe from 'react-iframe';
 import uploadImages from '../../../../actions/uploadImges';
+import config from '../../../../config';
 
 
-const Templates = ({ campaignId, internalState, template, microsite }) => {
+
+const Templates = ({ campaignId, internalState, template, microsite,
+	brand,
+	influencer }) => {
 
 	///*****States for colors and images for all templates */
 
@@ -34,6 +38,8 @@ const Templates = ({ campaignId, internalState, template, microsite }) => {
 	const [heroImage1File, setHeroImage1File] = useState(null);
 	const [heroImage2File, setHeroImage2File] = useState(null);
 	const [heroImage3File, setHeroImage3File] = useState(null);
+	const [influencerImage, setInfluencerImage] = useState(null);
+	const [brandImage, setBrandImage] = useState(null);
 	const [heroImage, setHeroImage] = useState(null);
 	const [heroFile, setHeroFile] = useState(null);
 	const [image2, setImage2] = useState(null);
@@ -58,6 +64,33 @@ const Templates = ({ campaignId, internalState, template, microsite }) => {
 		setAnchorEl(null);
 	};
 
+	var elements = [];
+	function loaded() {
+		console.log("you have loaded an image");
+	}
+
+	function CreateFileFrom(dir) {
+
+		/* defining runtime variables */
+		var extension = dir.split('.').pop();
+		var keys = {
+			"png": "IMG", "jpg": "IMG", "jpeg": "IMG",
+			"js": "SCRIPT", "json": "SCRIPT",
+			"mp3": "AUDIO", "wav": "AUDIO"
+		};
+		var obj = document.createElement(keys[extension]) || {};
+		obj.src = dir;
+
+		/* onload function called when the resource is loaded */
+		obj.onload = (e) => {
+
+			elements.push(e.path[0]);
+			loaded()
+		}
+
+		/* make sure that the data is compitable */
+		if (keys[extension] == null) { console.error("not supported media type " + extension); return; }
+	}
 
 	//*** Set Colors For Each Template When Component loads first time */
 
@@ -103,7 +136,19 @@ const Templates = ({ campaignId, internalState, template, microsite }) => {
 			setQuotesBGColor("#2B426F");
 		}
 
-	}, [template, microsite])
+	}, [template, microsite]);
+
+
+	useEffect(() => {
+		if (brand && brand !== null && brand.imageUrl !== null) {
+			setBrandImage(CreateFileFrom(brand.imageUrl))
+			getImageFormUrl(brand.imageUrl, (image) => {
+				console.log(image);
+			})
+		}
+	}, [brand])
+
+	console.log(brandImage);
 
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
@@ -115,6 +160,41 @@ const Templates = ({ campaignId, internalState, template, microsite }) => {
 		let id = campaignId.split('#');
 		setCampaign(id[1]);
 	}, []);
+
+	function getImageFormUrl(url, callback) {
+		var img = new Image();
+		img.setAttribute('crossOrigin', 'anonymous');
+		img.onload = function (a) {
+			var canvas = document.createElement("canvas");
+			canvas.width = this.width;
+			canvas.height = this.height;
+			var ctx = canvas.getContext("2d");
+			ctx.drawImage(this, 0, 0);
+
+			var dataURI = canvas.toDataURL("image/jpg");
+
+			// convert base64/URLEncoded data component to raw binary data held in a string
+			var byteString;
+			if (dataURI.split(',')[0].indexOf('base64') >= 0)
+				byteString = atob(dataURI.split(',')[1]);
+			else
+				byteString = unescape(dataURI.split(',')[1]);
+
+			// separate out the mime component
+			var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+			// write the bytes of the string to a typed array
+			var ia = new Uint8Array(byteString.length);
+			for (var i = 0; i < byteString.length; i++) {
+				ia[i] = byteString.charCodeAt(i);
+			}
+
+			return callback(new Blob([ia], { type: mimeString }));
+		}
+
+		img.src = url;
+	}
+
 
 
 	//*** API Call for Hero Image */
@@ -528,7 +608,7 @@ const Templates = ({ campaignId, internalState, template, microsite }) => {
 					</div>
 					<div className={styles.secondContainer}>
 						<Iframe
-							url={`https://preview.influence-sciences.com/?influencerId=${brandId}&campaignId=campaign%23${campaign}&accessToken=${currentUser.signInUserSession.accessToken.jwtToken}`}
+							url={`${config.fomo_Url}/?influencerId=${brandId}&campaignId=campaign%23${campaign}&accessToken=${currentUser.signInUserSession.accessToken.jwtToken}`}
 							width="100%"
 							height="100%"
 							id="myId"

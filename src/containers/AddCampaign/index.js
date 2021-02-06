@@ -6,7 +6,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import StepConnector from '@material-ui/core/StepConnector';
 import Dialog from '@material-ui/core/Dialog';
-import { DialogTitle, DialogContent, SvgIcon } from '@material-ui/core';
+import { DialogTitle, DialogContent, SvgIcon, makeStyles } from '@material-ui/core';
 import styles from './AddCampaign.module.scss';
 import AddCampaignDetails from './AddCampaignDetails';
 import AddTeamMembers from './AddTeamMembers';
@@ -28,6 +28,7 @@ import logo from '../../assets/FomoPromo_logo__white.png';
 import * as _ from 'lodash';
 import { RootContext } from '../../context/RootContext';
 import { useHistory } from 'react-router-dom';
+import { CircularProgress } from '@material-ui/core';
 
 let typ = '';
 let val = '';
@@ -82,6 +83,16 @@ const CheckCircleIconSvg = (prop) => {
     </SvgIcon>
   );
 };
+
+
+const useStyles = makeStyles((theme) => ({
+
+  fabProgress: {
+    color: '#7B5CD9',
+  },
+
+}));
+
 /***********************************************************/
 
 /***************state variables ****************************/
@@ -212,6 +223,8 @@ function getSteps() {
  * step contains the information about the steps
  * campaign contains the campaign data*/
 const AddCampaign = ({ open, handleCancel, step, campaign }) => {
+
+  const fabClass = useStyles();
   const negotialbleOptions = [
     { id: 1, isChecked: true, key: 'post_fee', text: 'Cash Per Post' },
     { id: 2, isChecked: true, key: 'revenue_share', text: 'Revenue Share %' },
@@ -249,6 +262,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const [campaignError, setCampaignError] = useState('');
   const [products, setProducts] = useState('');
   const [minimium, setMinimium] = useState('');
+  const [inviteLoading, setInviteLoading] = useState(false);
 
   /****** Campaign Detail States ********/
   const [campaignName, setCampaignName] = useState('');
@@ -291,6 +305,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   /****** Deliverable States **********/
   const [deliverableDate, setDeliverableDate] = useState(false);
 
+  console.log(currentUser);
+
   const [deliveries, setDeliveries] = useState([
     {
       deadlineDate: '',
@@ -306,6 +322,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       frequency: '',
     },
   ]);
+
 
   const [influencers, setInfluencers] = useState([]);
 
@@ -403,16 +420,11 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       }
       if (campaign.deliverables && campaign.deliverables.length) {
         campaign.deliverables.map((deliverable) => {
-          if (deliverable.deadlineDate) {
-            deliverable.deadlineDate = moment(deliverable.deadlineDate).format(
-              'L'
-            );
-          }
           deliverable.brandTagRequired = deliverable.brandTag ? true : false;
           deliverable.hashTagRequired = deliverable.hashTag ? true : false;
           return deliverable;
         });
-        setDeliveries(campaign.deliverables);
+        setDeliveries(getDeliveries(campaign.deliverables));
       }
       if (campaign.influencer && campaign.influencer !== null) {
         setInfluencer(campaign.influencer);
@@ -517,7 +529,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       ]);
       setDeliveries([
         {
-          deadlineDate: '',
+          // deadlineDate: '',
           platform: '',
           frameContentType: '',
           postType: '',
@@ -667,7 +679,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   ]);
 
   //**** Members State **********/
-  const [selectedMembers, setSelectedMemebers] = useState([]);
+  const [selectedMembers, setSelectedMemebers] = useState([currentUser.username]);
+  console.log(selectedMembers);
 
   // const [selectedComponent, setSelectedComponent] = useState(componentOptions);
   const [selectedInfluncer, setSelectedInfluncer] = useState([]);
@@ -702,12 +715,26 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     }
   };
 
+  const getDeliveries = (delivreis) => {
+    let data = [...delivreis];
+    data.forEach(item => {
+      if (item.hashTag && item.hashTag !== null && item.hashTag !== '') {
+        item.hashTag = item.hashTag.replace(/#/g, '');
+
+      }
+      if (item.brandTag && item.brandTag !== null && item.brandTag !== '') {
+        item.brandTag = item.brandTag.replace(/@/g, '');
+      }
+    });
+    return data;
+  }
+
   /**{function} get invoked when adding new deliverable */
   const handleDeliverable = () => {
     const deliverables = [...deliveries];
 
     deliverables.push({
-      deadlineDate: '',
+      // deadlineDate: '',
       platform: '',
       frameContentType: '',
       postType: '',
@@ -1079,8 +1106,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       delete deliverable.brandTagRequired;
       delete deliverable.hashTagRequired;
       delete deliverable.id;
-      deliverable.deadlineDate =
-        Date.parse(`${deliverable.deadlineDate}`) / 1000;
+      delete deliverable.deadlineDate;
+      // deliverable.deadlineDate =
+      //   Date.parse(`${deliverable.deadlineDate}`) / 1000;
       deliverable.platform = deliverable.platform.toUpperCase();
       // if (deliverable.postType !== null || deliverable.deliverableType !== null) {
       deliverable.postType =
@@ -1095,22 +1123,15 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           ? deliverable.frameContentType.toUpperCase()
           : null;
       delete deliverable.deliverableType;
+      if (deliverable.hashTag && deliverable.hashTag !== null && deliverable.hashTag !== '') {
+        deliverable.hashTag = '#' + deliverable.hashTag;
+      }
+
+      if (deliverable.brandTag && deliverable.brandTag !== null && deliverable.brandTag !== null) {
+        deliverable.brandTag = '@' + deliverable.brandTag;
+      }
       return deliverable;
 
-      // switch (deliverable.frequency) {
-      //   case 'Every Month':
-      //     deliverable.frequency = 'MONTH';
-      //     break;
-      //   case 'Every other month':
-      //     deliverable.frequency = 'BI_MONTHLY';
-      //     break;
-      //   case 'Every Week':
-      //     deliverable.frequency = 'WEEK';
-      //     break;
-      //   case 'Every other week':
-      //     deliverable.frequency = 'BI_WEEKLY';
-      //     break;
-      // }
     });
     return data;
   };
@@ -1209,12 +1230,14 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
       if (deliverable.brandTag && deliverable.brandTag !== '') {
         deliverable.brandTagRequired = true;
+        deliverable.brandTag = deliverable.brandTag.replace(/@/g, '');
       } else {
         deliverable.brandTagRequired = false;
       }
 
       if (deliverable.hashTag && deliverable.hashTag !== '') {
         deliverable.hashTagRequired = true;
+        deliverable.hashTag = deliverable.hashTag.replace(/#/g, '');
       } else {
         deliverable.hashTagRequired = false;
       }
@@ -1225,7 +1248,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   };
 
   /*{function}invoked on campaign creation or save and finish later is clicked */
-  const createCampaign = async () => {
+  const createCampaign = async (invite) => {
     try {
       if (discountType === 'Amount') {
         typ = 'FLAT';
@@ -1242,7 +1265,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
       let data = {
         brandId,
-        team: currentUser.username,
+        // team: ,
         name: campaignName,
         startDate: Date.parse(`${startDate} ${startTime} `) / 1000,
         endDate: Date.parse(`${endDate} ${endTime} `) / 1000,
@@ -1362,7 +1385,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         response.data.createCampaign !== null
       ) {
         updateCampaignProducts(response.data.createCampaign.id);
-        handleCancel();
+        if (invite === undefined) {
+          handleCancel();
+        }
+
 
         return response.data.createCampaign.id;
       } else {
@@ -1388,7 +1414,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   };
 
   /**API call for update the campaign products */
-  const updateCampaignProducts = async (id) => {
+  const updateCampaignProducts = async (id, invite) => {
     if (products && products.length > 0) {
       try {
         let data = {
@@ -1430,17 +1456,22 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             }
           )
         );
-        handleCancel();
+        if (invite === undefined) {
+          handleCancel();
+        }
+
       } catch (err) {
         console.log(err);
       }
     } else {
-      handleCancel();
+      if (invite === undefined) {
+        handleCancel();
+      }
     }
   };
 
   /**{function} to update the campaign */
-  const updateCampaign = async () => {
+  const updateCampaign = async (invite) => {
     if (discountType === 'Amount') {
       typ = 'FLAT';
       val =
@@ -1573,7 +1604,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         )
       );
 
-      updateCampaignProducts(campaign.id);
+      updateCampaignProducts(campaign.id, invite);
       // handleCancel();
       if (response && response !== null && response.data.updateCampaign.id) {
         return response.data.updateCampaign.id;
@@ -1594,29 +1625,39 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const sendCampaignInvite = async () => {
     let id = null;
     if (campaign === undefined || campaign === null) {
-      id = await createCampaign();
+      id = await createCampaign(true);
     } else {
-      id = await updateCampaign();
+      id = await updateCampaign(true);
     }
+
+    setInviteLoading(true);
+    setTimeout(() => invited(campaign && campaign.id ? campaign.id : id), 1000)
+
+  };
+
+  const invited = async (id) => {
     try {
       await API.graphql(
         graphqlOperation(
           `mutation MyMutation {
 							sendCampaignInvite(brandId: "${brandId}", id: "${
-          campaign && campaign.id ? campaign.id : id
+          id
           }") {
 								id
 							}
 						}`
         )
       );
+      setInviteLoading(false);
 
       handleCancel();
       gotoCampaginDetail(campaign !== undefined ? campaign.id : id);
+
     } catch (e) {
+      setInviteLoading(false);
       console.log('Campaign Invite error ', e);
     }
-  };
+  }
 
   const gotoCampaginDetail = (id) => {
     history.push(`/campaignDetail/${id}`, { campaignId: id });
@@ -1666,24 +1707,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           collectionsResponse.data.collections.collections &&
           collectionsResponse.data.collections.collections.map((obj) => ({
             ...obj,
-            selectedAll: false,
             expand: false,
           }))
         );
-
-        if (
-          campaign.products &&
-          campaign.products !== null &&
-          campaign.products.length > 0
-        ) {
-          setProducts(getCampaignsProducts(collectionsResponse.data.collections &&
-            collectionsResponse.data.collections.collections &&
-            collectionsResponse.data.collections.collections.map((obj) => ({
-              ...obj,
-              selectedAll: false,
-              expand: false,
-            }))));
-        }
       }
     } catch (err) {
       console.log(err);
@@ -2229,20 +2255,26 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                   </span>
                 ) : null}
               </div>
-              <button
-                onClick={(e) =>
-                  activeStep === 9
-                    ? sendCampaignInvite()
-                    : handleNext(activeStep, e)
+              <div>
+                {
+                  inviteLoading &&
+                  <CircularProgress className={fabClass.fabProgress} />
                 }
-                className={clsx(
-                  styles.nextButton,
-                  activeNext ? styles.activeButton : styles.inActiveButton
-                )}
-                disabled={!activeNext}
-              >
-                {activeStep === 9 ? 'Send Invite' : 'Next'}
-              </button>
+                <button
+                  onClick={(e) =>
+                    activeStep === 9
+                      ? sendCampaignInvite()
+                      : handleNext(activeStep, e)
+                  }
+                  className={clsx(
+                    styles.nextButton,
+                    activeNext ? styles.activeButton : styles.inActiveButton
+                  )}
+                  disabled={!activeNext}
+                >
+                  {activeStep === 9 ? 'Send Invite' : 'Next'}
+                </button>
+              </div>
             </div>
           </div>
         </div>

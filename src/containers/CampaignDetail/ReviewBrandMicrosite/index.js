@@ -10,6 +10,7 @@ import ArvonTemplate from '../../../assets/Arvon_Template.png';
 import { API, graphqlOperation } from 'aws-amplify';
 import { RootContext } from '../../../context/RootContext';
 import Iframe from 'react-iframe';
+import config from '../../../config';
 
 
 
@@ -85,18 +86,16 @@ const ReviewBrandMicrosite = ({ name, data, campaignId }) => {
 				<span>Review Microsite</span>
 			</div>
 			<div className={styles.contentContainer}>
-				<div className={styles.micrositeContainer}>
-					<div className={styles.secondContainer}>
-						<Iframe
-							url={`https://preview.influence-sciences.com/?brandId=${brandId}&campaignId=campaign%23${campaign}&accessToken=${currentUser.signInUserSession.accessToken.jwtToken}`}
-							width="100%"
-							height="100%"
-							id="myId"
-							// className="myClassname"
-							className={styles.secondContainer}
-							display="initial"
-							position="relative" />
-					</div>
+				<div className={styles.secondContainer}>
+					<Iframe
+						url={`${config.fomo_Url}/?brandId=${brandId}&campaignId=campaign%23${campaign}&accessToken=${currentUser.signInUserSession.accessToken.jwtToken}`}
+						width="100%"
+						height="100%"
+						id="myId"
+						// className="myClassname"
+						className={styles.secondContainer}
+						display="initial"
+						position="relative" />
 				</div>
 				<div className={styles.actionsContainer}>
 					<Button className={styles.declineBtn}>Default</Button>

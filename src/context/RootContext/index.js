@@ -34,6 +34,7 @@ export default ({ children }) => {
   const [showLoader, setShowLoader] = useState(false);
   const [toastrData, setToastrData] = useState({});
   const [updateMeData, setUpdateMeData] = useState(true);
+  const [meData, setMeData] = useState(null);
   /*****************************************************************/
 
   /*****setting values to local storage*****************************/
@@ -140,8 +141,10 @@ export default ({ children }) => {
     setToastrData,
     updateMeData,
     setUpdateMeData,
+    meData,
+    setMeData
   };
-/*******************************************************************/
+  /*******************************************************************/
 
   return (
     <RootContext.Provider value={defaultContext}>

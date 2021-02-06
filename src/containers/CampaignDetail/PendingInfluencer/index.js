@@ -50,6 +50,8 @@ const PendingInfluencer = ({
 				campaignId={campaignId}
 				internalState={internalState}
 				getCampaign={getCampaign}
+				influencer={data.influencer && data.influencer !== null ? data.influencer : null}
+				brand={data.brand && data.brand !== null ? data.brand : null}
 				microsite={data.microsite && data.microsite !== null ? data.microsite : ''}
 			/>) : signContractFlag ? (<ReviewAndSign
 				name={name}
@@ -57,6 +59,9 @@ const PendingInfluencer = ({
 				getCampaign={getCampaign}
 				createMircositeFlag={createMircositeFlag}
 				internalState={internalState}
+				influencer={data.influencer && data.influencer !== null ? data.influencer : null}
+				brand={data.brand && data.brand !== null ? data.brand : null}
+
 				template={data.microsite && data.microsite !== null ? data.microsite.template : ''}
 				handleCreateMicrosite={() => setCreateMicrositeFlag(true)}
 			/>) :
