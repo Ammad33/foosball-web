@@ -1,5 +1,5 @@
 export default {
-  fomo_Url: 'https://preview.fomopromo.com',
+  fomo_Url: 'https://preview.influence-sciences.com',
   aws_appsync_graphqlEndpoint:
     'https://qhxcivebvjetfobrwj5leqihze.appsync-api.us-east-1.amazonaws.com/graphql',
   aws_appsync_region: 'us-east-1',
