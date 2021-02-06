@@ -501,6 +501,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       collectionId: collec.id,
     });
     clonnedProducts[collectionIndex].products = [];
+    clonnedProducts.splice(collectionIndex, 1);
     setProducts(clonnedProducts);
     setCollections(clonnedCollections);
   };
