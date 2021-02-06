@@ -108,7 +108,6 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			setQuotesColor(microsite.influencerQuote.quoteIconColor);
 			setShopColor(microsite.shopBelow.bgColor);
 			setFooterColor(microsite.footer.bgColor);
-			console.log(microsite);
 			setQuoteMessage(microsite.influencerQuote.quoteContent);
 			setHeroImage(microsite.hero.imageLarge && microsite.hero.imageLarge !== null ? microsite.hero.imageLarge : null)
 			setImage2(microsite.appHeader.imageLarge && microsite.appHeader.imageLarge !== null ? microsite.appHeader.imageLarge : null)
@@ -119,6 +118,9 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			setShopColor('#FEF5CB');
 			setFooterColor('#DCB7D1');
 			setQuotesBGColor("#F1E2EC");
+			setHeroImage(microsite.hero.imageLarge && microsite.hero.imageLarge !== null ? microsite.hero.imageLarge : null)
+			setImage2(microsite.appHeader.imageLarge && microsite.appHeader.imageLarge !== null ? microsite.appHeader.imageLarge : null)
+
 		} else if (template === 'FOUR') {
 			setHeaderColor('#B4C389');
 			setButtonColor('#B4C389');
@@ -126,6 +128,9 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			setShopColor('#FEF5CB');
 			setFooterColor('#B4C389');
 			setQuotesBGColor("#B4C389");
+			setHeroImage(microsite.hero.imageLarge && microsite.hero.imageLarge !== null ? microsite.hero.imageLarge : null)
+			setImage2(microsite.appHeader.imageLarge && microsite.appHeader.imageLarge !== null ? microsite.appHeader.imageLarge : null)
+
 
 		} else if (template === 'THREE') {
 			setHeaderColor('#2B426F');
@@ -134,6 +139,8 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			setShopColor('#2B426F');
 			setFooterColor('#2B426F');
 			setQuotesBGColor("#2B426F");
+			setHeroImage(microsite.hero.imageLarge && microsite.hero.imageLarge !== null ? microsite.hero.imageLarge : null)
+			setImage2(microsite.appHeader.imageLarge && microsite.appHeader.imageLarge !== null ? microsite.appHeader.imageLarge : null)
 		}
 
 	}, [template, microsite]);
