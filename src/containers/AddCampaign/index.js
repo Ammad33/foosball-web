@@ -1701,6 +1701,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         }`,
       });
 
+      debugger;
       if (collectionsResponse.data && collectionsResponse.data !== null) {
         setCollections(
           collectionsResponse.data.collections &&
@@ -1710,6 +1711,15 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             expand: false,
           }))
         );
+      }
+
+      if (campaign.products && campaign.products !== null && campaign.products.length > 0) {
+        setProducts(getCampaignsProducts(collectionsResponse.data.collections &&
+          collectionsResponse.data.collections.collections &&
+          collectionsResponse.data.collections.collections.map((obj) => ({
+            ...obj,
+            expand: false,
+          }))));
       }
     } catch (err) {
       console.log(err);
