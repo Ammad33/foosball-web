@@ -10,6 +10,7 @@ import ArvonTemplate from '../../../assets/Arvon_Template.png';
 import { API, graphqlOperation } from 'aws-amplify';
 import { RootContext } from '../../../context/RootContext';
 import Iframe from 'react-iframe';
+import config from '../../../config';
 
 
 
@@ -87,7 +88,7 @@ const ReviewBrandMicrosite = ({ name, data, campaignId }) => {
 			<div className={styles.contentContainer}>
 				<div className={styles.secondContainer}>
 					<Iframe
-						url={`https://preview.influence-sciences.com/?brandId=${brandId}&campaignId=campaign%23${campaign}&accessToken=${currentUser.signInUserSession.accessToken.jwtToken}`}
+						url={`${config.fomo_Url}/?brandId=${brandId}&campaignId=campaign%23${campaign}&accessToken=${currentUser.signInUserSession.accessToken.jwtToken}`}
 						width="100%"
 						height="100%"
 						id="myId"
