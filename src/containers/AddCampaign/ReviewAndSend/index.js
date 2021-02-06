@@ -499,10 +499,10 @@ const ReviewAndSend = ({
             </Grid>
           </Grid>
         </div>
-        {overAmount1() > 0 && (
+        {overAmount() > 0 && (
           <div className={styles.compensationBadge}>
             <p>
-              You are ${numberWithCommas(Math.trunc(overAmount1()))} over budget
+              You are ${numberWithCommas(Math.trunc(overAmount()))} over budget
             </p>
           </div>
         )}
@@ -687,13 +687,13 @@ const ReviewAndSend = ({
           <h4>Total Compensation Estimate*:</h4>
           <h5>${numberWithCommas(Math.trunc(getTotal()))}</h5>
         </div>
-        {overAmount1() > 0 && (
+        {overAmount() > 0 && (
           <div
             style={{ margin: '20px 0px 10px 0px' }}
             className={styles.compensationBadge}
           >
             <p>
-              You are ${numberWithCommas(Math.trunc(overAmount1()))} over budget
+              You are ${numberWithCommas(Math.trunc(overAmount()))} over budget
             </p>
           </div>
         )}
