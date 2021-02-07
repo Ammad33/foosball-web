@@ -263,6 +263,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const [products, setProducts] = useState('');
   const [minimium, setMinimium] = useState('');
   const [inviteLoading, setInviteLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   /****** Campaign Detail States ********/
   const [campaignName, setCampaignName] = useState('');
@@ -304,8 +305,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const [collection, setCollection] = useState('');
   /****** Deliverable States **********/
   const [deliverableDate, setDeliverableDate] = useState(false);
-
-  console.log(currentUser);
 
   const [deliveries, setDeliveries] = useState([
     {
@@ -681,7 +680,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   //**** Members State **********/
   const [selectedMembers, setSelectedMemebers] = useState([currentUser.username]);
-  console.log(selectedMembers);
 
   // const [selectedComponent, setSelectedComponent] = useState(componentOptions);
   const [selectedInfluncer, setSelectedInfluncer] = useState([]);
@@ -720,11 +718,11 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     let data = [...delivreis];
     data.forEach(item => {
       if (item.hashTag && item.hashTag !== null && item.hashTag !== '') {
-        item.hashTag = item.hashTag.replace(/#/g, '');
+        item.hashTag = item.hashTag;
 
       }
       if (item.brandTag && item.brandTag !== null && item.brandTag !== '') {
-        item.brandTag = item.brandTag.replace(/@/g, '');
+        item.brandTag = item.brandTag;
       }
     });
     return data;
@@ -1124,13 +1122,13 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           ? deliverable.frameContentType.toUpperCase()
           : null;
       delete deliverable.deliverableType;
-      if (deliverable.hashTag && deliverable.hashTag !== null && deliverable.hashTag !== '') {
-        deliverable.hashTag = '#' + deliverable.hashTag;
-      }
+      // if (deliverable.hashTag && deliverable.hashTag !== null && deliverable.hashTag !== '') {
+      //   deliverable.hashTag = '#' + deliverable.hashTag;
+      // }
 
-      if (deliverable.brandTag && deliverable.brandTag !== null && deliverable.brandTag !== null) {
-        deliverable.brandTag = '@' + deliverable.brandTag;
-      }
+      // if (deliverable.brandTag && deliverable.brandTag !== null && deliverable.brandTag !== null) {
+      //   deliverable.brandTag = '@' + deliverable.brandTag;
+      // }
       return deliverable;
 
     });
@@ -1144,7 +1142,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         case 'CompRevenueShare':
           return {
             compensationType: 'REVENUE_SHARE',
-            amount: item.percentage * 10,
+            amount: item.percentage * 100,
           };
         case 'CompCashPerPost':
           return {
@@ -1173,7 +1171,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         case 'REVENUE_SHARE':
           return {
             type: 'REVENUE_SHARE',
-            value: '{ "percentage": "' + item.amount / 10 + '"}',
+            value: '{ "percentage": "' + item.amount / 100 + '"}',
           };
         case 'CASH_PER_POST':
           return {
@@ -1231,14 +1229,14 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
       if (deliverable.brandTag && deliverable.brandTag !== '') {
         deliverable.brandTagRequired = true;
-        deliverable.brandTag = deliverable.brandTag.replace(/@/g, '');
+        // deliverable.brandTag = deliverable.brandTag.replace(/@/g, '');
       } else {
         deliverable.brandTagRequired = false;
       }
 
       if (deliverable.hashTag && deliverable.hashTag !== '') {
         deliverable.hashTagRequired = true;
-        deliverable.hashTag = deliverable.hashTag.replace(/#/g, '');
+        // deliverable.hashTag = deliverable.hashTag.replace(/#/g, '');
       } else {
         deliverable.hashTagRequired = false;
       }
@@ -1398,6 +1396,17 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       }
     } catch (e) {
       setDeliveries(APIErrorDeliverables());
+      console.log(e);
+
+      let message = '';
+
+      if (e.errors && e.errors.length > 0)
+        e.errors.forEach(m => {
+          message = message + m.message;
+        });
+
+      setErrorMessage(message);
+
       return null;
     }
   };
@@ -1463,6 +1472,14 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
       } catch (err) {
         console.log(err);
+        let message = '';
+
+        if (err.errors && err.errors.length > 0)
+          err.errors.forEach(m => {
+            message = message + m.message;
+          });
+
+        setErrorMessage(message);
       }
     } else {
       if (invite === undefined) {
@@ -1616,6 +1633,14 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     } catch (e) {
       setDeliveries(APIErrorDeliverables());
       console.log('update campaign error ', e);
+      let message = '';
+
+      if (e.errors && e.errors.length > 0)
+        e.errors.forEach(m => {
+          message = message + m.message;
+        });
+
+      setErrorMessage(message);
       return null;
     }
   };
@@ -1657,6 +1682,14 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     } catch (e) {
       setInviteLoading(false);
       console.log('Campaign Invite error ', e);
+      let message = '';
+
+      if (e.errors && e.errors.length > 0)
+        e.errors.forEach(m => {
+          message = message + m.message;
+        });
+
+      setErrorMessage(message);
     }
   }
 
@@ -2286,6 +2319,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                 </button>
               </div>
             </div>
+            {errorMessage !== '' && <div style={{ padding: '0px 24px 24px 24px', color: 'red' }}>{errorMessage}</div>}
           </div>
         </div>
       </Dialog>

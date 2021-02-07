@@ -288,7 +288,7 @@ const CampaignDetailInfluencer = ({
 				) {
 					total =
 						total +
-						parseFloat(item.percentage * 1000) *
+						parseFloat(item.percentage * 100) *
 						parseFloat(data.targetGrossSales.amount / 100);
 				} else {
 					total = total + parseFloat(item.amount.amount);

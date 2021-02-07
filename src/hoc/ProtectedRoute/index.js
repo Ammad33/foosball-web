@@ -21,13 +21,19 @@ const ProtectedRoute = ({ children, ...routeProps }) => {
   // Refresh Token for user 
 
   const getAuth = async () => {
-    let response = await Auth.currentSession();
+    try {
+      const cognitoUser = await Auth.currentAuthenticatedUser();
+      const currentSession = await Auth.currentSession();
+      cognitoUser.refreshSession(currentSession.refreshToken, (err, session) => {
+        console.log('session', err, session);
+        let currentUserAWS = { ...currentUser };
+        currentUserAWS.signInUserSession = session;
+        setCurrentUser(currentUserAWS);
 
-    let currentUserAWS = { ...currentUser };
-    currentUserAWS.signInUserSession = response;
-
-    setCurrentUser(currentUserAWS);
-
+      });
+    } catch (e) {
+      console.log('Unable to refresh Token', e);
+    }
   }
 
 

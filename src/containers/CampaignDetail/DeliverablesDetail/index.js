@@ -46,11 +46,11 @@ const DeliverablesDetail = ({ deliverables }) => {
             </div>
             <div className={styles.detailSubContent}>
               <h6>Brand tag</h6>
-              <p>{deliverable ? deliverable.brandTag : ''}</p>
+              <p>@{deliverable ? deliverable.brandTag : ''}</p>
             </div>
             <div className={styles.detailSubContent}>
               <h6>Hashtag</h6>
-              <p>{deliverable ? deliverable.hashTag : ''}</p>
+              <p>#{deliverable ? deliverable.hashTag : ''}</p>
             </div>
             <div
               className={styles.detailSubContent}

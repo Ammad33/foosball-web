@@ -57,7 +57,7 @@ const Compensation = ({ onClick, handleEdit, compensation, status, targetGrossSa
 		switch (compensation[0].__typename) {
 			case 'CompRevenueShare':
 				return (
-					<p>{compensation[0].percentage && numberWithCommas(Math.trunc(compensation[0].percentage * 1000))}% ($ {numberWithCommas(Math.trunc(parseFloat((compensation[0].percentage * 1000) * parseFloat(targetGrossSales.amount / 100))))})</p>);
+					<p>{compensation[0].percentage && numberWithCommas(Math.trunc(compensation[0].percentage * 100))}% ($ {numberWithCommas(Math.trunc(parseFloat((compensation[0].percentage * 100) * parseFloat(targetGrossSales.amount / 100))))})</p>);
 			case 'CompCashPerPost':
 				return (<p>${compensation[0].amount && numberWithCommas(Math.trunc(compensation[0].amount.amount))}</p>);
 			case 'CompCashPerMonthlyDeliverable':

@@ -10,8 +10,7 @@ import { RootContext } from '../../../../context/RootContext';
 import Iframe from 'react-iframe';
 import uploadImages from '../../../../actions/uploadImges';
 import config from '../../../../config';
-
-
+import { Auth } from 'aws-amplify';
 
 const Templates = ({ campaignId, internalState, template, microsite,
 	brand,
@@ -34,6 +33,11 @@ const Templates = ({ campaignId, internalState, template, microsite,
 	const [heroImage1, setHeroImage1] = useState(null);
 	const [heroImage2, setHeroImage2] = useState(null);
 	const [heroImage3, setHeroImage3] = useState(null);
+
+	const [heroImage1Url, setHeroImage1Url] = useState(null);
+	const [heroImage2Url, setHeroImage2Url] = useState(null);
+	const [heroImage3Url, setHeroImage3Url] = useState(null);
+
 	const [update, setUpdate] = useState(false);
 	const [heroImage1File, setHeroImage1File] = useState(null);
 	const [heroImage2File, setHeroImage2File] = useState(null);
@@ -48,7 +52,7 @@ const Templates = ({ campaignId, internalState, template, microsite,
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [heroUrl, setHeroUrl] = useState('');
 	const [image2Url, setImage2Url] = useState('');
-	const { brandId, currentUser } = useContext(RootContext);
+	const { brandId, currentUser, setCurrentUser } = useContext(RootContext);
 
 
 	//*** Call when pop open on */
@@ -64,33 +68,8 @@ const Templates = ({ campaignId, internalState, template, microsite,
 		setAnchorEl(null);
 	};
 
-	var elements = [];
-	function loaded() {
-		console.log("you have loaded an image");
-	}
 
-	function CreateFileFrom(dir) {
 
-		/* defining runtime variables */
-		var extension = dir.split('.').pop();
-		var keys = {
-			"png": "IMG", "jpg": "IMG", "jpeg": "IMG",
-			"js": "SCRIPT", "json": "SCRIPT",
-			"mp3": "AUDIO", "wav": "AUDIO"
-		};
-		var obj = document.createElement(keys[extension]) || {};
-		obj.src = dir;
-
-		/* onload function called when the resource is loaded */
-		obj.onload = (e) => {
-
-			elements.push(e.path[0]);
-			loaded()
-		}
-
-		/* make sure that the data is compitable */
-		if (keys[extension] == null) { console.error("not supported media type " + extension); return; }
-	}
 
 	//*** Set Colors For Each Template When Component loads first time */
 
@@ -121,15 +100,25 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			setHeroImage(microsite.hero.imageLarge && microsite.hero.imageLarge !== null ? microsite.hero.imageLarge : null)
 			setImage2(microsite.appHeader.imageLarge && microsite.appHeader.imageLarge !== null ? microsite.appHeader.imageLarge : null)
 
-		} else if (template === 'FOUR') {
+		} else if (template === 'FOUR' && microsite === '') {
 			setHeaderColor('#B4C389');
 			setButtonColor('#B4C389');
 			setQuotesColor('');
 			setShopColor('#FEF5CB');
 			setFooterColor('#B4C389');
 			setQuotesBGColor("#B4C389");
-			setHeroImage(microsite.hero.imageLarge && microsite.hero.imageLarge !== null ? microsite.hero.imageLarge : null)
-			setImage2(microsite.appHeader.imageLarge && microsite.appHeader.imageLarge !== null ? microsite.appHeader.imageLarge : null)
+
+		} else if (template === 'FOUR' && microsite !== '' && microsite !== null) {
+			setHeaderColor('#B4C389');
+			setButtonColor('#B4C389');
+			setQuotesColor('');
+			setShopColor('#FEF5CB');
+			setFooterColor('#B4C389');
+			setQuotesBGColor("#B4C389");
+			setHeroImage1(microsite.appHeader.image1UploadUrl && microsite.appHeader.image1UploadUrl !== null ? microsite.appHeader.image1UploadUrl : null)
+			setHeroImage2(microsite.appHeader.image2UploadUrl && microsite.appHeader.image2UploadUrl !== null ? microsite.appHeader.image2UploadUrl : null)
+			setHeroImage3(microsite.appHeader.image3UploadUrl && microsite.appHeader.image3UploadUrl !== null ? microsite.appHeader.image3UploadUrl : null)
+			setImage2(microsite.hero.imageLarge && microsite.hero.imageLarge !== null ? microsite.hero.imageLarge : null)
 
 
 		} else if (template === 'THREE') {
@@ -145,17 +134,6 @@ const Templates = ({ campaignId, internalState, template, microsite,
 
 	}, [template, microsite]);
 
-
-	useEffect(() => {
-		if (brand && brand !== null && brand.imageUrl !== null) {
-			setBrandImage(CreateFileFrom(brand.imageUrl))
-			getImageFormUrl(brand.imageUrl, (image) => {
-				console.log(image);
-			})
-		}
-	}, [brand])
-
-	console.log(brandImage);
 
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
@@ -208,7 +186,23 @@ const Templates = ({ campaignId, internalState, template, microsite,
 
 	const PostHeroImage = (URL) => {
 		uploadImages(URL, heroFile);
-		setUpdate(!update);
+	}
+
+	//*** API Call for Hero Image */
+
+	const PostHeroImage1 = (URL) => {
+		uploadImages(URL, heroImage1File);
+	}
+
+	//*** API Call for Hero Image */
+
+	const PostHeroImage2 = (URL) => {
+		uploadImages(URL, heroImage2File);
+	}
+	//*** API Call for Hero Image */
+
+	const PostHeroImage3 = (URL) => {
+		uploadImages(URL, heroImage3File);
 	}
 
 
@@ -229,9 +223,6 @@ const Templates = ({ campaignId, internalState, template, microsite,
 	}, [headerColor, buttonColor, footerColor, shopColor, quoteMessage, quotesColor, quotesBGColor, template, update]);
 
 	//* API Call to get microsite data */
-
-
-
 
 
 	//** API Call for create and update microsite */
@@ -278,7 +269,10 @@ const Templates = ({ campaignId, internalState, template, microsite,
                 appHeader {
                     imageLargeUploadUrl
                     imageMediumUploadUrl
-                    imageUploadUrl
+					imageUploadUrl
+					image1UploadUrl
+					image2UploadUrl
+					image3UploadUrl
                 }
                 footer {
                     logoUploadUrl
@@ -313,11 +307,35 @@ const Templates = ({ campaignId, internalState, template, microsite,
 
 				if (response.data.createOrUpdateMicrosite.appHeader && response.data.createOrUpdateMicrosite.appHeader !== null) {
 					if (response.data.createOrUpdateMicrosite.appHeader.imageLargeUploadUrl) {
-						if (template === 'TWO' || template === 'THREE' || template === 'FOUR') {
+						if (template === 'TWO' || template === 'THREE') {
 							setImage2Url(response.data.createOrUpdateMicrosite.appHeader.imageUploadUrl)
 						} else {
 							setImage2Url(response.data.createOrUpdateMicrosite.appHeader.imageLargeUploadUrl);
 						}
+					}
+				}
+
+				if (response.data.createOrUpdateMicrosite.appHeader && response.data.createOrUpdateMicrosite.appHeader !== null) {
+					if (template === 'FOUR') {
+						if (response.data.createOrUpdateMicrosite.appHeader.image1UploadUrl) {
+							setHeroImage1(response.data.createOrUpdateMicrosite.appHeader.image1UploadUrl)
+						}
+						if (response.data.createOrUpdateMicrosite.appHeader.image2UploadUrl) {
+
+							setHeroImage2(response.data.createOrUpdateMicrosite.appHeader.image2UploadUrl)
+						}
+						if (response.data.createOrUpdateMicrosite.appHeader.image3UploadUrl) {
+							setHeroImage3(response.data.createOrUpdateMicrosite.appHeader.image3UploadUrl)
+						}
+
+
+					}
+
+				}
+
+				if (response.data.createOrUpdateMicrosite.hero && response.data.createOrUpdateMicrosite.hero !== null && template === 'FOUR') {
+					if (response.data.createOrUpdateMicrosite.hero.imageLargeUploadUrl) {
+						setImage2Url(response.data.createOrUpdateMicrosite.hero.imageLargeUploadUrl);
 					}
 				}
 			}
@@ -338,6 +356,19 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			PostImage2(image2Url);
 		}
 	}, [heroFile, image2File]);
+
+	useEffect(() => {
+
+		if (heroImage1File !== null && heroImage1 && heroImage1 !== '') {
+			PostHeroImage1(heroImage1);
+		}
+		if (heroImage2File !== null && heroImage2 && heroImage2 !== '') {
+			PostHeroImage2(heroImage2);
+		}
+		if (heroImage3File !== null && heroImage3 && heroImage3 !== '') {
+			PostHeroImage3(heroImage3);
+		}
+	}, [heroImage1File, heroImage2File, heroImage3File]);
 
 
 
@@ -378,6 +409,27 @@ const Templates = ({ campaignId, internalState, template, microsite,
 				return 'Whitney';
 
 		}
+	};
+
+	useEffect(() => {
+		getAuth();
+	}, []);
+	const getAuth = async () => {
+
+		try {
+			const cognitoUser = await Auth.currentAuthenticatedUser();
+			const currentSession = await Auth.currentSession();
+			cognitoUser.refreshSession(currentSession.refreshToken, (err, session) => {
+				console.log('session', err, session);
+				let currentUserAWS = { ...currentUser };
+				currentUserAWS.signInUserSession = session;
+				setCurrentUser(currentUserAWS);
+
+			});
+		} catch (e) {
+			console.log('Unable to refresh Token', e);
+		}
+
 	}
 
 	const handleHeaderColorComplete = (color, event) => {
@@ -499,12 +551,12 @@ const Templates = ({ campaignId, internalState, template, microsite,
 											<HelpCircle onClick={handleClick} />
 
 										</div>
-										<label htmlFor='hero'>Upload</label>
-										<input id='hero' style={{ visibility: 'hidden', display: 'none' }} type={'file'} onChange={(e) => { setHeroFile(e.target.files[0]); setHeroImage(URL.createObjectURL(e.target.files[0])) }} />
+										<label htmlFor='hero1'>Upload</label>
+										<input id='hero1' style={{ visibility: 'hidden', display: 'none' }} type={'file'} onChange={(e) => { setHeroImage1File(e.target.files[0]); setHeroImage1Url(URL.createObjectURL(e.target.files[0])) }} />
 
 									</div>
 									<div className={styles1.secondConatiner}>
-										{heroImage !== null && <img src={heroImage} />}
+										{heroImage1Url !== null && <img src={heroImage1Url} />}
 									</div>
 
 								</div >
@@ -516,12 +568,12 @@ const Templates = ({ campaignId, internalState, template, microsite,
 											<HelpCircle onClick={handleClick} />
 
 										</div>
-										<label htmlFor='hero'>Upload</label>
-										<input id='hero' style={{ visibility: 'hidden', display: 'none' }} type={'file'} onChange={(e) => setHeroImage2(URL.createObjectURL(e.target.files[0]))} />
+										<label htmlFor='hero2'>Upload</label>
+										<input id='hero2' style={{ visibility: 'hidden', display: 'none' }} type={'file'} onChange={(e) => { setHeroImage2Url(URL.createObjectURL(e.target.files[0])); setHeroImage2File(e.target.files[0]) }} />
 
 									</div>
 									<div className={styles1.secondConatiner}>
-										{heroImage2 !== null && <img src={heroImage2} />}
+										{heroImage2Url !== null && <img src={heroImage2Url} />}
 									</div>
 
 								</div >
@@ -533,12 +585,12 @@ const Templates = ({ campaignId, internalState, template, microsite,
 											<HelpCircle onClick={handleClick} />
 
 										</div>
-										<label htmlFor='hero'>Upload</label>
-										<input id='hero' style={{ visibility: 'hidden', display: 'none' }} type={'file'} onChange={(e) => setHeroImage3(URL.createObjectURL(e.target.files[0]))} />
+										<label htmlFor='hero3'>Upload</label>
+										<input id='hero3' style={{ visibility: 'hidden', display: 'none' }} type={'file'} onChange={(e) => { setHeroImage3Url(URL.createObjectURL(e.target.files[0])); setHeroImage3File(e.target.files[0]); }} />
 
 									</div>
 									<div className={styles1.secondConatiner}>
-										{heroImage3 !== null && <img src={heroImage3} />}
+										{heroImage3Url !== null && <img src={heroImage3Url} />}
 									</div>
 
 								</div >
