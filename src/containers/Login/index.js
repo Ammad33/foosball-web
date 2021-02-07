@@ -59,11 +59,9 @@ const Login = () => {
     try {
       const user = await Auth.signIn(email, password);//authentication
 
-      // if (user) {
-      // const session = await Auth.currentSession();
-      console.log(user.signInUserSession);
-      setCurrentUser(user.signInUserSession);
-      // }
+      console.log(user);
+      setCurrentUser(user);
+
       setLogoutMessage('');
       getMeData();                //calling API       
       setActiveRoute('Campaign');

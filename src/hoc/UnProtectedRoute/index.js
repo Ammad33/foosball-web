@@ -14,7 +14,7 @@ const UnProtectedRoute = ({ children, ...routeProps }) => {
                 if (
                     currentUser &&
                     currentUser !== null &&
-                    currentUser.accessToken.jwtToken
+                    currentUser.signInUserSession.accessToken.jwtToken
                 ) {
                     return <Redirect to={'/'} />;
                 } else {

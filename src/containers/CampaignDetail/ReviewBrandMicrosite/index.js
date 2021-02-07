@@ -88,7 +88,7 @@ const ReviewBrandMicrosite = ({ name, data, campaignId }) => {
 			<div className={styles.contentContainer}>
 				<div className={styles.secondContainer}>
 					<Iframe
-						url={`${config.fomo_Url}/?brandId=${brandId}&campaignId=campaign%23${campaign}&accessToken=${currentUser.accessToken.jwtToken}`}
+						url={`${config.fomo_Url}/?brandId=${brandId}&campaignId=campaign%23${campaign}&accessToken=${currentUser.signInUserSession.accessToken.jwtToken}`}
 						width="100%"
 						height="100%"
 						id="myId"

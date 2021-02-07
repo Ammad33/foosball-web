@@ -2,38 +2,32 @@ import React, { useContext, useEffect, useState } from 'react';
 import { RootContext } from '../../context/RootContext';
 import { Route, Redirect } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
-// import AWSAppSyncClient from 'aws-appsync';
-// import { AUTH_TYPE } from 'aws-appsync/lib/link/auth-link';
-// import config from '../../config';
-
 
 /**protected routes redirects to login page if not logged in */
 const ProtectedRoute = ({ children, ...routeProps }) => {
   const { currentUser, setCurrentUser } = useContext(RootContext);
 
+
+
+  //Token refresh code
+
   useEffect(() => {
-    if (new Date() > new Date(currentUser.accessToken.payload.exp * 1000)) {
-      getAuth();
-    }
+    // if (new Date() > new Date(currentUser.signInUserSession.accessToken.payload.exp * 1000)) {
+    getAuth();
+    // }
   }, []);
 
-  // const setAppSyncClient = () => {
 
-  //   const appSyncClient = new AWSAppSyncClient({
-  //     url: config.aws_appsync_graphqlEndpoint,
-  //     region: config.aws_appsync_region,
-  //     auth: {
-  //       type: config.aws_appsync_authenticationType,
-  //       credentials: () => Auth.currentCredentials()
-  //     }
-  //   });
-  //   console.log(appSyncClient);
-  // }
-
+  // Refresh Token for user 
 
   const getAuth = async () => {
     let response = await Auth.currentSession();
-    setCurrentUser(response);
+
+    let currentUserAWS = { ...currentUser };
+    currentUserAWS.signInUserSession = response;
+
+    setCurrentUser(currentUserAWS);
+
   }
 
 
@@ -44,7 +38,7 @@ const ProtectedRoute = ({ children, ...routeProps }) => {
         if (
           currentUser &&
           currentUser !== null &&
-          currentUser.accessToken.jwtToken
+          currentUser.signInUserSession.accessToken.jwtToken
         ) {
           return children;
         } else {
