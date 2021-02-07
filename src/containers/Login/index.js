@@ -29,14 +29,14 @@ const Login = () => {
   const [meData, setMeData] = useState([]);
 
   /*accessing Root context variables*/
-    const {
-      setShowLoader,
-      currentUser,
-      setCurrentUser,
-      logoutMessage,
-      setLogoutMessage,
-      setActiveRoute,
-    } = useContext(RootContext);
+  const {
+    setShowLoader,
+    currentUser,
+    setCurrentUser,
+    logoutMessage,
+    setLogoutMessage,
+    setActiveRoute,
+  } = useContext(RootContext);
 
   /*togglePasswordVisiblity {function} get called when
   eye icon is clicked on signup page used to show,hide password*/
@@ -45,7 +45,7 @@ const Login = () => {
   };
 
 
-/*checking if enter is pressed */
+  /*checking if enter is pressed */
   const handleKeypress = (e) => {
     if (e.keyCode === 13) {
       onSignin();
@@ -53,12 +53,17 @@ const Login = () => {
   };
 
 
-/*onSignin {function} get called when sign in button is pressed*/
+  /*onSignin {function} get called when sign in button is pressed*/
   const onSignin = async () => {
     setShowLoader(true);
     try {
       const user = await Auth.signIn(email, password);//authentication
-      setCurrentUser(user);
+
+      // if (user) {
+      // const session = await Auth.currentSession();
+      console.log(user.signInUserSession);
+      setCurrentUser(user.signInUserSession);
+      // }
       setLogoutMessage('');
       getMeData();                //calling API       
       setActiveRoute('Campaign');
@@ -71,9 +76,9 @@ const Login = () => {
   };
 
 
-   /*getMeData{function} to get the user data by calling API and storing the response  to meData variable*/
-  const getMeData = async () => { 
-    try {                         
+  /*getMeData{function} to get the user data by calling API and storing the response  to meData variable*/
+  const getMeData = async () => {
+    try {
       const mydata = await API.graphql({
         query: `{
 						me {
@@ -133,11 +138,11 @@ const Login = () => {
                     <EyeSVG />{' '}
                   </div>
                 ) : (
-                  <div onClick={togglePasswordVisiblity}>
-                    {' '}
-                    <EyeOffSVG />{' '}
-                  </div>
-                )}
+                    <div onClick={togglePasswordVisiblity}>
+                      {' '}
+                      <EyeOffSVG />{' '}
+                    </div>
+                  )}
               </span>
             </InputAdornment>
           ),
