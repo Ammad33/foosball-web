@@ -1702,7 +1702,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         }`,
       });
 
-      debugger;
       if (collectionsResponse.data && collectionsResponse.data !== null) {
         setCollections(
           collectionsResponse.data.collections &&
