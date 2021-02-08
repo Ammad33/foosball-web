@@ -35,6 +35,7 @@ const InfluencerProfile = () => {
 	const [influencerProfile, setInfluencerProfile] = useState(null);
 	const [imageUrl, setImageUrl] = useState('');
 	const [imageFile, setImageFile] = useState(null);
+	const [influencerName, setInfluencerName] = useState('');
 
 	useEffect(() => {
 		const isOwner = localStorage.getItem('isOwner');
@@ -154,6 +155,9 @@ const InfluencerProfile = () => {
 			graphqlOperation(
 				`mutation updateInfluencer ($input : UpdateInfluencerInput!) {
 					updateInfluencer(input: $input) {
+						influencer {
+							name
+						  }
 				imageUploadUrl
 			}
 		}`, {
@@ -164,6 +168,7 @@ const InfluencerProfile = () => {
 
 		if (res.data && res.data !== null && res.data.updateInfluencer && res.data.updateInfluencer !== null) {
 			setImageUrl(res.data.updateInfluencer.imageUploadUrl);
+			setInfluencerName(res.data.updateInfluencer.influencer.name);
 		}
 	};
 
@@ -187,7 +192,7 @@ const InfluencerProfile = () => {
 						<Avatar className={styles.influencerImage} alt='Profile' src={influencerProfile} />
 						<div className={styles.nameAndMessage}>
 							<div>
-								<div className={styles.influencerName}>Influencer Name</div>
+								<div className={styles.influencerName}>{influencerName}</div>
 								{isOwner ? (
 									<div className={styles.address}>
 										<User /> 25-30 <MapPin /> Fort Lauderdale, FL

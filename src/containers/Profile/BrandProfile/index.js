@@ -22,6 +22,7 @@ const BrandProfile = () => {
   const [influencerProfile, setInfluencerProfile] = useState(null);
   const [imageUrl, setImageUrl] = useState('');
   const [imageFile, setImageFile] = useState(null);
+  const [brandName, setBrandName] = useState('');
 
   const { brandId, setBrands, setInfluencers } = useContext(RootContext);
 
@@ -135,6 +136,9 @@ const BrandProfile = () => {
       graphqlOperation(
         `mutation  updateBrand($input : UpdateBrandInput!) {
           updateBrand(input: $input) {
+            brand {
+              name
+            }
 				imageUploadUrl
 			}
 		}`, {
@@ -145,7 +149,7 @@ const BrandProfile = () => {
 
     if (res.data && res.data !== null && res.data.updateBrand && res.data.updateBrand !== null) {
       setImageUrl(res.data.updateBrand.imageUploadUrl);
-
+      setBrandName(res.data.updateBrand.brand.name);
     }
   };
 
@@ -169,7 +173,7 @@ const BrandProfile = () => {
           <div className={styles.brandInfo}>
             <Avatar className={styles.brandImage} src={influencerProfile}></Avatar>
             <div className={styles.nameAndMessage}>
-              <div className={styles.brandName}>Brand Name</div>
+              <div className={styles.brandName}>{brandName}</div>
               {/* {isOwner ? ( */}
               <label htmlFor='hero1' style={{
                 color: '#3481EF',
