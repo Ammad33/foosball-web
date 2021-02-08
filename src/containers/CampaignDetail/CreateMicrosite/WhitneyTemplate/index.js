@@ -84,8 +84,8 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			setShopColor(microsite.shopBelow.bgColor);
 			setFooterColor(microsite.footer.bgColor);
 			setQuoteMessage(microsite.influencerQuote.quoteContent);
-			setHeroImage(microsite.hero.imageLarge && microsite.hero.imageLarge !== null ? microsite.hero.imageLarge : null)
-			setImage2(microsite.appHeader.imageLarge && microsite.appHeader.imageLarge !== null ? microsite.appHeader.imageLarge : null)
+			setImage2(microsite.hero.imageLarge && microsite.hero.imageLarge !== null ? microsite.hero.imageLarge : null)
+			setHeroImage(microsite.appHeader.imageLarge && microsite.appHeader.imageLarge !== null ? microsite.appHeader.imageLarge : null)
 		} else if (template === 'TWO') {
 			setHeaderColor('#FEF5CB');
 			setButtonColor('#DCB7D1');
@@ -93,8 +93,8 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			setShopColor('#FEF5CB');
 			setFooterColor('#DCB7D1');
 			setQuotesBGColor("#F1E2EC");
-			setHeroImage(microsite.hero.imageLarge && microsite.hero.imageLarge !== null ? microsite.hero.imageLarge : null)
-			setImage2(microsite.appHeader.imageLarge && microsite.appHeader.imageLarge !== null ? microsite.appHeader.imageLarge : null)
+			setImage2(microsite.hero.imageLarge && microsite.hero.imageLarge !== null ? microsite.hero.imageLarge : null)
+			setHeroImage(microsite.appHeader.imageLarge && microsite.appHeader.imageLarge !== null ? microsite.appHeader.imageLarge : null)
 
 		} else if (template === 'FOUR' && microsite === '') {
 			setHeaderColor('#B4C389');
@@ -124,8 +124,8 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			setShopColor('#2B426F');
 			setFooterColor('#2B426F');
 			setQuotesBGColor("#2B426F");
-			setHeroImage(microsite.hero.imageLarge && microsite.hero.imageLarge !== null ? microsite.hero.imageLarge : null)
-			setImage2(microsite.appHeader.imageLarge && microsite.appHeader.imageLarge !== null ? microsite.appHeader.imageLarge : null)
+			setImage2(microsite.hero.imageLarge && microsite.hero.imageLarge !== null ? microsite.hero.imageLarge : null)
+			setHeroImage(microsite.appHeader.imageLarge && microsite.appHeader.imageLarge !== null ? microsite.appHeader.imageLarge : null)
 		}
 
 	}, [template, microsite]);
@@ -262,16 +262,16 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			if (response.data && response.data.createOrUpdateMicrosite) {
 				if (response.data.createOrUpdateMicrosite.hero && response.data.createOrUpdateMicrosite.hero !== null) {
 					if (response.data.createOrUpdateMicrosite.hero.imageLargeUploadUrl) {
-						setHeroUrl(response.data.createOrUpdateMicrosite.hero.imageLargeUploadUrl);
+						setImage2Url(response.data.createOrUpdateMicrosite.hero.imageLargeUploadUrl);
 					}
 				}
 
 				if (response.data.createOrUpdateMicrosite.appHeader && response.data.createOrUpdateMicrosite.appHeader !== null) {
 					if (response.data.createOrUpdateMicrosite.appHeader.imageLargeUploadUrl) {
 						if (template === 'TWO' || template === 'THREE') {
-							setImage2Url(response.data.createOrUpdateMicrosite.appHeader.imageUploadUrl)
+							setHeroUrl(response.data.createOrUpdateMicrosite.appHeader.imageUploadUrl)
 						} else {
-							setImage2Url(response.data.createOrUpdateMicrosite.appHeader.imageLargeUploadUrl);
+							setHeroUrl(response.data.createOrUpdateMicrosite.appHeader.imageLargeUploadUrl);
 						}
 					}
 				}
