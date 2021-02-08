@@ -55,6 +55,7 @@ const Campaigns = () => {
 		setBrandIdd,
 		setBrandName,
 		setShowLoader,
+		showLoader,
 		setBrandType,
 		setActiveRoute,
 		creatorRoleId,
@@ -63,7 +64,7 @@ const Campaigns = () => {
 	/**************** */
 
 	/**state variables */
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
 	const [selectedState, setSelectedState] = useState('Recent Activity');
 	const [brandDropDown, setBrandDropDown] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
@@ -472,7 +473,7 @@ const Campaigns = () => {
 						Declined
           </button>
 				</div>
-				{campaigns.length === 0 && !loading ? (
+				{(campaigns.length === 0 && !loading) ? (
 					<Grid
 						container
 						spacing={0}

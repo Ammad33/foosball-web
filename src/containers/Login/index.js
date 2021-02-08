@@ -65,7 +65,7 @@ const Login = () => {
       setLogoutMessage('');
       getMeData();                //calling API       
       setActiveRoute('Campaign');
-      setShowLoader(false);
+      // setShowLoader(false);
     } catch (e) {
       setErrorMessage(e.message);
       setLogoutMessage('');
