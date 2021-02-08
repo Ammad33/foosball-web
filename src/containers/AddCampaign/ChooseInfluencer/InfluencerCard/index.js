@@ -40,7 +40,7 @@ const InfluencerCard = ({ influencer, selected, toggleInfluncer }) => {
           </div>
           <div className={styles.first_last}>
             <p>{influencer.name}</p>
-            <p className={styles.influencername}>@influencerTag</p>
+            {/* <p className={styles.influencername}>@influencerTag</p> */}
           </div>
           <div className={styles.socialContainer}>
             {influencer.socialIdentities &&
