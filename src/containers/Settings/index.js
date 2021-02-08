@@ -26,7 +26,8 @@ const Setting = () => {
   const [teamAdmin, setTeamAdmin] = useState(false);
   const {
     brandType,
-    brandName,
+		brandName,
+		setBrandName,
     brandId,
     currentUser,
     setToastrData,
@@ -268,7 +269,36 @@ const Setting = () => {
     } catch (e) {
       console.log(e);
     }
-  };
+	};
+	
+	// const image = async () => {
+	// 	try {
+	// 		await API.graphql(
+	// 			graphqlOperation(
+	// 				`
+	// 				mutation image($input : UploadProfileImage!) {
+	// 					uploadProfileImage(input: $input) {
+	// 						uploadProfileImage
+	// 					}
+	// 				}
+	// 				`,
+	// 			)
+	// 		)
+	// 		debugger;
+	// 	}
+	// 	// try {
+  //   //   const response = await API.graphql({
+  //   //     query: `{
+  //   //       uploadProfileImage 
+          
+  //   //     }`,
+  //   //   });
+  //   //   debugger;
+  //   // }
+	// 	catch (e) {
+	// 		console.log("Error in uploading profile pic" , e);
+	// 	}
+	// }
 
   const handleChangePassword = async () => {
     const currentUser = await Auth.currentAuthenticatedUser();
@@ -277,6 +307,28 @@ const Setting = () => {
     setOldPassword('');
   };
   const handleSaveAccount = async () => {
+		if (brandName != brandNamee){
+			try {
+			await API.graphql (
+				graphqlOperation (
+					`mutation UpdateBrand {
+						updateBrand(input: {
+							id: "${brandId}" , 
+							name: "${brandNamee}"}) 
+							{
+							brand {
+								name
+							}
+						}
+					}`	
+				)
+			)
+			setBrandName(brandNamee);
+			}
+			catch (e) {
+				console.log("ERROR" , e)
+			}
+		}
     try {
       //   mutation MyMutation {
       // 	updateMe(input: {fullName: "Ibtisam Brand Appsync", activeOrganization: ""}) {
@@ -335,7 +387,8 @@ const Setting = () => {
             handleChangePassword={handleChangePassword}
             handleSaveAccount={handleSaveAccount}
             emailVerfied={emailVerified}
-            teamAdmin={teamAdmin}
+						teamAdmin={teamAdmin}
+						typeName={brandType}
           />
         );
       case 'notification':

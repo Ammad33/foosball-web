@@ -33,7 +33,8 @@ const Account = ({
   handleChangePassword,
   handleSaveAccount,
   emailVerfied,
-  teamAdmin,
+	teamAdmin,
+	typeName,
 }) => {
   const [openCDialog, setOpenCDialog] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
@@ -111,7 +112,7 @@ const Account = ({
             <TextField
               id='outlined-basic'
               fullWidth
-              label='Brand Name'
+              label= {typeName === "Brand"? 'Brand Name' : 'Display Name'}
               variant='outlined'
               value={brandName}
               onChange={handleBrandName}
@@ -119,6 +120,7 @@ const Account = ({
           </Grid>
           <Grid item xs={6}>
             <TextField
+							disabled = {true}
               id='outlined-basic'
               fullWidth
               label='Email'
