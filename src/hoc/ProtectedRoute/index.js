@@ -11,11 +11,11 @@ const ProtectedRoute = ({ children, ...routeProps }) => {
 
   //Token refresh code
 
-  useEffect(() => {
-    if (currentUser && currentUser !== null && new Date() > new Date(currentUser.signInUserSession.accessToken.payload.exp * 1000)) {
-      getAuth();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (currentUser && currentUser !== null && new Date() > new Date(currentUser.signInUserSession.accessToken.payload.exp * 1000)) {
+  //     getAuth();
+  //   }
+  // }, []);
 
 
   // Refresh Token for user 
@@ -43,6 +43,8 @@ const ProtectedRoute = ({ children, ...routeProps }) => {
         if (
           currentUser &&
           currentUser !== null &&
+          currentUser.signInUserSession &&
+          currentUser.signInUserSession !== null &&
           currentUser.signInUserSession.accessToken.jwtToken
         ) {
           return children;

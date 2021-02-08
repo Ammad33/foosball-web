@@ -8,19 +8,19 @@ import SVG from 'react-inlinesvg';
 
 
 const ChevronDown = () => {
-	return (
-		<span className={styles.dropDownCustomizeSvg} >
-			<SVG src={require('../../../assets/chevron-down.svg')} />
-		</span>
-	);
+  return (
+    <span className={styles.dropDownCustomizeSvg} >
+      <SVG src={require('../../../assets/chevron-down.svg')} />
+    </span>
+  );
 };
 
 const ChevronUp = () => {
-	return (
-		<span className={styles.dropDownCustomizeSvg}>
-			<SVG src={require('../../../assets/chevron-up.svg')} />
-		</span>
-	);
+  return (
+    <span className={styles.dropDownCustomizeSvg}>
+      <SVG src={require('../../../assets/chevron-up.svg')} />
+    </span>
+  );
 };
 
 
@@ -30,10 +30,10 @@ const SelectBrand = () => {
     brands,
     brandName,
     setBrandName,
-		setCreatorRoleId,
-		setMemberRoleId,
+    setCreatorRoleId,
+    setMemberRoleId,
     setBrandType,
-		influencers,
+    influencers,
   } = useContext(RootContext);
 
 
@@ -92,10 +92,10 @@ const SelectBrand = () => {
                         );
                         setCreatorRoleId(
                           item.organization && item.organization.roles[0].id
-												);
-												setMemberRoleId(
-													item.organization && item.organization.roles[1].id
-												);
+                        );
+                        setMemberRoleId(
+                          item.organization && item.organization.roles[1].id
+                        );
                         handleClose();
                       }}
                       className={styles.brandContainter}
@@ -135,12 +135,12 @@ const SelectBrand = () => {
                         setBrandType(
                           item.organization && item.organization.__typename
                         );
-												setCreatorRoleId(
-                          item.organization && item.organization.roles[0].id
-												);
-												setMemberRoleId(
-													item.organization && item.organization.roles[1].id
-												);
+                        setCreatorRoleId(
+                          item.organization && item.organization.roles[0] && item.organization.roles[0].id
+                        );
+                        setMemberRoleId(
+                          item.organization && item.organization.roles[1] && item.organization.roles[1].id
+                        );
                         handleClose();
                       }}
                       className={styles.brandContainter}
