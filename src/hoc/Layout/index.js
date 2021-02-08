@@ -116,8 +116,8 @@ function ResponsiveDrawer(props) {
       setUpdateMeData(false);
     } catch (e) {
       console.log(e);
-      getAuth();
-      myData();
+      // getAuth();
+      // myData();
       // setMeData(e.mydata.data.me);
     }
   };
