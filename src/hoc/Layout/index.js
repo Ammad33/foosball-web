@@ -116,11 +116,11 @@ function ResponsiveDrawer(props) {
       setUpdateMeData(false);
     } catch (e) {
       console.log(e);
-      if (e === 'No current user') {
-        console.log('refresh token');
-        getAuth();
-        myData();
-      }
+      // if (e === 'No current user') {
+      //   console.log('refresh token');
+      //   getAuth();
+      //   myData();
+      // }
       // setMeData(e.mydata.data.me);
     }
   };

@@ -67,8 +67,6 @@ const Templates = ({ campaignId, internalState, template, microsite,
 	};
 
 
-
-
 	//*** Set Colors For Each Template When Component loads first time */
 
 	useEffect(() => {
@@ -304,7 +302,7 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			}
 		} catch (error) {
 			console.log(error);
-			getAuth();
+			// getAuth();
 		}
 	};
 
@@ -375,9 +373,9 @@ const Templates = ({ campaignId, internalState, template, microsite,
 		}
 	};
 
-	useEffect(() => {
-		getAuth();
-	}, []);
+	// useEffect(() => {
+	// 	getAuth();
+	// }, []);
 
 
 	const getAuth = async () => {
