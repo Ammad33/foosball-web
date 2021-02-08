@@ -12,7 +12,7 @@ import LeftSideDrawer from '../../components/LeftSideDrawer';
 import Header from './../../components/Header';
 import { RootContext } from './../../context/RootContext';
 import Brand from '../../components/Brand';
-import { API } from 'aws-amplify';
+import { API, Auth } from 'aws-amplify';
 
 const drawerWidth = 284;
 /**useStyles hook from material-ui */
@@ -68,7 +68,7 @@ function ResponsiveDrawer(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   /**accessing RootContext */
-  const { brandType, updateMeData, setUpdateMeData, meData, setMeData } = useContext(RootContext);
+  const { brandType, updateMeData, setUpdateMeData, meData, setMeData, setCurrentUser, currentUser } = useContext(RootContext);
 
   /**react hook initiate the api call whenever updateMeData changes */
   useEffect(() => {
@@ -116,9 +116,29 @@ function ResponsiveDrawer(props) {
       setUpdateMeData(false);
     } catch (e) {
       console.log(e);
+      getAuth();
+      myData();
       // setMeData(e.mydata.data.me);
     }
   };
+
+
+  // Refresh Token for user 
+
+  const getAuth = async () => {
+    try {
+      const cognitoUser = await Auth.currentAuthenticatedUser();
+      const currentSession = await Auth.currentSession();
+      cognitoUser.refreshSession(currentSession.refreshToken, (err, session) => {
+        let currentUserAWS = { ...currentUser };
+        currentUserAWS.signInUserSession = session;
+        setCurrentUser(currentUserAWS);
+
+      });
+    } catch (e) {
+      console.log('Unable to refresh Token', e);
+    }
+  }
 
   const container =
     window !== undefined ? () => window().document.body : undefined;

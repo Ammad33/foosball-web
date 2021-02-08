@@ -12,7 +12,7 @@ const Logout = () => {
     setCurrentUser,
     setLogoutMessage,
     setBrandName,
-    setBrandIdd, setRoute, setBrands, setbrandType,
+    setBrandIdd, setActiveRoute, setBrands, setBrandType,
     setInfluencers,
     setMeData
   } = useContext(RootContext);
@@ -20,15 +20,15 @@ const Logout = () => {
   const signOut = async () => {
     try {
       const signOut = await Auth.signOut({ global: true });
+      setMeData(null);
       setLogoutMessage('Successfully logged out');
       setCurrentUser();
       setBrands(null);
       setInfluencers(null);
       setBrandName();
       setBrandIdd();
-      setbrandType();
-      setRoute('/');
-      setMeData(null);
+      setBrandType();
+      setActiveRoute('/')
 
     }
     catch (error) {

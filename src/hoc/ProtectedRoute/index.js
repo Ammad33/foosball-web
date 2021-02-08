@@ -12,9 +12,9 @@ const ProtectedRoute = ({ children, ...routeProps }) => {
   //Token refresh code
 
   useEffect(() => {
-    // if (new Date() > new Date(currentUser.signInUserSession.accessToken.payload.exp * 1000)) {
-    getAuth();
-    // }
+    if (currentUser && currentUser !== null && new Date() > new Date(currentUser.signInUserSession.accessToken.payload.exp * 1000)) {
+      getAuth();
+    }
   }, []);
 
 
@@ -25,7 +25,6 @@ const ProtectedRoute = ({ children, ...routeProps }) => {
       const cognitoUser = await Auth.currentAuthenticatedUser();
       const currentSession = await Auth.currentSession();
       cognitoUser.refreshSession(currentSession.refreshToken, (err, session) => {
-        console.log('session', err, session);
         let currentUserAWS = { ...currentUser };
         currentUserAWS.signInUserSession = session;
         setCurrentUser(currentUserAWS);
