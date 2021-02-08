@@ -70,7 +70,7 @@ const CompensationDetail = ({ compensations, targetGrossSales, deliverables,
 		switch (compensation.__typename) {
 			case 'CompRevenueShare':
 				return (
-					<h6>${numberWithCommas(Math.trunc(parseFloat(compensation.percentage && (compensation.percentage * 1000) * parseFloat(targetGrossSales / 100))))}</h6>);
+					<h6>${numberWithCommas(Math.trunc(parseFloat(compensation.percentage && (compensation.percentage * 100) * parseFloat(targetGrossSales / 100))))}</h6>);
 			case 'CompCashPerPost':
 				return (<h6>${compensation.amount && numberWithCommas(Math.trunc((parseFloat(compensation.amount.amount) * totalPost)))}</h6>);
 			case 'CompCashPerMonthlyDeliverable':
