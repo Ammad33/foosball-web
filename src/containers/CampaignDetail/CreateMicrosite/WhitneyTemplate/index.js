@@ -304,6 +304,7 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			}
 		} catch (error) {
 			console.log(error);
+			getAuth();
 		}
 	};
 
@@ -377,6 +378,8 @@ const Templates = ({ campaignId, internalState, template, microsite,
 	useEffect(() => {
 		getAuth();
 	}, []);
+
+
 	const getAuth = async () => {
 
 		try {
