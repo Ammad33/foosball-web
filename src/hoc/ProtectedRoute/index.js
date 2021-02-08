@@ -43,6 +43,8 @@ const ProtectedRoute = ({ children, ...routeProps }) => {
         if (
           currentUser &&
           currentUser !== null &&
+          currentUser.signInUserSession &&
+          currentUser.signInUserSession !== null &&
           currentUser.signInUserSession.accessToken.jwtToken
         ) {
           return children;
