@@ -13,8 +13,7 @@ import config from '../../../../config';
 import { Auth } from 'aws-amplify';
 
 const Templates = ({ campaignId, internalState, template, microsite,
-	brand,
-	influencer }) => {
+	changeTemplate }) => {
 
 	///*****States for colors and images for all templates */
 
@@ -71,13 +70,15 @@ const Templates = ({ campaignId, internalState, template, microsite,
 
 	useEffect(() => {
 
-		if (template === 'ONE' && (microsite === '' || microsite === undefined)) {
+		if ((template === 'ONE' && (microsite === '' || microsite === undefined)) || (template === 'ONE' && changeTemplate === true)) {
 			setHeaderColor('#984949');
 			setButtonColor('#984949');
 			setQuotesColor('#984949');
 			setShopColor('#D38989');
 			setFooterColor('#984949');
+			setQuoteMessage('');
 		} else if (template === 'ONE' && microsite !== null && microsite != '') {
+
 			setHeaderColor(microsite.appHeader.titleBgColor);
 			setButtonColor(microsite.appHeader.shopCtaColor);
 			setQuotesColor(microsite.influencerQuote.quoteIconColor);
@@ -86,46 +87,75 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			setQuoteMessage(microsite.influencerQuote.quoteContent);
 			setImage2(microsite.hero.imageLarge && microsite.hero.imageLarge !== null ? microsite.hero.imageLarge : null)
 			setHeroImage(microsite.appHeader.imageLarge && microsite.appHeader.imageLarge !== null ? microsite.appHeader.imageLarge : null)
-		} else if (template === 'TWO') {
+
+		} else if ((template === 'TWO' && (microsite === '' || microsite === undefined)) || (template === 'TWO' && changeTemplate === true)) {
+
 			setHeaderColor('#FEF5CB');
 			setButtonColor('#DCB7D1');
 			setQuotesColor('');
 			setShopColor('#FEF5CB');
 			setFooterColor('#DCB7D1');
 			setQuotesBGColor("#F1E2EC");
+			setQuoteMessage('');
+
+		}
+		else if (template === 'TWO' && (microsite !== null && microsite != '')) {
+
+			setHeaderColor(microsite.appHeader.titleBgColor);
+			setButtonColor(microsite.appHeader.shopCtaColor);
+			setQuotesColor('');
+			setShopColor(microsite.shopBelow.bgColor);
+			setFooterColor(microsite.footer.bgColor);
+			setQuotesBGColor(microsite.influencerQuote.bgColor);
+			setQuoteMessage(microsite.influencerQuote.quoteContent);
 			setImage2(microsite.hero.imageLarge && microsite.hero.imageLarge !== null ? microsite.hero.imageLarge : null)
 			setHeroImage(microsite.appHeader.imageLarge && microsite.appHeader.imageLarge !== null ? microsite.appHeader.imageLarge : null)
 
-		} else if (template === 'FOUR' && microsite === '') {
-			setHeaderColor('#B4C389');
-			setButtonColor('#B4C389');
-			setQuotesColor('');
-			setShopColor('#FEF5CB');
-			setFooterColor('#B4C389');
-			setQuotesBGColor("#B4C389");
+		} else if ((template === 'FOUR' && (microsite === '' || microsite === undefined)) || (template === 'FOUR' && changeTemplate === true)) {
 
-		} else if (template === 'FOUR' && microsite !== '' && microsite !== null) {
 			setHeaderColor('#B4C389');
 			setButtonColor('#B4C389');
 			setQuotesColor('');
 			setShopColor('#FEF5CB');
 			setFooterColor('#B4C389');
 			setQuotesBGColor("#B4C389");
+			setQuoteMessage('');
+
+		} else if (template === 'FOUR' && (microsite !== null && microsite != '')) {
+
+			setHeaderColor(microsite.appHeader.titleBgColor);
+			setButtonColor(microsite.appHeader.shopCtaColor);
+			setQuotesColor('');
+			setShopColor(microsite.shopBelow.bgColor);
+			setFooterColor(microsite.footer.bgColor);
+			setQuotesBGColor(microsite.influencerQuote.bgColor);
+			setQuoteMessage(microsite.influencerQuote.quoteContent);
 			setHeroImage1(microsite.appHeader.image1UploadUrl && microsite.appHeader.image1UploadUrl !== null ? microsite.appHeader.image1UploadUrl : null)
 			setHeroImage2(microsite.appHeader.image2UploadUrl && microsite.appHeader.image2UploadUrl !== null ? microsite.appHeader.image2UploadUrl : null)
 			setHeroImage3(microsite.appHeader.image3UploadUrl && microsite.appHeader.image3UploadUrl !== null ? microsite.appHeader.image3UploadUrl : null)
 			setImage2(microsite.hero.imageLarge && microsite.hero.imageLarge !== null ? microsite.hero.imageLarge : null)
 
+		} else if ((template === 'THREE' && (microsite === '' || microsite === undefined)) || (template === 'THREE' && changeTemplate === true)) {
 
-		} else if (template === 'THREE') {
 			setHeaderColor('#2B426F');
 			setButtonColor('#2B426F');
 			setQuotesColor('');
 			setShopColor('#2B426F');
 			setFooterColor('#2B426F');
 			setQuotesBGColor("#2B426F");
+			setQuoteMessage('');
+
+		} else if (template === 'THREE' && (microsite !== null && microsite != '')) {
+
+			setHeaderColor(microsite.appHeader.titleBgColor);
+			setButtonColor(microsite.appHeader.shopCtaColor);
+			setQuotesColor('');
+			setShopColor(microsite.shopBelow.bgColor);
+			setFooterColor(microsite.footer.bgColor);
+			setQuotesBGColor(microsite.influencerQuote.bgColor);
+			setQuoteMessage(microsite.influencerQuote.quoteContent);
 			setImage2(microsite.hero.imageLarge && microsite.hero.imageLarge !== null ? microsite.hero.imageLarge : null)
-			setHeroImage(microsite.appHeader.imageLarge && microsite.appHeader.imageLarge !== null ? microsite.appHeader.imageLarge : null)
+			setHeroImage(microsite.appHeader.imageMedium && microsite.appHeader.imageMedium !== null ? microsite.appHeader.imageMedium : null)
 		}
 
 	}, [template, microsite]);

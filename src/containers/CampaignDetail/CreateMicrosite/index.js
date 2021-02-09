@@ -27,6 +27,7 @@ const CreateMicrosite = ({
 	const [templated, setTemplate] = useState('');
 	const [saveBack, setSaveBack] = useState('');
 	const [confirmTemplate, setConfirmTemplate] = useState(false);
+	const [changeTemplate, setChangeTemplate] = useState(false);
 	const { brandId } = useContext(RootContext);
 	// const [microsite1, setMiscroSite1] = useState(microsite);
 
@@ -34,10 +35,12 @@ const CreateMicrosite = ({
 		setTemplate(saveBack);
 		getCampaign();
 		setConfirmTemplate(false);
+		setChangeTemplate(false);
 	}
 	const handleOk = () => {
 		setTemplate('');
 		setSaveBack('');
+		setChangeTemplate(true);
 		getCampaign();
 		setConfirmTemplate(false)
 	}
@@ -87,6 +90,7 @@ const CreateMicrosite = ({
 							microsite={microsite}
 							influencer={influencer}
 							brand={brand}
+							changeTemplate={changeTemplate}
 						/>
 					</> :
 						<div className={styles.contentContainer}>
