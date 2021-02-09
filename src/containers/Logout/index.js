@@ -19,7 +19,7 @@ const Logout = () => {
 
   const signOut = async () => {
     try {
-      const signOut = await Auth.signOut({ global: true });
+
       setMeData(null);
       setLogoutMessage('Successfully logged out');
       setCurrentUser();
@@ -29,7 +29,7 @@ const Logout = () => {
       setBrandIdd();
       setBrandType();
       setActiveRoute('/')
-
+      await Auth.signOut({ global: true });
     }
     catch (error) {
       console.log('error signing out: ', error);

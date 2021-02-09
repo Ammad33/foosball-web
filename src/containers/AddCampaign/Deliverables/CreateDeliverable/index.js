@@ -16,13 +16,8 @@ import SVG from 'react-inlinesvg';
 import mainStyles from '../../../../index.module.scss';
 import moment from 'moment';
 
-const Chevron = () => {
-	return (
-		<span className={styles.dropDownCustomizeSvg}>
-			<SVG src={require('../../../../assets/chevron-down.svg')} />
-		</span>
-	);
-};
+
+
 const frames = [];
 for (let i = 1; i <= 15; i += 1) {
 	frames.push(i);
@@ -43,6 +38,11 @@ const CreateDeliverable = ({
 	tictock,
 	youtube,
 }) => {
+	const [open,setOpen] = useState(false)
+	const [open1,setOpen1] = useState(false)
+	const [open2,setOpen2] = useState(false)
+	const [open3,setOpen3] = useState(false)
+	const [open4,setOpen4] = useState(false)
 	const [error, setError] = useState(false);
 	const [post, setPost] = useState(false);
 	const [options, setOptions] = useState(false);
@@ -50,6 +50,28 @@ const CreateDeliverable = ({
 		postType: ['Does not apply'],
 		frameContentType: ['Does not apply'],
 	});
+
+	const Chevron = ({ Check,MenuId, ...other}) => {
+		const onClick = () => {
+			if (Check==="open") {
+				setOpen(!open)			  
+			}else if(Check==="open1"){
+				setOpen1(!open1)
+			} else if(Check==="open2"){
+				setOpen2(!open2)
+			} else if(Check==="open3"){
+				setOpen3(!open3)
+			} else if(Check==="open4"){
+				setOpen4(!open4)
+			} 
+			
+		}
+		return (
+			<span onClick={onClick} {...other} className={styles.dropDownCustomizeSvg}>
+				<SVG src={require('../../../../assets/chevron-down.svg')} />
+			</span>
+		);
+	};
 
 	/**to set the platform**/
 	useEffect(() => {
@@ -105,6 +127,7 @@ const CreateDeliverable = ({
 				break;
 		}
 	};
+
 
 	return (
 		<Grid container spacing={2}>
@@ -183,7 +206,7 @@ const CreateDeliverable = ({
 						MenuProps={{ variant: 'menu' }}
 						// input={<SelectMenu />}
 						select
-						SelectProps={{ IconComponent: () => <Chevron /> }}
+						SelectProps={{ IconComponent: () => <Chevron MenuId="menuSocialPlatform" Check="open"/>, open: open , onClose: () => {setOpen(false)}, onOpen: () => {setOpen(true)}}}
 					>
 						<MenuItem value='' disabled>
 							Social Platform
@@ -211,7 +234,7 @@ const CreateDeliverable = ({
 						}
 						MenuProps={{ variant: 'menu' }}
 						select
-						SelectProps={{ IconComponent: () => <Chevron /> }}
+						SelectProps={{ IconComponent: () => <Chevron MenuId="open1" Check="open1"/>, open: open1 , onClose: () => {setOpen1(false)}, onOpen: () => {setOpen1(true)}}}
 					>
 						<MenuItem value='' disabled>
 							Post Type
@@ -240,7 +263,7 @@ const CreateDeliverable = ({
 						}
 						MenuProps={{ variant: 'menu' }}
 						select
-						SelectProps={{ IconComponent: () => <Chevron /> }}
+						SelectProps={{ IconComponent: () => <Chevron MenuId="open2" Check="open2"/>, open: open2 , onClose: () => {setOpen2(false)}, onOpen: () => {setOpen2(true)}}}
 					>
 						<MenuItem value='' disabled>
 							Content Type
@@ -268,16 +291,28 @@ const CreateDeliverable = ({
 						}
 						MenuProps={{ variant: 'menu' }}
 						select
-						SelectProps={{ IconComponent: () => <Chevron /> }}
+						SelectProps={{ 
+							IconComponent: () => <Chevron 
+							MenuId="open3" Check="open3"/>, 
+							open: open3 , 
+							onClose: () => {setOpen3(false)}, onOpen: () => {setOpen3(true)}}}
 					>
 						<MenuItem value='' disabled>
 							Frame Required
                   </MenuItem>
-						{frames.map((frame) => (
-							<MenuItem key={frame} value={frame}>
-								{frame}
-							</MenuItem>
-						))}
+							{post || deliverableItem.platform.toLowerCase() === 'youtube' || deliverableItem.platform.toLowerCase() === 'tiktok' ? (
+										<MenuItem  value={"frame"}>
+											{tictock.framesRequired[0]}
+										</MenuItem>
+							): (
+								frames.map((frame) => (
+									<MenuItem key={frame} value={frame}>
+										{frame}
+									</MenuItem>
+								))
+							)
+}
+
 					</TextField>
 				</FormControl>
 			</Grid>
@@ -402,7 +437,6 @@ const CreateDeliverable = ({
 				<TextField
 					id='outlined-basic'
 					fullWidth
-					type='number'
 					label='Number of Posts'
 					helperText={error ? <span> error </span> : ' '}
 					className={mainStyles.placeholderColor}
@@ -451,7 +485,7 @@ const CreateDeliverable = ({
 						}
 						MenuProps={{ variant: 'menu' }}
 						select
-						SelectProps={{ IconComponent: () => <Chevron /> }}
+						SelectProps={{ IconComponent: () => <Chevron MenuId="open4" Check="open4"/>, open: open4 , onClose: () => {setOpen4(false)}, onOpen: () => {setOpen4(true)}}}
 					>
 						<MenuItem value='' disabled>
 							Per Time Period

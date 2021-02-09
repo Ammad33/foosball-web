@@ -88,7 +88,7 @@ const ReviewBrandMicrosite = ({ name, data, campaignId }) => {
 			<div className={styles.contentContainer}>
 				<div className={styles.secondContainer}>
 					<Iframe
-						url={`${config.fomo_Url}/?brandId=${brandId}&campaignId=campaign%23${campaign}&accessToken=${currentUser.signInUserSession.accessToken.jwtToken}`}
+						url={`${process.env.REACT_APP_FOMO_URL}/?brandId=${brandId}&campaignId=campaign%23${campaign}&accessToken=${currentUser.signInUserSession.accessToken.jwtToken}`}
 						width="100%"
 						height="100%"
 						id="myId"
@@ -98,7 +98,7 @@ const ReviewBrandMicrosite = ({ name, data, campaignId }) => {
 						position="relative" />
 				</div>
 				<div className={styles.actionsContainer}>
-					<Button className={styles.declineBtn}>Default</Button>
+					<div className={styles.declineBtn}>Decline with comments</div>
 					<button className={styles.approveBtn} onClick={() => approveMicrosite()}>Approve</button>
 				</div>
 			</div>

@@ -55,6 +55,7 @@ const Campaigns = () => {
 		setBrandIdd,
 		setBrandName,
 		setShowLoader,
+		showLoader,
 		setBrandType,
 		setActiveRoute,
 		creatorRoleId,
@@ -63,7 +64,7 @@ const Campaigns = () => {
 	/**************** */
 
 	/**state variables */
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
 	const [selectedState, setSelectedState] = useState('Recent Activity');
 	const [brandDropDown, setBrandDropDown] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
@@ -87,6 +88,7 @@ const Campaigns = () => {
 			getMeData();
 		}
 	}, []);
+
 
 	/**API call to get influencers and brands data*/
 	const getMeData = async () => {
@@ -439,19 +441,28 @@ const Campaigns = () => {
 						)}
 					{brandType === 'Brand' ? (
 						<button
-							className={active === 'INVITED' ? styles.pendingActive : ''}
+							className={active === 'INVITED' ? styles.draftActive : ''}
 							onClick={() => setActive('INVITED')}
 						>
-							Pending
+							Invited
 						</button>
 					) : (
 							<button
-								className={active === 'PENDING' ? styles.pendingActive : ''}
+								className={active === 'PENDING' ? styles.inviteActive : ''}
 								onClick={() => setActive('PENDING')}
 							>
 								Pending
 							</button>
 						)}
+						{brandType === 'Brand' ? (
+						<button
+							className={active === 'PENDING' ? styles.draftActive : ''}
+							onClick={() => setActive('PENDING')}
+						>
+							Pending
+						</button>
+					) : ("")}
+
 
 					<button
 						className={active === 'LIVE' ? styles.liveActive : ''}
@@ -472,7 +483,7 @@ const Campaigns = () => {
 						Declined
           </button>
 				</div>
-				{campaigns.length === 0 && !loading ? (
+				{(campaigns.length === 0 && !loading) ? (
 					<Grid
 						container
 						spacing={0}
@@ -499,20 +510,19 @@ const Campaigns = () => {
 				<Grid container spacing={3}>
 					{campaigns.length > 0 &&
 						campaigns.map((campaign) => {
-
-							if ((active === 'PENDING' || active === 'INVITED') && (campaign.status === 'PENDING' || campaign.status === 'INVITED')) {
-								return (
-									<Grid className={styles.gridItem} item key={campaign.id}>
-										<CampaignsCard
-											campaign={campaign}
-											onClick={() => {
-												handleCampaginDetail(campaign.id);
-											}}
-											handleDelete={handleDelete}
-										/>
-									</Grid>
-								);
-							}
+							// if ((active === 'PENDING' || active === 'INVITED') && (campaign.status === 'PENDING' || campaign.status === 'INVITED')) {
+							// 	return (
+							// 		<Grid className={styles.gridItem} item key={campaign.id}>
+							// 			<CampaignsCard
+							// 				campaign={campaign}
+							// 				onClick={() => {
+							// 					handleCampaginDetail(campaign.id);
+							// 				}}
+							// 				handleDelete={handleDelete}
+							// 			/>
+							// 		</Grid>
+							// 	);
+							// }
 							if (campaign.status !== active && active !== 'ALL') {
 								return null;
 							}

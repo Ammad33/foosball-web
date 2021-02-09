@@ -153,12 +153,30 @@ const BrandProfile = () => {
     }
   };
 
-  const postImage = async (url) => {
-    await uploadImages(url, imageFile);
-
-    setTimeout(() => getMeData(), 3000);
+  const postImage = (url) => {
+    UploadImage(url, imageFile);
 
   };
+
+  const UploadImage = (URL, file) => {
+    console.log(URL, file);
+    var requestOptions = {
+      method: 'PUT',
+      body: file,
+      headers: {
+        'Content-Type': ''
+
+      },
+      redirect: 'follow'
+    };
+
+    fetch(URL, requestOptions)
+      .then(response => response.text())
+      .then(result => getMeData())
+      .catch(error => console.log('error', error));
+
+  };
+
 
   useEffect(() => {
     if (imageFile !== null && imageUrl !== '') {
