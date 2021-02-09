@@ -264,6 +264,7 @@ const CampaignDetail = ({ location }) => {
 								shopCtaColor
 								titleBgColor
 								imageLarge
+								image
 							}
 							footer {
 								bgColor
