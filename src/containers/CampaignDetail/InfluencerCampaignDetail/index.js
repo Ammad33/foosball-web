@@ -17,6 +17,7 @@ import DraftBrandCampaignDetail from '../DraftBrandCampaignDetail';
 import { API, graphqlOperation } from 'aws-amplify';
 import { RootContext } from '../../../context/RootContext';
 import _ from 'lodash';
+import moment from 'moment';
 
 const CampaignDetailInfluencer = ({
 	headingValue,
@@ -38,16 +39,19 @@ const CampaignDetailInfluencer = ({
 	internalState,
 	getCampaign
 }) => {
+	/**variables */
 	const [openDrawer, setOpenDrawer] = useState(false);
 	const [step, setStep] = useState(1);
 	const [element, setElement] = useState('');
 	const { brandId } = useContext(RootContext);
 
+	/**{function} to handle edit campaign */
 	const handleEdit = (step) => {
 		setAddCampagin(true);
 		setStep(step);
 	};
 
+	/**{function} to set the active step in stepper */
 	const handleActiveStep = () => {
 
 		let negotialble = true;
@@ -109,6 +113,7 @@ const CampaignDetailInfluencer = ({
 		}
 	};
 
+	/**API call*/
 	const signContract = async () => {
 		try {
 			await API.graphql(
@@ -126,6 +131,7 @@ const CampaignDetailInfluencer = ({
 		}
 	}
 
+	/**{function} to close the drawer */
 	const handleCloseDrawer = () => {
 		if (element === 'TeamMembers') {
 			updateCampaign();
@@ -134,6 +140,7 @@ const CampaignDetailInfluencer = ({
 		setOpenDrawer(false);
 	};
 
+	/**{function} to set campaign detail page according to the status of the campaign*/
 	const getPage = (status) => {
 		switch (status) {
 			case 'DRAFT':
@@ -234,6 +241,7 @@ const CampaignDetailInfluencer = ({
 		}
 	};
 
+	/**{function} to get drawer element  */
 	const getDrawerElement = (element) => {
 		switch (element) {
 			case 'Activity':
@@ -270,32 +278,72 @@ const CampaignDetailInfluencer = ({
 		}
 	};
 
+	/**{function} to handle the drawer on campaign detail page */
 	const handleSeeClick = (value) => {
 		setElement(value);
 		setOpenDrawer(true);
 	};
-	const getTotal = (compensations) => {
+
+	/*****************************Date functions***********************************/
+	/**{function} to get weeks betweeen two dates */
+	function weeksBetween(d1, d2) {
+
+		const date1 = moment(d1);
+		const date2 = moment(d2);
+		return Math.ceil(date2.diff(date1, 'days') / 7);
+	}
+
+	/**{function} to get months betweeen two dates */
+	function monthBetween(d1, d2) {
+		const date1 = moment(d1);
+		const date2 = moment(d2);
+		console.log(date2.diff(date1, 'days'))
+		return Math.ceil(date2.diff(date1, 'days') / 30);
+	}
+
+	/**{function} to get biMonths between two dates */
+	function biMonthBetween(d1, d2) {
+		const date1 = moment(d1);
+		const date2 = moment(d2);
+		console.log(date2.diff(date1, 'days'))
+		return Math.ceil(date2.diff(date1, 'days') / 60);
+	}
+
+	/**{function} to get biWeeks between two dates */
+	function biWeekBetween(d1, d2) {
+		const date1 = moment(d1);
+		const date2 = moment(d2);
+		console.log(date2.diff(date1, 'days'))
+		return Math.ceil(date2.diff(date1, 'days') / 14);
+	}
+	/*****************************************************************************/
+
+	/**{function} to get compensation total */
+	const getTotal = () => {
 		let total = 0;
-		compensations &&
-			compensations !== null &&
-			compensations.length > 0 &&
-			compensations.forEach((item) => {
-				if (
-					item.__typename === 'CompRevenueShare' &&
-					data &&
-					data.targetGrossSales &&
-					data.targetGrossSales !== null
-				) {
-					total =
-						total +
-						parseFloat(item.percentage * 100) *
-						parseFloat(data.targetGrossSales.amount / 100);
-				} else {
-					total = total + parseFloat(item.amount.amount);
-				}
-			});
+		data.compensation.forEach(item => {
+			if (item.__typename === 'CompRevenueShare') {
+				total = total + parseFloat((item.percentage * 100) * parseFloat(data.targetGrossSales.amount / 100));
+			} else if (item.__typename === 'CompCashPerPost') {
+				let totalPost = 0;
+				data.deliverables.forEach(item => {
+					if (item.frequency === 'WEEK') {
+						totalPost = totalPost + (parseInt(item.posts) * weeksBetween(new Date(data.startDate * 1000), new Date(data.endDate * 1000)));
+					} else if (item.frequency === 'BI_WEEKLY') {
+						totalPost = totalPost + (parseInt(item.posts) * biWeekBetween(new Date(data.startDate * 1000), new Date(data.endDate * 1000)));
+					} else if (item.frequency === 'MONTH') {
+						totalPost = totalPost + (parseInt(item.posts) * monthBetween(new Date(data.startDate * 1000), new Date(data.endDate * 1000)));
+					} else if (item.frequency === 'BI_MONTHLY') {
+						totalPost = totalPost + (parseInt(item.posts) * biMonthBetween(new Date(data.startDate * 1000), new Date(data.endDate * 1000)));
+					}
+				});
+				total = total + (parseFloat(item.amount.amount) * totalPost);
+			} else {
+				total = total + parseFloat(item.amount.amount);
+			}
+		})
 		return parseFloat(total).toFixed(2);
-	};
+	}
 
 	return (
 		<>
