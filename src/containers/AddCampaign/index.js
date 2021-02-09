@@ -789,12 +789,21 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   /***** Handle Deliverable Content ********/
   const handleDilverableContent = (value, index, fieldname) => {
-    const opts = [...deliveries];
-    if (fieldname === 'postType' && value === 'Post') {
-      opts[index]['framesRequired'] = null;
-    }
-    opts[index][fieldname] = value;
-    setDeliveries(opts);
+		const opts = [...deliveries];
+		if (fieldname === 'posts'){
+			const val = value.replace(/[^\d]/, '');
+      if (parseInt(val) !== 0) {
+				opts[index][fieldname] = val;
+				setDeliveries(opts);
+			}
+		}
+		if (fieldname === 'postType' && value === 'Post') {
+			opts[index]['framesRequired'] = null;	
+		}	
+		if (fieldname != 'posts'){
+			opts[index][fieldname] = value;
+			setDeliveries(opts);
+		}		
   };
 
   /***** Handle Delete Deliverable ***********/
@@ -823,24 +832,23 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   /***** Handle Compesation Value ********/
 
   const handleCompensationValue = (val, index, fieldName) => {
-		debugger;
 		const comp = [...compensations];
+		if (fieldName === 'Revenue share amount'){
+			comp[index]['amount'] = val; 
+		}
 		if (fieldName === 'amount') {
 			const value = val.replace(/[^\d]/, '');
 			if (parseInt(value) !== 0) {
 				comp[index][fieldName] = value;      
 			}
 		}
-		
     if (fieldName === 'compensationType') {
       const found = comp.findIndex((item) => item.compensationType === val);
       if (found !== -1) {
         return;
 			}
 			comp[index][fieldName] = val;
-    }
-    
-
+		}
     setCompensations(comp);
   };
 
@@ -1057,7 +1065,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   //*************Handle Discount *****************/
 
   const handleDiscount = (e) => {
-		debugger;
     if (discountType === 'Amount') {
       const value = e.replace(/[^\d]/, '');
       if (parseInt(value) !== 0) {

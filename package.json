@@ -24,6 +24,7 @@
     "moment": "^2.29.1",
     "node-sass": "^4.14.1",
     "path": "^0.12.7",
+    "pure-react-carousel": "^1.27.6",
     "react": "^16.13.1",
     "react-color": "^2.19.3",
     "react-debounce-input": "^3.2.3",

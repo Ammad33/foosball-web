@@ -136,7 +136,7 @@ const [open1,setOpen1] = useState(false)
 							className={mainStyles.placeholderColor}
 							value={item.amount}
 							onChange={(e) =>
-								handleCompensationValue(e.target.value, index, 'amount')
+								handleCompensationValue(e.target.value, index, 'Revenue share amount')
 							}
 							MenuProps={{ variant: 'menu' }}
 							select

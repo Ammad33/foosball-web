@@ -128,7 +128,6 @@ const CreateDeliverable = ({
 		}
 	};
 
-	debugger;
 
 	return (
 		<Grid container spacing={2}>
@@ -438,7 +437,6 @@ const CreateDeliverable = ({
 				<TextField
 					id='outlined-basic'
 					fullWidth
-					type='number'
 					label='Number of Posts'
 					helperText={error ? <span> error </span> : ' '}
 					className={mainStyles.placeholderColor}

@@ -53,7 +53,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 		'MM/DD/YYYY'
 	);
 	const convertedEndDate = moment(campaign.endDate * 1000).format('MM/DD/YYYY');
-
+	
 	return (
 		<>
 			<Popover
@@ -148,7 +148,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 															styles.statusPending,
 															styles[`chip${campaign.status}`]
 														)}
-														label='Pending'
+														label='Invited'
 													/>
 												)
 
