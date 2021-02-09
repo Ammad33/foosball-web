@@ -18,7 +18,7 @@ import moment from 'moment';
 
 const Chevron = () => {
 	return (
-		<span className={styles.dropDownCustomizeSvg}>
+		<span className={styles.dropDownCustomizeSvg} >
 			<SVG src={require('../../../../assets/chevron-down.svg')} />
 		</span>
 	);

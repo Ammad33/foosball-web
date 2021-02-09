@@ -821,15 +821,24 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   };
   /***** Handle Compesation Value ********/
 
-  const handleCompensationValue = (value, index, fieldName) => {
-    const comp = [...compensations];
+  const handleCompensationValue = (val, index, fieldName) => {
+		debugger;
+		const comp = [...compensations];
+		if (fieldName === 'amount') {
+			const value = val.replace(/[^\d]/, '');
+			if (parseInt(value) !== 0) {
+				comp[index][fieldName] = value;      
+			}
+		}
+		
     if (fieldName === 'compensationType') {
-      const found = comp.findIndex((item) => item.compensationType === value);
+      const found = comp.findIndex((item) => item.compensationType === val);
       if (found !== -1) {
         return;
-      }
+			}
+			comp[index][fieldName] = val;
     }
-    comp[index][fieldName] = value;
+    
 
     setCompensations(comp);
   };
@@ -1047,6 +1056,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   //*************Handle Discount *****************/
 
   const handleDiscount = (e) => {
+		debugger;
     if (discountType === 'Amount') {
       const value = e.replace(/[^\d]/, '');
       if (parseInt(value) !== 0) {
@@ -1882,7 +1892,14 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         setCampaignError('');
       }
     }
-  };
+	};
+	
+	const handleMinimum = (e) => {
+		const value =  e.target.value.replace(/[^\d]/, '');
+		if (parseInt(value) !== 0) {
+			setMinimium(value);
+		}
+	}
 
   const handleCollectionClear = () => {
     let cols = [...collections];
@@ -1917,7 +1934,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             endTimeOpen={endTimeOpen}
             campaignError={campaignError}
             minimium={minimium}
-            handleMinimium={(e) => setMinimium(e.target.value)}
+            handleMinimium={handleMinimum}
             // handleValidation={handleDateTimeValidation}
             handleStartDate={handleStartDate}
             handleStartDateOpen={(value) => setStartDateOpen(value)}

@@ -4,7 +4,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import { Grid, InputAdornment, Select } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import SVG from 'react-inlinesvg';
 import SelectMenu from '../../../components/SelectMenu';
 import styles from './AddCampaignDetail.module.scss';
@@ -18,13 +18,7 @@ for (let i = 1; i <= 100; i += 1) {
 	options.push(i);
 }
 
-const Chevron = () => {
-	return (
-		<span className={styles.dropDownCustomizeSvg}>
-			<SVG src={require('../../../assets/chevron-down.svg')} />
-		</span>
-	);
-};
+
 /*
 handleCampaignName,
 	handleStartDate {function} used to set the start date
@@ -97,6 +91,17 @@ const AddCampaignDetails = ({
 	handleMinimium
 }) => {
 
+	const Chevron = ({ MenuId, ...other }) => {
+		const onClick = () => {
+			setOpen(!open);
+		}
+		return (
+			<span onClick={onClick} {...other} className={styles.dropDownCustomizeSvg}>
+				<SVG src={require('../../../assets/chevron-down.svg')} />
+			</span>
+		);
+	};
+
 	useEffect(() => {
 		filledForm();
 		partialFilledForm();
@@ -115,6 +120,16 @@ const AddCampaignDetails = ({
 		partialFilledForm();
 	});
 
+	const [open, setOpen] = useState(false);
+
+	const handleClose = () => {
+		setOpen(false);
+	}
+
+	const handleOpen = () => {
+		setOpen(true);
+	}
+	console.log(open)
 	return (
 		<Grid container spacing={2}>
 			<Grid item md={12}>
@@ -315,7 +330,7 @@ const AddCampaignDetails = ({
 						onChange={(e) => handleDiscountType(e.target.value)}
 						MenuProps={{ variant: 'menu' }}
 						select
-						SelectProps={{ IconComponent: () => <Chevron /> }}
+						SelectProps={{ IconComponent: () => <Chevron MenuId="menu" />, open: open , onClose: handleClose, onOpen: handleOpen}}
 					>
 						<MenuItem value='Discount Type' disabled>
 							Discount Type
@@ -339,8 +354,8 @@ const AddCampaignDetails = ({
 							onChange={(e) => handleDiscount(e.target.value)}
 							MenuProps={{ variant: 'menu' }}
 							select
-							SelectProps={{ IconComponent: () => <Chevron /> }}
-						>
+							SelectProps={{ IconComponent: () => <Chevron MenuId="menu" />, open: open , onClose: handleClose, onOpen: handleOpen}}
+							>
 							<MenuItem value='' disabled>
 								Discount Percentage
 						</MenuItem>
@@ -365,7 +380,7 @@ const AddCampaignDetails = ({
 							helperText={' '}
 							InputProps={{
 								startAdornment: <InputAdornment position="start">$</InputAdornment>,
-							  }}
+							}}
 						/>
 					</Grid>
 				)}
@@ -382,8 +397,8 @@ const AddCampaignDetails = ({
 						helperText={' '}
 						InputProps={{
 							startAdornment: <InputAdornment position="start">$</InputAdornment>,
-						  }}
-						  
+						}}
+
 					/>
 				</Grid>
 			) : (

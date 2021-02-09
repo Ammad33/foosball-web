@@ -100,7 +100,6 @@ const CreateCompensation = ({
 						<TextField
 							id='outlined-basic'
 							fullWidth
-							type='number'
 							label='Enter Amount'
 							variant='outlined'
 							value={item.amount}
@@ -151,7 +150,6 @@ const CreateCompensation = ({
 						className={styles.marginbottomSelect}
 						id='outlined-basic123'
 						fullWidth
-						type='number'
 						label='Enter Amount'
 						variant='outlined'
 						value={item.amount}
