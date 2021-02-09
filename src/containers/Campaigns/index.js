@@ -89,6 +89,7 @@ const Campaigns = () => {
 		}
 	}, []);
 
+
 	/**API call to get influencers and brands data*/
 	const getMeData = async () => {
 		try {
@@ -440,19 +441,28 @@ const Campaigns = () => {
 						)}
 					{brandType === 'Brand' ? (
 						<button
-							className={active === 'INVITED' ? styles.pendingActive : ''}
+							className={active === 'INVITED' ? styles.draftActive : ''}
 							onClick={() => setActive('INVITED')}
 						>
-							Pending
+							Invited
 						</button>
 					) : (
 							<button
-								className={active === 'PENDING' ? styles.pendingActive : ''}
+								className={active === 'PENDING' ? styles.inviteActive : ''}
 								onClick={() => setActive('PENDING')}
 							>
 								Pending
 							</button>
 						)}
+						{brandType === 'Brand' ? (
+						<button
+							className={active === 'PENDING' ? styles.draftActive : ''}
+							onClick={() => setActive('PENDING')}
+						>
+							Pending
+						</button>
+					) : ("")}
+
 
 					<button
 						className={active === 'LIVE' ? styles.liveActive : ''}
@@ -500,20 +510,19 @@ const Campaigns = () => {
 				<Grid container spacing={3}>
 					{campaigns.length > 0 &&
 						campaigns.map((campaign) => {
-
-							if ((active === 'PENDING' || active === 'INVITED') && (campaign.status === 'PENDING' || campaign.status === 'INVITED')) {
-								return (
-									<Grid className={styles.gridItem} item key={campaign.id}>
-										<CampaignsCard
-											campaign={campaign}
-											onClick={() => {
-												handleCampaginDetail(campaign.id);
-											}}
-											handleDelete={handleDelete}
-										/>
-									</Grid>
-								);
-							}
+							// if ((active === 'PENDING' || active === 'INVITED') && (campaign.status === 'PENDING' || campaign.status === 'INVITED')) {
+							// 	return (
+							// 		<Grid className={styles.gridItem} item key={campaign.id}>
+							// 			<CampaignsCard
+							// 				campaign={campaign}
+							// 				onClick={() => {
+							// 					handleCampaginDetail(campaign.id);
+							// 				}}
+							// 				handleDelete={handleDelete}
+							// 			/>
+							// 		</Grid>
+							// 	);
+							// }
 							if (campaign.status !== active && active !== 'ALL') {
 								return null;
 							}

@@ -9,17 +9,6 @@ import styles from './Compensations.module.scss';
 import TextField from '../../../components/TextField';
 import mainStyles from '../../../index.module.scss';
 
-/**SVG */
-const Chevron = () => {
-	return (
-		<span className={styles.dropDownCustomizeSvg}>
-			<SVG src={require('../../../assets/chevron-down.svg')} />
-		</span>
-	);
-};
-
-
-
 const Compensations = ({
 	compensations,
 	handleCompensations,
@@ -42,6 +31,21 @@ const Compensations = ({
 	clearCollections,
 	products
 }) => {
+	/**SVG */
+	const Chevron = ({ Check,MenuId, ...other}) => {
+		const onClick = () => {
+			if (Check==="open") {
+				setOpen(!open)			  
+			}
+			
+		}
+		return (
+			<span onClick={onClick} {...other} className={styles.dropDownCustomizeSvg}>
+				<SVG src={require('../../../assets/chevron-down.svg')} />
+			</span>
+		);
+	};
+	const [open,setOpen] = useState(false)
 	const checkAddAnother = () => {
 		if (addAnother === true) {
 			setAnother(true);
@@ -80,7 +84,7 @@ const Compensations = ({
 							}}
 							MenuProps={{ variant: 'menu' }}
 							select
-							SelectProps={{ IconComponent: () => <Chevron /> }}
+							SelectProps={{ IconComponent: () => <Chevron MenuId="open" Check="open"/>, open: open , onClose: () => {setOpen(false)}, onOpen: () => {setOpen(true)}}}
 						>
 							<MenuItem value='' disabled>
 								{' '}

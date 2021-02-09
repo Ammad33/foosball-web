@@ -105,12 +105,13 @@ const insta = {
   frameContentType: ['Video', 'Image'],
 };
 const tictock = {
-  postType: ['Does not apply'],
-  frameContentType: ['Does not apply'],
+  postType: [''],
+  frameContentType: [''],
+  framesRequired: ['']
 };
 const youtube = {
-  postType: ['Does not apply'],
-  frameContentType: ['Does not apply'],
+  postType: [''],
+  frameContentType: [''],
 };
 
 const items = [
@@ -788,12 +789,21 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   /***** Handle Deliverable Content ********/
   const handleDilverableContent = (value, index, fieldname) => {
-    const opts = [...deliveries];
-    if (fieldname === 'postType' && value === 'Post') {
-      opts[index]['framesRequired'] = null;
-    }
-    opts[index][fieldname] = value;
-    setDeliveries(opts);
+		const opts = [...deliveries];
+		if (fieldname === 'posts'){
+			const val = value.replace(/[^\d]/, '');
+      if (parseInt(val) !== 0) {
+				opts[index][fieldname] = val;
+				setDeliveries(opts);
+			}
+		}
+		if (fieldname === 'postType' && value === 'Post') {
+			opts[index]['framesRequired'] = null;	
+		}	
+		if (fieldname != 'posts'){
+			opts[index][fieldname] = value;
+			setDeliveries(opts);
+		}		
   };
 
   /***** Handle Delete Deliverable ***********/
@@ -821,16 +831,24 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   };
   /***** Handle Compesation Value ********/
 
-  const handleCompensationValue = (value, index, fieldName) => {
-    const comp = [...compensations];
+  const handleCompensationValue = (val, index, fieldName) => {
+		const comp = [...compensations];
+		if (fieldName === 'Revenue share amount'){
+			comp[index]['amount'] = val; 
+		}
+		if (fieldName === 'amount') {
+			const value = val.replace(/[^\d]/, '');
+			if (parseInt(value) !== 0) {
+				comp[index][fieldName] = value;      
+			}
+		}
     if (fieldName === 'compensationType') {
-      const found = comp.findIndex((item) => item.compensationType === value);
+      const found = comp.findIndex((item) => item.compensationType === val);
       if (found !== -1) {
         return;
-      }
-    }
-    comp[index][fieldName] = value;
-
+			}
+			comp[index][fieldName] = val;
+		}
     setCompensations(comp);
   };
 
@@ -1882,7 +1900,14 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         setCampaignError('');
       }
     }
-  };
+	};
+	
+	const handleMinimum = (e) => {
+		const value =  e.target.value.replace(/[^\d]/, '');
+		if (parseInt(value) !== 0) {
+			setMinimium(value);
+		}
+	}
 
   const handleCollectionClear = () => {
     let cols = [...collections];
@@ -1917,7 +1942,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             endTimeOpen={endTimeOpen}
             campaignError={campaignError}
             minimium={minimium}
-            handleMinimium={(e) => setMinimium(e.target.value)}
+            handleMinimium={handleMinimum}
             // handleValidation={handleDateTimeValidation}
             handleStartDate={handleStartDate}
             handleStartDateOpen={(value) => setStartDateOpen(value)}

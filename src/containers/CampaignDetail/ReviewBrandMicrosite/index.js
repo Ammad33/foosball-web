@@ -98,7 +98,7 @@ const ReviewBrandMicrosite = ({ name, data, campaignId }) => {
 						position="relative" />
 				</div>
 				<div className={styles.actionsContainer}>
-					<Button className={styles.declineBtn}>Default</Button>
+					<div className={styles.declineBtn}>Decline with comments</div>
 					<button className={styles.approveBtn} onClick={() => approveMicrosite()}>Approve</button>
 				</div>
 			</div>
