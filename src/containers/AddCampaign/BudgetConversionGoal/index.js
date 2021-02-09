@@ -25,14 +25,15 @@ const BudgetAndConversionGoals = ({
           thousandSeparator={true}
           prefix={'$'}
           variant='outlined'
-					label='Budget'
-					min={0}
+          label='Budget'
+          min={0}
           id='outlined-basic'
           value={budget}
           onValueChange={handleBudget}
           helperText={error ? <span> error </span> : ' '}
           fullWidth
           className={mainStyles.placeholderColor}
+          allowNegative={false}
         />
         {/* <TextField
           id='outlined-basic'
@@ -62,6 +63,7 @@ const BudgetAndConversionGoals = ({
           helperText={error ? <span> error </span> : ' '}
           fullWidth
           className={mainStyles.placeholderColor}
+          allowNegative={false}
         />
         {/* <TextField
           id='outlined-basic'
