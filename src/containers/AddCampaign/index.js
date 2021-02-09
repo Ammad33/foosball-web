@@ -105,12 +105,13 @@ const insta = {
   frameContentType: ['Video', 'Image'],
 };
 const tictock = {
-  postType: ['Does not apply'],
-  frameContentType: ['Does not apply'],
+  postType: [''],
+  frameContentType: [''],
+  framesRequired: ['']
 };
 const youtube = {
-  postType: ['Does not apply'],
-  frameContentType: ['Does not apply'],
+  postType: [''],
+  frameContentType: [''],
 };
 
 const items = [

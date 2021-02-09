@@ -91,9 +91,13 @@ const AddCampaignDetails = ({
 	handleMinimium
 }) => {
 
-	const Chevron = ({ MenuId, ...other }) => {
+	const Chevron = ({ Check,MenuId, ...other}) => {
 		const onClick = () => {
-			setOpen(!open);
+			if (Check==="open") {
+				setOpen(!open)			  
+			}else if(Check==="open1"){
+				setOpen1(!open1)
+			} 
 		}
 		return (
 			<span onClick={onClick} {...other} className={styles.dropDownCustomizeSvg}>
@@ -121,15 +125,7 @@ const AddCampaignDetails = ({
 	});
 
 	const [open, setOpen] = useState(false);
-
-	const handleClose = () => {
-		setOpen(false);
-	}
-
-	const handleOpen = () => {
-		setOpen(true);
-	}
-	console.log(open)
+	const [open1, setOpen1] = useState(false);
 	return (
 		<Grid container spacing={2}>
 			<Grid item md={12}>
@@ -330,7 +326,7 @@ const AddCampaignDetails = ({
 						onChange={(e) => handleDiscountType(e.target.value)}
 						MenuProps={{ variant: 'menu' }}
 						select
-						SelectProps={{ IconComponent: () => <Chevron MenuId="menu" />, open: open , onClose: handleClose, onOpen: handleOpen}}
+						SelectProps={{ IconComponent: () => <Chevron MenuId="menuDiscountType" Check="open"/>, open: open , onClose: () => {setOpen(false)}, onOpen: () => {setOpen(true)}}}
 					>
 						<MenuItem value='Discount Type' disabled>
 							Discount Type
@@ -354,7 +350,7 @@ const AddCampaignDetails = ({
 							onChange={(e) => handleDiscount(e.target.value)}
 							MenuProps={{ variant: 'menu' }}
 							select
-							SelectProps={{ IconComponent: () => <Chevron MenuId="menu" />, open: open , onClose: handleClose, onOpen: handleOpen}}
+							SelectProps={{ IconComponent: () => <Chevron MenuId="menuDiscountValue" Check="open1"/>, open: open1 , onClose: () => {setOpen1(false)}, onOpen: () => {setOpen1(true)}}}
 							>
 							<MenuItem value='' disabled>
 								Discount Percentage
