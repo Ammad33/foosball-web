@@ -109,7 +109,7 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			setQuotesBGColor(microsite.influencerQuote.bgColor);
 			setQuoteMessage(microsite.influencerQuote.quoteContent);
 			setImage2(microsite.hero.imageLarge && microsite.hero.imageLarge !== null ? microsite.hero.imageLarge : null)
-			setHeroImage(microsite.appHeader.imageLarge && microsite.appHeader.imageLarge !== null ? microsite.appHeader.imageLarge : null)
+			setHeroImage(microsite.appHeader.image && microsite.appHeader.image !== null ? microsite.appHeader.image : null)
 
 		} else if ((template === 'FOUR' && (microsite === '' || microsite === undefined)) || (template === 'FOUR' && changeTemplate === true)) {
 
@@ -155,7 +155,7 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			setQuotesBGColor(microsite.influencerQuote.bgColor);
 			setQuoteMessage(microsite.influencerQuote.quoteContent);
 			setImage2(microsite.hero.imageLarge && microsite.hero.imageLarge !== null ? microsite.hero.imageLarge : null)
-			setHeroImage(microsite.appHeader.imageMedium && microsite.appHeader.imageMedium !== null ? microsite.appHeader.imageMedium : null)
+			setHeroImage(microsite.appHeader.image && microsite.appHeader.image !== null ? microsite.appHeader.image : null)
 		}
 
 	}, [template, microsite]);
