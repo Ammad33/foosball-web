@@ -662,7 +662,7 @@ const Templates = ({ campaignId, internalState, template, microsite,
 					</div>
 					<div className={styles.secondContainer}>
 						<Iframe
-							url={`${config.fomo_Url}/?influencerId=${brandId}&campaignId=campaign%23${campaign}&accessToken=${currentUser.signInUserSession.accessToken.jwtToken}`}
+							url={`${process.env.REACT_APP_FOMO_URL}/?influencerId=${brandId}&campaignId=campaign%23${campaign}&accessToken=${currentUser.signInUserSession.accessToken.jwtToken}`}
 							width="100%"
 							height="100%"
 							id="myId"

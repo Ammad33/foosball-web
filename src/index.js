@@ -10,16 +10,30 @@ import config from './config';
 
 // import from 'aws-amplify';
 
+// Amplify.configure({
+//   aws_appsync_graphqlEndpoint: config.aws_appsync_graphqlEndpoint,
+//   aws_appsync_region: config.aws_appsync_region,
+//   aws_appsync_authenticationType: config.aws_appsync_authenticationType,
+//   aws_appsync_apiKey: config.aws_appsync_apiKey,
+//   Auth: {
+//     region: config.COGNITO.REGION,
+//     userPoolId: config.COGNITO.USER_POOL_ID,
+//     identityPoolId: config.COGNITO.IDENTITY_POOL_ID,
+//     userPoolWebClientId: config.COGNITO.APP_CLIENT_ID,
+//   },
+// });
+
+
 Amplify.configure({
-  aws_appsync_graphqlEndpoint: config.aws_appsync_graphqlEndpoint,
-  aws_appsync_region: config.aws_appsync_region,
-  aws_appsync_authenticationType: config.aws_appsync_authenticationType,
-  aws_appsync_apiKey: config.aws_appsync_apiKey,
+  aws_appsync_graphqlEndpoint: process.env.REACT_APP_AWS_APPSYNC_GRAPHQLENDPOINT,
+  aws_appsync_region: process.env.REACT_APP_AWS_APPSYNC_REGION,
+  aws_appsync_authenticationType: process.env.REACT_APP_AWS_APPSYNC_AUTHENTICATIONTYPE,
+  aws_appsync_apiKey: process.env.REACT_APP_AWS_APPSYNC_APIKEY,
   Auth: {
-    region: config.COGNITO.REGION,
-    userPoolId: config.COGNITO.USER_POOL_ID,
-    identityPoolId: config.COGNITO.IDENTITY_POOL_ID,
-    userPoolWebClientId: config.COGNITO.APP_CLIENT_ID,
+    region: process.env.REACT_APP_COGNITO_REGION,
+    userPoolId: process.env.REACT_APP_COGNITO_USER_POOL_ID,
+    identityPoolId: process.env.REACT_APP_COGNITO_IDENTITY_POOL_ID,
+    userPoolWebClientId: process.env.REACT_APP_COGNITO_APP_CLIENT_ID,
   },
 });
 
