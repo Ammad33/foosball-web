@@ -99,7 +99,6 @@ const PendingBrandCampaignDetail = ({
 		setReasonDetail(val);
 	};
 
-	debugger;
 
 	const getStatusContainerContent = () => {
 		return (
