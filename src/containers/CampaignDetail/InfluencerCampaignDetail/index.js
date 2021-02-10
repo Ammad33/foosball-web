@@ -44,6 +44,7 @@ const CampaignDetailInfluencer = ({
 	const [step, setStep] = useState(1);
 	const [element, setElement] = useState('');
 	const { brandId } = useContext(RootContext);
+	const [createMircositeFlag, setCreateMicrositeFlag] = useState(false);
 
 	/**{function} to handle edit campaign */
 	const handleEdit = (step) => {
@@ -177,6 +178,8 @@ const CampaignDetailInfluencer = ({
 						handleStatus={handleStatus}
 						internalState={internalState}
 						getCampaign={getCampaign}
+						createMircositeFlag={createMircositeFlag}
+						setCreateMicrositeFlag={setCreateMicrositeFlag}
 					/>
 				);
 			case 'LOST':
@@ -203,6 +206,8 @@ const CampaignDetailInfluencer = ({
 						campaignId={campaignId}
 						internalState={internalState}
 						getCampaign={getCampaign}
+						createMircositeFlag={createMircositeFlag}
+						setCreateMicrositeFlag={setCreateMicrositeFlag}
 
 					/>
 				);
@@ -305,7 +310,7 @@ const CampaignDetailInfluencer = ({
 		let total = 0;
 		data.compensation.forEach(item => {
 			if (item.__typename === 'CompRevenueShare') {
-				total = total + parseFloat((item.percentage * 100) * parseFloat(data.targetGrossSales.amount / 100));
+				total = total + parseFloat((item.percentage) * parseFloat(data.targetGrossSales.amount / 100));
 			} else if (item.__typename === 'CompCashPerPost') {
 				let totalPost = 0;
 				data.deliverables.forEach(item => {

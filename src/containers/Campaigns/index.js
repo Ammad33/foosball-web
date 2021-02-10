@@ -85,7 +85,7 @@ const Campaigns = () => {
 
 	useEffect(() => {
 		if (!brandId || brandId === '') {
-			getMeData();
+			// getMeData();
 		}
 	}, []);
 
@@ -127,6 +127,7 @@ const Campaigns = () => {
 			});
 
 			/**seprating brands and influencers data */
+
 			let brandsData = [];
 			let influencersData = [];
 			mydata.data.me.organizations !== null &&
@@ -186,7 +187,7 @@ const Campaigns = () => {
 			setShowLoader(true);
 			const campaigns = await API.graphql({
 				query: `{
-        campaigns(brandId: "${brandId}") {
+                campaigns(brandId: "${brandId}") {
           campaigns {
             name
             description
@@ -454,7 +455,7 @@ const Campaigns = () => {
 								Pending
 							</button>
 						)}
-						{brandType === 'Brand' ? (
+					{brandType === 'Brand' ? (
 						<button
 							className={active === 'PENDING' ? styles.pendingActive : ''}
 							onClick={() => setActive('PENDING')}

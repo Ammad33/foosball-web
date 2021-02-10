@@ -593,7 +593,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           influencers.data.influencers.influencers,
           ['id', campaign.influencer.id]
         );
-				setInfluencer(selectedInfluencer);
+        setInfluencer(selectedInfluencer);
       }
     } catch (e) {
       console.error(e);
@@ -789,21 +789,21 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   /***** Handle Deliverable Content ********/
   const handleDilverableContent = (value, index, fieldname) => {
-		const opts = [...deliveries];
-		if (fieldname === 'posts'){
-			const val = value.replace(/[^\d]/, '');
+    const opts = [...deliveries];
+    if (fieldname === 'posts') {
+      const val = value.replace(/[^\d]/, '');
       if (parseInt(val) !== 0) {
-				opts[index][fieldname] = val;
-				setDeliveries(opts);
-			}
-		}
-		if (fieldname === 'postType' && value === 'Post') {
-			opts[index]['framesRequired'] = null;	
-		}	
-		if (fieldname != 'posts'){
-			opts[index][fieldname] = value;
-			setDeliveries(opts);
-		}		
+        opts[index][fieldname] = val;
+        setDeliveries(opts);
+      }
+    }
+    if (fieldname === 'postType' && value === 'Post') {
+      opts[index]['framesRequired'] = null;
+    }
+    if (fieldname != 'posts') {
+      opts[index][fieldname] = value;
+      setDeliveries(opts);
+    }
   };
 
   /***** Handle Delete Deliverable ***********/
@@ -832,23 +832,23 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   /***** Handle Compesation Value ********/
 
   const handleCompensationValue = (val, index, fieldName) => {
-		const comp = [...compensations];
-		if (fieldName === 'Revenue share amount'){
-			comp[index]['amount'] = val; 
-		}
-		if (fieldName === 'amount') {
-			const value = val.replace(/[^\d]/, '');
-			if (parseInt(value) !== 0) {
-				comp[index][fieldName] = value;      
-			}
-		}
+    const comp = [...compensations];
+    if (fieldName === 'Revenue share amount') {
+      comp[index]['amount'] = val;
+    }
+    if (fieldName === 'amount') {
+      const value = val.replace(/[^\d]/, '');
+      if (parseInt(value) !== 0) {
+        comp[index][fieldName] = value;
+      }
+    }
     if (fieldName === 'compensationType') {
       const found = comp.findIndex((item) => item.compensationType === val);
       if (found !== -1) {
         return;
-			}
-			comp[index][fieldName] = val;
-		}
+      }
+      comp[index][fieldName] = val;
+    }
     setCompensations(comp);
   };
 
@@ -1160,7 +1160,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         case 'CompRevenueShare':
           return {
             compensationType: 'REVENUE_SHARE',
-            amount: item.percentage * 100,
+            amount: item.percentage,
           };
         case 'CompCashPerPost':
           return {
@@ -1189,7 +1189,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         case 'REVENUE_SHARE':
           return {
             type: 'REVENUE_SHARE',
-            value: '{ "percentage": "' + item.amount / 100 + '"}',
+            value: '{ "percentage": "' + item.amount + '"}',
           };
         case 'CASH_PER_POST':
           return {
@@ -1900,14 +1900,14 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         setCampaignError('');
       }
     }
-	};
-	
-	const handleMinimum = (e) => {
-		const value =  e.target.value.replace(/[^\d]/, '');
-		if (parseInt(value) !== 0) {
-			setMinimium(value);
-		}
-	}
+  };
+
+  const handleMinimum = (e) => {
+    const value = e.target.value.replace(/[^\d]/, '');
+    if (parseInt(value) !== 0) {
+      setMinimium(value);
+    }
+  }
 
   const handleCollectionClear = () => {
     let cols = [...collections];
@@ -2070,8 +2070,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             selectedInfluncer={influencer}
             toggleInfluncer={toggleInfluncer}
             influencers={influencers}
-						handleActiveForInfluncer={setActiveForInfluncer}
-						// handleInfluencers = {(myArray)=> setInfluencer(myArray)}
+            handleActiveForInfluncer={setActiveForInfluncer}
+          // handleInfluencers = {(myArray)=> setInfluencer(myArray)}
           />
         );
       case 9:

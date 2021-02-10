@@ -22,14 +22,16 @@ const InviteInfluencer = ({
 	campaignId,
 	internalState,
 	handleStatus,
-	getCampaign
+	getCampaign,
+	createMircositeFlag,
+	setCreateMicrositeFlag
 }) => {
 	const history = useHistory();
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
 	const [reviewAndSendFlag, setReviewAndSendFlag] = useState(false);
-	const [createMircositeFlag, setCreateMicrositeFlag] = useState(false);
+
 
 	const handleClose = () => {
 		setAnchorEl(null);

@@ -9,11 +9,10 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { RootContext } from '../../../../context/RootContext';
 import Iframe from 'react-iframe';
 import uploadImages from '../../../../actions/uploadImges';
-import config from '../../../../config';
 import { Auth } from 'aws-amplify';
 
 const Templates = ({ campaignId, internalState, template, microsite,
-	changeTemplate }) => {
+	changeTemplate, influencer }) => {
 
 	///*****States for colors and images for all templates */
 
@@ -130,9 +129,9 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			setFooterColor(microsite.footer.bgColor);
 			setQuotesBGColor(microsite.influencerQuote.bgColor);
 			setQuoteMessage(microsite.influencerQuote.quoteContent);
-			setHeroImage1(microsite.appHeader.image1UploadUrl && microsite.appHeader.image1UploadUrl !== null ? microsite.appHeader.image1UploadUrl : null)
-			setHeroImage2(microsite.appHeader.image2UploadUrl && microsite.appHeader.image2UploadUrl !== null ? microsite.appHeader.image2UploadUrl : null)
-			setHeroImage3(microsite.appHeader.image3UploadUrl && microsite.appHeader.image3UploadUrl !== null ? microsite.appHeader.image3UploadUrl : null)
+			setHeroImage1Url(microsite.appHeader.image1 && microsite.appHeader.image1 !== null ? microsite.appHeader.image1 : null)
+			setHeroImage2Url(microsite.appHeader.image2 && microsite.appHeader.image2 !== null ? microsite.appHeader.image2 : null)
+			setHeroImage3Url(microsite.appHeader.image3 && microsite.appHeader.image3 !== null ? microsite.appHeader.image3 : null)
 			setImage2(microsite.hero.imageLarge && microsite.hero.imageLarge !== null ? microsite.hero.imageLarge : null)
 
 		} else if ((template === 'THREE' && (microsite === '' || microsite === undefined)) || (template === 'THREE' && changeTemplate === true)) {
@@ -232,7 +231,7 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			influencerDisplayName: "felice",
 			influencerId: `${brandId}`,
 			influencerQuote: {
-				quoteAuthor: "Anthony Author",
+				quoteAuthor: influencer.name,
 				quoteContent: quoteMessage,
 				quoteIconColor: quotesColor,
 				bgColor: quotesBGColor

@@ -24,7 +24,7 @@ const BrandProfile = () => {
   const [imageFile, setImageFile] = useState(null);
   const [brandName, setBrandName] = useState('');
 
-  const { brandId, setBrands, setInfluencers } = useContext(RootContext);
+  const { brandId, setBrands, setInfluencers, setProfileUpdate } = useContext(RootContext);
 
   const getBrands = async () => {
     try {
@@ -158,7 +158,7 @@ const BrandProfile = () => {
 
   };
 
-  const UploadImage = (URL, file) => {
+  const UploadImage = async (URL, file) => {
     console.log(URL, file);
     var requestOptions = {
       method: 'PUT',
@@ -170,10 +170,11 @@ const BrandProfile = () => {
       redirect: 'follow'
     };
 
-    fetch(URL, requestOptions)
-      .then(response => response.text())
-      .then(result => getMeData())
-      .catch(error => console.log('error', error));
+    try {
+      let response = await fetch(URL, requestOptions);
+      let result = await response.text();
+      setProfileUpdate(true);
+    } catch (error) { console.log('error', error) }
 
   };
 

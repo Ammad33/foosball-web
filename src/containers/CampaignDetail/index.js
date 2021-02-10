@@ -265,6 +265,9 @@ const CampaignDetail = ({ location }) => {
 								titleBgColor
 								imageLarge
 								image
+								image1
+								image2
+								image3
 							}
 							footer {
 								bgColor
