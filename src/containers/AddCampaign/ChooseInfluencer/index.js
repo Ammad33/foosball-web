@@ -37,7 +37,7 @@ useEffect(() => {
   return (
     <div className={styles.container}>
       <Grid container spacing={2}>
-        {influencers.map((influencer) => {
+        {sortedInfluencer.map((influencer) => {
           const index =
             selectedInfluncer !== null &&
               selectedInfluncer.name === influencer.name
