@@ -10,6 +10,7 @@ import {
 	ChevronRight,
 	Trash,
 } from 'react-feather';
+import _ from 'lodash';
 import Activity from '../Activity';
 import CampaignDetail from '../CampaignDetail';
 import TeamMembers from '../TeamMembers';
@@ -17,6 +18,8 @@ import BudgetAndConversion from '../BudgetAndConversion';
 import Deliverables from '../Deliverables';
 import PendingCard from '../PendingCard';
 import Collections from '../Collections';
+import Compensation from '../Compensation';
+import Negotiables from '../Negotiables';
 import styles from './DraftBrandCampaignDetail.module.scss';
 
 const DraftBrandCampaignDetail = ({
@@ -40,7 +43,8 @@ const DraftBrandCampaignDetail = ({
 		setAnchorEl(event.currentTarget);
 	};
 	const numberWithCommas = (x) => {
-		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");}
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
 	return (
 		<>
 			<Popover
@@ -140,8 +144,8 @@ const DraftBrandCampaignDetail = ({
 								data.invitedAt === null && data.influencer !== null ? (
 
 									<div className={styles.campaignDraftContainer}>
-										<h2>Your campaign is ready to be sent to {data.influencer.name} with one button saying “send invite”</h2>
-										<button onClick={handleActiveStep}>Finalize Campaign</button>
+										<h2>Your campaign is ready to be sent to {data.influencer.name.toProperCase()}</h2>
+										<button onClick={handleActiveStep}>Send Invite</button>
 									</div>
 								) : (<div className={styles.campaignDraftContainer}>
 									<h1>{headingValue} not yet defined</h1>
@@ -188,6 +192,22 @@ const DraftBrandCampaignDetail = ({
 							handleEdit={handleEdit}
 							onClick={handleSeeClick}
 						/>
+					</div>
+					<div className={styles.flexContainer}>
+						<Compensation
+							status={data.status}
+							onClick={handleSeeClick}
+							handleEdit={handleEdit}
+							compensation={
+								data && data.compensation && data.compensation !== null
+									? _.compact(data.compensation)
+									: []
+							}
+							targetGrossSales={data.targetGrossSales}
+							paymentSchedule={data.paymentSchedule}
+						/>
+						<Negotiables data={data} status={data.status} handleEdit={handleEdit}/>
+						<div style={{ width: '391px' }}></div>
 					</div>
 				</div>
 			</div>

@@ -365,6 +365,9 @@ const PendingBrandCampaignDetail = ({
 									}
 									targetGrossSales={data.targetGrossSales}
 									paymentSchedule={data.paymentSchedule}
+									deliverables={data && data.deliverables && data.deliverables !== null ? data.deliverables : []}
+									startDate={data && data.startDate}
+									endDate={data && data.endDate}
 								/>
 								<Negotiables data={data} status={data.status} />
 								<div style={{ width: '391px' }}></div>

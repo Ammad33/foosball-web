@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './Compensation.module.scss';
 import { Edit } from 'react-feather';
+import moment from 'moment';
 
-const Compensation = ({ onClick, handleEdit, compensation, status, targetGrossSales, paymentSchedule }) => {
-
+const Compensation = ({ onClick, handleEdit, compensation, status, targetGrossSales, paymentSchedule, deliverables, startDate, endDate }) => {
 	const numberWithCommas = (x) => {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
@@ -68,6 +68,67 @@ const Compensation = ({ onClick, handleEdit, compensation, status, targetGrossSa
 				return <p></p>;
 		}
 	}
+	/*****************************Date functions***********************************/
+	/**{function} to get weeks betweeen two dates */
+	function weeksBetween(d1, d2) {
+
+		const date1 = moment(d1);
+		const date2 = moment(d2);
+		return Math.ceil(date2.diff(date1, 'days') / 7);
+	}
+
+	/**{function} to get months betweeen two dates */
+	function monthBetween(d1, d2) {
+		const date1 = moment(d1);
+		const date2 = moment(d2);
+		console.log(date2.diff(date1, 'days'))
+		return Math.ceil(date2.diff(date1, 'days') / 30);
+	}
+
+	/**{function} to get biMonths between two dates */
+	function biMonthBetween(d1, d2) {
+		const date1 = moment(d1);
+		const date2 = moment(d2);
+		console.log(date2.diff(date1, 'days'))
+		return Math.ceil(date2.diff(date1, 'days') / 60);
+	}
+
+	/**{function} to get biWeeks between two dates */
+	function biWeekBetween(d1, d2) {
+		const date1 = moment(d1);
+		const date2 = moment(d2);
+		console.log(date2.diff(date1, 'days'))
+		return Math.ceil(date2.diff(date1, 'days') / 14);
+	}
+	/*****************************************************************************/
+
+	/**{function} to get compensation total */
+	const getTotal = () => {
+		let total = 0;
+		compensation.forEach(item => {
+			if (item.__typename === 'CompRevenueShare') {
+				total = total + parseFloat((item.percentage * 100) * parseFloat(targetGrossSales.amount / 100));
+			} else if (item.__typename === 'CompCashPerPost') {
+				let totalPost = 0;
+				deliverables.forEach(item => {
+					if (item.frequency === 'WEEK') {
+						totalPost = totalPost + (parseInt(item.posts) * weeksBetween(new Date(startDate * 1000), new Date(endDate * 1000)));
+					} else if (item.frequency === 'BI_WEEKLY') {
+						totalPost = totalPost + (parseInt(item.posts) * biWeekBetween(new Date(startDate * 1000), new Date(endDate * 1000)));
+					} else if (item.frequency === 'MONTH') {
+						totalPost = totalPost + (parseInt(item.posts) * monthBetween(new Date(startDate * 1000), new Date(endDate * 1000)));
+					} else if (item.frequency === 'BI_MONTHLY') {
+						totalPost = totalPost + (parseInt(item.posts) * biMonthBetween(new Date(startDate * 1000), new Date(endDate * 1000)));
+					}
+				});
+				total = total + (parseFloat(item.amount.amount) * totalPost);
+			} else {
+				total = total + parseFloat(item.amount.amount);
+			}
+		})
+		return parseFloat(total).toFixed(2);
+	}
+
 	return (
 		<div className={styles.compensationContainer}>
 			<div className={styles.headerContainer}>
@@ -96,6 +157,9 @@ const Compensation = ({ onClick, handleEdit, compensation, status, targetGrossSa
 				<div className={styles.detailSubContent}>
 					{compensation && compensation.length > 0 && getCompensationHeading()}
 					<p>{compensation && compensation.length > 0 && getCompensationAmount()}</p>
+				</div>
+				<div className={styles.detailSubContent}>
+					<h6 className={styles.totalCompEstimate}>Total Comp Estimate: ${numberWithCommas(Math.trunc(((getTotal()))))}</h6>
 				</div>
 			</div>
 			{compensation && compensation.length > 0 &&

@@ -41,6 +41,7 @@ const AddTeamMembers = ({
         value={search}
         onChange={handleSearch}
       /> */}
+			<p className={styles.teamHeading}>Team members you add will have access to the information within this campaign</p>
       <div
         className={clsx(
           styles.mainContainer,

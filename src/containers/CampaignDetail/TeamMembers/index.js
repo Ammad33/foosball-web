@@ -44,7 +44,7 @@ const TeamMembers = ({ onClick, handleEdit, brandTeam , status }) => {
             })}
           </>
           :
-          null
+          (<p className={styles.noTeamMember} > No team members have been added to this campaign.</p>)
         }
 
       </div>

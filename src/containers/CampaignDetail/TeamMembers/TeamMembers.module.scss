@@ -34,7 +34,14 @@
       &:last-child {
         margin-bottom: 30px;
       }
-    }
+		}
+		.noTeamMember {
+			font-family: Poppins;
+			font-size: 18px;
+			font-weight: 500;
+			letter-spacing: 0;
+			line-height: 27px;
+		}
   }
 }
 

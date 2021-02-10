@@ -1,10 +1,21 @@
 @import '../../../variable.module.scss';
 
+.teamHeading {
+	font-family: Poppins;
+	font-size: 17px;
+	font-weight: 500;
+	letter-spacing: 0;
+	line-height: 21px;
+	justify-content: center;
+	display: flex;
+	margin-top: 10px;
+	margin-bottom: 15px;
+}
 .mainContainer {
   padding: 20px 75px;
   &.noPadding {
     padding: 20px 0px;
-  }
+	}
   .memberRow {
     margin-left: 24px;
     display: flex;

@@ -459,7 +459,7 @@ const ReviewAndSend = ({
         <div className={styles.teamMembersContainer}>
           <Grid container spacing={3}>
             {teamMembers &&
-              teamMembers.length > 0 &&
+              teamMembers.length > 0 ?  (
               teamMembers.map((member, index) => {
                 const element = team.findIndex(
                   (item) => item.user.id === member
@@ -474,7 +474,7 @@ const ReviewAndSend = ({
                     </Grid>
                   );
                 }
-              })}
+              })) : <div className={styles.noTeamMember}> No team members have been added to this campaign.</div>}
           </Grid>
         </div>
       </div>
