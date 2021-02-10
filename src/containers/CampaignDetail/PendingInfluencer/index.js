@@ -129,7 +129,7 @@ const PendingInfluencer = ({
 								<div className={styles.secondContainer}>
 									<div>
 										<div className={styles.first}>
-											<CampaignDetail campaign={data} handleEdit={handleEdit} />
+											<CampaignDetail campaign={data}  />
 											<Compensation
 												onClick={handleSeeClick}
 												handleEdit={handleEdit}

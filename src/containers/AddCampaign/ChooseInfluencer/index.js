@@ -1,46 +1,44 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid } from '@material-ui/core';
 import InfluencerCard from './InfluencerCard';
 import styles from './ChooseInfluencer.module.scss';
+import _ from 'lodash';
+
 
 const ChooseInfluencer = ({
   selectedInfluncer,
   toggleInfluncer,
   influencers,
-  handleActiveForInfluncer,
+	handleActiveForInfluncer,
+	handleInfluencers,
 }) => {
 
 /**check for conditions and activate the next button for influencer */  
 useEffect(() => {
-    handleActiveForInfluncer();
+		handleActiveForInfluncer();
+		if (selectedInfluncer != undefined){
+			onSort();
+		}
+		
 	}, [selectedInfluncer]);
+
+	const [sortedInfluencer , setSortedInfluencer] = useState(influencers)
 	
-	// const onSort = (value) => {
-	// 	setSelectedState(value);
-	// 	if (value === 'Recent Activity') {
-	// 		let data = [...campaigns];
-	// 		let myArray = _.sortBy(data, function (dateObj) {
-	// 			return new Date(dateObj.created);
-	// 		}).reverse();
-	// 		setCampaigns(myArray);
-	// 		setAnchorEl(null);
-	// 		setBrandDropDown(false);
-	// 	}
-	// 	if (value === 'Alphabetical') {
-	// 		let data = [...campaigns];
-	// 		let myArray = _.sortBy(data, (o) => o.name.toLowerCase());
-	// 		setCampaigns(myArray);
-	// 		setAnchorEl(null);
-	// 		setBrandDropDown(false);
-	// 	}
-	// };
+	const onSort = () => {
+			let data = [...influencers];
+			let pos = data.findIndex((item)=> item.id === selectedInfluncer.id);
+			let removedInfluencer = data.splice(pos , 1);
+			data.unshift(removedInfluencer[0])
+			
+			setSortedInfluencer(data);
+		
 
-
-
+	};
+	
   return (
     <div className={styles.container}>
       <Grid container spacing={2}>
-        {influencers.map((influencer) => {
+        {sortedInfluencer.map((influencer) => {
           const index =
             selectedInfluncer !== null &&
               selectedInfluncer.name === influencer.name

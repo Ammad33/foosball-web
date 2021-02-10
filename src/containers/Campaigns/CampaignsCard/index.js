@@ -40,7 +40,6 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 	};
 
 	const openProfile = (event) => {
-		debugger;
 		history.push(`/influencerProfile/`);
 		setActiveRoute('profile');
 		event.stopPropagation() 
@@ -146,7 +145,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 											brandType === 'Influencer' ? (
 												<Chip
 													className={clsx(
-														styles.statusPending,
+														styles.statusInvited,
 														styles[`chip${campaign.status}`]
 													)}
 													label='Invited'
@@ -154,7 +153,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 											) : (
 													< Chip
 														className={clsx(
-															styles.statusPending,
+															styles.statusInvited,
 															styles[`chip${campaign.status}`]
 														)}
 														label='Invited'

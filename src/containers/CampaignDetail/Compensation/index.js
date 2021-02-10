@@ -7,7 +7,6 @@ const Compensation = ({ onClick, handleEdit, compensation, status, targetGrossSa
 	const numberWithCommas = (x) => {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
-	debugger;
 	const getPaymentSchedule = (compensation) => {
 		switch (compensation) {
 			case 'FIRST_OF_MONTH':
@@ -133,7 +132,7 @@ const Compensation = ({ onClick, handleEdit, compensation, status, targetGrossSa
 		<div className={styles.compensationContainer}>
 			<div className={styles.headerContainer}>
 				<h1>Compensation</h1>
-				{(status && status !== 'INVITED') ? (
+				{(status && status === 'DRAFT') ? (
 					<Edit onClick={() => handleEdit(6)} />
 				) : (
 						''

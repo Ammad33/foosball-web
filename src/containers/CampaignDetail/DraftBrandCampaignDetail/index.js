@@ -46,7 +46,7 @@ const DraftBrandCampaignDetail = ({
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
 
-	debugger;
+	
 	return (
 		<>
 			<Popover

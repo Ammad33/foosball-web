@@ -10,7 +10,7 @@ const BudgetAndConversion = ({ handleEdit, data, status }) => {
 		<div className={styles.mainContainer}>
 			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
 				<h3>Budget & Conversion</h3>
-				{(status && status !== 'INVITED') ? (
+				{(status && status === 'DRAFT') ? (
 					<Edit onClick={() => handleEdit(3)} />
 				) : (
 						''

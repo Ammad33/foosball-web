@@ -593,7 +593,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           influencers.data.influencers.influencers,
           ['id', campaign.influencer.id]
         );
-        setInfluencer(selectedInfluencer);
+				setInfluencer(selectedInfluencer);
       }
     } catch (e) {
       console.error(e);
@@ -2070,7 +2070,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             selectedInfluncer={influencer}
             toggleInfluncer={toggleInfluncer}
             influencers={influencers}
-            handleActiveForInfluncer={setActiveForInfluncer}
+						handleActiveForInfluncer={setActiveForInfluncer}
+						// handleInfluencers = {(myArray)=> setInfluencer(myArray)}
           />
         );
       case 9:

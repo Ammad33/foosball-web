@@ -99,7 +99,7 @@ const PendingBrandCampaignDetail = ({
 		setReasonDetail(val);
 	};
 
-	
+	debugger;
 
 	const getStatusContainerContent = () => {
 		return (
@@ -299,7 +299,7 @@ const PendingBrandCampaignDetail = ({
 									<Chip
 										className={clsx(styles[`pendingCampaign`])}
 										size='small'
-										label='Pending'
+										label={data.status.toProperCase()}
 									/>
 								</div>
 								{data.influencer && (

@@ -24,7 +24,7 @@ const Deliverables = ({ onClick, handleEdit, deliverables, status }) => {
     <div className={styles.deliverableContainer}>
       <div className={styles.headerContainer}>
         <h1>Deliverables</h1>
-        {(status && status !== 'INVITED') ? (
+        {(status && status === 'DRAFT') ? (
           <Edit onClick={() => handleEdit(5)} />
         ) : (
             ''

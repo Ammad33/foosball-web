@@ -113,24 +113,6 @@ const CampaignDetailInfluencer = ({
 		}
 	};
 
-	/**API call*/
-	const signContract = async () => {
-		try {
-			await API.graphql(
-				graphqlOperation(
-					`mutation InfluencerSignContract {
-						influencerSignContractDev(
-							campaignId: "${campaignId}", 
-							influencerId: "${brandId}")
-					}`
-				)
-			)
-		}
-		catch (e) {
-			console.log("Error in accepting campaign terms ", e)
-		}
-	}
-
 	/**{function} to close the drawer */
 	const handleCloseDrawer = () => {
 		if (element === 'TeamMembers') {
@@ -365,9 +347,6 @@ const CampaignDetailInfluencer = ({
 				{getDrawerElement(element)}
 			</Drawer>
 			{getPage(status)}
-			<div className={styles.influencerInternalState}> {internalState}
-				<a onClick={() => signContract()}>Simulate Contract</a>
-			</div>
 		</>
 	);
 

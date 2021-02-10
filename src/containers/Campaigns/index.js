@@ -441,7 +441,7 @@ const Campaigns = () => {
 						)}
 					{brandType === 'Brand' ? (
 						<button
-							className={active === 'INVITED' ? styles.draftActive : ''}
+							className={active === 'INVITED' ? styles.inviteActive : ''}
 							onClick={() => setActive('INVITED')}
 						>
 							Invited
@@ -456,7 +456,7 @@ const Campaigns = () => {
 						)}
 						{brandType === 'Brand' ? (
 						<button
-							className={active === 'PENDING' ? styles.draftActive : ''}
+							className={active === 'PENDING' ? styles.pendingActive : ''}
 							onClick={() => setActive('PENDING')}
 						>
 							Pending

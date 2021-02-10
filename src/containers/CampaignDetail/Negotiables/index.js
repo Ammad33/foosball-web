@@ -34,7 +34,7 @@ const Negotiables = ({ handleEdit, data , status}) => {
     <div className={styles.mainContainer}>
       <div className={styles.headerContainer}>
         <h1>Negotiables</h1>
-				{(status && status !== 'INVITED')  ? (
+				{(status && status === 'DRAFT')  ? (
             <Edit onClick={() => handleEdit(7)} />
           ) : (
             ''

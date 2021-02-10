@@ -17,8 +17,7 @@ const CampaignDetail = ({ children, handleEdit, campaign }) => {
 		>
 			<div className={styles.headerContainer}>
 				<h1>Campaign Details</h1>
-				{(campaign && campaign.status === 'DRAFT') ||
-					(campaign && campaign.status !== 'INVITED') ? (
+				{(campaign && campaign.status === 'DRAFT') ? (
 						<Edit onClick={() => handleEdit(1)} />
 					) : (
 						''

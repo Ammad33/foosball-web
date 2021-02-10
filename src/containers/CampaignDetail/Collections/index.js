@@ -22,7 +22,7 @@ const Collections = ({ handleEdit, removeSeeAll, products, id, status }) => {
 	return (<div className={styles.collectionContainer}>
 		<div className={styles.headerContainer}>
 			<h1>Collection</h1>
-			{(status && status !== 'INVITED') ? (
+			{(status && status === 'DRAFT') ? (
 				<Edit onClick={() => handleEdit(4)} />
 			) : (
 					''

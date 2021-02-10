@@ -25,7 +25,7 @@ const TeamMembers = ({ onClick, handleEdit, brandTeam , status }) => {
     <div className={styles.mainContainer}>
       <div className={styles.headerContainer}>
         <h3>Team Members</h3>
-				{(status && status !== 'INVITED')  ? (
+				{(status && status === 'DRAFT')  ? (
             <Edit onClick={() => handleEdit(2)} />
           ) : (
             ''
