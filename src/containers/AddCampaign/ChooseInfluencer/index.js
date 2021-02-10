@@ -16,7 +16,7 @@ const ChooseInfluencer = ({
 /**check for conditions and activate the next button for influencer */  
 useEffect(() => {
 		handleActiveForInfluncer();
-		if (selectedInfluncer != undefined){
+		if (selectedInfluncer != undefined || selectedInfluncer != null){
 			onSort();
 		}
 		
@@ -28,8 +28,7 @@ useEffect(() => {
 			let data = [...influencers];
 			let pos = data.findIndex((item)=> item.id === selectedInfluncer.id);
 			let removedInfluencer = data.splice(pos , 1);
-			data.unshift(removedInfluencer[0])
-			
+			data.unshift(removedInfluencer[0])	
 			setSortedInfluencer(data);
 		
 
@@ -38,7 +37,7 @@ useEffect(() => {
   return (
     <div className={styles.container}>
       <Grid container spacing={2}>
-        {sortedInfluencer.map((influencer) => {
+        {influencers.map((influencer) => {
           const index =
             selectedInfluncer !== null &&
               selectedInfluncer.name === influencer.name

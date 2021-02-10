@@ -48,6 +48,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 	/**{function} used to specify the location of the popover**/
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
+		event.stopPropagation() 
 	};
 
 	String.prototype.toProperCase = function () {
