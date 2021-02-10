@@ -172,7 +172,10 @@ const ClosedBrandCampaignDetail = ({
               handleEdit={handleEdit}
               onClick={handleSeeClick}
               targetGrossSales={data.targetGrossSales}
-              paymentSchedule={data.paymentSchedule}
+							paymentSchedule={data.paymentSchedule}
+							deliverables={data && data.deliverables && data.deliverables !== null ? data.deliverables : []}
+							startDate={data && data.startDate}
+							endDate={data && data.endDate} 
             />
             <Negotiables data={data} />
             <Contract />

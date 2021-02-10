@@ -7,7 +7,7 @@ const Compensation = ({ onClick, handleEdit, compensation, status, targetGrossSa
 	const numberWithCommas = (x) => {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
-
+	debugger;
 	const getPaymentSchedule = (compensation) => {
 		switch (compensation) {
 			case 'FIRST_OF_MONTH':

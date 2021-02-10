@@ -12,7 +12,7 @@ import Collection from '../../Collections'
 import mainStyles from '../../../../index.module.scss';
 
 const options = [];
-for (let i = 1; i <= 19.5; i += 0.5) {
+for (let i = 1; i <= 20; i += 0.5) {
 	options.push(i);
 }
 

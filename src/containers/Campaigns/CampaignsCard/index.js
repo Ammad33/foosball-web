@@ -9,6 +9,7 @@ import clsx from 'clsx';
 import moment from 'moment';
 import Tooltip from '@material-ui/core/Tooltip';
 import { RootContext } from '../../../context/RootContext';
+import { useHistory } from 'react-router-dom';
 import {
 	MoreVertical,
 	Download,
@@ -24,8 +25,9 @@ import {
 const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 	/**RootContext**/
 	const {
-		brandType,
+		brandType, setActiveRoute
 	} = useContext(RootContext);
+	const history = useHistory();
 
 	/**popover states**/
 	const [anchorEl, setAnchorEl] = useState(null);
@@ -36,6 +38,13 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
+
+	const openProfile = (event) => {
+		debugger;
+		history.push(`/influencerProfile/`);
+		setActiveRoute('profile');
+		event.stopPropagation() 
+	}
 
 	/**{function} used to specify the location of the popover**/
 	const handleClick = (event) => {
@@ -53,7 +62,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 		'MM/DD/YYYY'
 	);
 	const convertedEndDate = moment(campaign.endDate * 1000).format('MM/DD/YYYY');
-	
+
 	return (
 		<>
 			<Popover
@@ -95,7 +104,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 					}
 				</div>
 			</Popover>
-			<Card className={styles.campaignCard}>
+			<Card className={styles.campaignCard} onClick={onClick}>
 				<CardContent className={styles.cardContent}>
 					<div className={styles.cardStatus}>
 						{brandType == 'Influencer' && campaign.internalState != 'MICROSITE_APPROVAL_REQUESTED' ? (
@@ -117,7 +126,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 						}
 					</div>
 					<div className={styles.cardDetails}>
-						<div className={styles.campaignInfo} onClick={onClick}>
+						<div className={styles.campaignInfo}>
 							<Tooltip title={campaign.name}>
 								<span className={styles.campaignName}>
 									{campaign.name.length > 20
@@ -200,18 +209,20 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 								{campaign && campaign.influencer != null ? (
 									<>
 										<Avatar
+											onClick={(event) => openProfile(event)}
 											className={styles.personAvatar}
 											src={campaign.influencer.imageUrl}
 										/>
-										<span className={styles.mediaTag}>{campaign.influencer.name != null ? (campaign.influencer.name) : ('')}</span> </>
+										<span onClick={(event) => openProfile(event)} className={styles.mediaTag}>{campaign.influencer.name != null ? (campaign.influencer.name) : ('')}</span> </>
 								) : (
 										campaign && campaign.brand != null ? (
 											<>
 												<Avatar
+													onClick={(event) => openProfile(event)}
 													className={styles.personAvatar}
 													src={campaign.brand.imageUrl}
 												/>
-												<span className={styles.mediaTag}>{campaign.brand != null ? (campaign.brand.name) : ('')}</span> </>
+												<span className={styles.mediaTag}   onClick={(event) => openProfile(event)}>{campaign.brand != null ? (campaign.brand.name) : ('')}</span> </>
 										) : (
 												''
 											)

@@ -45,6 +45,8 @@ const DraftBrandCampaignDetail = ({
 	const numberWithCommas = (x) => {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
+
+	debugger;
 	return (
 		<>
 			<Popover
@@ -198,6 +200,9 @@ const DraftBrandCampaignDetail = ({
 							status={data.status}
 							onClick={handleSeeClick}
 							handleEdit={handleEdit}
+							deliverables={data && data.deliverables && data.deliverables !== null ? data.deliverables : []}
+							startDate={data && data.startDate}
+							endDate={data && data.endDate} 
 							compensation={
 								data && data.compensation && data.compensation !== null
 									? _.compact(data.compensation)
@@ -206,7 +211,7 @@ const DraftBrandCampaignDetail = ({
 							targetGrossSales={data.targetGrossSales}
 							paymentSchedule={data.paymentSchedule}
 						/>
-						<Negotiables data={data} status={data.status} handleEdit={handleEdit}/>
+						<Negotiables data={data} status={data.status} handleEdit={handleEdit} />
 						<div style={{ width: '391px' }}></div>
 					</div>
 				</div>

@@ -13,7 +13,30 @@ const ChooseInfluencer = ({
 /**check for conditions and activate the next button for influencer */  
 useEffect(() => {
     handleActiveForInfluncer();
-  }, [selectedInfluncer]);
+	}, [selectedInfluncer]);
+	
+	// const onSort = (value) => {
+	// 	setSelectedState(value);
+	// 	if (value === 'Recent Activity') {
+	// 		let data = [...campaigns];
+	// 		let myArray = _.sortBy(data, function (dateObj) {
+	// 			return new Date(dateObj.created);
+	// 		}).reverse();
+	// 		setCampaigns(myArray);
+	// 		setAnchorEl(null);
+	// 		setBrandDropDown(false);
+	// 	}
+	// 	if (value === 'Alphabetical') {
+	// 		let data = [...campaigns];
+	// 		let myArray = _.sortBy(data, (o) => o.name.toLowerCase());
+	// 		setCampaigns(myArray);
+	// 		setAnchorEl(null);
+	// 		setBrandDropDown(false);
+	// 	}
+	// };
+
+
+
   return (
     <div className={styles.container}>
       <Grid container spacing={2}>

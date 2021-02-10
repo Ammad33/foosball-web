@@ -140,6 +140,9 @@ const PendingInfluencer = ({
 												}
 												targetGrossSales={data.targetGrossSales}
 												paymentSchedule={data.paymentSchedule}
+												deliverables={data && data.deliverables && data.deliverables !== null ? data.deliverables : []}
+												startDate={data && data.startDate}
+												endDate={data && data.endDate}
 											/>
 										</div>
 										<div style={{ marginTop: '30px' }}>
