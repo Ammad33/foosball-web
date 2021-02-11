@@ -6,7 +6,12 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import StepConnector from '@material-ui/core/StepConnector';
 import Dialog from '@material-ui/core/Dialog';
-import { DialogTitle, DialogContent, SvgIcon, makeStyles } from '@material-ui/core';
+import {
+  DialogTitle,
+  DialogContent,
+  SvgIcon,
+  makeStyles,
+} from '@material-ui/core';
 import styles from './AddCampaign.module.scss';
 import AddCampaignDetails from './AddCampaignDetails';
 import AddTeamMembers from './AddTeamMembers';
@@ -84,13 +89,10 @@ const CheckCircleIconSvg = (prop) => {
   );
 };
 
-
 const useStyles = makeStyles((theme) => ({
-
   fabProgress: {
     color: '#7B5CD9',
   },
-
 }));
 
 /***********************************************************/
@@ -107,7 +109,7 @@ const insta = {
 const tictock = {
   postType: [''],
   frameContentType: [''],
-  framesRequired: ['']
+  framesRequired: [''],
 };
 const youtube = {
   postType: [''],
@@ -224,7 +226,6 @@ function getSteps() {
  * step contains the information about the steps
  * campaign contains the campaign data*/
 const AddCampaign = ({ open, handleCancel, step, campaign }) => {
-
   const fabClass = useStyles();
   const negotialbleOptions = [
     { id: 1, isChecked: true, key: 'post_fee', text: 'Cash Per Post' },
@@ -323,7 +324,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     },
   ]);
 
-
   const [influencers, setInfluencers] = useState([]);
 
   /**React useState hook get called when the stepper move to next or
@@ -375,14 +375,13 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           : []
       );
 
-
       setDiscountType(
         campaign.discount && campaign.discount !== null
           ? campaign.discount.__typename === 'PercentageDiscount'
             ? 'Percentage'
             : campaign.discount.__typename === 'FlatDiscount'
-              ? 'Amount'
-              : ''
+            ? 'Amount'
+            : ''
           : ''
       );
       if (
@@ -436,7 +435,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   /**{function} returns the array of objects containg the products information  */
   const getCampaignsProducts = (CollectionData) => {
-
     let productSample = [];
     campaign.products &&
       campaign.products.length > 0 &&
@@ -451,15 +449,15 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         }
       });
 
-
-    productSample.forEach(item => {
-
-      CollectionData.forEach(second => {
-        if (second.id === item.collectionId && (second.products.products.length === item.products.length)) {
+    productSample.forEach((item) => {
+      CollectionData.forEach((second) => {
+        if (
+          second.id === item.collectionId &&
+          second.products.products.length === item.products.length
+        ) {
           second.selectedAll = true;
         }
-      })
-
+      });
     });
 
     setCollections(CollectionData);
@@ -489,7 +487,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     setProducts(clonnedProducts);
     setCollections(clonnedCollections);
   };
-
 
   const handleCollectionAllUncheck = async (collec) => {
     let clonnedCollections = [...collections];
@@ -680,7 +677,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   ]);
 
   //**** Members State **********/
-  const [selectedMembers, setSelectedMemebers] = useState([currentUser.username]);
+  const [selectedMembers, setSelectedMemebers] = useState([
+    currentUser.username,
+  ]);
 
   // const [selectedComponent, setSelectedComponent] = useState(componentOptions);
   const [selectedInfluncer, setSelectedInfluncer] = useState([]);
@@ -717,17 +716,16 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   const getDeliveries = (delivreis) => {
     let data = [...delivreis];
-    data.forEach(item => {
+    data.forEach((item) => {
       if (item.hashTag && item.hashTag !== null && item.hashTag !== '') {
         item.hashTag = item.hashTag;
-
       }
       if (item.brandTag && item.brandTag !== null && item.brandTag !== '') {
         item.brandTag = item.brandTag;
       }
     });
     return data;
-  }
+  };
 
   /**{function} get invoked when adding new deliverable */
   const handleDeliverable = () => {
@@ -925,7 +923,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           collection.products &&
           collection.products.products &&
           collection.products.products.length ===
-          products[index].products.length
+            products[index].products.length
         ) {
           collection.selectedAll = true;
         } else {
@@ -1132,8 +1130,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         deliverable.postType && deliverable.postType !== null
           ? deliverable.postType.toUpperCase()
           : deliverable.deliverableType && deliverable.deliverableType !== null
-            ? deliverable.deliverableType.toUpperCase()
-            : null;
+          ? deliverable.deliverableType.toUpperCase()
+          : null;
       // }
       deliverable.frameContentType =
         deliverable.frameContentType && deliverable.frameContentType !== null
@@ -1148,7 +1146,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       //   deliverable.brandTag = '@' + deliverable.brandTag;
       // }
       return deliverable;
-
     });
     return data;
   };
@@ -1238,8 +1235,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         deliverable.postType && deliverable.postType !== null
           ? deliverable.postType.toProperCase()
           : deliverable.deliverableType && deliverable.deliverableType !== null
-            ? deliverable.deliverableType.toProperCase()
-            : null;
+          ? deliverable.deliverableType.toProperCase()
+          : null;
       deliverable.frameContentType =
         deliverable.frameContentType && deliverable.frameContentType !== null
           ? deliverable.frameContentType.toProperCase()
@@ -1406,7 +1403,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           handleCancel();
         }
 
-
         return response.data.createCampaign.id;
       } else {
         setDeliveries(APIErrorDeliverables());
@@ -1419,7 +1415,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       let message = '';
 
       if (e.errors && e.errors.length > 0)
-        e.errors.forEach(m => {
+        e.errors.forEach((m) => {
           message = message + m.message;
         });
 
@@ -1487,13 +1483,12 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         if (invite === undefined) {
           handleCancel();
         }
-
       } catch (err) {
         console.log(err);
         let message = '';
 
         if (err.errors && err.errors.length > 0)
-          err.errors.forEach(m => {
+          err.errors.forEach((m) => {
             message = message + m.message;
           });
 
@@ -1654,7 +1649,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       let message = '';
 
       if (e.errors && e.errors.length > 0)
-        e.errors.forEach(m => {
+        e.errors.forEach((m) => {
           message = message + m.message;
         });
 
@@ -1675,8 +1670,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     }
 
     setInviteLoading(true);
-    setTimeout(() => invited(campaign && campaign.id ? campaign.id : id), 1000)
-
+    setTimeout(() => invited(campaign && campaign.id ? campaign.id : id), 1000);
   };
 
   const invited = async (id) => {
@@ -1684,9 +1678,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       await API.graphql(
         graphqlOperation(
           `mutation MyMutation {
-							sendCampaignInvite(brandId: "${brandId}", id: "${
-          id
-          }") {
+							sendCampaignInvite(brandId: "${brandId}", id: "${id}") {
 								id
 							}
 						}`
@@ -1696,20 +1688,19 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
       handleCancel();
       gotoCampaginDetail(campaign !== undefined ? campaign.id : id);
-
     } catch (e) {
       setInviteLoading(false);
       console.log('Campaign Invite error ', e);
       let message = '';
 
       if (e.errors && e.errors.length > 0)
-        e.errors.forEach(m => {
+        e.errors.forEach((m) => {
           message = message + m.message;
         });
 
       setErrorMessage(message);
     }
-  }
+  };
 
   const gotoCampaginDetail = (id) => {
     history.push(`/campaignDetail/${id}`, { campaignId: id });
@@ -1756,21 +1747,29 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       if (collectionsResponse.data && collectionsResponse.data !== null) {
         setCollections(
           collectionsResponse.data.collections &&
-          collectionsResponse.data.collections.collections &&
-          collectionsResponse.data.collections.collections.map((obj) => ({
-            ...obj,
-            expand: false,
-          }))
+            collectionsResponse.data.collections.collections &&
+            collectionsResponse.data.collections.collections.map((obj) => ({
+              ...obj,
+              expand: false,
+            }))
         );
       }
 
-      if (campaign.products && campaign.products !== null && campaign.products.length > 0) {
-        setProducts(getCampaignsProducts(collectionsResponse.data.collections &&
-          collectionsResponse.data.collections.collections &&
-          collectionsResponse.data.collections.collections.map((obj) => ({
-            ...obj,
-            expand: false,
-          }))));
+      if (
+        campaign.products &&
+        campaign.products !== null &&
+        campaign.products.length > 0
+      ) {
+        setProducts(
+          getCampaignsProducts(
+            collectionsResponse.data.collections &&
+              collectionsResponse.data.collections.collections &&
+              collectionsResponse.data.collections.collections.map((obj) => ({
+                ...obj,
+                expand: false,
+              }))
+          )
+        );
       }
     } catch (err) {
       console.log(err);
@@ -1907,7 +1906,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     if (parseInt(value) !== 0) {
       setMinimium(value);
     }
-  }
+  };
 
   const handleCollectionClear = () => {
     let cols = [...collections];
@@ -2071,7 +2070,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             toggleInfluncer={toggleInfluncer}
             influencers={influencers}
             handleActiveForInfluncer={setActiveForInfluncer}
-          // handleInfluencers = {(myArray)=> setInfluencer(myArray)}
+            // handleInfluencers = {(myArray)=> setInfluencer(myArray)}
           />
         );
       case 9:
@@ -2139,7 +2138,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       }`,
       });
       setCampaigns(campaigns.data.campaigns.campaigns);
-    } catch (e) { }
+    } catch (e) {}
   };
 
   /**checks to active the Next button*/
@@ -2234,8 +2233,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                       ) : activeStep < index ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                              <CheckCircleIconSvg viewBox='0 0 31 31' />
-                            )}
+                        <CheckCircleIconSvg viewBox='0 0 31 31' />
+                      )}
                       <span
                         className={
                           activeStep === index
@@ -2248,19 +2247,19 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                       </span>
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
                       {activeStep > index ? (
                         <div className={styles.activeBar} />
                       ) : (
-                          <div className={styles.inActiveBar} />
-                        )}
+                        <div className={styles.inActiveBar} />
+                      )}
                     </div>
                   ) : (
-                      ''
-                    )}
+                    ''
+                  )}
                 </>
               ))}
             </div>
@@ -2273,8 +2272,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                    <div></div>
-                  )}
+                  <div></div>
+                )}
                 <span onClick={handleCancelCampaignDialog}>
                   <XSVG />
                 </span>
@@ -2325,10 +2324,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                 ) : null}
               </div>
               <div>
-                {
-                  inviteLoading &&
+                {inviteLoading && (
                   <CircularProgress className={fabClass.fabProgress} />
-                }
+                )}
                 <button
                   onClick={(e) =>
                     activeStep === 9
@@ -2345,7 +2343,11 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                 </button>
               </div>
             </div>
-            {errorMessage !== '' && <div style={{ padding: '0px 24px 24px 24px', color: 'red' }}>{errorMessage}</div>}
+            {errorMessage !== '' && (
+              <div style={{ padding: '0px 24px 24px 24px', color: 'red' }}>
+                {errorMessage}
+              </div>
+            )}
           </div>
         </div>
       </Dialog>
