@@ -85,7 +85,7 @@ const Campaigns = () => {
 
 	useEffect(() => {
 		if (!brandId || brandId === '') {
-			// getMeData();
+			getMeData();
 		}
 	}, []);
 
