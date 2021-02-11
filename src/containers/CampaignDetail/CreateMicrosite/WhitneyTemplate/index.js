@@ -48,6 +48,8 @@ const Templates = ({ campaignId, internalState, template, microsite,
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [heroUrl, setHeroUrl] = useState('');
 	const [image2Url, setImage2Url] = useState('');
+	const [errorMessage, setErrorMessage] = useState('');
+
 	const { brandId, currentUser, setCurrentUser } = useContext(RootContext);
 
 
@@ -330,9 +332,18 @@ const Templates = ({ campaignId, internalState, template, microsite,
 					}
 				}
 			}
-		} catch (error) {
-			console.log(error);
-			// getAuth();
+		} catch (err) {
+			console.log("Error in signing contract ", err)
+			let message = '';
+
+			if (err.errors && err.errors.length > 0)
+				err.errors.forEach(m => {
+					message = message + m.message;
+				});
+
+			setErrorMessage(message);
+			return null;
+
 		}
 	};
 
@@ -380,8 +391,17 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			)
 			window.location.reload();
 		}
-		catch (e) {
-			console.log("Error in requestin microSite approval ", e)
+		catch (err) {
+			console.log("Error in requestin microSite approval ", err)
+			let message = '';
+
+			if (err.errors && err.errors.length > 0)
+				err.errors.forEach(m => {
+					message = message + m.message;
+				});
+
+			setErrorMessage(message);
+			return null;
 		}
 	};
 
@@ -673,7 +693,9 @@ const Templates = ({ campaignId, internalState, template, microsite,
 				</div >
 				<div className={styles.buttonContainer}>
 					<button className={styles.sendButton} onClick={() => requestMicrositeApproval()}> Send to Brand for Approval</button>
-
+				</div>
+				<div className={styles.errorContainer}>
+					{errorMessage !== '' && <div className={styles.errorSignContract}>{errorMessage}</div>}
 				</div>
 			</div>
 		</>

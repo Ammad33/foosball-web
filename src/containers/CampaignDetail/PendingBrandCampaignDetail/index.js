@@ -296,7 +296,7 @@ const PendingBrandCampaignDetail = ({
 								</div>
 								<div>
 									<Chip
-										className={clsx(styles[`pendingCampaign`])}
+										className={data.status === "INVITED" ? (styles.invitedCampaign) : (styles.pendingCampaign)}
 										size='small'
 										label={data.status.toProperCase()}
 									/>

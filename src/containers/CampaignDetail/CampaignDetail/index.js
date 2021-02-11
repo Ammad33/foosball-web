@@ -46,9 +46,12 @@ const CampaignDetail = ({ children, handleEdit, campaign }) => {
 			</div>
 			<div className={styles.detailSubContent}>
 				<h6>Promotional Discount</h6>
-				<p>{campaign && campaign.discount && campaign.discount !== null && campaign.discount.percentage ? '' : '$'}{campaign && campaign.discount && campaign.discount !== null && campaign.discount.amount ? numberWithCommas(campaign.discount.amount.amount) : campaign && campaign.discount && campaign.discount !== null && campaign.discount.percentage ? numberWithCommas(campaign.discount.percentage) : ''} {campaign && campaign.discount && campaign.discount !== null && campaign.discount.percentage ? '%' : ''}</p>
+				<p>
+				{campaign && campaign.discount && campaign.discount !== null && campaign.discount.percentage ? '' : '$'}
+				{campaign && campaign.discount && campaign.discount !== null && campaign.discount.amount ? numberWithCommas(campaign.discount.amount.amount) : campaign && campaign.discount && campaign.discount !== null && campaign.discount.percentage ? numberWithCommas(campaign.discount.percentage) : ''} 
+				{campaign && campaign.discount && campaign.discount !== null && campaign.discount.percentage ? '%' : ''}</p>
 			</div>
-			{campaign.discount.__typename === 'FlatDiscount' ?(
+			{campaign && campaign.discount && campaign.discount.__typename === 'FlatDiscount' ?(
 				<div className={styles.detailSubContent}>
 					<h6>Minimum Cart Value</h6>
 					<p>{'$'}{campaign && campaign.discount && campaign.discount !== null && campaign.discount.amount ? (numberWithCommas(campaign.discount.minimum.amount)) :''} </p>

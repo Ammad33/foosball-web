@@ -67,9 +67,9 @@ const DraftBrandCampaignDetail = ({
 					<div>
 						<Copy /> <p>Duplicate Campaign</p>
 					</div>
-					<div>
+					{/* <div>
 						<Download /> <p>Download Campaign</p>
-					</div>
+					</div> */}
 					<div
 						onClick={() => {
 							handleDelete();

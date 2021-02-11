@@ -12,6 +12,8 @@ import { CheckCircle, Circle } from 'react-feather';
 import * as _ from 'lodash';
 import { CarouselProvider, Slider, Slide, Image, ButtonBack, ButtonNext } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+
 
 
 /**styles */
@@ -78,7 +80,6 @@ const images = [
 
 const Collection = ({
 	collections,
-	setCollections,
 	handleCollectionItem,
 	handleActiveForCollection,
 	handleCollectionExpand,
@@ -90,6 +91,12 @@ const Collection = ({
 	useEffect(() => {
 		handleActiveForCollection();
 	}, [products]);
+
+	useEffect (()=> {
+		document.getElementsByClassName(
+      'AddCampaign_dialogContent__3teJx'
+    )[0].scrollTop = 0;
+	}, [])
 
 	const [collectionData, setCollectionData] = useState([]);
 
@@ -103,7 +110,7 @@ const Collection = ({
 				);
 				if (index !== -1) {
 					collls.push({
-						name: collections[index].name,
+						id: collections[index].id,
 						products:
 							collections[index].products &&
 							collections[index].products.products.filter((itm) => {
@@ -121,6 +128,7 @@ const Collection = ({
 
 		setCollectionData(collls);
 	}, [products, collections]);
+
 
 	return (
 		<Grid container>
@@ -147,7 +155,13 @@ const Collection = ({
 													collection.images.images[0].src
 												}
 												className={styles.sliderImage} />
-											<div className={styles.imageRemove}> <button className={styles.removeButton}> Remove</button> </div>
+											<div className={styles.imageRemove}>
+												<button className={styles.removeButton} 
+												onClick={() =>handleCollectionItem(item.id, { productId: collection.id })}
+												>
+													Remove
+												</button>
+											</div>
 										</Slide>
 									)
 								}))}
@@ -212,7 +226,7 @@ const Collection = ({
 											<>
 												<div className={styles.checkCollection}>
 													{collection.selectedAll ? (
-														<CheckCircle
+														<CheckCircleIcon
 															onClick={() => {
 																handleCollectionAllUncheck(collection);
 															}}

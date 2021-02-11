@@ -19,7 +19,8 @@ const CollectionItem = ({
     secondItem = products[index].products.findIndex(
       (second) => second.productId === collectionItem.id
     );
-  }
+	}
+	
 
   return (
     <div

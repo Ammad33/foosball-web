@@ -28,11 +28,12 @@ const ReviewAndSign = ({
 	const history = useHistory();
 	const { brandId } = useContext(RootContext);
 	const [internalState, setInternalState] = useState('');
+	const [errorMessage, setErrorMessage] = useState('');
+
 
 
 	const handleReviewAndSign = () => {
 		signContract();
-		handleCreateMicrosite();
 
 	}
 
@@ -48,9 +49,19 @@ const ReviewAndSign = ({
 				)
 			)
 			getInternalState();
+			handleCreateMicrosite();
 		}
-		catch (e) {
-			console.log("Error in signing contract ", e)
+		catch (err) {
+			console.log("Error in signing contract ", err)
+			let message = '';
+
+			if (err.errors && err.errors.length > 0)
+				err.errors.forEach(m => {
+					message = message + m.message;
+				});
+
+			setErrorMessage(message);
+			return null;
 		}
 	}
 
@@ -269,6 +280,7 @@ const ReviewAndSign = ({
 							<div className={styles.actionsContainer}>
 								<button className={styles.approveBtn} onClick={() => handleReviewAndSign()}> Sign</button>
 							</div>
+							{errorMessage !== '' && <div className={styles.errorSignContract}>{errorMessage}</div>}
 						</div>
 					</div>
 				)

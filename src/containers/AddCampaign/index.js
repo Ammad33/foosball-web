@@ -2112,10 +2112,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       campaignName !== '' &&
       startDate !== '' &&
       endDate !== '' &&
-      campaignError === '' &&
-      discountType !== '' &&
-      discount !== '' &&
-      customeMessage !== ''
+      campaignError === ''
+      // discountType !== '' &&
+      // discount !== '' &&
+      // customeMessage !== ''
     ) {
       setActiveSave(true);
     } else {

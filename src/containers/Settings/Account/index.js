@@ -20,7 +20,9 @@ const EyeSVG = () => {
 };
 const Account = ({
   fullname,
-  imgUrl,
+	imgUrl,
+	handleImageFile,
+	handleImageProfile,
   handleFullName,
   email,
   handleEmail,
@@ -86,14 +88,21 @@ const Account = ({
     <div>
       <div className={styles.brandContainter}>
         <Avatar className={styles.brandImage} alt='Profile' src={imgUrl} />
-        <label
-          htmlFor='filePicker'
-          style={{ color: '#3481ef', padding: '5px 10px', cursor: 'pointer' }}
-        >
-          {imgUrl && imgUrl !== null
-            ? 'Change user photo'
-            : 'Upload user photo '}
-        </label>
+				<label htmlFor='hero1' style={{
+                color: '#3481EF',
+                fontFamily: 'Poppins',
+								fontSize: '14px',
+								padding: '5px 10px',
+                fontWeight: 500,
+                letterSpacing: 0,
+								lineHeight: '21px',
+								cursor: 'pointer'
+              }}>{imgUrl && imgUrl !== null
+								? 'Change user photo'
+								: 'Upload user photo '}</label>
+							<input id='hero1' style={{ visibility: 'hidden', display: 'none' }} 
+							type={'file'} onChange={(e) => { handleImageFile(e.target.files[0]); handleImageProfile(URL.createObjectURL(e.target.files[0])) }} />
+
         <input id='filePicker' style={{ visibility: 'hidden' }} type={'file'} />
       </div>
       <div className={styles.formContainer}>

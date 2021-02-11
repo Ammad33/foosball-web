@@ -185,12 +185,13 @@ const ReviewAndSend = ({
 
   /**{function} to get compensation amount */
   const getCompensationAmount = (compensation) => {
+		debugger;
     switch (compensation.compensationType) {
       case 'REVENUE_SHARE':
         return (
           <span>
             {compensation.amount &&
-              numberWithCommas(Math.trunc(parseFloat(compensation.amount)))}
+              numberWithCommas((parseFloat(compensation.amount)))}
             % (${' '}
             {numberWithCommas(
               Math.trunc((compensation.amount * targetGrossSale) / 100)
