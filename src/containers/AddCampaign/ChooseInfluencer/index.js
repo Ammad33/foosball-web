@@ -4,43 +4,39 @@ import InfluencerCard from './InfluencerCard';
 import styles from './ChooseInfluencer.module.scss';
 import _ from 'lodash';
 
-
 const ChooseInfluencer = ({
   selectedInfluncer,
   toggleInfluncer,
   influencers,
-	handleActiveForInfluncer,
-	handleInfluencers,
+  handleActiveForInfluncer,
+  handleInfluencers,
 }) => {
+  const [sortedInfluencers, setSortedInfluencers] = useState([...influencers]);
+  /**check for conditions and activate the next button for influencer */
+  useEffect(() => {
+    handleActiveForInfluncer();
+  }, [selectedInfluncer]);
 
-/**check for conditions and activate the next button for influencer */  
-useEffect(() => {
-		handleActiveForInfluncer();
-		if (selectedInfluncer != undefined || selectedInfluncer != null){
-			onSort();
-		}
-		
-	}, [selectedInfluncer]);
+  useEffect(() => {
+    const selectedInfluencerIndex = _.findIndex(influencers, {
+      id: selectedInfluncer && selectedInfluncer.id,
+    });
+    if (selectedInfluencerIndex > -1) {
+      let influencersCopy = _.cloneDeep(sortedInfluencers);
+      const firstInfluencer = influencersCopy[0];
+      influencersCopy[0] = influencersCopy[selectedInfluencerIndex];
+      influencersCopy[selectedInfluencerIndex] = firstInfluencer;
+      setSortedInfluencers(influencersCopy);
+    }
+  }, []);
 
-	const [sortedInfluencer , setSortedInfluencer] = useState(influencers)
-	
-	const onSort = () => {
-			let data = [...influencers];
-			let pos = data.findIndex((item)=> item.id === selectedInfluncer.id);
-			let removedInfluencer = data.splice(pos , 1);
-			data.unshift(removedInfluencer[0])	
-			setSortedInfluencer(data);
-		
-
-	};
-	
   return (
     <div className={styles.container}>
       <Grid container spacing={2}>
-        {sortedInfluencer.map((influencer) => {
+        {sortedInfluencers.map((influencer) => {
           const index =
             selectedInfluncer !== null &&
-              selectedInfluncer.name === influencer.name
+            selectedInfluncer.name === influencer.name
               ? true
               : false;
           return (
