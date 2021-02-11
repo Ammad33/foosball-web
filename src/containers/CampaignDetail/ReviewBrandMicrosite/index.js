@@ -17,6 +17,7 @@ import config from '../../../config';
 const ReviewBrandMicrosite = ({ name, data, campaignId }) => {
 	const history = useHistory();
 	const [campaign, setCampaign] = useState('');
+	const [errorMessage, setErrorMessage] = useState('');
 	const {
 		brandId, currentUser
 	} = useContext(RootContext);
@@ -42,8 +43,17 @@ const ReviewBrandMicrosite = ({ name, data, campaignId }) => {
 			)
 			window.location.reload();
 		}
-		catch (e) {
-			console.log("Error In approving microsite", e)
+		catch (err) {
+			console.log("Error In approving microsite", err)
+			let message = '';
+
+			if (err.errors && err.errors.length > 0)
+				err.errors.forEach(m => {
+					message = message + m.message;
+				});
+
+			setErrorMessage(message);
+			return null;
 		}
 
 	}
@@ -100,6 +110,9 @@ const ReviewBrandMicrosite = ({ name, data, campaignId }) => {
 				<div className={styles.actionsContainer}>
 					<div className={styles.declineBtn}>Decline with comments</div>
 					<button className={styles.approveBtn} onClick={() => approveMicrosite()}>Approve</button>
+				</div>
+				<div className={styles.errorContainer}>
+					{errorMessage !== '' && <div className={styles.errorSignContract}>{errorMessage}</div>}
 				</div>
 			</div>
 		</div>

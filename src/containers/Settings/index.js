@@ -202,10 +202,8 @@ const Setting = () => {
 		setBrands(data);
 	};
 
-	debugger;
 
 	const myData = async () => {
-		debugger;
 		try {
 			const mydata = await API.graphql({
 				query: `{
@@ -236,7 +234,6 @@ const Setting = () => {
 					}
 			}`,
 			});
-			debugger;
 			setEmailVerified(mydata.data.me.verification.verified);
 			setEmail(mydata.data.me.email);
 			setFullName(mydata.data.me.fullName);
@@ -302,7 +299,6 @@ const Setting = () => {
 			)
 			if (res.data && res.data !== null && res.data.updateProfileImage && res.data.updateProfileImage !== null) {
 				setImageUrl(res.data.updateProfileImage);
-				debugger;
 			}
 		}
 		catch (e) {
@@ -315,7 +311,6 @@ const Setting = () => {
 	};
 
 	const UploadImage = async (URL, file) => {
-		debugger;
 		console.log(URL, file);
 		var requestOptions = {
 			method: 'PUT',
@@ -336,7 +331,6 @@ const Setting = () => {
 	};
 
 	useEffect(() => {
-		debugger;
 		if (imageFile !== null && imageUrl !== '') {
 			postImage(imageUrl);
 		}

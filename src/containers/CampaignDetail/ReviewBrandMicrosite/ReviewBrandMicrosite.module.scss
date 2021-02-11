@@ -28,14 +28,15 @@
 		width: 910px;
 		min-width: 910px;
 		max-width: 910px;
-			.secondContainer {
-				height: 1275px;
-		 		width: 910px;
-				border-radius: 10px;
-				background-color: #FFFFFF;
-				box-shadow: 0 6px 50px 0 rgba(14, 11, 11, 0.1);
-			}
-	
+
+		.secondContainer {
+			height: 1275px;
+			width: 910px;
+			border-radius: 10px;
+			background-color: #FFFFFF;
+			box-shadow: 0 6px 50px 0 rgba(14, 11, 11, 0.1);
+		}
+
 		.actionsContainer {
 			display: flex;
 			align-items: center;
@@ -72,6 +73,18 @@
 				margin-top: 25px;
 			}
 		}
+
+		.errorContainer {
+			.errorSignContract {
+				width: 100%;
+				color: red;
+				display: flex;
+				justify-content: flex-end;
+				padding-right: 30px !important;
+			}
+		}
+
+
 	}
 }
 
