@@ -199,7 +199,11 @@ const Collections = ({ location }) => {
                                     __typename
                                     amount {
                                         amount
-                                    }
+																		}
+																		minimum {
+																			amount
+																			currency
+																		}
                                 }
                             }
                 compensation {

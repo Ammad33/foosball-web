@@ -1,7 +1,7 @@
 @import '../../../variable.module.scss';
 
 .collectionContainer {
-  height: 684px;
+  min-height: 684px;
   width: 812px;
   border-radius: 10px;
   background-color: $white;

@@ -5,6 +5,9 @@ import Popover from '@material-ui/core/Popover';
 import Divider from '@material-ui/core/Divider';
 import { RootContext } from '../../../context/RootContext';
 import SVG from 'react-inlinesvg';
+import { useHistory } from 'react-router-dom';
+
+
 
 
 const ChevronDown = () => {
@@ -33,12 +36,14 @@ const SelectBrand = () => {
     setCreatorRoleId,
     setMemberRoleId,
     setBrandType,
-    influencers,
+		influencers,
+		setActiveRoute,
   } = useContext(RootContext);
 
 
   const [brandDropDown, setBrandDropDown] = useState(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+	const [anchorEl, setAnchorEl] = React.useState(null);
+	const history = useHistory();
   const handleClick = (event) => {
     setBrandDropDown(true);
     setAnchorEl(event.currentTarget);
@@ -96,7 +101,9 @@ const SelectBrand = () => {
                         setMemberRoleId(
                           item.organization && item.organization.roles[1].id
                         );
-                        handleClose();
+												handleClose();
+												setActiveRoute('Campaign');
+												history.push('/campaigns');
                       }}
                       className={styles.brandContainter}
                     >
@@ -141,7 +148,9 @@ const SelectBrand = () => {
                         setMemberRoleId(
                           item.organization && item.organization.roles[1] && item.organization.roles[1].id
                         );
-                        handleClose();
+												handleClose();
+												setActiveRoute('Campaign');
+												history.push('/campaigns');
                       }}
                       className={styles.brandContainter}
                     >

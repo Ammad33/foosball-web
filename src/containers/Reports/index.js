@@ -1,16 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { Grid } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Iframe from 'react-iframe';
 import styles from './Reports.module.scss';
+import { RootContext } from '../../context/RootContext';
+
 
 
 const Reports = () => {
 
 	const [active, setActive] = useState('ALL')
+	const { brandId, currentUser, setCurrentUser } = useContext(RootContext);
 
 	useEffect(() => {
 
 	}, []);
+
 
 	return (
 		<>
@@ -18,15 +23,15 @@ const Reports = () => {
 				<div className={styles.ReportHeadingContainer}>
 					<div className={styles.ReportHeading}>
 						<span>Reports</span>
-						<p>
+						{/* <p>
 							Sort <ExpandMoreIcon fontSize='small' />
 						</p>
 						<p>
 							Filter <ExpandMoreIcon fontSize='small' />
-						</p>
+						</p> */}
 					</div>
 				</div>
-				<div className={styles.ReportHeadingButton}>
+				{/* <div className={styles.ReportHeadingButton}>
 					<button
 						className={active === 'ALL' ? styles.allActive : styles.tab}
 						onClick={() => setActive('ALL')}
@@ -63,7 +68,7 @@ const Reports = () => {
 					>
 						Tab
           </button>
-				</div>
+				</div> */}
 				<Grid
 					container
 					spacing={3}
@@ -72,10 +77,19 @@ const Reports = () => {
 					<Grid item xs={12}>
 						<div className={styles.ReportInfoContainer}>
 							<div className={styles.ReportContainer}>
+								<Iframe								
+									url={`${"https://tableau-reporting.herokuapp.com"}/?orgId=${brandId}&authId=${currentUser.signInUserSession.accessToken.jwtToken}`}
+									width="100%"
+									height="100%"
+									id="myId"
+									// className="myClassname"
+									className={styles.secondContainer}
+									display="initial"
+									position="relative" />
 							</div>
 						</div>
 					</Grid>
-					<Grid container spacing={3} item xs={12} >
+					{/* <Grid container spacing={3} item xs={12} >
 						<Grid item xs={6}>
 							<div className={styles.ReportInfoContainerTwo}>
 								<div className={styles.ReportContainerTwo}>
@@ -108,7 +122,7 @@ const Reports = () => {
 								</div>
 							</div>
 						</Grid>
-					</Grid>
+					</Grid> */}
 				</Grid>
 			</div>
 		</>

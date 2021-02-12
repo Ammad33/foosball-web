@@ -120,12 +120,12 @@
 
 .ReportInfoContainer {
   &.withChildHeight {
-    height: 454px;
+    height: 1054px;
   }
   &.withNoChildHeight {
-    height: 311px;
+    height: 1011px;
   }
-  height: 419px;
+  height: 1119px;
   width: 1234px;
   border-radius: 10px;
   background-color: #ffffff;
@@ -142,7 +142,10 @@
       font-weight: bold;
       letter-spacing: 0;
       line-height: 34px;
-    }
+		}
+		.secondContainer{
+			height: 1000px;
+		}
   }
 }
 .ReportInfoContainerTwo {
