@@ -32,10 +32,8 @@ const CreateMicrosite = ({
 	// const [microsite1, setMiscroSite1] = useState(microsite);
 
 	const handleCancel = () => {
-		debugger;
 		setTemplate(saveBack);
 		getCampaign();
-		debugger;
 		setSaveBack('')
 		setConfirmTemplate(false);
 		setChangeTemplate(false);

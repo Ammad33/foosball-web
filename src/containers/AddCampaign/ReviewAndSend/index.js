@@ -185,7 +185,6 @@ const ReviewAndSend = ({
 
   /**{function} to get compensation amount */
   const getCompensationAmount = (compensation) => {
-		debugger;
     switch (compensation.compensationType) {
       case 'REVENUE_SHARE':
         return (
