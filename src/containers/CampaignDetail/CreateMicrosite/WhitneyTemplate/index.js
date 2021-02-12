@@ -392,7 +392,7 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			window.location.reload();
 		}
 		catch (err) {
-			console.log("Error in requestin microSite approval ", err)
+			console.log("Error in requesting microSite approval ", err)
 			let message = '';
 
 			if (err.errors && err.errors.length > 0)

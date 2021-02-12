@@ -1644,16 +1644,24 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         return null;
       }
     } catch (e) {
-      setDeliveries(APIErrorDeliverables());
+			setDeliveries(APIErrorDeliverables());
       console.log('update campaign error ', e);
-      let message = '';
+			let errorMessage = '';
+			let errorArray = [];
 
       if (e.errors && e.errors.length > 0)
         e.errors.forEach((m) => {
-          message = message + m.message;
-        });
+          errorArray = m.errorInfo.fieldErrors
+				});
+			for (var property in errorArray )
+				{
+						if(errorArray.hasOwnProperty(property))
+						{
+							errorMessage += errorArray[property] + '\n';
+						}
+				}
 
-      setErrorMessage(message);
+      setErrorMessage(errorMessage);
       return null;
     }
   };
