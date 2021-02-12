@@ -282,10 +282,14 @@ const Campaigns = () => {
 	useEffect(() => {
 		if (brandId !== '') {
 			setCampaigns([]);
-			getCampaigns();
-			getInfluencerCampaigns();
+			if (brandType === 'Brand' ){
+				getCampaigns();
+			}
+			else if (brandType === 'Influencer'){
+				getInfluencerCampaigns();
+			}
 		}
-	}, [brandId, addCampaign]);
+	}, [brandId, addCampaign,brandType]);
 
 	/**handling search bar changes */
 	useEffect(() => {
@@ -402,7 +406,7 @@ const Campaigns = () => {
 			<div className={styles.campaignsContainer}>
 				<div className={styles.CampaignHeadingContainer}>
 					<div className={styles.CampaignHeading}>
-						<span>Campaignsss</span>
+						<span>Campaigns</span>
 						<div onClick={handleClick}>
 							<p>{selectedState}</p>
 							<div className={styles.brandDropDownSVG}>
