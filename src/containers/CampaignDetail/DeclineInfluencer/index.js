@@ -28,8 +28,8 @@ const DeclineInfluencer = ({
     setAnchorEl(null);
   };
   const numberWithCommas = (x) => {
-		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	}
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -55,7 +55,7 @@ const DeclineInfluencer = ({
             {' '}
             <Mail /> <p> Message Brand</p>
           </div>
-          <div className={styles.secondElement} style={{display:"none"}}>
+          <div className={styles.secondElement} style={{ display: "none" }}>
             {' '}
             <Download /> <p>Download Campaign</p>
           </div>
@@ -122,6 +122,7 @@ const DeclineInfluencer = ({
               deliverables={data.deliverables}
               handleEdit={handleEdit}
               onClick={handleSeeClick}
+              campaign={data}
             />
           </div>
         </div>

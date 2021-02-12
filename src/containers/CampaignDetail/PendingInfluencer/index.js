@@ -160,6 +160,7 @@ const PendingInfluencer = ({
 											deliverables={data.deliverables}
 											handleEdit={handleEdit}
 											onClick={handleSeeClick}
+											campaign={data}
 										/>
 									</div>
 								</div>

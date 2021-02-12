@@ -152,6 +152,7 @@ const InviteInfluencer = ({
 										deliverables={data.deliverables}
 										handleEdit={handleEdit}
 										onClick={handleSeeClick}
+										campaign={data}
 									/>
 								</div>
 							</div>

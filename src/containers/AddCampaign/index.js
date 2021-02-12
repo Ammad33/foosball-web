@@ -266,6 +266,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const [minimium, setMinimium] = useState('');
   const [inviteLoading, setInviteLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [activeStepValue, setActiveStepValue] = useState([false, false, false, false, false, false, false, false, false, false])
+
 
   /****** Campaign Detail States ********/
   const [campaignName, setCampaignName] = useState('');
@@ -380,8 +382,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           ? campaign.discount.__typename === 'PercentageDiscount'
             ? 'Percentage'
             : campaign.discount.__typename === 'FlatDiscount'
-            ? 'Amount'
-            : ''
+              ? 'Amount'
+              : ''
           : ''
       );
       if (
@@ -923,7 +925,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           collection.products &&
           collection.products.products &&
           collection.products.products.length ===
-            products[index].products.length
+          products[index].products.length
         ) {
           collection.selectedAll = true;
         } else {
@@ -1081,17 +1083,29 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   //***************** Active Next for Budget ********/
 
   const setActiveForBudget = () => {
+    let ActiveValue = [...activeStepValue];
+
     if (budget !== '' && targetGrossSale !== '') {
+      ActiveValue[3] = true;
+      setActiveStepValue(ActiveValue);
       setActiveNext(true);
-    } else setActiveNext(false);
+    } else {
+      setActiveNext(false);
+      ActiveValue[3] = false;
+      setActiveStepValue(ActiveValue);
+    }
   };
 
   //*** Active for Collection *********/
 
   const setActiveForCollection = () => {
+    let ActiveValue = [...activeStepValue];
+
     const cols = [...products];
     if (cols.length === 0) {
       setActiveNext(false);
+      ActiveValue[4] = false;
+      setActiveStepValue(ActiveValue);
     }
     if (cols.length > 0) {
       let flag = true;
@@ -1100,9 +1114,13 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           flag = false;
         }
         setActiveNext(flag);
+        ActiveValue[4] = flag;
+        setActiveStepValue(ActiveValue);
       });
     } else {
       setActiveNext(false);
+      ActiveValue[4] = false;
+      setActiveStepValue(ActiveValue);
     }
   };
 
@@ -1130,8 +1148,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         deliverable.postType && deliverable.postType !== null
           ? deliverable.postType.toUpperCase()
           : deliverable.deliverableType && deliverable.deliverableType !== null
-          ? deliverable.deliverableType.toUpperCase()
-          : null;
+            ? deliverable.deliverableType.toUpperCase()
+            : null;
       // }
       deliverable.frameContentType =
         deliverable.frameContentType && deliverable.frameContentType !== null
@@ -1235,8 +1253,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         deliverable.postType && deliverable.postType !== null
           ? deliverable.postType.toProperCase()
           : deliverable.deliverableType && deliverable.deliverableType !== null
-          ? deliverable.deliverableType.toProperCase()
-          : null;
+            ? deliverable.deliverableType.toProperCase()
+            : null;
       deliverable.frameContentType =
         deliverable.frameContentType && deliverable.frameContentType !== null
           ? deliverable.frameContentType.toProperCase()
@@ -1644,22 +1662,20 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         return null;
       }
     } catch (e) {
-			setDeliveries(APIErrorDeliverables());
+      setDeliveries(APIErrorDeliverables());
       console.log('update campaign error ', e);
-			let errorMessage = '';
-			let errorArray = [];
+      let errorMessage = '';
+      let errorArray = [];
 
       if (e.errors && e.errors.length > 0)
         e.errors.forEach((m) => {
           errorArray = m.errorInfo.fieldErrors
-				});
-			for (var property in errorArray )
-				{
-						if(errorArray.hasOwnProperty(property))
-						{
-							errorMessage += errorArray[property] + '\n';
-						}
-				}
+        });
+      for (var property in errorArray) {
+        if (errorArray.hasOwnProperty(property)) {
+          errorMessage += errorArray[property] + '\n';
+        }
+      }
 
       setErrorMessage(errorMessage);
       return null;
@@ -1755,11 +1771,11 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       if (collectionsResponse.data && collectionsResponse.data !== null) {
         setCollections(
           collectionsResponse.data.collections &&
-            collectionsResponse.data.collections.collections &&
-            collectionsResponse.data.collections.collections.map((obj) => ({
-              ...obj,
-              expand: false,
-            }))
+          collectionsResponse.data.collections.collections &&
+          collectionsResponse.data.collections.collections.map((obj) => ({
+            ...obj,
+            expand: false,
+          }))
         );
       }
 
@@ -1771,11 +1787,11 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         setProducts(
           getCampaignsProducts(
             collectionsResponse.data.collections &&
-              collectionsResponse.data.collections.collections &&
-              collectionsResponse.data.collections.collections.map((obj) => ({
-                ...obj,
-                expand: false,
-              }))
+            collectionsResponse.data.collections.collections &&
+            collectionsResponse.data.collections.collections.map((obj) => ({
+              ...obj,
+              expand: false,
+            }))
           )
         );
       }
@@ -1797,6 +1813,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   const setActiveForDeliverables = () => {
     const deliverables = [...deliveries];
+    let ActiveValue = [...activeStepValue];
 
     let flag = true;
     deliverables.forEach((delive) => {
@@ -1831,14 +1848,20 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       }
     });
     setActiveNext(flag);
+    ActiveValue[5] = flag;
+    setActiveStepValue(ActiveValue);
+
   };
 
   /************* Active for compensations */
 
   const setActiveForCompensation = () => {
+
+    let ActiveValue = [...activeStepValue];
     if (compensationPayment === '') {
       setActiveNext(false);
-      return;
+      ActiveValue[6] = false;
+      setActiveStepValue(ActiveValue);
     }
     const compensation = [...compensations];
 
@@ -1854,11 +1877,14 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         }
       });
     setActiveNext(flag);
+    ActiveValue[6] = flag;
+    setActiveStepValue(ActiveValue);
   };
 
   /************* Active for Negotiables */
 
   const setActiveForNegotialble = () => {
+    let ActiveValue = [...activeStepValue];
     const negotiable = [...selectedNegotiable];
 
     let flag = false;
@@ -1869,12 +1895,17 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     });
     setStepSeven(true);
     setActiveNext(flag);
+    ActiveValue[7] = flag;
+    setActiveStepValue(ActiveValue);
   };
 
   /************* Active for influncer */
 
   const setActiveForInfluncer = () => {
+    let ActiveValue = [...activeStepValue];
     setActiveNext(influencer !== null ? true : false);
+    ActiveValue[8] = influencer !== null ? true : false;
+    setActiveStepValue(ActiveValue);
   };
 
   const handleSearch = (e) => {
@@ -1889,7 +1920,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   // /*********************** To disable next button */
 
   const leftSideDawerClick = (index) => {
-    if (activeStep >= index) {
+    if (activeStep >= index || activeStepValue[index] === true) {
       setLastStep(activeStep);
       setActiveStep(index);
     } else return;
@@ -1982,7 +2013,12 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             selectedMembers={selectedMembers}
             handleAdd={addMember}
             members={team}
-            handleActiveNext={() => setActiveNext(true)}
+            handleActiveNext={() => {
+              let ActiveValue = [...activeStepValue];
+              ActiveValue[1] = true;
+              setActiveStepValue(ActiveValue);
+              setActiveNext(true);
+            }}
             search={search}
             handleSearch={handleSearch}
           />
@@ -2037,6 +2073,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             insta={insta}
             tictock={tictock}
             youtube={youtube}
+
           />
         );
       case 6:
@@ -2078,7 +2115,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             toggleInfluncer={toggleInfluncer}
             influencers={influencers}
             handleActiveForInfluncer={setActiveForInfluncer}
-            // handleInfluencers = {(myArray)=> setInfluencer(myArray)}
+          // handleInfluencers = {(myArray)=> setInfluencer(myArray)}
           />
         );
       case 9:
@@ -2106,7 +2143,13 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             handleActiveStep={(value) => setActiveStep(value)}
             toggleComponent={toggleComponent}
             team={team}
-            handleActiveNext={() => setActiveNext(true)}
+            handleActiveNext={() => {
+              let ActiveValue = [...activeStepValue];
+              ActiveValue[9] = true;
+              setActiveStepValue(ActiveValue);
+              setActiveNext(true);
+
+            }}
           />
         );
       default:
@@ -2146,7 +2189,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       }`,
       });
       setCampaigns(campaigns.data.campaigns.campaigns);
-    } catch (e) {}
+    } catch (e) { }
   };
 
   /**checks to active the Next button*/
@@ -2166,9 +2209,95 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       startTimeError === false &&
       endTimeError === false
     ) {
+      let ActiveValue = [...activeStepValue]
       setActiveNext(true);
-    } else setActiveNext(false);
+      ActiveValue[1] = true;
+      setActiveStepValue(ActiveValue)
+    } else {
+      let ActiveValue = [...activeStepValue]
+      setActiveNext(false);
+      ActiveValue[1] = true;
+      setActiveStepValue(ActiveValue)
+    }
   };
+
+
+
+  useEffect(() => {
+    let activityValues = [...activeStepValue];
+    if (campaign !== undefined) {
+      if (
+        campaign.name !== '' &&
+        campaign.startDate !== '' && campaign.startDate !== null &&
+        campaign.endDate !== '' && campaign.end !== null &&
+        campaign.discount !== '' && campaign.discount !== null &&
+        campaign.discountType !== '' && campaign.discountType !== null &&
+        campaign.invitationMessage !== '' && campaign.invitationMessage !== null
+      ) {
+        activityValues[1] = true;
+      } if (campaign.budget && campaign.budget !== null && campaign.targetGrossSales && campaign.targetGrossSales !== null) {
+        activityValues[2] = true;
+        activityValues[3] = true;
+      } if (campaign.products &&
+        campaign.products.length > 0) {
+        activityValues[4] = true;
+      }
+      if (campaign.deliverables && campaign.deliverables !== null && campaign.deliverables.length) {
+        activityValues[5] = true;
+      }
+
+      if (campaign.compensation &&
+        campaign.compensation !== null &&
+        campaign.compensation.length !== 0) {
+        activityValues[6] = true;
+      }
+
+
+      if (campaign.influencer && campaign.influencer !== null) {
+        activityValues[8] = true;
+      }
+
+      if (campaign.negotiables) {
+        activityValues[7] = true;
+      }
+
+      if (activityValues[1] && activityValues[2] && activityValues[3] && activityValues[4] && activityValues[5] && activityValues[6] && activityValues[7] && activityValues[8]) {
+        activeStepValue[9] = true
+      }
+      setActiveStepValue(activityValues);
+    }
+  }, [])
+
+  const filledValues = (index) => {
+    debugger;
+
+    switch (index) {
+      case 1:
+        return filledForm();
+      case 2:
+        return true;
+      case 3:
+        return setActiveForBudget();
+      case 4:
+        return setActiveForCollection();
+      case 5:
+        return setActiveForDeliverables();
+      case 6:
+        return setActiveForCompensation();
+      case 7:
+        return setActiveForNegotialble()
+      case 8:
+        return setActiveForInfluncer();
+      case 9:
+        return filledForm() &&
+          setActiveForBudget() &&
+          setActiveForCollection() &&
+          setActiveForDeliverables() &&
+          setActiveForCompensation() &&
+          setActiveForNegotialble() &&
+          setActiveForInfluncer();
+    }
+  }
 
   const handleNext = (activeSetp) => {
     if (activeStep === 1) {
@@ -2236,16 +2365,16 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                     <div key={index} className={styles.stepItem}>
                       {activeStep === index ? (
                         <div className={styles.active}></div>
-                      ) : activeStep < index ? (
+                      ) : activeStep < index && activeStepValue[index] === false ? (
                         <RadioButtonUncheckedIcon />
-                      ) : activeStep < index ? (
+                      ) : activeStep < index && activeStepValue[index] === false ? (
                         <RadioButtonUncheckedIcon />
                       ) : (
-                        <CheckCircleIconSvg viewBox='0 0 31 31' />
-                      )}
+                              <CheckCircleIconSvg viewBox='0 0 31 31' />
+                            )}
                       <span
                         className={
-                          activeStep === index
+                          activeStep === index || activeStepValue[index] === true
                             ? styles.activeLabel
                             : styles.inActiveLabel
                         }
@@ -2255,19 +2384,19 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                       </span>
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
-                      {activeStep > index ? (
+                      {(activeStep > index || (activeStepValue[index + 1] === true && index !== 9)) ? (
                         <div className={styles.activeBar} />
                       ) : (
-                        <div className={styles.inActiveBar} />
-                      )}
+                          <div className={styles.inActiveBar} />
+                        )}
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                 </>
               ))}
             </div>
@@ -2280,8 +2409,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                     <ChevronSVG />
                   </span>
                 ) : (
-                  <div></div>
-                )}
+                    <div></div>
+                  )}
                 <span onClick={handleCancelCampaignDialog}>
                   <XSVG />
                 </span>

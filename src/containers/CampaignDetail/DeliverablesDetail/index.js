@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from './DeliverablesDetail.module.scss';
+import moment from 'moment';
 
-const DeliverablesDetail = ({ deliverables }) => {
+const DeliverablesDetail = ({ deliverables, campaign }) => {
   const getPostFrequency = (frequency) => {
     switch (frequency) {
       case 'BI_WEEKLY':
@@ -16,6 +17,51 @@ const DeliverablesDetail = ({ deliverables }) => {
         return '';
     }
   };
+
+
+  function weeksBetween(d1, d2) {
+
+    const date1 = moment(d1);
+    const date2 = moment(d2);
+    return Math.ceil(date2.diff(date1, 'days') / 7);
+  }
+
+  /**{function} to get months betweeen two dates */
+  function monthBetween(d1, d2) {
+    const date1 = moment(d1);
+    const date2 = moment(d2);
+    return Math.ceil(date2.diff(date1, 'days') / 30);
+  }
+
+  /**{function} to get biMonths between two dates */
+  function biMonthBetween(d1, d2) {
+    const date1 = moment(d1);
+    const date2 = moment(d2);
+    return Math.ceil(date2.diff(date1, 'days') / 60);
+  }
+
+  const TotalPost = () => {
+    let totalPost = 0;
+    deliverables && deliverables !== null && deliverables.forEach(item => {
+      if (item.frequency === 'WEEK') {
+        totalPost = totalPost + (parseInt(item.posts) * weeksBetween(new Date(campaign.startDate * 1000), new Date(campaign.endDate * 1000)));
+      } else if (item.frequency === 'BI_WEEKLY') {
+        totalPost = totalPost + (parseInt(item.posts) * biWeekBetween(new Date(campaign.startDate * 1000), new Date(campaign.endDate * 1000)));
+      } else if (item.frequency === 'MONTH') {
+        totalPost = totalPost + (parseInt(item.posts) * monthBetween(new Date(campaign.startDate * 1000), new Date(campaign.endDate * 1000)));
+      } else if (item.frequency === 'BI_MONTHLY') {
+        totalPost = totalPost + (parseInt(item.posts) * biMonthBetween(new Date(campaign.startDate * 1000), new Date(campaign.endDate * 1000)));
+      }
+    });
+    return totalPost;
+  }
+
+  /**{function} to get biWeeks between two dates */
+  function biWeekBetween(d1, d2) {
+    const date1 = moment(d1);
+    const date2 = moment(d2);
+    return Math.ceil(date2.diff(date1, 'days') / 14);
+  }
 
   return (
     <div className={styles.deliverableContainer}>
@@ -68,6 +114,12 @@ const DeliverablesDetail = ({ deliverables }) => {
           </React.Fragment>
         );
       })}
+      {deliverables && deliverables !== null && <div className={styles.detailSubContent} style={{ marginBottom: '20px' }}>
+        <h6>Total Posts</h6>
+        <p>
+          {TotalPost()}
+        </p>
+      </div>}
     </div>
   );
 };

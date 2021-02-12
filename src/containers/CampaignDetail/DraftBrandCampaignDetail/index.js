@@ -46,7 +46,7 @@ const DraftBrandCampaignDetail = ({
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
 
-	
+
 	return (
 		<>
 			<Popover
@@ -193,6 +193,7 @@ const DraftBrandCampaignDetail = ({
 							deliverables={data.deliverables}
 							handleEdit={handleEdit}
 							onClick={handleSeeClick}
+							campaign={data}
 						/>
 					</div>
 					<div className={styles.flexContainer}>
@@ -202,7 +203,7 @@ const DraftBrandCampaignDetail = ({
 							handleEdit={handleEdit}
 							deliverables={data && data.deliverables && data.deliverables !== null ? data.deliverables : []}
 							startDate={data && data.startDate}
-							endDate={data && data.endDate} 
+							endDate={data && data.endDate}
 							compensation={
 								data && data.compensation && data.compensation !== null
 									? _.compact(data.compensation)

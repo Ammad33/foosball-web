@@ -147,6 +147,7 @@ const LiveInfluencer = ({
 							deliverables={data.deliverables}
 							handleEdit={handleEdit}
 							onClick={handleSeeClick}
+							campaign={data}
 						/>
 						<Contract />
 					</div>

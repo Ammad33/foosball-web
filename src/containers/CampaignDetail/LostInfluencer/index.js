@@ -136,6 +136,7 @@ const LostInfluencer = ({ handleEdit, data, handleSeeClick, name }) => {
 							deliverables={data.deliverables}
 							handleEdit={handleEdit}
 							onClick={handleSeeClick}
+							campaign={data}
 						/>
 					</div>
 				</div>

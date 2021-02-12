@@ -4,10 +4,18 @@ import styles from './CampaignDetail.module.scss';
 import moment from 'moment';
 import clsx from 'clsx';
 
+
 const CampaignDetail = ({ children, handleEdit, campaign }) => {
 	const numberWithCommas = (x) => {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
+
+	const weeksBetween = (d1, d2) => {
+		const date1 = moment(d1);
+		const date2 = moment(d2);
+		return Math.ceil(date2.diff(date1, 'days') / 7);
+	}
+
 	return (
 		<div
 			className={clsx(
@@ -18,8 +26,8 @@ const CampaignDetail = ({ children, handleEdit, campaign }) => {
 			<div className={styles.headerContainer}>
 				<h1>Campaign Details</h1>
 				{(campaign && campaign.status === 'DRAFT') ? (
-						<Edit onClick={() => handleEdit(1)} />
-					) : (
+					<Edit onClick={() => handleEdit(1)} />
+				) : (
 						''
 					)}
 			</div>
@@ -45,17 +53,23 @@ const CampaignDetail = ({ children, handleEdit, campaign }) => {
 				</div>
 			</div>
 			<div className={styles.detailSubContent}>
+				<h6>Campaign Duration</h6>
+				<p>
+					{campaign && campaign.startDate && campaign.startDate !== null && campaign.endDate && campaign.endDate !== null && weeksBetween(campaign.startDate * 1000, campaign.endDate * 1000)} week{weeksBetween(campaign.startDate * 1000, campaign.endDate * 1000) === 1 ? '' : 's'}
+				</p>
+			</div>
+			<div className={styles.detailSubContent}>
 				<h6>Promotional Discount</h6>
 				<p>
-				{campaign && campaign.discount && campaign.discount !== null && campaign.discount.percentage ? '' : '$'}
-				{campaign && campaign.discount && campaign.discount !== null && campaign.discount.amount ? numberWithCommas(campaign.discount.amount.amount) : campaign && campaign.discount && campaign.discount !== null && campaign.discount.percentage ? numberWithCommas(campaign.discount.percentage) : ''} 
-				{campaign && campaign.discount && campaign.discount !== null && campaign.discount.percentage ? '%' : ''}</p>
+					{campaign && campaign.discount && campaign.discount !== null && campaign.discount.percentage ? '' : '$'}
+					{campaign && campaign.discount && campaign.discount !== null && campaign.discount.amount ? numberWithCommas(campaign.discount.amount.amount) : campaign && campaign.discount && campaign.discount !== null && campaign.discount.percentage ? numberWithCommas(campaign.discount.percentage) : ''}
+					{campaign && campaign.discount && campaign.discount !== null && campaign.discount.percentage ? '%' : ''}</p>
 			</div>
-			{campaign && campaign.discount && campaign.discount.__typename === 'FlatDiscount' ?(
+			{campaign && campaign.discount && campaign.discount.__typename === 'FlatDiscount' ? (
 				<div className={styles.detailSubContent}>
 					<h6>Minimum Cart Value</h6>
-					<p>{'$'}{campaign && campaign.discount && campaign.discount !== null && campaign.discount.amount ? (numberWithCommas(campaign.discount.minimum.amount)) :''} </p>
-				</div>): ("")}
+					<p>{'$'}{campaign && campaign.discount && campaign.discount !== null && campaign.discount.amount ? (numberWithCommas(campaign.discount.minimum.amount)) : ''} </p>
+				</div>) : ("")}
 			{children ? (
 				<div className={styles.detailSubContent}>
 					{campaign && campaign.invitationMessage ?

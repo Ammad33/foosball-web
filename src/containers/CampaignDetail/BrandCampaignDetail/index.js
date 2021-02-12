@@ -56,7 +56,8 @@ const BrandCampaignDetail = ({
 			case 'Activity':
 				return <ActivityDetail activities={data?.events} />;
 			case 'Deliverable':
-				return <DeliverablesDetail deliverables={data && data.deliverables} />;
+				return <DeliverablesDetail deliverables={data && data.deliverables}
+					campaign={data} />;
 			case 'Compensation':
 				return (
 					<CompensationDetail

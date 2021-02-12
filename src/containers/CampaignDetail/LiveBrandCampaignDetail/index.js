@@ -98,7 +98,7 @@ const LiveBrandCampaignDetail = ({
           <div>
             <Copy /> <p>Duplicate Campaign</p>
           </div>
-          <div style={{display:"none"}}>
+          <div style={{ display: "none" }}>
             <Download /> <p>Download Campaign</p>
           </div>
           <div onClick={() => handleStopDialogOpen()}>
@@ -199,6 +199,7 @@ const LiveBrandCampaignDetail = ({
               deliverables={data.deliverables}
               handleEdit={handleEdit}
               onClick={handleSeeClick}
+              campaign={data}
             />
           </div>
           <div className={styles.flexContainer}>
@@ -211,10 +212,10 @@ const LiveBrandCampaignDetail = ({
               handleEdit={handleEdit}
               onClick={handleSeeClick}
               targetGrossSales={data.targetGrossSales}
-							paymentSchedule={data.paymentSchedule}
-							deliverables={data && data.deliverables && data.deliverables !== null ? data.deliverables : []}
-							startDate={data && data.startDate}
-							endDate={data && data.endDate} 
+              paymentSchedule={data.paymentSchedule}
+              deliverables={data && data.deliverables && data.deliverables !== null ? data.deliverables : []}
+              startDate={data && data.startDate}
+              endDate={data && data.endDate}
             />
             <Negotiables data={data} />
             <Contract />

@@ -430,7 +430,7 @@ const ReviewAndSend = ({
               </div>
             </Grid>
             {discountType === 'Amount' ? (
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 <div className={styles.campaignItemInfo}>
                   <p>Minimum Cart Value</p>
                   <span>
@@ -442,7 +442,13 @@ const ReviewAndSend = ({
             ) : (
                 ''
               )}
-            <Grid item xs={8}>
+            <Grid item xs={4}>
+              <div className={styles.campaignItemInfo}>
+                <p>Campaign Duration</p>
+                <span>{weeksBetween(new Date(startDate), new Date(endDate))} week{weeksBetween(new Date(startDate), new Date(endDate)) === 1 ? '' : 's'}</span>
+              </div>
+            </Grid>
+            <Grid item xs={12}>
               <div className={styles.campaignItemInfo}>
                 <p>Custom Message to Influencer</p>
                 <span>{customeMessage}</span>
@@ -459,22 +465,22 @@ const ReviewAndSend = ({
         <div className={styles.teamMembersContainer}>
           <Grid container spacing={3}>
             {teamMembers &&
-              teamMembers.length > 0 ?  (
-              teamMembers.map((member, index) => {
-                const element = team.findIndex(
-                  (item) => item.user.id === member
-                );
-                if (element !== -1) {
-                  return (
-                    <Grid item xs={4} key={index}>
-                      <div className={styles.teamMemberItem}>
-                        <Avatar src={team[element].user.imageUrl} />
-                        <span>{team[element].user.fullName}</span>
-                      </div>
-                    </Grid>
+              teamMembers.length > 0 ? (
+                teamMembers.map((member, index) => {
+                  const element = team.findIndex(
+                    (item) => item.user.id === member
                   );
-                }
-              })) : <div className={styles.noTeamMember}> No team members have been added to this campaign.</div>}
+                  if (element !== -1) {
+                    return (
+                      <Grid item xs={4} key={index}>
+                        <div className={styles.teamMemberItem}>
+                          <Avatar src={team[element].user.imageUrl} />
+                          <span>{team[element].user.fullName}</span>
+                        </div>
+                      </Grid>
+                    );
+                  }
+                })) : <div className={styles.noTeamMember}> No team members have been added to this campaign.</div>}
           </Grid>
         </div>
       </div>
@@ -539,14 +545,12 @@ const ReviewAndSend = ({
                               ? collection.priceRange.max.amount
                               : ''}{' '}
                           </p>
-                          {/* <span>(1234367)</span> */}
                           {collection &&
                             collection.estimatedQty &&
                             collection.estimatedQty !== null && (
                               <p className={styles.boxPrice}> 25 in stock</p>
                             )}
 
-                          {/* <p className={styles.itemText}>{collection.name} / #</p> */}
                         </div>
                       );
                     })}

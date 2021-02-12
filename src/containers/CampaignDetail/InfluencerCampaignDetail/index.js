@@ -234,7 +234,7 @@ const CampaignDetailInfluencer = ({
 			case 'Activity':
 				return <ActivityDetail activities={data?.events} />;
 			case 'Deliverable':
-				return <DeliverablesDetail deliverables={data && data.deliverables} />;
+				return <DeliverablesDetail campaign={data} deliverables={data && data.deliverables} />;
 			case 'Compensation':
 				return (
 					<CompensationDetail
