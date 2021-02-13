@@ -40,7 +40,7 @@ Amplify.configure({
     domain: process.env.REACT_APP_OAUTH_COGNITO_DOMAIN,
     redirectSignIn: process.env.REACT_APP_OAUTH_COGNITO_REDIRECT_SIGNIN,
     redirectSignOut: process.env.REACT_APP_OAUTH_COGNITO_REDIRECT_SIGNOUT,
-    responseType: 'code',
+    responseType: 'token',
   },
 });
 
