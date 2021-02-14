@@ -80,7 +80,6 @@ const Compensation = ({ onClick, handleEdit, compensation, status, targetGrossSa
 	function monthBetween(d1, d2) {
 		const date1 = moment(d1);
 		const date2 = moment(d2);
-		console.log(date2.diff(date1, 'days'))
 		return Math.ceil(date2.diff(date1, 'days') / 30);
 	}
 
@@ -88,7 +87,6 @@ const Compensation = ({ onClick, handleEdit, compensation, status, targetGrossSa
 	function biMonthBetween(d1, d2) {
 		const date1 = moment(d1);
 		const date2 = moment(d2);
-		console.log(date2.diff(date1, 'days'))
 		return Math.ceil(date2.diff(date1, 'days') / 60);
 	}
 
@@ -96,7 +94,6 @@ const Compensation = ({ onClick, handleEdit, compensation, status, targetGrossSa
 	function biWeekBetween(d1, d2) {
 		const date1 = moment(d1);
 		const date2 = moment(d2);
-		console.log(date2.diff(date1, 'days'))
 		return Math.ceil(date2.diff(date1, 'days') / 14);
 	}
 	/*****************************************************************************/

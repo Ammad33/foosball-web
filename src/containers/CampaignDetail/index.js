@@ -834,6 +834,11 @@ const CampaignDetail = ({ location }) => {
 						headingValue={headingValue}
 					/>
 				)}
+			{errorMessage !== '' && (
+				<div style={{ padding: '16px', color: 'red' }}>
+					{errorMessage}
+				</div>
+			)}
 		</div>
 	);
 };

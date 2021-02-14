@@ -10,6 +10,7 @@ import ArvonTemplate from '../../../assets/Arvon_Template.png';
 import { API, graphqlOperation } from 'aws-amplify';
 import { RootContext } from '../../../context/RootContext';
 import Iframe from 'react-iframe';
+import { Auth } from 'aws-amplify';
 import config from '../../../config';
 
 
@@ -19,7 +20,7 @@ const ReviewBrandMicrosite = ({ name, data, campaignId }) => {
 	const [campaign, setCampaign] = useState('');
 	const [errorMessage, setErrorMessage] = useState('');
 	const {
-		brandId, currentUser
+		brandId, currentUser, setCurrentUser
 	} = useContext(RootContext);
 
 	useEffect(() => {
@@ -30,7 +31,30 @@ const ReviewBrandMicrosite = ({ name, data, campaignId }) => {
 		window.scrollTo({ top: 0, behavior: 'smooth' });
 		let id = campaignId.split('#');
 		setCampaign(id[1]);
-	}, [])
+	}, []);
+
+	useEffect(() => {
+		getAuth();
+	}, []);
+
+
+	const getAuth = async () => {
+
+		try {
+			const cognitoUser = await Auth.currentAuthenticatedUser();
+			const currentSession = await Auth.currentSession();
+			cognitoUser.refreshSession(currentSession.refreshToken, (err, session) => {
+				// console.log('session', err, session);
+				let currentUserAWS = { ...currentUser };
+				currentUserAWS.signInUserSession = session;
+				setCurrentUser(currentUserAWS);
+
+			});
+		} catch (e) {
+			console.log('Unable to refresh Token', e);
+		}
+
+	}
 
 	const approveMicrosite = async () => {
 		try {

@@ -1,8 +1,9 @@
-import React, { useState, useEffect,useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Grid } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Iframe from 'react-iframe';
 import styles from './Reports.module.scss';
+import { Auth } from 'aws-amplify';
 import { RootContext } from '../../context/RootContext';
 
 
@@ -13,8 +14,27 @@ const Reports = () => {
 	const { brandId, currentUser, setCurrentUser } = useContext(RootContext);
 
 	useEffect(() => {
-
+		getAuth();
 	}, []);
+
+
+	const getAuth = async () => {
+
+		try {
+			const cognitoUser = await Auth.currentAuthenticatedUser();
+			const currentSession = await Auth.currentSession();
+			cognitoUser.refreshSession(currentSession.refreshToken, (err, session) => {
+				// console.log('session', err, session);
+				let currentUserAWS = { ...currentUser };
+				currentUserAWS.signInUserSession = session;
+				setCurrentUser(currentUserAWS);
+
+			});
+		} catch (e) {
+			console.log('Unable to refresh Token', e);
+		}
+
+	}
 
 
 	return (
@@ -77,7 +97,7 @@ const Reports = () => {
 					<Grid item xs={12}>
 						<div className={styles.ReportInfoContainer}>
 							<div className={styles.ReportContainer}>
-								<Iframe								
+								<Iframe
 									url={`${"https://tableau-reporting.herokuapp.com"}/?orgId=${brandId}&authId=${currentUser.signInUserSession.accessToken.jwtToken}`}
 									width="100%"
 									height="100%"

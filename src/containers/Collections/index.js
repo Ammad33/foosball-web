@@ -13,6 +13,7 @@ const Collections = ({ location }) => {
   const history = useHistory();
   const [addCampaign, setAddCampaign] = useState(false);
   const [data, setData] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const { activeCampaign, brandId, brandType } = useContext(RootContext);
 
@@ -290,7 +291,18 @@ const Collections = ({ location }) => {
       } else {
         setData(campaign.data.campaign);
       }
-    } catch (e) { }
+      setErrorMessage('');
+    } catch (e) {
+
+      let message = errorMessage;
+
+      if (e.errors && e.errors.length > 0)
+        e.errors.forEach((m) => {
+          message = message + m.message;
+        });
+
+      setErrorMessage(message);
+    }
   };
 
 
@@ -343,6 +355,11 @@ const Collections = ({ location }) => {
             );
           })
         }
+        {errorMessage !== '' && (
+          <div style={{ padding: '16px', color: 'red' }}>
+            {errorMessage}
+          </div>
+        )}
       </div >
     </>
   );

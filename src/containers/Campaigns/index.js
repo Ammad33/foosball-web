@@ -586,7 +586,7 @@ const Campaigns = () => {
 						})}
 				</Grid>
 				{errorMessage !== '' && (
-					<div style={{ padding: '0px 24px 24px 24px', color: 'red' }}>
+					<div style={{ padding: '16px', color: 'red' }}>
 						{errorMessage}
 					</div>
 				)}

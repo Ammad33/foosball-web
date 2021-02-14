@@ -155,7 +155,6 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			setFooterColor(microsite.footer.bgColor);
 			setQuotesBGColor(microsite.influencerQuote.bgColor);
 			setQuoteMessage(microsite.influencerQuote.quoteContent);
-			console.log(microsite.appHeader);
 			setImage2(microsite.hero.imageLarge && microsite.hero.imageLarge !== null ? microsite.hero.imageLarge : null)
 			setHeroImage(microsite.appHeader.image && microsite.appHeader.image !== null ? microsite.appHeader.image : null)
 		}

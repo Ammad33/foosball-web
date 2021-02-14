@@ -2015,7 +2015,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             members={team}
             handleActiveNext={() => {
               let ActiveValue = [...activeStepValue];
-              ActiveValue[1] = true;
+              ActiveValue[2] = true;
               setActiveStepValue(ActiveValue);
               setActiveNext(true);
             }}
