@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from 'react';
 import styles from './CampaignsDetails.module.scss';
 import BrandCampaignDetail from './BrandCampaignDetail';
 import {
-	useParams,
 	useHistory,
 	withRouter,
 } from 'react-router-dom';
@@ -10,7 +9,6 @@ import InfluencerCampaignDetail from './InfluencerCampaignDetail';
 import { Select, MenuItem } from '@material-ui/core';
 import Link from '@material-ui/core/Link';
 import { RootContext } from '../../context/RootContext';
-import SelectMenu from '../../components/SelectMenu';
 import { API, graphqlOperation } from 'aws-amplify';
 import _ from 'lodash';
 import moment from 'moment';
@@ -29,6 +27,7 @@ const CampaignDetail = ({ location }) => {
 	const [headingValue, setHeadingValue] = useState('');
 	const [internalState, setInternalState] = useState('');
 	const [data, setData] = useState(null);
+	const [errorMessage, setErrorMessage] = useState('');
 
 	String.prototype.toProperCase = function () {
 		return this.replace(/\w\S*/g, function (txt) {
@@ -84,9 +83,18 @@ const CampaignDetail = ({ location }) => {
 					}
 				)
 			);
+			setErrorMessage('');
 			history.push('/');
 		} catch (e) {
-			console.log('delete campaign error ', e);
+
+			let message = errorMessage;
+
+			if (e.errors && e.errors.length > 0)
+				e.errors.forEach((m) => {
+					message = message + m.message;
+				});
+
+			setErrorMessage(message);
 		}
 	};
 
@@ -110,9 +118,22 @@ const CampaignDetail = ({ location }) => {
 					}
 				)
 			);
+
+			setErrorMessage('');
+
 			getCampaign();
+
 		} catch (e) {
-			console.log('update campaign error ', e);
+
+			let message = errorMessage;
+
+			if (e.errors && e.errors.length > 0)
+				e.errors.forEach((m) => {
+					message = message + m.message;
+				});
+
+			setErrorMessage(message);
+
 		}
 	};
 
@@ -593,7 +614,20 @@ const CampaignDetail = ({ location }) => {
 					}
 				}
 			}
-		} catch (e) { }
+			setErrorMessage('');
+
+		} catch (e) {
+
+			let message = errorMessage;
+
+			if (e.errors && e.errors.length > 0)
+				e.errors.forEach((m) => {
+					message = message + m.message;
+				});
+
+			setErrorMessage(message);
+
+		}
 	};
 
 	const getTeam = async () => {
@@ -616,7 +650,15 @@ const CampaignDetail = ({ location }) => {
 				return team.data.brand.users;
 			}
 		} catch (e) {
-			console.log(e);
+			let message = errorMessage;
+
+			if (e.errors && e.errors.length > 0)
+				e.errors.forEach((m) => {
+					message = message + m.message;
+				});
+
+			setErrorMessage(message);
+
 		}
 	};
 
@@ -753,33 +795,6 @@ const CampaignDetail = ({ location }) => {
 
 	return (
 		<div className={styles.detailContainer}>
-			{/* <div className={styles.toggleStatusContainer}>
-        <Link onClick={handleBrandState}>
-          {' '}
-          Toggle Campiagn Detail influencer
-        </Link>
-        <Select
-          id='outlined-basic'
-          defaultValue={'Percentage'}
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
-          variant='outlined'
-          MenuProps={{ variant: 'menu' }}
-          input={<SelectMenu />}
-        >
-          <MenuItem value='' disabled>
-            {' '}
-            Select Status
-          </MenuItem>
-          <MenuItem value={'DRAFT'}>Draft</MenuItem>
-          <MenuItem value={'PENDING'}>Pending</MenuItem>
-          <MenuItem value={'CLOSED'}>Closed</MenuItem>
-          <MenuItem value={'DECLINED'}>Declined</MenuItem>
-          <MenuItem value={'INVITED'}>Invited</MenuItem>
-          <MenuItem value={'LIVE'}>Live</MenuItem>
-          <MenuItem value={'LOST'}>Lost</MenuItem>
-        </Select>
-      </div> */}
 			{brandType.toLowerCase() === 'influencer' ? (
 				<InfluencerCampaignDetail
 					status={status}

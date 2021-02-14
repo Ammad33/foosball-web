@@ -215,9 +215,6 @@ const Templates = ({ campaignId, internalState, template, microsite,
 		}
 	}, [headerColor, buttonColor, footerColor, shopColor, quoteMessage, quotesColor, quotesBGColor, template, update]);
 
-	//* API Call to get microsite data */
-
-
 	//** API Call for create and update microsite */
 
 	const createOrUpdateMicroSite = async () => {
@@ -472,15 +469,6 @@ const Templates = ({ campaignId, internalState, template, microsite,
 	const handleFooterColorComplete = (color, event) => {
 		setFooterColor(color.hex);
 
-	}
-
-	const handleCloseAll = () => {
-		setShopColorOpen(!shopColorOpen);
-		setFooterColorOpen(!shopColorOpen);
-		setQuotesBGColorOpen(!quotesBGColorOpen);
-		setQuotesColorOpen(!quotesColorOpen);
-		setButtonColorOpen(!buttonColorOpen);
-		setHeaderColorOpen(!headerColorOpen);
 	}
 
 	return (

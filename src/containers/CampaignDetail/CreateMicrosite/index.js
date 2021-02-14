@@ -28,6 +28,7 @@ const CreateMicrosite = ({
 	const [saveBack, setSaveBack] = useState('');
 	const [confirmTemplate, setConfirmTemplate] = useState(false);
 	const [changeTemplate, setChangeTemplate] = useState(false);
+	const [temprorayTemplate, setTemprorayTemplate] = useState('')
 	const { brandId } = useContext(RootContext);
 	// const [microsite1, setMiscroSite1] = useState(microsite);
 
@@ -39,7 +40,8 @@ const CreateMicrosite = ({
 		setChangeTemplate(false);
 	}
 	const handleOk = () => {
-		setTemplate('');
+		setTemplate(temprorayTemplate);
+		setTemprorayTemplate('');
 		setSaveBack('');
 		setChangeTemplate(true);
 		getCampaign();
@@ -50,6 +52,16 @@ const CreateMicrosite = ({
 		window.scrollTo({ top: 0, behavior: 'smooth' });
 		setTemplate(microsite && microsite != '' ? (microsite.template) : (""));
 	}, []);
+
+	const handleTemplateClick = (index) => {
+		if (saveBack !== '') {
+			setConfirmTemplate(true);
+			setTemprorayTemplate(index)
+		}
+		else {
+			setTemplate(index)
+		}
+	}
 
 	return (
 		<>
@@ -77,7 +89,7 @@ const CreateMicrosite = ({
 							const newValue = templated;
 							setSaveBack(newValue);
 							setTemplate('');
-							setConfirmTemplate(true);
+							// setConfirmTemplate(true);
 						}
 						} className={styles.backTemplate}>
 							<ChevronLeft />
@@ -99,25 +111,25 @@ const CreateMicrosite = ({
 								<p> Choose a microsite template below and then customize it.</p>
 								<div className={styles.templateContainer}>
 									<div className={styles.template}>
-										<div onClick={() => setTemplate('ONE')}>
+										<div onClick={() => handleTemplateClick('ONE')}>
 											<img src={MicrositeTemplate} />
 										</div>
 										<h6>Whitney</h6>
 									</div>
 									<div className={styles.template}>
-										<div onClick={() => setTemplate('TWO')}>
+										<div onClick={() => handleTemplateClick('TWO')}>
 											<img src={EverettTemplateImage} />
 										</div>
 										<h6>Everett</h6>
 									</div>
 									<div className={styles.template}>
-										<div onClick={() => setTemplate('FOUR')}>
+										<div onClick={() => handleTemplateClick('FOUR')}>
 											<img src={LemmonTemplateImage} />
 										</div>
 										<h6>Lemmon</h6>
 									</div>
 									<div className={styles.template}>
-										<div onClick={() => setTemplate('THREE')}>
+										<div onClick={() => handleTemplateClick('THREE')}>
 											<img src={ArvonTemplateImage} />
 										</div>
 										<h6>Arvon</h6>

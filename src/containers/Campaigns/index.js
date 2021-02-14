@@ -10,6 +10,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import SVG from 'react-inlinesvg';
 import { RootContext } from '../../context/RootContext';
 import _ from 'lodash';
+
 /*******************SVG functions ***********************************/
 const IconCampaign = () => {
 	return <SVG src={require('../../assets/Campaigns_large.svg')} />;
@@ -42,12 +43,12 @@ const Campaigns = () => {
 	const [bkupCampaigns, setBkupCampaigns] = useState([]);
 	const [addCampaign, setAddCampagin] = useState(false);
 	const [meData, setMeData] = useState([]);
+	const [errorMessage, setErrorMessage] = useState('');
 	/**************** */
 
 	/**rootContext */
 	const {
 		brandId,
-		brandName,
 		setBrands,
 		searchValue,
 		brandType,
@@ -150,6 +151,7 @@ const Campaigns = () => {
 				setBrandType(influencersData[0].organization.__typename);
 			}
 			setMeData(mydata.data.me.organizations);
+			setErrorMessage('');
 		} catch (e) {
 			if (e.data) {
 
@@ -176,7 +178,17 @@ const Campaigns = () => {
 					setBrandType(influencersData[0].organization.__typename);
 				}
 				setMeData(e.data.me.organizations);
+
 			}
+
+			let message = errorMessage;
+
+			if (e.errors && e.errors.length > 0)
+				e.errors.forEach((m) => {
+					message = message + m.message;
+				});
+
+			setErrorMessage(message);
 		}
 	};
 
@@ -226,9 +238,20 @@ const Campaigns = () => {
 			setBkupCampaigns(campaigns.data.campaigns.campaigns);
 			setLoading(false);
 			setShowLoader(false);
+			setErrorMessage('');
+
 		} catch (e) {
 			setLoading(false);
 			setShowLoader(false);
+
+			let message = errorMessage;
+
+			if (e.errors && e.errors.length > 0)
+				e.errors.forEach((m) => {
+					message = message + m.message;
+				});
+
+			setErrorMessage(message);
 		}
 	};
 
@@ -273,23 +296,32 @@ const Campaigns = () => {
 			}
 			setLoading(false);
 			setShowLoader(false);
+			setErrorMessage('');
 		} catch (e) {
 			setLoading(false);
 			setShowLoader(false);
+			let message = errorMessage;
+
+			if (e.errors && e.errors.length > 0)
+				e.errors.forEach((m) => {
+					message = message + m.message;
+				});
+
+			setErrorMessage(message);
 		}
 	};
 
 	useEffect(() => {
 		if (brandId !== '') {
 			setCampaigns([]);
-			if (brandType === 'Brand' ){
+			if (brandType === 'Brand') {
 				getCampaigns();
 			}
-			else if (brandType === 'Influencer'){
+			else if (brandType === 'Influencer') {
 				getInfluencerCampaigns();
 			}
 		}
-	}, [brandId, addCampaign,brandType]);
+	}, [brandId, addCampaign, brandType]);
 
 	/**handling search bar changes */
 	useEffect(() => {
@@ -322,9 +354,18 @@ const Campaigns = () => {
 					}
 				)
 			);
+			setErrorMessage('');
 			getCampaigns();
 		} catch (e) {
 			console.log('delete campaign error ', e);
+			let message = errorMessage;
+
+			if (e.errors && e.errors.length > 0)
+				e.errors.forEach((m) => {
+					message = message + m.message;
+				});
+
+			setErrorMessage(message);
 		}
 	};
 
@@ -544,6 +585,11 @@ const Campaigns = () => {
 							);
 						})}
 				</Grid>
+				{errorMessage !== '' && (
+					<div style={{ padding: '0px 24px 24px 24px', color: 'red' }}>
+						{errorMessage}
+					</div>
+				)}
 			</div>
 		</>
 	);
