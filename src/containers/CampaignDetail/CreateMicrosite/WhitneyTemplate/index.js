@@ -423,9 +423,9 @@ const Templates = ({ campaignId, internalState, template, microsite,
 		}
 	};
 
-	// useEffect(() => {
-	// 	getAuth();
-	// }, []);
+	useEffect(() => {
+		getAuth();
+	}, []);
 
 
 	const getAuth = async () => {
@@ -448,33 +448,39 @@ const Templates = ({ campaignId, internalState, template, microsite,
 
 	const handleHeaderColorComplete = (color, event) => {
 		setHeaderColor(color.hex);
-		setHeaderColorOpen(false);
 	}
 
 	const handleButtonColorComplete = (color, event) => {
 		setButtonColor(color.hex);
-		setButtonColorOpen(false);
+
 	}
 
 	const handleShopColorComplete = (color, event) => {
 		setShopColor(color.hex);
-		setShopColorOpen(false);
 	}
 
 	const handleQuotesColorComplete = (color, event) => {
 		setQuotesColor(color.hex);
-		setQuotesColorOpen(false);
+
 	}
 
 	const handleQuotesBGColorComplete = (color, event) => {
 		setQuotesBGColor(color.hex);
-		setQuotesBGColorOpen(false);
 	}
 
 
 	const handleFooterColorComplete = (color, event) => {
 		setFooterColor(color.hex);
-		setFooterColorOpen(false);
+
+	}
+
+	const handleCloseAll = () => {
+		setShopColorOpen(!shopColorOpen);
+		setFooterColorOpen(!shopColorOpen);
+		setQuotesBGColorOpen(!quotesBGColorOpen);
+		setQuotesColorOpen(!quotesColorOpen);
+		setButtonColorOpen(!buttonColorOpen);
+		setHeaderColorOpen(!headerColorOpen);
 	}
 
 	return (
