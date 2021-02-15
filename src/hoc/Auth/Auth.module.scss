@@ -32,23 +32,24 @@
 		min-height: 100vh; //min-height: -webkit-fill-available;
 
 		img {
-			width: 987px;
+			width: 933px;
 			height: 1080px;
 			align-self: center;
 			display: flex;
 		}
 
 		div {
-			width: 987px;
-			height: 1080px;
-			align-self: center;
-			display: flex;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			background-color: rgba(171, 71, 230, 0.5);
-			cursor: pointer;
+			// width: 933px;
+			// height: 1080px;
+			// align-self: center;
+			// display: flex;
+			// top: 0;
+			// left: 0;
+			// right: 0;
+			// bottom: 0;
+			// background-color: rgba(171, 71, 230, 0.5);
+			// z-index: 2;
+			// cursor: pointer;
 		}
 	}
 }
