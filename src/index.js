@@ -23,17 +23,24 @@ import config from './config';
 //   },
 // });
 
-
 Amplify.configure({
-  aws_appsync_graphqlEndpoint: process.env.REACT_APP_AWS_APPSYNC_GRAPHQLENDPOINT,
+  aws_appsync_graphqlEndpoint:
+    process.env.REACT_APP_AWS_APPSYNC_GRAPHQLENDPOINT,
   aws_appsync_region: process.env.REACT_APP_AWS_APPSYNC_REGION,
-  aws_appsync_authenticationType: process.env.REACT_APP_AWS_APPSYNC_AUTHENTICATIONTYPE,
+  aws_appsync_authenticationType:
+    process.env.REACT_APP_AWS_APPSYNC_AUTHENTICATIONTYPE,
   aws_appsync_apiKey: process.env.REACT_APP_AWS_APPSYNC_APIKEY,
   Auth: {
     region: process.env.REACT_APP_COGNITO_REGION,
     userPoolId: process.env.REACT_APP_COGNITO_USER_POOL_ID,
     identityPoolId: process.env.REACT_APP_COGNITO_IDENTITY_POOL_ID,
     userPoolWebClientId: process.env.REACT_APP_COGNITO_APP_CLIENT_ID,
+  },
+  oauth: {
+    domain: process.env.REACT_APP_OAUTH_COGNITO_DOMAIN,
+    redirectSignIn: process.env.REACT_APP_OAUTH_COGNITO_REDIRECT_SIGNIN,
+    redirectSignOut: process.env.REACT_APP_OAUTH_COGNITO_REDIRECT_SIGNOUT,
+    responseType: 'token',
   },
 });
 

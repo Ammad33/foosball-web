@@ -1,10 +1,9 @@
-
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { API } from 'aws-amplify';
 import { TextField, Button, InputAdornment } from '@material-ui/core';
 import styles from './Login.module.scss';
 import { RootContext } from '../../context/RootContext';
-import { Auth } from 'aws-amplify';
+import { Auth, Hub } from 'aws-amplify';
 import mainStyles from './../../index.module.scss';
 import SVG from 'react-inlinesvg';
 import { useHistory } from 'react-router-dom';
@@ -38,12 +37,30 @@ const Login = () => {
     setActiveRoute,
   } = useContext(RootContext);
 
+  // useEffect(() => {
+  //   Hub.listen('auth', ({ payload: { event, data } }) => {
+  //     console.log('hub listened');
+  //     switch (event) {
+  //       case 'signIn':
+  //         console.log('signin hub');
+  //         // this.setState({ user: data });
+  //         break;
+  //       case 'signOut':
+  //         console.log('signout hub');
+  //         // this.setState({ user: null });
+  //         break;
+  //       case 'customOAuthState':
+  //         console.log('custom state');
+  //       // this.setState({ customState: data });
+  //     }
+  //   });
+  // }, []);
+
   /*togglePasswordVisiblity {function} get called when
   eye icon is clicked on signup page used to show,hide password*/
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
-
 
   /*checking if enter is pressed */
   const handleKeypress = (e) => {
@@ -52,18 +69,17 @@ const Login = () => {
     }
   };
 
-
   /*onSignin {function} get called when sign in button is pressed*/
   const onSignin = async () => {
     setShowLoader(true);
     try {
-      const user = await Auth.signIn(email, password);//authentication
+      const user = await Auth.signIn(email, password); //authentication
 
       console.log(user);
       setCurrentUser(user);
 
       setLogoutMessage('');
-      getMeData();                //calling API       
+      getMeData(); //calling API
       setActiveRoute('Campaign');
       // setShowLoader(false);
     } catch (e) {
@@ -73,6 +89,20 @@ const Login = () => {
     }
   };
 
+  const googleSignin = async () => {
+    try {
+      console.log('came into federate signin');
+      await Auth.federatedSignIn({ provider: 'Google' });
+      const user = await Auth.currentAuthenticatedUser();
+      setCurrentUser(user);
+
+      setLogoutMessage('');
+      getMeData(); //calling API
+      setActiveRoute('Campaign');
+      // setShowLoader(false);
+      console.log('came after federate signin');
+    } catch (e) {}
+  };
 
   /*getMeData{function} to get the user data by calling API and storing the response  to meData variable*/
   const getMeData = async () => {
@@ -136,11 +166,11 @@ const Login = () => {
                     <EyeSVG />{' '}
                   </div>
                 ) : (
-                    <div onClick={togglePasswordVisiblity}>
-                      {' '}
-                      <EyeOffSVG />{' '}
-                    </div>
-                  )}
+                  <div onClick={togglePasswordVisiblity}>
+                    {' '}
+                    <EyeOffSVG />{' '}
+                  </div>
+                )}
               </span>
             </InputAdornment>
           ),
@@ -189,7 +219,12 @@ const Login = () => {
         </div>
         <div className={styles.socialContainers}>
           <div>
-            <img className={styles.logoDiv} src={GoogleSVG} alt='Google' />
+            <img
+              className={styles.logoDiv}
+              src={GoogleSVG}
+              alt='Google'
+              onClick={googleSignin}
+            />
           </div>
           <div>
             <img className={styles.logoDiv} src={FacebookSVG} alt='Facebook' />
