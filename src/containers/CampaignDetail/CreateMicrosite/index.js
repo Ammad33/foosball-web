@@ -54,7 +54,7 @@ const CreateMicrosite = ({
 	}, []);
 
 	const handleTemplateClick = (index) => {
-		if (saveBack !== '') {
+		if (saveBack !== '' && saveBack !== index) {
 			setConfirmTemplate(true);
 			setTemprorayTemplate(index)
 		}
