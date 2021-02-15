@@ -1,5 +1,5 @@
-import React from 'react';
-import { Grid, InputAdornment, Dialog } from '@material-ui/core';
+import React, { useEffect } from 'react';
+import { Grid, InputAdornment, Dialog, emphasize } from '@material-ui/core';
 import { HelpCircle } from 'react-feather';
 import styles from './EditInfluencerInformation.module.scss';
 import TextField from '../../../../../components/TextField';
@@ -16,7 +16,26 @@ const Chevron = () => {
 	);
 };
 
-const EditInfluencerInformation = ({ open, handleChange, closeAdd }) => {
+const EditInfluencerInformation = ({ open, handleChange, closeAdd, name,
+	handleName,
+	age,
+	handleAge,
+	website,
+	handleWebsite,
+	phoneNumber,
+	handlePhoneNumber,
+	bio,
+	handleBio,
+	location,
+	handleLocation,
+	handleActiveSave,
+	handleUpdate,
+	email,
+	activeSave,
+	handleEmail }) => {
+	useEffect(() => {
+		handleActiveSave();
+	}, [name, age, website, email, phoneNumber, location, bio])
 
 	return (
 		<Dialog
@@ -33,6 +52,8 @@ const EditInfluencerInformation = ({ open, handleChange, closeAdd }) => {
 						fullWidth
 						label='Display Name'
 						variant='outlined'
+						value={name}
+						onChange={handleName}
 						className={mainStyles.placeholderColor}
 					// value="Sam Ozkural"
 					/>
@@ -45,11 +66,9 @@ const EditInfluencerInformation = ({ open, handleChange, closeAdd }) => {
 							label='Age Range'
 							variant='outlined'
 							className={mainStyles.placeholderColor}
-							//value=
-							// onChange={(e) =>
-							// 	handlePostType(e.target.value, index, 'deliverableType')
+							value={age}
+							onChange={handleAge}
 
-							// }
 							MenuProps={{ variant: 'menu' }}
 							select
 							SelectProps={{ IconComponent: () => <Chevron /> }}
@@ -58,10 +77,10 @@ const EditInfluencerInformation = ({ open, handleChange, closeAdd }) => {
 							<MenuItem value='Age Range' disabled>
 								Age Range
             	</MenuItem>
-							<MenuItem value="Small">15-20 </MenuItem>
-							<MenuItem value="medium">20-30  </MenuItem>
-							<MenuItem value="Large">30-35 </MenuItem>
-							<MenuItem value="Extra large">35-40  </MenuItem>
+							<MenuItem value={10}>15-20 </MenuItem>
+							<MenuItem value={20}>20-30  </MenuItem>
+							<MenuItem value={30}>30-35 </MenuItem>
+							<MenuItem value={40}>35-40  </MenuItem>
 						</TextField>
 					</FormControl>
 				</Grid>
@@ -72,7 +91,8 @@ const EditInfluencerInformation = ({ open, handleChange, closeAdd }) => {
 						label='Location'
 						variant='outlined'
 						className={mainStyles.placeholderColor}
-					// value="Sam Ozkural"
+						value={location}
+						onChange={handleLocation}
 					/>
 				</Grid>
 				<Grid item xs={12} className={styles.element}>
@@ -82,7 +102,8 @@ const EditInfluencerInformation = ({ open, handleChange, closeAdd }) => {
 						fullWidth
 						label='Bio'
 						variant='outlined'
-					// value="@samozkural"
+						value={bio}
+						onChange={handleBio}
 					/>
 				</Grid>
 
@@ -93,7 +114,8 @@ const EditInfluencerInformation = ({ open, handleChange, closeAdd }) => {
 						label='Email'
 						variant='outlined'
 						className={mainStyles.placeholderColor}
-						// value="samozkural@gmail.com"
+						value={email}
+						onChange={handleEmail}
 						InputProps={{
 							endAdornment: (
 								<InputAdornment position='end'>
@@ -110,7 +132,8 @@ const EditInfluencerInformation = ({ open, handleChange, closeAdd }) => {
 						label='Website Url'
 						variant='outlined'
 						className={mainStyles.placeholderColor}
-					// value="samozkural@gmail.com"
+						value={website}
+						onChange={handleWebsite}
 					/>
 				</Grid>
 
@@ -122,6 +145,8 @@ const EditInfluencerInformation = ({ open, handleChange, closeAdd }) => {
 						label='Mobile Number'
 						variant='outlined'
 						className={mainStyles.placeholderColor}
+						phoneNumber={phoneNumber}
+						onChange={handlePhoneNumber}
 						InputProps={{
 							endAdornment: (
 								<InputAdornment position='end'>
@@ -249,12 +274,12 @@ const EditInfluencerInformation = ({ open, handleChange, closeAdd }) => {
 						</TextField>
 					</FormControl>
 				</Grid>
-			
+
 			</div>
 			<div className={styles.footer} >
-					<span onClick={closeAdd}>Cancel</span>
-					<button disabled={true}>Save</button>
-				</div>
+				<span onClick={closeAdd}>Cancel</span>
+				<button onClick={handleUpdate}>Save</button>
+			</div>
 
 
 		</Dialog>

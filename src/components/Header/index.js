@@ -87,7 +87,7 @@ const Header = (meData) => {
               openSettings();
             }}
           >
-            <Avatar src={meData && meData !== null && meData.meData !== null && meData.meData.imageUrl} />
+            <Avatar src={meData && meData !== null && meData.meData !== null && `${meData.meData.imageUrl}?${new Date().getTime()}`} />
             {meData && meData !== null && meData.meData !== null && (
               <span className={styles.name}>
                 {meData.meData.fullName}
@@ -162,7 +162,7 @@ const Header = (meData) => {
           </Badge>
         </div>
         <div>
-          <Avatar onClick={handleClick} src={meData && meData !== null && meData.meData !== null && meData.meData.imageUrl} />
+          <Avatar onClick={handleClick} src={meData && meData !== null && meData.meData !== null && `${meData.meData.imageUrl}?${new Date().getTime()}`} />
         </div>
       </div>
     </>

@@ -9,7 +9,7 @@ const CampaignDetail = ({ children, handleEdit, campaign }) => {
 	const numberWithCommas = (x) => {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
-debugger;
+
 	const weeksBetween = (d1, d2) => {
 		const date1 = moment(d1);
 		const date2 = moment(d2);

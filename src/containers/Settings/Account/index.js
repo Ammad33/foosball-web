@@ -20,9 +20,9 @@ const EyeSVG = () => {
 };
 const Account = ({
   fullname,
-	imgUrl,
-	handleImageFile,
-	handleImageProfile,
+  imgUrl,
+  handleImageFile,
+  handleImageProfile,
   handleFullName,
   email,
   handleEmail,
@@ -35,8 +35,8 @@ const Account = ({
   handleChangePassword,
   handleSaveAccount,
   emailVerfied,
-	teamAdmin,
-	typeName,
+  teamAdmin,
+  typeName,
 }) => {
   const [openCDialog, setOpenCDialog] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
@@ -78,30 +78,30 @@ const Account = ({
           <EyeSVG />
         </div>
       ) : (
-        <div onClick={togglePasswordVisiblity}>
-          <Eye_offSVG />
-        </div>
-      );
+          <div onClick={togglePasswordVisiblity}>
+            <Eye_offSVG />
+          </div>
+        );
     }
   };
   return (
     <div>
       <div className={styles.brandContainter}>
-        <Avatar className={styles.brandImage} alt='Profile' src={imgUrl} />
-				<label htmlFor='hero1' style={{
-                color: '#3481EF',
-                fontFamily: 'Poppins',
-								fontSize: '14px',
-								padding: '5px 10px',
-                fontWeight: 500,
-                letterSpacing: 0,
-								lineHeight: '21px',
-								cursor: 'pointer'
-              }}>{imgUrl && imgUrl !== null
-								? 'Change user photo'
-								: 'Upload user photo '}</label>
-							<input id='hero1' style={{ visibility: 'hidden', display: 'none' }} 
-							type={'file'} onChange={(e) => { handleImageFile(e.target.files[0]); handleImageProfile(URL.createObjectURL(e.target.files[0])) }} />
+        <Avatar className={styles.brandImage} alt='Profile' src={`${imgUrl}`} />
+        <label htmlFor='hero1' style={{
+          color: '#3481EF',
+          fontFamily: 'Poppins',
+          fontSize: '14px',
+          padding: '5px 10px',
+          fontWeight: 500,
+          letterSpacing: 0,
+          lineHeight: '21px',
+          cursor: 'pointer'
+        }}>{imgUrl && imgUrl !== null
+          ? 'Change user photo'
+          : 'Upload user photo '}</label>
+        <input id='hero1' style={{ visibility: 'hidden', display: 'none' }}
+          type={'file'} onChange={(e) => { handleImageFile(e.target.files[0]); handleImageProfile(URL.createObjectURL(e.target.files[0])) }} />
 
         <input id='filePicker' style={{ visibility: 'hidden' }} type={'file'} />
       </div>
@@ -121,7 +121,7 @@ const Account = ({
             <TextField
               id='outlined-basic'
               fullWidth
-              label= {typeName === "Brand"? 'Brand Name' : 'Display Name'}
+              label={typeName === "Brand" ? 'Brand Name' : 'Display Name'}
               variant='outlined'
               value={brandName}
               onChange={handleBrandName}
@@ -129,7 +129,7 @@ const Account = ({
           </Grid>
           <Grid item xs={6}>
             <TextField
-							disabled = {true}
+              disabled={true}
               id='outlined-basic'
               fullWidth
               label='Email'
@@ -169,8 +169,8 @@ const Account = ({
                 <CheckCircleIcon fontSize='small' />{' '}
               </p>
             ) : (
-              <p> Verify your email address </p>
-            )}
+                <p> Verify your email address </p>
+              )}
           </Grid>
         </Grid>
         <Grid container spacing={3}>
@@ -199,11 +199,11 @@ const Account = ({
                               <EyeSVG />{' '}
                             </div>
                           ) : (
-                            <div onClick={toggleNewPasswordVisiblity}>
-                              {' '}
-                              <Eye_offSVG />{' '}
-                            </div>
-                          )}
+                              <div onClick={toggleNewPasswordVisiblity}>
+                                {' '}
+                                <Eye_offSVG />{' '}
+                              </div>
+                            )}
                         </span>
                       </InputAdornment>
                     ),
@@ -227,8 +227,8 @@ const Account = ({
               </Grid>
             </>
           ) : (
-            ' '
-          )}
+              ' '
+            )}
         </Grid>
       </div>
       <hr className={mainStyles.hr} />
@@ -272,19 +272,19 @@ const Account = ({
                 Delete Account
               </Button>
             ) : (
-              <Button
-                onClick={() => {
-                  setActionType('Warning');
-                  setOpenCDialog(true);
-                }}
-                className={clsx(
-                  mainStyles.textDangerButton,
-                  styles.DeactivateButton
-                )}
-              >
-                Delete Account
-              </Button>
-            )}
+                <Button
+                  onClick={() => {
+                    setActionType('Warning');
+                    setOpenCDialog(true);
+                  }}
+                  className={clsx(
+                    mainStyles.textDangerButton,
+                    styles.DeactivateButton
+                  )}
+                >
+                  Delete Account
+                </Button>
+              )}
           </div>
         </div>
         <div className={styles.saveContainer}>
@@ -303,8 +303,8 @@ const Account = ({
           actionType === 'Delete'
             ? Translation.DIALOG.ACCOUNT_DELETE_CDIALOG_MSG
             : actionType === 'Warning'
-            ? Translation.DIALOG.ACCOUNT_WARNING_CDIALOG_MSG
-            : Translation.DIALOG.ACCOUNT_DEACTIVATE_CDIALOG_MSG
+              ? Translation.DIALOG.ACCOUNT_WARNING_CDIALOG_MSG
+              : Translation.DIALOG.ACCOUNT_DEACTIVATE_CDIALOG_MSG
         }
       />
     </div>

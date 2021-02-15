@@ -9,7 +9,7 @@ import InfluencerCampaignDetail from './InfluencerCampaignDetail';
 import { Select, MenuItem } from '@material-ui/core';
 import Link from '@material-ui/core/Link';
 import { RootContext } from '../../context/RootContext';
-import { API, graphqlOperation } from 'aws-amplify';
+import { API, graphqlOperation, Auth } from 'aws-amplify';
 import _ from 'lodash';
 import moment from 'moment';
 
@@ -20,7 +20,7 @@ const CampaignDetail = ({ location }) => {
 	const [addCampaign, setAddCampagin] = useState(false);
 
 	const [brandState, setBrandState] = useState(true);
-	const { setActiveCampaign, brandId, brandType } = useContext(RootContext);
+	const { setActiveCampaign, brandId, brandType, currentUser, setCurrentUser } = useContext(RootContext);
 	const [selectedMembers, setSelectedMemebers] = useState([]);
 	const [team, setTeam] = useState([]);
 	const [search, setSearch] = useState('');
@@ -34,6 +34,24 @@ const CampaignDetail = ({ location }) => {
 			return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
 		});
 	};
+
+	const getAuth = async () => {
+
+		try {
+			const cognitoUser = await Auth.currentAuthenticatedUser();
+			const currentSession = await Auth.currentSession();
+			cognitoUser.refreshSession(currentSession.refreshToken, (err, session) => {
+				// console.log('session', err, session);
+				let currentUserAWS = { ...currentUser };
+				currentUserAWS.signInUserSession = session;
+				setCurrentUser(currentUserAWS);
+
+			});
+		} catch (e) {
+			console.log('Unable to refresh Token', e);
+		}
+
+	}
 
 	const handleSearch = async (e) => {
 		setSearch(e.target.value);
@@ -739,7 +757,7 @@ const CampaignDetail = ({ location }) => {
 		}
 
 		if (
-			
+
 			(data.discount &&
 				data.discount !== null &&
 				data.discount.percentage &&
@@ -748,7 +766,7 @@ const CampaignDetail = ({ location }) => {
 				data.discount !== null &&
 				data.discount.amount &&
 				data.discount.amount.amount === '') ||
-				data.startDate === null || data.endDate === null ||
+			data.startDate === null || data.endDate === null ||
 			data.invitationMessage === null
 		) {
 			setHeadingValue('Campaign Detail');

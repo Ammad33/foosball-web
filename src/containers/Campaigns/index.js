@@ -6,7 +6,7 @@ import AddIcon from '@material-ui/icons/Add';
 import styles from './Campaings.module.scss';
 import AddCampaign from '../AddCampaign';
 import { useHistory } from 'react-router-dom';
-import { API, graphqlOperation } from 'aws-amplify';
+import { API, graphqlOperation, Auth } from 'aws-amplify';
 import SVG from 'react-inlinesvg';
 import { RootContext } from '../../context/RootContext';
 import _ from 'lodash';
@@ -60,7 +60,8 @@ const Campaigns = () => {
 		setBrandType,
 		setActiveRoute,
 		creatorRoleId,
-		currentUser
+		currentUser,
+		setCurrentUser
 	} = useContext(RootContext);
 	/**************** */
 
@@ -70,6 +71,25 @@ const Campaigns = () => {
 	const [brandDropDown, setBrandDropDown] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	/*************************/
+
+	const getAuth = async () => {
+
+		try {
+			const cognitoUser = await Auth.currentAuthenticatedUser();
+			const currentSession = await Auth.currentSession();
+			cognitoUser.refreshSession(currentSession.refreshToken, (err, session) => {
+				// console.log('session', err, session);
+				let currentUserAWS = { ...currentUser };
+				currentUserAWS.signInUserSession = session;
+				setCurrentUser(currentUserAWS);
+
+			});
+		} catch (e) {
+			console.log('Unable to refresh Token', e);
+		}
+
+	}
+
 
 	/**decide the position of the popover(dropdown) */
 	const handleClick = (event) => {
@@ -241,6 +261,8 @@ const Campaigns = () => {
 			setErrorMessage('');
 
 		} catch (e) {
+
+			console.log(e);
 			setLoading(false);
 			setShowLoader(false);
 
@@ -252,8 +274,12 @@ const Campaigns = () => {
 				});
 
 			setErrorMessage(message);
+
+
 		}
 	};
+
+
 
 	/**API call to get the campaigns information of the influencer */
 	const getInfluencerCampaigns = async () => {
@@ -298,6 +324,8 @@ const Campaigns = () => {
 			setShowLoader(false);
 			setErrorMessage('');
 		} catch (e) {
+
+			console.log(e);
 			setLoading(false);
 			setShowLoader(false);
 			let message = errorMessage;

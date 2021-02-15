@@ -167,9 +167,6 @@ const BrandCampaignDetail = ({
 		}
 	};
 
-	debugger;
-
-
 	const handleActiveStep = () => {
 		let negotialble = true;
 		if (data && data.negotiables && data.negotiables !== null) {
@@ -190,7 +187,7 @@ const BrandCampaignDetail = ({
 				data.discount !== null &&
 				data.discount.amount &&
 				data.discount.amount.amount === '') ||
-				data.startDate === null || data.endDate === null ||
+			data.startDate === null || data.endDate === null ||
 			data.invitationMessage === null
 		) {
 			setStep(1);

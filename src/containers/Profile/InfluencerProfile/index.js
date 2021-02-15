@@ -36,9 +36,53 @@ const InfluencerProfile = () => {
 	const [imageUrl, setImageUrl] = useState('');
 	const [imageFile, setImageFile] = useState(null);
 	const [influencerName, setInfluencerName] = useState('');
+	const [name, setName] = useState('');
+	const [email, setEmail] = useState('');
+	const [age, setAge] = useState('');
+	const [bio, setBio] = useState('');
+	const [location, setLocation] = useState('');
+	const [phoneNumber, setPhoneNumber] = useState('');
+	const [website, setWebsite] = useState('');
+	const [activeSave, setActiveSave] = useState(true);
+
+
+	const UpdateInfluencer = async () => {
+		try {
+			let res = await API.graphql(
+				graphqlOperation(
+					`mutation updateInfluencer ($input : UpdateInfluencerInput!) {
+						updateInfluencer(input: $input) {
+							influencer {
+								name
+								age
+								email
+								bio
+								website
+								location
+								phoneNumber
+							  }
+				}
+			}`, {
+					input: {
+						id: brandId,
+						age: age,
+						bio: bio,
+						email: email,
+						name: name,
+						// location: location,
+						phoneNumber: phoneNumber,
+						website: website
+					}
+				}));
+
+		} catch (e) {
+
+		}
+	}
 
 	useEffect(() => {
 		const isOwner = localStorage.getItem('isOwner');
+		console.log(isOwner);
 		setIsOwner(isOwner);
 	});
 
@@ -174,11 +218,7 @@ const InfluencerProfile = () => {
 
 	const postImage = (url) => {
 		UploadImage(url, imageFile);
-		// setTimeout(() => getMeData(), 3000);
 	};
-
-
-
 
 	const UploadImage = (URL, file) => {
 		console.log(URL, file);
@@ -205,6 +245,13 @@ const InfluencerProfile = () => {
 		}
 	}, [imageUrl, imageFile]);
 
+
+	const ActiveSave = () => {
+		// debugger;
+		if (name !== '' && phoneNumber !== '' && website !== '' && location !== '' && bio !== '' && age !== '' && email !== '') {
+			setActiveSave(true)
+		} else setActiveSave(false);
+	}
 
 	return (
 		<div className={styles.mainContainer}>
@@ -252,7 +299,26 @@ const InfluencerProfile = () => {
 					<div container spacing={4}>
 						<div className={styles.infoContainer}>
 							<div>
-								<InfluencerInformation isOwner={isOwner} />
+								<InfluencerInformation
+									name={name}
+									handleName={(e) => setName(e.target.value)}
+									age={age}
+									handleAge={(e) => setAge(e.target.value)}
+									website={website}
+									handleWebsite={(e) => setWebsite(e.target.value)}
+									phoneNumber={phoneNumber}
+									handlePhoneNumber={(e) => setPhoneNumber(e.target.value)}
+									bio={bio}
+									handleBio={(e) => setBio(e.target.value)}
+									location={location}
+									handleLocation={(e) => setLocation(e.target.value)}
+									isOwner={true}
+									email={email}
+									handleEmail={(e) => setEmail(e.target.value)}
+									handleActiveSave={ActiveSave}
+									handleUpdate={UpdateInfluencer}
+									activeSave={activeSave}
+								/>
 								<Social />
 							</div >
 							<InfluencerCategories isOwner={isOwner} />

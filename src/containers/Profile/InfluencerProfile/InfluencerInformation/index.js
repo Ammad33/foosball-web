@@ -22,7 +22,26 @@ const Globe = () => {
   );
 };
 
-const InfluencerInformation = ({ isOwner }) => {
+const InfluencerInformation = ({ isOwner,
+  name,
+  handleName,
+  age,
+  handleAge,
+  website,
+  handleWebsite,
+  phoneNumber,
+  handlePhoneNumber,
+  bio,
+  handleBio,
+  location,
+  handleLocation,
+  email,
+  handleEmail,
+  handleActiveSave,
+  handleUpdate,
+  activeSave
+
+}) => {
   const [editOpen, setEditOpen] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -45,10 +64,28 @@ const InfluencerInformation = ({ isOwner }) => {
             }}
           />
         ) : (
-          ''
-        )}
+            ''
+          )}
       </div>
       <EditInfluencerInformation
+        name={name}
+        handleName={handleName}
+        age={age}
+        handleAge={handleAge}
+        website={website}
+        handleWebsite={handleWebsite}
+        phoneNumber={phoneNumber}
+        handlePhoneNumber={handlePhoneNumber}
+        bio={bio}
+        handleBio={handleBio}
+        location={location}
+        handleLocation={handleLocation}
+        email={email}
+        handleEmail={handleEmail}
+        handleActiveSave={handleActiveSave}
+        handleUpdate={handleUpdate}
+        activeSave={activeSave}
+
         open={editOpen}
         closeAdd={() => setEditOpen(false)}
       />

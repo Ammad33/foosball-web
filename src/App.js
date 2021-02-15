@@ -127,22 +127,22 @@ const App = () => {
             </Layout>
           </ProtectedRoute>
           <UnProtectedRoute exact path='/login'>
-            <Auth image = {loginImage}>
+            <Auth image={loginImage}>
               <Login />
             </Auth>
           </UnProtectedRoute>
           <UnProtectedRoute exact path='/signup'>
-            <Auth image = {signUpImage}>
+            <Auth image={signUpImage}>
               <Signup />
             </Auth>
           </UnProtectedRoute>
           <UnProtectedRoute exact path='/forgot-password'>
-            <Auth image = {forgotpassword}>
+            <Auth image={forgotpassword}>
               <ForgotPassword />
             </Auth>
           </UnProtectedRoute>
           <UnProtectedRoute exact path='/reset-password'>
-            <Auth image = {resetPasswordImage}>
+            <Auth image={resetPasswordImage}>
               <ResetPassword />
             </Auth>
           </UnProtectedRoute>
