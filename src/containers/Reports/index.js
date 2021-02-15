@@ -98,7 +98,7 @@ const Reports = () => {
 						<div className={styles.ReportInfoContainer}>
 							<div className={styles.ReportContainer}>
 								<Iframe
-									url={`${"https://tableau-reporting.herokuapp.com"}/?orgId=${brandId}&authId=${currentUser.signInUserSession.accessToken.jwtToken}`}
+									url="https://tableau.influence-sciences.com/views/FomoPromo-Homepage/GrossCampaigns?:embed=yes&:toolbar=no"
 									width="100%"
 									height="100%"
 									id="myId"
@@ -106,7 +106,8 @@ const Reports = () => {
 									className={styles.secondContainer}
 									display="initial"
 									position="relative" />
-							</div>
+							</div >
+							<p>brand ID: {brandId}</p>
 						</div>
 					</Grid>
 					{/* <Grid container spacing={3} item xs={12} >
