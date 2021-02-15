@@ -271,25 +271,23 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   /****** Campaign Detail States ********/
   const [campaignName, setCampaignName] = useState('');
-  const [startDate, setStartDate] = useState(
-    moment().add(1, 'days').format('MM/DD/YYYY')
-  );
-  const [endDate, setEndDate] = useState(
-    moment().add(1, 'month').format('MM/DD/YYYY')
-  );
+  const [startDate, setStartDate] = useState('');
+    // moment().add(1, 'days').format('MM/DD/YYYY')
+  
+  const [endDate, setEndDate] = useState('');
+    // moment().add(1, 'month').format('MM/DD/YYYY')
   const [startDateError, setStartDateError] = useState(false);
   const [endDateError, setEndDateError] = useState(false);
   const [
     deliverableDeadlineDateError,
     setDeliverableDeadlineDateError,
   ] = useState(false); //deleverable deadline
-  const [startTime, setStartTime] = useState(
-    moment().subtract(1, 'days').startOf('day').format('HH:mm')
-  );
+  const [startTime, setStartTime] = useState('');
+    // moment().subtract(1, 'days').startOf('day').format('HH:mm A')
+  
   const [startTimeError, setStartTimeError] = useState(false);
-  const [endTime, setEndTime] = useState(
-    moment().subtract(1, 'days').startOf('day').format('HH:mm')
-  );
+  const [endTime, setEndTime] = useState('');
+    // moment().subtract(1, 'days').startOf('day').format('HH:mm A')
   const [endTimeError, setEndTimeError] = useState(false);
 
   const [discount, setDiscount] = useState('');
@@ -299,7 +297,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const [endDateOpen, setEndDateOpen] = useState(false);
   const [startTimeOpen, setStartTimeOpen] = useState(false);
   const [endTimeOpen, setEndTimeOpen] = useState(false);
-  const [lastStep, setLastStep] = useState(0);
+	const [lastStep, setLastStep] = useState(0);
+	const [dummyStartDate , setDummyStartDate] = useState(false);
+	const [dummyStartEndTime , setDummyStartEndTime] = useState(false);
+
 
   const [giftCode, setGiftCode] = useState('');
 
@@ -350,8 +351,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       );
       setStartDate(moment(startDate).format('MM/DD/YYYY'));
       setEndDate(moment(endDate).format('MM/DD/YYYY'));
-      setStartTime(moment(startDate).format('HH:mm'));
-      setEndTime(moment(endDate).format('HH:mm'));
+      setStartTime(moment(startDate).format('hh:mm A'));
+      setEndTime(moment(endDate).format('hh:mm A'));
 
       if (campaign.name !== '' && startDate !== '' && endDate !== '') {
         setActiveSave(true);
@@ -516,8 +517,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       setCustomMessage('');
       setStartDate(moment().add(1, 'days').format('MM/DD/YYYY'));
       setEndDate(moment().add(31, 'days').format('MM/DD/YYYY'));
-      setStartTime(moment().subtract(1, 'days').startOf('day').format('HH:mm'));
-      setEndTime(moment().subtract(1, 'days').startOf('day').format('HH:mm'));
+      setStartTime(moment().subtract(1, 'days').startOf('day').format('hh:mm A'));
+      setEndTime(moment().subtract(1, 'days').startOf('day').format('hh:mm A'));
       setBudget('');
       setTargetGrossSale('');
       setCollections([]);
@@ -985,7 +986,22 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const handleDiscountType = (value) => {
     setDiscount('');
     setDiscountType(value);
-  };
+	};
+	
+	/******** */
+	const handleDefaultDate = (date) => {
+		if (date){
+			var startDate  = moment().format('MM/DD/YYYY');
+			setStartDate(startDate);
+			setDummyStartDate(true);
+		}
+	}
+
+	const handleDefaultTime = () => {
+		setStartTime('');
+		setEndTime('');
+		setDummyStartEndTime(true);
+	}
 
   /******************** Handle Start Date */
 
@@ -995,8 +1011,17 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       date !== '' && moment(date, 'MM/DD/YYYY', true).isValid()
         ? moment_date
         : date
-    );
-    setEndDate(moment(moment_date).add(1, 'M').format('MM/DD/YYYY'));
+		);
+		setStartTime(moment().subtract(1, 'days').startOf('day').format('hh:mm A'));
+		setEndTime(moment().subtract(1, 'days').startOf('day').format('hh:mm A'));
+		setDummyStartDate(false);
+		setDummyStartEndTime(false);
+		setEndDate(moment(moment_date).add(1, 'M').format('MM/DD/YYYY'));
+		if (date === ''){
+			setEndDate('');
+			setStartTime('');
+			setEndTime('');
+		}
     setStartDateOpen(false);
     handleStartDateValidation(moment_date);
   };
@@ -1299,8 +1324,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         brandId,
         // team: ,
         name: campaignName,
-        startDate: Date.parse(`${startDate} ${startTime} `) / 1000,
-        endDate: Date.parse(`${endDate} ${endTime} `) / 1000,
+        // startDate: Date.parse(`${startDate} ${startTime} `) / 1000,
+        // endDate: Date.parse(`${endDate} ${endTime} `) / 1000,
         // discount: { value: val, type: typ },
         // invitationMessage: customeMessage,
         // budget: { amount: parseFloat(budget).toFixed(2), currency: 'USD' },
@@ -1310,7 +1335,20 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         // invitationMessage: customeMessage,
         // deliverables: getDeliverablesForAPI(),
         // compensation: getCompensations(),
-      };
+			};
+			
+			if (startDate !==''){
+				data = {
+					...data,
+					startDate: Date.parse(`${startDate} ${startTime} `) / 1000,
+				}
+			}
+			if (endDate !==''){
+				data = {
+					...data ,
+					endDate: Date.parse(`${endDate} ${endTime} `) / 1000,
+				}
+			}
 
       if (discountType !== '' && discount !== '') {
         data = {
@@ -1534,14 +1572,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       val = '{"percentage":"' + discount + '"}';
     }
     try {
-      const end = Date.parse(`${endDate} ${endTime}`) / 1000;
-      const start = Date.parse(`${startDate} ${startTime}`) / 1000;
       let data = {
         brandId,
         id: campaign.id,
         name: campaignName,
-        endDate: end,
-        startDate: start,
         // discount: { value: val, type: typ },
         // invitationMessage: customeMessage,
         // budget: { amount: budget, currency: 'USD' },
@@ -1551,7 +1585,21 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         // invitationMessage: customeMessage,
         // compensation: getCompensations(),
         // deliverables: getDeliverablesForAPI(),
-      };
+			};
+			
+			if (startDate !==''){
+				data = {
+					...data,
+					startDate: Date.parse(`${startDate} ${startTime} `) / 1000,
+				}
+			}
+			if (endDate !==''){
+				data = {
+					...data ,
+					endDate: Date.parse(`${endDate} ${endTime} `) / 1000,
+				}
+			}
+
 
       if (discountType !== '' && discount !== '') {
         data = {
@@ -1989,15 +2037,19 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             handleEndTimeOpen={(value) => setEndTimeOpen(value)}
             handleEndDate={handleEndDate}
             handleStartTime={(e) => {
-              setStartTime(moment(e).format('HH:mm'));
+              setStartTime(moment(e).format('hh:mm A'));
               setStartTimeOpen(false);
-              handleStartTimeValidation(moment(e).format('HH:mm'));
+              handleStartTimeValidation(moment(e).format('hh:mm'));
             }}
             handleEndTime={(e) => {
-              setEndTime(moment(e).format('HH:mm'));
+              setEndTime(moment(e).format('hh:mm A'));
               setEndTimeOpen(false);
-              handleEndTimeValidation(moment(e).format('HH:mm'));
-            }}
+              handleEndTimeValidation(moment(e).format('hh:mm'));
+						}}
+						handleDefaultDate = {handleDefaultDate}
+						handleDefaultTime = {handleDefaultTime}
+						dummyStartDate = {dummyStartDate}
+						dummyStartEndTime = {dummyStartEndTime}
             handleDiscount={handleDiscount}
             handleDiscountType={handleDiscountType}
             handleCustomMessage={(e) => {
@@ -2160,8 +2212,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const partialFilledForm = () => {
     if (
       campaignName !== '' &&
-      startDate !== '' &&
-      endDate !== '' &&
+      // startDate !== '' &&
+      // endDate !== '' &&
       campaignError === ''
       // discountType !== '' &&
       // discount !== '' &&
@@ -2269,7 +2321,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   }, [])
 
   const filledValues = (index) => {
-    debugger;
 
     switch (index) {
       case 1:

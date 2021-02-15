@@ -9,7 +9,7 @@ const CampaignDetail = ({ children, handleEdit, campaign }) => {
 	const numberWithCommas = (x) => {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
-
+debugger;
 	const weeksBetween = (d1, d2) => {
 		const date1 = moment(d1);
 		const date2 = moment(d2);
@@ -40,15 +40,15 @@ const CampaignDetail = ({ children, handleEdit, campaign }) => {
 				<div className={styles.detailSubContent}>
 					<h6>StartDate, Time</h6>
 					<p>
-						{campaign &&
-							moment(campaign.startDate * 1000).format('MM/DD/YYYY, HH:mm')}
+						{campaign && campaign.startDate &&
+							moment(campaign.startDate * 1000).format('MM/DD/YYYY, HH:mm A')}
 					</p>
 				</div>
 				<div className={styles.detailSubContent}>
 					<h6>End Date, Time</h6>
 					<p>
-						{campaign &&
-							moment(campaign.endDate * 1000).format('MM/DD/YYYY, HH:mm')}
+						{campaign && campaign.endDate &&
+							moment(campaign.endDate * 1000).format('MM/DD/YYYY, HH:mm A')}
 					</p>
 				</div>
 			</div>

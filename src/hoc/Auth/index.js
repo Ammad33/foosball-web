@@ -3,7 +3,7 @@ import styles from './Auth.module.scss';
 import logo from '../../assets/FomoPromo_logo__primary_color.png';
 import mainImage from '../../assets/AdobeStock_242493025_Preview.png';
 
-const Auth = ({ children }) => {
+const Auth = ({ children , image }) => {
   return (
     <main className={styles.authContainer}>
       <section className={styles.logoAndComponent}>
@@ -11,7 +11,8 @@ const Auth = ({ children }) => {
         <div className={styles.formDiv}>{children}</div>
       </section>
       <section className={styles.sidebar}>
-        <img className={styles.logoDiv} src={mainImage} alt='Logo' />
+        <img src={image} alt='Logo' />
+				<div class="after"></div>
       </section>
     </main>
   );

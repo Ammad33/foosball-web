@@ -62,6 +62,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 		'MM/DD/YYYY'
 	);
 	const convertedEndDate = moment(campaign.endDate * 1000).format('MM/DD/YYYY');
+	const date = 	convertedStartDate + '-' + convertedEndDate
 
 	return (
 		<>
@@ -136,7 +137,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 							</Tooltip>
 							<span className={styles.campaignNumber}>
 								<small>
-									{convertedStartDate} - {convertedEndDate}{' '}
+									{convertedStartDate != "01/01/1970" ? (date):('')}
 								</small>
 							</span>
 							<div className={styles.wrapChip}>

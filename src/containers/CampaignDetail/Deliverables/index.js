@@ -140,10 +140,7 @@ const Deliverables = ({ onClick, handleEdit, deliverables, status, campaign }) =
           </div>
         </>}
       {deliverables && deliverables !== null && <div className={styles.detailSubContent} style={{ marginBottom: '20px' }}>
-        <h6>Total Posts</h6>
-        <p>
-          {TotalPost()}
-        </p>
+        <h6 className={styles.postTotal}>Total Posts: {TotalPost()}</h6>
       </div>}
       {deliverables && deliverables !== null && deliverables.length > 1 ? (
         <button onClick={() => onClick('Deliverable')}>See all</button>

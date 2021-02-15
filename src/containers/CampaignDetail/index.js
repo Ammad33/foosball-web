@@ -739,6 +739,7 @@ const CampaignDetail = ({ location }) => {
 		}
 
 		if (
+			
 			(data.discount &&
 				data.discount !== null &&
 				data.discount.percentage &&
@@ -747,7 +748,8 @@ const CampaignDetail = ({ location }) => {
 				data.discount !== null &&
 				data.discount.amount &&
 				data.discount.amount.amount === '') ||
-			data.invitationMessage === ''
+				data.startDate === null || data.endDate === null ||
+			data.invitationMessage === null
 		) {
 			setHeadingValue('Campaign Detail');
 		} else if (data.budget === null || data.budget.amount === '') {

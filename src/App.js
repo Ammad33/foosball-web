@@ -29,6 +29,11 @@ import Team from './containers/Team';
 import Loader from './containers/Loader';
 import Toastr from './components/Toastr';
 import AccountHistory from './containers/AccountHistory';
+import signUpImage from './assets/signup.png';
+import resetPasswordImage from './assets/resetpassword.png';
+import loginImage from './assets/login.png';
+import forgotpassword from './assets/forgotpassword.png';
+
 
 const App = () => {
   return (
@@ -122,22 +127,22 @@ const App = () => {
             </Layout>
           </ProtectedRoute>
           <UnProtectedRoute exact path='/login'>
-            <Auth>
+            <Auth image = {loginImage}>
               <Login />
             </Auth>
           </UnProtectedRoute>
           <UnProtectedRoute exact path='/signup'>
-            <Auth>
+            <Auth image = {signUpImage}>
               <Signup />
             </Auth>
           </UnProtectedRoute>
           <UnProtectedRoute exact path='/forgot-password'>
-            <Auth>
+            <Auth image = {forgotpassword}>
               <ForgotPassword />
             </Auth>
           </UnProtectedRoute>
           <UnProtectedRoute exact path='/reset-password'>
-            <Auth>
+            <Auth image = {resetPasswordImage}>
               <ResetPassword />
             </Auth>
           </UnProtectedRoute>

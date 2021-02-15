@@ -494,7 +494,7 @@ const Campaigns = () => {
 						</button>
 					) : (
 							<button
-								className={active === 'PENDING' ? styles.inviteActive : ''}
+								className={active === 'PENDING' ? styles.pendingActive : ''}
 								onClick={() => setActive('PENDING')}
 							>
 								Pending

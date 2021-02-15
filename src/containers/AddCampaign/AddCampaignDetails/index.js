@@ -11,6 +11,7 @@ import styles from './AddCampaignDetail.module.scss';
 import { TimePicker } from '@material-ui/pickers';
 import mainStyles from '../../../index.module.scss';
 import TextField from '../../../components/TextField';
+import moment from 'moment'
 
 
 const options = [];
@@ -88,7 +89,11 @@ const AddCampaignDetails = ({
 	partialFilledForm,
 	campaignError,
 	minimium,
-	handleMinimium
+	handleMinimium,
+	handleDefaultDate,
+	handleDefaultTime,
+	dummyStartDate,
+	dummyStartEndTime,
 }) => {
 
 	const Chevron = ({ Check,MenuId, ...other}) => {
@@ -105,6 +110,24 @@ const AddCampaignDetails = ({
 			</span>
 		);
 	};
+
+ 
+	useEffect(()=> {
+		if (startDate === "01/01/1970"){
+			handleDefaultDate(startDate);
+		}
+		if (startDate === "" || startDate === "01/01/1970"){
+			handleDefaultTime();
+		}
+
+	}, [])
+	
+	const handleCalenderOpen = (value,startDate) => {
+		handleStartDateOpen(true) 
+	}
+
+
+
 
 	useEffect(() => {
 		filledForm();
@@ -154,8 +177,8 @@ const AddCampaignDetails = ({
 				<TextField
 					id='outlined-basic'
 					fullWidth
-					value={startDate}
-					defaultValue='12/12/2019'
+					value = {startDate}
+					value={dummyStartDate ? ('') : (startDate)}
 					onChange={(e) => handleStartDate(e.target.value)}
 					label='Start Date'
 					className={mainStyles.placeholderColor}
@@ -173,7 +196,7 @@ const AddCampaignDetails = ({
 					InputProps={{
 						endAdornment: (
 							<InputAdornment className={styles.inputendornment} position='end'>
-								<Calendar onClick={() => handleStartDateOpen(true)} />
+								<Calendar onClick={(value)=> handleCalenderOpen(value , startDate)} />
 							</InputAdornment>
 						),
 					}}
@@ -193,6 +216,7 @@ const AddCampaignDetails = ({
 							console.log('Triggered because this input lost focus');
 						}}
 						onClose={() => handleStartDateOpen(false)}
+						
 					/>
 				</MuiPickersUtilsProvider>
 			</Grid>
@@ -201,7 +225,7 @@ const AddCampaignDetails = ({
 					id='outlined-basic'
 					fullWidth
 					label='End Date'
-					value={endDate}
+					value={dummyStartDate ? ('') : (endDate)}
 					className={mainStyles.placeholderColor}
 					onChange={(e) => handleEndDate(e.target.value)}
 					variant='outlined'
@@ -241,9 +265,9 @@ const AddCampaignDetails = ({
 					fullWidth
 					label='Start Time'
 					defaultTime={startTime}
-					labelClassName={styles.placeholderColor}
+					className={mainStyles.placeholderColor}
 					ampm='true'
-					value={startTime}
+					value={dummyStartEndTime ? (''): (startTime)}
 					onChange={(e) => handleStartTime(e.target.value)}
 					variant='outlined'
 					helperText={
@@ -280,8 +304,8 @@ const AddCampaignDetails = ({
 					id='time'
 					fullWidth
 					label='End Time'
-					labelClassName={styles.placeholderColor}
-					value={endTime}
+					className={mainStyles.placeholderColor}
+					value={dummyStartEndTime? (''): (endTime)}
 					onChange={(e) => handleEndTime(e.target.value)}
 					variant='outlined'
 					helperText={

@@ -243,7 +243,7 @@ const InfluencerProfile = () => {
 						''
 					) : (
 							<div className={styles.buttonContainer}>
-								<button className={styles.prospects}>Add to Prospects</button>
+								{/* <button className={styles.prospects}>Add to Prospects</button> */}
 								<button className={styles.start}>Start Campaign</button>
 							</div>
 						)}
