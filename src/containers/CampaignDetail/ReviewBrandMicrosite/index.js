@@ -12,6 +12,8 @@ import { RootContext } from '../../../context/RootContext';
 import Iframe from 'react-iframe';
 import { Auth } from 'aws-amplify';
 import config from '../../../config';
+import Tooltip from '@material-ui/core/Tooltip';
+
 
 
 
@@ -113,9 +115,11 @@ const ReviewBrandMicrosite = ({ name, data, campaignId }) => {
 			<div className={styles.crumsContainer}>
 				<span onClick={() => history.push('/campaigns')}>Campaigns</span>
 				<ChevronRight />
-				<span onClick={() => history.push('/campaignDetail')}>
-					{name}
-				</span>
+				<Tooltip title={name}>
+					<span onClick={() => history.push('/campaignDetail')}>
+						{name.length >15 ? (`${name.substring(0, 15)}...` ): name }
+					</span>
+				</Tooltip>
 				<ChevronRight />
 				<span>Review Microsite</span>
 			</div>

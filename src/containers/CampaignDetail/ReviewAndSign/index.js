@@ -14,6 +14,7 @@ import {
 	AlertCircle,
 	Plus,
 } from 'react-feather';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const ReviewAndSign = ({
 	name,
@@ -97,14 +98,14 @@ const ReviewAndSign = ({
 					influencer={influencer}
 					brand={brand}
 				/>
-			) : (
+			) : ( 
 					<div className={styles.mainContainer}>
 						<div className={styles.crumsContainer}>
 							<span onClick={() => history.push('/campaigns')}>Campaigns</span>
 							<ChevronRight />
-							<span onClick={() => window.location.reload()}>
-								{name}
-							</span>
+							<Tooltip title={name}>
+								<span>{name.length >15 ? (`${name.substring(0, 15)}...` ): name }</span>
+							</Tooltip>
 							<ChevronRight />
 							<span>Review and Sign</span>
 						</div>
