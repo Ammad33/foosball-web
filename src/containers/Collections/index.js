@@ -29,8 +29,8 @@ const Collections = ({ location }) => {
         query: brandType.toLowerCase() === 'influencer' ? `{
               influencerCampaign(influencerId: "${brandId}", id: "${campaignId}") {
                 id
-                            name
-                            status
+                name
+                status
                 startDate
                 endDate
                 invitationMessage
@@ -157,8 +157,8 @@ const Collections = ({ location }) => {
           }` : `{
               campaign(brandId: "${brandId}", id: "${campaignId}") {
                 id
-                            name
-                            status
+                name
+                status
                 startDate
                 endDate
                 invitationMessage
@@ -309,7 +309,6 @@ const Collections = ({ location }) => {
   const handleCampaginDetail = (id) => {
     history.push(`/campaignDetail/${id}`, { campaignId: id });
   };
-
   return (
     <>
       {addCampaign && (
@@ -331,7 +330,7 @@ const Collections = ({ location }) => {
           <span onClick={() => handleCampaginDetail(data.id)}>{data && data !== null && data.name}</span>
           <ChevronRight />
           <span>Collections</span>
-          <Edit onClick={() => setAddCampaign(true)} />
+					{data && data.status && data.status === 'DRAFT'? (<Edit onClick={() => setAddCampaign(true)} />):('')}
         </div>
         {
           data && data !== null && data.products && data.products.length > 0 &&

@@ -221,7 +221,7 @@ const Login = () => {
               className={styles.logoDiv}
               src={GoogleSVG}
               alt='Google'
-              onClick={googleSignin}
+              // onClick={googleSignin}
             />
           </div>
           <div>
