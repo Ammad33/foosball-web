@@ -206,8 +206,8 @@ const AddCampaignDetails = ({
 						className={styles.displayNone}
 						open={startDateOpen}
 						value={startDate}
+						disablePast = {true}
 						onChange={handleStartDate}
-						defaultValue='12/12/2019'
 						orientation='landscape'
 						openTo='date'
 						format='MM/dd/yyyy'
@@ -252,6 +252,7 @@ const AddCampaignDetails = ({
 						className={styles.displayNone}
 						open={endDateOpen}
 						value={endDate}
+						disablePast = {true}
 						onClose={() => handleEndDateOpen(false)}
 						onChange={handleEndDate}
 						orientation='landscape'

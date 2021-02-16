@@ -115,7 +115,7 @@ const DeliverablesDetail = ({ deliverables, campaign }) => {
         );
       })}
       {deliverables && deliverables !== null && <div className={styles.detailSubContent} style={{ marginBottom: '20px' }}>
-		<h6 className={styles.postTotal}>Total Posts: {TotalPost()}</h6>
+		<h6 className={styles.postTotal}>Post Total: {TotalPost()}</h6>
       </div>}
     </div>
   );
