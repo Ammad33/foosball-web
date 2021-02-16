@@ -10,6 +10,7 @@ import Template from './WhitneyTemplate';
 import ChangeTemplate from '../ChangeTemplate';
 import { API } from 'aws-amplify';
 import { RootContext } from '../../../context/RootContext';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const CreateMicrosite = ({
 	name,
@@ -75,9 +76,11 @@ const CreateMicrosite = ({
 				<div className={styles.crumsContainer}>
 					<span onClick={() => history.push('/campaigns')}>Campaigns</span>
 					<ChevronRight />
-					<span onClick={() => window.location.reload()}>
-						{name}
-					</span>
+					<Tooltip title={name}>
+						<span onClick={() => window.location.reload()}>
+							{name.length >15 ? (`${name.substring(0, 15)}...` ): name }
+						</span>
+					</Tooltip>
 					<ChevronRight />
 					<span>Review and Sign</span>
 					<ChevronRight />

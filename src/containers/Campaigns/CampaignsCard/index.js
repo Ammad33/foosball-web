@@ -129,8 +129,8 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 						<div className={styles.campaignInfo}>
 							<Tooltip title={campaign.name}>
 								<span className={styles.campaignName}>
-									{campaign.name.length > 29
-										? `${campaign.name.substring(0, 29)}`
+									{campaign.name.length > 25
+										? `${campaign.name.substring(0, 25)}...`
 										: campaign.name}
 								</span>
 							</Tooltip>
