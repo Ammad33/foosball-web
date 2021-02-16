@@ -96,7 +96,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 							<Trash /> <p>Delete Campaign</p> </div>
 					) :
 						campaign.status === 'PENDING' ? (
-							<div onClick={() => handleDelete(campaign.id)}>
+							<div>
 								<Trash /> <p>Cancel Campaign</p> </div>
 						) : campaign.status === 'LIVE' ? (
 							<div onClick={() => handleDelete(campaign.id)}>
