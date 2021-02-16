@@ -6,7 +6,7 @@ import { RootContext } from '../../context/RootContext';
 import { Auth, Hub } from 'aws-amplify';
 import mainStyles from './../../index.module.scss';
 import SVG from 'react-inlinesvg';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import FacebookSVG from '../../assets/facebook-logo-2019-thumb.png';
 import GoogleSVG from '../../assets/google-logo-icon-png-transparent-background-osteopathy-16.png';
 import AppleSVG from '../../assets/apple-logo-png-index-content-uploads-10.png';
@@ -25,7 +25,6 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [meData, setMeData] = useState([]);
 
   /*accessing Root context variables*/
   const {
@@ -37,24 +36,21 @@ const Login = () => {
     setActiveRoute,
   } = useContext(RootContext);
 
-  // useEffect(() => {
-  //   Hub.listen('auth', ({ payload: { event, data } }) => {
-  //     console.log('hub listened');
-  //     switch (event) {
-  //       case 'signIn':
-  //         console.log('signin hub');
-  //         // this.setState({ user: data });
-  //         break;
-  //       case 'signOut':
-  //         console.log('signout hub');
-  //         // this.setState({ user: null });
-  //         break;
-  //       case 'customOAuthState':
-  //         console.log('custom state');
-  //       // this.setState({ customState: data });
-  //     }
-  //   });
-  // }, []);
+  useEffect(() => {
+    Hub.listen('auth', async ({ payload: { event, data } }) => {
+      switch (event) {
+        case 'signIn':
+          setShowLoader(true);
+          getMeData();
+          break;
+        case 'signOut':
+          console.log('signout hub');
+          break;
+        case 'customOAuthState':
+          console.log('custom state');
+      }
+    });
+  }, []);
 
   /*togglePasswordVisiblity {function} get called when
   eye icon is clicked on signup page used to show,hide password*/
@@ -75,13 +71,9 @@ const Login = () => {
     try {
       const user = await Auth.signIn(email, password); //authentication
 
-      console.log(user);
       setCurrentUser(user);
-
       setLogoutMessage('');
-      getMeData(); //calling API
       setActiveRoute('Campaign');
-      // setShowLoader(false);
     } catch (e) {
       setErrorMessage(e.message);
       setLogoutMessage('');
@@ -90,17 +82,9 @@ const Login = () => {
   };
 
   const googleSignin = async () => {
+    setShowLoader(true);
     try {
-      console.log('came into federate signin');
       await Auth.federatedSignIn({ provider: 'Google' });
-      const user = await Auth.currentAuthenticatedUser();
-      setCurrentUser(user);
-
-      setLogoutMessage('');
-      getMeData(); //calling API
-      setActiveRoute('Campaign');
-      // setShowLoader(false);
-      console.log('came after federate signin');
     } catch (e) {}
   };
 
@@ -132,7 +116,21 @@ const Login = () => {
 						}
 				}`,
       });
-      setMeData(mydata.data.me.organizations[0].organization.__typename);
+      const user = await Auth.currentAuthenticatedUser();
+      setShowLoader(false);
+      if (
+        mydata &&
+        mydata.data &&
+        mydata.data.me &&
+        mydata.data.me.organizations &&
+        mydata.data.me.organizations.length
+      ) {
+        setCurrentUser(user);
+        setActiveRoute('Campaign');
+      } else {
+        setCurrentUser(user);
+        history.push('/onboarding');
+      }
     } catch (e) {
       console.log(e);
     }

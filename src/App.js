@@ -1,5 +1,11 @@
 import React from 'react';
-import { Switch, Route, HashRouter, Redirect } from 'react-router-dom';
+import {
+  Switch,
+  Route,
+  HashRouter,
+  BrowserRouter,
+  Redirect,
+} from 'react-router-dom';
 import Layout from './hoc/Layout';
 import RootContext from './context/RootContext';
 import Campaigns from './containers/Campaigns';
@@ -38,7 +44,7 @@ import forgotpassword from './assets/forgotpassword.png';
 const App = () => {
   return (
     <RootContext>
-      <HashRouter>
+      <BrowserRouter>
         <Switch>
           <ProtectedRoute exact path='/campaigns'>
             <Layout>
@@ -126,6 +132,9 @@ const App = () => {
               <Messages />
             </Layout>
           </ProtectedRoute>
+          <ProtectedRoute exact path='/onboarding'>
+            <Onboarding />
+          </ProtectedRoute>
           <UnProtectedRoute exact path='/login'>
             <Auth image={loginImage}>
               <Login />
@@ -146,9 +155,6 @@ const App = () => {
               <ResetPassword />
             </Auth>
           </UnProtectedRoute>
-          <UnProtectedRoute exact path='/onboarding'>
-            <Onboarding />
-          </UnProtectedRoute>
           <ProtectedRoute exact path='/Influencer'>
             <Layout>
               <Influencer />
@@ -156,7 +162,7 @@ const App = () => {
           </ProtectedRoute>
           <Redirect exact from='/' to='/campaigns' />
         </Switch>
-      </HashRouter>
+      </BrowserRouter>
       <Toastr />
       <Loader />
     </RootContext>
