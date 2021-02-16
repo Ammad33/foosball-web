@@ -47,7 +47,12 @@ const Templates = ({ campaignId, internalState, template, microsite,
 	const [quoteMessage, setQuoteMessage] = useState('');
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [heroUrl, setHeroUrl] = useState('');
+	const [heroUrlSmall, setHeroUrlSmall] = useState('');
+	const [heroUrlMedium, setHeroUrlMedium] = useState('');
+
 	const [image2Url, setImage2Url] = useState('');
+	const [image2UrlMedium, setImage2UrlMedium] = useState('');
+	const [image2UrlSmall, setImage2UrlSmall] = useState('');
 	const [errorMessage, setErrorMessage] = useState('');
 
 	const { brandId, currentUser, setCurrentUser } = useContext(RootContext);
@@ -78,6 +83,9 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			setShopColor('#D38989');
 			setFooterColor('#984949');
 			setQuoteMessage('');
+			setImage2(null);
+			setHeroImage(null);
+
 		} else if (template === 'ONE' && microsite !== null && microsite != '') {
 
 			setHeaderColor(microsite.appHeader.titleBgColor);
@@ -98,6 +106,8 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			setFooterColor('#DCB7D1');
 			setQuotesBGColor("#F1E2EC");
 			setQuoteMessage('');
+			setImage2(null)
+			setHeroImage(null)
 
 		}
 		else if (template === 'TWO' && (microsite !== null && microsite != '')) {
@@ -121,6 +131,12 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			setFooterColor('#B4C389');
 			setQuotesBGColor("#B4C389");
 			setQuoteMessage('');
+			setImage2(null);
+			setHeroImage1Url(null);
+			setHeroImage2Url(null);
+			setHeroImage3Url(null);
+
+
 
 		} else if (template === 'FOUR' && (microsite !== null && microsite != '')) {
 
@@ -145,6 +161,8 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			setFooterColor('#2B426F');
 			setQuotesBGColor("#2B426F");
 			setQuoteMessage('');
+			setImage2(null)
+			setHeroImage(null)
 
 		} else if (template === 'THREE' && (microsite !== null && microsite != '')) {
 
@@ -285,23 +303,44 @@ const Templates = ({ campaignId, internalState, template, microsite,
         }`,
 					{
 						input: data,
-					}))
+					}));
+
 
 			if (response.data && response.data.createOrUpdateMicrosite) {
 				if (response.data.createOrUpdateMicrosite.hero && response.data.createOrUpdateMicrosite.hero !== null) {
 					if (response.data.createOrUpdateMicrosite.hero.imageLargeUploadUrl) {
 						setImage2Url(response.data.createOrUpdateMicrosite.hero.imageLargeUploadUrl);
 					}
+					if (response.data.createOrUpdateMicrosite.hero.imageMediumUploadUrl) {
+						setImage2UrlMedium(response.data.createOrUpdateMicrosite.hero.imageMediumUploadUrl);
+					}
+					if (response.data.createOrUpdateMicrosite.hero.imageUploadUrl) {
+						setImage2UrlSmall(response.data.createOrUpdateMicrosite.hero.imageUploadUrl);
+					}
 				}
 
 				if (response.data.createOrUpdateMicrosite.appHeader && response.data.createOrUpdateMicrosite.appHeader !== null) {
+
 					if (response.data.createOrUpdateMicrosite.appHeader.imageLargeUploadUrl) {
-						if (template === 'TWO' || template === 'THREE') {
-							setHeroUrl(response.data.createOrUpdateMicrosite.appHeader.imageUploadUrl)
-						} else {
-							setHeroUrl(response.data.createOrUpdateMicrosite.appHeader.imageLargeUploadUrl);
-						}
+						// if (template === 'TWO' || template === 'THREE') {
+						// 	setHeroUrl(response.data.createOrUpdateMicrosite.appHeader.imageUploadUrl)
+						// } else {
+						setHeroUrl(response.data.createOrUpdateMicrosite.appHeader.imageLargeUploadUrl);
+
+
+						// }
 					}
+					if (response.data.createOrUpdateMicrosite.appHeader.imageMediumUploadUrl) {
+
+						setHeroUrlMedium(response.data.createOrUpdateMicrosite.appHeader.imageMediumUploadUrl);
+
+					}
+					if (response.data.createOrUpdateMicrosite.appHeader.imageUploadUrl) {
+
+						setHeroUrlSmall(response.data.createOrUpdateMicrosite.appHeader.imageUploadUrl);
+
+					}
+
 				}
 
 				if (response.data.createOrUpdateMicrosite.appHeader && response.data.createOrUpdateMicrosite.appHeader !== null) {
@@ -326,6 +365,12 @@ const Templates = ({ campaignId, internalState, template, microsite,
 					if (response.data.createOrUpdateMicrosite.hero.imageLargeUploadUrl) {
 						setImage2Url(response.data.createOrUpdateMicrosite.hero.imageLargeUploadUrl);
 					}
+					if (response.data.createOrUpdateMicrosite.hero.imageMediumUploadUrl) {
+						setImage2UrlMedium(response.data.createOrUpdateMicrosite.hero.imageMediumUploadUrl);
+					}
+					if (response.data.createOrUpdateMicrosite.hero.imageUploadUrl) {
+						setImage2UrlSmall(response.data.createOrUpdateMicrosite.hero.imageUploadUrl);
+					}
 				}
 			}
 		} catch (err) {
@@ -346,13 +391,29 @@ const Templates = ({ campaignId, internalState, template, microsite,
 
 	/** Call when hero file is uploading and post Image file is uploading */
 
+
 	useEffect(() => {
 
 		if (heroFile !== null && heroUrl && heroUrl !== '') {
 			PostHeroImage(heroUrl);
 		}
+
+		if (heroFile !== null && heroUrlMedium && heroUrlMedium !== '') {
+			PostHeroImage(heroUrlMedium);
+		}
+
+		if (heroFile !== null && heroUrlSmall && heroUrlSmall !== '') {
+			PostHeroImage(heroUrlSmall);
+		}
+
 		if (image2File !== null && image2Url && image2Url !== '') {
 			PostImage2(image2Url);
+		}
+		if (image2File !== null && image2UrlMedium && image2UrlMedium !== '') {
+			PostImage2(image2UrlMedium);
+		}
+		if (image2File !== null && image2UrlSmall && image2UrlSmall !== '') {
+			PostImage2(image2UrlSmall);
 		}
 	}, [heroFile, image2File]);
 

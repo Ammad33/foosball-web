@@ -24,19 +24,19 @@ const CreateMicrosite = ({
 
 
 	const history = useHistory();
-
-	const [templated, setTemplate] = useState('');
 	const [saveBack, setSaveBack] = useState('');
 	const [confirmTemplate, setConfirmTemplate] = useState(false);
 	const [changeTemplate, setChangeTemplate] = useState(false);
 	const [temprorayTemplate, setTemprorayTemplate] = useState('')
-	const { brandId } = useContext(RootContext);
+	const { brandId, templated, setTemplate, setCreateMicrositeFlag } = useContext(RootContext);
+	const [count, setCount] = useState(0);
 	// const [microsite1, setMiscroSite1] = useState(microsite);
 
 	const handleCancel = () => {
-		setTemplate(saveBack);
+		// setTemplate(saveBack);
 		getCampaign();
-		setSaveBack('')
+		setSaveBack('');
+		// getCampaign();
 		setConfirmTemplate(false);
 		setChangeTemplate(false);
 	}
@@ -44,14 +44,16 @@ const CreateMicrosite = ({
 		setTemplate(temprorayTemplate);
 		setTemprorayTemplate('');
 		setSaveBack('');
+		// getCampaign();
+		setConfirmTemplate(false);
 		setChangeTemplate(true);
-		getCampaign();
-		setConfirmTemplate(false)
 	}
 
 	useEffect(() => {
 		window.scrollTo({ top: 0, behavior: 'smooth' });
-		setTemplate(microsite && microsite != '' ? (microsite.template) : (""));
+		// if (microsite !== undefined) {
+		// 	setTemplate(microsite && microsite != '' ? (microsite.template) : (""));
+		// }
 	}, []);
 
 	const handleTemplateClick = (index) => {
@@ -60,9 +62,16 @@ const CreateMicrosite = ({
 			setTemprorayTemplate(index)
 		}
 		else {
-			setTemplate(index)
+			setChangeTemplate(false);
+			setTemplate(index);
+			if (count !== 0) {
+				getCampaign();
+			}
+			setCount(1);
 		}
 	}
+
+	console.log(microsite);
 
 	return (
 		<>
@@ -76,9 +85,9 @@ const CreateMicrosite = ({
 				<div className={styles.crumsContainer}>
 					<span onClick={() => history.push('/campaigns')}>Campaigns</span>
 					<ChevronRight />
-					<Tooltip title={name}>
-						<span onClick={() => window.location.reload()}>
-							{name.length >15 ? (`${name.substring(0, 15)}...` ): name }
+					<Tooltip title={name} >
+						<span onClick={() => { setCreateMicrositeFlag(false); setTemplate('') }}>
+							{name.length > 15 ? (`${name.substring(0, 15)}...`) : name}
 						</span>
 					</Tooltip>
 					<ChevronRight />

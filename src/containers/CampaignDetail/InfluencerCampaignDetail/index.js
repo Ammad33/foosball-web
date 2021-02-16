@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import styles from './InfluencerCampaignDetail.module.scss';
 import { X } from 'react-feather';
 import ActivityDetail from '../ActivityDetail';
@@ -43,8 +43,22 @@ const CampaignDetailInfluencer = ({
 	const [openDrawer, setOpenDrawer] = useState(false);
 	const [step, setStep] = useState(1);
 	const [element, setElement] = useState('');
-	const { brandId } = useContext(RootContext);
-	const [createMircositeFlag, setCreateMicrositeFlag] = useState(false);
+	const { brandId, createMircositeFlag, setCreateMicrositeFlag, setTemplate } = useContext(RootContext);
+	// const [createMircositeFlag, setCreateMicrositeFlag] = useState(false);
+
+	useEffect(() => {
+		return (() => {
+			setCreateMicrositeFlag(false);
+			setTemplate('');
+		})
+	}, []);
+
+	// useEffect(() => {
+	// 	debugger;
+	// 	if (data === undefined && data === null || ((data !== null && (data.microsite === undefined || data.microsite === null)))) {
+	// 		setTemplate('');
+	// 	}
+	// }, [data])
 
 	/**{function} to handle edit campaign */
 	const handleEdit = (step) => {

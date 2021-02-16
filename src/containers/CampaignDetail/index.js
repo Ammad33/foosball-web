@@ -20,7 +20,7 @@ const CampaignDetail = ({ location }) => {
 	const [addCampaign, setAddCampagin] = useState(false);
 
 	const [brandState, setBrandState] = useState(true);
-	const { setActiveCampaign, brandId, brandType, currentUser, setCurrentUser } = useContext(RootContext);
+	const { setActiveCampaign, brandId, brandType, currentUser, setCurrentUser, setTemplate } = useContext(RootContext);
 	const [selectedMembers, setSelectedMemebers] = useState([]);
 	const [team, setTeam] = useState([]);
 	const [search, setSearch] = useState('');
@@ -509,7 +509,6 @@ const CampaignDetail = ({ location }) => {
 							deliverable.deadlineDate * 1000
 						).toDateString();
 					});
-
 				campaign.data.influencerCampaign.events = campaign.data.influencerCampaign.events.map(
 					(activity) => {
 						activity.time = moment.unix(activity.time).format("MM/DD");
@@ -518,6 +517,13 @@ const CampaignDetail = ({ location }) => {
 				);
 				setInternalState(campaign.data.influencerCampaign.internalState)
 				setData(campaign.data.influencerCampaign);
+				if (campaign.data &&
+					campaign.data !== null &&
+					campaign.data.influencerCampaign !== null && campaign.data.influencerCampaign.microsite !== null) {
+					setTemplate(campaign.data.influencerCampaign.microsite.template)
+				} else {
+					setTemplate('');
+				}
 				if (
 					campaign.data &&
 					campaign.data !== null &&

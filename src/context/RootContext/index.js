@@ -15,6 +15,8 @@ export default ({ children }) => {
   const bType = localStorage.getItem('bType') || null;
   const cRollId = localStorage.getItem('cRollId') || null;
   const mRollId = localStorage.getItem('mRollId') || null;
+  const create = localStorage.getItem('create') || false;
+  const template = localStorage.getItem('template') || '';
   /**********************************************************************/
 
   /*****setting values from local storage to constants*******************/
@@ -37,6 +39,8 @@ export default ({ children }) => {
   const [updateMeData, setUpdateMeData] = useState(true);
   const [meData, setMeData] = useState(null);
   const [profileUpdate, setProfileUpdate] = useState(false);
+  const [createMircositeFlag, setCreateMicrositeFlag] = useState(create);
+  const [templated, setTemplate] = useState(template);
   /*****************************************************************/
 
   /*****setting values to local storage*****************************/
@@ -95,6 +99,16 @@ export default ({ children }) => {
       localStorage.removeItem('mRollId');
       localStorage.setItem('mRollId', memberRoleId);
     }
+    if (createMircositeFlag === undefined) {
+      localStorage.removeItem('create');
+    } else {
+      localStorage.setItem('create', createMircositeFlag);
+    }
+    if (templated === undefined) {
+      localStorage.removeItem('template');
+    } else {
+      localStorage.setItem('template', templated);
+    }
     // if (!organization) localStorage.removeItem('org');
     // else localStorage.setItem('org', organization);
   }, [
@@ -107,6 +121,7 @@ export default ({ children }) => {
     creatorRoleId,
     memberRoleId,
     influencers,
+    createMircositeFlag
     // organization,
   ]);
   /*******************************************************************/
@@ -226,7 +241,9 @@ export default ({ children }) => {
     setUpdateMeData,
     meData,
     setMeData,
-    profileUpdate, setProfileUpdate
+    profileUpdate, setProfileUpdate,
+    createMircositeFlag, setCreateMicrositeFlag,
+    templated, setTemplate
   };
   /*******************************************************************/
 
