@@ -113,7 +113,7 @@ const ReviewBrandMicrosite = ({ name, data, campaignId }) => {
 			<div className={styles.crumsContainer}>
 				<span onClick={() => history.push('/campaigns')}>Campaigns</span>
 				<ChevronRight />
-				<span onClick={() => history.push('/campaignDetail')}>
+				<span onClick={() => window.location.reload()}>
 					{name}
 				</span>
 				<ChevronRight />

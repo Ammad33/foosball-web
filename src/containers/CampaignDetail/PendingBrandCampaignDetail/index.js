@@ -117,7 +117,7 @@ const PendingBrandCampaignDetail = ({
 				<div
 					className={clsx(
 						styles.campaignPendingContainer,
-						allSet ? styles.allSetCampaignPendingContainer : ''
+						data.internalState === "MICROSITE_APPROVAL_REQUESTED" ? styles.allSetCampaignPendingContainer : ''
 					)}
 				>
 					{data.internalState === "MICROSITE_APPROVAL_REQUESTED" ? (
@@ -131,7 +131,7 @@ const PendingBrandCampaignDetail = ({
 					</p>
 							<button onClick={() => setFlag(true)} >View</button>
 						</>
-					) : allSet ? (
+					) :  (
 						<>
 							<h1>You're all set</h1>
 							<p>
@@ -139,7 +139,7 @@ const PendingBrandCampaignDetail = ({
 								is something you need to do.
 					</p>
 						</>
-					) : ('')
+					) 
 
 					}
 

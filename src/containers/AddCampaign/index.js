@@ -1739,8 +1739,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       id = await createCampaign(true);
     } else {
       id = await updateCampaign(true);
-    }
-
+		}
+		
     setInviteLoading(true);
     setTimeout(() => invited(campaign && campaign.id ? campaign.id : id), 1000);
   };
