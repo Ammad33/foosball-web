@@ -98,13 +98,14 @@ const ReviewAndSign = ({
 					influencer={influencer}
 					brand={brand}
 				/>
-			) : ( 
+			) : (
+					internalState != 'MICROSITE_APPROVAL_REQUESTED' &&
 					<div className={styles.mainContainer}>
 						<div className={styles.crumsContainer}>
 							<span onClick={() => history.push('/campaigns')}>Campaigns</span>
 							<ChevronRight />
 							<Tooltip title={name}>
-								<span>{name.length >15 ? (`${name.substring(0, 15)}...` ): name }</span>
+								<span>{name.length > 15 ? (`${name.substring(0, 15)}...`) : name}</span>
 							</Tooltip>
 							<ChevronRight />
 							<span>Review and Sign</span>

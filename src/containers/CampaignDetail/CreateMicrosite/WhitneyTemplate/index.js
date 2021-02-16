@@ -12,7 +12,7 @@ import uploadImages from '../../../../actions/uploadImges';
 import { Auth } from 'aws-amplify';
 
 const Templates = ({ campaignId, internalState, template, microsite,
-	changeTemplate, influencer }) => {
+	changeTemplate, influencer, getCampaign }) => {
 
 	///*****States for colors and images for all templates */
 
@@ -55,7 +55,7 @@ const Templates = ({ campaignId, internalState, template, microsite,
 	const [image2UrlSmall, setImage2UrlSmall] = useState('');
 	const [errorMessage, setErrorMessage] = useState('');
 
-	const { brandId, currentUser, setCurrentUser } = useContext(RootContext);
+	const { brandId, currentUser, setCurrentUser, setTemplate, setCreateMicrositeFlag } = useContext(RootContext);
 
 
 	//*** Call when pop open on */
@@ -446,7 +446,13 @@ const Templates = ({ campaignId, internalState, template, microsite,
                 }`
 				)
 			)
+
+
+			getCampaign();
+			setCreateMicrositeFlag(false);
+			setTemplate('');
 			window.location.reload();
+
 		}
 		catch (err) {
 			console.log("Error in requesting microSite approval ", err)

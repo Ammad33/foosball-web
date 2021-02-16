@@ -50,10 +50,15 @@ const CreateMicrosite = ({
 	}
 
 	useEffect(() => {
+
 		window.scrollTo({ top: 0, behavior: 'smooth' });
-		// if (microsite !== undefined) {
-		// 	setTemplate(microsite && microsite != '' ? (microsite.template) : (""));
-		// }
+		if (microsite !== undefined && internalState !== 'MICROSITE_APPROVAL_REQUESTED') {
+			setTemplate(microsite && microsite != '' ? (microsite.template) : (""));
+		}
+		if (internalState === 'MICROSITE_APPROVAL_REQUESTED') {
+			setTemplate('');
+			setCreateMicrositeFlag(false);
+		}
 	}, []);
 
 	const handleTemplateClick = (index) => {
@@ -116,6 +121,7 @@ const CreateMicrosite = ({
 							influencer={influencer}
 							brand={brand}
 							changeTemplate={changeTemplate}
+							getCampaign={getCampaign}
 						/>
 					</> :
 						<div className={styles.contentContainer}>

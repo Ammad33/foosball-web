@@ -517,13 +517,13 @@ const CampaignDetail = ({ location }) => {
 				);
 				setInternalState(campaign.data.influencerCampaign.internalState)
 				setData(campaign.data.influencerCampaign);
-				if (campaign.data &&
-					campaign.data !== null &&
-					campaign.data.influencerCampaign !== null && campaign.data.influencerCampaign.microsite !== null) {
-					setTemplate(campaign.data.influencerCampaign.microsite.template)
-				} else {
-					setTemplate('');
-				}
+				// if ((campaign.data &&
+				// 	campaign.data !== null &&
+				// 	campaign.data.influencerCampaign !== null && campaign.data.influencerCampaign.microsite !== null && campaign.data.influencerCampaign.internalState !== "MICROSITE_APPROVAL_REQUESTED")) {
+				// 	setTemplate(campaign.data.influencerCampaign.microsite.template)
+				// } else {
+				// 	setTemplate('');
+				// }
 				if (
 					campaign.data &&
 					campaign.data !== null &&
