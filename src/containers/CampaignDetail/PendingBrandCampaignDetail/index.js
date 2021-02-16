@@ -241,8 +241,8 @@ const PendingBrandCampaignDetail = ({
 								<div style={{ display: "none" }}>
 									<Download /> <p>Download Campaign</p>
 								</div>
-								<div>
-									<XCircle onClick={() => handleCancelDialogOpen()} />{' '}
+								<div onClick={() => handleCancelDialogOpen()}>
+									<XCircle/>{' '}
 									<p>Cancel Campaign</p>
 								</div>
 							</div>
