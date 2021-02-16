@@ -41,14 +41,14 @@ const CampaignDetail = ({ children, handleEdit, campaign }) => {
 					<h6>StartDate, Time</h6>
 					<p>
 						{campaign && campaign.startDate &&
-							moment(campaign.startDate * 1000).format('MM/DD/YYYY, HH:mm A')}
+							moment(campaign.startDate * 1000).format('MM/DD/YYYY, hh:mm A')}
 					</p>
 				</div>
 				<div className={styles.detailSubContent}>
 					<h6>End Date, Time</h6>
 					<p>
 						{campaign && campaign.endDate &&
-							moment(campaign.endDate * 1000).format('MM/DD/YYYY, HH:mm A')}
+							moment(campaign.endDate * 1000).format('MM/DD/YYYY, hh:mm A')}
 					</p>
 				</div>
 			</div>

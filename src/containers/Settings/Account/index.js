@@ -1,22 +1,22 @@
-import React, { useState, useContext } from 'react';
-import styles from './Account.module.scss';
-import mainStyles from '../../../index.module.scss';
-import { Grid, InputAdornment } from '@material-ui/core';
-import TextField from '../../../components/TextField';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import clsx from 'clsx';
-import Button from '@material-ui/core/Button';
-import CDialog from '../../../components/ConfirmationDialog';
-import Translation from '../../../assets/translation.json';
-import SVG from 'react-inlinesvg';
-import { Avatar } from '@material-ui/core';
-import { RootContext } from '../../../context/RootContext';
+import React, { useState, useContext, useEffect } from "react";
+import styles from "./Account.module.scss";
+import mainStyles from "../../../index.module.scss";
+import { Grid, InputAdornment } from "@material-ui/core";
+import TextField from "../../../components/TextField";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import clsx from "clsx";
+import Button from "@material-ui/core/Button";
+import CDialog from "../../../components/ConfirmationDialog";
+import Translation from "../../../assets/translation.json";
+import SVG from "react-inlinesvg";
+import { Avatar } from "@material-ui/core";
+import { RootContext } from "../../../context/RootContext";
 
 const Eye_offSVG = () => {
-  return <SVG src={require('../../../assets/eye-off.svg')} />;
+  return <SVG src={require("../../../assets/eye-off.svg")} />;
 };
 const EyeSVG = () => {
-  return <SVG src={require('../../../assets/eye.svg')} />;
+  return <SVG src={require("../../../assets/eye.svg")} />;
 };
 const Account = ({
   fullname,
@@ -43,8 +43,10 @@ const Account = ({
   const [newPasswordShown, setNewPasswordShown] = useState(false);
   const [passwordCleared, setPasswordCleared] = useState(false);
   const [passwordChange, setPasswordChange] = useState(false);
-  const [actionType, setActionType] = useState('');
+  const [actionType, setActionType] = useState("");
   const [editPassword, setEditPassword] = useState(false);
+  const [path, setPath] = useState(null);
+  const [imageHash, setImageHash] = useState(Date.now());
 
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
@@ -78,51 +80,74 @@ const Account = ({
           <EyeSVG />
         </div>
       ) : (
-          <div onClick={togglePasswordVisiblity}>
-            <Eye_offSVG />
-          </div>
-        );
+        <div onClick={togglePasswordVisiblity}>
+          <Eye_offSVG />
+        </div>
+      );
     }
   };
+  useEffect(() => {
+    setPath(null);
+    if (imgUrl.indexOf("blob") == -1) 
+      imgUrl += "?t=" + Date.now();
+    setPath(imgUrl);
+  }, [imgUrl]);
   return (
     <div>
       <div className={styles.brandContainter}>
-        <Avatar className={styles.brandImage} alt='Profile' src={`${imgUrl}`} />
-        <label htmlFor='hero1' style={{
-          color: '#3481EF',
-          fontFamily: 'Poppins',
-          fontSize: '14px',
-          padding: '5px 10px',
-          fontWeight: 500,
-          letterSpacing: 0,
-          lineHeight: '21px',
-          cursor: 'pointer'
-        }}>{imgUrl && imgUrl !== null
-          ? 'Change user photo'
-          : 'Upload user photo '}</label>
-        <input id='hero1' style={{ visibility: 'hidden', display: 'none' }}
-          type={'file'} onChange={(e) => { handleImageFile(e.target.files[0]); handleImageProfile(URL.createObjectURL(e.target.files[0])) }} />
+        <Avatar
+          className={styles.brandImage}
+          alt="Profile"
+          src={`${path}`}
+        />
+        <label
+          htmlFor="hero1"
+          style={{
+            color: "#3481EF",
+            fontFamily: "Poppins",
+            fontSize: "14px",
+            padding: "5px 10px",
+            fontWeight: 500,
+            letterSpacing: 0,
+            lineHeight: "21px",
+            cursor: "pointer",
+          }}
+        >
+          {imgUrl && imgUrl !== null
+            ? "Change user photo"
+            : "Upload user photo "}
+        </label>
+        <input
+          id="hero1"
+          style={{ visibility: "hidden", display: "none" }}
+          type={"file"}
+          onChange={(e) => {
+            handleImageFile(e.target.files[0]);
+            handleImageProfile(URL.createObjectURL(e.target.files[0]));
+            setImageHash("");
+          }}
+        />
 
-        <input id='filePicker' style={{ visibility: 'hidden' }} type={'file'} />
+        <input id="filePicker" style={{ visibility: "hidden" }} type={"file"} />
       </div>
       <div className={styles.formContainer}>
         <Grid container spacing={3}>
           <Grid item xs={6}>
             <TextField
-              id='outlined-basic'
+              id="outlined-basic"
               fullWidth
               value={fullname}
               onChange={handleFullName}
-              label='Full Name'
-              variant='outlined'
+              label="Full Name"
+              variant="outlined"
             />
           </Grid>
           <Grid item xs={6}>
             <TextField
-              id='outlined-basic'
+              id="outlined-basic"
               fullWidth
-              label={typeName === "Brand" ? 'Brand Name' : 'Display Name'}
-              variant='outlined'
+              label={typeName === "Brand" ? "Brand Name" : "Display Name"}
+              variant="outlined"
               value={brandName}
               onChange={handleBrandName}
             />
@@ -130,10 +155,10 @@ const Account = ({
           <Grid item xs={6}>
             <TextField
               disabled={true}
-              id='outlined-basic'
+              id="outlined-basic"
               fullWidth
-              label='Email'
-              variant='outlined'
+              label="Email"
+              variant="outlined"
               value={email}
               onChange={handleEmail}
             />
@@ -141,18 +166,18 @@ const Account = ({
           <Grid item xs={6}>
             <TextField
               disabled={editPassword ? false : true}
-              id='outlined-basic'
+              id="outlined-basic"
               fullWidth
-              value={editPassword ? oldPassword : 'Password'}
+              value={editPassword ? oldPassword : "Password"}
               onChange={setOldPassword}
-              label={editPassword ? 'Old Password' : 'Password'}
-              type={passwordShown ? 'text' : 'password'}
-              variant='outlined'
+              label={editPassword ? "Old Password" : "Password"}
+              type={passwordShown ? "text" : "password"}
+              variant="outlined"
               InputProps={{
                 endAdornment: (
                   <InputAdornment
                     className={styles.inputendornment}
-                    position='end'
+                    position="end"
                   >
                     <span>{getInputEndormentContent()}</span>
                   </InputAdornment>
@@ -166,11 +191,11 @@ const Account = ({
             {emailVerfied && emailVerfied != null ? (
               <p>
                 Email Verified
-                <CheckCircleIcon fontSize='small' />{' '}
+                <CheckCircleIcon fontSize="small" />{" "}
               </p>
             ) : (
-                <p> Verify your email address </p>
-              )}
+              <p> Verify your email address </p>
+            )}
           </Grid>
         </Grid>
         <Grid container spacing={3}>
@@ -179,31 +204,31 @@ const Account = ({
             <>
               <Grid item xs={6}>
                 <TextField
-                  id='outlined-basic'
+                  id="outlined-basic"
                   fullWidth
-                  label='New Password'
+                  label="New Password"
                   value={newPassword}
                   onChange={setNewPassword}
-                  type={newPasswordShown ? 'text' : 'password'}
-                  variant='outlined'
+                  type={newPasswordShown ? "text" : "password"}
+                  variant="outlined"
                   InputProps={{
                     endAdornment: (
                       <InputAdornment
                         className={styles.inputendornment}
-                        position='end'
+                        position="end"
                       >
                         <span>
                           {newPasswordShown ? (
                             <div onClick={toggleNewPasswordVisiblity}>
-                              {' '}
-                              <EyeSVG />{' '}
+                              {" "}
+                              <EyeSVG />{" "}
                             </div>
                           ) : (
-                              <div onClick={toggleNewPasswordVisiblity}>
-                                {' '}
-                                <Eye_offSVG />{' '}
-                              </div>
-                            )}
+                            <div onClick={toggleNewPasswordVisiblity}>
+                              {" "}
+                              <Eye_offSVG />{" "}
+                            </div>
+                          )}
                         </span>
                       </InputAdornment>
                     ),
@@ -227,8 +252,8 @@ const Account = ({
               </Grid>
             </>
           ) : (
-              ' '
-            )}
+            " "
+          )}
         </Grid>
       </div>
       <hr className={mainStyles.hr} />
@@ -242,7 +267,7 @@ const Account = ({
             </p>
             <Button
               onClick={() => {
-                setActionType('Deactivate');
+                setActionType("Deactivate");
                 setOpenCDialog(true);
               }}
               className={clsx(
@@ -261,7 +286,7 @@ const Account = ({
             {teamAdmin ? (
               <Button
                 onClick={() => {
-                  setActionType('Delete');
+                  setActionType("Delete");
                   setOpenCDialog(true);
                 }}
                 className={clsx(
@@ -272,19 +297,19 @@ const Account = ({
                 Delete Account
               </Button>
             ) : (
-                <Button
-                  onClick={() => {
-                    setActionType('Warning');
-                    setOpenCDialog(true);
-                  }}
-                  className={clsx(
-                    mainStyles.textDangerButton,
-                    styles.DeactivateButton
-                  )}
-                >
-                  Delete Account
-                </Button>
-              )}
+              <Button
+                onClick={() => {
+                  setActionType("Warning");
+                  setOpenCDialog(true);
+                }}
+                className={clsx(
+                  mainStyles.textDangerButton,
+                  styles.DeactivateButton
+                )}
+              >
+                Delete Account
+              </Button>
+            )}
           </div>
         </div>
         <div className={styles.saveContainer}>
@@ -296,15 +321,15 @@ const Account = ({
       <CDialog
         open={openCDialog}
         cancelText={actionType}
-        confirmText={'Cancel'}
+        confirmText={"Cancel"}
         onCancel={handleCancelCDialog}
         onConfirm={handleConfirmCDialog}
         message={
-          actionType === 'Delete'
+          actionType === "Delete"
             ? Translation.DIALOG.ACCOUNT_DELETE_CDIALOG_MSG
-            : actionType === 'Warning'
-              ? Translation.DIALOG.ACCOUNT_WARNING_CDIALOG_MSG
-              : Translation.DIALOG.ACCOUNT_DEACTIVATE_CDIALOG_MSG
+            : actionType === "Warning"
+            ? Translation.DIALOG.ACCOUNT_WARNING_CDIALOG_MSG
+            : Translation.DIALOG.ACCOUNT_DEACTIVATE_CDIALOG_MSG
         }
       />
     </div>
