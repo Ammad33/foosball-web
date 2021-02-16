@@ -2001,7 +2001,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   const leftSideDawerClick = (index) => {
     if (activeStep >= index || activeStepValue[index] === true) {
-      setLastStep(activeStep);
+      // setLastStep(activeStep);
       setActiveStep(index);
     } else return;
   };
