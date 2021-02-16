@@ -247,7 +247,6 @@ const InfluencerProfile = () => {
 
 
 	const ActiveSave = () => {
-		// debugger;
 		if (name !== '' && phoneNumber !== '' && website !== '' && location !== '' && bio !== '' && age !== '' && email !== '') {
 			setActiveSave(true)
 		} else setActiveSave(false);

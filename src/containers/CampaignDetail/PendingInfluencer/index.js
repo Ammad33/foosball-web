@@ -88,10 +88,10 @@ const PendingInfluencer = ({
 										{' '}
 										<Mail /> <p> Message Brand</p>
 									</div>
-									<div className={styles.secondElement} style={{ display: "none" }}>
+									{/* <div className={styles.secondElement} style={{ display: "none" }}>
 										{' '}
 										<Download /> <p>Download Campaign</p>
-									</div>
+									</div> */}
 								</div>
 							</Popover>
 

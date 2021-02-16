@@ -75,10 +75,10 @@ const InviteInfluencer = ({
 									{' '}
 									<Mail /> <p> Message Brand</p>
 								</div>
-								<div className={styles.secondElement}>
+								{/* <div className={styles.secondElement}>
 									{' '}
 									<Download /> <p>Download Campaign</p>
-								</div>
+								</div> */}
 							</div>
 						</Popover>
 
@@ -96,7 +96,7 @@ const InviteInfluencer = ({
 									<div className={styles.borderDiv}></div>
 									<Chip
 										className={clsx(styles.campaignStatus, styles.invite)}
-										label={'Invite'}
+										label={'Invited'}
 									/>
 									<div className={styles.borderDiv}></div>
 									{data && data.brand && (
