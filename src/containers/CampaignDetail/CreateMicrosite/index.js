@@ -34,7 +34,7 @@ const CreateMicrosite = ({
 
 	const handleCancel = () => {
 		// setTemplate(saveBack);
-		getCampaign();
+		// getCampaign();
 		setSaveBack('');
 		// getCampaign();
 		setConfirmTemplate(false);
