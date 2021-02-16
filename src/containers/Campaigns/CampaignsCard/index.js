@@ -108,7 +108,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 			<Card className={styles.campaignCard} onClick={onClick}>
 				<CardContent className={styles.cardContent}>
 					<div className={styles.cardStatus}>
-						{brandType === 'Influencer' && campaign.internalState != 'MICROSITE_APPROVED' && campaign.internalState!= 'MICROSITE_APPROVAL_REQUESTED'? (
+					{brandType === 'Influencer' && campaign &&  campaign.internalState != 'MICROSITE_APPROVED' && campaign.internalState!= 'MICROSITE_APPROVAL_REQUESTED' && campaign.status != 'LIVE' ?(
 							<span className={styles.alertBadge}>
 								<ErrorOutlineOutlinedIcon className={styles.alertIcon} />
               Action Required
