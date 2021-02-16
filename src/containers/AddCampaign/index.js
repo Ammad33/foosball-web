@@ -272,10 +272,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   /****** Campaign Detail States ********/
   const [campaignName, setCampaignName] = useState('');
   const [startDate, setStartDate] = useState('');
-    // moment().add(1, 'days').format('MM/DD/YYYY')
-  
+  // moment().add(1, 'days').format('MM/DD/YYYY')
+
   const [endDate, setEndDate] = useState('');
-    // moment().add(1, 'month').format('MM/DD/YYYY')
+  // moment().add(1, 'month').format('MM/DD/YYYY')
   const [startDateError, setStartDateError] = useState(false);
   const [endDateError, setEndDateError] = useState(false);
   const [
@@ -283,11 +283,11 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     setDeliverableDeadlineDateError,
   ] = useState(false); //deleverable deadline
   const [startTime, setStartTime] = useState('');
-    // moment().subtract(1, 'days').startOf('day').format('HH:mm A')
-  
+  // moment().subtract(1, 'days').startOf('day').format('HH:mm A')
+
   const [startTimeError, setStartTimeError] = useState(false);
   const [endTime, setEndTime] = useState('');
-    // moment().subtract(1, 'days').startOf('day').format('HH:mm A')
+  // moment().subtract(1, 'days').startOf('day').format('HH:mm A')
   const [endTimeError, setEndTimeError] = useState(false);
 
   const [discount, setDiscount] = useState('');
@@ -297,9 +297,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const [endDateOpen, setEndDateOpen] = useState(false);
   const [startTimeOpen, setStartTimeOpen] = useState(false);
   const [endTimeOpen, setEndTimeOpen] = useState(false);
-	const [lastStep, setLastStep] = useState(0);
-	const [dummyStartDate , setDummyStartDate] = useState(false);
-	const [dummyStartEndTime , setDummyStartEndTime] = useState(false);
+  const [lastStep, setLastStep] = useState(0);
+  const [dummyStartDate, setDummyStartDate] = useState(false);
+  const [dummyStartEndTime, setDummyStartEndTime] = useState(false);
 
 
   const [giftCode, setGiftCode] = useState('');
@@ -986,22 +986,22 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const handleDiscountType = (value) => {
     setDiscount('');
     setDiscountType(value);
-	};
-	
-	/******** */
-	const handleDefaultDate = (date) => {
-		if (date){
-			var startDate  = moment().format('MM/DD/YYYY');
-			setStartDate(startDate);
-			setDummyStartDate(true);
-		}
-	}
+  };
 
-	const handleDefaultTime = () => {
-		setStartTime('');
-		setEndTime('');
-		setDummyStartEndTime(true);
-	}
+  /******** */
+  const handleDefaultDate = (date) => {
+    if (date) {
+      var startDate = moment().format('MM/DD/YYYY');
+      setStartDate(startDate);
+      setDummyStartDate(true);
+    }
+  }
+
+  const handleDefaultTime = () => {
+    setStartTime('');
+    setEndTime('');
+    setDummyStartEndTime(true);
+  }
 
   /******************** Handle Start Date */
 
@@ -1011,17 +1011,17 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       date !== '' && moment(date, 'MM/DD/YYYY', true).isValid()
         ? moment_date
         : date
-		);
-		setStartTime(moment().subtract(1, 'days').startOf('day').format('hh:mm A'));
-		setEndTime(moment().subtract(1, 'days').startOf('day').format('hh:mm A'));
-		setDummyStartDate(false);
-		setDummyStartEndTime(false);
-		setEndDate(moment(moment_date).add(1, 'M').format('MM/DD/YYYY'));
-		if (date === ''){
-			setEndDate('');
-			setStartTime('');
-			setEndTime('');
-		}
+    );
+    setStartTime(moment().subtract(1, 'days').startOf('day').format('hh:mm A'));
+    setEndTime(moment().subtract(1, 'days').startOf('day').format('hh:mm A'));
+    setDummyStartDate(false);
+    setDummyStartEndTime(false);
+    setEndDate(moment(moment_date).add(1, 'M').format('MM/DD/YYYY'));
+    if (date === '') {
+      setEndDate('');
+      setStartTime('');
+      setEndTime('');
+    }
     setStartDateOpen(false);
     handleStartDateValidation(moment_date);
   };
@@ -1335,20 +1335,20 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         // invitationMessage: customeMessage,
         // deliverables: getDeliverablesForAPI(),
         // compensation: getCompensations(),
-			};
-			
-			if (startDate !==''){
-				data = {
-					...data,
-					startDate: Date.parse(`${startDate} ${startTime} `) / 1000,
-				}
-			}
-			if (endDate !==''){
-				data = {
-					...data ,
-					endDate: Date.parse(`${endDate} ${endTime} `) / 1000,
-				}
-			}
+      };
+
+      if (startDate !== '') {
+        data = {
+          ...data,
+          startDate: Date.parse(`${startDate} ${startTime} `) / 1000,
+        }
+      }
+      if (endDate !== '') {
+        data = {
+          ...data,
+          endDate: Date.parse(`${endDate} ${endTime} `) / 1000,
+        }
+      }
 
       if (discountType !== '' && discount !== '') {
         data = {
@@ -1454,6 +1454,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         response.data !== null &&
         response.data.createCampaign !== null
       ) {
+        setErrorMessage('');
         updateCampaignProducts(response.data.createCampaign.id);
         if (invite === undefined) {
           handleCancel();
@@ -1464,6 +1465,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         setDeliveries(APIErrorDeliverables());
         return null;
       }
+
     } catch (e) {
       setDeliveries(APIErrorDeliverables());
       console.log(e);
@@ -1585,20 +1587,20 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         // invitationMessage: customeMessage,
         // compensation: getCompensations(),
         // deliverables: getDeliverablesForAPI(),
-			};
-			
-			if (startDate !==''){
-				data = {
-					...data,
-					startDate: Date.parse(`${startDate} ${startTime} `) / 1000,
-				}
-			}
-			if (endDate !==''){
-				data = {
-					...data ,
-					endDate: Date.parse(`${endDate} ${endTime} `) / 1000,
-				}
-			}
+      };
+
+      if (startDate !== '') {
+        data = {
+          ...data,
+          startDate: Date.parse(`${startDate} ${startTime} `) / 1000,
+        }
+      }
+      if (endDate !== '') {
+        data = {
+          ...data,
+          endDate: Date.parse(`${endDate} ${endTime} `) / 1000,
+        }
+      }
 
 
       if (discountType !== '' && discount !== '') {
@@ -1702,6 +1704,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       );
 
       updateCampaignProducts(campaign.id, invite);
+      setErrorMessage('');
       // handleCancel();
       if (response && response !== null && response.data.updateCampaign.id) {
         return response.data.updateCampaign.id;
@@ -1709,6 +1712,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         setDeliveries(APIErrorDeliverables());
         return null;
       }
+
     } catch (e) {
       setDeliveries(APIErrorDeliverables());
       console.log('update campaign error ', e);
@@ -1740,9 +1744,10 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     } else {
       id = await updateCampaign(true);
     }
-
-    setInviteLoading(true);
-    setTimeout(() => invited(campaign && campaign.id ? campaign.id : id), 1000);
+    if (errorMessage !== '') {
+      setInviteLoading(true);
+      setTimeout(() => invited(campaign && campaign.id ? campaign.id : id), 1000);
+    }
   };
 
   const invited = async (id) => {
@@ -2045,11 +2050,11 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
               setEndTime(moment(e).format('hh:mm A'));
               setEndTimeOpen(false);
               handleEndTimeValidation(moment(e).format('hh:mm'));
-						}}
-						handleDefaultDate = {handleDefaultDate}
-						handleDefaultTime = {handleDefaultTime}
-						dummyStartDate = {dummyStartDate}
-						dummyStartEndTime = {dummyStartEndTime}
+            }}
+            handleDefaultDate={handleDefaultDate}
+            handleDefaultTime={handleDefaultTime}
+            dummyStartDate={dummyStartDate}
+            dummyStartEndTime={dummyStartEndTime}
             handleDiscount={handleDiscount}
             handleDiscountType={handleDiscountType}
             handleCustomMessage={(e) => {
