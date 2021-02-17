@@ -381,7 +381,7 @@ const ReviewAndSend = ({
   }, [products, collections]);
 
   return (
-    <div class={styles.mainContainer}>
+    <div class={styles.mainContainer} style={{paddingTop: "8px"}}>
       <div className={styles.influe}>
         <div className={styles.influencerContainer}>
           <Avatar className={styles.avatar} src={selectedInfluncer.imageUrl} />{' '}

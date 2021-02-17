@@ -31,7 +31,7 @@ const ChooseInfluencer = ({
   }, []);
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={{paddingTop: "8px"}}> 
       <Grid container spacing={2}>
         {sortedInfluencers.map((influencer) => {
           const index =

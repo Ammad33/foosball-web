@@ -151,7 +151,7 @@ const AddCampaignDetails = ({
 	const [open, setOpen] = useState(false);
 	const [open1, setOpen1] = useState(false);
 	return (
-		<Grid container spacing={2}>
+		<Grid container spacing={2} className={styles.padding8}>
 			<Grid item md={12}>
 				<TextField
 					id='outlined-basic'

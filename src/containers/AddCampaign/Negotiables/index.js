@@ -11,7 +11,7 @@ const Negotiables = ({ selectedNegotiable, toggleNegotiable, handleActiveForNego
     handleActiveForNegotiable();
   }, [selectedNegotiable])
   return (
-    <div className={styles.mainContainer}>
+    <div className={styles.mainContainer} style={{paddingTop: "8px"}}>
       <p className={styles.title}>
         Deselect the items you do not wish to negotiate
       </p>

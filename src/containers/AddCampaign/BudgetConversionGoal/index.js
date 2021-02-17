@@ -18,7 +18,7 @@ const BudgetAndConversionGoals = ({
     setActiveForBudget();
   }, [budget, targetGrossSale]);
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} style={{paddingTop: "8px"}}>
       <Grid item md={12}>
         <NumberFormat
           customInput={TextField}

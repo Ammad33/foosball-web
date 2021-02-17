@@ -68,7 +68,7 @@ const Compensations = ({
 
 	return (
 		<div>
-			<Grid container spacing={3}>
+			<Grid container spacing={3} style={{paddingTop: "8px"}}>
 				<Grid item xs={12}>
 					<FormControl fullWidth variant='outlined'>
 						<TextField

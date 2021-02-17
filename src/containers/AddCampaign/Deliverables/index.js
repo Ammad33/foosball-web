@@ -21,7 +21,7 @@ const Deliverables = ({ deliveries, handleDeliveries, handleDilverableContent,
 	}, [deliveries]);
 
 	return (
-		<div>
+		<div className={styles.padding8}>
 
 			{deliveries.map((item, index) => {
 				return (

@@ -31,6 +31,7 @@ const AddTeamMembers = ({
 
   return (
     <>
+    <div className={styles.padding8}>
       {/* hidden for phase 1*/}
       {/* <TextField
         id='outlined-basic'
@@ -89,6 +90,7 @@ const AddTeamMembers = ({
           </div>
         )}
       </div>
+    </div>
     </>
   );
 };
