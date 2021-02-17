@@ -157,6 +157,8 @@ const CampaignDetail = ({ location }) => {
 
 	const getCampaign = async () => {
 
+		/// use Loader function from context  setLoader(true)
+
 		try {
 			const campaign = await API.graphql({
 				query:
@@ -566,6 +568,8 @@ const CampaignDetail = ({ location }) => {
 					} else {
 						setTeam(teamData);
 					}
+
+					/// use Loader function from context  setLoader(false)
 				}
 			} else {
 				campaign.data.campaign &&

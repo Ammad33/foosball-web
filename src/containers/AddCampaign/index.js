@@ -2228,9 +2228,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             toggleComponent={toggleComponent}
             team={team}
             handleActiveNext={() => {
-              // let ActiveValue = [...activeStepValue];
-              // ActiveValue[9] = true;
-              // setActiveStepValue(ActiveValue);
+              let ActiveValue = [...activeStepValue];
+              ActiveValue[9] = true;
+              setActiveStepValue(ActiveValue);
               setActiveNext(true);
 
             }}
@@ -2448,13 +2448,17 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                     <div key={index} className={styles.stepItem}>
                       {(activeStep === index && activeStepValue[index + 1] !== true) ? (
                         <div className={styles.active}></div>
-                      ) : activeStep < index && activeStepValue[index] === false ? (
-                        <RadioButtonUncheckedIcon />
-                      ) : activeStep < index && activeStepValue[index] === false ? (
-                        <RadioButtonUncheckedIcon />
-                      ) : (
-                              <CheckCircleIconSvg viewBox='0 0 31 31' />
-                            )}
+                      ) :
+                        (activeStepValue[9] === true && activeStep !== index && index === 9) ? (
+                          <div className={styles.active}></div>
+                        )
+                          : activeStep < index && activeStepValue[index] === false ? (
+                            <RadioButtonUncheckedIcon />
+                          ) : activeStep < index && activeStepValue[index] === false ? (
+                            <RadioButtonUncheckedIcon />
+                          ) : (
+                                <CheckCircleIconSvg viewBox='0 0 31 31' />
+                              )}
                       <span
                         className={
                           activeStep === index || activeStepValue[index] === true
