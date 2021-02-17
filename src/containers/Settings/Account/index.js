@@ -86,11 +86,15 @@ const Account = ({
       );
     }
   };
+  debugger;
   useEffect(() => {
     setPath(null);
-    if (imgUrl.indexOf("blob") == -1) 
-      imgUrl += "?t=" + Date.now();
-    setPath(imgUrl);
+    if (imgUrl != null){
+
+      if (imgUrl.indexOf("blob") == -1) 
+        imgUrl += "?t=" + Date.now();
+      setPath(imgUrl);
+    }
   }, [imgUrl]);
   return (
     <div>
