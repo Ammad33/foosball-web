@@ -137,7 +137,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 							</Tooltip>
 							<span className={styles.campaignNumber}>
 								<small>
-									{convertedStartDate != "01/01/1970" ? (date):('')}
+									{convertedStartDate <= "01/01/1970" ? (''):(date)}
 								</small>
 							</span>
 							<div className={styles.wrapChip}>

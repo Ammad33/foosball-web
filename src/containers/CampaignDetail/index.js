@@ -341,6 +341,7 @@ const CampaignDetail = ({ location }) => {
             invitedAt
 						paymentSchedule
 						internalState
+						micrositeUrl
             products {
               collection {
                 id
@@ -857,6 +858,7 @@ const CampaignDetail = ({ location }) => {
 						handleSearch={handleSearch}
 						updateCampaign={updateCampaign}
 						setAll={setAll}
+						campaignId={campaignId}
 						headingValue={headingValue}
 					/>
 				)}

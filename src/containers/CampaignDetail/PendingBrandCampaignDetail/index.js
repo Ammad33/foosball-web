@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
 	Avatar,
 	Popover,
@@ -41,6 +41,10 @@ import styles from './PendingBrandCampaignDetail.module.scss';
 import CancelDialog from '../../../components/CancellationDialog';
 import Translation from '../../../assets/translation.json';
 import ReviewBrandMicrosite from '../ReviewBrandMicrosite'
+import { API, graphqlOperation } from 'aws-amplify';
+import { RootContext } from '../../../context/RootContext';
+
+
 
 const Chevron = () => {
 	return (
@@ -59,6 +63,7 @@ const PendingBrandCampaignDetail = ({
 	data,
 	handleSeeClick,
 	name,
+	campaignId
 }) => {
 	const reasons = [
 		'Schedule conflict',
@@ -81,6 +86,10 @@ const PendingBrandCampaignDetail = ({
 	const [cancelReason, setCancelReason] = useState('');
 	const [reasonDetail, setReasonDetail] = useState('');
 	const [flag, setFlag] = useState(false)
+	const [errorMessage, setErrorMessage] = useState('');
+	const { brandId } = useContext(RootContext);
+
+
 
 	const handleClose = () => {
 		setAnchorEl(null);
@@ -99,6 +108,34 @@ const PendingBrandCampaignDetail = ({
 		setReasonDetail(val);
 	};
 
+
+	const startCampaign = async () => {
+		try {
+			await API.graphql(
+				graphqlOperation(
+					`mutation startCampaign {
+						startCampaignDev (
+							brandId: "${brandId}",
+							campaignId: "${campaignId}"
+						)
+					}`
+				)
+			)
+			window.location.reload();
+		}
+		catch (err) {
+			console.log("Error in signing contract ", err)
+			let message = '';
+
+			if (err.errors && err.errors.length > 0)
+				err.errors.forEach(m => {
+					message = message + m.message;
+				});
+
+			setErrorMessage(message);
+			return null;
+		}
+	}
 
 	const getStatusContainerContent = () => {
 		return (
@@ -131,15 +168,15 @@ const PendingBrandCampaignDetail = ({
 					</p>
 							<button onClick={() => setFlag(true)} >View</button>
 						</>
-					) :  (
-						<>
-							<h1>You're all set</h1>
-							<p>
-								No action items as of right now. We will let you know when there
-								is something you need to do.
+					) : (
+							<>
+								<h1>You're all set</h1>
+								<p>
+									No action items as of right now. We will let you know when there
+									is something you need to do.
 					</p>
-						</>
-					) 
+							</>
+						)
 
 					}
 
@@ -242,7 +279,7 @@ const PendingBrandCampaignDetail = ({
 									<Download /> <p>Download Campaign</p>
 								</div>
 								<div onClick={() => handleCancelDialogOpen()}>
-									<XCircle/>{' '}
+									<XCircle />{' '}
 									<p>Cancel Campaign</p>
 								</div>
 							</div>
@@ -372,6 +409,12 @@ const PendingBrandCampaignDetail = ({
 									<Negotiables data={data} status={data.status} />
 									<div style={{ width: '391px' }}></div>
 								</div>
+								{data.internalState === "MICROSITE_APPROVED" ? (<div className={styles.startCampaign} onClick={() => startCampaign()}> Start Campaign</div>) : ('')}
+								{errorMessage !== '' && (
+									<div style={{ padding: '10px', color: 'red' }}>
+										{errorMessage}
+									</div>
+								)}
 							</div>
 						</div>
 
