@@ -113,10 +113,11 @@ const AddCampaignDetails = ({
 
  
 	useEffect(()=> {
-		if (startDate <= "01/01/1970"){
+		debugger;
+		if (moment(startDate).isSameOrBefore("01/01/1970")){
 			handleDefaultDate(startDate);
 		}
-		if (startDate === "" || startDate <= "01/01/1970"){
+		if (startDate === "" || moment(startDate).isSameOrBefore("01/01/1970")){
 			handleDefaultTime();
 		}
 

@@ -42,13 +42,13 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 	const openProfile = (event) => {
 		history.push(`/influencerProfile/`);
 		setActiveRoute('profile');
-		event.stopPropagation() 
+		event.stopPropagation()
 	}
 
 	/**{function} used to specify the location of the popover**/
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
-		event.stopPropagation() 
+		event.stopPropagation()
 	};
 
 	String.prototype.toProperCase = function () {
@@ -56,13 +56,15 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 			return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
 		});
 	};
-
-
-	const convertedStartDate = moment(campaign.startDate * 1000).format(
-		'MM/DD/YYYY'
-	);
-	const convertedEndDate = moment(campaign.endDate * 1000).format('MM/DD/YYYY');
-	const date = 	convertedStartDate + '-' + convertedEndDate
+	let convertedStartDate = ''; 
+	let date = '';
+	if (campaign.startDate != null) {
+		convertedStartDate = moment(campaign.startDate * 1000).format(
+			'MM/DD/YYYY'
+		);
+		const convertedEndDate = moment(campaign.endDate * 1000).format('MM/DD/YYYY');
+		date = convertedStartDate + '-' + convertedEndDate
+	}
 
 	return (
 		<>
@@ -108,7 +110,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 			<Card className={styles.campaignCard} onClick={onClick}>
 				<CardContent className={styles.cardContent}>
 					<div className={styles.cardStatus}>
-					{brandType === 'Influencer' && campaign &&  campaign.internalState != 'MICROSITE_APPROVED' && campaign.internalState!= 'MICROSITE_APPROVAL_REQUESTED' && campaign.status != 'LIVE' ?(
+						{brandType === 'Influencer' && campaign && campaign.internalState != 'MICROSITE_APPROVED' && campaign.internalState != 'MICROSITE_APPROVAL_REQUESTED' && campaign.status != 'LIVE' ? (
 							<span className={styles.alertBadge}>
 								<ErrorOutlineOutlinedIcon className={styles.alertIcon} />
               Action Required
@@ -137,7 +139,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 							</Tooltip>
 							<span className={styles.campaignNumber}>
 								<small>
-									{convertedStartDate <= "01/01/1970" ? (''):(date)}
+									{convertedStartDate != "" ? (date) : ('')}
 								</small>
 							</span>
 							<div className={styles.wrapChip}>
@@ -223,7 +225,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 													className={styles.personAvatar}
 													src={campaign.brand.imageUrl}
 												/>
-												<span className={styles.mediaTag}   onClick={(event) => openProfile(event)}>{campaign.brand != null ? (campaign.brand.name) : ('')}</span> </>
+												<span className={styles.mediaTag} onClick={(event) => openProfile(event)}>{campaign.brand != null ? (campaign.brand.name) : ('')}</span> </>
 										) : (
 												''
 											)

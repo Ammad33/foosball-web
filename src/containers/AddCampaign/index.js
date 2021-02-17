@@ -349,7 +349,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           ? campaign.paymentSchedule
           : ''
       );
-      if (moment(startDate).format('MM/DD/YYYY') > '01/01/1970' && moment(endDate).format('MM/DD/YYYY') > '01/01/1970') {
+      if (moment(startDate).isAfter('01/01/1970')  && moment(endDate).isAfter('01/01/1970')) {
         setStartDate(moment(startDate).format('MM/DD/YYYY'));
         setEndDate(moment(endDate).format('MM/DD/YYYY'));
         setStartTime(moment(startDate).format('hh:mm A'));
