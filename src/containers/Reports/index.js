@@ -107,7 +107,6 @@ const Reports = () => {
 									display="initial"
 									position="relative" />
 							</div >
-							<p>brand ID: {brandId}</p>
 						</div>
 					</Grid>
 					{/* <Grid container spacing={3} item xs={12} >

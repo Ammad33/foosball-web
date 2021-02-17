@@ -29,6 +29,7 @@ const BrandCampaignDetail = ({
 	selectedMembers,
 	team,
 	setAll,
+	campaignId,
 }) => {
 	const [step, setStep] = useState(1);
 	const [openDrawer, setOpenDrawer] = useState(false);
@@ -131,6 +132,7 @@ const BrandCampaignDetail = ({
 						data={data}
 						name={data && data.name}
 						handleDelete={handleDelete}
+						campaignId = {campaignId}
 					/>
 				);
 			case 'LOST':
@@ -150,6 +152,7 @@ const BrandCampaignDetail = ({
 						data={data}
 						name={data && data.name}
 						handleDelete={handleDelete}
+						campaignId = {campaignId}
 					/>
 				);
 			case 'DECLINED':

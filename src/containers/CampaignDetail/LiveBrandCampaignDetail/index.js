@@ -62,7 +62,8 @@ const LiveBrandCampaignDetail = ({
   };
   const handleReasonDetail = (val) => {
     setReasonDetail(val);
-  };
+	};
+	
 
   return (
     <>
@@ -114,7 +115,7 @@ const LiveBrandCampaignDetail = ({
         </div>
         <div className={styles.campaignBasicInfo}>
           <div className={styles.campaignStatus}>
-            <div className={styles.micrositeContainer}>
+            <div className={styles.micrositeContainer} onClick={() => navigator.clipboard.writeText(data && data.micrositeUrl && data.micrositeUrl)}>
               <div className={styles.linkIconAndName}>
                 <Link />
                 <span>Copy Microsite Link</span>
@@ -220,6 +221,7 @@ const LiveBrandCampaignDetail = ({
             <Negotiables data={data} />
             <Contract />
           </div>
+					<div style={{textDecoration: "underline"}}> {data && data.micrositeUrl && data.micrositeUrl}</div>
         </div>
       </div>
     </>
