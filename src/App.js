@@ -39,6 +39,7 @@ import signUpImage from './assets/signup.png';
 import resetPasswordImage from './assets/resetpassword.png';
 import loginImage from './assets/login.png';
 import forgotpassword from './assets/forgotpassword.png';
+import CreateMicrosite from './containers/CampaignDetail/CreateMicrosite';
 
 
 const App = () => {
@@ -59,6 +60,11 @@ const App = () => {
           <ProtectedRoute exact path='/campaignDetail/:campaignId'>
             <Layout>
               <CampaignDetail />
+            </Layout>
+          </ProtectedRoute>
+          <ProtectedRoute exact path='/campaignDetail/createmicrosite/:campaignId'>
+            <Layout>
+              <CreateMicrosite />
             </Layout>
           </ProtectedRoute>
           <ProtectedRoute exact path='/collections/:id'>

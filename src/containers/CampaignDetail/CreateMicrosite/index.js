@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
 import styles from './CreateMicrosite.module.scss';
 import { ChevronRight, ChevronLeft } from 'react-feather';
 import MicrositeTemplate from '../../../assets/Microstie Template 1.png';
@@ -12,15 +12,13 @@ import { API } from 'aws-amplify';
 import { RootContext } from '../../../context/RootContext';
 import Tooltip from '@material-ui/core/Tooltip';
 
-const CreateMicrosite = ({
-	name,
-	campaignId,
-	internalState,
-	microsite,
-	getCampaign,
-	brand,
-	influencer
-}) => {
+const CreateMicrosite = ({ location }) => {
+
+	let campaignId = 'campaign' + location.hash;
+
+	const [data, setData] = useState(null);
+	const [errorMessage, setErrorMessage] = useState('');
+
 
 
 	const history = useHistory();
@@ -28,7 +26,7 @@ const CreateMicrosite = ({
 	const [confirmTemplate, setConfirmTemplate] = useState(false);
 	const [changeTemplate, setChangeTemplate] = useState(false);
 	const [temprorayTemplate, setTemprorayTemplate] = useState('')
-	const { brandId, templated, setTemplate, setCreateMicrositeFlag } = useContext(RootContext);
+	const { brandId, templated, setTemplate, setCreateMicrositeFlag, setShowLoader, brandType } = useContext(RootContext);
 	const [count, setCount] = useState(0);
 	// const [microsite1, setMiscroSite1] = useState(microsite);
 
@@ -50,16 +48,20 @@ const CreateMicrosite = ({
 	}
 
 	useEffect(() => {
+		getCampaign();
+	}, [])
+
+	useEffect(() => {
 
 		window.scrollTo({ top: 0, behavior: 'smooth' });
-		if (microsite !== undefined && internalState !== 'MICROSITE_APPROVAL_REQUESTED') {
-			setTemplate(microsite && microsite != '' ? (microsite.template) : (""));
+		if (data && data !== null && data.microsite !== undefined && data.internalState !== 'MICROSITE_APPROVAL_REQUESTED') {
+			setTemplate(data && data !== null && data.microsite && data.microsite != '' && data.microsite !== null ? (data.microsite.template) : (""));
 		}
-		if (internalState === 'MICROSITE_APPROVAL_REQUESTED') {
+		if (data && data !== null && data.internalState === 'MICROSITE_APPROVAL_REQUESTED') {
 			setTemplate('');
 			setCreateMicrositeFlag(false);
 		}
-	}, []);
+	}, [data]);
 
 	const handleTemplateClick = (index) => {
 		if (saveBack !== '' && saveBack !== index) {
@@ -76,7 +78,372 @@ const CreateMicrosite = ({
 		}
 	}
 
-	console.log(microsite);
+	console.log(data && data !== null && data.microsite);
+
+	const getCampaign = async () => {
+
+		setShowLoader(true);
+		try {
+			const campaign = await API.graphql({
+				query:
+					brandType.toLowerCase() === 'influencer'
+						? `{
+          influencerCampaign(influencerId: "${brandId}", id: "${campaignId}") {
+            id
+						name
+						status
+            startDate
+            endDate
+						invitationMessage
+						invitedAt
+            internalState
+            paymentSchedule
+            products {
+              collection {
+                id
+                name
+              }
+              products {
+                product {
+                  id
+                  name
+                  priceRange {
+                    max {
+                      amount
+                      currency
+                    }
+                    min {
+                      amount
+                      currency
+                    }
+                  }
+                  images {
+                    images {
+                      altText
+                      src
+                    }
+                  }
+                  estimatedQty
+                }
+              }
+            }     
+						discount {
+							... on PercentageDiscount {
+								__typename
+								percentage
+							}
+							... on FlatDiscount {
+								__typename
+								amount {
+									amount
+                }
+                minimum {
+                  amount
+                  currency
+                }
+							}
+						}
+            compensation {
+              ... on CompRevenueShare {
+                __typename
+                percentage
+              }
+              ... on CompCashPerPost {
+                __typename
+                amount {
+                  amount
+                  currency
+                }
+              }
+              ... on CompCashPerMonthlyDeliverable {
+                __typename
+                amount {
+                  amount
+                  currency
+                }
+              }
+              ... on CompGiftCard {
+                __typename
+                amount {
+                  amount
+                  currency
+                }
+                code
+              }
+            }
+            
+            budget {
+              amount
+              currency
+            }
+            targetGrossSales {
+              amount
+              currency
+            }
+
+  
+            brandTeam {
+              id
+              imageUrl
+              fullName
+              email
+            }
+            brand {
+              imageUrl
+              id
+              name
+            }
+            negotiables {
+              campaign_duration
+              monthly_retainer_fee
+              post_fee
+              post_frequency
+              revenue_share
+              story_fee
+            }
+            deliverables {
+              brandTag
+              deadlineDate
+              postType
+              description
+              frameContentType
+              framesRequired
+              frequency
+              hashTag
+              id
+              platform
+              posts
+            }
+            
+            influencer {
+              imageUrl
+              name
+              id
+            }
+            events {
+              description
+              time
+						}
+						microsite {
+							appHeader {
+								shopCtaColor
+								titleBgColor
+								imageLarge
+								image
+								image1
+								image2
+								image3
+							}
+							footer {
+								bgColor
+							}
+							hero {
+								imageLarge
+							}
+							influencerQuote {
+								bgColor
+								textColor
+								quoteIconColor
+								quoteContent
+							}
+							productBuyBgColor
+							productBuyTextColor
+							shopBelow {
+								bgColor
+							}
+							template
+						}
+          }
+         
+      }`
+						: `{
+          campaign(brandId: "${brandId}", id: "${campaignId}") {
+            id
+						name
+						status
+            startDate
+            endDate
+						invitationMessage
+            invitedAt
+						paymentSchedule
+						internalState
+						micrositeUrl
+            products {
+              collection {
+                id
+                name
+              }
+              products {
+                product {
+                  id
+                  name
+                  priceRange {
+                    max {
+                      amount
+                      currency
+                    }
+                    min {
+                      amount
+                      currency
+                    }
+                  }
+                  images {
+                    images {
+                      altText
+                      src
+                    }
+                  }
+                  estimatedQty
+                }
+              }
+            }       
+						discount {
+							... on PercentageDiscount {
+								__typename
+								percentage
+							}
+							... on FlatDiscount {
+								__typename
+								amount {
+									amount
+                }
+                minimum {
+                  amount
+                  currency
+                }
+							}
+						}
+            compensation {
+              ... on CompRevenueShare {
+                __typename
+                percentage
+              }
+              ... on CompCashPerPost {
+                __typename
+                amount {
+                  amount
+                  currency
+                }
+              }
+              ... on CompCashPerMonthlyDeliverable {
+                __typename
+                amount {
+                  amount
+                  currency
+                }
+              }
+              ... on CompGiftCard {
+                __typename
+                amount {
+                  amount
+                  currency
+                }
+                code
+              }
+            }
+            
+            budget {
+              amount
+              currency
+            }
+            targetGrossSales {
+              amount
+              currency
+            }
+
+            
+            brandTeam {
+              id
+              imageUrl
+              fullName
+              email
+            }
+            brand {
+              imageUrl
+              id
+              name
+            }
+            negotiables {
+              campaign_duration
+              monthly_retainer_fee
+              post_fee
+              post_frequency
+              revenue_share
+              story_fee
+            }
+            deliverables {
+              brandTag
+              deadlineDate
+              postType
+              description
+              frameContentType
+              framesRequired
+              frequency
+              hashTag
+              id
+              platform
+              posts
+            }
+            influencer {
+              imageUrl
+              name
+              id
+            }
+            events {
+              description
+              time
+						}
+						microsite {
+							appHeader {
+								shopCtaColor
+								titleBgColor
+							}
+							footer {
+								bgColor
+							}
+							influencerQuote {
+								bgColor
+								textColor
+								quoteIconColor
+							}
+							productBuyBgColor
+							productBuyTextColor
+							shopBelow {
+								bgColor
+							}
+							template
+						}
+          } 
+      }`,
+			});
+			if (brandType.toLowerCase() == 'influencer') {
+				setShowLoader(false);
+				setData(campaign.data.influencerCampaign);
+			}
+			else {
+				setShowLoader(false);
+				setData(campaign.data.campaign);
+				setErrorMessage('');
+			}
+		} catch (e) {
+
+			let message = errorMessage;
+
+			if (e.errors && e.errors.length > 0)
+				e.errors.forEach((m) => {
+					message = message + m.message;
+				});
+
+			setErrorMessage(message);
+
+		}
+	};
+
+
+	const handleCampaginDetail = (id) => {
+		history.push(`/campaignDetail/${id}`, { campaignId: id });
+	};
+
 
 	return (
 		<>
@@ -85,80 +452,83 @@ const CreateMicrosite = ({
 				onCancel={handleCancel}
 				onConfirm={handleOk}
 			/>
+			<div className={styles.detailContainer}>
+				<div className={styles.mainContainer}>
+					<div className={styles.crumsContainer}>
+						<span onClick={() => history.push('/campaigns')}>Campaigns</span>
+						<ChevronRight />
+						<Tooltip title={data && data !== null && data.name} >
+							<span onClick={() => { handleCampaginDetail(campaignId); setTemplate('') }}>
+								{data && data !== null && data.name.length > 15 ? (`${data.name.substring(0, 15)}...`) : data && data !== null && data.name}
+							</span>
+						</Tooltip>
+						<ChevronRight />
+						<span>Review and Sign</span>
+						<ChevronRight />
+						<span>Create Microsite</span>
+					</div>
+					{
+						templated !== '' ? <>
+							<div onClick={() => {
+								const newValue = templated;
+								setSaveBack(newValue);
+								setTemplate('');
+								// setConfirmTemplate(true);
+							}
+							} className={styles.backTemplate}>
+								<ChevronLeft />
+								<span>Back to templates</span>
+							</div>
 
-			<div className={styles.mainContainer}>
-				<div className={styles.crumsContainer}>
-					<span onClick={() => history.push('/campaigns')}>Campaigns</span>
-					<ChevronRight />
-					<Tooltip title={name} >
-						<span onClick={() => { setCreateMicrositeFlag(false); setTemplate('') }}>
-							{name.length > 15 ? (`${name.substring(0, 15)}...`) : name}
-						</span>
-					</Tooltip>
-					<ChevronRight />
-					<span>Review and Sign</span>
-					<ChevronRight />
-					<span>Create Microsite</span>
-				</div>
-				{
-					templated !== '' ? <>
-						<div onClick={() => {
-							const newValue = templated;
-							setSaveBack(newValue);
-							setTemplate('');
-							// setConfirmTemplate(true);
-						}
-						} className={styles.backTemplate}>
-							<ChevronLeft />
-							<span>Back to templates</span>
-						</div>
+							<Template
+								campaignId={campaignId}
+								internalState={data && data !== null && data.internalState}
+								template={templated}
+								microsite={data && data !== null && data.microsite ? data.microsite : ''}
+								influencer={data && data !== null && data.influencer}
+								brand={data && data !== null && data.brand}
+								changeTemplate={changeTemplate}
+								getCampaign={getCampaign}
+								handleCampaginDetail={handleCampaginDetail}
 
-						<Template
-							campaignId={campaignId}
-							internalState={internalState}
-							template={templated}
-							microsite={microsite}
-							influencer={influencer}
-							brand={brand}
-							changeTemplate={changeTemplate}
-							getCampaign={getCampaign}
-						/>
-					</> :
-						<div className={styles.contentContainer}>
-							<div className={styles.micrositeContainer}>
-								<p> Choose a microsite template below and then customize it.</p>
-								<div className={styles.templateContainer}>
-									<div className={styles.template}>
-										<div onClick={() => handleTemplateClick('ONE')}>
-											<img src={MicrositeTemplate} />
+							/>
+						</> :
+							<div className={styles.contentContainer}>
+								<div className={styles.micrositeContainer}>
+									<p> Choose a microsite template below and then customize it.</p>
+									<div className={styles.templateContainer}>
+										<div className={styles.template}>
+											<div onClick={() => handleTemplateClick('ONE')}>
+												<img src={MicrositeTemplate} />
+											</div>
+											<h6>Whitney</h6>
 										</div>
-										<h6>Whitney</h6>
-									</div>
-									<div className={styles.template}>
-										<div onClick={() => handleTemplateClick('TWO')}>
-											<img src={EverettTemplateImage} />
+										<div className={styles.template}>
+											<div onClick={() => handleTemplateClick('TWO')}>
+												<img src={EverettTemplateImage} />
+											</div>
+											<h6>Everett</h6>
 										</div>
-										<h6>Everett</h6>
-									</div>
-									<div className={styles.template}>
-										<div onClick={() => handleTemplateClick('FOUR')}>
-											<img src={LemmonTemplateImage} />
+										<div className={styles.template}>
+											<div onClick={() => handleTemplateClick('FOUR')}>
+												<img src={LemmonTemplateImage} />
+											</div>
+											<h6>Lemmon</h6>
 										</div>
-										<h6>Lemmon</h6>
-									</div>
-									<div className={styles.template}>
-										<div onClick={() => handleTemplateClick('THREE')}>
-											<img src={ArvonTemplateImage} />
+										<div className={styles.template}>
+											<div onClick={() => handleTemplateClick('THREE')}>
+												<img src={ArvonTemplateImage} />
+											</div>
+											<h6>Arvon</h6>
 										</div>
-										<h6>Arvon</h6>
 									</div>
 								</div>
 							</div>
-						</div>
-				}
+					}
+				</div>
 			</div>
 		</>
 	);
 };
 
-export default CreateMicrosite;
+export default withRouter(CreateMicrosite);

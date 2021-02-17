@@ -1,7 +1,11 @@
 import React from 'react';
 import styles from './PendingCard.module.scss';
+import { useHistory } from 'react-router-dom';
 
 const PendingCard = ({ handlecreateMircositeFlag, handleSignContractFlag, data }) => {
+
+	const history = useHistory();
+
 	const handleCreateMicroSite = () => {
 		handlecreateMircositeFlag();
 	}
@@ -35,7 +39,7 @@ const PendingCard = ({ handlecreateMircositeFlag, handleSignContractFlag, data }
 									<p className={styles.firstp}>Finalize the microsite and send it to brand for approval.</p>
 									<p className={styles.secondp}></p>
 									<div className={styles.buttonContainer}>
-										<button onClick={() => handleCreateMicroSite()} style={{ marginTop: '30px' }}>Edit Microsite</button>
+										<button onClick={() => history.push(`/campaignDetail/createmicrosite/${data.id}`)} style={{ marginTop: '30px' }}>Edit Microsite</button>
 									</div>
 								</>
 							) : (
@@ -44,7 +48,7 @@ const PendingCard = ({ handlecreateMircositeFlag, handleSignContractFlag, data }
 										<p className={styles.firstp}>Customize the site your followers will shop on throughout this</p>
 										<p className={styles.secondp}>campaign.</p>
 										<div className={styles.buttonContainer}>
-											<button onClick={() => handleCreateMicroSite()}>Create Microsite</button>
+											<button onClick={() => history.push(`/campaignDetail/createmicrosite/${data.id}`)}>Create Microsite</button>
 										</div>
 									</>
 								)
@@ -52,7 +56,7 @@ const PendingCard = ({ handlecreateMircositeFlag, handleSignContractFlag, data }
 					</div>
 				)
 			}
-		</div>
+		</div >
 
 	)
 };
