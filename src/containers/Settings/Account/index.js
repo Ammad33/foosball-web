@@ -86,7 +86,6 @@ const Account = ({
       );
     }
   };
-  debugger;
   useEffect(() => {
     setPath(null);
     if (imgUrl != null){
