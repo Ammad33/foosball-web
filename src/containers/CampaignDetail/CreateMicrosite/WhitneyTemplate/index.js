@@ -244,7 +244,7 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			footer: {
 				bgColor: footerColor
 			},
-			influencerDisplayName: "felice",
+			influencerDisplayName: influencer.name,
 			influencerId: `${brandId}`,
 			influencerQuote: {
 				quoteAuthor: influencer.name,
