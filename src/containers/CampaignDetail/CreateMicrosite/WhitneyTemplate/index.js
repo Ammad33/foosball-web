@@ -252,6 +252,7 @@ const Templates = ({ campaignId, internalState, template, microsite,
 				quoteIconColor: quotesColor,
 				bgColor: quotesBGColor
 			},
+			influencerTitleName: influencer.name,
 			mainHeader: {
 				dark: false
 			},
