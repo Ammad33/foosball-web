@@ -16,7 +16,7 @@
   }
 
   .accountDeletionContainer {
-    margin-bottom: 110px;
+    margin-bottom: 100px;
 
     .deleteTitle {
       font-size: 18px;
@@ -30,7 +30,7 @@
   }
 
   .saveContainer {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     text-align: right;
 
     .inActiveButton {
@@ -54,6 +54,12 @@
       border: none;
     }
   }
+}
+.errorMessage {
+	color: red;
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 10px;
 }
 
 .inputendornment {

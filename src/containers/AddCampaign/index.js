@@ -348,8 +348,11 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         campaign.paymentSchedule && campaign.paymentSchedule !== null
           ? campaign.paymentSchedule
           : ''
-      );
-      if (moment(startDate).isAfter('01/01/1970')  && moment(endDate).isAfter('01/01/1970')) {
+			);
+			debugger;
+			let sDate = moment(startDate).format('MM/DD/YYYY');
+			let eDate = moment(endDate).format('MM/DD/YYYY');
+      if (moment(sDate).isAfter('01/01/1970')  && moment(eDate).isAfter('01/01/1970')) {
         setStartDate(moment(startDate).format('MM/DD/YYYY'));
         setEndDate(moment(endDate).format('MM/DD/YYYY'));
         setStartTime(moment(startDate).format('hh:mm A'));

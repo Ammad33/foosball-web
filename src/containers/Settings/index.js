@@ -26,6 +26,8 @@ const Setting = () => {
 	const [teamAdmin, setTeamAdmin] = useState(false);
 	const [imageUrl, setImageUrl] = useState('');
 	const [imageFile, setImageFile] = useState(null);
+	const [errorMessage, setErrorMessage] = useState('');
+
 
 	const {
 		brandType,
@@ -303,6 +305,14 @@ const Setting = () => {
 		}
 		catch (e) {
 			console.log("Error uploading Image", e);
+			let message = '';
+
+			if (e.errors && e.errors.length > 0)
+				e.errors.forEach((m) => {
+					message = message + m.message;
+				});
+
+			setErrorMessage(message);
 		}
 	}
 	const postImage = (url) => {
@@ -385,6 +395,14 @@ const Setting = () => {
 			}
 			catch (e) {
 				console.log("ERROR", e)
+				let message = '';
+
+				if (e.errors && e.errors.length > 0)
+					e.errors.forEach((m) => {
+						message = message + m.message;
+					});
+
+				setErrorMessage(message);
 			}
 		}
 		try {
@@ -417,7 +435,17 @@ const Setting = () => {
 				showToastr: true,
 			});
 			setUpdateMeData(true);
-		} catch (e) { }
+		} catch (e) {
+			console.log('Campaign Invite error ', e);
+			let message = '';
+
+			if (e.errors && e.errors.length > 0)
+				e.errors.forEach((m) => {
+					message = message + m.message;
+				});
+
+			setErrorMessage(message);
+		}
 	};
 
 	const getContents = () => {
@@ -449,6 +477,7 @@ const Setting = () => {
 						emailVerfied={emailVerified}
 						teamAdmin={teamAdmin}
 						typeName={brandType}
+						errorMessage = {errorMessage}
 					/>
 				);
 			case 'notification':

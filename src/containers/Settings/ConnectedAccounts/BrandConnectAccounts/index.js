@@ -15,7 +15,9 @@ const BrandConnectAccounts = () => {
   const [storeAccessToken, setStoreAccessToken] = useState('');
   const [storeApiKey, setStoreApiKey] = useState('');
   const [storeSharedKey, setStoreSharedKey] = useState('');
-  const { brandId } = useContext(RootContext);
+	const { brandId } = useContext(RootContext);
+	const [errorMessage, setErrorMessage] = useState('');
+
 
   useEffect(() => {
     checkBrandConnection();
@@ -87,7 +89,17 @@ const BrandConnectAccounts = () => {
           setStoreSaved(false);
         }
       }
-    } catch (e) {}
+    } catch (e) {
+			console.log("ERROR", e)
+			let message = '';
+
+			if (e.errors && e.errors.length > 0)
+				e.errors.forEach((m) => {
+					message = message + m.message;
+				});
+
+			setErrorMessage(message);
+		}
   };
 
   return (
@@ -183,6 +195,11 @@ const BrandConnectAccounts = () => {
             ''
           )}
         </div>
+				{errorMessage !== '' && (
+					<div style={{color: 'red'}}>
+						{errorMessage}
+					</div>
+				)}
       </div>
     </div>
   );
