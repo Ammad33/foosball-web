@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, Select, InputAdornment } from '@material-ui/core';
 import TextField from '../../../../components/TextField';
 import FormControl from '@material-ui/core/FormControl';
@@ -34,24 +34,24 @@ const CreateCompensation = ({
 	handleGiftCode,
 	products
 }) => {
-/**SVG */
-const Chevron = ({ Check,MenuId, ...other}) => {
-	const onClick = () => {
-		if (Check==="open") {
-			setOpen(!open)			  
-		} else if(Check==="open1"){
-			setOpen1(!open1)
+	/**SVG */
+	const Chevron = ({ Check, MenuId, ...other }) => {
+		const onClick = () => {
+			if (Check === "open") {
+				setOpen(!open)
+			} else if (Check === "open1") {
+				setOpen1(!open1)
+			}
+
 		}
-		
-	}
-	return (
-		<span onClick={onClick} {...other} className={styles.dropDownCustomizeSvg}>
-			<SVG src={require('../../../../assets/chevron-down.svg')} />
-		</span>
-	);
-};
-const [open,setOpen] = useState(false)
-const [open1,setOpen1] = useState(false)
+		return (
+			<span onClick={onClick} {...other} className={styles.dropDownCustomizeSvg}>
+				<SVG src={require('../../../../assets/chevron-down.svg')} />
+			</span>
+		);
+	};
+	const [open, setOpen] = useState(false)
+	const [open1, setOpen1] = useState(false)
 
 	return (
 		<Grid container spacing={3}>
@@ -69,7 +69,7 @@ const [open1,setOpen1] = useState(false)
 				)}
 			</Grid>
 			<Grid item xs={12} className={styles.marginbottomSelect}>
-				<FormControl fullWidth variant='outlined-123'>
+				<FormControl fullWidth variant='outlined'>
 					<TextField
 						id='Compensation Type'
 						fullWidth
@@ -87,9 +87,9 @@ const [open1,setOpen1] = useState(false)
 								handleAnother();
 							}
 						}}
-						MenuProps={{ variant: 'menu' }}
+						menuprops={{ variant: 'menu' }}
 						select
-						SelectProps={{ IconComponent: () => <Chevron MenuId="open" Check="open"/>, open: open , onClose: () => {setOpen(false)}, onOpen: () => {setOpen(true)}}}
+						SelectProps={{ IconComponent: () => <Chevron MenuId="open" Check="open" />, open: open, onClose: () => { setOpen(false) }, onOpen: () => { setOpen(true) } }}
 					>
 						<MenuItem value='' disabled>
 							Compensation Type
@@ -128,7 +128,7 @@ const [open1,setOpen1] = useState(false)
 				<Grid item xs={12} sm={12} md={12}>
 					<FormControl fullWidth variant='outlined'>
 						<TextField
-							labelId='demo-simple-select-outlined-label'
+							labelid='demo-simple-select-outlined-label'
 							id='revenue'
 							label='Enter Revenue Share'
 							fullWidth
@@ -140,7 +140,7 @@ const [open1,setOpen1] = useState(false)
 							}
 							MenuProps={{ variant: 'menu' }}
 							select
-							SelectProps={{ IconComponent: () => <Chevron MenuId="open1" Check="open1"/>, open: open1 , onClose: () => {setOpen1(false)}, onOpen: () => {setOpen1(true)}}}
+							SelectProps={{ IconComponent: () => <Chevron MenuId="open1" Check="open1" />, open: open1, onClose: () => { setOpen1(false) }, onOpen: () => { setOpen1(true) } }}
 						>
 							<MenuItem value='' disabled>
 								Select revenue share percentage

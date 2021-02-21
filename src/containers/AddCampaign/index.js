@@ -54,14 +54,14 @@ const CheckCircleIconSvg = (prop) => {
       <g
         id='Page'
         stroke='none'
-        stroke-width='1'
+        strokeWidth='1'
         fill='none'
-        fill-rule='evenodd'
+        fillRule='evenodd'
       >
         <g
           id='Brand---Create-a-new-Campaign---Step-5-Deliverables-–-Checked'
           transform='translate(-845.000000, -612.000000)'
-          fill-rule='nonzero'
+          fillRule='nonzero'
         >
           <g id='Wizard' transform='translate(845.000000, 130.000000)'>
             <g id='Check' transform='translate(0.000000, 482.000000)'>
@@ -78,9 +78,9 @@ const CheckCircleIconSvg = (prop) => {
                 d='M22.0180859,11.518 L13.0544019,20.4816841 L8.98,16.4072822'
                 id='check'
                 stroke='#7B5CD9'
-                stroke-width='2'
-                stroke-linecap='round'
-                stroke-linejoin='round'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
               ></path>
             </g>
           </g>
@@ -348,11 +348,11 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         campaign.paymentSchedule && campaign.paymentSchedule !== null
           ? campaign.paymentSchedule
           : ''
-			);
-			debugger;
-			let sDate = moment(startDate).format('MM/DD/YYYY');
-			let eDate = moment(endDate).format('MM/DD/YYYY');
-      if (moment(sDate).isAfter('01/01/1970')  && moment(eDate).isAfter('01/01/1970')) {
+      );
+      debugger;
+      let sDate = moment(startDate).format('MM/DD/YYYY');
+      let eDate = moment(endDate).format('MM/DD/YYYY');
+      if (moment(sDate).isAfter('01/01/1970') && moment(eDate).isAfter('01/01/1970')) {
         setStartDate(moment(startDate).format('MM/DD/YYYY'));
         setEndDate(moment(endDate).format('MM/DD/YYYY'));
         setStartTime(moment(startDate).format('hh:mm A'));
@@ -1879,7 +1879,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         );
       }
     } catch (err) {
-      console.log(err);
       if (
         err &&
         err.data &&
@@ -2448,7 +2447,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
               {steps.map((label, index) => (
                 <>
                   {index > 0 ? (
-                    <div key={index} className={styles.stepItem}>
+                    <div key={Math.random()} className={styles.stepItem}>
                       {(activeStep === index && activeStepValue[index + 1] !== true) ? (
                         <div className={styles.active}></div>
                       ) :
@@ -2477,7 +2476,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                       ''
                     )}
                   {index > 0 ? (
-                    <div key={index} className={styles.stepItem}>
+                    <div key={Math.random()} className={styles.stepItem}>
                       {(activeStep > index || (activeStepValue[index + 1] === true && index !== 9)) ? (
                         <div className={styles.activeBar} />
                       ) : (

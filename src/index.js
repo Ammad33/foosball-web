@@ -45,11 +45,10 @@ Amplify.configure({
 });
 
 ReactDOM.render(
-  <React.StrictMode>
-    <MuiTheme>
-      <App />
-    </MuiTheme>
-  </React.StrictMode>,
+  <MuiTheme>
+    <App />
+  </MuiTheme>
+  ,
   document.getElementById('root')
 );
 

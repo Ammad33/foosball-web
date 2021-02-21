@@ -162,7 +162,7 @@ const Header = (meData) => {
           </Badge>
         </div>
         <div>
-          <Avatar onClick={handleClick} src={meData && meData !== null && meData.meData !== null && `${meData.meData.imageUrl}?${new Date().getTime()}`} />
+          <Avatar onClick={handleClick} src={meData && meData !== null && meData.meData !== null ? `${meData.meData.imageUrl}?${new Date().getTime()}` : ''} />
         </div>
       </div>
     </>

@@ -96,13 +96,13 @@ const AddCampaignDetails = ({
 	dummyStartEndTime,
 }) => {
 
-	const Chevron = ({ Check,MenuId, ...other}) => {
+	const Chevron = ({ Check, MenuId, ...other }) => {
 		const onClick = () => {
-			if (Check==="open") {
-				setOpen(!open)			  
-			}else if(Check==="open1"){
+			if (Check === "open") {
+				setOpen(!open)
+			} else if (Check === "open1") {
 				setOpen1(!open1)
-			} 
+			}
 		}
 		return (
 			<span onClick={onClick} {...other} className={styles.dropDownCustomizeSvg}>
@@ -111,19 +111,19 @@ const AddCampaignDetails = ({
 		);
 	};
 
- 
-	useEffect(()=> {
-		if (moment(startDate).isSameOrBefore("01/01/1970")){
+
+	useEffect(() => {
+		if (moment(startDate).isSameOrBefore("01/01/1970")) {
 			handleDefaultDate(startDate);
 		}
-		if (startDate === "" || moment(startDate).isSameOrBefore("01/01/1970")){
+		if (startDate === "" || moment(startDate).isSameOrBefore("01/01/1970")) {
 			handleDefaultTime();
 		}
 
 	}, [])
-	
-	const handleCalenderOpen = (value,startDate) => {
-		handleStartDateOpen(true) 
+
+	const handleCalenderOpen = (value, startDate) => {
+		handleStartDateOpen(true)
 	}
 
 
@@ -177,7 +177,7 @@ const AddCampaignDetails = ({
 				<TextField
 					id='outlined-basic'
 					fullWidth
-					value = {startDate}
+					value={startDate}
 					value={dummyStartDate ? ('') : (startDate)}
 					onChange={(e) => handleStartDate(e.target.value)}
 					label='Start Date'
@@ -196,7 +196,7 @@ const AddCampaignDetails = ({
 					InputProps={{
 						endAdornment: (
 							<InputAdornment className={styles.inputendornment} position='end'>
-								<Calendar onClick={(value)=> handleCalenderOpen(value , startDate)} />
+								<Calendar onClick={(value) => handleCalenderOpen(value, startDate)} />
 							</InputAdornment>
 						),
 					}}
@@ -206,7 +206,7 @@ const AddCampaignDetails = ({
 						className={styles.displayNone}
 						open={startDateOpen}
 						value={startDate}
-						disablePast = {true}
+						disablePast={true}
 						onChange={handleStartDate}
 						orientation='landscape'
 						openTo='date'
@@ -216,7 +216,7 @@ const AddCampaignDetails = ({
 							console.log('Triggered because this input lost focus');
 						}}
 						onClose={() => handleStartDateOpen(false)}
-						
+
 					/>
 				</MuiPickersUtilsProvider>
 			</Grid>
@@ -252,7 +252,7 @@ const AddCampaignDetails = ({
 						className={styles.displayNone}
 						open={endDateOpen}
 						value={endDate}
-						disablePast = {true}
+						disablePast={true}
 						onClose={() => handleEndDateOpen(false)}
 						onChange={handleEndDate}
 						orientation='landscape'
@@ -265,10 +265,10 @@ const AddCampaignDetails = ({
 					id='outlined-basic'
 					fullWidth
 					label='Start Time'
-					defaultTime={startTime}
+					defaulttime={startTime}
 					className={mainStyles.placeholderColor}
 					ampm='true'
-					value={dummyStartEndTime ? (''): (startTime)}
+					value={dummyStartEndTime ? ('') : (startTime)}
 					onChange={(e) => handleStartTime(e.target.value)}
 					variant='outlined'
 					helperText={
@@ -306,7 +306,7 @@ const AddCampaignDetails = ({
 					fullWidth
 					label='End Time'
 					className={mainStyles.placeholderColor}
-					value={dummyStartEndTime? (''): (endTime)}
+					value={dummyStartEndTime ? ('') : (endTime)}
 					onChange={(e) => handleEndTime(e.target.value)}
 					variant='outlined'
 					helperText={
@@ -349,9 +349,9 @@ const AddCampaignDetails = ({
 						value={discountType}
 						className={mainStyles.placeholderColor}
 						onChange={(e) => handleDiscountType(e.target.value)}
-						MenuProps={{ variant: 'menu' }}
+						menuprops={{ variant: 'menu' }}
 						select
-						SelectProps={{ IconComponent: () => <Chevron MenuId="menuDiscountType" Check="open"/>, open: open , onClose: () => {setOpen(false)}, onOpen: () => {setOpen(true)}}}
+						SelectProps={{ IconComponent: () => <Chevron MenuId="menuDiscountType" Check="open" />, open: open, onClose: () => { setOpen(false) }, onOpen: () => { setOpen(true) } }}
 					>
 						<MenuItem value='Discount Type' disabled>
 							Discount Type
@@ -365,7 +365,7 @@ const AddCampaignDetails = ({
 				<Grid item xs={12} sm={12} md={6}>
 					<FormControl fullWidth variant='outlined'>
 						<TextField
-							labelId='demo-simple-select-outlined-label'
+							labelid='demo-simple-select-outlined-label'
 							id='outlined-basic'
 							label='Discount Value'
 							fullWidth
@@ -373,10 +373,10 @@ const AddCampaignDetails = ({
 							className={mainStyles.placeholderColor}
 							value={discount}
 							onChange={(e) => handleDiscount(e.target.value)}
-							MenuProps={{ variant: 'menu' }}
+							menuprops={{ variant: 'menu' }}
 							select
-							SelectProps={{ IconComponent: () => <Chevron MenuId="menuDiscountValue" Check="open1"/>, open: open1 , onClose: () => {setOpen1(false)}, onOpen: () => {setOpen1(true)}}}
-							>
+							SelectProps={{ IconComponent: () => <Chevron MenuId="menuDiscountValue" Check="open1" />, open: open1, onClose: () => { setOpen1(false) }, onOpen: () => { setOpen1(true) } }}
+						>
 							<MenuItem value='' disabled>
 								Discount Percentage
 						</MenuItem>

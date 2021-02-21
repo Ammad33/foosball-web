@@ -112,7 +112,7 @@ const InfluencerConnectAccounts = () => {
       <div className={styles.influencerSocialAccountsContainer}>
         {socialAccounts.map((account) => {
           return (
-            <div className={styles.influencerSocialAccountItem} style={{marginTop: "25px"}}>
+            <div className={styles.influencerSocialAccountItem} style={{ marginTop: "25px" }}>
               <p className={styles.title}>{account.name}</p>
               <div className={styles.contentContainer}>
                 <div>{account.svg}</div>
@@ -134,8 +134,8 @@ const InfluencerConnectAccounts = () => {
                             className={styles.inputendornmentCheck}
                           />
                         ) : (
-                          ''
-                        )}
+                            ''
+                          )}
                       </InputAdornment>
                     ),
                   }}

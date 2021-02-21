@@ -6,7 +6,7 @@ import { RootContext } from '../../context/RootContext';
 import { Auth, Hub } from 'aws-amplify';
 import mainStyles from './../../index.module.scss';
 import SVG from 'react-inlinesvg';
-import { useHistory, Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import FacebookSVG from '../../assets/facebook-logo-2019-thumb.png';
 import GoogleSVG from '../../assets/google-logo-icon-png-transparent-background-osteopathy-16.png';
 import AppleSVG from '../../assets/apple-logo-png-index-content-uploads-10.png';
@@ -19,6 +19,7 @@ const EyeSVG = () => {
 };
 
 const Login = () => {
+
   /*variables of this component*/
   const history = useHistory();
   const [passwordShown, setPasswordShown] = useState(false);
@@ -29,7 +30,6 @@ const Login = () => {
   /*accessing Root context variables*/
   const {
     setShowLoader,
-    currentUser,
     setCurrentUser,
     logoutMessage,
     setLogoutMessage,
@@ -44,13 +44,15 @@ const Login = () => {
           getMeData();
           break;
         case 'signOut':
-          console.log('signout hub');
+          return;
           break;
         case 'customOAuthState':
-          console.log('custom state');
+          return;
       }
     });
   }, []);
+
+
 
   /*togglePasswordVisiblity {function} get called when
   eye icon is clicked on signup page used to show,hide password*/
@@ -85,8 +87,9 @@ const Login = () => {
     setShowLoader(true);
     try {
       await Auth.federatedSignIn({ provider: 'Google' });
-    } catch (e) {}
+    } catch (e) { }
   };
+
 
   /*getMeData{function} to get the user data by calling API and storing the response  to meData variable*/
   const getMeData = async () => {
@@ -140,7 +143,7 @@ const Login = () => {
     <div className={styles.signinContainer}>
       <h1 className={styles.heading}>Login</h1>
       <TextField
-        id='outlined-basic'
+        id='outlined-basic-email'
         onChange={(e) => setEmail(e.target.value)}
         label='Email'
         onKeyDown={handleKeypress}
@@ -148,7 +151,7 @@ const Login = () => {
         type='text'
       />
       <TextField
-        id='outlined-basic'
+        id='outlined-basic-password'
         onChange={(e) => setPassword(e.target.value)}
         label='Password'
         variant='outlined'
@@ -164,11 +167,11 @@ const Login = () => {
                     <EyeSVG />{' '}
                   </div>
                 ) : (
-                  <div onClick={togglePasswordVisiblity}>
-                    {' '}
-                    <EyeOffSVG />{' '}
-                  </div>
-                )}
+                    <div onClick={togglePasswordVisiblity}>
+                      {' '}
+                      <EyeOffSVG />{' '}
+                    </div>
+                  )}
               </span>
             </InputAdornment>
           ),
@@ -221,7 +224,7 @@ const Login = () => {
               className={styles.logoDiv}
               src={GoogleSVG}
               alt='Google'
-              // onClick={googleSignin}
+            // onClick={googleSignin}
             />
           </div>
           <div>
