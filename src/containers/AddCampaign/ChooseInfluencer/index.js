@@ -31,12 +31,12 @@ const ChooseInfluencer = ({
   }, []);
 
   return (
-    <div className={styles.container} style={{paddingTop: "8px"}}> 
+    <div className={styles.container} style={{ paddingTop: "8px" }}>
       <Grid container spacing={2}>
-        {sortedInfluencers.map((influencer) => {
+        {sortedInfluencers.map((influencer, index1) => {
           const index =
             selectedInfluncer !== null &&
-            selectedInfluncer.name === influencer.name
+              selectedInfluncer.name === influencer.name
               ? true
               : false;
           return (
@@ -46,11 +46,13 @@ const ChooseInfluencer = ({
               xs={12}
               className={styles.gridItem}
               style={{ marginTop: 20 }}
-              key={influencer.socialTag}
+              // key={influencer.socialTag}
+              key={index1}
             >
               <InfluencerCard
                 influencer={influencer}
                 selected={index}
+                key={index}
                 toggleInfluncer={toggleInfluncer}
               />
             </Grid>
