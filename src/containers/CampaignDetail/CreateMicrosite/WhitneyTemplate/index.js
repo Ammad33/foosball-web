@@ -538,7 +538,19 @@ const Templates = ({ campaignId, internalState, template, microsite,
 		setFooterColor(color.hex);
 
 	}
-
+	const closePicker = () => {
+		console.log("close picker called")
+		setHeaderColorOpen(false)
+		setButtonColorOpen(false)
+		setQuotesColorOpen(false)
+		setQuotesBGColorOpen(false)
+		setShopColorOpen(false)
+		setFooterColorOpen(false)
+	}
+	const stopPropagation = (event) => {
+		event.stopPropagation();
+	}
+	
 	return (
 		<>
 			<Popover
@@ -575,7 +587,7 @@ const Templates = ({ campaignId, internalState, template, microsite,
 
 			</Popover>
 
-			<div>
+			<div onClick={closePicker}>
 				<div className={styles.mainContainer}>
 					<div className={styles.firstContainer}>
 						<h4>
@@ -587,7 +599,9 @@ const Templates = ({ campaignId, internalState, template, microsite,
 							open={headerColorOpen}
 							handlValue={(e) => setHeaderColor(e.target.value)}
 							onClick={() => setHeaderColorOpen(!headerColorOpen)}
-							onChangeComplete={handleHeaderColorComplete} />}
+							onChangeComplete={handleHeaderColorComplete}
+							stopPropagation={stopPropagation}
+							/>}
 						<ColorComponent
 							heading="Button color"
 							open={buttonColorOpen}
@@ -595,6 +609,8 @@ const Templates = ({ campaignId, internalState, template, microsite,
 							value={buttonColor}
 							handlValue={(e) => setButtonColor(e.target.value)}
 							onChangeComplete={handleButtonColorComplete}
+							stopPropagation={stopPropagation}
+
 						/>
 
 						{template !== 'FOUR' &&
@@ -682,6 +698,7 @@ const Templates = ({ campaignId, internalState, template, microsite,
 							handlValue={(e) => setQuotesColor(e.target.value)}
 							onChangeComplete={handleQuotesColorComplete}
 							bottom={true}
+							stopPropagation={stopPropagation}
 						/>}
 						{template !== 'ONE' && <ColorComponent
 							heading="Quotes background color"
@@ -691,6 +708,7 @@ const Templates = ({ campaignId, internalState, template, microsite,
 							handlValue={(e) => setQuotesBGColor(e.target.value)}
 							onChangeComplete={handleQuotesBGColorComplete}
 							bottom={true}
+							stopPropagation={stopPropagation}
 						/>}
 						<TextField
 							id='outlined-basic'
@@ -729,7 +747,7 @@ const Templates = ({ campaignId, internalState, template, microsite,
 							onClick={() => setShopColorOpen(!shopColorOpen)}
 							handlValue={(e) => setShopColor(e.target.value)}
 							onChangeComplete={handleShopColorComplete}
-
+							stopPropagation={stopPropagation}
 						/>}
 
 						<Divider style={{ marginBottom: '33px' }} />
@@ -738,7 +756,9 @@ const Templates = ({ campaignId, internalState, template, microsite,
 							open={footerColorOpen}
 							onClick={() => setFooterColorOpen(!footerColorOpen)}
 							onChangeComplete={handleFooterColorComplete}
-							handlValue={(e) => setFooterColor(e.target.value)} />
+							handlValue={(e) => setFooterColor(e.target.value)} 
+							stopPropagation={stopPropagation}
+							/>
 
 					</div>
 					<div className={styles.secondContainer}>
