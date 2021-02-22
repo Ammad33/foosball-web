@@ -34,7 +34,6 @@ import * as _ from 'lodash';
 import { RootContext } from '../../context/RootContext';
 import { useHistory } from 'react-router-dom';
 import { CircularProgress } from '@material-ui/core';
-import { isUndefined } from 'lodash';
 
 let typ = '';
 let val = '';
@@ -257,6 +256,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const steps = getSteps();
   const history = useHistory();
   const [activeStep, setActiveStep] = useState(step ? step : 1);
+
   const [activeNext, setActiveNext] = useState(false);
   const [team, setTeam] = useState([]);
   const [search, setSearch] = useState('');
@@ -299,6 +299,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const [lastStep, setLastStep] = useState(0);
   const [dummyStartDate, setDummyStartDate] = useState(false);
   const [dummyStartEndTime, setDummyStartEndTime] = useState(false);
+  const [endStep, setEndStep] = useState(1);
   const [id, setId] = useState('');
 
 
@@ -348,11 +349,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         campaign.paymentSchedule && campaign.paymentSchedule !== null
           ? campaign.paymentSchedule
           : ''
-			);
-			debugger;
-			let sDate = moment(startDate).format('MM/DD/YYYY');
-			let eDate = moment(endDate).format('MM/DD/YYYY');
-      if (moment(sDate).isAfter('01/01/1970')  && moment(eDate).isAfter('01/01/1970')) {
+      );
+      if (moment(startDate).isAfter('01/01/1970') && moment(endDate).isAfter('01/01/1970')) {
         setStartDate(moment(startDate).format('MM/DD/YYYY'));
         setEndDate(moment(endDate).format('MM/DD/YYYY'));
         setStartTime(moment(startDate).format('hh:mm A'));
@@ -2003,8 +2001,13 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   // /*********************** To disable next button */
 
   const leftSideDawerClick = (index) => {
-    if (activeStep >= index || activeStepValue[index] === true) {
-      // setLastStep(activeStep);
+    if (activeStep >= index || activeStepValue[index] === true || endStep === index) {
+      if (index > endStep || index === endStep) {
+        setEndStep(1);
+      }
+      if (endStep === 1) {
+        setEndStep(activeStep);
+      }
       setActiveStep(index);
     } else return;
   };
@@ -2303,7 +2306,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     } else {
       let ActiveValue = [...activeStepValue]
       setActiveNext(false);
-      ActiveValue[1] = true;
+      ActiveValue[1] = false;
       setActiveStepValue(ActiveValue)
     }
   };
@@ -2397,20 +2400,31 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           setLastStep(0);
         } else {
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
+          if (activeSetp > endStep) {
+            setEndStep(1);
+          }
         }
       }
     } else if (activeSetp !== 9) {
       if (lastStep !== 0) {
-        setActiveStep(lastStep);
+        // setActiveStep(lastStep);
         setLastStep(0);
       } else {
+        // setEndStep(activeSetp);
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        if (activeSetp > endStep) {
+          setEndStep(1);
+        }
       }
     }
   };
 
   /**goto previous step */
   const handleBack = () => {
+    if (endStep === 1) {
+      setEndStep(activeStep);
+    }
+
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
@@ -2449,22 +2463,25 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                 <>
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
-                      {(activeStep === index && activeStepValue[index + 1] !== true) ? (
+                      {(activeStep === index && activeStepValue[index] === false) || (activeStepValue[index] === false && index === 0) ? (
                         <div className={styles.active}></div>
                       ) :
-                        (activeStepValue[9] === true && activeStep !== index && index === 9) ? (
+                        (activeStepValue[9] === true && index === 9) ? (
                           <div className={styles.active}></div>
-                        )
-                          : activeStep < index && activeStepValue[index] === false ? (
-                            <RadioButtonUncheckedIcon />
-                          ) : activeStep < index && activeStepValue[index] === false ? (
-                            <RadioButtonUncheckedIcon />
-                          ) : (
-                                <CheckCircleIconSvg viewBox='0 0 31 31' />
-                              )}
+                        ) :
+                          (activeStepValue[index] !== true && activeStep !== endStep && endStep > activeStep && endStep >= index && index !== 9) ? (
+                            <div className={styles.active}></div>
+                          )
+                            : activeStep < index && activeStepValue[index] === false ? (
+                              <RadioButtonUncheckedIcon />
+                            ) : activeStep < index && activeStepValue[index] === false ? (
+                              <RadioButtonUncheckedIcon />
+                            ) : (
+                                  <CheckCircleIconSvg viewBox='0 0 31 31' />
+                                )}
                       <span
                         className={
-                          activeStep === index || activeStepValue[index] === true
+                          activeStep === index || activeStepValue[index] === true || (activeStepValue[index] !== true && activeStep !== endStep && endStep > activeStep && endStep >= index)
                             ? styles.activeLabel
                             : styles.inActiveLabel
                         }
@@ -2478,11 +2495,16 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
                     )}
                   {index > 0 ? (
                     <div key={index} className={styles.stepItem}>
-                      {(activeStep > index || (activeStepValue[index + 1] === true && index !== 9)) ? (
+                      {(activeStep > index && (activeStepValue[index] === true && index !== 9)) ? (
                         <div className={styles.activeBar} />
-                      ) : (
-                          <div className={styles.inActiveBar} />
-                        )}
+                      ) :
+                        (endStep !== activeStep && endStep > activeStep && endStep > index && index !== 9) ? (
+                          <div className={styles.activeBar} />
+                        )
+                          :
+                          (
+                            <div className={styles.inActiveBar} />
+                          )}
                     </div>
                   ) : (
                       ''
