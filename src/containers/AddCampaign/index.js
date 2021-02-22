@@ -2017,7 +2017,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const handleCampaignName = (e) => {
     setCampaignName(e.target.value);
     if (e.target.value !== '') {
-      const index = campaigns.findIndex((item) => item.name === e.target.value);
+			let campaignName = e.target.value.trim();
+      const index = campaigns.findIndex((item) => item.name === campaignName);
 
       if (index !== -1) {
         setCampaignError('This name already exists');

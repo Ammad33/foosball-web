@@ -46,12 +46,13 @@
     }
     .secondConatiner {
         height: 92px;
-        width: 159px;
+				width: 159px;
+				overflow: hidden;
         border-radius: 10px;
         background-color: #E5E5E5;
         img {
-            height: 92px;
-            width: 159px;
+            height: auto;
+						width: 100%;
             border-radius: 10px;  
         }
     }

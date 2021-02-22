@@ -23,7 +23,11 @@ const ColorComponent = ({ heading, value, handlValue, onClick, open, onChangeCom
                 <div className={styles.colorValue} onClick={myFunction1} style={{ backgroundColor: value }}></div>
                 <input value={value} onChange={handlValue} maxLength={7} />
             </div>
-            {open && bottom === undefined && <div>< X onClick={onClick} />  <div style={style} onClick={stopPropagation}> <ChromePicker color={value} onChangeComplete={onChangeComplete} /></div></div>}
+            {open && bottom === undefined && <div>
+							{/* < X onClick={onClick} />   */}
+							<div style={style} onClick={stopPropagation}> 
+							<ChromePicker color={value} onChangeComplete={onChangeComplete} />
+							</div></div>}
         </div >
 
     );

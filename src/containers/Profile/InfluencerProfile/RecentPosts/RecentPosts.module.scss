@@ -30,11 +30,13 @@
     margin-top: 20px;
     margin-bottom: 14px;
     .elemtdiv {
-      // height: 173px;
-      // width: 171px;
+      height: 173px;
+			width: 171px;
+			overflow: hidden;
       img {
-        height: 173px;
-        width: 171px;
+        height: auto;
+				width: 100%;
+				margin-top: -70px;
       }
     }
 

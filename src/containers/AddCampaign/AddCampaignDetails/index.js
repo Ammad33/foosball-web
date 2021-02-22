@@ -386,7 +386,7 @@ const AddCampaignDetails = ({
 						</MenuItem>
 							{options.map((option) => (
 								<MenuItem key={option} value={option}>
-									{option}
+									{option} %
 								</MenuItem>
 							))}
 						</TextField>

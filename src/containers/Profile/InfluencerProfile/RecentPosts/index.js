@@ -14,18 +14,12 @@ const RecentPosts = () => {
         <div className={styles.mainDiv}>
           <Grid item md={5}>
             <div className={styles.elemtdiv}>
-              <img alt='post1' src={Post1} />
+              <img alt='post1' src={Post2} />
             </div>
           </Grid>
           <Grid item md={5}>
             <div className={styles.elemtdiv}>
               <img alt='post2' src={Post2} />
-            </div>
-          </Grid>
-
-          <Grid item md={5}>
-            <div className={styles.elemtdiv}>
-              <img alt='post3' src={Post1} />
             </div>
           </Grid>
 
@@ -37,7 +31,13 @@ const RecentPosts = () => {
 
           <Grid item md={5}>
             <div className={styles.elemtdiv}>
-              <img alt='post3' src={Post1} />
+              <img alt='post3' src={Post2} />
+            </div>
+          </Grid>
+
+          <Grid item md={5}>
+            <div className={styles.elemtdiv}>
+              <img alt='post3' src={Post2} />
             </div>
           </Grid>
         </div>
