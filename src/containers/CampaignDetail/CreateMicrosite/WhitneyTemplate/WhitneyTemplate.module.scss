@@ -23,8 +23,28 @@
 			margin: 0px;
 			margin-bottom: 28px;
 		}
+		.quotesInput {
+			width: 313px;
+			height: 117px;
+			resize: none;
+			padding: 14.5px 14px;
+			border-radius: 4px;
+			font-family: Poppins;
+			font-size: 15px;
+			font-weight: 200;
+			letter-spacing: 0;
+			line-height: 20px;
+		}
+		::placeholder {
+			font-family: Poppins;
+			font-size: 15px;
+			font-weight: 200;
+			letter-spacing: 0;
+			line-height: 20px;
+		}
 
 	}
+	
 
 	.secondContainer {
 		height: 1275px;

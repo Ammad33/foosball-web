@@ -10,6 +10,7 @@ import { RootContext } from '../../../../context/RootContext';
 import Iframe from 'react-iframe';
 import uploadImages from '../../../../actions/uploadImges';
 import { Auth } from 'aws-amplify';
+import { DebounceInput } from 'react-debounce-input';
 
 const Templates = ({ campaignId, internalState, template, microsite,
 	changeTemplate, influencer, getCampaign, handleCampaginDetail }) => {
@@ -710,7 +711,7 @@ const Templates = ({ campaignId, internalState, template, microsite,
 							bottom={true}
 							stopPropagation={stopPropagation}
 						/>}
-						<TextField
+						{/* <TextField
 							id='outlined-basic'
 							fullWidth
 							multiline
@@ -719,7 +720,19 @@ const Templates = ({ campaignId, internalState, template, microsite,
 							rows={4}
 							placeholder="Quote about product"
 							variant='outlined'
-						/>
+						/> */}
+						 <DebounceInput 
+						 element="textarea"
+						 value={quoteMessage}
+						 minLength={2}
+						 debounceTimeout={-1}
+						 infinite= {true}
+						 forceNotifyOnBlur={true}
+						 placeholder="Quote about product"
+						 variant='outlined'
+						 onChange= {(e)=> setQuoteMessage (e.target.value)}
+						 className={styles.quotesInput}
+						 />
 						<Divider style={{ marginBottom: '33px', marginTop: '33px' }} />
 						<div className={styles1.mainContainer}>
 							<div className={styles1.firstContainer}>
