@@ -12,7 +12,7 @@ import uploadImages from '../../../../actions/uploadImges';
 import { Auth } from 'aws-amplify';
 
 const Templates = ({ campaignId, internalState, template, microsite,
-	changeTemplate, influencer, getCampaign }) => {
+	changeTemplate, influencer, getCampaign, handleCampaginDetail }) => {
 
 	///*****States for colors and images for all templates */
 
@@ -449,10 +449,11 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			)
 
 
-			getCampaign();
+			// getCampaign();
+			handleCampaginDetail(campaignId);
 			setCreateMicrositeFlag(false);
 			setTemplate('');
-			window.location.reload();
+			// window.location.reload();
 
 		}
 		catch (err) {

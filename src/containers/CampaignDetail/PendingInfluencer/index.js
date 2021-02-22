@@ -46,7 +46,7 @@ const PendingInfluencer = ({
 
 	return (
 		<>
-			{createMircositeFlag ? (<CreateMicroSite
+			{/* {createMircositeFlag ? (<CreateMicroSite
 				name={name}
 				internalState={internalState}
 				campaignId={campaignId}
@@ -55,18 +55,20 @@ const PendingInfluencer = ({
 				influencer={data.influencer && data.influencer !== null ? data.influencer : null}
 				brand={data.brand && data.brand !== null ? data.brand : null}
 				microsite={data.microsite && data.microsite !== null ? data.microsite : ''}
-			/>) : signContractFlag ? (<ReviewAndSign
-				name={name}
-				campaignId={campaignId}
-				getCampaign={getCampaign}
-				createMircositeFlag={createMircositeFlag}
-				internalState={internalState}
-				influencer={data.influencer && data.influencer !== null ? data.influencer : null}
-				brand={data.brand && data.brand !== null ? data.brand : null}
+			/>) : */}
+			{
+				signContractFlag ? (<ReviewAndSign
+					name={name}
+					campaignId={campaignId}
+					getCampaign={getCampaign}
+					createMircositeFlag={createMircositeFlag}
+					internalState={internalState}
+					influencer={data.influencer && data.influencer !== null ? data.influencer : null}
+					brand={data.brand && data.brand !== null ? data.brand : null}
 
-				template={data.microsite && data.microsite !== null ? data.microsite.template : ''}
-				handleCreateMicrosite={() => setCreateMicrositeFlag(true)}
-			/>) :
+					template={data.microsite && data.microsite !== null ? data.microsite.template : ''}
+					handleCreateMicrosite={() => setCreateMicrositeFlag(true)}
+				/>) :
 					(
 						<>
 							<Popover

@@ -20,7 +20,7 @@ const CampaignDetail = ({ location }) => {
 	const [addCampaign, setAddCampagin] = useState(false);
 
 	const [brandState, setBrandState] = useState(true);
-	const { setActiveCampaign, brandId, brandType, currentUser, setCurrentUser, setTemplate,setShowLoader } = useContext(RootContext);
+	const { setActiveCampaign, brandId, brandType, currentUser, setCurrentUser, setTemplate, setShowLoader } = useContext(RootContext);
 	const [selectedMembers, setSelectedMemebers] = useState([]);
 	const [team, setTeam] = useState([]);
 	const [search, setSearch] = useState('');
@@ -492,6 +492,7 @@ const CampaignDetail = ({ location }) => {
       }`,
 			});
 			setShowLoader(false);
+
 			if (brandType.toLowerCase() == 'influencer') {
 				campaign.data.influencerCampaign &&
 					campaign.data.influencerCampaign !== null &&
