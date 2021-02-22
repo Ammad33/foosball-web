@@ -6,20 +6,20 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 const Negotiables = ({ selectedNegotiable, toggleNegotiable, handleActiveForNegotiable }) => {
 
-  /**check for conditions and activate the next button for negotiable */  
+  /**check for conditions and activate the next button for negotiable */
   useEffect(() => {
     handleActiveForNegotiable();
   }, [selectedNegotiable])
   return (
-    <div className={styles.mainContainer} style={{paddingTop: "8px"}}>
+    <div className={styles.mainContainer} style={{ paddingTop: "8px" }}>
       <p className={styles.title}>
         Deselect the items you do not wish to negotiate
       </p>
       <div className={styles.optionsContainer}>
         <Grid container spacing={2}>
-          {selectedNegotiable.map((option) => {
+          {selectedNegotiable.map((option, index) => {
             return (
-              <Grid item xs={6}>
+              <Grid item xs={6} key={index}>
                 <div className={styles.optionsItem}>
                   {option.isChecked ? (
                     <CheckCircleIcon

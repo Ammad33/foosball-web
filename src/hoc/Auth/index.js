@@ -11,7 +11,7 @@ const Auth = ({ children, image }) => {
 				<div className={styles.formDiv}>{children}</div>
 			</section>
 			<section className={styles.sidebar}>
-				<div class="after">
+				<div className="after">
 					<img src={image} alt='Logo' />
 				</div>
 			</section>

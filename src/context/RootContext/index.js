@@ -121,7 +121,8 @@ export default ({ children }) => {
     creatorRoleId,
     memberRoleId,
     influencers,
-    createMircositeFlag
+    createMircositeFlag,
+    templated
     // organization,
   ]);
   /*******************************************************************/

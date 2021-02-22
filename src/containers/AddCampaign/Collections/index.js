@@ -150,7 +150,7 @@ const Collection = ({
                   item.products.length > 0 &&
                   item.products.map((collection, index) => {
                     return (
-                      <Slide className={styles.slideContent}>
+                      <Slide key={index} className={styles.slideContent}>
                         <div className={styles.imageOverlay}></div>
                         <Image
                           index={index}
@@ -185,8 +185,8 @@ const Collection = ({
                 <ButtonNext className={styles.buttonNext}>&gt;</ButtonNext>
               </>
             ) : (
-              ''
-            )}
+                ''
+              )}
           </div>
         </CarouselProvider>
         {collections &&
@@ -196,6 +196,7 @@ const Collection = ({
               <Accordion
                 square
                 expanded={collection.expand}
+                key={Math.random()}
                 onChange={() =>
                   handleCollectionExpand(collection.expand, index)
                 }
@@ -204,8 +205,9 @@ const Collection = ({
                   className={styles.accordianSummary}
                   aria-controls='panel1d-content'
                   id='panel1d-header'
+                  key={Math.random()}
                 >
-                  <Typography className={styles.collectionName}>
+                  <div className={styles.collectionName}>
                     {collection && collection.name}
                     <div className={styles.heading}>
                       {products &&
@@ -231,59 +233,59 @@ const Collection = ({
                         {collection.expand ? <MinusSVG /> : <PlusSVG />}
                       </span>
                     </div>
-                  </Typography>
+                  </div>
                 </AccordionSummary>
-                <AccordionDetails>
+                <AccordionDetails key={Math.random()}>
                   {collection &&
-                  collection.products &&
-                  collection.products.products &&
-                  collection.products.products.length > 0 ? (
-                    <>
-                      <div className={styles.checkCollection}>
-                        {collection.selectedAll ? (
-                          <CheckCircleIcon
-                            onClick={() => {
-                              handleCollectionAllUncheck(collection);
-                            }}
-                          />
-                        ) : (
-                          <Circle
-                            onClick={() => {
-                              handleCollectionAllCheck(collection);
-                            }}
-                          />
-                        )}
+                    collection.products &&
+                    collection.products.products &&
+                    collection.products.products.length > 0 ? (
+                      <>
+                        <div className={styles.checkCollection}>
+                          {collection.selectedAll ? (
+                            <CheckCircleIcon
+                              onClick={() => {
+                                handleCollectionAllUncheck(collection);
+                              }}
+                            />
+                          ) : (
+                              <Circle
+                                onClick={() => {
+                                  handleCollectionAllCheck(collection);
+                                }}
+                              />
+                            )}
 
-                        <p>Select Entire Collection</p>
-                      </div>
-                      <Grid item xs={12} className={styles.collections}>
-                        <Grid
-                          container
-                          spacing={3}
-                          className={styles.collectionContainer}
-                        >
-                          {collection.products.products.map(
-                            (collectionItem, index1) => {
-                              return (
-                                <Grid item xs={3}>
-                                  <CollectionItem
-                                    collectionItem={collectionItem}
-                                    key={index1}
-                                    products={products}
-                                    collectionId={collection.id}
-                                    collectionKey={collection}
-                                    collection={collection}
-                                    collections={collections}
-                                    handleCollectionItem={handleCollectionItem}
-                                  />
-                                </Grid>
-                              );
-                            }
-                          )}
+                          <p>Select Entire Collection</p>
+                        </div>
+                        <Grid item xs={12} className={styles.collections}>
+                          <Grid
+                            container
+                            spacing={3}
+                            className={styles.collectionContainer}
+                          >
+                            {collection.products.products.map(
+                              (collectionItem, index1) => {
+                                return (
+                                  <Grid item xs={3} key={index1}>
+                                    <CollectionItem
+                                      collectionItem={collectionItem}
+                                      key={index1}
+                                      products={products}
+                                      collectionId={collection.id}
+                                      collectionKey={collection}
+                                      collection={collection}
+                                      collections={collections}
+                                      handleCollectionItem={handleCollectionItem}
+                                    />
+                                  </Grid>
+                                );
+                              }
+                            )}
+                          </Grid>
                         </Grid>
-                      </Grid>
-                    </>
-                  ) : null}
+                      </>
+                    ) : null}
                 </AccordionDetails>
               </Accordion>
             );

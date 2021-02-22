@@ -32,12 +32,12 @@ const Compensations = ({
 	products
 }) => {
 	/**SVG */
-	const Chevron = ({ Check,MenuId, ...other}) => {
+	const Chevron = ({ Check, MenuId, ...other }) => {
 		const onClick = () => {
-			if (Check==="open") {
-				setOpen(!open)			  
+			if (Check === "open") {
+				setOpen(!open)
 			}
-			
+
 		}
 		return (
 			<span onClick={onClick} {...other} className={styles.dropDownCustomizeSvg}>
@@ -45,7 +45,7 @@ const Compensations = ({
 			</span>
 		);
 	};
-	const [open,setOpen] = useState(false)
+	const [open, setOpen] = useState(false)
 	const checkAddAnother = () => {
 		if (addAnother === true) {
 			setAnother(true);
@@ -68,11 +68,11 @@ const Compensations = ({
 
 	return (
 		<div>
-			<Grid container spacing={3} style={{paddingTop: "8px"}}>
+			<Grid container spacing={3} style={{ paddingTop: "8px" }}>
 				<Grid item xs={12}>
 					<FormControl fullWidth variant='outlined'>
 						<TextField
-							labelId='demo-simple-select-outlined-label'
+							labelid='demo-simple-select-outlined-label'
 							id='demo-simple-select-outlined'
 							label='Influencer payment schedule'
 							fullWidth
@@ -82,9 +82,9 @@ const Compensations = ({
 							onChange={(e) => {
 								handleCompensationPayment(e.target.value);
 							}}
-							MenuProps={{ variant: 'menu' }}
+							menuprops={{ variant: 'menu' }}
 							select
-							SelectProps={{ IconComponent: () => <Chevron MenuId="open" Check="open"/>, open: open , onClose: () => {setOpen(false)}, onOpen: () => {setOpen(true)}}}
+							SelectProps={{ IconComponent: () => <Chevron MenuId="open" Check="open" />, open: open, onClose: () => { setOpen(false) }, onOpen: () => { setOpen(true) } }}
 						>
 							<MenuItem value='' disabled>
 								{' '}

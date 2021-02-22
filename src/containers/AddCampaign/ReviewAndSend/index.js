@@ -381,14 +381,14 @@ const ReviewAndSend = ({
   }, [products, collections]);
 
   return (
-    <div class={styles.mainContainer} style={{paddingTop: "8px"}}>
+    <div className={styles.mainContainer} style={{ paddingTop: "8px" }}>
       <div className={styles.influe}>
         <div className={styles.influencerContainer}>
           <Avatar className={styles.avatar} src={selectedInfluncer.imageUrl} />{' '}
           <p>{selectedInfluncer.name}</p>
         </div>
       </div>
-      <div class={styles.section}>
+      <div className={styles.section}>
         <div className={styles.titleAndAction}>
           <h3>Campaign Details</h3>
           <span>
@@ -457,7 +457,7 @@ const ReviewAndSend = ({
           </Grid>
         </div>
       </div>
-      <div class={styles.section}>
+      <div className={styles.section}>
         <div className={styles.titleAndAction}>
           <h3>Team Members</h3>
           <EditSVG onClick={() => handleActiveStep(2)} />
@@ -484,7 +484,7 @@ const ReviewAndSend = ({
           </Grid>
         </div>
       </div>
-      <div class={styles.section}>
+      <div className={styles.section}>
         <div className={styles.titleAndAction}>
           <h3>Budget & Conversion</h3>
           <EditSVG onClick={() => handleActiveStep(3)} />
@@ -513,7 +513,7 @@ const ReviewAndSend = ({
           </div>
         )}
       </div>
-      <div class={styles.section}>
+      <div className={styles.section}>
         <div className={styles.titleAndAction}>
           <h3>Collection</h3>
           <EditSVG onClick={() => handleActiveStep(4)} />
@@ -560,14 +560,14 @@ const ReviewAndSend = ({
           })}
         </div>
       </div>
-      <div class={styles.section}>
+      <div className={styles.section}>
         <div className={styles.titleAndAction}>
           <h3>Deliverables</h3>
           <EditSVG onClick={() => handleActiveStep(5)} />
         </div>
         {deliverables.map((item, index) => {
           return (
-            <div className={styles.deliverablesContainer}>
+            <div className={styles.deliverablesContainer} key={index}>
               <h4 style={index > 0 ? { marginTop: '40px' } : {}}>
                 Deliverable {index + 1}
               </h4>
@@ -650,7 +650,7 @@ const ReviewAndSend = ({
           <h5>{numberWithCommas(totalPosts)} Posts</h5>
         </div>
       </div>
-      <div class={styles.section}>
+      <div className={styles.section}>
         <div className={styles.titleAndAction}>
           <h3>Compensation</h3>
           <EditSVG onClick={() => handleActiveStep(6)} />

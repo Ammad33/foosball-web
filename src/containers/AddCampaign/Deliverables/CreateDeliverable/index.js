@@ -38,11 +38,11 @@ const CreateDeliverable = ({
 	tictock,
 	youtube,
 }) => {
-	const [open,setOpen] = useState(false)
-	const [open1,setOpen1] = useState(false)
-	const [open2,setOpen2] = useState(false)
-	const [open3,setOpen3] = useState(false)
-	const [open4,setOpen4] = useState(false)
+	const [open, setOpen] = useState(false)
+	const [open1, setOpen1] = useState(false)
+	const [open2, setOpen2] = useState(false)
+	const [open3, setOpen3] = useState(false)
+	const [open4, setOpen4] = useState(false)
 	const [error, setError] = useState(false);
 	const [post, setPost] = useState(false);
 	const [options, setOptions] = useState(false);
@@ -51,20 +51,20 @@ const CreateDeliverable = ({
 		frameContentType: ['Does not apply'],
 	});
 
-	const Chevron = ({ Check,MenuId, ...other}) => {
+	const Chevron = ({ Check, MenuId, ...other }) => {
 		const onClick = () => {
-			if (Check==="open") {
-				setOpen(!open)			  
-			}else if(Check==="open1"){
+			if (Check === "open") {
+				setOpen(!open)
+			} else if (Check === "open1") {
 				setOpen1(!open1)
-			} else if(Check==="open2"){
+			} else if (Check === "open2") {
 				setOpen2(!open2)
-			} else if(Check==="open3"){
+			} else if (Check === "open3") {
 				setOpen3(!open3)
-			} else if(Check==="open4"){
+			} else if (Check === "open4") {
 				setOpen4(!open4)
-			} 
-			
+			}
+
 		}
 		return (
 			<span onClick={onClick} {...other} className={styles.dropDownCustomizeSvg}>
@@ -80,7 +80,7 @@ const CreateDeliverable = ({
 
 	/**handleDeliverDeadlineDate **/
 	useEffect(() => {
-		handleDeliverDeadlineDate("12/13/2021",index);
+		handleDeliverDeadlineDate("12/13/2021", index);
 	}, []);
 
 	/**{function} to handle post type */
@@ -94,7 +94,7 @@ const CreateDeliverable = ({
 		}
 	};
 
-		/**{function} to handle social platform */
+	/**{function} to handle social platform */
 	const handleSocialPlatform = (value, index, name) => {
 		if (value === 'Youtube') {
 			setOptions(true);
@@ -158,7 +158,7 @@ const CreateDeliverable = ({
 								' '
 							)
 					}
-					value={deliverableItem && deliverableItem.deadlineDate}					
+					value={deliverableItem && deliverableItem.deadlineDate}
 					onChange={(e) => handleDeliverDeadlineDate(e.target.value, index)}
 					InputProps={{
 						pattern: "\d{1,2}/\d{1,2}/\d{4}",
@@ -203,10 +203,10 @@ const CreateDeliverable = ({
 						onChange={(e) =>
 							handleSocialPlatform(e.target.value, index, 'platform')
 						}
-						MenuProps={{ variant: 'menu' }}
+						menuprops={{ variant: 'menu' }}
 						// input={<SelectMenu />}
 						select
-						SelectProps={{ IconComponent: () => <Chevron MenuId="menuSocialPlatform" Check="open"/>, open: open , onClose: () => {setOpen(false)}, onOpen: () => {setOpen(true)}}}
+						SelectProps={{ IconComponent: () => <Chevron MenuId="menuSocialPlatform" Check="open" />, open: open, onClose: () => { setOpen(false) }, onOpen: () => { setOpen(true) } }}
 					>
 						<MenuItem value='' disabled>
 							Social Platform
@@ -232,15 +232,15 @@ const CreateDeliverable = ({
 						onChange={(e) =>
 							handlePostType(e.target.value, index, 'postType')
 						}
-						MenuProps={{ variant: 'menu' }}
+						menuprops={{ variant: 'menu' }}
 						select
-						SelectProps={{ IconComponent: () => <Chevron MenuId="open1" Check="open1"/>, open: open1 , onClose: () => {setOpen1(false)}, onOpen: () => {setOpen1(true)}}}
+						SelectProps={{ IconComponent: () => <Chevron MenuId="open1" Check="open1" />, open: open1, onClose: () => { setOpen1(false) }, onOpen: () => { setOpen1(true) } }}
 					>
 						<MenuItem value='' disabled>
 							Post Type
             </MenuItem>
 						{platform.postType.map((item) => (
-							<MenuItem value={item}>{item} </MenuItem>
+							<MenuItem key={item} value={item}>{item} </MenuItem>
 						))}
 					</TextField>
 				</FormControl>
@@ -249,27 +249,27 @@ const CreateDeliverable = ({
 				<FormControl fullWidth variant='outlined'>
 					<TextField
 						disabled={options ? true : false}
-						labelId='demo-simple-select-outlined-label'
+						labelid='demo-simple-select-outlined-label'
 						id='Content Type'
 						fullWidth
 						label='Content Type'
 						variant='outlined'
-						displayEmpty
+						displayempty="true"
 						className={mainStyles.placeholderColor}
 						helperText={error ? <span> error </span> : ' '}
 						value={deliverableItem && deliverableItem.frameContentType}
 						onChange={(e) =>
 							handleDilverableContent(e.target.value, index, 'frameContentType')
 						}
-						MenuProps={{ variant: 'menu' }}
+						menuprops={{ variant: 'menu' }}
 						select
-						SelectProps={{ IconComponent: () => <Chevron MenuId="open2" Check="open2"/>, open: open2 , onClose: () => {setOpen2(false)}, onOpen: () => {setOpen2(true)}}}
+						SelectProps={{ IconComponent: () => <Chevron MenuId="open2" Check="open2" />, open: open2, onClose: () => { setOpen2(false) }, onOpen: () => { setOpen2(true) } }}
 					>
 						<MenuItem value='' disabled>
 							Content Type
             </MenuItem>
 						{platform.frameContentType.map((item) => (
-							<MenuItem value={item}>{item} </MenuItem>
+							<MenuItem key={item} value={item}>{item} </MenuItem>
 						))}
 					</TextField>
 				</FormControl>
@@ -278,7 +278,7 @@ const CreateDeliverable = ({
 				<FormControl fullWidth variant='outlined'>
 					<TextField
 						disabled={post || deliverableItem.platform.toLowerCase() === 'youtube' || deliverableItem.platform.toLowerCase() === 'tiktok' ? true : false}
-						labelId='demo-simple-select-disabled-label'
+						labelid='demo-simple-select-disabled-label'
 						id='demo-simple-select-disabled-Frame-Required'
 						fullWidth
 						label='Frames Required'
@@ -289,29 +289,30 @@ const CreateDeliverable = ({
 						onChange={(e) =>
 							handleDilverableContent(e.target.value, index, 'framesRequired')
 						}
-						MenuProps={{ variant: 'menu' }}
+						menuprops={{ variant: 'menu' }}
 						select
-						SelectProps={{ 
-							IconComponent: () => <Chevron 
-							MenuId="open3" Check="open3"/>, 
-							open: open3 , 
-							onClose: () => {setOpen3(false)}, onOpen: () => {setOpen3(true)}}}
+						SelectProps={{
+							IconComponent: () => <Chevron
+								MenuId="open3" Check="open3" />,
+							open: open3,
+							onClose: () => { setOpen3(false) }, onOpen: () => { setOpen3(true) }
+						}}
 					>
 						<MenuItem value='' disabled>
 							Frame Required
                   </MenuItem>
-							{post || deliverableItem.platform.toLowerCase() === 'youtube' || deliverableItem.platform.toLowerCase() === 'tiktok' ? (
-										<MenuItem  value={"frame"}>
-											{tictock.framesRequired[0]}
-										</MenuItem>
-							): (
+						{post || deliverableItem.platform.toLowerCase() === 'youtube' || deliverableItem.platform.toLowerCase() === 'tiktok' ? (
+							<MenuItem value={"frame"}>
+								{tictock.framesRequired[0]}
+							</MenuItem>
+						) : (
 								frames.map((frame) => (
 									<MenuItem key={frame} value={frame}>
 										{frame}
 									</MenuItem>
 								))
 							)
-}
+						}
 
 					</TextField>
 				</FormControl>
@@ -483,9 +484,9 @@ const CreateDeliverable = ({
 						onChange={(e) =>
 							handleDilverableContent(e.target.value, index, 'frequency')
 						}
-						MenuProps={{ variant: 'menu' }}
+						menuprops={{ variant: 'menu' }}
 						select
-						SelectProps={{ IconComponent: () => <Chevron MenuId="open4" Check="open4"/>, open: open4 , onClose: () => {setOpen4(false)}, onOpen: () => {setOpen4(true)}}}
+						SelectProps={{ IconComponent: () => <Chevron MenuId="open4" Check="open4" />, open: open4, onClose: () => { setOpen4(false) }, onOpen: () => { setOpen4(true) } }}
 					>
 						<MenuItem value='' disabled>
 							Per Time Period
