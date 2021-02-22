@@ -11,32 +11,41 @@ const ChooseInfluencer = ({
   handleActiveForInfluncer,
   handleInfluencers,
 }) => {
-  const [sortedInfluencers, setSortedInfluencers] = useState([...influencers]);
+  const [sortedInfluencers, setSortedInfluencers] = useState([]);
   /**check for conditions and activate the next button for influencer */
   useEffect(() => {
     handleActiveForInfluncer();
   }, [selectedInfluncer]);
 
   useEffect(() => {
-    const selectedInfluencerIndex = _.findIndex(influencers, {
-      id: selectedInfluncer && selectedInfluncer.id,
-    });
-    if (selectedInfluencerIndex > -1) {
-      let influencersCopy = _.cloneDeep(sortedInfluencers);
-      const firstInfluencer = influencersCopy[0];
-      influencersCopy[0] = influencersCopy[selectedInfluencerIndex];
-      influencersCopy[selectedInfluencerIndex] = firstInfluencer;
-      setSortedInfluencers(influencersCopy);
+
+    if (selectedInfluncer && selectedInfluncer !== null) {
+      const selectedInfluencerIndex = _.findIndex(influencers, {
+        id: selectedInfluncer && selectedInfluncer.id,
+      });
+      if (selectedInfluencerIndex > -1) {
+        let influencersCopy = _.cloneDeep(influencers);
+        const firstInfluencer = influencersCopy[0];
+        influencersCopy[0] = influencersCopy[selectedInfluencerIndex];
+        influencersCopy[selectedInfluencerIndex] = firstInfluencer;
+        setSortedInfluencers(influencersCopy);
+      }
+    } else {
+      setSortedInfluencers(influencers);
     }
-  }, []);
+  }, [influencers]);
+
+  // useEffect(() => {
+
+  // }, [influencers])
 
   return (
-    <div className={styles.container} style={{paddingTop: "8px"}}> 
+    <div className={styles.container} style={{ paddingTop: "8px" }}>
       <Grid container spacing={2}>
         {sortedInfluencers.map((influencer) => {
           const index =
             selectedInfluncer !== null &&
-            selectedInfluncer.name === influencer.name
+              selectedInfluncer.name === influencer.name
               ? true
               : false;
           return (
