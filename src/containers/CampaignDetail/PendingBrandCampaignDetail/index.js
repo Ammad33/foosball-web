@@ -22,7 +22,7 @@ import {
 	Mail,
 	ChevronRight,
 	XCircle,
-	AlertCircle,
+	Circle,
 	Plus,
 } from 'react-feather';
 
@@ -160,7 +160,7 @@ const PendingBrandCampaignDetail = ({
 					{data.internalState === "MICROSITE_APPROVAL_REQUESTED" ? (
 						<>
 							<h1>
-								<AlertCircle /> <span>Microsite ready for approval</span>
+								<span>Microsite ready for approval</span>
 							</h1>
 							<p>
 								The influencer has sent you the microsite to review and
@@ -190,7 +190,7 @@ const PendingBrandCampaignDetail = ({
 										'Sam sent a counter offer'
 									) : (
 											<>
-												<AlertCircle /> <span>Microsite ready for approval</span>
+												 <span>Microsite ready for approval</span>
 											</>
 										)}
 								</h1>
