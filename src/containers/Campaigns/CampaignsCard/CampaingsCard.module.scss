@@ -113,7 +113,18 @@
           letter-spacing: 0;
           line-height: 20px;
           // text-transform: lowercase;
-        }
+				}
+				.statusDeclined {
+					
+					width: fit-content;
+          height: 28px;
+          background-color: #b485c5;
+          color: #ffffff;
+          font-family: Poppins;
+          font-size: 13px;
+          letter-spacing: 0;
+          line-height: 20px;
+				}
 
         .personAvatar {
           margin-left: 33px;

@@ -56,7 +56,7 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 			return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
 		});
 	};
-	let convertedStartDate = ''; 
+	let convertedStartDate = '';
 	let date = '';
 	if (campaign.startDate != null) {
 		convertedStartDate = moment(campaign.startDate * 1000).format(
@@ -196,15 +196,24 @@ const CampaignsCard = ({ campaign, onClick, handleDelete }) => {
 												)}
 												label={campaign.status && campaign.status.toProperCase()}
 											/>
-										) : (
-																<Chip
-																	className={clsx(
-																		styles.statusPending,
-																		styles[`chip${campaign.status}`]
-																	)}
-																	label={campaign.status && campaign.status.toProperCase()}
-																/>
-															)}
+										) : campaign.status === 'DECLINED' ? (
+											<Chip
+												className={clsx(
+													styles.statusDeclined,
+													styles[`chip${campaign.status}`]
+												)}
+												label={campaign.status && campaign.status.toProperCase()}
+											/>
+										) :
+																(
+																	<Chip
+																		className={clsx(
+																			styles.statusPending,
+																			styles[`chip${campaign.status}`]
+																		)}
+																		label={campaign.status && campaign.status.toProperCase()}
+																	/>
+																)}
 									</div>
 								) : (
 										''

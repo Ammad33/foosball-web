@@ -106,7 +106,7 @@ const LostBrandCampaignDetail = ({
               <Chip
                 className={clsx(styles[`lostCampaign`])}
                 size='small'
-                label='Lost'
+                label='Declined'
               />
             </div>
             {data.influencer && (

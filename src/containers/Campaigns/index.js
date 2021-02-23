@@ -433,7 +433,7 @@ const Campaigns = () => {
 		history.push(`/campaignDetail/${id}`, { campaignId: id });
 		setActiveRoute('campaignDetail');
 	};
-
+	
 	return (
 		<>
 			<Popover
