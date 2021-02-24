@@ -10,17 +10,17 @@ const Negotiables = ({ handleEdit, data , status}) => {
       return keys.map((key) => {
         if (data.negotiables[key]) {
           switch (key) {
-            case 'monthly_retainer_fee':
+            case 'monthlyRetainerFee':
               return <p>Monthly Retainer Fee</p>;
-            case 'post_fee':
+            case 'postFee':
               return <p>Post Fee</p>;
-            case 'story_fee':
-              return <p>Story Fee</p>;
-            case 'campaign_duration':
+            case 'giftCard':
+              return <p>Gift Card</p>;
+            case 'campaignDuration':
               return <p>Campaign Duration</p>;
-            case 'post_frequency':
+            case 'postFrequency':
               return <p>Post Frequency</p>;
-            case 'revenue_share':
+            case 'revenueShare':
               return <p>Revenue Share</p>;
             default:
               return '';

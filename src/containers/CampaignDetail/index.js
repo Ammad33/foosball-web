@@ -269,12 +269,12 @@ const CampaignDetail = ({ location }) => {
               name
             }
             negotiables {
-              campaign_duration
-              monthly_retainer_fee
-              post_fee
-              post_frequency
-              revenue_share
-              story_fee
+              campaignDuration
+              monthlyRetainerFee
+              postFee
+              postFrequency
+              revenueShare
+							giftCard
             }
             deliverables {
               brandTag
@@ -439,12 +439,12 @@ const CampaignDetail = ({ location }) => {
               name
             }
             negotiables {
-              campaign_duration
-              monthly_retainer_fee
-              post_fee
-              post_frequency
-              revenue_share
-              story_fee
+              campaignDuration
+              monthlyRetainerFee
+              postFee
+              postFrequency
+              revenueShare
+							giftCard
             }
             deliverables {
               brandTag

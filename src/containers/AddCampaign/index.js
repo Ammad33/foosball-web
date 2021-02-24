@@ -228,25 +228,25 @@ function getSteps() {
 const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const fabClass = useStyles();
   const negotialbleOptions = [
-    { id: 1, isChecked: true, key: 'post_fee', text: 'Cash Per Post' },
-    { id: 2, isChecked: true, key: 'revenue_share', text: 'Revenue Share %' },
+    { id: 1, isChecked: true, key: 'postFee', text: 'Cash Per Post' },
+    { id: 2, isChecked: true, key: 'revenueShare', text: 'Revenue Share %' },
     {
       id: 3,
       isChecked: true,
-      key: 'story_fee',
+      key: 'monthlyRetainerFee',
       text: 'Cash Per Monthly Deliverable',
     },
-    { id: 4, isChecked: true, key: 'post_frequency', text: 'Post Frequency' },
+    { id: 4, isChecked: true, key: 'postFrequency', text: 'Post Frequency' },
     {
       id: 5,
       isChecked: true,
-      key: 'monthly_retainer_fee',
+      key: 'giftCard',
       text: 'Gift Card',
     },
     {
       id: 6,
       isChecked: true,
-      key: 'campaign_duration',
+      key: 'campaignDuration',
       text: 'Campaign Duration',
     },
   ];
@@ -1731,20 +1731,25 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     } catch (e) {
       setDeliveries(APIErrorDeliverables());
       console.log('update campaign error ', e);
-      let errorMessage = '';
-      let errorArray = [];
+      // let errorMessage = '';
+      // let errorArray = [];
+      // if (e.errors && e.errors.length > 0 && e.errorInfo )
+      //   e.errors.forEach((m) => {
+      //     errorArray = m.errorInfo.fieldErrors
+      //   });
+      // for (var property in errorArray) {
+      //   if (errorArray.hasOwnProperty(property)) {
+      //     errorMessage += errorArray[property] + '\n';
+      //   }
+      // }
+			let message = '';
 
       if (e.errors && e.errors.length > 0)
         e.errors.forEach((m) => {
-          errorArray = m.errorInfo.fieldErrors
+          message = message + m.message;
         });
-      for (var property in errorArray) {
-        if (errorArray.hasOwnProperty(property)) {
-          errorMessage += errorArray[property] + '\n';
-        }
-      }
 
-      setErrorMessage(errorMessage);
+      setErrorMessage(message);
       return null;
     }
   };

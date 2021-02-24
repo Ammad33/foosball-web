@@ -257,7 +257,7 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			mainHeader: {
 				dark: false
 			},
-			productBuyBgColor: "#984949",
+			productBuyBgColor: buttonColor,
 			productBuyTextColor: "#FFFFFF",
 			products: {
 				direction: 'ROW',

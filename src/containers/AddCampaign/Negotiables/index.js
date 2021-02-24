@@ -13,8 +13,8 @@ const Negotiables = ({ selectedNegotiable, toggleNegotiable, handleActiveForNego
   return (
     <div className={styles.mainContainer} style={{ paddingTop: "8px" }}>
       <p className={styles.title}>
-        Deselect the items you do not wish to negotiate
-      </p>
+			 Deselect the items you do not wish to negotiate with the influencer.      
+			</p>
       <div className={styles.optionsContainer}>
         <Grid container spacing={2}>
           {selectedNegotiable.map((option, index) => {
@@ -35,7 +35,7 @@ const Negotiables = ({ selectedNegotiable, toggleNegotiable, handleActiveForNego
                       />
                     )}
                   <span
-                    style={{ paddingLeft: "21px" }}
+                    style={{ paddingLeft: "0px" }}
                     onClick={() => {
                       toggleNegotiable(option);
                     }}>{option.text}</span>
