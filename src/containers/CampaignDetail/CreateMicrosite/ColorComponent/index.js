@@ -17,7 +17,7 @@ const ColorComponent = ({ heading, value, handlValue, onClick, open, onChangeCom
 
         <div className={styles.colorContainer} style={stle1} >
 
-            {open && bottom === true && <div><div style={style} onClick={stopPropagation}><ChromePicker  color={value} onChangeComplete={onChangeComplete} /> < X onClick={onClick} style={{ float: 'right' }} /></div></div>}
+            {open && bottom === true && <div><div style={style} onClick={stopPropagation}><ChromePicker  color={value} onChangeComplete={onChangeComplete} /></div></div>}
             <h6>{heading}</h6>
             <div className={styles.colorPicker}>
                 <div className={styles.colorValue} onClick={myFunction1} style={{ backgroundColor: value }}></div>

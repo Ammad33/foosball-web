@@ -14,16 +14,13 @@ const InviteCard = ({ createdBy, campaignId, handleStatus, invitationMessage, ha
 	const [reasonDetail, setReasonDetail] = useState('');
 	const [errorMessage, setErrorMessage] = useState('');
 	const [negotiateDialog , setNegotiateDialog] = useState(false);
-	const [negotiateItem , setNegotiateItem] = useState('');
-	const [negotiate, setNegotiate] = useState('');
-
-	// const [negotiate, setNegotiate] = useState([
-  //   {
-  //     negotiateItem: '',
-	// 		negotiateMessage: '',
-	// 		negotiateValue: '',
-  //   },
-  // ]);
+	const [negotiate, setNegotiate] = useState([
+    {
+      negotiateItem: '',
+			negotiateMessage: '',
+			negotiateValue: '',
+    },
+  ]);
 
 
 
@@ -49,9 +46,24 @@ const InviteCard = ({ createdBy, campaignId, handleStatus, invitationMessage, ha
 		"Other"
 	]
 
-	const handleNegotiateItem = (val) => {
-		setNegotiateItem(val);
-	}
+	const handleNegotiate = (val, index, fieldName) => {
+    const nego = [...negotiate];
+    if (fieldName === 'Negotiate Item') {
+      nego[index]['negotiateItem'] = val;
+    }
+		if (fieldName === 'Negotiate Value'){
+			nego[index]['negotiateValue'] = val;
+		}
+		if (fieldName === 'Negotiate Message'){
+			nego[index]['negotiateMessage'] = val;
+		}
+
+    setNegotiate(nego);
+  };
+
+	// const handleNegotiateItem = (val) => {
+	// 	setNegotiateItem(val);
+	// }
 
 	const handleDeclineReason = (val) => {
 		setDeclineReason(val);
@@ -165,9 +177,8 @@ const InviteCard = ({ createdBy, campaignId, handleStatus, invitationMessage, ha
 			<NegotiateDialog
 				open = {negotiateDialog}
 				handleClose = {()=> setNegotiateDialog(false)}
-				negotiateItems = {negotiateItems}
-				negotiateItem = {negotiateItem}
-				handleNegotiateItem = {handleNegotiateItem}
+				negotiate = {negotiate}
+				handleNegotiate = {handleNegotiate}
 				handleAnotherItem = {handleAnotherItem}
 			/>
 
