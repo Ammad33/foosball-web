@@ -4,15 +4,14 @@ import styles from './InfluencerProfile.module.scss';
 import { RootContext } from '../../../context/RootContext';
 import { Avatar } from '@material-ui/core';
 import SVG from 'react-inlinesvg';
-import { Link } from 'react-router-dom';
 import InfluencerInformation from './InfluencerInformation';
 import InfluencerCategories from './InfluencerCategories';
 import InfluencerPosts from './RecentPosts';
-import RightMenu from './RightMenu';
 import Social from './Social';
 import { API, graphqlOperation } from 'aws-amplify';
-import AverageEngagement from './AverageEngagement';
+// import AverageEngagement from './AverageEngagement';
 import uploadImages from '../../../actions/uploadImges';
+import updateInfluencerMutation from '../../../GraphQL/updateInfluencerMutation';
 
 const User = () => {
 	return (
@@ -33,6 +32,7 @@ const InfluencerProfile = () => {
 	const [isOwner, setIsOwner] = useState(false);
 
 	const [influencerProfile, setInfluencerProfile] = useState(null);
+	const [selectedInfluencer, setSelectedInfluencer] = useState(null);
 	const [imageUrl, setImageUrl] = useState('');
 	const [imageFile, setImageFile] = useState(null);
 	const [influencerName, setInfluencerName] = useState('');
@@ -44,36 +44,38 @@ const InfluencerProfile = () => {
 	const [phoneNumber, setPhoneNumber] = useState('');
 	const [website, setWebsite] = useState('');
 	const [activeSave, setActiveSave] = useState(true);
+	const [editOpen, setEditOpen] = useState(false);
+	const [errorMessage, setErrorMessage] = useState('');
 
 
 	const UpdateInfluencer = async () => {
+		setErrorMessage('');
 		try {
-			let res = await API.graphql(
-				graphqlOperation(
-					`mutation updateInfluencer ($input : UpdateInfluencerInput!) {
-						updateInfluencer(input: $input) {
-							influencer {
-								name
-								age
-								email
-								bio
-								website
-								location
-								phoneNumber
-							  }
-				}
-			}`, {
-					input: {
-						id: brandId,
-						age: age,
-						bio: bio,
-						email: email,
-						name: name,
-						// location: location,
-						phoneNumber: phoneNumber,
-						website: website
-					}
-				}));
+			let res = await updateInfluencerMutation({
+				id: brandId,
+				age: age,
+				bio: bio,
+				email: email,
+				name: name,
+				// location: location,
+				phoneNumber: phoneNumber,
+				website: website
+			});
+
+			if (res.error == false) {
+				const { data } = res;
+				setEditOpen(false);
+				setName(data.name);
+				setBio(data.bio);
+				setAge(data.age);
+				setEmail(data.email);
+				setWebsite(data.website);
+				setPhoneNumber(data.phoneNumber);
+
+			} else {
+				setErrorMessage(res.message);
+			}
+
 
 		} catch (e) {
 
@@ -82,7 +84,6 @@ const InfluencerProfile = () => {
 
 	useEffect(() => {
 		const isOwner = localStorage.getItem('isOwner');
-		console.log(isOwner);
 		setIsOwner(isOwner);
 	});
 
@@ -99,6 +100,12 @@ const InfluencerProfile = () => {
 							  id
 							  email
 							  imageUrl
+							  name
+                      		  age
+                       		  bio
+							  website
+							  phoneNumber
+                        	  location
 							}
 						  }
 						}
@@ -108,13 +115,24 @@ const InfluencerProfile = () => {
 
 			team.data && team.data !== null && team.data.me.organizations && team.data.me.organizations.length > 0 && team.data.me.organizations.forEach(item => {
 				if (item.organization.id === brandId) {
-					setInfluencerProfile(item.organization.imageUrl)
+					setInfluencerProfile(item.organization.imageUrl);
+					setName(item.organization.name);
+					setAge(item.organization.age);
+					setEmail(item.organization.email);
+					setPhoneNumber(item.organization.phoneNumber);
+					setWebsite(item.organization.website);
+					setBio(item.organization.bio);
 				}
 			});
 
 		} catch (err) {
 
 		}
+	}
+
+	const onCancel = () => {
+		getInfluencers();
+		setEditOpen(false);
 	}
 
 
@@ -247,9 +265,9 @@ const InfluencerProfile = () => {
 
 
 	const ActiveSave = () => {
-		if (name !== '' && phoneNumber !== '' && website !== '' && location !== '' && bio !== '' && age !== '' && email !== '') {
-			setActiveSave(true)
-		} else setActiveSave(false);
+		if (name !== '' && phoneNumber !== '' && website !== '' && bio !== '' && age !== '' && email !== '') {
+			setActiveSave(false)
+		} else setActiveSave(true);
 	}
 
 	return (
@@ -317,6 +335,10 @@ const InfluencerProfile = () => {
 									handleActiveSave={ActiveSave}
 									handleUpdate={UpdateInfluencer}
 									activeSave={activeSave}
+									editOpen={editOpen}
+									setEditOpen={setEditOpen}
+									onCancel={onCancel}
+									errorMessage={errorMessage}
 								/>
 								<Social />
 							</div >

@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Grid, Popover } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CampaignsCard from './CampaignsCard';
 import AddIcon from '@material-ui/icons/Add';
 import styles from './Campaings.module.scss';
 import AddCampaign from '../AddCampaign';
 import { useHistory } from 'react-router-dom';
-import { API, graphqlOperation, Auth } from 'aws-amplify';
+import { Auth } from 'aws-amplify';
 import SVG from 'react-inlinesvg';
 import { RootContext } from '../../context/RootContext';
 import _ from 'lodash';
+import meQuery from '../../GraphQL/MeQuery';
+import getBrandCampaignsQuery from '../../GraphQL/getBrandCampaignsQuery';
+import getInfluencerCampaignQuery from '../../GraphQL/getInfluencerCampaignQuery';
+import deleteCampaignMutation from '../../GraphQL/deleteCampaignMutation';
 
 /*******************SVG functions ***********************************/
 const IconCampaign = () => {
@@ -35,16 +38,16 @@ const ChevronUp = () => {
 /**main component */
 const Campaigns = () => {
 
+
 	/**state variables */
 	const history = useHistory();
 	const [active, setActive] = useState('ALL');
 	const [campaigns, setCampaigns] = useState([]);
-	const [influencerCampaigns, setInfluencerCampaigns] = useState([]);
 	const [bkupCampaigns, setBkupCampaigns] = useState([]);
 	const [addCampaign, setAddCampagin] = useState(false);
-	const [meData, setMeData] = useState([]);
 	const [errorMessage, setErrorMessage] = useState('');
 	/**************** */
+
 
 	/**rootContext */
 	const {
@@ -56,20 +59,21 @@ const Campaigns = () => {
 		setBrandIdd,
 		setBrandName,
 		setShowLoader,
-		showLoader,
 		setBrandType,
 		setActiveRoute,
-		creatorRoleId,
 		currentUser,
 		setCurrentUser
 	} = useContext(RootContext);
 	/**************** */
+
+
 
 	/**state variables */
 	const [loading, setLoading] = useState(true);
 	const [selectedState, setSelectedState] = useState('Recent Activity');
 	const [brandDropDown, setBrandDropDown] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
+
 	/*************************/
 
 	const getAuth = async () => {
@@ -92,15 +96,18 @@ const Campaigns = () => {
 
 
 	/**decide the position of the popover(dropdown) */
+
 	const handleClick = (event) => {
 		setBrandDropDown(true);
 		setAnchorEl(event.currentTarget);
 	};
+
 	/**close the popover */
 	const handleClose = () => {
 		setAnchorEl(null);
 		setBrandDropDown(false);
 	};
+
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
 
@@ -112,74 +119,16 @@ const Campaigns = () => {
 
 
 	/**API call to get influencers and brands data*/
+
 	const getMeData = async () => {
 		try {
-			const mydata = await API.graphql({
-				query: `{
-						me {
-							email
-							fullName
-							id
-							organizations {
-								organization {
-									id
-									name
-									__typename
-									... on Influencer {
-										id
-									}
-									imageUrl
-									email
-									roles {
-										id
-										administration
-									}
-								}
-							}
-							about
-							age
-							companyTitle
-							imageUrl
-							joined
-							modified
-							phoneNumber
-						}
-				}`,
-			});
-
+			const result = await meQuery();
 			/**seprating brands and influencers data */
-
-			let brandsData = [];
-			let influencersData = [];
-			mydata.data.me.organizations !== null &&
-				mydata.data.me.organizations.forEach((item) => {
-					if (item.organization.__typename === 'Influencer') {
-						influencersData.push(item);
-					} else if (item.organization.__typename === 'Brand') {
-						brandsData.push(item);
-					}
-				});
-			setBrands(brandsData);
-			setInfluencers(influencersData);
-			if (brandsData.length > 0) {
-				setBrandName(brandsData[0].organization.name);
-				setBrandIdd(brandsData[0].organization.id);
-				setBrandType(brandsData[0].organization.__typename);
-			} else if (influencersData.length > 0) {
-				setBrandName(influencersData[0].organization.name);
-				setBrandIdd(influencersData[0].organization.id);
-				setBrandType(influencersData[0].organization.__typename);
-			}
-			setMeData(mydata.data.me.organizations);
-			setErrorMessage('');
-		} catch (e) {
-			if (e.data) {
-
-				/**seprating brands and influencers data */
+			if (result.error === false) {
 				let brandsData = [];
 				let influencersData = [];
-				e.data.me.organizations !== null &&
-					e.data.me.organizations.forEach((item) => {
+				result.data.organizations !== null &&
+					result.data.organizations.forEach((item) => {
 						if (item.organization.__typename === 'Influencer') {
 							influencersData.push(item);
 						} else if (item.organization.__typename === 'Brand') {
@@ -197,18 +146,15 @@ const Campaigns = () => {
 					setBrandIdd(influencersData[0].organization.id);
 					setBrandType(influencersData[0].organization.__typename);
 				}
-				setMeData(e.data.me.organizations);
-
+				setErrorMessage('');
+			} else {
+				setErrorMessage(result.message);
 			}
 
-			let message = errorMessage;
-
-			if (e.errors && e.errors.length > 0)
-				e.errors.forEach((m) => {
-					message = message + m.message;
-				});
-
-			setErrorMessage(message);
+		} catch (e) {
+			if (e) {
+				setErrorMessage(e);
+			}
 		}
 	};
 
@@ -217,65 +163,29 @@ const Campaigns = () => {
 		try {
 			setLoading(true);
 			setShowLoader(true);
-			const campaigns = await API.graphql({
-				query: `{
-                campaigns(brandId: "${brandId}") {
-          campaigns {
-            name
-            description
-            id
-            status
-            startDate
-            endDate
-						created
-						internalState
-					  influencer {
-							imageUrl
-							id
-							name
-							socialIdentities {
-								handle
-							}
-						}
-          }
-        }
-      }`,
-			});
-
+			const result = await getBrandCampaignsQuery(brandId);
 			if (
-				campaigns.data &&
-				campaigns.data !== null &&
-				campaigns.data.campaigns.campaigns
+				result.error === false
 			) {
 				let myArray = _.sortBy(
-					campaigns.data.campaigns.campaigns,
+					result.data,
 					function (dateObj) {
 						return new Date(dateObj.created);
 					}
 				).reverse();
 				setCampaigns(myArray);
+				setBkupCampaigns(result.data);
+				setLoading(false);
+				setShowLoader(false);
+				setErrorMessage('');
+			} else {
+				setErrorMessage(result.message);
 			}
-			setBkupCampaigns(campaigns.data.campaigns.campaigns);
-			setLoading(false);
-			setShowLoader(false);
-			setErrorMessage('');
 
 		} catch (e) {
-
-			console.log(e);
 			setLoading(false);
 			setShowLoader(false);
-
-			let message = errorMessage;
-
-			if (e.errors && e.errors.length > 0)
-				e.errors.forEach((m) => {
-					message = message + m.message;
-				});
-
-			setErrorMessage(message);
-
-
+			setErrorMessage(e);
 		}
 	};
 
@@ -286,56 +196,28 @@ const Campaigns = () => {
 		try {
 			setLoading(true);
 			setShowLoader(true);
-			const influencerCampaigns = await API.graphql({
-				query: `{
-					influencerCampaigns(influencerId: "${brandId}") {
-          campaigns {
-            name
-            description
-            id
-            status
-            startDate
-            endDate
-						created
-						internalState
-						brand {
-							id
-							imageUrl
-							name
-						}
-          }
-        }
-      }`,
-			});
+			const result = await getInfluencerCampaignQuery(brandId);
 			if (
-				influencerCampaigns.data &&
-				influencerCampaigns.data !== null &&
-				influencerCampaigns.data.influencerCampaigns.campaigns
+				result.error === false
 			) {
 				let myArray = _.sortBy(
-					influencerCampaigns.data.influencerCampaigns.campaigns,
+					result.data,
 					function (dateObj) {
 						return new Date(dateObj.created);
 					}
 				).reverse();
 				setCampaigns(myArray);
+				setErrorMessage('');
+			} else {
+				setErrorMessage(result.message);
 			}
 			setLoading(false);
 			setShowLoader(false);
-			setErrorMessage('');
 		} catch (e) {
 
-			console.log(e);
 			setLoading(false);
 			setShowLoader(false);
-			let message = errorMessage;
-
-			if (e.errors && e.errors.length > 0)
-				e.errors.forEach((m) => {
-					message = message + m.message;
-				});
-
-			setErrorMessage(message);
+			setErrorMessage(e);
 		}
 	};
 
@@ -370,30 +252,22 @@ const Campaigns = () => {
 
 	/**{function} to delete the campaign*/
 	const handleDelete = async (campaignId) => {
+		setErrorMessage('');
 		try {
-			await API.graphql(
-				graphqlOperation(
-					`mutation deleteCampaign($brandId: ID!, $id: ID!) {
-          deleteCampaign(brandId: $brandId, id:$id)
-        }`,
-					{
-						brandId: brandId,
-						id: campaignId,
-					}
-				)
-			);
-			setErrorMessage('');
-			getCampaigns();
+
+			let result = await deleteCampaignMutation({
+				brandId: brandId,
+				id: campaignId,
+			});
+
+			if (result.error === false) {
+				setErrorMessage('');
+				getCampaigns();
+			} else {
+				setErrorMessage(result.message);
+			}
 		} catch (e) {
-			console.log('delete campaign error ', e);
-			let message = errorMessage;
-
-			if (e.errors && e.errors.length > 0)
-				e.errors.forEach((m) => {
-					message = message + m.message;
-				});
-
-			setErrorMessage(message);
+			setErrorMessage(e);
 		}
 	};
 
@@ -429,11 +303,12 @@ const Campaigns = () => {
 	/**{function} to handle the selected campaign card 
 	 * push the campaign detail page in browser
 	 */
+
 	const handleCampaginDetail = (id) => {
 		history.push(`/campaignDetail/${id}`, { campaignId: id });
 		setActiveRoute('campaignDetail');
 	};
-	
+
 	return (
 		<>
 			<Popover
@@ -584,19 +459,6 @@ const Campaigns = () => {
 				<Grid container spacing={3}>
 					{campaigns.length > 0 &&
 						campaigns.map((campaign) => {
-							// if ((active === 'PENDING' || active === 'INVITED') && (campaign.status === 'PENDING' || campaign.status === 'INVITED')) {
-							// 	return (
-							// 		<Grid className={styles.gridItem} item key={campaign.id}>
-							// 			<CampaignsCard
-							// 				campaign={campaign}
-							// 				onClick={() => {
-							// 					handleCampaginDetail(campaign.id);
-							// 				}}
-							// 				handleDelete={handleDelete}
-							// 			/>
-							// 		</Grid>
-							// 	);
-							// }
 							if (campaign.status !== active && active !== 'ALL') {
 								return null;
 							}

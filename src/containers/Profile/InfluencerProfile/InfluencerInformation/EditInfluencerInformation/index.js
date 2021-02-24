@@ -32,10 +32,12 @@ const EditInfluencerInformation = ({ open, handleChange, closeAdd, name,
 	handleUpdate,
 	email,
 	activeSave,
-	handleEmail }) => {
+	handleEmail,
+	errorMessage }) => {
+
 	useEffect(() => {
 		handleActiveSave();
-	}, [name, age, website, email, phoneNumber, location, bio])
+	}, [name, age, website, email, phoneNumber, bio])
 
 	return (
 		<Dialog
@@ -55,7 +57,6 @@ const EditInfluencerInformation = ({ open, handleChange, closeAdd, name,
 						value={name}
 						onChange={handleName}
 						className={mainStyles.placeholderColor}
-					// value="Sam Ozkural"
 					/>
 				</Grid>
 				<Grid item xs={12} className={styles.element}>
@@ -101,8 +102,10 @@ const EditInfluencerInformation = ({ open, handleChange, closeAdd, name,
 						id='outlined-basic'
 						fullWidth
 						label='Bio'
+						rows={5}
 						variant='outlined'
 						value={bio}
+						multiline
 						onChange={handleBio}
 					/>
 				</Grid>
@@ -145,7 +148,7 @@ const EditInfluencerInformation = ({ open, handleChange, closeAdd, name,
 						label='Mobile Number'
 						variant='outlined'
 						className={mainStyles.placeholderColor}
-						phoneNumber={phoneNumber}
+						value={phoneNumber}
 						onChange={handlePhoneNumber}
 						InputProps={{
 							endAdornment: (
@@ -274,11 +277,18 @@ const EditInfluencerInformation = ({ open, handleChange, closeAdd, name,
 						</TextField>
 					</FormControl>
 				</Grid>
+				{
+
+					errorMessage !== '' &&
+					<Grid item xs={12} className={styles.element}>
+						<p className={styles.error}>{errorMessage}</p>
+					</Grid>
+				}
 
 			</div>
 			<div className={styles.footer} >
 				<span onClick={closeAdd}>Cancel</span>
-				<button onClick={handleUpdate}>Save</button>
+				<button disabled={activeSave} className={activeSave ? styles.disabledClass : ''} onClick={handleUpdate}>Save</button>
 			</div>
 
 

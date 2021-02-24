@@ -39,10 +39,14 @@ const InfluencerInformation = ({ isOwner,
   handleEmail,
   handleActiveSave,
   handleUpdate,
-  activeSave
+  activeSave,
+  editOpen,
+  setEditOpen,
+  onCancel,
+  errorMessage
 
 }) => {
-  const [editOpen, setEditOpen] = useState(false);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClose = () => {
@@ -85,9 +89,9 @@ const InfluencerInformation = ({ isOwner,
         handleActiveSave={handleActiveSave}
         handleUpdate={handleUpdate}
         activeSave={activeSave}
-
+        errorMessage={errorMessage}
         open={editOpen}
-        closeAdd={() => setEditOpen(false)}
+        closeAdd={onCancel}
       />
       <Popover
         id={id}
@@ -105,8 +109,7 @@ const InfluencerInformation = ({ isOwner,
       ></Popover>
       <div className={styles.detailSubContent}>
         <p>
-          Lifestyle and healthy living influencer, CEO of Sam Ozkural
-          Jewelry,Wife and Mother.
+          {bio ? bio : 'Tell brands a little bit about yourself in your bio.'}
         </p>
       </div>
       <div className={styles.detailSubContent}>
@@ -114,16 +117,16 @@ const InfluencerInformation = ({ isOwner,
           <Messages />
           <span style={{ marginLeft: '20px' }}>
             {' '}
-            customerservice@careof.com{' '}
+            {email}{' '}
           </span>
         </div>
         <div className={styles.svgContainer}>
           <Globe />
-          <span style={{ marginLeft: '20px' }}> www.careof.com </span>
+          <span style={{ marginLeft: '20px' }}>{website}</span>
         </div>
         <div className={styles.svgContainer}>
           <Phone />
-          <span style={{ marginLeft: '20px' }}> 414-444-888 </span>
+          <span style={{ marginLeft: '20px' }}> {phoneNumber} </span>
         </div>
       </div>
     </div>
