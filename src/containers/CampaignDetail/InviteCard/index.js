@@ -5,10 +5,12 @@ import Translation from '../../../assets/translation.json';
 import { API, graphqlOperation } from 'aws-amplify';
 import { RootContext } from '../../../context/RootContext';
 import NegotiateDialog from '../NegotiateDialog';
+import {useHistory} from 'react-router-dom';
 
 
 
 const InviteCard = ({ createdBy, campaignId, handleStatus, invitationMessage, handleReviewAndSign }) => {
+	const history = useHistory();
 	const [decline, setDecline] = useState(false);
 	const [declineReason, setDeclineReason] = useState('');
 	const [reasonDetail, setReasonDetail] = useState('');
@@ -131,6 +133,8 @@ const InviteCard = ({ createdBy, campaignId, handleStatus, invitationMessage, ha
 					}`
 				)
 			)
+			setDecline(false)
+			history.push(`/campaigns`);
 		}
 		catch (err) {
 			console.log("Error In declining campaign invite", err)
@@ -160,6 +164,7 @@ const InviteCard = ({ createdBy, campaignId, handleStatus, invitationMessage, ha
 				handleReasonDetail={handleReasonDetail}
 				reasonDetail={reasonDetail}
 				handleDeclineCampaignInvite = {declineCampaignInvite}
+				errorMessage = {errorMessage}
 			/>
 
 			<NegotiateDialog
