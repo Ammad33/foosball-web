@@ -17,6 +17,7 @@ const CreateNegotiateItem = ({
 	item,
 	index,
 	handleNegotiate,
+	negotiables,
 }) => {
 	/**SVG */
 	const Chevron = () => {
@@ -70,11 +71,11 @@ const CreateNegotiateItem = ({
 						<MenuItem value='' disabled>
 							Negotiate Item
             </MenuItem>
-						<MenuItem value={'CASH_PER_POST'}>Cash per post</MenuItem>
-						<MenuItem value={'CASH_PER_MONTHLY_DELIVERABLE'}>Cash per monthly deliverable</MenuItem>
-						<MenuItem value={'REVENUE_SHARE'}>Revenue Share</MenuItem>
-						<MenuItem value={'GIFT_CARD'}>Gift Card</MenuItem>
-						<MenuItem value={'PRODUCT'}>Products</MenuItem>
+						{negotiables.map((option) => (
+							<MenuItem key={option} value={option}>
+								{option.toProperCase()}
+							</MenuItem>
+						))}
 					</TextField>
 				</FormControl>
 			</Grid>
@@ -103,10 +104,10 @@ const CreateNegotiateItem = ({
 						id='message'
 						label='Enter Custom Message'
 						fullWidth
-						rows = {10}
-						multiline = {true}
+						rows={10}
+						multiline={true}
 						variant='outlined'
-						className= {styles.messageField}
+						className={styles.messageField}
 						// className={mainStyles.placeholderColor}
 						value={item.negotiateMessage}
 						onChange={(e) =>

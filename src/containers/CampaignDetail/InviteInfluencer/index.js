@@ -43,6 +43,7 @@ const InviteInfluencer = ({
 		setAnchorEl(event.currentTarget);
 	};
 
+
 	return (
 		<>
 			{reviewAndSendFlag ? (<ReviewAndSign
@@ -115,6 +116,7 @@ const InviteInfluencer = ({
 									createdBy={data.brand}
 									campaignId={campaignId}
 									handleReviewAndSign={() => setReviewAndSendFlag(true)}
+									negotiables = {data.negotiables && _.keys(_.pickBy(data.negotiables))}
 
 								/>
 								<Activity activities={data?.events} onClick={handleSeeClick} />

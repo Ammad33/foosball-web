@@ -154,7 +154,7 @@ const PendingBrandCampaignDetail = ({
 				<div
 					className={clsx(
 						styles.campaignPendingContainer,
-						data.internalState === "MICROSITE_APPROVAL_REQUESTED" ? styles.allSetCampaignPendingContainer : ''
+						data.internalState === "MICROSITE_APPROVAL_REQUESTED" || data.internalState === "NEGOTIATING" ? styles.allSetCampaignPendingContainer : ''
 					)}
 				>
 					{data.internalState === "MICROSITE_APPROVAL_REQUESTED" ? (
@@ -168,15 +168,47 @@ const PendingBrandCampaignDetail = ({
 					</p>
 							<button onClick={() => setFlag(true)} >View</button>
 						</>
+					) : data.internalState === "NEGOTIATING" ? (
+						<>
+							<h1>
+								Sam sent a counter offer
+						</h1>
+							<p>
+								<i>Sam is proposing a Revenue share of 3% instead of 2%</i>
+							</p>
+							<p>
+								<i>Sam is proposing $40 cash per post instead of $30</i>
+							</p>
+							<div className={styles.offerButtons}>
+								<button
+									className={styles.acceptButton}
+									onClick={() => setAllSet(true)}
+								>
+									Accept
+								</button>
+								<button
+									className={styles.negotiateButton}
+									onClick={() => setOpenNegotiateDialog(true)}
+								>
+									Negotiate
+								</button>
+								<button
+									className={styles.declineButton}
+									onClick={() => setOpenDeclineDialog(true)}
+								>
+									Decline
+								</button>
+							</div>
+						</>
 					) : (
-							<>
-								<h1>You're all set</h1>
-								<p>
-									No action items as of right now. We will let you know when there
-									is something you need to do.
+								<>
+									<h1>You're all set</h1>
+									<p>
+										No action items as of right now. We will let you know when there
+										is something you need to do.
 					</p>
-							</>
-						)
+								</>
+							)
 
 					}
 
@@ -190,7 +222,7 @@ const PendingBrandCampaignDetail = ({
 										'Sam sent a counter offer'
 									) : (
 											<>
-												 <span>Microsite ready for approval</span>
+												<span>Microsite ready for approval</span>
 											</>
 										)}
 								</h1>

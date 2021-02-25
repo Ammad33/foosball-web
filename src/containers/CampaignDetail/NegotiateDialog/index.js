@@ -22,45 +22,14 @@ for (let i = 1; i <= 20; i += 0.5) {
 
 const NegotiateDialog = ({
 	open,
+	negotiables,
 	handleClose,
 	negotiate,
 	handleNegotiate,
-	// negotiateItem,
-	// handleNegotiateItem,
 	handleAnotherItem,
-	// reasons,
-	// handleReason,
-	// message,
-	// buttonText,
-	// handleReasonDetail,
-	// reasonDetail,
-	// handleDeclineCampaignInvite,
-	// handleNegotiateValue,
+	negotiateCampaign,
+
 }) => {
-	const [error, setError] = useState(false);
-	const [required, setRequired] = useState(false);
-	const [handleAnother, setAnother] = useState(false);
-
-
-	// const handleButton = () => {
-	// 	if (reasonDetail.length < 1) {
-	// 		setError(true);
-	// 	}
-	// };
-	// const handleRequrired = () => {
-	// 	if (reason.length < 1) {
-	// 		setRequired(true);
-	// 	}
-	// };
-	// const handleAction = (action) => {
-	// 	switch (action) {
-	// 		case 'Decline':
-	// 			handleDeclineCampaignInvite();	
-	// 			break;
-	// 		default:
-	// 			return '';
-	// 	}
-	// }
 
 	return (
 
@@ -76,10 +45,8 @@ const NegotiateDialog = ({
 					key={index}
 					negotiate={negotiate}
 					index={index}
+					negotiables = {negotiables}
 					handleNegotiate={handleNegotiate}
-				// handleNegotiateValue={handleNegotiateValue}
-				// handleRemoveCompensation={handleRemoveCompensation}
-				// handleAnother={() => setAnother(true)}
 				/>
 			))}
 			<div className={styles.addMore} onClick={handleAnotherItem}>
@@ -90,107 +57,13 @@ const NegotiateDialog = ({
 				<span onClick={handleClose}>Cancel</span>
 				<button
 					onClick={() => {
-						// handleButton();
-						// handleRequrired();
-						// handleAction(buttonText);
+						negotiateCampaign()
 					}}
 				>
 					Send to Brand
 				</button>
 			</div>
 		</Dialog>
-
-
-
-
-
-
-		// <Dialog
-		// 	classes={{ paper: styles.negotiate }}
-		// 	aria-labelledby='confirmation-dialog-title'
-		// 	open={open}
-		// 	onClose={handleClose}
-		// >
-		// 	<DialogTitle className={styles.Heading} id='negotiate-dialog-title'>
-		// 		<p>Negotiate</p>
-		// 	</DialogTitle>
-		// 	<div>
-		// 		<Grid container spacing={3}>
-		// 			<Grid item xs={12} sm={12} md={12}>
-		// 				<FormControl fullWidth variant='outlined'>
-		// 					<TextField
-		// 						className="negotiateItemField"
-		// 						labelId='demo-simple-select-outlined-label'
-		// 						id='Negotiate item'
-		// 						fullWidth
-		// 						label="Negotiate Item"
-		// 						variant='outlined'
-		// 						displayEmpty
-		// 						// className={mainStyles.placeholderColor}
-		// 						// helperText={required ? <span> "Required" </span> : ' '}
-		// 						value={negotiateItem}
-		// 						onChange={(e) => handleNegotiateItem(e.target.value)}
-		// 						MenuProps={{ variant: 'menu' }}
-		// 						select
-		// 						SelectProps={{ IconComponent: () => <Chevron /> }}
-		// 					>
-		// 						{' '}
-		// 						{negotiateItems.map((item) => (
-		// 							<MenuItem value={item}>{item}</MenuItem>
-		// 						))}
-		// 					</TextField>
-		// 				</FormControl>
-		// 			</Grid>
-		// 			{negotiateItem === 'Revenue Share' ? (
-		// 				<>
-		// 					<Grid item xs={12} sm={12} md={12}>
-		// 						<FormControl fullWidth variant='outlined'>
-		// 							<TextField
-		// 								labelid='demo-simple-select-outlined-label'
-		// 								id='revenue'
-		// 								label='Select Revenue Share Percentage'
-		// 								fullWidth
-		// 								variant='outlined'
-		// 								// className={mainStyles.placeholderColor}
-		// 								// value={revenueShare}
-		// 								// onChange={(e) =>
-		// 								// 	handleCompensationValue(e.target.value, index, 'Revenue share amount')
-		// 								// }
-		// 								MenuProps={{ variant: 'menu' }}
-		// 								select
-		// 								SelectProps={{ IconComponent: () => <Chevron /> }}
-		// 							>
-		// 								<MenuItem value='' disabled>
-		// 									Select revenue share percentage
-		//           </MenuItem>
-		// 								{options.map((option) => (
-		// 									<MenuItem key={option} value={option}>
-		// 										{option} %
-		// 									</MenuItem>
-		// 								))}
-		// 							</TextField>
-		// 						</FormControl>
-		// 					</Grid>
-		// 					<Grid item xs={12} sm={12} md={12} className={styles.customMessage}>
-		// 						<TextField
-		// 							id='outlined-basic'
-		// 							fullWidth
-		// 							label='Enter custom message'
-		// 							fullWidth
-		// 							variant='outlined'
-		// 							// value={reasonDetail}
-		// 							helperText={error ? <span> "Required" </span> : ' '}
-		// 						// onChange={(e) => handleReasonDetail(e.target.value)}
-		// 						/>
-		// 					</Grid>
-
-		// 				</>
-		// 			) : ("")}
-		// 		</Grid>
-
-		// 	</div>
-
-		// </Dialog>
 	);
 };
 
