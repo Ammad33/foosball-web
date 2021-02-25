@@ -36,13 +36,10 @@ import Loader from './containers/Loader';
 import Toastr from './components/Toastr';
 import AccountHistory from './containers/AccountHistory';
 import signUpImage from './assets/signup.png';
-import resetPasswordImage from './assets/resetpassword.png';
+import resetPasswordImage from './assets/reset-password.png';
 import loginImage from './assets/login.png';
-import forgotpassword from './assets/forgotpassword.png';
+import forgotpassword from './assets/forgot-password.png';
 import CreateMicrosite from './containers/CampaignDetail/CreateMicrosite';
-
-
-
 
 const App = () => {
   return (
@@ -64,7 +61,10 @@ const App = () => {
               <CampaignDetail />
             </Layout>
           </ProtectedRoute>
-          <ProtectedRoute exact path='/campaignDetail/createmicrosite/:campaignId'>
+          <ProtectedRoute
+            exact
+            path='/campaignDetail/createmicrosite/:campaignId'
+          >
             <Layout>
               <CreateMicrosite />
             </Layout>
