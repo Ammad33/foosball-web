@@ -14,8 +14,28 @@ const Messages = () => {
   );
 };
 
-const BrandInformation = ({ isOwner }) => {
-  const [editOpen, setEditOpen] = useState(false);
+const BrandInformation = ({ isOwner, name,
+  handleName,
+  age,
+  handleAge,
+  website,
+  handleWebsite,
+  phoneNumber,
+  handlePhoneNumber,
+  bio,
+  handleBio,
+  location,
+  handleLocation,
+  email,
+  handleEmail,
+  handleActiveSave,
+  handleUpdate,
+  activeSave,
+  editOpen,
+  setEditOpen,
+  onCancel,
+  errorMessage }) => {
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [brandInformation, setBrandInformation] = useState(true);
 
@@ -37,17 +57,30 @@ const BrandInformation = ({ isOwner }) => {
             }}
           />
         ) : (
-          ''
-        )}
+            ''
+          )}
       </div>
       <EditBrand
+        name={name}
+        handleName={handleName}
+        age={age}
+        handleAge={handleAge}
+        website={website}
+        handleWebsite={handleWebsite}
+        phoneNumber={phoneNumber}
+        handlePhoneNumber={handlePhoneNumber}
+        bio={bio}
+        handleBio={handleBio}
+        location={location}
+        handleLocation={handleLocation}
+        email={email}
+        handleEmail={handleEmail}
+        handleActiveSave={handleActiveSave}
+        handleUpdate={handleUpdate}
+        activeSave={activeSave}
+        errorMessage={errorMessage}
         open={editOpen}
-        closeAdd={() => setEditOpen(false)}
-        brandName='Brand Name'
-        bio='Premium Vitamins and Powders, Tailored to You, Delivered right to your door.'
-        email='customerservice@careof.com'
-        website='www.careof.com'
-        phoneNo='414-444-888'
+        closeAdd={onCancel}
       />
       <Popover
         id={id}
@@ -63,56 +96,33 @@ const BrandInformation = ({ isOwner }) => {
           horizontal: 'right',
         }}
       ></Popover>
-      {brandInformation ? (
-        <>
-          <div className={styles.detailSubContent}>
-            <p>
-              Premium Vitamins and Powders, Tailored to You, Delivered right to
-              your door.
-            </p>
+
+      <>
+        <div className={styles.detailSubContent}>
+          <p>
+            {
+              bio ? bio : ' Tell influencers a little about your brand and your products in your bio.'
+            }
+          </p>
+        </div>
+        <div className={styles.detailSubContent}>
+          <div className={styles.svgContainer}>
+            <Messages />
+            <span style={{ marginLeft: '10px' }}>
+              {' '}
+              {email ? email : ''}
+            </span>
           </div>
-          <div className={styles.detailSubContent}>
-            <div className={styles.svgContainer}>
-              <Messages />
-              <span style={{ marginLeft: '10px' }}>
-                {' '}
-                customerservice@careof.com{' '}
-              </span>
-            </div>
-            <div className={styles.svgContainer}>
-              <Globe />
-              <span style={{ marginLeft: '10px' }}> www.careof.com </span>
-            </div>
-            <div className={styles.svgContainer}>
-              <Phone />
-              <span style={{ marginLeft: '10px' }}> 414-444-888 </span>
-            </div>
+          <div className={styles.svgContainer}>
+            <Globe />
+            <span style={{ marginLeft: '10px' }}> {website ? website : ''} </span>
           </div>
-        </>
-      ) : (
-        <>
-          <div className={styles.detailSubContent}>
-            <p>
-              Tell influencers a little about your brand and your products in
-              your bio.
-            </p>
+          <div className={styles.svgContainer}>
+            <Phone />
+            <span style={{ marginLeft: '10px' }}> {phoneNumber ? phoneNumber : ''} </span>
           </div>
-          <div className={styles.detailSubContent}>
-            <div className={styles.svgContainer}>
-              <Messages />
-              <span style={{ marginLeft: '10px' }}> </span>
-            </div>
-            <div className={styles.svgContainer}>
-              <Globe />
-              <span style={{ marginLeft: '10px' }}></span>
-            </div>
-            <div className={styles.svgContainer}>
-              <Phone />
-              <span style={{ marginLeft: '10px' }}></span>
-            </div>
-          </div>
-        </>
-      )}
+        </div>
+      </>
     </div>
   );
 };
