@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, Select } from '@material-ui/core';
+import { Dialog, Select, Grid } from '@material-ui/core';
 import styles from './CancellationDialog.module.scss';
 import TextField from '../TextField';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -25,7 +25,8 @@ const CancellationDialog = ({
 	buttonText,
 	handleReasonDetail,
 	reasonDetail,
-	handleDeclineCampaignInvite
+	handleDeclineCampaignInvite,
+	errorMessage
 }) => {
 	const [error, setError] = useState(false);
 	const [required, setRequired] = useState(false);
@@ -35,20 +36,20 @@ const CancellationDialog = ({
 			setError(true);
 		}
 	};
-	const handleRequrired = () => {
-		if (reason.length < 1) {
+	const handleRequrired = (action) => {
+		if (reason.length > 1) {
+			switch (action) {
+				case 'Decline':
+					handleDeclineCampaignInvite();
+					break;
+				default:
+					return '';
+			}
+		}
+		else {
 			setRequired(true);
 		}
 	};
-	const handleAction = (action) => {
-		switch (action) {
-			case 'Decline':
-				handleDeclineCampaignInvite();	
-				break;
-			default:
-				return '';
-		}
-	}
 
 	return (
 		<Dialog
@@ -123,17 +124,26 @@ const CancellationDialog = ({
 				</div> */}
 			</div>
 			<div className={styles.footer}>
+				<div>
+					{errorMessage !== '' &&
+						<Grid item xs={12} className={styles.element}>
+							<p className={styles.error}>{errorMessage}</p>
+						</Grid>}
+				</div>
 				<span onClick={handleClose}>Cancel</span>
 				<button
 					onClick={() => {
-						handleButton();
-						handleRequrired();
-						handleAction(buttonText);
+						// handleButton();
+						handleRequrired(buttonText);
+						// handleAction(buttonText);
 					}}
 				>
 					{buttonText}
 				</button>
+
+
 			</div>
+
 		</Dialog>
 	);
 };
