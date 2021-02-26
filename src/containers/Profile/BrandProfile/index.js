@@ -10,6 +10,7 @@ import RightMenu from './RightMenu';
 import { API, graphqlOperation } from 'aws-amplify';
 import uploadImages from '../../../actions/uploadImges';
 import { RootContext } from '../../../context/RootContext';
+import updatebrandMutation from '../../../GraphQL/updatebrandMutation';
 
 const BrandProfile = () => {
   const [isOwner, setIsOwner] = useState(false);
@@ -19,12 +20,87 @@ const BrandProfile = () => {
   });
 
 
-  const [influencerProfile, setInfluencerProfile] = useState(null);
+  var [influencerProfile, setInfluencerProfile] = useState([]);
   const [imageUrl, setImageUrl] = useState('');
   const [imageFile, setImageFile] = useState(null);
   const [brandName, setBrandName] = useState('');
+  const [influencerName, setInfluencerName] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [age, setAge] = useState('');
+  const [bio, setBio] = useState('');
+  const [location, setLocation] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [website, setWebsite] = useState('');
+  const [activeSave, setActiveSave] = useState(true);
+  const [editOpen, setEditOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
+  const [path, setPath] = useState("");
   const { brandId, setBrands, setInfluencers, setProfileUpdate } = useContext(RootContext);
+	
+  useEffect(() => {
+    if (imageFile !== null && imageUrl !== '') {
+      postImage(imageUrl);
+    }
+  }, [imageUrl, imageFile]);
+
+  useEffect(() => {
+    getBrands();
+  }, [])
+
+  useEffect(() => {
+    updateBrand();
+  }, []);
+
+  const UpdateInfluencer = async () => {
+    setErrorMessage('');
+    try {
+      let res = await updatebrandMutation({
+        id: brandId,
+        age: age,
+        bio: bio,
+        email: email,
+        name: name,
+        location: location,
+        phoneNumber: phoneNumber,
+        website: website
+      });
+
+      if (res.error == false) {
+        const { data } = res;
+        setEditOpen(false);
+        setName(data.name);
+        setBio(data.bio);
+        setAge(data.age);
+        setEmail(data.email);
+        setWebsite(data.website);
+        setPhoneNumber(data.phoneNumber);
+        setLocation(data.location)
+
+      } else {
+        setErrorMessage(res.message);
+      }
+
+
+    } catch (e) {
+
+    }
+  }
+
+   ////////for picture to correctly work////////
+   useEffect(() => {
+    console.log(
+      "brandProfile influencer Profile--------->>>",
+      influencerProfile
+    );
+    setPath(null);
+    if (influencerProfile != null) {
+      if (influencerProfile.indexOf("blob") == -1)
+        influencerProfile += "?t=" + Date.now();
+      setPath(influencerProfile);
+    }
+  }, [influencerProfile]);
 
   const getBrands = async () => {
     try {
@@ -37,6 +113,10 @@ const BrandProfile = () => {
                   id
                   email
                   imageUrl
+                  name
+                  bio
+                  website
+                  phoneNumber
                 }
 						  }
 						}
@@ -47,6 +127,12 @@ const BrandProfile = () => {
       team.data && team.data !== null && team.data.me.organizations && team.data.me.organizations.length > 0 && team.data.me.organizations.forEach(item => {
         if (item.organization.id === brandId) {
           setInfluencerProfile(item.organization.imageUrl)
+          setName(item.organization.name);
+          setAge(item.organization.age);
+          setEmail(item.organization.email);
+          setPhoneNumber(item.organization.phoneNumber);
+          setWebsite(item.organization.website);
+          setBio(item.organization.bio);
         }
       });
 
@@ -55,81 +141,7 @@ const BrandProfile = () => {
     }
   };
 
-  const getMeData = async () => {
-    try {
-      const mydata = await API.graphql({
-        query: `{
-						me {
-							email
-							fullName
-							id
-							organizations {
-								organization {
-									id
-									name
-									__typename
-									... on Influencer {
-										id
-									}
-									imageUrl
-									email
-									roles {
-										id
-										administration
-									}
-								}
-							}
-							about
-							age
-							companyTitle
-							imageUrl
-							joined
-							modified
-							phoneNumber
-						}
-				}`,
-      });
 
-      /**seprating brands and influencers data */
-      let brandsData = [];
-      let influencersData = [];
-      mydata.data.me.organizations !== null &&
-        mydata.data.me.organizations.forEach((item) => {
-          if (item.organization.__typename === 'Influencer') {
-            influencersData.push(item);
-          } else if (item.organization.__typename === 'Brand') {
-            brandsData.push(item);
-          }
-        });
-      setBrands(brandsData);
-      setInfluencers(influencersData);
-    } catch (e) {
-      if (e.data) {
-
-        /**seprating brands and influencers data */
-        let brandsData = [];
-        let influencersData = [];
-        e.data.me.organizations !== null &&
-          e.data.me.organizations.forEach((item) => {
-            if (item.organization.__typename === 'Influencer') {
-              influencersData.push(item);
-            } else if (item.organization.__typename === 'Brand') {
-              brandsData.push(item);
-            }
-          });
-        setBrands(brandsData);
-        setInfluencers(influencersData);
-      }
-    }
-  };
-
-  useEffect(() => {
-    getBrands();
-  }, [])
-
-  useEffect(() => {
-    updateBrand();
-  }, []);
 
   const updateBrand = async () => {
     let res = await API.graphql(
@@ -179,18 +191,25 @@ const BrandProfile = () => {
   };
 
 
-  useEffect(() => {
-    if (imageFile !== null && imageUrl !== '') {
-      postImage(imageUrl);
-    }
-  }, [imageUrl, imageFile]);
+  const ActiveSave = () => {
+    if (name !== '' && name !== null && phoneNumber !== '' && phoneNumber !== null && bio !== null && bio !== '' && email !== '' && email !== null) {
+      setActiveSave(false)
+    } else setActiveSave(true);
+  }
+
+  const onCancel = () => {
+    getBrands();
+    setEditOpen(false);
+  }
+
+
 
   return (
     <div className={styles.mainContainer}>
       <div className={styles.contentContainer}>
         <div className={styles.profileHeading}>
           <div className={styles.brandInfo}>
-            <Avatar className={styles.brandImage} src={influencerProfile}></Avatar>
+            <Avatar className={styles.brandImage} src={`${path}`}></Avatar>
             <div className={styles.nameAndMessage}>
               <div className={styles.brandName}>{brandName}</div>
               {/* {isOwner ? ( */}
@@ -221,7 +240,29 @@ const BrandProfile = () => {
         <div className={styles.profileDetails}>
           <Grid container spacing={4}>
             <Grid item xs={6}>
-              <BrandInformation isOwner={isOwner} />
+              <BrandInformation
+                name={name}
+                handleName={(e) => setName(e.target.value)}
+                age={age}
+                handleAge={(e) => setAge(e.target.value)}
+                website={website}
+                handleWebsite={(e) => setWebsite(e.target.value)}
+                phoneNumber={phoneNumber}
+                handlePhoneNumber={(e) => setPhoneNumber(e.target.value)}
+                bio={bio}
+                handleBio={(e) => setBio(e.target.value)}
+                location={location}
+                handleLocation={(e) => setLocation(e.target.value)}
+                isOwner={true}
+                email={email}
+                handleEmail={(e) => setEmail(e.target.value)}
+                handleActiveSave={ActiveSave}
+                handleUpdate={UpdateInfluencer}
+                activeSave={activeSave}
+                editOpen={editOpen}
+                setEditOpen={setEditOpen}
+                onCancel={onCancel}
+                errorMessage={errorMessage} />
             </Grid>
             <Grid item xs={6}>
               <ProductCategories isOwner={isOwner} />

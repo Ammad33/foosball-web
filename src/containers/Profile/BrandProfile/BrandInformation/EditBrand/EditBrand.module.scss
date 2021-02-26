@@ -36,6 +36,13 @@
 	.element {
 		margin-bottom: 30px;	
 	}
+	.error {
+		color: red;
+		font-family: Poppins;
+		font-size: 16px;
+		letter-spacing: 0;
+		line-height: 25px;
+	}
 	.bio {
 		div input {
 		padding-bottom: 185px;
@@ -70,11 +77,11 @@
 			height: 52px;
 			width: 172px;
 			border-radius: 100px;
-			background-color: #CCCCCC;
-			// background-color: $dark1 !important;
-			// color: $white;
-			// border-radius: 100px;
-			color: #959595;
+			// background-color: #CCCCCC;
+			background-color: $dark1;
+			color: $white;
+			border-radius: 100px;
+			// color: #959595;
 			font-size: 15px;
 			font-weight: 500;
 			letter-spacing: 0;
@@ -92,6 +99,11 @@
 			:active {
 				outline: none;
 			}
+		}
+		
+		.disabledClass {
+			background-color: #CCCCCC !important;
+			color: #959595 !important;	
 		}
 	}
 }

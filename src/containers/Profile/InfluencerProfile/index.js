@@ -31,8 +31,10 @@ const MapPin = () => {
 const InfluencerProfile = () => {
 	const [isOwner, setIsOwner] = useState(false);
 
-	const [influencerProfile, setInfluencerProfile] = useState(null);
-	const [selectedInfluencer, setSelectedInfluencer] = useState(null);
+	const [path, setPath] = useState("");
+	var [influencerProfile, setInfluencerProfile] = useState([]);
+	// const [selectedInfluencer, setSelectedInfluencer] = useState(null);
+	// const [influencerProfile, setInfluencerProfile] = useState(null);
 	const [imageUrl, setImageUrl] = useState('');
 	const [imageFile, setImageFile] = useState(null);
 	const [influencerName, setInfluencerName] = useState('');
@@ -47,6 +49,19 @@ const InfluencerProfile = () => {
 	const [editOpen, setEditOpen] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('');
 
+   	////////for picture to correctly work////////
+   	useEffect(() => {
+    console.log(
+      "brandProfile influencer Profile--------->>>",
+      influencerProfile
+    );
+    setPath(null);
+    if (influencerProfile != null) {
+      if (influencerProfile.indexOf("blob") == -1)
+        influencerProfile += "?t=" + Date.now();
+      setPath(influencerProfile);
+    }
+  	}, [influencerProfile]);
 
 	const UpdateInfluencer = async () => {
 		setErrorMessage('');
@@ -275,7 +290,7 @@ const InfluencerProfile = () => {
 			<div className={styles.contentContainer}>
 				<div className={styles.profileHeading}>
 					<div className={styles.influencerInfo}>
-						<Avatar className={styles.influencerImage} alt='Profile' src={influencerProfile} />
+						<Avatar className={styles.influencerImage} alt='Profile' src={`${path}`} />
 						<div className={styles.nameAndMessage}>
 							<div>
 								<div className={styles.influencerName}>{influencerName}</div>

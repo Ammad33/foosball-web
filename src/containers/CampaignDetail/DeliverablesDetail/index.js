@@ -95,7 +95,7 @@ const DeliverablesDetail = ({ deliverables, campaign }) => {
               <p>@{deliverable ? deliverable.brandTag : ''}</p>
             </div>
             <div className={styles.detailSubContent}>
-              <h6>Hashtag</h6>
+              <h6>Hash tag</h6>
               <p>#{deliverable ? deliverable.hashTag : ''}</p>
             </div>
             <div
