@@ -19,12 +19,26 @@ const BrandProfile = () => {
   });
 
 
-  const [influencerProfile, setInfluencerProfile] = useState(null);
+  var [influencerProfile, setInfluencerProfile] = useState([]);
   const [imageUrl, setImageUrl] = useState('');
   const [imageFile, setImageFile] = useState(null);
   const [brandName, setBrandName] = useState('');
-
+  const [path, setPath] = useState("");
   const { brandId, setBrands, setInfluencers, setProfileUpdate } = useContext(RootContext);
+
+   ////////for picture to correctly work////////
+   useEffect(() => {
+    console.log(
+      "brandProfile influencer Profile--------->>>",
+      influencerProfile
+    );
+    setPath(null);
+    if (influencerProfile != null) {
+      if (influencerProfile.indexOf("blob") == -1)
+        influencerProfile += "?t=" + Date.now();
+      setPath(influencerProfile);
+    }
+  }, [influencerProfile]);
 
   const getBrands = async () => {
     try {
@@ -190,7 +204,7 @@ const BrandProfile = () => {
       <div className={styles.contentContainer}>
         <div className={styles.profileHeading}>
           <div className={styles.brandInfo}>
-            <Avatar className={styles.brandImage} src={influencerProfile}></Avatar>
+            <Avatar className={styles.brandImage} src={`${path}`}></Avatar>
             <div className={styles.nameAndMessage}>
               <div className={styles.brandName}>{brandName}</div>
               {/* {isOwner ? ( */}
