@@ -32,7 +32,6 @@ const InfluencerProfile = () => {
 	const [isOwner, setIsOwner] = useState(false);
 
 	const [influencerProfile, setInfluencerProfile] = useState(null);
-	const [selectedInfluencer, setSelectedInfluencer] = useState(null);
 	const [imageUrl, setImageUrl] = useState('');
 	const [imageFile, setImageFile] = useState(null);
 	const [influencerName, setInfluencerName] = useState('');
