@@ -10,6 +10,8 @@ import { useHistory } from 'react-router-dom';
 import FacebookSVG from '../../assets/facebook-logo-2019-thumb.png';
 import GoogleSVG from '../../assets/google-logo-icon-png-transparent-background-osteopathy-16.png';
 import AppleSVG from '../../assets/apple-logo-png-index-content-uploads-10.png';
+import meQuery from '../../GraphQL/MeQuery';
+
 /*SVG*/
 const EyeOffSVG = () => {
   return <SVG src={require('../../assets/eye-off.svg')} />;
@@ -94,39 +96,14 @@ const Login = () => {
   /*getMeData{function} to get the user data by calling API and storing the response  to meData variable*/
   const getMeData = async () => {
     try {
-      const mydata = await API.graphql({
-        query: `{
-						me {
-							email
-							fullName
-							id
-							organizations {
-								organization {
-									id
-									name
-									__typename
-									imageUrl
-									email
-								}
-							}
-							about
-							age
-							companyTitle
-							imageUrl
-							joined
-							modified
-							phoneNumber
-						}
-				}`,
-      });
+      const mydata = await meQuery();
       const user = await Auth.currentAuthenticatedUser();
       setShowLoader(false);
       if (
         mydata &&
         mydata.data &&
-        mydata.data.me &&
-        mydata.data.me.organizations &&
-        mydata.data.me.organizations.length
+        mydata.data.organizations &&
+        mydata.data.organizations.length
       ) {
         setCurrentUser(user);
         setActiveRoute('Campaign');

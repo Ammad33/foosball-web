@@ -7,6 +7,7 @@ import { API } from 'aws-amplify';
 import ShowNotification from './ShowNotification';
 import * as moment from 'moment';
 import * as _ from 'lodash';
+import getNotificationsQuery from '../../GraphQL/getNotificationsQuery';
 
 const NotificationIcon = () => {
   return <SVG src={require('../../assets/Notification.svg')} />;
@@ -43,38 +44,14 @@ const Notification = () => {
 
   const getNotifications = async () => {
     try {
-      const notification = await API.graphql({
-        query: `{
-					notifications {
-						notifications {
-							brandId
-							campaignId
-							event
-							message
-							received
-							seen
-							sender {
-								... on User {
-									id
-									fullName
-								}
-								... on Brand {
-									id
-									name
-								}
-								... on Influencer {
-									id
-									name
-								}
-							}
-						}
-					}
-				}`,
-      });
-      const not = _.cloneDeep(notification.data.notifications.notifications);
-      const nots = [...notification.data.notifications.notifications];
-      setNotifications(not);
-      mapNotifications(nots.splice(0, limit));
+      const result = await getNotificationsQuery();
+      if (result.error === false) {
+        const not = _.cloneDeep(result.data);
+        const nots = [...result.data];
+        setNotifications(not);
+        mapNotifications(nots.splice(0, limit));
+
+      }
     } catch (e) {
       console.log('error in notifcations ', e);
     }
@@ -155,8 +132,8 @@ const Notification = () => {
               <button onClick={handleLoadMore}>Load More</button>
             </div>
           ) : (
-            ''
-          )}
+              ''
+            )}
         </div>
       </Popover>
       <div onClick={handleClick}>

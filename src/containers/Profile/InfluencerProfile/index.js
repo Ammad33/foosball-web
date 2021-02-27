@@ -10,7 +10,7 @@ import InfluencerPosts from './RecentPosts';
 import Social from './Social';
 import { API, graphqlOperation } from 'aws-amplify';
 // import AverageEngagement from './AverageEngagement';
-import uploadImages from '../../../actions/uploadImges';
+
 import updateInfluencerMutation from '../../../GraphQL/updateInfluencerMutation';
 
 const User = () => {
