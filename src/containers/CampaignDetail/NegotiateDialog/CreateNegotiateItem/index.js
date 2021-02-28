@@ -1,5 +1,5 @@
-import React, {  useState } from 'react';
-import { Grid,  InputAdornment } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Grid, InputAdornment, DialogTitle } from '@material-ui/core';
 import TextField from '../../../../components/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -14,27 +14,14 @@ for (let i = 1; i <= 20; i += 0.5) {
 }
 
 const CreateNegotiateItem = ({
-	compensations,
-	handleAnother,
-	index,
 	item,
-	handleCompensationValue,
-	handleRemoveCompensation,
-	compensationProduct,
-	handleCompensationProducts,
-	compensationProductItems,
-	compensationProducts,
-	handleCollectionExpand,
-	handleActiveForCompensationProduct,
-	handleCompensationProductItem,
-	giftCode,
-	handleGiftCode,
-	products
+	index,
+	handleNegotiate,
 }) => {
 	/**SVG */
 	const Chevron = () => {
 		return (
-			<span onClick={onClick} {...other} className={styles.dropDownCustomizeSvg}>
+			<span className={styles.dropDownCustomizeSvg}>
 				<SVG src={require('../../../../assets/chevron-down.svg')} />
 			</span>
 		);
@@ -49,36 +36,39 @@ const CreateNegotiateItem = ({
 					index > 0 ? styles.marginTop : ''
 				)}
 			>
-				<p className={styles.headingColor}>Compensation Type {index + 1}</p>
+				<DialogTitle className={styles.Heading} id='negotiate-dialog-title'>
+					<p>Negotiate {index + 1}</p>
+				</DialogTitle>
+				{/* <p className={styles.headingColor}>Compensation Type </p>
 				{compensations.length > 1 && (
 					<Trash onClick={() => handleRemoveCompensation(index)} />
-				)}
+				)} */}
 			</Grid>
 			<Grid item xs={12} className={styles.marginbottomSelect}>
 				<FormControl fullWidth variant='outlined'>
 					<TextField
-						id='Compensation Type'
+						id='Negotiate Item'
 						fullWidth
-						label='Compensation Type'
+						label='Negotiate Item'
 						variant='outlined'
 						className={mainStyles.placeholderColor}
-						value={item.compensationType}
+						value={item.negotiateItem}
 						onChange={(e) => {
-							handleCompensationValue(
+							handleNegotiate(
 								e.target.value,
 								index,
-								'compensationType'
+								'Negotiate Item'
 							);
-							if (e.target.value !== '') {
-								handleAnother();
-							}
+							// if (e.target.value !== '') {
+							// 	handleAnother();
+							// }
 						}}
 						menuprops={{ variant: 'menu' }}
 						select
-						SelectProps={{ IconComponent: () => <Chevron MenuId="open" Check="open" />, open: open, onClose: () => { setOpen(false) }, onOpen: () => { setOpen(true) } }}
+						SelectProps={{ IconComponent: () => <Chevron /> }}
 					>
 						<MenuItem value='' disabled>
-							Compensation Type
+							Negotiate Item
             </MenuItem>
 						<MenuItem value={'CASH_PER_POST'}>Cash per post</MenuItem>
 						<MenuItem value={'CASH_PER_MONTHLY_DELIVERABLE'}>Cash per monthly deliverable</MenuItem>
@@ -88,101 +78,45 @@ const CreateNegotiateItem = ({
 					</TextField>
 				</FormControl>
 			</Grid>
-
-			{item.compensationType !== '' && item.compensationType !== 'REVENUE_SHARE' && item.compensationType !== 'GIFT_CARD' &&
-				item.compensationType !== 'PRODUCT' &&
-				(
-					<Grid item xs={12} sm={12} md={12}>
-						<TextField
-							id='outlined-basic'
-							fullWidth
-							label='Enter Amount'
-							variant='outlined'
-							value={item.amount}
-							onChange={(e) =>
-								handleCompensationValue(e.target.value, index, 'amount')
-							}
-							InputProps={{
-								startAdornment: (
-									<InputAdornment position='start'>$</InputAdornment>
-								),
-							}}
-						/>
-					</Grid>
-				)}
-			{item.compensationType === 'REVENUE_SHARE' && (
-				<Grid item xs={12} sm={12} md={12}>
-					<FormControl fullWidth variant='outlined'>
-						<TextField
-							labelid='demo-simple-select-outlined-label'
-							id='revenue'
-							label='Enter Revenue Share'
-							fullWidth
-							variant='outlined'
-							className={mainStyles.placeholderColor}
-							value={item.amount}
-							onChange={(e) =>
-								handleCompensationValue(e.target.value, index, 'Revenue share amount')
-							}
-							MenuProps={{ variant: 'menu' }}
-							select
-							SelectProps={{ IconComponent: () => <Chevron MenuId="open1" Check="open1" />, open: open1, onClose: () => { setOpen1(false) }, onOpen: () => { setOpen1(true) } }}
-						>
-							<MenuItem value='' disabled>
-								Select revenue share percentage
-              </MenuItem>
-							{options.map((option) => (
-								<MenuItem key={option} value={option}>
-									{option} %
-								</MenuItem>
-							))}
-						</TextField>
-					</FormControl>
-				</Grid>
-			)}
-			{item.compensationType === 'GIFT_CARD' &&
-				<Grid item xs={12} sm={12} md={12}>
+			<Grid item xs={12} sm={12} md={12}>
+				<FormControl fullWidth variant='outlined'>
 					<TextField
-						className={styles.marginbottomSelect}
-						id='outlined-basic123'
+						labelid='demo-simple-select-outlined-label'
+						id='message'
+						label='Enter Value '
 						fullWidth
-						label='Enter Amount'
 						variant='outlined'
-						value={item.amount}
+						className={mainStyles.placeholderColor}
+						value={item.negotiateValue}
 						onChange={(e) =>
-							handleCompensationValue(e.target.value, index, 'amount')
+							handleNegotiate(e.target.value, index, 'Negotiate Value')
 						}
-						InputProps={{
-							startAdornment: (
-								<InputAdornment position='start'>$</InputAdornment>
-							),
-						}}
-					/>
+						MenuProps={{ variant: 'menu' }}
+					>
+					</TextField>
+				</FormControl>
+			</Grid>
+			<Grid item xs={12} sm={12} md={12}>
+				<FormControl fullWidth variant='outlined' >
 					<TextField
-						id='outlined-basic'
+						labelid='demo-simple-select-outlined-label'
+						id='message'
+						label='Enter Custom Message'
 						fullWidth
-						label='Paste gift card code'
+						rows = {10}
+						multiline = {true}
 						variant='outlined'
-						value={giftCode}
-						className={styles.giftCard}
-						onChange={handleGiftCode}
-					/>
-				</Grid>
-			}
-			{item.compensationType === 'PRODUCT' && (
-				<Grid item xs={12} sm={12} md={12}>
-					<Collection
-						collection={compensationProduct}
-						handleCollection={handleCompensationProducts}
-						handleCollectionItem={handleCompensationProductItem}
-						collectionItems={compensationProductItems}
-						collections={compensationProducts}
-						products={products}
-						handleCollectionExpand={handleCollectionExpand}
-						handleActiveForCollection={handleActiveForCompensationProduct}
-					/>
-				</Grid>
-			)}
+						className= {styles.messageField}
+						// className={mainStyles.placeholderColor}
+						value={item.negotiateMessage}
+						onChange={(e) =>
+							handleNegotiate(e.target.value, index, 'Negotiate Message')
+						}
+						MenuProps={{ variant: 'menu' }}
+					>
+					</TextField>
+				</FormControl>
+			</Grid>
 		</Grid>
 	);
 };

@@ -1,0 +1,18 @@
+.Heading {
+	padding: 0px !important;
+}
+
+.messageField {
+	&>label {
+		color: #7e7e7e !important;
+		line-height: 20px !important;
+	}
+
+}
+
+.dropDownCustomizeSvg {
+	svg {
+		margin-left: -33px;
+		margin-right: 20px;
+	}
+}

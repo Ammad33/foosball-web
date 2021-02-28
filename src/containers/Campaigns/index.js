@@ -82,7 +82,6 @@ const Campaigns = () => {
 			const cognitoUser = await Auth.currentAuthenticatedUser();
 			const currentSession = await Auth.currentSession();
 			cognitoUser.refreshSession(currentSession.refreshToken, (err, session) => {
-				// console.log('session', err, session);
 				let currentUserAWS = { ...currentUser };
 				currentUserAWS.signInUserSession = session;
 				setCurrentUser(currentUserAWS);
