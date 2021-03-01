@@ -2,12 +2,12 @@ import { API } from 'aws-amplify';
 
 const brandCampaignDetailQuery = async (brandId, campaignId) => {
 
-	try {
+  try {
 
-		const { data: {
-			campaign
-		} } = await API.graphql({
-			query: `{
+    const { data: {
+      campaign
+    } } = await API.graphql({
+      query: `{
                 campaign(brandId: "${brandId}", id: "${campaignId}") {
                   id
                               name
@@ -19,6 +19,35 @@ const brandCampaignDetailQuery = async (brandId, campaignId) => {
                               paymentSchedule
                               internalState
                               micrositeUrl
+                              negotiations {
+                                id
+                                message
+                                postFee {
+                                  amount
+                                  currency
+                                }
+                                revenueShare {
+                                  percentage
+                                }
+                                monthlyRetainerFee {
+                                  amount
+                                  currency
+                                }
+                                giftCard {
+                                  amount
+                                  currency
+                                }
+                                campaignDuration {
+                                  endDate
+                                  startDate
+                                  totalDuration
+                                }
+                                organization {
+                                  id
+                                  name
+                                }
+                                created
+                              }
                   products {
                     collection {
                       id
@@ -177,26 +206,26 @@ const brandCampaignDetailQuery = async (brandId, campaignId) => {
                               }
                 } 
             }`
-		});
+    });
 
-		if (campaign && campaign !== null) {
-			return ({
-				error: false,
-				data: campaign
-			});
-		}
-	} catch (error) {
-		let message = '';
-		if (error.errors && error.errors.length > 0)
-			error.errors.forEach((m) => {
-				message = message + m.message;
-			});
+    if (campaign && campaign !== null) {
+      return ({
+        error: false,
+        data: campaign
+      });
+    }
+  } catch (error) {
+    let message = '';
+    if (error.errors && error.errors.length > 0)
+      error.errors.forEach((m) => {
+        message = message + m.message;
+      });
 
-		return ({
-			error: true,
-			message: message
-		})
-	}
+    return ({
+      error: true,
+      message: message
+    })
+  }
 };
 
 export default brandCampaignDetailQuery;

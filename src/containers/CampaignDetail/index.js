@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import InfluencerCampaignDetail from './InfluencerCampaignDetail';
 import { RootContext } from '../../context/RootContext';
-import { API, graphqlOperation, Auth } from 'aws-amplify';
+import { Auth } from 'aws-amplify';
 import _ from 'lodash';
 import moment from 'moment';
 import brandCampaignDetailQuery from '../../GraphQL/brandCampaignDetailQuery';
@@ -15,6 +15,7 @@ import influencerCampaignDetailQuery from '../../GraphQL/influencerCampaignDetai
 import getTeamQuery from '../../GraphQL/getTeamQuery';
 import deleteCampaignMutation from '../../GraphQL/deleteCampaignMutation';
 import updateCampaignMutation from '../../GraphQL/updateCampaignMutation';
+import negotiateInfluencerMutation from '../../GraphQL/negotiateInfluencerMutation';
 
 const CampaignDetail = ({ location }) => {
 
@@ -33,6 +34,7 @@ const CampaignDetail = ({ location }) => {
 	const [internalState, setInternalState] = useState('');
 	const [data, setData] = useState(null);
 	const [errorMessage, setErrorMessage] = useState('');
+	const [negotiationOption, setNegotiationOption] = useState({});
 
 	String.prototype.toProperCase = function () {
 		return this.replace(/\w\S*/g, function (txt) {
@@ -373,6 +375,13 @@ const CampaignDetail = ({ location }) => {
 			handleHeading();
 		}
 	}, [data]);
+
+	const handleNegotiations = () => {
+
+
+
+
+	};
 
 	return (
 		<div className={styles.detailContainer}>

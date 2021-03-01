@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
 	Avatar,
 	Popover,
@@ -43,6 +43,8 @@ import Translation from '../../../assets/translation.json';
 import ReviewBrandMicrosite from '../ReviewBrandMicrosite'
 import { API, graphqlOperation } from 'aws-amplify';
 import { RootContext } from '../../../context/RootContext';
+import moment from 'moment';
+import NegotiateDialog from '../NegotiateDailogBrand';
 
 
 
@@ -89,7 +91,106 @@ const PendingBrandCampaignDetail = ({
 	const [errorMessage, setErrorMessage] = useState('');
 	const [brandRejectMessage, setBrandRejectMessage] = useState('');
 	const { brandId } = useContext(RootContext);
+	const [negotiate, setNegotiate] = useState([]);
+	const [startDateOpen, setStartDateOpen] = useState(false);
+	const [endDateOpen, setEndDateOpen] = useState(false);
 
+	const getNegotiables = (item) => {
+
+		var temp = negotiate.filter((nego) => (nego.negotiateItem === item));
+
+		let USD = 'USD';
+		if (!temp || temp.length < 1) {
+			return
+		}
+		if (temp[0].negotiateItem === 'revenueShare') {
+			return { percentage: temp[0].newPriceValue && temp[0].newPriceValue !== '' ? temp[0].newPriceValue : temp[0].negotiateValue }
+		}
+		else {
+			return { amount: temp[0].newPriceValue && temp[0].newPriceValue !== '' ? temp[0].newPriceValue : temp[0].negotiateValue, currency: USD }
+		}
+
+	};
+
+	const negotiateCampaign = async () => {
+		try {
+			let data = {
+				campaignId: campaignId,
+				message: negotiate[0].negotiateMessage,
+				revenueShare: getNegotiables("revenueShare"),
+				postFee: getNegotiables("postFee"),
+				giftCard: getNegotiables("giftCard"),
+				monthlyRetainerFee: getNegotiables("monthlyRetainerFee"),
+			}
+			await API.graphql(
+				graphqlOperation(
+					`mutation negotiateCampaign($input: NegotiationInput! ) {
+						brandNegotiate (
+							brandId: "${brandId}" ,
+							input: $input ){
+								
+								id
+						}
+					}`
+					,
+					{
+						input: data,
+					}
+				)
+			)
+			setOpenNegotiateDialog(false);
+			// history.push(`/campaignDetail/${campaignId}`);
+			window.location.reload();
+		}
+		catch (e) {
+			console.log("error in negotiate Campaign", e)
+		}
+	}
+
+
+
+	const handleNegotiate = (val, index, fieldName) => {
+		const nego = [...negotiate];
+		if (fieldName === 'negotiateItem') {
+			nego[index]['negotiateItem'] = val;
+		}
+		if (fieldName === 'negotiateValue') {
+			nego[index]['negotiateValue'] = val;
+		}
+		if (fieldName === 'newPrice') {
+			nego[index]['newPrice'] = val;
+		}
+		if (fieldName === 'accept') {
+			nego[index]['accept'] = val;
+		}
+		if (fieldName === 'newPriceValue') {
+			nego[index]['newPriceValue'] = val;
+		}
+		if (fieldName === 'Negotite StartDate') {
+			const moment_date = moment(val).format('L');
+			const startDate =
+				val !== '' && moment(val, 'MM/DD/YYYY', true).isValid()
+					? moment_date
+					: val
+			const endDate = (moment(moment_date).add(1, 'M').format('MM/DD/YYYY'));
+			nego[index]['negotiateStartDate'] = startDate;
+			nego[index]['negotiateEndDate'] = endDate;
+			setStartDateOpen(false);
+		}
+		setNegotiate(nego);
+	};
+
+	const handleAnotherItem = () => {
+		const nego = [...negotiate];
+
+		nego.push({
+			negotiateItem: '',
+			negotiateMessage: '',
+			negotiateValue: '',
+		});
+
+		setNegotiate(nego);
+	};
 
 
 	const handleClose = () => {
@@ -174,7 +275,7 @@ campaignId: "${campaignId}"
 			await API.graphql(
 				graphqlOperation(
 					`mutation brandReject {
-brandRejectOffer(
+     brandRejectOffer(
 brandId: "${brandId}" ,
 campaignId: "${campaignId}",
 message: "${brandRejectMessage}")
@@ -189,6 +290,44 @@ message
 			console.log("Error in brand reject offer", e)
 		}
 	}
+	useEffect(() => {
+
+
+		if (data !== null) {
+			let nego = [];
+			if (data.negotiations && data.negotiations.length !== 0) {
+				const element = data.negotiations[0];
+				if (element) {
+					Object.keys(element).map(item => {
+						if (item === 'postFee' || item === 'revenueShare' || item === 'monthlyRetainerFee' || item === 'giftCard') {
+							if (element[item] != null) {
+								if (item === 'revenueShare') {
+									nego.push({
+										negotiateItem: item,
+										negotiateValue: element[item].percentage,
+										accept: false,
+										newPrice: false,
+										newPriceValue: ''
+									})
+								} else {
+									nego.push({
+										negotiateItem: item,
+										negotiateValue: element[item].amount,
+										accept: false,
+										newPrice: false,
+										newPriceValue: ''
+									})
+								}
+							}
+						}
+					})
+					setNegotiate(nego);
+				}
+			}
+		}
+
+
+	}, [data])
 
 
 	const getStatusContainerContent = () => {
@@ -504,97 +643,19 @@ onChange={(e) => setPendingOffer(e.target.checked)}
 							</div>
 						</div>
 
-						<Dialog
-							disableBackdropClick
-							disableEscapeKeyDown
-							aria-labelledby='Negotiate Dialog'
+						<NegotiateDialog
 							open={openNegotiateDialog}
-							classes={{ paper: styles.negotiationDialog }}
-						>
-							<DialogTitle className={styles.dialogTitle} id='negotiate-dialog-title'>
-								<p className={styles.titleText}>Negotiate</p>
-							</DialogTitle>
-							<DialogContent className={styles.dialogContent}>
-								<FormControl fullWidth variant='outlined'>
-									<TextField
-										className={styles.marginbottomSelect}
-										id='Negotiated Item'
-										fullWidth
-										label='Negotiated Item'
-										variant='outlined'
-										value={negotitaedItem}
-										onChange={(e) => setNegotiatedItem(e.target.value)}
-										MenuProps={{ variant: 'menu' }}
-										select
-										SelectProps={{ IconComponent: () => <Chevron /> }}
-									>
-										<MenuItem value='' disabled>
-											Negotiated Item
-										</MenuItem>
-
-										<MenuItem value={'10'}>10</MenuItem>
-										<MenuItem value={'20'}>20</MenuItem>
-									</TextField>
-								</FormControl>
-								{negotitaedItem !== '' && (
-									<>
-										<Grid xs={12} className={styles.marginbottomSelect}>
-											<FormControl fullWidth variant='outlined'>
-												<Select
-													id='revenue'
-													fullWidth
-													label='Enter Revenue Share'
-													variant='outlined'
-													value={percentage}
-													onChange={(e) => setPercentage(e.target.value)}
-													displayEmpty
-													IconComponent={() => <Chevron />}
-													MenuProps={{ variant: 'menu' }}
-													input={<SelectMenu />}
-												>
-													<MenuItem value='' disabled>
-														Select Revenue Share Percentage
-													</MenuItem>
-													{options.map((option) => (
-														<MenuItem key={option} value={option}>
-															{option}
-														</MenuItem>
-													))}
-												</Select>
-											</FormControl>
-										</Grid>
-										<Grid item xs={12} sm={12} md={12}>
-											<TextField
-												id='outlined-basic'
-												fullWidth
-												multiline
-												value={customeMessage}
-												onChange={(e) => setCustomeMessage(e.target.value)}
-												rows={12}
-												label={'Enter custom message'}
-												variant='outlined'
-											/>
-										</Grid>
-										<div className={styles.addMore}>
-											<Plus />
-											<p>Negotiate another item</p>
-										</div>
-									</>
-								)}
-							</DialogContent>
-							<DialogActions className={styles.dialogActions}>
-								<button onClick={() => setOpenNegotiateDialog(false)}>Cancel</button>
-								<button
-									className={clsx(
-										styles.sendButton,
-										negotitaedItem !== '' ? styles.active : styles.disabled
-
-									)}
-								>
-									Send to Influencer
-</button>
-							</DialogActions>
-						</Dialog>
+							negotiables={negotiate}
+							handleClose={() => setOpenNegotiateDialog(false)}
+							negotiate={negotiate}
+							handleNegotiate={handleNegotiate}
+							handleAnotherItem={handleAnotherItem}
+							negotiateCampaign={negotiateCampaign}
+							startDateOpen={startDateOpen}
+							endDateOpen={endDateOpen}
+							handleStartDateOpen={(value) => setStartDateOpen(value)}
+							handleEndDateOpen={(value) => setEndDateOpen(value)}
+						/>
 
 						<Dialog
 							disableBackdropClick
