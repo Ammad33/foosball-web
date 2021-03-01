@@ -14,6 +14,7 @@ import brandCampaignDetailQuery from '../../GraphQL/brandCampaignDetailQuery';
 import influencerCampaignDetailQuery from '../../GraphQL/influencerCampaignDetailQuery';
 import getTeamQuery from '../../GraphQL/getTeamQuery';
 import deleteCampaignMutation from '../../GraphQL/deleteCampaignMutation';
+import updateCampaignMutation from '../../GraphQL/updateCampaignMutation';
 
 const CampaignDetail = ({ location }) => {
 
@@ -117,33 +118,17 @@ const CampaignDetail = ({ location }) => {
 				team: selectedMembers.map((item) => item.id),
 			};
 
-			await API.graphql(
-				graphqlOperation(
-					`mutation updateCampaign($input : UpdateCampaignInput!) {
-            updateCampaign(input: $input) {
-              name
-            }
-        }`,
-					{
-						input: data,
-					}
-				)
-			);
-
-			setErrorMessage('');
-
-			getCampaign();
+			let result = await updateCampaignMutation(data);
+			if (result.error === false) {
+				setErrorMessage('');
+				getCampaign();
+			} else {
+				setErrorMessage(result.message);
+			}
 
 		} catch (e) {
 
-			let message = errorMessage;
-
-			if (e.errors && e.errors.length > 0)
-				e.errors.forEach((m) => {
-					message = message + m.message;
-				});
-
-			setErrorMessage(message);
+			setErrorMessage(e);
 
 		}
 	};

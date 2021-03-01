@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { API } from 'aws-amplify';
 
 export const RootContext = React.createContext();
 
@@ -8,8 +7,7 @@ export default ({ children }) => {
   const prevUser = JSON.parse(window.localStorage.getItem('user')) || null;
   const preActiveRoute = localStorage.getItem('route') || 'Campaign';
   const brandsStored = JSON.parse(localStorage.getItem('brands')) || null;
-  const influencerStored =
-    JSON.parse(localStorage.getItem('influencers')) || null;
+  const influencerStored = JSON.parse(localStorage.getItem('influencers')) || null;
   const bId = localStorage.getItem('bId') || null;
   const bName = localStorage.getItem('bName') || null;
   const bType = localStorage.getItem('bType') || null;
@@ -126,87 +124,6 @@ export default ({ children }) => {
     // organization,
   ]);
   /*******************************************************************/
-
-  const getMeData = async () => {
-    try {
-      const mydata = await API.graphql({
-        query: `{
-            me {
-              email
-              fullName
-              id
-              organizations {
-                organization {
-                  id
-                  name
-                  __typename
-                  ... on Influencer {
-                    id
-                  }
-                  imageUrl
-                  email
-                  roles {
-                    id
-                    administration
-                  }
-                }
-              }
-              about
-              age
-              companyTitle
-              imageUrl
-              joined
-              modified
-              phoneNumber
-            }
-        }`,
-      });
-
-      /**seprating brands and influencers data */
-      let brandsData = [];
-      let influencersData = [];
-      mydata.data.me.organizations !== null &&
-        mydata.data.me.organizations.forEach((item) => {
-          if (item.organization.__typename === 'Influencer') {
-            influencersData.push(item);
-          } else if (item.organization.__typename === 'Brand') {
-            brandsData.push(item);
-          }
-        });
-      setBrands(brandsData);
-      console.log(brandsData[1].organization.imageUrl)
-      setInfluencers(influencersData);
-      setMeData(mydata.data.me.organizations);
-    } catch (e) {
-      if (e.data) {
-
-        /**seprating brands and influencers data */
-        let brandsData = [];
-        let influencersData = [];
-        e.data.me.organizations !== null &&
-          e.data.me.organizations.forEach((item) => {
-            if (item.organization.__typename === 'Influencer') {
-              influencersData.push(item);
-            } else if (item.organization.__typename === 'Brand') {
-              brandsData.push(item);
-            }
-          });
-        setBrands(brandsData);
-        setInfluencers(influencersData);
-        console.log(brands[1].organization.imageUrl)
-        // setMeData(e.data.me.organizations);
-        setProfileUpdate(false);
-      }
-    }
-  };
-  // useEffect(() => {
-  //   if (profileUpdate === true) {
-  //     // getMeData();
-  //   };
-  //   let brandsData = [...brands];
-  //   setBrands(brandsData);
-
-  // }, [profileUpdate])
 
   /*****all root context variables and function ********************/
   const defaultContext = {

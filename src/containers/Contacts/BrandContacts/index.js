@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Contacts = ({}) => {
+const Contacts = ({ }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [addOpen, setAddOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
@@ -149,20 +149,18 @@ const Contacts = ({}) => {
       };
       await API.graphql(
         graphqlOperation(
-          `
-            mutation createInfluencer($input : CreateInfluencerInput!) {
+          `mutation createInfluencer($input : CreateInfluencerInput!) {
               createInfluencer(input: $input) {
                 imageUploadUrl
               }
-            }
-            `,
+            }`,
           data
         )
       );
       if (closeDialog) {
         setAddOpen(false);
       }
-    } catch (e) {}
+    } catch (e) { }
   };
 
   const handleClick = (event) => {
@@ -220,7 +218,7 @@ const Contacts = ({}) => {
       ).data?.brand?.users;
       setContacts(data || []);
       setBkupContacts(data || []);
-    } catch (e) {}
+    } catch (e) { }
   };
 
   return (
@@ -358,27 +356,27 @@ const Contacts = ({}) => {
             </div>
           </TableContainer>
         ) : (
-          <Grid
-            container
-            spacing={0}
-            direction='column'
-            alignItems='center'
-            justify='center'
-            style={{ paddingTop: '15%' }}
-          >
-            <Grid item xs={12}>
-              <Users />
-            </Grid>
-            <Grid item xs={12}>
-              <div className={styles.noCampaignYet}>No Contacts Yet</div>
-            </Grid>
-            <Grid item xs={12}>
-              <div className={styles.noCampaignYetHelper}>
-                Invite Brands to FOMO Promo so you can collaborate on campaigns
+            <Grid
+              container
+              spacing={0}
+              direction='column'
+              alignItems='center'
+              justify='center'
+              style={{ paddingTop: '15%' }}
+            >
+              <Grid item xs={12}>
+                <Users />
+              </Grid>
+              <Grid item xs={12}>
+                <div className={styles.noCampaignYet}>No Contacts Yet</div>
+              </Grid>
+              <Grid item xs={12}>
+                <div className={styles.noCampaignYetHelper}>
+                  Invite Brands to FOMO Promo so you can collaborate on campaigns
               </div>
+              </Grid>
             </Grid>
-          </Grid>
-        )}
+          )}
       </Grid>
     </div>
   );

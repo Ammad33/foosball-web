@@ -23,7 +23,8 @@ const AddTeamMembers = ({
   }, []);
 
   useEffect(() => {
-    const filterdMembers = members.filter(
+
+    const filterdMembers = members && members.filter(
       (memb) => memb.user.id !== currentUser.username
     );
     setTeamMembers(filterdMembers);
@@ -31,9 +32,9 @@ const AddTeamMembers = ({
 
   return (
     <>
-    <div className={styles.padding8}>
-      {/* hidden for phase 1*/}
-      {/* <TextField
+      <div className={styles.padding8}>
+        {/* hidden for phase 1*/}
+        {/* <TextField
         id='outlined-basic'
         fullWidth
         type='text'
@@ -42,55 +43,55 @@ const AddTeamMembers = ({
         value={search}
         onChange={handleSearch}
       /> */}
-			<p className={styles.teamHeading}>Team members you add will have access to the information within this campaign</p>
-      <div
-        className={clsx(
-          styles.mainContainer,
-          teamMembers.length ? '' : styles.noPadding
-        )}
-      >
-        {teamMembers.length ? (
-          <>
-            {teamMembers.map((member) => {
-              const index = selectedMembers.findIndex(
-                (item) => item === member.user.id
-              );
-              return (
-                <div className={styles.memberRow} key={member.user.id}>
-                  <Avatar
-                    alt='Member Img'
-                    src={
-                      member.user.imageUrl && member.user.imageUrl !== null
-                        ? member.user.imageUrl
-                        : ''
-                    }
-                    className={styles.memberAvatar}
-                  />
-                  <p className={styles.memberName}>{member.user.fullName}</p>
-                  {index === -1 ? (
-                    <button onClick={() => handleAdd(member.user)}> Add</button>
-                  ) : (
-                    <CheckCircleIcon
-                      className={styles.svg}
-                      onClick={() => handleAdd(member.user)}
+        <p className={styles.teamHeading}>Team members you add will have access to the information within this campaign</p>
+        <div
+          className={clsx(
+            styles.mainContainer,
+            teamMembers.length ? '' : styles.noPadding
+          )}
+        >
+          {teamMembers.length ? (
+            <>
+              {teamMembers.map((member) => {
+                const index = selectedMembers.findIndex(
+                  (item) => item === member.user.id
+                );
+                return (
+                  <div className={styles.memberRow} key={member.user.id}>
+                    <Avatar
+                      alt='Member Img'
+                      src={
+                        member.user.imageUrl && member.user.imageUrl !== null
+                          ? member.user.imageUrl
+                          : ''
+                      }
+                      className={styles.memberAvatar}
                     />
-                  )}
-                </div>
-              );
-            })}
-          </>
-        ) : (
-          <div className={styles.noContentContainer}>
-            <Users className={styles.img} />
-            <h2>No Team Members Yet</h2>
-            <p>
-              To add team members to a campaign, you must first invite members
-              under Team
+                    <p className={styles.memberName}>{member.user.fullName}</p>
+                    {index === -1 ? (
+                      <button onClick={() => handleAdd(member.user)}> Add</button>
+                    ) : (
+                        <CheckCircleIcon
+                          className={styles.svg}
+                          onClick={() => handleAdd(member.user)}
+                        />
+                      )}
+                  </div>
+                );
+              })}
+            </>
+          ) : (
+              <div className={styles.noContentContainer}>
+                <Users className={styles.img} />
+                <h2>No Team Members Yet</h2>
+                <p>
+                  To add team members to a campaign, you must first invite members
+                  under Team
             </p>
-          </div>
-        )}
+              </div>
+            )}
+        </div>
       </div>
-    </div>
     </>
   );
 };

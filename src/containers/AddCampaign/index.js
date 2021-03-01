@@ -34,6 +34,10 @@ import * as _ from 'lodash';
 import { RootContext } from '../../context/RootContext';
 import { useHistory } from 'react-router-dom';
 import { CircularProgress } from '@material-ui/core';
+import updateCampaignMutation from '../../GraphQL/updateCampaignMutation';
+import createCampaignMutation from '../../GraphQL/createCampaignMutation';
+import getTeamQuery from '../../GraphQL/getTeamQuery';
+import getCollectionsQuery from '../../GraphQL/getCollectionsQuery';
 
 let typ = '';
 let val = '';
@@ -553,18 +557,22 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     }
   }, [open]);
 
+
   /**{react hook} get invoked whenever brandId is changed*/
+
   useEffect(() => {
     getTeam();
     getCollection();
   }, [brandId]);
 
   /**{react hook} get the influencers after initial render */
+
   useEffect(() => {
     getInfluencers();
   }, []);
 
   /**API call for influencers data */
+
   const getInfluencers = async () => {
     try {
       const influencers = await API.graphql({
@@ -603,7 +611,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       console.error(e);
     }
   };
+
   /******* Compensations States *********/
+
   const [compensationPayment, setCompensationPayment] = useState('');
   const [addAnother, setAddAnother] = useState('false');
 
@@ -615,6 +625,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   ]);
 
   /***************Compensation Product ********************/
+
   const [compensationProduct, setCompensationProduct] = useState('');
   const [compensationProducts, setCompensationProducts] = useState('');
 
@@ -699,22 +710,13 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   /**** API call to get team information */
   const getTeam = async () => {
     try {
-      const team = await API.graphql({
-        query: `{
-          brand(id:"${brandId}") {
-            users {
-              user {
-                imageUrl
-                id
-                fullName
-                email
-              }
-            }
-          }
-        }`,
-      });
-      if (team.data !== null && team.data.brand !== null) {
-        setTeam(team.data.brand.users);
+
+      const result = await getTeamQuery(brandId);
+
+      if (result.error == false) {
+        setTeam(result.data);
+      } else {
+        setErrorMessage(result.message);
       }
     } catch (e) {
       console.log(e);
@@ -1330,17 +1332,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         brandId,
         // team: ,
         name: campaignName,
-        // startDate: Date.parse(`${startDate} ${startTime} `) / 1000,
-        // endDate: Date.parse(`${endDate} ${endTime} `) / 1000,
-        // discount: { value: val, type: typ },
-        // invitationMessage: customeMessage,
-        // budget: { amount: parseFloat(budget).toFixed(2), currency: 'USD' },
-        // targetGrossSales: { amount: parseFloat(targetGrossSale).toFixed(2), currency: 'USD' },
-        // team: selectedMembers,
-        // negotiables: getNegotiablesObjectForAPI(),
-        // invitationMessage: customeMessage,
-        // deliverables: getDeliverablesForAPI(),
-        // compensation: getCompensations(),
       };
 
       if (startDate !== '') {
@@ -1427,65 +1418,42 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         data.paymentSchedule = compensationPayment;
       }
 
-      let response = await API.graphql(
-        graphqlOperation(
-          `mutation createCampaign($input: CreateCampaignInput!) {
-        createCampaign(input: $input) {
-          id
-          name
-          startDate
-          endDate
-          compensation {
-            ... on CompCashPerPost {
-              __typename
-              amount {
-                amount
-                currency
-              }
-            }
-          }
-
-        }
-      }
-      `,
-          {
-            input: data,
-          }
-        )
-      );
+      let response = await createCampaignMutation(data);
 
       if (
         response &&
-        response !== null &&
-        response.data !== null &&
-        response.data.createCampaign !== null
+        response !== null && response.error === false &&
+        response.data !== null
       ) {
 
-        await updateCampaignProducts(response.data.createCampaign.id, invite);
-        setId(response.data.createCampaign.id);
+        await updateCampaignProducts(response.data.id, invite);
+
+        setId(response.data.id);
+
         if (invite === undefined) {
           handleCancel();
         }
 
-        return response.data.createCampaign.id;
+        return response.data.id;
       } else {
+
         setDeliveries(APIErrorDeliverables());
+        setErrorMessage(response.message);
+
         return null;
       }
 
     } catch (e) {
       setDeliveries(APIErrorDeliverables());
 
-      console.log(e);
+      // let message = '';
 
-      let message = '';
+      // if (e.errors && e.errors.length > 0)
+      //   e.errors.forEach((m) => {
+      //     message = message + m.message;
+      //   });
 
-      if (e.errors && e.errors.length > 0)
-        e.errors.forEach((m) => {
-          message = message + m.message;
-        });
-
-      setErrorMessage(message);
+      setErrorMessage(e);
 
       return null;
     }
@@ -1524,45 +1492,28 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
           };
         }
 
-        await API.graphql(
-          graphqlOperation(
-            `mutation updateCampaign($input : UpdateCampaignInput!) {
-            updateCampaign(input: $input) {
-              products {
-                collection {
-                  id
-                  products {
-                    products {
-                      id
-                      name
-                    }
-                  }
-                }
-              }          
-            }
-        }`,
-            {
-              input: data,
-            }
-          )
-        );
-        if (invite === undefined) {
-          handleCancel();
-        }
-        if (invite === true) {
-          setInviteLoading(true);
-          setTimeout(() => invited(campaign && campaign.id ? campaign.id : id), 2000);
+        let result = await updateCampaignMutation(data);
+        if (result.error === false) {
+          if (invite === undefined) {
+            handleCancel();
+          }
+          if (invite === true) {
+            setInviteLoading(true);
+            setTimeout(() => invited(campaign && campaign.id ? campaign.id : id), 2000);
+          }
+        } else {
+          setErrorMessage(result.message);
         }
       } catch (err) {
         console.log(err);
-        let message = '';
+        // let message = '';
 
-        if (err.errors && err.errors.length > 0)
-          err.errors.forEach((m) => {
-            message = message + m.message;
-          });
+        // if (err.errors && err.errors.length > 0)
+        //   err.errors.forEach((m) => {
+        //     message = message + m.message;
+        //   });
 
-        setErrorMessage(message);
+        setErrorMessage(err);
       }
     } else {
       if (invite === undefined) {
@@ -1591,16 +1542,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       let data = {
         brandId,
         id: campaign.id,
-        name: campaignName,
-        // discount: { value: val, type: typ },
-        // invitationMessage: customeMessage,
-        // budget: { amount: budget, currency: 'USD' },
-        // targetGrossSales: { amount: targetGrossSale, currency: 'USD' },
-        // team: selectedMembers,
-        // negotiables: getNegotiablesObjectForAPI(),
-        // invitationMessage: customeMessage,
-        // compensation: getCompensations(),
-        // deliverables: getDeliverablesForAPI(),
+        name: campaignName
       };
 
       if (startDate !== '') {
@@ -1694,36 +1636,15 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         data.paymentSchedule = compensationPayment;
       }
 
-      let response = await API.graphql(
-        graphqlOperation(
-          `mutation updateCampaign($input : UpdateCampaignInput!) {
-            updateCampaign(input: $input) {
-              id
-              name
-              compensation {
-                ... on CompCashPerPost {
-                  __typename
-                  amount {
-                    amount
-                    currency
-                  }
-                }
-              }
-    
-            }
-        }`,
-          {
-            input: data,
-          }
-        )
-      );
+      let response = await updateCampaignMutation(data);
 
       await updateCampaignProducts(campaign.id, invite);
 
       // handleCancel();
-      if (response && response !== null && response.data.updateCampaign.id) {
-        return response.data.updateCampaign.id;
+      if (response && response !== null && response.error === false && response.data.id) {
+        return response.data.id;
       } else {
+        setErrorMessage(response.message);
         setDeliveries(APIErrorDeliverables());
         return null;
       }
@@ -1742,14 +1663,14 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       //     errorMessage += errorArray[property] + '\n';
       //   }
       // }
-			let message = '';
+      // let message = '';
 
-      if (e.errors && e.errors.length > 0)
-        e.errors.forEach((m) => {
-          message = message + m.message;
-        });
+      // if (e.errors && e.errors.length > 0)
+      //   e.errors.forEach((m) => {
+      //     message = message + m.message;
+      //   });
 
-      setErrorMessage(message);
+      setErrorMessage(e);
       return null;
     }
   };
@@ -1822,49 +1743,17 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   /**API call for geting collection data*/
   const getCollection = async () => {
     try {
-      const collectionsResponse = await API.graphql({
-        query: `{
-          collections(brandId: "${brandId}") {
-            collections {
-              id
-              name
-              products {
-                products {
-                  id
-                  name
-                  estimatedQty
-                  priceRange {
-                    max {
-                      amount
-                      currency
-                    }
-                    min {
-                      amount
-                      currency
-                    }
-                  }
-                  images {
-                    images {
-                      src
-                      altText
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }`,
-      });
+      const collectionsResponse = await getCollectionsQuery(brandId);
 
-      if (collectionsResponse.data && collectionsResponse.data !== null) {
+      if (collectionsResponse.error === false) {
         setCollections(
-          collectionsResponse.data.collections &&
-          collectionsResponse.data.collections.collections &&
-          collectionsResponse.data.collections.collections.map((obj) => ({
+          collectionsResponse.data.map((obj) => ({
             ...obj,
             expand: false,
           }))
         );
+      } else {
+        setErrorMessage(collectionsResponse.message);
       }
 
       if (
@@ -1872,16 +1761,15 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         campaign.products !== null &&
         campaign.products.length > 0
       ) {
-        setProducts(
-          getCampaignsProducts(
-            collectionsResponse.data.collections &&
-            collectionsResponse.data.collections.collections &&
-            collectionsResponse.data.collections.collections.map((obj) => ({
-              ...obj,
-              expand: false,
-            }))
-          )
-        );
+        if (collectionsResponse.error === false) {
+          setProducts(
+            getCampaignsProducts(
+              collectionsResponse.data.map((obj) => ({
+                ...obj,
+                expand: false,
+              })))
+          );
+        }
       }
     } catch (err) {
       if (
@@ -2022,7 +1910,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const handleCampaignName = (e) => {
     setCampaignName(e.target.value);
     if (e.target.value !== '') {
-			let campaignName = e.target.value.trim();
+      let campaignName = e.target.value.trim();
       const index = campaigns.findIndex((item) => item.name === campaignName);
 
       if (index !== -1) {
@@ -2365,35 +2253,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     }
   }, [])
 
-  const filledValues = (index) => {
 
-    switch (index) {
-      case 1:
-        return filledForm();
-      case 2:
-        return true;
-      case 3:
-        return setActiveForBudget();
-      case 4:
-        return setActiveForCollection();
-      case 5:
-        return setActiveForDeliverables();
-      case 6:
-        return setActiveForCompensation();
-      case 7:
-        return setActiveForNegotialble()
-      case 8:
-        return setActiveForInfluncer();
-      case 9:
-        return filledForm() &&
-          setActiveForBudget() &&
-          setActiveForCollection() &&
-          setActiveForDeliverables() &&
-          setActiveForCompensation() &&
-          setActiveForNegotialble() &&
-          setActiveForInfluncer();
-    }
-  }
 
   const handleNext = (activeSetp) => {
     if (activeStep === 1) {
