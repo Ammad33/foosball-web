@@ -174,12 +174,16 @@ const SelectBrand = () => {
 				</div>
 			</Popover>
 			<div>
-				<div  className={styles.brandDropDown}>
-					{brandName && brandName !== '' ? brandName : 'Brand Name'}
+				<div className={styles.brandDropDown}>
 					{(brands && brands.length > 1) || (influencers && influencers.length > 1) ? (
-						<div className={styles.brandDropDownSVG} onClick={handleClick}>
-							{brandDropDown ? <ChevronUp /> : <ChevronDown />}
-						</div>
+						<>
+							<div>
+								{brandName && brandName !== '' ? (brandName) : ('Brand Name')}
+							</div>
+							<div className={styles.brandDropDownSVG} onClick={handleClick}>
+								{brandDropDown ? <ChevronUp /> : <ChevronDown />}
+							</div>
+						</>
 					) : ('')}
 				</div>
 			</div>
