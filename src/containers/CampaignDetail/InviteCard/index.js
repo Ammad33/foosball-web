@@ -5,29 +5,35 @@ import Translation from '../../../assets/translation.json';
 import { API, graphqlOperation } from 'aws-amplify';
 import { RootContext } from '../../../context/RootContext';
 import NegotiateDialog from '../NegotiateDialog';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import _ from 'lodash';
+import moment from 'moment';
 
 
 
-const InviteCard = ({ createdBy, campaignId, handleStatus, invitationMessage, handleReviewAndSign }) => {
+const InviteCard = ({ createdBy, campaignId, handleStatus, invitationMessage, handleReviewAndSign, negotiables, data }) => {
 	const history = useHistory();
 	const [decline, setDecline] = useState(false);
 	const [declineReason, setDeclineReason] = useState('');
 	const [reasonDetail, setReasonDetail] = useState('');
 	const [errorMessage, setErrorMessage] = useState('');
-	const [negotiateDialog , setNegotiateDialog] = useState(false);
+	const [negotiateDialog, setNegotiateDialog] = useState(false);
 	const [negotiate, setNegotiate] = useState([
-    {
-      negotiateItem: '',
+		{
+			negotiateItem: '',
 			negotiateMessage: '',
 			negotiateValue: '',
-    },
-  ]);
+			negotiateStartDate: '',
+			negotiateEndDate: '',
+		},
+	]);
+	const [startDateOpen, setStartDateOpen] = useState(false);
+	const [endDateOpen, setEndDateOpen] = useState(false);
 
 
 
 	const {
-		brandId
+		brandId,
 	} = useContext(RootContext);
 
 
@@ -38,30 +44,53 @@ const InviteCard = ({ createdBy, campaignId, handleStatus, invitationMessage, ha
 		"Other",
 	]
 
-	const negotiateItems = [
-		"Post Fee",
-		"Story Fee",
-		"Monthly Retainer Fee",
-		"Revenue Share",
-		"Post Frequency",
-		"Campaign Duration",
-		"Other"
-	]
+
+	const getNegotiables = (item) => {
+	
+		var rebels = negotiate.filter((nego) =>  (nego.negotiateItem === item));
+		
+		let USD = 'USD';
+		if (!rebels || rebels.length < 1) {
+			return 
+		}
+		if (rebels[0].negotiateItem === 'revenueShare'){
+			return {percentage:  rebels[0].negotiateValue} 
+		}
+		else  {
+			return {amount:  rebels[0].negotiateValue  ,currency: USD}
+		}
+
+	};
+
+	const handleNegotiation = () => {
+		setNegotiateDialog(true);
+		acceptCampaignInvite("negotiate")
+	}
 
 	const handleNegotiate = (val, index, fieldName) => {
-    const nego = [...negotiate];
-    if (fieldName === 'Negotiate Item') {
-      nego[index]['negotiateItem'] = val;
-    }
-		if (fieldName === 'Negotiate Value'){
+		const nego = [...negotiate];
+		if (fieldName === 'Negotiate Item') {
+			nego[index]['negotiateItem'] = val;
+		}
+		if (fieldName === 'Negotiate Value') {
 			nego[index]['negotiateValue'] = val;
 		}
-		if (fieldName === 'Negotiate Message'){
+		if (fieldName === 'Negotiate Message') {
 			nego[index]['negotiateMessage'] = val;
 		}
-
-    setNegotiate(nego);
-  };
+		if (fieldName === 'Negotite StartDate') {
+			const moment_date = moment(val).format('L');
+			const startDate =
+				val !== '' && moment(val, 'MM/DD/YYYY', true).isValid()
+					? moment_date
+					: val
+			const endDate = (moment(moment_date).add(1, 'M').format('MM/DD/YYYY'));
+			nego[index]['negotiateStartDate'] = startDate;
+			nego[index]['negotiateEndDate'] = endDate;
+			setStartDateOpen(false);
+		}
+		setNegotiate(nego);
+	};
 
 	// const handleNegotiateItem = (val) => {
 	// 	setNegotiateItem(val);
@@ -79,18 +108,18 @@ const InviteCard = ({ createdBy, campaignId, handleStatus, invitationMessage, ha
 	}
 
 	const handleAnotherItem = () => {
-    const nego = [...negotiate];
+		const nego = [...negotiate];
 
-    nego.push({
-      negotiateItem: '',
-      negotiateMessage: '',
-      negotiateValue: '',
-    });
+		nego.push({
+			negotiateItem: '',
+			negotiateMessage: '',
+			negotiateValue: '',
+		});
 
-    setNegotiate(nego);
-  };
+		setNegotiate(nego);
+	};
 
-	const acceptCampaignInvite = async () => {
+	const acceptCampaignInvite = async (negotiate) => {
 		try {
 			await API.graphql(
 				graphqlOperation(
@@ -105,7 +134,9 @@ const InviteCard = ({ createdBy, campaignId, handleStatus, invitationMessage, ha
 					}`
 				)
 			)
-			acceptCampaignTerms();
+			if (!negotiate) {
+				acceptCampaignTerms();
+			}
 		}
 		catch (e) {
 			console.log("Error in accepting invite", e)
@@ -163,6 +194,44 @@ const InviteCard = ({ createdBy, campaignId, handleStatus, invitationMessage, ha
 	}
 
 
+	const negotiateCampaign = async () => {
+		try {
+			let data = {
+				campaignId: campaignId,
+				message: negotiate[0].negotiateMessage,
+				revenueShare: getNegotiables("revenueShare"),
+				postFee: getNegotiables("postFee"),
+				giftCard: getNegotiables("giftCard"),
+				monthlyRetainerFee: getNegotiables("monthlyRetainerFee"),
+
+
+			}
+			await API.graphql(
+				graphqlOperation(
+					`mutation negotiateCampaign($input: NegotiationInput! ) {
+						influencerNegotiate (
+							influencerId: "${brandId}" ,
+							input: $input ){
+								
+								id
+						}
+					}`
+					,
+					{
+						input: data,
+					}
+				)
+			)
+			setNegotiateDialog(false);
+			// history.push(`/campaignDetail/${campaignId}`);
+			window.location.reload();
+		}
+		catch (e) {
+			console.log("error in negotiate Campaign", e)
+		}
+	}
+
+
 	return (
 		<>
 			<DeclineDialog
@@ -175,16 +244,22 @@ const InviteCard = ({ createdBy, campaignId, handleStatus, invitationMessage, ha
 				buttonText="Decline"
 				handleReasonDetail={handleReasonDetail}
 				reasonDetail={reasonDetail}
-				handleDeclineCampaignInvite = {declineCampaignInvite}
-				errorMessage = {errorMessage}
+				handleDeclineCampaignInvite={declineCampaignInvite}
+				errorMessage={errorMessage}
 			/>
 
 			<NegotiateDialog
-				open = {negotiateDialog}
-				handleClose = {()=> setNegotiateDialog(false)}
-				negotiate = {negotiate}
-				handleNegotiate = {handleNegotiate}
-				handleAnotherItem = {handleAnotherItem}
+				open={negotiateDialog}
+				negotiables={negotiables}
+				handleClose={() => setNegotiateDialog(false)}
+				negotiate={negotiate}
+				handleNegotiate={handleNegotiate}
+				handleAnotherItem={handleAnotherItem}
+				negotiateCampaign={negotiateCampaign}
+				startDateOpen={startDateOpen}
+				endDateOpen={endDateOpen}
+				handleStartDateOpen={(value) => setStartDateOpen(value)}
+				handleEndDateOpen={(value) => setEndDateOpen(value)}
 			/>
 
 			<div className={styles.declineContainer}>
@@ -193,7 +268,7 @@ const InviteCard = ({ createdBy, campaignId, handleStatus, invitationMessage, ha
 				<p className={styles.secondp}></p>
 				<div className={styles.buttonContainer}>
 					<button className={styles.accept} onClick={() => handleAcceptInvite()} >Accept</button>
-					<button className={styles.nego} 	onClick={() => setNegotiateDialog(true)}>Negotiate</button>
+					<button className={styles.nego} onClick={() => handleNegotiation()}>Negotiate</button>
 					<button className={styles.decline} onClick={() => setDecline(true)} >Decline</button>
 				</div>
 			</div> </>)
