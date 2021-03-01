@@ -92,7 +92,6 @@ const PendingBrandCampaignDetail = ({
 
 
 
-
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
@@ -154,13 +153,16 @@ campaignId: "${campaignId}"
 					`mutation brandAcceptOffer {
 						brandAcceptOffer(
 						brandId: "${brandId}" ,
-						offerId: "${data.influencer.id}",
+						offerId: "${data.negotiations[0].id}",
 						campaignId: "${campaignId}"){
-							id
+							brand {
+								id
+							}
 						}
 						}`
 				)
 			)
+			window.location.reload();
 		}
 		catch (e) {
 			console.log("Error in accepting invite", e)

@@ -47,17 +47,17 @@ const InviteCard = ({ createdBy, campaignId, handleStatus, invitationMessage, ha
 
 	const getNegotiables = (item) => {
 	
-		var rebels = negotiate.filter((nego) =>  (nego.negotiateItem === item));
+		var temp = negotiate.filter((nego) =>  (nego.negotiateItem === item));
 		
 		let USD = 'USD';
-		if (!rebels || rebels.length < 1) {
+		if (!temp || temp.length < 1) {
 			return 
 		}
-		if (rebels[0].negotiateItem === 'revenueShare'){
-			return {percentage:  rebels[0].negotiateValue} 
+		if (temp[0].negotiateItem === 'revenueShare'){
+			return {percentage:  temp[0].negotiateValue} 
 		}
 		else  {
-			return {amount:  rebels[0].negotiateValue  ,currency: USD}
+			return {amount:  temp[0].negotiateValue  ,currency: USD}
 		}
 
 	};

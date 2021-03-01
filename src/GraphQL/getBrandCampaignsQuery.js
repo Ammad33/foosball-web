@@ -9,7 +9,7 @@ const brandsCampaignsQuery = async (brandId) => {
                 }
             } } = await API.graphql({
                 query: `{
-            campaigns(brandId: "${brandId}") {
+            campaigns(brandId: "${brandId}" , query: {limit: 100}) {
              campaigns {
                     name
                     description

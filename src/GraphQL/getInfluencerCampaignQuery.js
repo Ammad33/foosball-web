@@ -10,7 +10,7 @@ const influencerCampaignsQuery = async (brandId) => {
                 }
             } } = await API.graphql({
                 query: `{
-					influencerCampaigns(influencerId: "${brandId}") {
+					influencerCampaigns(influencerId: "${brandId}", query: {limit: 100}) {
           campaigns {
             name
             description
