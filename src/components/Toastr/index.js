@@ -20,7 +20,7 @@ const Toastr = () => {
   return (
     <Snackbar
       open={toastrData.showToastr}
-      autoHideDuration={10000}
+      autoHideDuration={6000}
       onClose={handleClose}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
     >
