@@ -85,11 +85,14 @@ const PendingBrandCampaignDetail = ({
 	const [cancel, setCancel] = useState(false);
 	const [cancelReason, setCancelReason] = useState('');
 	const [reasonDetail, setReasonDetail] = useState('');
-	const [flag, setFlag] = useState(false)
+	const [flag, setFlag] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('');
+	const [brandRejectMessage , setBrandRejectMessage] = useState('');
 	const { brandId } = useContext(RootContext);
 
 
+
+	debugger;
 
 	const handleClose = () => {
 		setAnchorEl(null);
@@ -136,6 +139,57 @@ const PendingBrandCampaignDetail = ({
 			return null;
 		}
 	}
+
+	const handleAcceptInvite = () => {
+		brandAcceptOffer()
+	}
+
+	const handleRejectOffer = () => {
+		setOpenDeclineDialog(true)
+		brandRejectOffer();
+	}
+	const brandAcceptOffer = async (negotiate) => {
+		try {
+			await API.graphql(
+				graphqlOperation(
+					`mutation brandAcceptOffer {
+						brandAcceptOffer(input: {
+							brandId: "${brandId}" , 
+							offerId: "${data.influencer.id}", 
+							campaignId: "${campaignId}"}) 
+							{
+							id
+						}
+					}`
+				)
+			)
+		}
+		catch (e) {
+			console.log("Error in accepting invite", e)
+		}
+	}
+
+	const brandRejectOffer = async (negotiate) => {
+		try {
+			await API.graphql(
+				graphqlOperation(
+					`mutation brandReject {
+						brandRejectOffer(input: {
+							brandId: "${brandId}" , 
+							campaignId: "${campaignId}",
+							message: "${brandRejectMessage}"})
+							{
+							id
+						}
+					}`
+				)
+			)
+		}
+		catch (e) {
+			console.log("Error in accepting invite", e)
+		}
+	}
+
 
 	const getStatusContainerContent = () => {
 		return (
@@ -245,7 +299,7 @@ const PendingBrandCampaignDetail = ({
 									<div className={styles.offerButtons}>
 										<button
 											className={styles.acceptButton}
-											onClick={() => setAllSet(true)}
+											onClick={() => handleAcceptInvite()}
 										>
 											Accept
 								</button>
@@ -257,7 +311,7 @@ const PendingBrandCampaignDetail = ({
 								</button>
 										<button
 											className={styles.declineButton}
-											onClick={() => setOpenDeclineDialog(true)}
+											onClick={() => handleRejectOffer()}
 										>
 											Decline
 								</button>

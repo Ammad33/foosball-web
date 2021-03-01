@@ -117,6 +117,7 @@ const InviteInfluencer = ({
 									campaignId={campaignId}
 									handleReviewAndSign={() => setReviewAndSendFlag(true)}
 									negotiables = {data.negotiables && _.keys(_.pickBy(data.negotiables))}
+									data = {data}
 
 								/>
 								<Activity activities={data?.events} onClick={handleSeeClick} />

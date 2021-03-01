@@ -28,7 +28,10 @@ const NegotiateDialog = ({
 	handleNegotiate,
 	handleAnotherItem,
 	negotiateCampaign,
-
+	startDateOpen,
+	endDateOpen,
+	handleStartDateOpen,
+	handleEndDateOpen,
 }) => {
 
 	return (
@@ -45,8 +48,12 @@ const NegotiateDialog = ({
 					key={index}
 					negotiate={negotiate}
 					index={index}
-					negotiables = {negotiables}
+					negotiables={negotiables}
 					handleNegotiate={handleNegotiate}
+					startDateOpen={startDateOpen}
+					endDateOpen={endDateOpen}
+					handleStartDateOpen = {handleStartDateOpen} 
+					handleEndDateOpen ={handleEndDateOpen}
 				/>
 			))}
 			<div className={styles.addMore} onClick={handleAnotherItem}>

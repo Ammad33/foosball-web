@@ -16,7 +16,7 @@ const PendingCard = ({ handlecreateMircositeFlag, handleSignContractFlag, data }
 	return (
 
 		<div>
-			{data && data.internalState && (data.internalState === 'MICROSITE_APPROVED' || data.internalState === 'MICROSITE_APPROVAL_REQUESTED') ? (
+			{data && data.internalState && (data.internalState === 'MICROSITE_APPROVED' || data.internalState === 'MICROSITE_APPROVAL_REQUESTED')  || data.internalState === 'NEGOTIATING' ?(
 				<div className={styles.allSet} >
 					<h1>You're all set!</h1>
 					<p className={styles.firstp}>No action items as of right now. We will let you know when there</p>
