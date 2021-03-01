@@ -175,7 +175,7 @@ const SelectBrand = () => {
 			</Popover>
 			<div>
 				<div className={styles.brandDropDown}>
-					{(brands && brands.length > 1) || (influencers && influencers.length > 1) ? (
+					{(brands && brands.length > 1) || (influencers && influencers.length > 1) || (brands && brands.length > 0 && influencers && influencers.length > 0) ? (
 						<>
 							<div>
 								{brandName && brandName !== '' ? (brandName) : ('Brand Name')}
