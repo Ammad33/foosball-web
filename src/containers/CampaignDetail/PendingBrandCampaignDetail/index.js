@@ -87,12 +87,11 @@ const PendingBrandCampaignDetail = ({
 	const [reasonDetail, setReasonDetail] = useState('');
 	const [flag, setFlag] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('');
-	const [brandRejectMessage , setBrandRejectMessage] = useState('');
+	const [brandRejectMessage, setBrandRejectMessage] = useState('');
 	const { brandId } = useContext(RootContext);
 
 
 
-	debugger;
 
 	const handleClose = () => {
 		setAnchorEl(null);
@@ -117,11 +116,11 @@ const PendingBrandCampaignDetail = ({
 			await API.graphql(
 				graphqlOperation(
 					`mutation startCampaign {
-						startCampaignDev (
-							brandId: "${brandId}",
-							campaignId: "${campaignId}"
-						)
-					}`
+startCampaignDev (
+brandId: "${brandId}",
+campaignId: "${campaignId}"
+)
+}`
 				)
 			)
 			window.location.reload();
@@ -148,19 +147,18 @@ const PendingBrandCampaignDetail = ({
 		setOpenDeclineDialog(true)
 		brandRejectOffer();
 	}
-	const brandAcceptOffer = async (negotiate) => {
+	const brandAcceptOffer = async () => {
 		try {
 			await API.graphql(
 				graphqlOperation(
 					`mutation brandAcceptOffer {
-						brandAcceptOffer(input: {
-							brandId: "${brandId}" , 
-							offerId: "${data.influencer.id}", 
-							campaignId: "${campaignId}"}) 
-							{
+						brandAcceptOffer(
+						brandId: "${brandId}" ,
+						offerId: "${data.influencer.id}",
+						campaignId: "${campaignId}"){
 							id
 						}
-					}`
+						}`
 				)
 			)
 		}
@@ -169,24 +167,24 @@ const PendingBrandCampaignDetail = ({
 		}
 	}
 
-	const brandRejectOffer = async (negotiate) => {
+	const brandRejectOffer = async () => {
 		try {
 			await API.graphql(
 				graphqlOperation(
 					`mutation brandReject {
-						brandRejectOffer(input: {
-							brandId: "${brandId}" , 
-							campaignId: "${campaignId}",
-							message: "${brandRejectMessage}"})
-							{
-							id
-						}
-					}`
+brandRejectOffer(
+brandId: "${brandId}" ,
+campaignId: "${campaignId}",
+message: "${brandRejectMessage}")
+{
+message
+}
+}`
 				)
 			)
 		}
 		catch (e) {
-			console.log("Error in accepting invite", e)
+			console.log("Error in brand reject offer", e)
 		}
 	}
 
@@ -219,14 +217,14 @@ const PendingBrandCampaignDetail = ({
 							<p>
 								The influencer has sent you the microsite to review and
 								approve.
-					</p>
+</p>
 							<button onClick={() => setFlag(true)} >View</button>
 						</>
 					) : data.internalState === "NEGOTIATING" ? (
 						<>
 							<h1>
 								Sam sent a counter offer
-						</h1>
+</h1>
 							<p>
 								<i>Sam is proposing a Revenue share of 3% instead of 2%</i>
 							</p>
@@ -236,22 +234,22 @@ const PendingBrandCampaignDetail = ({
 							<div className={styles.offerButtons}>
 								<button
 									className={styles.acceptButton}
-									onClick={() => setAllSet(true)}
+									onClick={() => handleAcceptInvite()}
 								>
 									Accept
-								</button>
+</button>
 								<button
 									className={styles.negotiateButton}
 									onClick={() => setOpenNegotiateDialog(true)}
 								>
 									Negotiate
-								</button>
+</button>
 								<button
 									className={styles.declineButton}
 									onClick={() => setOpenDeclineDialog(true)}
 								>
 									Decline
-								</button>
+</button>
 							</div>
 						</>
 					) : (
@@ -260,7 +258,7 @@ const PendingBrandCampaignDetail = ({
 									<p>
 										No action items as of right now. We will let you know when there
 										is something you need to do.
-					</p>
+</p>
 								</>
 							)
 
@@ -302,19 +300,19 @@ const PendingBrandCampaignDetail = ({
 											onClick={() => handleAcceptInvite()}
 										>
 											Accept
-								</button>
+										</button>
 										<button
 											className={styles.negotiateButton}
 											onClick={() => setOpenNegotiateDialog(true)}
 										>
 											Negotiate
-								</button>
+										</button>
 										<button
 											className={styles.declineButton}
-											onClick={() => handleRejectOffer()}
+											onClick={() => setOpenDeclineDialog(true)}
 										>
 											Decline
-								</button>
+										</button>
 									</div>
 								) : (
 										<button
@@ -431,10 +429,10 @@ const PendingBrandCampaignDetail = ({
 										</div>
 									)}
 									{/* <Checkbox
-							checked={pendingOffer}
-							onChange={(e) => setPendingOffer(e.target.checked)}
-						/>
-						<span>Show offer from influencer view</span> */}
+checked={pendingOffer}
+onChange={(e) => setPendingOffer(e.target.checked)}
+/>
+<span>Show offer from influencer view</span> */}
 								</div>
 								<div>
 									<MoreVertical onClick={handleClick} />
@@ -454,7 +452,7 @@ const PendingBrandCampaignDetail = ({
 												Hi sam, we are so excited for the chance to work with you. We
 												love your content and hope that you see value in working with
 												us.
-                </p>
+</p>
 										</>
 									</CampaignDetail>
 									<TeamMembers
@@ -530,7 +528,7 @@ const PendingBrandCampaignDetail = ({
 									>
 										<MenuItem value='' disabled>
 											Negotiated Item
-              </MenuItem>
+										</MenuItem>
 
 										<MenuItem value={'10'}>10</MenuItem>
 										<MenuItem value={'20'}>20</MenuItem>
@@ -554,7 +552,7 @@ const PendingBrandCampaignDetail = ({
 												>
 													<MenuItem value='' disabled>
 														Select Revenue Share Percentage
-                    </MenuItem>
+													</MenuItem>
 													{options.map((option) => (
 														<MenuItem key={option} value={option}>
 															{option}
@@ -588,10 +586,11 @@ const PendingBrandCampaignDetail = ({
 									className={clsx(
 										styles.sendButton,
 										negotitaedItem !== '' ? styles.active : styles.disabled
+
 									)}
 								>
 									Send to Influencer
-          </button>
+</button>
 							</DialogActions>
 						</Dialog>
 
@@ -605,7 +604,7 @@ const PendingBrandCampaignDetail = ({
 							<DialogTitle className={styles.dialogTitle} id='decline-dialog-title'>
 								<p className={styles.titleText}>
 									Send the influencer a message with your decline
-          </p>
+</p>
 							</DialogTitle>
 							<DialogContent className={styles.dialogContent}>
 								<Grid item xs={12} sm={12} md={12}>
@@ -613,8 +612,8 @@ const PendingBrandCampaignDetail = ({
 										id='outlined-basic'
 										fullWidth
 										multiline
-										value={customeMessage}
-										onChange={(e) => setCustomeMessage(e.target.value)}
+										value={brandRejectMessage}
+										onChange={(e) => setBrandRejectMessage(e.target.value)}
 										rows={12}
 										label={'Enter custom message'}
 										variant='outlined'
@@ -623,9 +622,9 @@ const PendingBrandCampaignDetail = ({
 							</DialogContent>
 							<DialogActions className={styles.dialogActions}>
 								<button onClick={() => setOpenDeclineDialog(false)}>Cancel</button>
-								<button className={clsx(styles.sendButton, styles.active)}>
+								<button className={clsx(styles.sendButton, styles.active)} onClick={() => brandRejectOffer()}>
 									Send to Influencer
-          </button>
+								</button>
 							</DialogActions>
 						</Dialog>
 					</>

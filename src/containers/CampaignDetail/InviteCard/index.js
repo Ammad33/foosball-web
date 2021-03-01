@@ -222,6 +222,9 @@ const InviteCard = ({ createdBy, campaignId, handleStatus, invitationMessage, ha
 					}
 				)
 			)
+			setNegotiateDialog(false);
+			// history.push(`/campaignDetail/${campaignId}`);
+			window.location.reload();
 		}
 		catch (e) {
 			console.log("error in negotiate Campaign", e)
