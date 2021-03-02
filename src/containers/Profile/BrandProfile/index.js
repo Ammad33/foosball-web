@@ -219,7 +219,8 @@ const BrandProfile = () => {
                 fontSize: '14px',
                 fontWeight: 500,
                 letterSpacing: 0,
-                lineHeight: '21px'
+                lineHeight: '21px',
+                cursor: "pointer"
               }}>Upload Profile Photo</label>
               <input id='hero1' style={{ visibility: 'hidden', display: 'none' }} type={'file'} onChange={(e) => { setImageFile(e.target.files[0]); setInfluencerProfile(URL.createObjectURL(e.target.files[0])) }} />
 

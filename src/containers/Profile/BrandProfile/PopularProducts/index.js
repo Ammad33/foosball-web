@@ -24,6 +24,7 @@ const PopularProducts = ({ isOwner }) => {
         <h1>Popular Products</h1>
         {isOwner ? (
           <Edit
+          style={{cursor: "pointer"}}
             onClick={() => {
               setEditOpen(true);
               setAnchorEl(null);

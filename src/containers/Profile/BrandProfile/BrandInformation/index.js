@@ -51,6 +51,7 @@ const BrandInformation = ({ isOwner, name,
         <h1>Brand Information</h1>
         {isOwner ? (
           <Edit
+          style={{cursor: "pointer"}}
             onClick={() => {
               setEditOpen(true);
               setAnchorEl(null);

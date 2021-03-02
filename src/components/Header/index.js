@@ -151,17 +151,17 @@ const Header = (meData) => {
           />
         </div>
         <div className={styles.selectBrandContainer}>
-          <SelectBrand />
+          <SelectBrand /> 
         </div>
-        <div className={styles.helpContainer}>
+        <div className={styles.helpContainer} style={{cursor: "pointer"}}>
           <Help />
         </div>
-        <div className={styles.notificationContainer}>
+        <div className={styles.notificationContainer} style={{cursor: "pointer"}}>
           <Badge className={'cursor-pointer'} color='secondary' variant='dot'>
             <Notification />
           </Badge>
         </div>
-        <div>
+        <div style={{cursor: "pointer"}}>
           <Avatar onClick={handleClick} src={meData && meData !== null && meData.meData !== null ? `${meData.meData.imageUrl}?${new Date().getTime()}` : ''} />
         </div>
       </div>

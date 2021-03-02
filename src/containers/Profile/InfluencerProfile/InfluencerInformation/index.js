@@ -62,6 +62,7 @@ const InfluencerInformation = ({ isOwner,
         <h1>Influencer Information</h1>
         {isOwner ? (
           <Edit
+          style={{cursor: "pointer"}}
             onClick={() => {
               setEditOpen(true);
               setAnchorEl(null);
