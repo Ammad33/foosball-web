@@ -1,21 +1,19 @@
-import { API } from 'aws-amplify';
+import { API } from "aws-amplify";
 
 const brandCampaignDetailQuery = async (brandId, campaignId) => {
-
   try {
-
-    const { data: {
-      campaign
-    } } = await API.graphql({
+    const {
+      data: { campaign },
+    } = await API.graphql({
       query: `{
                 campaign(brandId: "${brandId}", id: "${campaignId}") {
                   id
                               name
                               status
-                  startDate
-                  endDate
+                              startDate
+                              endDate
                               invitationMessage
-                  invitedAt
+                              invitedAt
                               paymentSchedule
                               internalState
                               micrositeUrl
@@ -151,17 +149,35 @@ const brandCampaignDetailQuery = async (brandId, campaignId) => {
                     revenueShare
                     giftCard
                   }
-									negotiations {
-										id
-										message
-										postFee {
-											amount
-											currency
-										}
-										revenueShare {
-											percentage
-										}
-									}
+                  negotiations {
+                    id
+                    message
+                    postFee {
+                      amount
+                      currency
+                    }
+                    revenueShare {
+                      percentage
+                    }
+                    monthlyRetainerFee {
+                      amount
+                      currency
+                    }
+                    giftCard {
+                      amount
+                      currency
+                    }
+                    campaignDuration {
+                      endDate
+                      startDate
+                      totalDuration
+                    }
+                    organization {
+                      id
+                      name
+                    }
+                    created
+                  }
                   deliverables {
                     brandTag
                     deadlineDate
@@ -205,26 +221,26 @@ const brandCampaignDetailQuery = async (brandId, campaignId) => {
                                   template
                               }
                 } 
-            }`
+            }`,
     });
 
     if (campaign && campaign !== null) {
-      return ({
+      return {
         error: false,
-        data: campaign
-      });
+        data: campaign,
+      };
     }
   } catch (error) {
-    let message = '';
+    let message = "";
     if (error.errors && error.errors.length > 0)
       error.errors.forEach((m) => {
         message = message + m.message;
       });
 
-    return ({
+    return {
       error: true,
-      message: message
-    })
+      message: message,
+    };
   }
 };
 

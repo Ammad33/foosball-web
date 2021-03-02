@@ -1,12 +1,12 @@
-import { API, graphqlOperation } from 'aws-amplify';
+import { API, graphqlOperation } from "aws-amplify";
 
 const createCampaignMutation = async (data) => {
-    try {
-        const { data: {
-            createCampaign
-        } } = await API.graphql(
-            graphqlOperation(
-                `mutation createCampaign($input: CreateCampaignInput!) {
+  try {
+    const {
+      data: { createCampaign },
+    } = await API.graphql(
+      graphqlOperation(
+        `mutation createCampaign($input: CreateCampaignInput!) {
             createCampaign(input: $input) {
               id
               name
@@ -25,31 +25,31 @@ const createCampaignMutation = async (data) => {
             }
           }
           `,
-                {
-                    input: data,
-                }
-            )
-        );
-
-        if (createCampaign && createCampaign !== null) {
-            return ({
-                error: false,
-                data: createCampaign
-            });
+        {
+          input: data,
         }
-    } catch (error) {
-        let message = '';
+      )
+    );
 
-        if (error.errors && error.errors.length > 0)
-            error.errors.forEach((m) => {
-                message = message + m.message;
-            });
-
-        return ({
-            error: true,
-            message: message
-        })
+    if (createCampaign && createCampaign !== null) {
+      return {
+        error: false,
+        data: createCampaign,
+      };
     }
+  } catch (error) {
+    let message = "";
+
+    if (error.errors && error.errors.length > 0)
+      error.errors.forEach((m) => {
+        message = message + m.message;
+      });
+
+    return {
+      error: true,
+      message: message,
+    };
+  }
 };
 
 export default createCampaignMutation;
