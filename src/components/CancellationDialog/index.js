@@ -28,6 +28,7 @@ const CancellationDialog = ({
 	handleDeclineCampaignInvite,
 	errorMessage
 }) => {
+	/**variables */
 	const [error, setError] = useState(false);
 	const [required, setRequired] = useState(false);
 
@@ -36,6 +37,7 @@ const CancellationDialog = ({
 			setError(true);
 		}
 	};
+	/**{function} that handles must required fields */
 	const handleRequrired = (action) => {
 		if (reason.length > 1) {
 			switch (action) {
