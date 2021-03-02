@@ -9,7 +9,7 @@ import { useHistory } from 'react-router-dom';
 
 
 
-
+/**SVG */
 const ChevronDown = () => {
 	return (
 		<span className={styles.dropDownCustomizeSvg} >
@@ -39,14 +39,16 @@ const SelectBrand = () => {
 		influencers,
 		setActiveRoute,
 	} = useContext(RootContext);
-
+	/**varaibles */
 	const [brandDropDown, setBrandDropDown] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const history = useHistory();
+	/**{function} used to set the postion of dropdown/popover */
 	const handleClick = (event) => {
 		setBrandDropDown(true);
 		setAnchorEl(event.currentTarget);
 	};
+	/**{function} used to close the dropdown */
 	const handleClose = () => {
 		setAnchorEl(null);
 		setBrandDropDown(false);

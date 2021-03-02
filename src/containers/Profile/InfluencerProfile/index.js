@@ -312,7 +312,7 @@ const InfluencerProfile = () => {
 								lineHeight: '21px',
 								cursor: "pointer"
 							}}>Upload Profile Photo</label>
-							<input id='hero1' style={{ visibility: 'hidden', display: 'none' }} type={'file'} onChange={(e) => { setImageFile(e.target.files[0]); setInfluencerProfile(URL.createObjectURL(e.target.files[0])) }} />
+							<input id='hero1' style={{ visibility: 'hidden', display: 'none',cursor: "pointer" }} type={'file'} onChange={(e) => { setImageFile(e.target.files[0]); setInfluencerProfile(URL.createObjectURL(e.target.files[0])) }} />
 
 							{/* ) : (
 									<button className={styles.messageButton}>Message</button>

@@ -42,6 +42,10 @@ import forgotpassword from './assets/forgot-password.png';
 import CreateMicrosite from './containers/CampaignDetail/CreateMicrosite';
 
 const App = () => {
+  /**ProtectedRoutes are the routes that require the user to login
+   * UnProtectedRoutes are the routes that that can be accessed without login
+   * Layout is the basic layout of the application with side and top bars
+  */
   return (
     <RootContext>
       <BrowserRouter>

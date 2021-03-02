@@ -11,6 +11,7 @@ import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import FilterPopover from '../../FilterPopover';
 
+/**SVG imports */
 const ChevronDown = () => {
 	return (
 		<span >
@@ -35,16 +36,18 @@ const MinusSVG = () => {
 };
 
 const BrandInvoice = ({ data, handleExpandClick, expanded }) => {
+	/**variables */
 	const [selectAll, setSelectAll] = useState(false);
 	const [selectedMember, setSelecetedMember] = useState(data);
 	const [members, setMembers] = useState([]);
 	const [filterDropdown, setFilterDropdown] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
-
+	/**{function} used to set the postion od dropDown */
 	const handleClick = (event) => {
 		setFilterDropdown(true);
 		setAnchorEl(event.currentTarget);
 	};
+	/**{function} get called when exiting from the dropDown */
 	const handleClose = () => {
 		setAnchorEl(null);
 		setFilterDropdown(false);

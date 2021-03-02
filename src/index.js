@@ -23,6 +23,7 @@ import config from './config';
 //   },
 // });
 
+//**Aws amlifiy configration */
 Amplify.configure({
   aws_appsync_graphqlEndpoint:
     process.env.REACT_APP_AWS_APPSYNC_GRAPHQLENDPOINT,
@@ -43,7 +44,7 @@ Amplify.configure({
     responseType: 'token',
   },
 });
-
+/**Start of the appplication */
 ReactDOM.render(
   <MuiTheme>
     <App />
