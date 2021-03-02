@@ -73,7 +73,6 @@ const DraftBrandCampaignDetail = ({
 					<div
 						onClick={() => {
 							handleDelete();
-							console.log('Hello');
 						}}
 					>
 						<Trash /> <p>Delete Campaign</p>

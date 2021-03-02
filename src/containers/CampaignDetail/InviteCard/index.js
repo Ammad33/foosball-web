@@ -92,9 +92,7 @@ const InviteCard = ({ createdBy, campaignId, handleStatus, invitationMessage, ha
 		setNegotiate(nego);
 	};
 
-	// const handleNegotiateItem = (val) => {
-	// 	setNegotiateItem(val);
-	// }
+
 
 	const handleDeclineReason = (val) => {
 		setDeclineReason(val);
@@ -223,7 +221,6 @@ const InviteCard = ({ createdBy, campaignId, handleStatus, invitationMessage, ha
 				)
 			)
 			setNegotiateDialog(false);
-			// history.push(`/campaignDetail/${campaignId}`);
 			window.location.reload();
 		}
 		catch (e) {

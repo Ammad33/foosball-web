@@ -44,7 +44,6 @@ const CampaignDetailInfluencer = ({
 	const [step, setStep] = useState(1);
 	const [element, setElement] = useState('');
 	const { brandId, createMircositeFlag, setCreateMicrositeFlag, setTemplate } = useContext(RootContext);
-	// const [createMircositeFlag, setCreateMicrositeFlag] = useState(false);
 
 	useEffect(() => {
 		return (() => {
@@ -53,12 +52,7 @@ const CampaignDetailInfluencer = ({
 		})
 	}, []);
 
-	// useEffect(() => {
-	// 	debugger;
-	// 	if (data === undefined && data === null || ((data !== null && (data.microsite === undefined || data.microsite === null)))) {
-	// 		setTemplate('');
-	// 	}
-	// }, [data])
+	
 
 	/**{function} to handle edit campaign */
 	const handleEdit = (step) => {

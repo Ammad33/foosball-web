@@ -13,10 +13,6 @@ const InfluencerCard = ({ influencer }) => {
 	return (
 		<div>
 			<Card
-				// className={clsx(
-				// 	styles.influencerCard,
-				// 	selected ? styles.selectedInfluencer : ''
-				// )}
 				className={styles.influencerCard}
 				onClick={() => history.push('/influencerProfile')}
 			>

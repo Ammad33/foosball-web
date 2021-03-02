@@ -24,7 +24,6 @@ const Reports = () => {
 			const cognitoUser = await Auth.currentAuthenticatedUser();
 			const currentSession = await Auth.currentSession();
 			cognitoUser.refreshSession(currentSession.refreshToken, (err, session) => {
-				// console.log('session', err, session);
 				let currentUserAWS = { ...currentUser };
 				currentUserAWS.signInUserSession = session;
 				setCurrentUser(currentUserAWS);
@@ -43,52 +42,9 @@ const Reports = () => {
 				<div className={styles.ReportHeadingContainer}>
 					<div className={styles.ReportHeading}>
 						<span>Reports</span>
-						{/* <p>
-							Sort <ExpandMoreIcon fontSize='small' />
-						</p>
-						<p>
-							Filter <ExpandMoreIcon fontSize='small' />
-						</p> */}
 					</div>
 				</div>
-				{/* <div className={styles.ReportHeadingButton}>
-					<button
-						className={active === 'ALL' ? styles.allActive : styles.tab}
-						onClick={() => setActive('ALL')}
-					>
-						Tab
-          </button>
-					<button
-						className={active === 'DRAFT' ? styles.allActive : styles.tab}
-						onClick={() => setActive('DRAFT')}
-					>
-						Tab
-          </button>
-					<button
-						className={active === 'PENDING' ? styles.allActive : styles.tab}
-						onClick={() => setActive('PENDING')}
-					>
-						Tab
-          </button>
-					<button
-						className={active === 'LIVE' ? styles.allActive : styles.tab}
-						onClick={() => setActive('LIVE')}
-					>
-						Tab
-          </button>
-					<button
-						className={active === 'CLOSED' ? styles.allActive : styles.tab}
-						onClick={() => setActive('CLOSED')}
-					>
-						Tab
-          </button>
-					<button
-						className={active === 'LAST' ? styles.allActive : ''}
-						onClick={() => setActive('LAST')}
-					>
-						Tab
-          </button>
-				</div> */}
+			
 				<Grid
 					container
 					spacing={3}
@@ -102,47 +58,12 @@ const Reports = () => {
 									width="100%"
 									height="100%"
 									id="myId"
-									// className="myClassname"
 									className={styles.secondContainer}
 									display="initial"
 									position="relative" />
 							</div >
 						</div>
 					</Grid>
-					{/* <Grid container spacing={3} item xs={12} >
-						<Grid item xs={6}>
-							<div className={styles.ReportInfoContainerTwo}>
-								<div className={styles.ReportContainerTwo}>
-								</div>
-							</div>
-						</Grid>
-						<Grid item xs={6}>
-							<div className={styles.ReportInfoContainerTwo}>
-								<div className={styles.ReportContainerTwo}>
-								</div>
-							</div>
-						</Grid>
-					</Grid>
-					<Grid container spacing={3} item xs={12} >
-						<Grid item xs={4}>
-							<div className={styles.ReportInfoContainerThree}>
-								<div className={styles.ReportContainerThree}>
-								</div>
-							</div>
-						</Grid>
-						<Grid item xs={4}>
-							<div className={styles.ReportInfoContainerThree}>
-								<div className={styles.ReportContainerThree}>
-								</div>
-							</div>
-						</Grid>
-						<Grid item xs={4}>
-							<div className={styles.ReportInfoContainerThree}>
-								<div className={styles.ReportContainerThree}>
-								</div>
-							</div>
-						</Grid>
-					</Grid> */}
 				</Grid>
 			</div>
 		</>

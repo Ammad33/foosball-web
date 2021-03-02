@@ -184,7 +184,6 @@ const AddCampaignDetails = ({
 					className={mainStyles.placeholderColor}
 					variant='outlined'
 					onBlur={() => {
-						console.log('Triggered because this input lost focus');
 					}}
 					helperText={
 						startDateError ? (
@@ -215,7 +214,6 @@ const AddCampaignDetails = ({
 						format='MM/dd/yyyy'
 						margin='normal'
 						onBlur={() => {
-							console.log('Triggered because this input lost focus');
 						}}
 						onClose={() => handleStartDateOpen(false)}
 

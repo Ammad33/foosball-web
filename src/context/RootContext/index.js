@@ -18,7 +18,6 @@ export default ({ children }) => {
   /**********************************************************************/
 
   /*****setting values from local storage to constants*******************/
-  // const org = localStorage.getItem('org') || null;
   const [currentUser, setCurrentUser] = useState(prevUser);
   const [logoutMessage, setLogoutMessage] = useState('');
   const [activeRoute, setActiveRoute] = useState(preActiveRoute);
@@ -29,7 +28,6 @@ export default ({ children }) => {
   const [brandType, setBrandType] = useState(bType);
   const [creatorRoleId, setCreatorRoleId] = useState(cRollId);
   const [memberRoleId, setMemberRoleId] = useState(mRollId);
-  // const [organization , setOrganization] = useState(org);
   const [searchValue, setSearchValue] = useState('');
   const [influencers, setInfluencers] = useState(influencerStored);
   const [showLoader, setShowLoader] = useState(false);
@@ -107,8 +105,6 @@ export default ({ children }) => {
     } else {
       localStorage.setItem('template', templated);
     }
-    // if (!organization) localStorage.removeItem('org');
-    // else localStorage.setItem('org', organization);
   }, [
     currentUser,
     activeRoute,
@@ -121,7 +117,6 @@ export default ({ children }) => {
     influencers,
     createMircositeFlag,
     templated
-    // organization,
   ]);
   /*******************************************************************/
 

@@ -173,11 +173,6 @@ const EditInfluencerInformation = ({ open, handleChange, closeAdd, name,
 							label='Shirt Size'
 							variant='outlined'
 							className={mainStyles.placeholderColor}
-							//value=
-							// onChange={(e) =>
-							// 	handlePostType(e.target.value, index, 'deliverableType')
-
-							// }
 							MenuProps={{ variant: 'menu' }}
 							select
 							SelectProps={{ IconComponent: () => <Chevron /> }}
@@ -201,11 +196,6 @@ const EditInfluencerInformation = ({ open, handleChange, closeAdd, name,
 							label='Pant Size'
 							variant='outlined'
 							className={mainStyles.placeholderColor}
-							//value=
-							// onChange={(e) =>
-							// 	handlePostType(e.target.value, index, 'deliverableType')
-
-							// }
 							MenuProps={{ variant: 'menu' }}
 							select
 							SelectProps={{ IconComponent: () => <Chevron /> }}
@@ -229,11 +219,6 @@ const EditInfluencerInformation = ({ open, handleChange, closeAdd, name,
 							label='Dress Size'
 							variant='outlined'
 							className={mainStyles.placeholderColor}
-							//value=
-							// onChange={(e) =>
-							// 	handlePostType(e.target.value, index, 'deliverableType')
-
-							// }
 							MenuProps={{ variant: 'menu' }}
 							select
 							SelectProps={{ IconComponent: () => <Chevron /> }}
@@ -257,11 +242,6 @@ const EditInfluencerInformation = ({ open, handleChange, closeAdd, name,
 							label='Shoe Size'
 							variant='outlined'
 							className={mainStyles.placeholderColor}
-							//value=
-							// onChange={(e) =>
-							// 	handlePostType(e.target.value, index, 'deliverableType')
-
-							// }
 							MenuProps={{ variant: 'menu' }}
 							select
 							SelectProps={{ IconComponent: () => <Chevron /> }}

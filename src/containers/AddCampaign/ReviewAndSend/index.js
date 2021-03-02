@@ -87,25 +87,40 @@ const ReviewAndSend = ({
   /**{function} to get months between 2 dates  */
   function monthBetween(d1, d2) {
     const date1 = moment(d1);
+<<<<<<< HEAD
     const date2 = moment(d2).add(1, "d");
     console.log(date2.diff(date1, "days"));
     return Math.ceil(date2.diff(date1, "days") / 30);
+=======
+    const date2 = moment(d2).add(1, 'd');
+    return Math.ceil(date2.diff(date1, 'days') / 30);
+>>>>>>> foosball-79
   }
 
   /**{function} to calculate days between dates */
   function biMonthBetween(d1, d2) {
     const date1 = moment(d1);
+<<<<<<< HEAD
     const date2 = moment(d2).add(1, "d");
     console.log(date2.diff(date1, "days"));
     return Math.ceil(date2.diff(date1, "days") / 60);
+=======
+    const date2 = moment(d2).add(1, 'd');
+    return Math.ceil(date2.diff(date1, 'days') / 60);
+>>>>>>> foosball-79
   }
 
   /**{function} to calculate days between dates */
   function biWeekBetween(d1, d2) {
     const date1 = moment(d1);
+<<<<<<< HEAD
     const date2 = moment(d2).add(1, "d");
     console.log(date2.diff(date1, "days"));
     return Math.ceil(date2.diff(date1, "days") / 14);
+=======
+    const date2 = moment(d2).add(1, 'd');
+    return Math.ceil(date2.diff(date1, 'days') / 14);
+>>>>>>> foosball-79
   }
 
   /**{hook} filter members */
@@ -324,9 +339,8 @@ const ReviewAndSend = ({
   /**{function} to get weeks between 2 dates */
   function weeksBetween(d1, d2) {
     const date1 = moment(d1);
-    const date2 = moment(d2).add(1, "d");
-    console.log(date2.diff(date1, "days"));
-    return Math.ceil(date2.diff(date1, "days") / 7);
+    const date2 = moment(d2).add(1, 'd');
+    return Math.ceil(date2.diff(date1, 'days') / 7);
   }
   /**{hook} used to set collection data  */
   useEffect(() => {

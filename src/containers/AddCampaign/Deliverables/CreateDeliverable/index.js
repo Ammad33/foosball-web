@@ -204,7 +204,6 @@ const CreateDeliverable = ({
 							handleSocialPlatform(e.target.value, index, 'platform')
 						}
 						menuprops={{ variant: 'menu' }}
-						// input={<SelectMenu />}
 						select
 						SelectProps={{ IconComponent: () => <Chevron MenuId="menuSocialPlatform" Check="open" />, open: open, onClose: () => { setOpen(false) }, onOpen: () => { setOpen(true) } }}
 					>

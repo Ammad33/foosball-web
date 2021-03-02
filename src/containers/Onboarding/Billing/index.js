@@ -15,19 +15,11 @@ const Billing = () => {
   const [secondaryBillingType, setSecondaryBillingType] = useState(null);
 
   const handlePrimaryBilling = (type) => {
-    // if (type === 'CC' && primaryBillingType === 'CC') {
-    //   setPrimaryBillingType(null);
-    // } else {
     setPrimaryBillingType(type);
-    // }
   }
 
   const handleSecondaryBilling = (type) => {
-    // if (type === 'CC' && primaryBillingType === 'CC') {
-    //   setPrimaryBillingType(null);
-    // } else {
     setSecondaryBillingType(type);
-    // }
   }
   return (
     <div>

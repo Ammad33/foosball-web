@@ -19,7 +19,6 @@ const EyeSVG = () => {
 const ResetPassword = () => {
   const [resetConfirmation, setResetConfirmation] = useState(false);
   const history = useHistory();
-  // const [inputType, setInputType] = useState('password');
 
   const [passwordShown, setPasswordShown] = useState(false);
 

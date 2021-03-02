@@ -28,13 +28,8 @@ const CreateMicrosite = ({ location }) => {
 	const [temprorayTemplate, setTemprorayTemplate] = useState('')
 	const { brandId, templated, setTemplate, setCreateMicrositeFlag, setShowLoader, brandType } = useContext(RootContext);
 	const [count, setCount] = useState(0);
-	// const [microsite1, setMiscroSite1] = useState(microsite);
 
 	const handleCancel = () => {
-		// setTemplate(saveBack);
-		// getCampaign();
-		// setSaveBack('');
-		// getCampaign();
 		setConfirmTemplate(false);
 		setChangeTemplate(false);
 	}
@@ -42,7 +37,6 @@ const CreateMicrosite = ({ location }) => {
 		setTemplate(temprorayTemplate);
 		setTemprorayTemplate('');
 		setSaveBack('');
-		// getCampaign();
 		setConfirmTemplate(false);
 		setChangeTemplate(true);
 	}
@@ -68,7 +62,8 @@ const CreateMicrosite = ({ location }) => {
 			setConfirmTemplate(true);
 			setTemprorayTemplate(index)
 		}
-		else {
+		else {	
+
 			setChangeTemplate(false);
 			setTemplate(index);
 			if (count !== 0) {
@@ -473,7 +468,6 @@ const CreateMicrosite = ({ location }) => {
 								const newValue = templated;
 								setSaveBack(newValue);
 								setTemplate('');
-								// setConfirmTemplate(true);
 							}
 							} className={styles.backTemplate}>
 								<ChevronLeft />

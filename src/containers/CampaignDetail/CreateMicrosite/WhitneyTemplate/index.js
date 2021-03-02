@@ -324,13 +324,9 @@ const Templates = ({ campaignId, internalState, template, microsite,
 				if (response.data.createOrUpdateMicrosite.appHeader && response.data.createOrUpdateMicrosite.appHeader !== null) {
 
 					if (response.data.createOrUpdateMicrosite.appHeader.imageLargeUploadUrl) {
-						// if (template === 'TWO' || template === 'THREE') {
-						// 	setHeroUrl(response.data.createOrUpdateMicrosite.appHeader.imageUploadUrl)
-						// } else {
 						setHeroUrl(response.data.createOrUpdateMicrosite.appHeader.imageLargeUploadUrl);
 
 
-						// }
 					}
 					if (response.data.createOrUpdateMicrosite.appHeader.imageMediumUploadUrl) {
 
@@ -450,11 +446,9 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			)
 
 
-			// getCampaign();
 			handleCampaginDetail(campaignId);
 			setCreateMicrositeFlag(false);
 			setTemplate('');
-			// window.location.reload();
 
 		}
 		catch (err) {
@@ -500,7 +494,6 @@ const Templates = ({ campaignId, internalState, template, microsite,
 			const cognitoUser = await Auth.currentAuthenticatedUser();
 			const currentSession = await Auth.currentSession();
 			cognitoUser.refreshSession(currentSession.refreshToken, (err, session) => {
-				// console.log('session', err, session);
 				let currentUserAWS = { ...currentUser };
 				currentUserAWS.signInUserSession = session;
 				setCurrentUser(currentUserAWS);
@@ -540,7 +533,6 @@ const Templates = ({ campaignId, internalState, template, microsite,
 
 	}
 	const closePicker = () => {
-		console.log("close picker called")
 		setHeaderColorOpen(false)
 		setButtonColorOpen(false)
 		setQuotesColorOpen(false)
@@ -711,22 +703,11 @@ const Templates = ({ campaignId, internalState, template, microsite,
 							bottom={true}
 							stopPropagation={stopPropagation}
 						/>}
-						{/* <TextField
-							id='outlined-basic'
-							fullWidth
-							multiline
-							value={quoteMessage}
-							onChange={(e) => setQuoteMessage(e.target.value)}
-							rows={4}
-							placeholder="Quote about product"
-							variant='outlined'
-						/> */}
 						 <DebounceInput 
 						 element="textarea"
 						 value={quoteMessage}
 						 minLength={2}
 						 debounceTimeout={100}
-						//  infinite= {true}
 						 forceNotifyOnBlur={true}
 						 placeholder="Quote about product"
 						 variant='outlined'
@@ -780,7 +761,6 @@ const Templates = ({ campaignId, internalState, template, microsite,
 							width="100%"
 							height="100%"
 							id="myId"
-							// className="myClassname"
 							className={styles.secondContainer}
 							display="initial"
 							position="relative" />

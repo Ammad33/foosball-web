@@ -67,8 +67,6 @@ const Notification = () => {
     copyNotifications = copyNotifications.map((notification) => {
       const today = moment().format('dddd');
       const yesterday = moment().subtract(1, 'days').format('dddd');
-      console.log(' today ', moment().format('dddd'));
-      console.log(' yesterday ', moment().subtract(1, 'days').format('dddd'));
 
       if (today == moment(notification.received).format('dddd')) {
         notification.when = 'Today';
@@ -78,7 +76,6 @@ const Notification = () => {
         notification.when = moment(notification.received).format('dddd');
       }
 
-      // .split(' ')[0];
       return notification;
     });
     setDisplayNotifications(

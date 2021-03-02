@@ -50,8 +50,6 @@ const Help = () => {
 						<TextField
 							id='outlined-basic'
 							fullWidth
-							// value={startDate}
-							// onChange={(e) => handleStartDate(e.target.value)}
 							label='Campaign Name'
 							className={styles.textField}
 							variant='outlined'
@@ -59,8 +57,6 @@ const Help = () => {
 						<TextField
 							id='outlined-basic'
 							fullWidth
-							// value={startDate}
-							// onChange={(e) => handleStartDate(e.target.value)}
 							label='Let us know what you need help with'
 							className={styles.commentField}
 							variant='outlined'

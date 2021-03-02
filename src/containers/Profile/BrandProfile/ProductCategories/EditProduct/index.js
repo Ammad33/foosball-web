@@ -38,7 +38,6 @@ const EditProduct = ({ open, closeAdd }) => {
 						id='outlined-basic'
 						fullWidth
 						variant='outlined'
-						// value="samozkural@gmail.com"
 						InputProps={{
 							startAdornment: (
 								<InputAdornment position='start'>
@@ -54,7 +53,6 @@ const EditProduct = ({ open, closeAdd }) => {
 					className={styles.chip}
 					onDelete={handleDelete}
 					deleteIcon={<Done />}
-				// onClick={}
 				/>
 				<Chip
 					size="medium"
@@ -63,7 +61,6 @@ const EditProduct = ({ open, closeAdd }) => {
 					onDelete={handleDelete}
 					deleteIcon={<Done />}
 
-				// onClick={}
 				/>
 				<Chip
 					size="medium"
@@ -72,7 +69,6 @@ const EditProduct = ({ open, closeAdd }) => {
 					onDelete={handleDelete}
 					deleteIcon={<Done />}
 
-				// onClick={}
 				/>
 				<Chip
 					size="medium"
@@ -80,7 +76,6 @@ const EditProduct = ({ open, closeAdd }) => {
 					className={styles.chip}
 					onDelete={handleDelete}
 					deleteIcon={<Done />}
-				// onClick={}
 				/>
 				<Chip
 					size="medium"
@@ -88,7 +83,6 @@ const EditProduct = ({ open, closeAdd }) => {
 					className={styles.chip}
 					onDelete={handleDelete}
 					deleteIcon={<Done />}
-				// onClick={}
 				/>
 				<Chip
 					size="medium"
@@ -96,7 +90,6 @@ const EditProduct = ({ open, closeAdd }) => {
 					className={styles.chip}
 					onDelete={handleDelete}
 					deleteIcon={<Done />}
-				// onClick={}
 				/>
 
 			</div>

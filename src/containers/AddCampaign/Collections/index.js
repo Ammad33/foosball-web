@@ -31,7 +31,6 @@ const Accordion = withStyles({
       display: 'none',
     },
     '&$expanded': {
-      // margin: 'auto',
     },
   },
   expanded: {},
@@ -40,10 +39,8 @@ const Accordion = withStyles({
 /**styles */
 const AccordionSummary = withStyles({
   root: {
-    // marginBottom: -1,
     minHeight: 66,
     '&$expanded': {
-      // minHeight: 56,
     },
   },
   content: {
@@ -71,17 +68,6 @@ const MinusSVG = () => {
   return <SVG src={require('../../../assets/minus1.svg')} />;
 };
 
-const images = [
-  'https://cdn.shopify.com/s/files/1/0508/0855/3646/products/all-over-print-premium-face-mask-white-5fe7f35880974.jpg?v=1609036636',
-  'https://cdn.shopify.com/s/files/1/0508/0855/3646/products/all-over-print-premium-face-mask-white-5fe7f35880974.jpg?v=1609036636',
-  'https://cdn.shopify.com/s/files/1/0508/0855/3646/products/all-over-print-premium-face-mask-white-5fe7f35880974.jpg?v=1609036636',
-  'https://cdn.shopify.com/s/files/1/0508/0855/3646/products/all-over-print-premium-face-mask-white-5fe7f35880974.jpg?v=1609036636',
-  'https://cdn.shopify.com/s/files/1/0508/0855/3646/products/all-over-print-premium-face-mask-white-5fe7f35880974.jpg?v=1609036636',
-  'https://cdn.shopify.com/s/files/1/0508/0855/3646/products/all-over-print-premium-face-mask-white-5fe7f35880974.jpg?v=1609036636',
-  'https://cdn.shopify.com/s/files/1/0508/0855/3646/products/all-over-print-premium-face-mask-white-5fe7f35880974.jpg?v=1609036636',
-  'https://cdn.shopify.com/s/files/1/0508/0855/3646/products/all-over-print-premium-face-mask-white-5fe7f35880974.jpg?v=1609036636',
-  'https://cdn.shopify.com/s/files/1/0508/0855/3646/products/all-over-print-premium-face-mask-white-5fe7f35880974.jpg?v=1609036636',
-];
 
 const Collection = ({
   collections,

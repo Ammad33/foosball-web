@@ -76,9 +76,6 @@ const CreateNegotiateItem = ({
 								index,
 								'Negotiate Item'
 							);
-							// if (e.target.value !== '') {
-							// 	handleAnother();
-							// }
 						}}
 						menuprops={{ variant: 'menu' }}
 						select
@@ -112,9 +109,6 @@ const CreateNegotiateItem = ({
 									index,
 									'Negotiate Value'
 								);
-								// if (e.target.value !== '') {
-								// 	handleAnother();
-								// }
 							}}
 							menuprops={{ variant: 'menu' }}
 							select
@@ -149,15 +143,7 @@ const CreateNegotiateItem = ({
 							className={mainStyles.placeholderColor}
 							variant='outlined'
 							onBlur={() => {
-								console.log('Triggered because this input lost focus');
 							}}
-							// helperText={
-							// 	startDateError ? (
-							// 		<span className={styles.errorText}> Start Date IN FUTURE </span>
-							// 	) : (
-							// 			' '
-							// 		)
-							// }
 							InputProps={{
 								endAdornment: (
 									<InputAdornment className={styles.inputendornment} position='end'>
@@ -173,14 +159,13 @@ const CreateNegotiateItem = ({
 								value={item.negotiateStartDate}
 								disablePast={true}
 								initialFocusedDate={moment().add(1, 'day')}
-								onChange={ console.log("asda") , handleNegotiate}
+								onChange={handleNegotiate}
 								allowKeyboardControl={true}
 								orientation='landscape'
 								openTo='date'
 								format='MM/dd/yyyy'
 								margin='normal'
 								onBlur={() => {
-									console.log('Triggered because this input lost focus');
 								}}
 								onClose={() => handleStartDateOpen(false)}
 
@@ -205,15 +190,7 @@ const CreateNegotiateItem = ({
 							className={mainStyles.placeholderColor}
 							variant='outlined'
 							onBlur={() => {
-								console.log('Triggered because this input lost focus');
 							}}
-							// helperText={
-							// 	startDateError ? (
-							// 		<span className={styles.errorText}> Start Date IN FUTURE </span>
-							// 	) : (
-							// 			' '
-							// 		)
-							// }
 							InputProps={{
 								endAdornment: (
 									<InputAdornment className={styles.inputendornment} position='end'>
@@ -228,7 +205,6 @@ const CreateNegotiateItem = ({
 								open={endDateOpen}
 								value={item.negotiateEndDate}
 								disablePast={true}
-								// initialFocusedDate={moment().add(1, 'day')}
 								onChange={handleNegotiate}
 								allowKeyboardControl={true}
 								orientation='landscape'
@@ -236,7 +212,6 @@ const CreateNegotiateItem = ({
 								format='MM/dd/yyyy'
 								margin='normal'
 								onBlur={() => {
-									console.log('Triggered because this input lost focus');
 								}}
 								onClose={() => handleEndDateOpen(false)}
 
@@ -275,7 +250,6 @@ const CreateNegotiateItem = ({
 						multiline={true}
 						variant='outlined'
 						className={styles.messageField}
-						// className={mainStyles.placeholderColor}
 						value={item.negotiateMessage}
 						onChange={(e) =>
 							handleNegotiate(e.target.value, index, 'Negotiate Message')

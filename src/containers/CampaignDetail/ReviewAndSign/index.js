@@ -50,7 +50,6 @@ const ReviewAndSign = ({
 				)
 			)
 			getInternalState();
-			// handleCreateMicrosite();
 			history.push(`/campaignDetail/createmicrosite/${campaignId}`);
 
 		}

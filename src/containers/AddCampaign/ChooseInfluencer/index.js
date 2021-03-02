@@ -35,10 +35,6 @@ const ChooseInfluencer = ({
     }
   }, [influencers]);
 
-  // useEffect(() => {
-
-  // }, [influencers])
-
   return (
     <div className={styles.container} style={{ paddingTop: "8px" }}>
       <Grid container spacing={2}>
@@ -55,7 +51,6 @@ const ChooseInfluencer = ({
               xs={12}
               className={styles.gridItem}
               style={{ marginTop: 20 }}
-              // key={influencer.socialTag}
               key={index1}
             >
               <InfluencerCard
