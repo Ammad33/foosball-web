@@ -2,6 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';
 
+/*** Override the Style of Drawer */
 const CssSelectMenu = withStyles({
     root: {
         'label.Mui-focused': {

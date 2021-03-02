@@ -37,7 +37,7 @@ const CancellationDialog = ({
 			setError(true);
 		}
 	};
-	/**{function} that handles must required fields */
+	/**{function} that handles must required fields on cancelation dialog */
 	const handleRequrired = (action) => {
 		if (reason.length > 1) {
 			switch (action) {

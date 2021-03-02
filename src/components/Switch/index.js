@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Switch, withStyles } from '@material-ui/core';
 
-
+/*** Override the Style of Drawer */
 const StyledSwitch = withStyles({
     switchBase: {
         color: '#E5E5E5',
