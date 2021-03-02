@@ -1,15 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react';
-import styles from './ReviewAndSend.module.scss';
-import Grid from '@material-ui/core/Grid';
-import Avatar from '@material-ui/core/Avatar';
-import SVG from 'react-inlinesvg';
-import moment from 'moment';
-import { RootContext } from '../../../context/RootContext';
-
+import React, { useState, useEffect, useContext } from "react";
+import styles from "./ReviewAndSend.module.scss";
+import Grid from "@material-ui/core/Grid";
+import Avatar from "@material-ui/core/Avatar";
+import SVG from "react-inlinesvg";
+import moment from "moment";
+import { RootContext } from "../../../context/RootContext";
 
 /**SVG */
 const EditSVG = ({ onClick }) => {
-  return <SVG src={require('../../../assets/edit.svg')} onClick={onClick} />;
+  return <SVG src={require("../../../assets/edit.svg")} onClick={onClick} />;
 };
 
 const ReviewAndSend = ({
@@ -40,7 +39,29 @@ const ReviewAndSend = ({
   const [totalPosts, setTotalPosts] = useState(0);
   const [teamMembers, setTeamMembers] = useState([]);
   const { currentUser } = useContext(RootContext);
-
+  var paymentScheduleMap = {
+    FIRST_OF_MONTH: "1st of every month",
+    FIFTEENTH_OF_MONTH: "15th of every month",
+    LAST_DAY_OF_MONTH: "Last day of every month",
+  };
+  var compensationTypeMap = {
+    REVENUE_SHARE: "Revenue Share",
+    CASH_PER_POST: "Cash Per Post",
+    CASH_PER_MONTHLY_DELIVERABLE: "Cash Per Monthly Deliverable",
+    GIFT_CARD: "Gift Card",
+  };
+  var compensationHeadingMap = {
+    REVENUE_SHARE: "Revenue Share Percentage",
+    CASH_PER_POST: "Amount per Post",
+    CASH_PER_MONTHLY_DELIVERABLE: "Amount Per Monthly Deliverable",
+    GIFT_CARD: "Amount Per Gift Card",
+  };
+  var postFrequencyMap = {
+    BI_MONTHLY: " 2 months",
+    WEEK: " 1 week",
+    MONTH: " 1 month",
+    BI_WEEKLY: " 2 weeks",
+  };
   /**activates the send invite button */
   useEffect(() => {
     handleActiveNext();
@@ -48,22 +69,13 @@ const ReviewAndSend = ({
 
   /**{function} get the heading for payment schedule */
   const getPaymentSchedule = (compensation) => {
-    switch (compensation) {
-      case 'FIRST_OF_MONTH':
-        return '1st of every month';
-      case 'FIFTEENTH_OF_MONTH':
-        return '15th of every month';
-      case 'LAST_DAY_OF_MONTH':
-        return 'Last day of every month';
-      default:
-        return '';
-    }
+    return paymentScheduleMap[compensation];
   };
   /**{function} to get over budget */
   const overAmount1 = () => {
     let over = 0;
     compensations.forEach((item) => {
-      if (item.compensationType === 'REVENUE_SHARE') {
+      if (item.compensationType === "REVENUE_SHARE") {
         over =
           parseFloat((item.amount * parseFloat(targetGrossSale)) / 100) -
           parseFloat(budget);
@@ -75,32 +87,32 @@ const ReviewAndSend = ({
   /**{function} to get months between 2 dates  */
   function monthBetween(d1, d2) {
     const date1 = moment(d1);
-    const date2 = moment(d2).add(1, 'd');
-    console.log(date2.diff(date1, 'days'));
-    return Math.ceil(date2.diff(date1, 'days') / 30);
+    const date2 = moment(d2).add(1, "d");
+    console.log(date2.diff(date1, "days"));
+    return Math.ceil(date2.diff(date1, "days") / 30);
   }
 
   /**{function} to calculate days between dates */
   function biMonthBetween(d1, d2) {
     const date1 = moment(d1);
-    const date2 = moment(d2).add(1, 'd');
-    console.log(date2.diff(date1, 'days'));
-    return Math.ceil(date2.diff(date1, 'days') / 60);
+    const date2 = moment(d2).add(1, "d");
+    console.log(date2.diff(date1, "days"));
+    return Math.ceil(date2.diff(date1, "days") / 60);
   }
 
   /**{function} to calculate days between dates */
   function biWeekBetween(d1, d2) {
     const date1 = moment(d1);
-    const date2 = moment(d2).add(1, 'd');
-    console.log(date2.diff(date1, 'days'));
-    return Math.ceil(date2.diff(date1, 'days') / 14);
+    const date2 = moment(d2).add(1, "d");
+    console.log(date2.diff(date1, "days"));
+    return Math.ceil(date2.diff(date1, "days") / 14);
   }
 
   /**{hook} filter members */
   useEffect(() => {
     //set scroll to top
     document.getElementsByClassName(
-      'AddCampaign_dialogContent__3teJx'
+      "AddCampaign_dialogContent__3teJx"
     )[0].scrollTop = 0;
     const filterdMembers = selectedMembers.filter(
       (memb) => memb !== currentUser.username
@@ -110,29 +122,29 @@ const ReviewAndSend = ({
 
   /**{hook} calculate the total posts**/
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
     let totalPost = 0;
     deliverables.forEach((item) => {
-      if (item.frequency === 'WEEK') {
+      if (item.frequency === "WEEK") {
         totalPost =
           totalPost +
           parseInt(item.posts) *
-          weeksBetween(new Date(startDate), new Date(endDate));
-      } else if (item.frequency === 'BI_WEEKLY') {
+            weeksBetween(new Date(startDate), new Date(endDate));
+      } else if (item.frequency === "BI_WEEKLY") {
         totalPost =
           totalPost +
           parseInt(item.posts) *
-          biWeekBetween(new Date(startDate), new Date(endDate));
-      } else if (item.frequency === 'MONTH') {
+            biWeekBetween(new Date(startDate), new Date(endDate));
+      } else if (item.frequency === "MONTH") {
         totalPost =
           totalPost +
           parseInt(item.posts) *
-          monthBetween(new Date(startDate), new Date(endDate));
-      } else if (item.frequency === 'BI_MONTHLY') {
+            monthBetween(new Date(startDate), new Date(endDate));
+      } else if (item.frequency === "BI_MONTHLY") {
         totalPost =
           totalPost +
           parseInt(item.posts) *
-          biMonthBetween(new Date(startDate), new Date(endDate));
+            biMonthBetween(new Date(startDate), new Date(endDate));
       }
     });
 
@@ -148,76 +160,54 @@ const ReviewAndSend = ({
 
   /**{function} add commas in numbers */
   const numberWithCommas = (x) => {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   /**{function} to get compensation type */
   const getCompensationType = (compensation) => {
-    switch (compensation) {
-      case 'REVENUE_SHARE':
-        return 'Revenue Share';
-      case 'CASH_PER_POST':
-        return 'Cash Per Post';
-      case 'CASH_PER_MONTHLY_DELIVERABLE':
-        return 'Cash Per Monthly Deliverable';
-      case 'GIFT_CARD':
-        return 'Gift Card';
-      default:
-        return '';
-    }
+    return compensationTypeMap[compensation];
   };
 
   /**{function} to get compensation heading */
   const getCompensationHeading = (compensation) => {
-    switch (compensation) {
-      case 'REVENUE_SHARE':
-        return 'Revenue Share Percentage';
-      case 'CASH_PER_POST':
-        return 'Amount per Post';
-      case 'CASH_PER_MONTHLY_DELIVERABLE':
-        return 'Amount Per Monthly Deliverable';
-      case 'GIFT_CARD':
-        return 'Amount Per Gift Card';
-      default:
-        return '';
-    }
+    return compensationHeadingMap[compensation];
   };
 
   /**{function} to get compensation amount */
   const getCompensationAmount = (compensation) => {
     switch (compensation.compensationType) {
-      case 'REVENUE_SHARE':
+      case "REVENUE_SHARE":
         return (
           <span>
             {compensation.amount &&
-              numberWithCommas((parseFloat(compensation.amount)))}
-            % (${' '}
+              numberWithCommas(parseFloat(compensation.amount))}
+            % (${" "}
             {numberWithCommas(
               Math.trunc((compensation.amount * targetGrossSale) / 100)
             )}
             )
           </span>
         );
-      case 'CASH_PER_POST':
+      case "CASH_PER_POST":
         return (
           <span>
-            ${' '}
+            ${" "}
             {compensation.amount &&
               numberWithCommas(Math.trunc(parseFloat(compensation.amount)))}
           </span>
         );
-      case 'CASH_PER_MONTHLY_DELIVERABLE':
+      case "CASH_PER_MONTHLY_DELIVERABLE":
         return (
           <span>
-            ${' '}
+            ${" "}
             {compensation.amount &&
               numberWithCommas(Math.trunc(parseFloat(compensation.amount)))}
           </span>
         );
-      case 'GIFT_CARD':
+      case "GIFT_CARD":
         return (
           <span>
-            ${' '}
+            ${" "}
             {compensation.amount &&
               numberWithCommas(Math.trunc(parseFloat(compensation.amount)))}
           </span>
@@ -230,7 +220,7 @@ const ReviewAndSend = ({
   /**{function} to get compensation type value */
   const getCompensationTypeValue = (compensation) => {
     switch (compensation.compensationType) {
-      case 'REVENUE_SHARE':
+      case "REVENUE_SHARE":
         return (
           <h5>
             $
@@ -238,16 +228,16 @@ const ReviewAndSend = ({
               Math.trunc(
                 parseFloat(
                   compensation.amount &&
-                  (
-                    (compensation.amount * parseFloat(targetGrossSale)) /
-                    100
-                  ).toFixed(2)
+                    (
+                      (compensation.amount * parseFloat(targetGrossSale)) /
+                      100
+                    ).toFixed(2)
                 )
               )
             )}
           </h5>
         );
-      case 'CASH_PER_POST':
+      case "CASH_PER_POST":
         return (
           <h5>
             $
@@ -257,7 +247,7 @@ const ReviewAndSend = ({
               )}
           </h5>
         );
-      case 'CASH_PER_MONTHLY_DELIVERABLE':
+      case "CASH_PER_MONTHLY_DELIVERABLE":
         return (
           <h5>
             $
@@ -265,7 +255,7 @@ const ReviewAndSend = ({
               numberWithCommas(Math.trunc(parseFloat(compensation.amount)))}
           </h5>
         );
-      case 'GIFT_CARD':
+      case "GIFT_CARD":
         return (
           <h5>
             $
@@ -280,49 +270,38 @@ const ReviewAndSend = ({
 
   /**{function} to get post frequency value */
   const getPostFrequency = (frequency) => {
-    switch (frequency) {
-      case 'BI_MONTHLY':
-        return ' 2 months';
-      case 'WEEK':
-        return ' 1 week';
-      case 'MONTH':
-        return ' 1 month';
-      case 'BI_WEEKLY':
-        return ' 2 weeks';
-      default:
-        return '';
-    }
+    return postFrequencyMap[frequency];
   };
   /**{function} to get Total Compensation Estimate */
   const getTotal = () => {
     let total = 0;
     compensations.forEach((item) => {
-      if (item.compensationType === 'REVENUE_SHARE') {
+      if (item.compensationType === "REVENUE_SHARE") {
         total =
           total + parseFloat((item.amount * parseFloat(targetGrossSale)) / 100);
-      } else if (item.compensationType === 'CASH_PER_POST') {
+      } else if (item.compensationType === "CASH_PER_POST") {
         let totalPost = 0;
         deliverables.forEach((item) => {
-          if (item.frequency === 'WEEK') {
+          if (item.frequency === "WEEK") {
             totalPost =
               totalPost +
               parseInt(item.posts) *
-              weeksBetween(new Date(startDate), new Date(endDate));
-          } else if (item.frequency === 'BI_WEEKLY') {
+                weeksBetween(new Date(startDate), new Date(endDate));
+          } else if (item.frequency === "BI_WEEKLY") {
             totalPost =
               totalPost +
               parseInt(item.posts) *
-              biWeekBetween(new Date(startDate), new Date(endDate));
-          } else if (item.frequency === 'MONTH') {
+                biWeekBetween(new Date(startDate), new Date(endDate));
+          } else if (item.frequency === "MONTH") {
             totalPost =
               totalPost +
               parseInt(item.posts) *
-              monthBetween(new Date(startDate), new Date(endDate));
-          } else if (item.frequency === 'BI_MONTHLY') {
+                monthBetween(new Date(startDate), new Date(endDate));
+          } else if (item.frequency === "BI_MONTHLY") {
             totalPost =
               totalPost +
               parseInt(item.posts) *
-              biMonthBetween(new Date(startDate), new Date(endDate));
+                biMonthBetween(new Date(startDate), new Date(endDate));
           }
         });
         total = total + parseFloat(item.amount) * totalPost;
@@ -345,9 +324,9 @@ const ReviewAndSend = ({
   /**{function} to get weeks between 2 dates */
   function weeksBetween(d1, d2) {
     const date1 = moment(d1);
-    const date2 = moment(d2).add(1, 'd');
-    console.log(date2.diff(date1, 'days'));
-    return Math.ceil(date2.diff(date1, 'days') / 7);
+    const date2 = moment(d2).add(1, "d");
+    console.log(date2.diff(date1, "days"));
+    return Math.ceil(date2.diff(date1, "days") / 7);
   }
   /**{hook} used to set collection data  */
   useEffect(() => {
@@ -384,7 +363,7 @@ const ReviewAndSend = ({
     <div className={styles.mainContainer} style={{ paddingTop: "8px" }}>
       <div className={styles.influe}>
         <div className={styles.influencerContainer}>
-          <Avatar className={styles.avatar} src={selectedInfluncer.imageUrl} />{' '}
+          <Avatar className={styles.avatar} src={selectedInfluncer.imageUrl} />{" "}
           <p>{selectedInfluncer.name}</p>
         </div>
       </div>
@@ -407,7 +386,7 @@ const ReviewAndSend = ({
               <div className={styles.campaignItemInfo}>
                 <p>Start Date, Time</p>
                 <span>
-                  {moment(startDate).format('MM/DD/YYYY')}, {startTime}
+                  {moment(startDate).format("MM/DD/YYYY")}, {startTime}
                 </span>
               </div>
             </Grid>
@@ -415,7 +394,7 @@ const ReviewAndSend = ({
               <div className={styles.campaignItemInfo}>
                 <p>End Date, Time</p>
                 <span>
-                  {moment(endDate).format('MM/DD/YYYY')}, {endTime}
+                  {moment(endDate).format("MM/DD/YYYY")}, {endTime}
                 </span>
               </div>
             </Grid>
@@ -423,29 +402,34 @@ const ReviewAndSend = ({
               <div className={styles.campaignItemInfo}>
                 <p>Promotional Discount</p>
                 <span>
-                  {discountType === 'Percentage' ? '' : '$'}
+                  {discountType === "Percentage" ? "" : "$"}
                   {numberWithCommas(discount)}
-                  {discountType === 'Percentage' ? '%' : ''}
+                  {discountType === "Percentage" ? "%" : ""}
                 </span>
               </div>
             </Grid>
-            {discountType === 'Amount' ? (
+            {discountType === "Amount" ? (
               <Grid item xs={4}>
                 <div className={styles.campaignItemInfo}>
                   <p>Minimum Cart Value</p>
                   <span>
-                    {'$'}
+                    {"$"}
                     {numberWithCommas(minimum)}
                   </span>
                 </div>
               </Grid>
             ) : (
-                ''
-              )}
+              ""
+            )}
             <Grid item xs={4}>
               <div className={styles.campaignItemInfo}>
                 <p>Campaign Duration</p>
-                <span>{weeksBetween(new Date(startDate), new Date(endDate))} week{weeksBetween(new Date(startDate), new Date(endDate)) === 1 ? '' : 's'}</span>
+                <span>
+                  {weeksBetween(new Date(startDate), new Date(endDate))} week
+                  {weeksBetween(new Date(startDate), new Date(endDate)) === 1
+                    ? ""
+                    : "s"}
+                </span>
               </div>
             </Grid>
             <Grid item xs={12}>
@@ -464,23 +448,28 @@ const ReviewAndSend = ({
         </div>
         <div className={styles.teamMembersContainer}>
           <Grid container spacing={3}>
-            {teamMembers &&
-              teamMembers.length > 0 ? (
-                teamMembers.map((member, index) => {
-                  const element = team.findIndex(
-                    (item) => item.user.id === member
+            {teamMembers && teamMembers.length > 0 ? (
+              teamMembers.map((member, index) => {
+                const element = team.findIndex(
+                  (item) => item.user.id === member
+                );
+                if (element !== -1) {
+                  return (
+                    <Grid item xs={4} key={index}>
+                      <div className={styles.teamMemberItem}>
+                        <Avatar src={team[element].user.imageUrl} />
+                        <span>{team[element].user.fullName}</span>
+                      </div>
+                    </Grid>
                   );
-                  if (element !== -1) {
-                    return (
-                      <Grid item xs={4} key={index}>
-                        <div className={styles.teamMemberItem}>
-                          <Avatar src={team[element].user.imageUrl} />
-                          <span>{team[element].user.fullName}</span>
-                        </div>
-                      </Grid>
-                    );
-                  }
-                })) : <div className={styles.noTeamMember}> No team members have been added to this campaign.</div>}
+                }
+              })
+            ) : (
+              <div className={styles.noTeamMember}>
+                {" "}
+                No team members have been added to this campaign.
+              </div>
+            )}
           </Grid>
         </div>
       </div>
@@ -543,14 +532,13 @@ const ReviewAndSend = ({
                             $
                             {collection.priceRange && collection.priceRange.max
                               ? collection.priceRange.max.amount
-                              : ''}{' '}
+                              : ""}{" "}
                           </p>
                           {collection &&
                             collection.estimatedQty &&
                             collection.estimatedQty !== null && (
                               <p className={styles.boxPrice}> 25 in stock</p>
                             )}
-
                         </div>
                       );
                     })}
@@ -568,15 +556,15 @@ const ReviewAndSend = ({
         {deliverables.map((item, index) => {
           return (
             <div className={styles.deliverablesContainer} key={index}>
-              <h4 style={index > 0 ? { marginTop: '40px' } : {}}>
+              <h4 style={index > 0 ? { marginTop: "40px" } : {}}>
                 Deliverable {index + 1}
               </h4>
               <Grid container spacing={3} key={index}>
-                <Grid item xs={4} style={{ display: 'none' }}>
+                <Grid item xs={4} style={{ display: "none" }}>
                   <div className={styles.deliverableItem}>
                     <p>Deliverable Deadline</p>
                     <span>
-                      {moment(item.deadlineDate).format('MMMM Do, YYYY')}
+                      {moment(item.deadlineDate).format("MMMM Do, YYYY")}
                     </span>
                   </div>
                 </Grid>
@@ -592,7 +580,7 @@ const ReviewAndSend = ({
                     <span>
                       {item.postType && item.postType !== null
                         ? item.postType.toProperCase()
-                        : ''}
+                        : ""}
                     </span>
                   </div>
                 </Grid>
@@ -602,7 +590,7 @@ const ReviewAndSend = ({
                     <span>
                       {item.frameContentType && item.frameContentType !== null
                         ? item.frameContentType.toProperCase()
-                        : ''}
+                        : ""}
                     </span>
                   </div>
                 </Grid>
@@ -612,7 +600,7 @@ const ReviewAndSend = ({
                     <span>
                       {item.framesRequired && item.framesRequired !== null
                         ? item.framesRequired
-                        : ''}
+                        : ""}
                     </span>
                   </div>
                 </Grid>
@@ -636,7 +624,7 @@ const ReviewAndSend = ({
                   <div className={styles.deliverableItem}>
                     <p>Post Frequency</p>
                     <span>
-                      {item.posts} posts every{' '}
+                      {item.posts} posts every{" "}
                       {getPostFrequency(item.frequency)}
                     </span>
                   </div>
@@ -693,7 +681,7 @@ const ReviewAndSend = ({
         </div>
         {overAmount() > 0 && (
           <div
-            style={{ margin: '20px 0px 10px 0px' }}
+            style={{ margin: "20px 0px 10px 0px" }}
             className={styles.compensationBadge}
           >
             <p>
@@ -703,7 +691,7 @@ const ReviewAndSend = ({
         )}
         <p className={styles.estimateText}>
           * some amounts may be estimates based on target sales
-        </p>{' '}
+        </p>{" "}
       </div>
       <div class={styles.section}>
         <div className={styles.titleAndAction}>
