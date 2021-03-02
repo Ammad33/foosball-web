@@ -31,7 +31,6 @@ const PendingInfluencer = ({
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
-	// const [createMircositeFlag, setCreateMicrositeFlag] = useState(false);
 	const [signContractFlag, setSignContractFlag] = useState(false);
 
 	const handleClose = () => {
@@ -46,16 +45,6 @@ const PendingInfluencer = ({
 
 	return (
 		<>
-			{/* {createMircositeFlag ? (<CreateMicroSite
-				name={name}
-				internalState={internalState}
-				campaignId={campaignId}
-				internalState={internalState}
-				getCampaign={getCampaign}
-				influencer={data.influencer && data.influencer !== null ? data.influencer : null}
-				brand={data.brand && data.brand !== null ? data.brand : null}
-				microsite={data.microsite && data.microsite !== null ? data.microsite : ''}
-			/>) : */}
 			{
 				signContractFlag ? (<ReviewAndSign
 					name={name}

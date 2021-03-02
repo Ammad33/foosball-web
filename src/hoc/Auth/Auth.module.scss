@@ -9,24 +9,22 @@
 		height: 1080px;
 
 		.logoDiv {
-			// margin: 40px 40px 0px 40px;
 			width: 184px;
 			padding: 40px 40px 0 40px;
 			height: 81px;
 			display: flex;
 			align-items: center;
-			justify-content: center; //margin-bottom: 100px;
+			justify-content: center;
 
 		}
 
 		.formDiv {
-			margin: 73px 0px 246px 245px; //208px
+			margin: 73px 0px 246px 245px; 
 		}
 	}
 
 	.sidebar {
 		width: 50%;
-		// background-color: $authSidebarBackground;
 		display: flex;
 		position: relative;
 		min-height: 100vh; //min-height: -webkit-fill-available;
@@ -36,22 +34,9 @@
 			height: 1080px;
 			align-self: center;
 			display: flex;
-			// z-index: 1;
-			// opacity: 0.45;
+		
 		}
 
-		// div {
-		// 	width: 933px;
-		// 	height: 1080px;
-		// 	align-self: center;
-		// 	display: flex;
-		// 	top: 0;
-		// 	left: 0;
-		// 	right: 0;
-		// 	bottom: 0;
-		// 	background-color: #7B5CD9;
-		// 	z-index: 2;
-		// 	cursor: pointer;
-		// }
+
 	}
 }

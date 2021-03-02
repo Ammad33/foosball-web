@@ -7,13 +7,7 @@ const Deliverables = ({ deliveries, handleDeliveries, handleDilverableContent,
 	handleDeliverDeadlineDate, deliverableDeadlineDateError, deliverableDate,
 	handleDeliverableDate, handleActiveForDeliverable, handleRemoveDeliverable, fb, insta, tictock, youtube }) => {
 
-	// const myRef = useRef(null);
-	// const executeScroll = () => myRef.current.scrollIntoView();
 
-	// const buttonClicked = () => {
-	// myRef.current.scrollIntoView();
-	// handleDeliveries();
-	// }
 
 /**check for conditions and activate the next button for deliverable */  
 	useEffect(() => {

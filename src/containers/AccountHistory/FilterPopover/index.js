@@ -67,8 +67,6 @@ const FilterPopover = ({ data, selectAll, handleSelectAll, handleClearAll, selec
 						InputProps={{
 							className: classes.input
 						}}
-					// value={formData.fullName}
-					// onChange={(e) => handleFormChange(e.target.value, 'fullName')}
 					/>
 				</div>
 				<div className={styles.selectionContainer}>

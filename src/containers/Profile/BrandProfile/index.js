@@ -223,9 +223,6 @@ const BrandProfile = () => {
               }}>Upload Profile Photo</label>
               <input id='hero1' style={{ visibility: 'hidden', display: 'none' }} type={'file'} onChange={(e) => { setImageFile(e.target.files[0]); setInfluencerProfile(URL.createObjectURL(e.target.files[0])) }} />
 
-              {/* // ) : (
-              //     <button className={styles.messageButton}>Message</button>
-              //   )} */}
             </div>
           </div>
           {isOwner ? (

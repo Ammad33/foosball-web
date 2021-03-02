@@ -81,7 +81,6 @@ const CancellationDialog = ({
 						}
 						variant='outlined'
 						displayEmpty
-						// className={mainStyles.placeholderColor}
 						helperText={required ? <span> "Required" </span> : ' '}
 						value={reason}
 						onChange={(e) => handleReason(e.target.value)}

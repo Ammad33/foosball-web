@@ -9,7 +9,6 @@ import InfluencerCategories from './InfluencerCategories';
 import InfluencerPosts from './RecentPosts';
 import Social from './Social';
 import { API, graphqlOperation } from 'aws-amplify';
-// import AverageEngagement from './AverageEngagement';
 
 import updateInfluencerMutation from '../../../GraphQL/updateInfluencerMutation';
 
@@ -33,8 +32,6 @@ const InfluencerProfile = () => {
 
 	const [path, setPath] = useState("");
 	var [influencerProfile, setInfluencerProfile] = useState([]);
-	// const [selectedInfluencer, setSelectedInfluencer] = useState(null);
-	// const [influencerProfile, setInfluencerProfile] = useState(null);
 	const [imageUrl, setImageUrl] = useState('');
 	const [imageFile, setImageFile] = useState(null);
 	const [influencerName, setInfluencerName] = useState('');
@@ -51,10 +48,6 @@ const InfluencerProfile = () => {
 
    	////////for picture to correctly work////////
    	useEffect(() => {
-    console.log(
-      "brandProfile influencer Profile--------->>>",
-      influencerProfile
-    );
     setPath(null);
     if (influencerProfile != null) {
       if (influencerProfile.indexOf("blob") == -1)
@@ -72,7 +65,6 @@ const InfluencerProfile = () => {
 				bio: bio,
 				email: email,
 				name: name,
-				// location: location,
 				phoneNumber: phoneNumber,
 				website: website
 			});

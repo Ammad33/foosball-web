@@ -46,7 +46,6 @@ const ReviewBrandMicrosite = ({ name, data, campaignId }) => {
 			const cognitoUser = await Auth.currentAuthenticatedUser();
 			const currentSession = await Auth.currentSession();
 			cognitoUser.refreshSession(currentSession.refreshToken, (err, session) => {
-				// console.log('session', err, session);
 				let currentUserAWS = { ...currentUser };
 				currentUserAWS.signInUserSession = session;
 				setCurrentUser(currentUserAWS);
@@ -130,7 +129,6 @@ const ReviewBrandMicrosite = ({ name, data, campaignId }) => {
 						width="100%"
 						height="100%"
 						id="myId"
-						// className="myClassname"
 						className={styles.secondContainer}
 						display="initial"
 						position="relative" />

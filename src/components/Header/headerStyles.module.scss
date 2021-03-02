@@ -48,21 +48,17 @@
   width: 98%;
   gap: 50px;
   .searchContainer {
-    // flex: 1;
-    // position: relative;
     margin-top: 10px;
 
     width: 70%;
     .headerSearchIcon {
       position: absolute;
-      // top: calc(50% - 14px);
       font-size: 30px !important;
     }
     .searchInput {
       width: 75%;
       border-radius: 5px;
       height: 50px;
-      // padding: 10px 0px;
       border: none;
       padding-left: 45px;
       &:focus {

@@ -289,14 +289,6 @@ const Campaigns = () => {
 			setAnchorEl(null);
 			setBrandDropDown(false);
 		}
-
-		// if (value === 'Alphabetical Z-A') {
-		//   let data = [...campaigns];
-		//   let myArray = _.sortBy(data, (o) => o.name.toLowerCase()).reverse();
-		//   setCampaigns(myArray);
-		//   setAnchorEl(null);
-		//   setBrandDropDown(false);
-		// }
 	};
 
 	/**{function} to handle the selected campaign card 

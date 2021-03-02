@@ -11,20 +11,12 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 const Billing = () => {
   const [primaryBillingType, setPrimaryBillingType] = useState(null);
   const [secondaryBillingType, setSecondaryBillingType] = useState(null);
-  const handlePrimaryBilling = (type) => {
-    // if (type === 'CC' && primaryBillingType === 'CC') {
-    //   setPrimaryBillingType(null);
-    // } else {
+  const handlePrimaryBilling = (type) => { 
     setPrimaryBillingType(type);
-    // }
   }
 
   const handleSecondaryBilling = (type) => {
-    // if (type === 'CC' && primaryBillingType === 'CC') {
-    //   setPrimaryBillingType(null);
-    // } else {
     setSecondaryBillingType(type);
-    // }
   }
   return (
     <div>

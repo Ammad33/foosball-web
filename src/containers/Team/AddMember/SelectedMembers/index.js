@@ -94,14 +94,11 @@ const SelectedMembers = ({ TeamMembers, index, handleRemoveMember }) => {
             value='Member'
             onChange={handleTeam}
             displayEmpty
-            // className={classes.selectEmpty}
             inputProps={{ 'aria-label': 'Without label' }}
             variant='outlined'
             placeholder='Team'
           >
-            {/* <MenuItem value="">
-							<em>Team</em>
-						</MenuItem> */}
+           
             <MenuItem value='Member'>Member</MenuItem>
             <MenuItem value='Creator'>Creator</MenuItem>
           </Select>
@@ -110,7 +107,6 @@ const SelectedMembers = ({ TeamMembers, index, handleRemoveMember }) => {
             onClick={handleClick}
           />
         </div>
-        {/* <Divider className={styles.divider} /> */}
       </div>
       <CDialog
         open={openCDialog}

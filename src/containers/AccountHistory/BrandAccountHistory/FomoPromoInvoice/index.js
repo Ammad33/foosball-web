@@ -44,9 +44,7 @@ const FomoPromoInvoice = ({ data, handleExpandClick, expanded }) => {
 	const [activeCampaign, setActiveCampaign] = useState(0);
 	const [gmvFee, setGmvFee] = useState(0);
 
-	// useEffect(()=> {
-	// 	calculateFee();
-	// });
+
 
 	const calculateFee = (num1, num2, num3, num4, num5, num6) => {
 		setActiveUserFee(num1 * num4);

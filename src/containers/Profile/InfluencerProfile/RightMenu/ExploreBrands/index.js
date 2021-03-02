@@ -8,12 +8,6 @@ import { useHistory } from 'react-router-dom';
 const ExploreBrands = ({ influencer }) => {
 	const history = useHistory();
 	const [influencerProfile, setInfluencerProfile] = useState(false);
-	// const handleInfluencerProfile = () => {
-	// 	setInfluencerProfile(true)
-	// 	return (
-
-	// 	)
-	// }
 	return (
 		<div>
 			<Card

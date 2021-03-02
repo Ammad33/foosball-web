@@ -41,7 +41,6 @@ const EditPopularProducts = ({ open, handleChange, closeAdd }) => {
 							fullWidth
 							defaultValue={'Choose Collection'}
 							value= "Choose Collection"
-							// onChange={(e) => handleDiscountType(e.target.value)}
 							variant='outlined'
 							MenuProps={{ variant: 'menu' }}
 						>

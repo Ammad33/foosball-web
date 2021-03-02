@@ -21,11 +21,7 @@ const SharedFile = ({ }) => {
 	const [imageOpen, setImageOpen] = useState(false);
 	const [active, setActive] = useState('images');
 
-	// const useStyles = () => ({
-	// 	listItemText:{
-	// 		fontSize:'41px',//Insert your required size
-	// 	}
-	// });
+
 
 
 

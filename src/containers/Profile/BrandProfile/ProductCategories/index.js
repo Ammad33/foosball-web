@@ -54,33 +54,28 @@ const ProductCategories = ({ isOwner }) => {
             size='medium'
             label='Active Lifestyle'
             className={styles.Lifestyle}
-            // onClick={}
           />
           <Chip
             size='medium'
             label='Beauty'
             className={styles.Beauty}
 
-            // onClick={}
           />
           <Chip
             size='medium'
             label='Clean Editing'
             className={styles.Editing}
 
-            // onClick={}
           />
           <Chip
             size='medium'
             label='Fitness'
             className={styles.Fitness}
-            // onClick={}
           />
           <Chip
             size='medium'
             label='Healthy Living'
             className={styles.Living}
-            // onClick={}
           />
         </div>
       ) : (

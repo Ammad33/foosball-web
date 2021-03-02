@@ -50,47 +50,8 @@ const ChevronSVG = () => {
   return <SVG src={require('../../assets/chevron-left.svg')} />;
 };
 
-const CheckCircleIconSvg = (prop) => {
-  return (
-    <SvgIcon {...prop}>
-      <title>751219A7-40EC-48C7-ADA1-FA7C07914000</title>
-      <g
-        id='Page'
-        stroke='none'
-        strokeWidth='1'
-        fill='none'
-        fillRule='evenodd'
-      >
-        <g
-          id='Brand---Create-a-new-Campaign---Step-5-Deliverables-–-Checked'
-          transform='translate(-845.000000, -612.000000)'
-          fillRule='nonzero'
-        >
-          <g id='Wizard' transform='translate(845.000000, 130.000000)'>
-            <g id='Check' transform='translate(0.000000, 482.000000)'>
-              <rect
-                id='Rectangle-40'
-                fill='#FFFFFF'
-                x='0'
-                y='0'
-                width='31'
-                height='31'
-                rx='15.5'
-              ></rect>
-              <path
-                d='M22.0180859,11.518 L13.0544019,20.4816841 L8.98,16.4072822'
-                id='check'
-                stroke='#7B5CD9'
-                strokeWidth='2'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-              ></path>
-            </g>
-          </g>
-        </g>
-      </g>
-    </SvgIcon>
-  );
+const CheckCircleIconSvg = () => {
+	return <SVG src={require('../../assets/checkCircleIcon.svg')} />;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -286,11 +247,9 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     setDeliverableDeadlineDateError,
   ] = useState(false); //deleverable deadline
   const [startTime, setStartTime] = useState('');
-  // moment().subtract(1, 'days').startOf('day').format('HH:mm A')
 
   const [startTimeError, setStartTimeError] = useState(false);
   const [endTime, setEndTime] = useState('');
-  // moment().subtract(1, 'days').startOf('day').format('HH:mm A')
   const [endTimeError, setEndTimeError] = useState(false);
 
   const [discount, setDiscount] = useState('');
@@ -538,7 +497,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       ]);
       setDeliveries([
         {
-          // deadlineDate: '',
           platform: '',
           frameContentType: '',
           postType: '',
@@ -699,7 +657,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     currentUser.username,
   ]);
 
-  // const [selectedComponent, setSelectedComponent] = useState(componentOptions);
   const [selectedInfluncer, setSelectedInfluncer] = useState([]);
   const [influencer, setInfluencer] = useState(null);
   const [openCDialog, setOpenCDialog] = useState(false);
@@ -741,7 +698,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     const deliverables = [...deliveries];
 
     deliverables.push({
-      // deadlineDate: '',
       platform: '',
       frameContentType: '',
       postType: '',
@@ -761,7 +717,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const handleDeliverDeadlineDate = (date, index) => {
     const opts = [...deliveries];
     const moment_date = moment(startDate).add(1, 'days').format('MM/DD/YYYY');
-    // if (moment_date >= startDate && moment_date <= endDate) {
     if (
       moment_date !== '' &&
       moment(moment_date, 'MM/DD/YYYY', true).isValid()
@@ -789,9 +744,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     setDeliveries(opts);
     setDeliverableDate(false);
     setDeliverableDeadlineDateError(false);
-    // } else {
-    // setDeliverableDeadlineDateError(true);
-    // }
   };
 
   /***** Handle Deliverable Content ********/
@@ -822,7 +774,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
   /***** Add New Compesation */
   const handleCompensations = () => {
-    //const pro = [...compensationProducts]
     const comp = [...compensations];
 
     comp.push({
@@ -944,9 +895,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       return collection;
     });
     setCollections(clonnedCollections);
-    // setCollections((prev) =>
-    //   _.isEqual(prev, clonnedCollections) ? prev : clonnedCollections
-    // );
   };
 
   const toggleComponent = (option) => {
@@ -1102,7 +1050,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         setDiscount(value);
       }
     } else {
-      // const re = /^((0|[1-9]\d?)(\.\d{1,2})?|100(\.00?)?)$/;
       const value = e;
       var x = parseFloat(value);
       if (value !== '' && (isNaN(x) || x < 0 || x > 100)) {
@@ -1171,29 +1118,18 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       delete deliverable.hashTagRequired;
       delete deliverable.id;
       delete deliverable.deadlineDate;
-      // deliverable.deadlineDate =
-      //   Date.parse(`${deliverable.deadlineDate}`) / 1000;
       deliverable.platform = deliverable.platform.toUpperCase();
-      // if (deliverable.postType !== null || deliverable.deliverableType !== null) {
       deliverable.postType =
         deliverable.postType && deliverable.postType !== null
           ? deliverable.postType.toUpperCase()
           : deliverable.deliverableType && deliverable.deliverableType !== null
             ? deliverable.deliverableType.toUpperCase()
             : null;
-      // }
       deliverable.frameContentType =
         deliverable.frameContentType && deliverable.frameContentType !== null
           ? deliverable.frameContentType.toUpperCase()
           : null;
       delete deliverable.deliverableType;
-      // if (deliverable.hashTag && deliverable.hashTag !== null && deliverable.hashTag !== '') {
-      //   deliverable.hashTag = '#' + deliverable.hashTag;
-      // }
-
-      // if (deliverable.brandTag && deliverable.brandTag !== null && deliverable.brandTag !== null) {
-      //   deliverable.brandTag = '@' + deliverable.brandTag;
-      // }
       return deliverable;
     });
     return data;
@@ -1293,14 +1229,12 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
       if (deliverable.brandTag && deliverable.brandTag !== '') {
         deliverable.brandTagRequired = true;
-        // deliverable.brandTag = deliverable.brandTag.replace(/@/g, '');
       } else {
         deliverable.brandTagRequired = false;
       }
 
       if (deliverable.hashTag && deliverable.hashTag !== '') {
         deliverable.hashTagRequired = true;
-        // deliverable.hashTag = deliverable.hashTag.replace(/#/g, '');
       } else {
         deliverable.hashTagRequired = false;
       }
@@ -1445,14 +1379,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
     } catch (e) {
       setDeliveries(APIErrorDeliverables());
-
-      // let message = '';
-
-      // if (e.errors && e.errors.length > 0)
-      //   e.errors.forEach((m) => {
-      //     message = message + m.message;
-      //   });
-
       setErrorMessage(e);
 
       return null;
@@ -1506,13 +1432,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
         }
       } catch (err) {
         console.log(err);
-        // let message = '';
-
-        // if (err.errors && err.errors.length > 0)
-        //   err.errors.forEach((m) => {
-        //     message = message + m.message;
-        //   });
-
         setErrorMessage(err);
       }
     } else {
@@ -1640,7 +1559,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
 
       await updateCampaignProducts(campaign.id, invite);
 
-      // handleCancel();
       if (response && response !== null && response.error === false && response.data.id) {
         return response.data.id;
       } else {
@@ -1652,24 +1570,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     } catch (e) {
       setDeliveries(APIErrorDeliverables());
       console.log('update campaign error ', e);
-      // let errorMessage = '';
-      // let errorArray = [];
-      // if (e.errors && e.errors.length > 0 && e.errorInfo )
-      //   e.errors.forEach((m) => {
-      //     errorArray = m.errorInfo.fieldErrors
-      //   });
-      // for (var property in errorArray) {
-      //   if (errorArray.hasOwnProperty(property)) {
-      //     errorMessage += errorArray[property] + '\n';
-      //   }
-      // }
-      // let message = '';
-
-      // if (e.errors && e.errors.length > 0)
-      //   e.errors.forEach((m) => {
-      //     message = message + m.message;
-      //   });
-
       setErrorMessage(e);
       return null;
     }
@@ -1691,15 +1591,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
     } else {
       iid = await updateCampaign(true);
     }
-
-    // if (errorMessage === '') {
-    //   setInviteLoading(true);
-    //   setTimeout(() => invited(campaign && campaign.id ? campaign.id : iid), 2000);
-    // }
-    // else {
-    //   setInviteLoading(true);
-    //   setTimeout(() => invited(campaign && campaign.id ? campaign.id : id), 1000);
-    // }
   };
 
   const invited = async (id) => {
@@ -1962,7 +1853,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             campaignError={campaignError}
             minimium={minimium}
             handleMinimium={handleMinimum}
-            // handleValidation={handleDateTimeValidation}
             handleStartDate={handleStartDate}
             handleStartDateOpen={(value) => setStartDateOpen(value)}
             handleEndDateOpen={(value) => setEndDateOpen(value)}
@@ -2030,17 +1920,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             handleCollectionAllUncheck={handleCollectionAllUncheck}
             products={products}
           />
-          // <Collection
-          //   collection={collection}
-          //   handleCollection={handleCollection}
-          //   collectionItems={items}
-          //   collections={collections}
-          //   handleActiveForCollection={setActiveForCollection}
-          //   handleCollectionItem={handleCollectionItem}
-          //   handleCollectionExpand={handleCollectionExpand}
-          //   products={products}
-          //   clearCollections={handleCollectionClear}
-          // />
         );
       case 5:
         return (
@@ -2100,7 +1979,6 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
             toggleInfluncer={toggleInfluncer}
             influencers={influencers}
             handleActiveForInfluncer={setActiveForInfluncer}
-          // handleInfluencers = {(myArray)=> setInfluencer(myArray)}
           />
         );
       case 9:
@@ -2145,12 +2023,7 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
   const partialFilledForm = () => {
     if (
       campaignName !== '' &&
-      // startDate !== '' &&
-      // endDate !== '' &&
       campaignError === ''
-      // discountType !== '' &&
-      // discount !== '' &&
-      // customeMessage !== ''
     ) {
       setActiveSave(true);
     } else {
@@ -2274,10 +2147,8 @@ const AddCampaign = ({ open, handleCancel, step, campaign }) => {
       }
     } else if (activeSetp !== 9) {
       if (lastStep !== 0) {
-        // setActiveStep(lastStep);
         setLastStep(0);
       } else {
-        // setEndStep(activeSetp);
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
         if (activeSetp > endStep) {
           setEndStep(1);

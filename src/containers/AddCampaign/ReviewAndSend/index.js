@@ -76,7 +76,6 @@ const ReviewAndSend = ({
   function monthBetween(d1, d2) {
     const date1 = moment(d1);
     const date2 = moment(d2).add(1, 'd');
-    console.log(date2.diff(date1, 'days'));
     return Math.ceil(date2.diff(date1, 'days') / 30);
   }
 
@@ -84,7 +83,6 @@ const ReviewAndSend = ({
   function biMonthBetween(d1, d2) {
     const date1 = moment(d1);
     const date2 = moment(d2).add(1, 'd');
-    console.log(date2.diff(date1, 'days'));
     return Math.ceil(date2.diff(date1, 'days') / 60);
   }
 
@@ -92,7 +90,6 @@ const ReviewAndSend = ({
   function biWeekBetween(d1, d2) {
     const date1 = moment(d1);
     const date2 = moment(d2).add(1, 'd');
-    console.log(date2.diff(date1, 'days'));
     return Math.ceil(date2.diff(date1, 'days') / 14);
   }
 
@@ -346,7 +343,6 @@ const ReviewAndSend = ({
   function weeksBetween(d1, d2) {
     const date1 = moment(d1);
     const date2 = moment(d2).add(1, 'd');
-    console.log(date2.diff(date1, 'days'));
     return Math.ceil(date2.diff(date1, 'days') / 7);
   }
   /**{hook} used to set collection data  */

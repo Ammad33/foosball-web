@@ -34,46 +34,6 @@ const accounts = [
     connected: false,
     value: '',
   },
-  // {
-  //   id: 2,
-  //   svg: <Youtube />,
-  //   name: 'Youtube',
-  //   placeholder: 'Youtube Channel Name',
-  //   connected: false,
-  //   value: '',
-  // },
-  // {
-  //   id: 3,
-  //   svg: <Facebook />,
-  //   name: 'Facebook',
-  //   placeholder: 'Facebook Page',
-  //   connected: false,
-  //   value: '',
-  // },
-  // {
-  //   id: 4,
-  //   svg: <Twitter />,
-  //   name: 'Twitter',
-  //   placeholder: 'Twitter Handle',
-  //   connected: false,
-  //   value: '',
-  // },
-  // {
-  //   id: 5,
-  //   svg: <Tiktok />,
-  //   name: 'TikTok',
-  //   placeholder: 'TikTok Handle',
-  //   connected: false,
-  //   value: '',
-  // },
-  // {
-  //   id: 6,
-  //   svg: <Twitch />,
-  //   name: 'Twitch',
-  //   placeholder: 'Twitch Name',
-  //   connected: false,
-  //   value: '',
-  // },
 ];
 
 const InfluencerConnectAccounts = () => {

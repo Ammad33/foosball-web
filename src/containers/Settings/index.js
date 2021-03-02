@@ -62,39 +62,6 @@ const Setting = () => {
 		mobilePhone: false,
 	});
 
-	// const [newInfluencer, setNewInfluencer] = useState({
-	//   fullName: '',
-	//   instagramHandler: '',
-	//   email: '',
-	//   mobilePhone: '',
-	// });
-
-	// const [newInfluencerError, setNewInfluencerError] = useState({
-	//   fullName: false,
-	//   instagramHandler: false,
-	//   email: false,
-	//   mobilePhone: false,
-	// });
-
-	// const handleNewInfluencerChange = (value, fieldName) => {
-	//   const newInfluner = { ...newInfluencer };
-	//   newInfluner[fieldName] = value;
-	//   const newInflunerError = { ...newInfluencerError };
-	//   if (
-	//     fieldName === 'email' ||
-	//     (fieldName === 'mobilePhone' &&
-	//       newInflunerError[fieldName] === true &&
-	//       value !== '')
-	//   ) {
-	//     newInflunerError['mobilePhone'] = false;
-	//     newInflunerError['email'] = false;
-	//     setNewInfluencerError(newInflunerError);
-	//   } else if (newInflunerError[fieldName] === true && value !== '') {
-	//     newInflunerError[fieldName] = false;
-	//     setNewInfluencerError(newInflunerError);
-	//   }
-	//   setNewInfluencer(newInfluner);
-	// };
 
 	const handleNewBrandChange = (value, fieldName) => {
 		const brand = { ...newBrand };
@@ -131,50 +98,6 @@ const Setting = () => {
 			mobilePhone: false,
 		});
 	};
-
-	// const setNew = () => {
-	//   setNewInfluencer({
-	//     fullName: '',
-	//     instagramHandler: '',
-	//     email: '',
-	//     mobilePhone: '',
-	//   });
-
-	//   setNewInfluencerError({
-	//     fullName: false,
-	//     instagramHandler: false,
-	//     email: false,
-	//     mobilePhone: false,
-	//   });
-	// };
-
-	// const addNewInfluencer = () => {
-	//   const newInfluencerErrorr = { ...newInfluencerError };
-	//   if (newInfluencer.fullName === '') {
-	//     newInfluencerErrorr.fullName = true;
-	//   }
-	//   if (newInfluencer.instagramHandler === '') {
-	//     newInfluencerErrorr.instagramHandler = true;
-	//   }
-
-	//   if (newInfluencer.email === '' && newInfluencer.mobilePhone === '') {
-	//     newInfluencerErrorr.email = true;
-	//   }
-
-	//   if (newInfluencer.email === '' && newInfluencer.mobilePhone === '') {
-	//     newInfluencerErrorr.mobilePhone = true;
-	//   }
-
-	//   setNewInfluencerError(newInfluencerErrorr);
-
-	//   if (Object.values(newInfluencerErrorr).includes(true)) {
-	//     return;
-	//   }
-
-	//   const data = [...influencers];
-	//   data.push(newInfluencer);
-	//   setInfluncers(data);
-	// };
 
 	const addNewBrand = () => {
 		const brandError = { ...newBrandError };
@@ -346,27 +269,7 @@ const Setting = () => {
 		}
 	}, [imageUrl, imageFile]);
 
-	// const updateBrand = async () => {
-	//   let res = await API.graphql(
-	//     graphqlOperation(
-	//       `mutation  updateBrand($input : UpdateBrandInput!) {
-	//         updateBrand(input: $input) {
-	//           brand {
-	//             name
-	//           }
-	// 			imageUploadUrl
-	// 		}
-	// 	}`, {
-	//       input: {
-	//         id: brandId
-	//       }
-	//     }));
 
-	//   if (res.data && res.data !== null && res.data.updateBrand && res.data.updateBrand !== null) {
-	//     setImageUrl(res.data.updateBrand.imageUploadUrl);
-	//     setBrandName(res.data.updateBrand.brand.name);
-	//   }
-	// };
 
 	const handleChangePassword = async () => {
 		const currentUser = await Auth.currentAuthenticatedUser();
@@ -406,14 +309,6 @@ const Setting = () => {
 			}
 		}
 		try {
-			//   mutation MyMutation {
-			// 	updateMe(input: {fullName: "Ibtisam Brand Appsync", activeOrganization: ""}) {
-			// 	  fullName
-			// 	  activeOrganization {
-			// 		name
-			// 	  }
-			// 	}
-			//   }
 			let data = {
 				fullName,
 			};
@@ -498,26 +393,6 @@ const Setting = () => {
 				return <ConnectedAccounts typeName={brandType} />;
 			case 'billing':
 				return <Billing />;
-			// case 'contacts':
-			// return <Contacts
-			//   influencers={influencers}
-			//   newInfluencer={newInfluencer}
-			//   handleNewInfluencerChange={handleNewInfluencerChange}
-			//   addNewInfluencer={addNewInfluencer}
-			//   setNew={setNew}
-			//   newInfluencerError={newInfluencerError}
-
-			// />;
-			//   return (
-			//     <Brands
-			//       brands={brands}
-			//       newBrand={newBrand}
-			//       handleNewBrandChange={handleNewBrandChange}
-			//       addNewBrand={addNewBrand}
-			//       clearNewBrand={clearNewBrand}
-			//       newBrandError={newBrandError}
-			//     />
-			//   );
 			default:
 				return 'Unknown step';
 		}
