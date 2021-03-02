@@ -10,15 +10,15 @@ const brandCampaignDetailQuery = async (brandId, campaignId) => {
 			query: `{
                 campaign(brandId: "${brandId}", id: "${campaignId}") {
                   id
-                              name
-                              status
+                  name
+                  status
                   startDate
                   endDate
-                              invitationMessage
+                  invitationMessage
                   invitedAt
-                              paymentSchedule
-                              internalState
-                              micrositeUrl
+                  paymentSchedule
+                  internalState
+                  micrositeUrl
                   products {
                     collection {
                       id
@@ -48,22 +48,22 @@ const brandCampaignDetailQuery = async (brandId, campaignId) => {
                       }
                     }
                   }       
-                              discount {
-                                  ... on PercentageDiscount {
-                                      __typename
-                                      percentage
-                                  }
-                                  ... on FlatDiscount {
-                                      __typename
-                                      amount {
-                                          amount
+									discount {
+											... on PercentageDiscount {
+													__typename
+													percentage
+											}
+											... on FlatDiscount {
+													__typename
+													amount {
+															amount
                       }
                       minimum {
                         amount
                         currency
                       }
                                   }
-                              }
+                  }
                   compensation {
                     ... on CompRevenueShare {
                       __typename
@@ -154,27 +154,27 @@ const brandCampaignDetailQuery = async (brandId, campaignId) => {
                   events {
                     description
                     time
-                              }
-                              microsite {
-                                  appHeader {
-                                      shopCtaColor
-                                      titleBgColor
-                                  }
-                                  footer {
-                                      bgColor
-                                  }
-                                  influencerQuote {
-                                      bgColor
-                                      textColor
-                                      quoteIconColor
-                                  }
-                                  productBuyBgColor
-                                  productBuyTextColor
-                                  shopBelow {
-                                      bgColor
-                                  }
-                                  template
-                              }
+                    }
+										microsite {
+												appHeader {
+														shopCtaColor
+														titleBgColor
+												}
+												footer {
+														bgColor
+												}
+												influencerQuote {
+														bgColor
+														textColor
+														quoteIconColor
+												}
+												productBuyBgColor
+												productBuyTextColor
+												shopBelow {
+														bgColor
+												}
+												template
+                   }
                 } 
             }`
 		});
