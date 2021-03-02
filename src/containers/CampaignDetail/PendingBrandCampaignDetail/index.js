@@ -174,16 +174,17 @@ campaignId: "${campaignId}"
 			await API.graphql(
 				graphqlOperation(
 					`mutation brandReject {
-brandRejectOffer(
-brandId: "${brandId}" ,
-campaignId: "${campaignId}",
-message: "${brandRejectMessage}")
-{
-message
-}
-}`
+						brandRejectOffer(
+						brandId: "${brandId}" ,
+						campaignId: "${campaignId}",
+						message: "${brandRejectMessage}")
+						{
+						message
+						}
+					}`
 				)
 			)
+			window.location.reload();
 		}
 		catch (e) {
 			console.log("Error in brand reject offer", e)
