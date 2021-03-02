@@ -36,6 +36,10 @@ const CreateNegotiateItem = ({
 		);
 	};
 
+	const getContent = (option) => {
+		return option.replace(/([A-Z])/g, ' $1').trim().toProperCase()
+	};
+
 	const handleCalenderOpen = (value, startDate) => {
 		handleStartDateOpen(true)
 	}
@@ -85,7 +89,7 @@ const CreateNegotiateItem = ({
             </MenuItem>
 						{negotiables.map((option) => (
 							<MenuItem key={option} value={option}>
-								{option.toProperCase()}
+								{getContent(option)}
 							</MenuItem>
 						))}
 					</TextField>
