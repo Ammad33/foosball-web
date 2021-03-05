@@ -14,7 +14,6 @@ import { Trash } from 'react-feather';
 import clsx from 'clsx';
 import SVG from 'react-inlinesvg';
 import mainStyles from '../../../../index.module.scss';
-import moment from 'moment';
 
 
 

@@ -2,13 +2,13 @@ import { API } from 'aws-amplify';
 
 const influencerCampaignDetailQuery = async (brandId, campaignId) => {
 
-    try {
+  try {
 
-        const { data: {
-            influencerCampaign
-        }
-        } = await API.graphql({
-            query: `{
+    const { data: {
+      influencerCampaign
+    }
+    } = await API.graphql({
+      query: `{
           influencerCampaign(influencerId: "${brandId}", id: "${campaignId}") {
             id
 				name
@@ -19,6 +19,35 @@ const influencerCampaignDetailQuery = async (brandId, campaignId) => {
 				invitedAt
                 internalState
                 paymentSchedule
+                negotiations {
+                  id
+                  message
+                  postFee {
+                    amount
+                    currency
+                  }
+                  revenueShare {
+                    percentage
+                  }
+                  monthlyRetainerFee {
+                    amount
+                    currency
+                  }
+                  giftCard {
+                    amount
+                    currency
+                  }
+                  campaignDuration {
+                    endDate
+                    startDate
+                    totalDuration
+                  }
+                  organization {
+                    id
+                    name
+                  }
+                  created
+                }
                 products {
                     collection {
                                 id
@@ -176,26 +205,26 @@ const influencerCampaignDetailQuery = async (brandId, campaignId) => {
           }
          
       }`
-        });
+    });
 
-        if (influencerCampaign && influencerCampaign !== null) {
-            return ({
-                error: false,
-                data: influencerCampaign
-            });
-        }
-    } catch (error) {
-        let message = '';
-        if (error.errors && error.errors.length > 0)
-            error.errors.forEach((m) => {
-                message = message + m.message;
-            });
-
-        return ({
-            error: true,
-            message: message
-        })
+    if (influencerCampaign && influencerCampaign !== null) {
+      return ({
+        error: false,
+        data: influencerCampaign
+      });
     }
+  } catch (error) {
+    let message = '';
+    if (error.errors && error.errors.length > 0)
+      error.errors.forEach((m) => {
+        message = message + m.message;
+      });
+
+    return ({
+      error: true,
+      message: message
+    })
+  }
 };
 
 export default influencerCampaignDetailQuery;

@@ -1,29 +1,25 @@
 import { API, graphqlOperation } from 'aws-amplify';
 
-const brandMutation = async (data) => {
+const negotiateInfluencerMutation = async (data) => {
     try {
+
         const { data: {
-            updateBrand
+            influencerNegotiate
         } } = await API.graphql(
             graphqlOperation(
-                `mutation updateBrand($input : UpdateBrandInput!) {
-                    updateBrand(input: $input) {
-                    brand {
-                        name
-                        email
-                        bio
-                        website
-                        phoneNumber
-                      }
+                `mutation influencerNegotiate($input : NegotiationInput!) {
+                    influencerNegotiate(input: $input) {
+                        id
+                        message
         }
     }`, {
                 input: data
             }));
 
-        if (updateBrand && updateBrand.brand) {
+        if (influencerNegotiate && influencerNegotiate !== null) {
             return ({
                 error: false,
-                data: updateBrand.brand
+                data: influencerNegotiate
             });
         }
     } catch (error) {
@@ -41,4 +37,4 @@ const brandMutation = async (data) => {
     }
 };
 
-export default brandMutation;
+export default negotiateInfluencerMutation;
