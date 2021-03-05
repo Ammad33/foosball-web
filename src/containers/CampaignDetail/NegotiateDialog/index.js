@@ -49,6 +49,7 @@ const NegotiateDialog = ({
 	endDateOpen,
 	handleStartDateOpen,
 	handleEndDateOpen,
+	errorMessage,
 }) => {
 
 	const handleNext = () => {
@@ -158,6 +159,9 @@ const NegotiateDialog = ({
 						</button>
 					</div>
 				</DialogActions>
+				<div>
+					{errorMessage !== '' && <div style={{color: 'red'}}>{errorMessage}</div>}
+				</div>
 			</Dialog>
 		</>
 

@@ -265,6 +265,14 @@ const InviteCard = ({
     } catch (e) {
       setNegotiateDialog(false);
       console.log("error in negotiate Campaign", e);
+      let message = '';
+
+      if (e.errors && e.errors.length > 0)
+        e.errors.forEach((m) => {
+          message = message + m.message;
+        });
+
+      setErrorMessage(message);
     }
   };
 
@@ -309,6 +317,7 @@ const InviteCard = ({
         endDateOpen={endDateOpen}
         handleStartDateOpen={(value) => setStartDateOpen(value)}
         handleEndDateOpen={(value) => setEndDateOpen(value)}
+				errorMessage={errorMessage}
       />
       <div className={styles.declineContainer}>
         <h1>

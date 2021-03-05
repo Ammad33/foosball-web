@@ -151,6 +151,14 @@ const PendingBrandCampaignDetail = ({
     } catch (e) {
       setOpenNegotiateDialog(false);
       console.log("error in negotiate Campaign", e);
+      let message = '';
+
+      if (e.errors && e.errors.length > 0)
+        e.errors.forEach((m) => {
+          message = message + m.message;
+        });
+
+      setErrorMessage(message);
     }
   };
 
@@ -314,7 +322,15 @@ const PendingBrandCampaignDetail = ({
       //   window.location.reload();
       getCampaign();
     } catch (e) {
-      console.log("Error in brand reject offer", e);
+			console.log('Campaign Invite error ', e);
+      let message = '';
+
+      if (e.errors && e.errors.length > 0)
+        e.errors.forEach((m) => {
+          message = message + m.message;
+        });
+
+      setErrorMessage(message);
     }
   };
   useEffect(() => {
