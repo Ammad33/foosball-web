@@ -298,6 +298,7 @@ const InviteCard = ({
       />
       <NegotiateDialog
         open={negotiateDialog}
+				openDialog = {() => setNegotiateDialog(true)}
         negotiables={negotiables}
         handleClose={() => setNegotiateDialog(false)}
         negotiate={negotiate}
