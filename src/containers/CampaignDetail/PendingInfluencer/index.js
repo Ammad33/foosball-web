@@ -32,6 +32,8 @@ const PendingInfluencer = ({
   const id = open ? "simple-popover" : undefined;
   // const [createMircositeFlag, setCreateMicrositeFlag] = useState(false);
   const [signContractFlag, setSignContractFlag] = useState(false);
+	const [reviewAndSendFlag, setReviewAndSendFlag] = useState(false);
+
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -55,7 +57,7 @@ const PendingInfluencer = ({
 				brand={data.brand && data.brand !== null ? data.brand : null}
 				microsite={data.microsite && data.microsite !== null ? data.microsite : ''}
 			/>) : */}
-      {signContractFlag ? (
+      {signContractFlag ||reviewAndSendFlag  ? (
         <ReviewAndSign
           name={name}
           campaignId={campaignId}
@@ -142,7 +144,7 @@ const PendingInfluencer = ({
                   negotiables={
                     data.negotiables && _.keys(_.pickBy(data.negotiables))
                   }
-                  handleReviewAndSign={null}
+									handleReviewAndSign={() => setReviewAndSendFlag(true)}
                   data={data}
                   negotiations={data.negotiations ? data.negotiations : []}
                 />

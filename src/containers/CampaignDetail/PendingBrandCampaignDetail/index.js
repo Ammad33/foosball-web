@@ -274,7 +274,7 @@ const PendingBrandCampaignDetail = ({
           if (element) {
             await API.graphql(
               graphqlOperation(
-                `mutation brandAcceptOffer {
+            `mutation brandAcceptOffer {
 						brandAcceptOffer(
 						brandId: "${brandId}" ,
 						offerId: "${element.id}",
@@ -286,7 +286,7 @@ const PendingBrandCampaignDetail = ({
 						}`
               )
             );
-            // window.location.reload();
+            setCancel(false)
             getCampaign();
           }
         }
@@ -360,6 +360,7 @@ const PendingBrandCampaignDetail = ({
       }
     }
   }, [data]);
+
 
   const getStatusContainerContent = () => {
     return (

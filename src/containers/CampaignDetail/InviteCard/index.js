@@ -148,7 +148,7 @@ const InviteCard = ({
   };
   const handleAcceptInvite = () => {
     acceptCampaignInvite();
-    // handleReviewAndSign();
+    handleReviewAndSign();
   };
 
   const handleAnotherItem = () => {
@@ -198,7 +198,7 @@ const InviteCard = ({
 					}`
         )
       );
-      getCampaign();
+      // getCampaign();
     } catch (e) {
       console.log("Error in accepting campaign terms ", e);
     }

@@ -83,7 +83,7 @@ const CreateNegotiateItem = ({
             className={styles.svgDisabled}
             onClick={() => {
               handleNegotiate(!item.accept, index, "accept");
-              brandAcceptOffer();
+              // brandAcceptOffer();
             }}
             style={{ width: "31px", height: "31px" }}
           />
